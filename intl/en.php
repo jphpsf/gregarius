@@ -40,7 +40,8 @@ define ('SEARCH_MATCH_EXACT', 'Exact match');
 define ('SEARCH_CHANNELS', 'Feed:');
 define ('SEARCH_ORDER_DATE_CHANNEL','Order by date, feed');
 define ('SEARCH_ORDER_CHANNEL_DATE','Order by feed, date');
-
+define ('SEARCH_RESULTS_PER_PAGE','Results per page:');
+define ('SEARCH_RESULTS','Results: ');
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
 define ('H2_CHANNELS','Feeds');
@@ -94,7 +95,9 @@ define ('ADMIN_YES', 'Yes');
 define ('ADMIN_NO', 'No');
 define ('ADMIN_FOLDERS','Folders:');
 define ('ADMIN_CHANNELS','Feeds:');
-define ('ADMIN_OPML','OPML:');
+define ('ADMIN_OPML','OPML:');  
+define ('ADMIN_CONFIG','Config');
+
 define ('ADMIN_IN_FOLDER','to folder:');
 define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Title');

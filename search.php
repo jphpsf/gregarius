@@ -31,21 +31,25 @@
 define ('QUERY_PRM','query');
 define ('QUERY_MATCH_MODE', 'query_match');
 define ('QUERY_CHANNEL', 'query_channel');
+define ('QUERY_RESULTS','query_res_per_page');
+define ('QUERY_CURRENT_PAGE','query_current_page');
 define ('HIT_BEFORE',"<span class=\"searchhit\">");
 define ('HIT_AFTER',"</span>");
 define ('ALL_CHANNELS_ID', -1);
+define ('INFINE_RESULTS',-1);
 define ('QUERY_ORDER_BY','order');
 define ('QUERY_ORDER_BY_DATE','date');
 define ('QUERY_ORDER_BY_CHANNEL','channel');
+define ('QUERY_MATCH_OR','or');
+define ('QUERY_MATCH_AND','and');
+define ('QUERY_MATCH_EXACT','exact');
 
 require_once("init.php");
 
 if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     rss_header("Search",LOCATION_SEARCH);
     sideChannels(false);  
-    $matchMode = (!array_key_exists(QUERY_MATCH_MODE, $_REQUEST)?SERCH_MATCH_AND:$_REQUEST[QUERY_MATCH_MODE]);
-    $cid = (array_key_exists(QUERY_CHANNEL,$_REQUEST))?(int)$_REQUEST[QUERY_CHANNEL]:ALL_CHANNELS_ID;
-    search($_REQUEST[QUERY_PRM], $matchMode, $cid);
+    search();
 } else {
     rss_header(TITLE_SEARCH,LOCATION_SEARCH,"document.getElementById('query').focus()");  
     sideChannels(false);
@@ -69,24 +73,24 @@ function searchForm($title) {
 	."\"/></p>\n"
       
       ."\n\t\t<p><input type=\"radio\" id=\"qry_match_or\" name=\"". QUERY_MATCH_MODE 
-      ."\" value=\"". SEARCH_MATCH_OR."\""
+      ."\" value=\"". QUERY_MATCH_OR."\""
       .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) && 
-	 $_REQUEST[QUERY_MATCH_MODE] == SEARCH_MATCH_OR)?" checked=\"checked\"":"")
+	 $_REQUEST[QUERY_MATCH_MODE] == QUERY_MATCH_OR)?" checked=\"checked\"":"")
 	."/>\n"
       ."\t\t<label for=\"qry_match_or\">". SEARCH_MATCH_OR."</label>\n"
 
       ."\t\t<input type=\"radio\" id=\"qry_match_and\" name=\"". QUERY_MATCH_MODE 
-      ."\" value=\"". SEARCH_MATCH_AND ."\""
+      ."\" value=\"". QUERY_MATCH_AND ."\""
       .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) &&
-	 $_REQUEST[QUERY_MATCH_MODE] == SEARCH_MATCH_AND || 
+	 $_REQUEST[QUERY_MATCH_MODE] == QUERY_MATCH_AND ||
 	 !array_key_exists(QUERY_MATCH_MODE,$_REQUEST))?" checked=\"checked\"":"")
 	."/>\n"
       ."\t\t<label for=\"qry_match_and\">". SEARCH_MATCH_AND."</label>\n"
 
       ."\t\t<input type=\"radio\" id=\"qry_match_exact\" name=\"". QUERY_MATCH_MODE
-      ."\" value=\"". SEARCH_MATCH_EXACT ."\""
+      ."\" value=\"". QUERY_MATCH_EXACT ."\""
       .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) &&
-	 $_REQUEST[QUERY_MATCH_MODE] == SEARCH_MATCH_EXACT)?" checked=\"checked\"":"")
+	 $_REQUEST[QUERY_MATCH_MODE] == QUERY_MATCH_EXACT)?" checked=\"checked\"":"")
 	."/>\n"  
       ."\t\t<label for=\"qry_match_exact\">". SEARCH_MATCH_EXACT."</label></p>\n"
       
@@ -94,7 +98,8 @@ function searchForm($title) {
       ."\n\t\t<p><label for=\"". QUERY_CHANNEL ."\">". SEARCH_CHANNELS ."</label>\n"
       ."\t\t<select name=\"".QUERY_CHANNEL."\" id=\"".QUERY_CHANNEL."\">\n"
       ."\t\t\t<option value=\"". ALL_CHANNELS_ID ."\""
-      .((!array_key_exists(QUERY_CHANNEL,$_REQUEST) || $_REQUEST[QUERY_CHANNEL] == ALL_CHANNELS_ID)?" selected=\"selected\"":"")
+      .((!array_key_exists(QUERY_CHANNEL,$_REQUEST) || 
+	 $_REQUEST[QUERY_CHANNEL] == ALL_CHANNELS_ID)?" selected=\"selected\"":"")
 	.">" . ALL  . "</option>\n";
 
     $res = rss_query( "select "
@@ -108,7 +113,8 @@ function searchForm($title) {
     
     while (list($id_,$title_, $parent_, $parent_id_) = rss_fetch_row($res)) {
 	echo "\t\t\t<option value=\"$id_\""
-	  .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
+	  .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && 
+	     $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
 	    .">"
 	  .(($parent_id_ > 0)?"$parent_ / ":"")
 	  ."$title_</option>\n";
@@ -129,24 +135,59 @@ function searchForm($title) {
 	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_CHANNEL)?" checked=\"checked\"":"")
 	."/>\n"
       ."\t\t<label for=\"qry_order_channel\">". SEARCH_ORDER_CHANNEL_DATE ."</label></p>\n";
-      
     
-    echo "\n\t\t<p><input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
+    
+    
+    echo "\n\t\t<p><label for=\"". QUERY_RESULTS ."\">". SEARCH_RESULTS_PER_PAGE ."</label>\n"
+      ."\t\t<select name=\"".QUERY_RESULTS."\" id=\"".QUERY_RESULTS."\">\n"
+
+      ."\t\t\t<option value=\"5\""
+      .((array_key_exists(QUERY_RESULTS,$_REQUEST) && $_REQUEST[QUERY_RESULTS] == 5?" selected=\"selected\"":""))
+	.">5</option>\n"
+      
+      ."\t\t\t<option value=\"15\""
+      .((
+	(array_key_exists(QUERY_RESULTS,$_REQUEST) && $_REQUEST[QUERY_RESULTS] == 15)
+	|| !array_key_exists(QUERY_RESULTS,$_REQUEST)
+	)?" selected=\"selected\"":"")
+	.">15</option>\n"
+      
+      
+
+    ."\t\t\t<option value=\"50\""
+      .((array_key_exists(QUERY_RESULTS,$_REQUEST) && $_REQUEST[QUERY_RESULTS] == 50?" selected=\"selected\"":""))
+	.">50</option>\n"
+    
+    ."\t\t\t<option value=\"".INFINE_RESULTS."\""
+      .((array_key_exists(QUERY_RESULTS,$_REQUEST) && $_REQUEST[QUERY_RESULTS] == INFINE_RESULTS?" selected=\"selected\"":""))
+	.">".ALL."</option>\n"
+                                
+    
+      ."\t\t</select></p>\n"
+
+      ."\n\t\t<p><input type=\"hidden\" name=\"".QUERY_CURRENT_PAGE."\" value=\"0\" />\n"
+      ."<input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
       ."\t\t</form>\n";
     
 
     echo "</div>\n";    
 }
 
-function search($qry,$matchMode, $channelId) {
+function search() {
 
+    
+    $qry = $_REQUEST[QUERY_PRM];
+    $matchMode = (!array_key_exists(QUERY_MATCH_MODE, $_REQUEST)?QUERY_MATCH_AND:$_REQUEST[QUERY_MATCH_MODE]);
+    $channelId = (array_key_exists(QUERY_CHANNEL,$_REQUEST))?(int)$_REQUEST[QUERY_CHANNEL]:ALL_CHANNELS_ID;
+    $resultsPerPage = (array_key_exists(QUERY_RESULTS,$_REQUEST))?(int)$_REQUEST[QUERY_RESULTS]:INFINE_RESULTS;   
+    $currentPage = (array_key_exists(QUERY_CURRENT_PAGE,$_REQUEST)?(int)$_REQUEST[QUERY_CURRENT_PAGE]:0);
+    $orderBy = (array_key_exists(QUERY_ORDER_BY, $_REQUEST)?$_REQUEST[QUERY_ORDER_BY]:QUERY_ORDER_BY_DATE);
     $qWhere = "";
     $regMatch = "";
     $term = "";
-    
-    if ($matchMode == SEARCH_MATCH_OR || $matchMode == SEARCH_MATCH_AND) {
+    if ($matchMode == QUERY_MATCH_OR || $matchMode == QUERY_MATCH_AND) {
 	
-	$logicSep = ($matchMode == SEARCH_MATCH_OR?"or":"and");
+	$logicSep = ($matchMode == QUERY_MATCH_OR?"or":"and");
 	$terms = explode(" ",$qry);    
 	foreach($terms as $term) {
 	    $term = trim($term);
@@ -162,7 +203,7 @@ function search($qry,$matchMode, $channelId) {
 	    $regMatch .= $term;
 	}
 	
-	$qWhere .= ($matchMode == SEARCH_MATCH_OR?" 1=0 ":" 1=1 ");
+	$qWhere .= ($matchMode == QUERY_MATCH_OR?" 1=0 ":" 1=1 ");
     } else {
 	$logicSep = "";
 	$terms[0] = $qry;
@@ -174,7 +215,7 @@ function search($qry,$matchMode, $channelId) {
     
     $sql = "select distinct i.title, c.title, c.id, i.unread, i.url, "
       ." i.description, c.icon, "
-      ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "                                                                           
+      ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
       ." i.pubdate is not null as ispubdate, " 
       ." i.id  "
       ." from " . getTable("item") ." i, " . getTable("channels") ." c, " . getTable("folders") ." f "
@@ -185,8 +226,7 @@ function search($qry,$matchMode, $channelId) {
 	$sql .= " and c.id = $channelId ";
     }
     
-
-    if (array_key_exists(QUERY_ORDER_BY, $_REQUEST) && $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_DATE) {
+    if ($orderBy == QUERY_ORDER_BY_DATE) {
 	$sql .= " order by 8 desc";
     } else {
 	if (getConfig('ABSOLUTE_ORDERING')) {
@@ -199,50 +239,75 @@ function search($qry,$matchMode, $channelId) {
 
     $sql .=", i.added desc";
     
+    //echo $sql;
+    
     $res0=rss_query($sql);
     $cnt = rss_num_rows($res0);
     $items = array();
 
+                
+    $start__ = $resultsPerPage * $currentPage;
+    $end__  = $start__ + $resultsPerPage -1;
+    if ($resultsPerPage == INFINE_RESULTS) {       
+	$end__ = 99999999;
+    }
+      
     if ($cnt > 0) {
+
+	$crnt = 0;
+	
 	$items=array();
         while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iispubdate, $iid) = rss_fetch_row($res0)) {
 
-	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
-	    $title_noTags = preg_replace("/<.+?>/","",$ititle);
-	    	    
+	    $descr_noTags = strip_tags($idescr);
+	    $title_noTags = strip_tags($ititle);
+	    
+	    
 	    $match = false;
 	    reset($terms);
-	    $match = false;
+	    $match = ($matchMode == QUERY_MATCH_AND || $matchMode == QUERY_MATCH_EXACT);
 	    foreach ($terms as $term) {
-		$match = ($match || (stristr($descr_noTags,$term) || stristr($title_noTags, $term)));
+		if ($matchMode == QUERY_MATCH_AND || $matchMode == QUERY_MATCH_EXACT) {		   
+		    $match =  ((stristr($descr_noTags,$term) || stristr($title_noTags, $term)) && $match);
+		} else {
+		    $match = ($match || (stristr($descr_noTags,$term) || stristr($title_noTags, $term)));
+		}
+		    
 	    }
 	    
 	    if ($match) {				
 		if (isset($hits) && is_array($hits) && array_key_exists($iid,$hits) && $hits[$iid]) {
 		    continue;
 		}
-		$hits[$iid] = true;
 		
-		$items[]=array($cid,$ctitle,$cicon,
-
-			       // Credits for the regexp: mike at iaym dot com
-			       // http://ch2.php.net/manual/en/function.preg-replace.php
-			       $ititle,
-			       $iunread,
-			       $iurl,
-			       preg_replace("'(?!<.*?)($regMatch)(?![^<>]*?>)'si",
-					    HIT_BEFORE . "\\1" . HIT_AFTER,
-					    $idescr),
-			       $its,
-			       $iispubdate,
-			       $iid
-			       );
-	    }
-
+		
+		if ($crnt >= $start__ && $crnt <= $end__) {
+		    $hits[$iid] = true;		
+		    $items[]=
+		      array($cid,$ctitle,$cicon,
+			    
+			    // Credits for the regexp: mike at iaym dot com
+			    // http://ch2.php.net/manual/en/function.preg-replace.php
+			    "$ititle",
+			    $iunread,
+			    $iurl,
+			    preg_replace("'(?!<.*?)($regMatch)(?![^<>]*?>)'si",
+					 HIT_BEFORE . "\\1" . HIT_AFTER,
+					 $idescr),
+			    $its,
+			    $iispubdate,
+			    $iid
+			    );
+		    
+		} 
+		
+		
+		$crnt++;
+	    }	    
         }
     }
-
-    $cnt = count($items);
+    
+    $cnt = $crnt;
 
     $humanReadableQuery = implode(" ".strtoupper($logicSep)." ",$terms);
     
@@ -250,11 +315,107 @@ function search($qry,$matchMode, $channelId) {
 		     (($cnt > 1 || $cnt == 0)?H2_SEARCH_RESULTS_FOR:H2_SEARCH_RESULT_FOR), 
 		     $cnt, "'" .$humanReadableQuery."'");
 
-    // If we got not hit, offer the search form.
+    // If we got no hit, offer the search form.
     if ($cnt > 0) {
 	searchForm($title,false);
+	
+	$nav = "";
+	if ($resultsPerPage != INFINE_RESULTS && $cnt > $resultsPerPage) {
+	    $nav .= "<div class=\"readmore\">";
+	    $nav .= SEARCH_RESULTS;
+	    
+	    
+	    // first page
+	    $fp = 0;
+	    //last page
+	    $lp = floor(($cnt -1) / $resultsPerPage);
+	    // current page
+	    $cp = $currentPage;
+	    //shown pages
+	    $pages = array();
+
+	    for ($i=0;$i<4;$i++) {
+		if ($cp - $i >= 0) {
+		    $pages[$cp - $i] = true;
+		} else {
+		    if ($cp + $i < $lp) {
+			$pages[$cp + $i] = true;
+		    }
+		}
+		if ($cp + $i < $lp) {
+		    $pages[$cp + $i] = true;
+		} else {
+		    if ($cp - $i >= 0) {
+			$pages[$cp - $i] = true;
+		    }
+		}
+	    }
+	    
+	    $pages[0] = true;
+	    $pages[$lp] = true;
+	    
+	    
+	    for ($p=$fp;$p<$lp;$p++) {
+		if (!array_key_exists($p,$pages)) {
+		    if (array_key_exists($p - 1 ,$pages)) {
+			$nav .= " ... ";
+		    } 
+		    continue;
+		}
+		
+		$cpp = ($p * $resultsPerPage == $start__);
+		if (!$cpp) {
+		    $nav .= " <a href=\""
+		      .$_SERVER['PHP_SELF'] . "?"
+		      .QUERY_PRM . "=$qry&amp;"
+		      .QUERY_MATCH_MODE . "=$matchMode&amp;"
+		      .QUERY_CHANNEL . "=$channelId&amp;"
+		      .QUERY_RESULTS . "=$resultsPerPage&amp;"
+		      .QUERY_ORDER_BY . "=$orderBy&amp;"
+		      .QUERY_CURRENT_PAGE ."=$p"
+		      ."\">";
+		} else {
+		    $nav .= HIT_BEFORE;
+		}
+		
+		$nav .= "". (1+$p * $resultsPerPage) ."-" . ((1+$p) * $resultsPerPage) ."";
+		
+		if (!$cpp) {
+		    $nav .= "</a>";
+		} else {
+		    $nav .= HIT_AFTER;
+		}
+		if ((1+$p) * $resultsPerPage < $cnt) {
+		    $nav .= ", \n";
+		}
+	    }
+	    
+	    if ($p * $resultsPerPage >= $end__) {
+		$nav .= " <a href=\""
+		  .$_SERVER['PHP_SELF'] . "?"
+		  .QUERY_PRM . "=$qry&amp;"
+		  .QUERY_MATCH_MODE . "=$matchMode&amp;"
+		  .QUERY_CHANNEL . "=$channelId&amp;"
+		  .QUERY_RESULTS . "=$resultsPerPage&amp;"
+		  .QUERY_ORDER_BY . "=$orderBy&amp;"
+		  .QUERY_CURRENT_PAGE ."=$p"
+		  ."\">";
+		$nav .=  (1+ $p * $resultsPerPage) ."-$cnt";
+		$nav .= "</a> \n";
+	    } else {
+		$nav .= HIT_BEFORE . (1+ $p * $resultsPerPage) ."-$cnt" .HIT_AFTER;
+	    }
+	    $nav .= "<hr class=\"clearer hidden\"/>\n</div>\n";
+	}
+	
 	echo "<div id=\"items\" class=\"frame\">";
+	if ($nav) {
+	    echo $nav;
+	}
 	itemsList( "", $items, IL_NO_COLLAPSE);
+	if ($nav) {
+	    echo $nav;
+	}
 	echo "</div>\n";
     } else {
 	searchForm($title,true);

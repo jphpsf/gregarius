@@ -98,7 +98,7 @@ function nav($title, $active=0) {
     echo "<div id=\"nav\" class=\"frame\">"
       ."\n<a class=\"hidden\" href=\"#feedcontent\">skip to content</a>\n"
       ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
-      ."<ul id=\"navlist\">\n"
+      ."<ul class=\"navlist\">\n"
       . "\t<li".($active == LOCATION_HOME   ?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."\">".NAV_HOME."</a></li>\n"
       . "\t<li".($active == LOCATION_UPDATE ?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
       . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"

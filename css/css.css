@@ -333,18 +333,18 @@ div.readmore {
 
 /** from http://css.maxdesign.com.au/listamatic/horizontal11.htm **/
 
-ul#navlist {
+ul.navlist {
  list-style-type: none;
  padding-bottom: 25px; 
  margin: 0;
 }
  
-ul#navlist li {
+ul.navlist li {
  float: left;
 }
 
 
-ul#navlist li {
+ul.navlist li {
  height: 1.3em;
  margin: 2px 2px 0 5px;
  border: 1px solid #ddd;
@@ -368,12 +368,12 @@ input[type="text"]:focus{
 }
 
  
-#navlist li:hover,input[type="submit"]:hover {
+.navlist li:hover,input[type="submit"]:hover {
  background-color:  #f8f8ff;
  border-color: #ddf;
 }
  
-#navlist li a {
+.navlist li a {
  float: left;
  display: block;
  text-decoration: none;
@@ -383,7 +383,7 @@ input[type="text"]:focus{
  vertical-align:middle;
 }
  
-#navlist li.active a,#navlist li a:hover { color: #336; } 
+.navlist li.active a,.navlist li a:hover { color: #336; } 
 
 
 img.favicon {

@@ -40,7 +40,8 @@ define ('SEARCH_MATCH_EXACT', 'Phrase');
 define ('SEARCH_CHANNELS', 'Canal:');
 define ('SEARCH_ORDER_DATE_CHANNEL','Trier par date, canal');
 define ('SEARCH_ORDER_CHANNEL_DATE','Trier par canal, date');
-
+define ('SEARCH_RESULTS','R&eacute;sultats: ');
+define ('SEARCH_RESULTS_PER_PAGE','R&eacute;sultats par page:'); 
 define ('H2_UNREAD_ITEMS',"Elements non lus (%d)");
 define ('H2_RECENT_ITEMS', "Elements recents");
 define ('H2_CHANNELS','Canaux');
@@ -97,6 +98,7 @@ define ('ADMIN_NO', 'Non');
 define ('ADMIN_FOLDERS','R&eacute;pertoires:');
 define ('ADMIN_CHANNELS','Canaux:');
 define ('ADMIN_OPML','OPML:');
+define ('ADMIN_CONFIG','Configuration');                                                                                                         
 define ('ADMIN_IN_FOLDER','au r&eacute;pertoire:');
 define ('ADMIN_SUBMIT_CHANGES', 'Poster les modifications');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
