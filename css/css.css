@@ -245,7 +245,10 @@ div#items img.favicon { display: inline; }
  text-align:justify;
 }
 
-.content { height: auto }
+.content { 
+ height: auto; 
+ width: 99%;
+}
 .item:hover .content a, .item:hover h5 a { border-bottom: 1px solid #ccc}
 
 td,th { padding: 5px; }
