@@ -127,7 +127,7 @@ function admin_main($authorised) {
 		 rss_error( "FIXME: admin unknown view: $show !\n" );
 	   }
 	} else {
-	    rss_error( "FIXME: admin no view!\n" );
+	   channels();
 	}
 	
 	echo "\n<div class=\"clearer\"></div>\n";

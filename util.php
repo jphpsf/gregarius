@@ -106,7 +106,7 @@ function nav($title, $active=0) {
 	  . "\t<li".($active == LOCATION_HOME	?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."\">".NAV_HOME."</a></li>\n"
 	  . "\t<li".($active == LOCATION_UPDATE ?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
 	  . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
-	  . "\t<li".($active == LOCATION_ADMIN	?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."admin/feeds\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
+	  . "\t<li".($active == LOCATION_ADMIN	?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."admin/\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
 	
 	
 	if (getConfig('rss.config.showdevloglink')) {
