@@ -293,7 +293,7 @@ function update($id) {
 	$rss = fetch_rss( $url );
 
 	if (!$rss && $id != "" && is_numeric($id)) {
-	    return magpie_error();
+	    return array(magpie_error(),0);
 	} elseif (!$rss) {
 	    //die ($cid . " " . $url . ": " .magpie_error());
 	    continue;
@@ -383,9 +383,9 @@ function update($id) {
 
     if ($id != "" && is_numeric($id)) {
 	if ($rss) {
-	    return $rss -> rss_origin;
+	    return array($rss -> rss_origin,0);
 	} else {
-	    return -1;
+	    return array(-1,0);
 	}
     }
 }

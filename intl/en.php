@@ -69,6 +69,8 @@ define ('PL_FOR','Permalink for ');
 
 define ('UPDATE_CHANNEL','Channel');
 define ('UPDATE_STATUS','Status');
+define ('UPDATE_UNDREAD','New Items');
+
 define ('UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('UPDATE_STATUS_CACHED', 'OK (Local cache)');
 define ('UPDATE_STATUS_ERROR','ERROR');

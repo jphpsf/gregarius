@@ -64,6 +64,8 @@ define ('PL_FOR','Lien pour ');
 
 define ('UPDATE_CHANNEL','Canal');
 define ('UPDATE_STATUS','Etat');
+define ('UPDATE_UNDREAD','Nouveaux el&eacute;ments');
+
 define ('UPDATE_STATUS_CACHED', 'OK (Depuis cache)');
 define ('UPDATE_STATUS_ERROR','ERREUR');
 define ('UPDATE_H2','Mise &agrave; jour de %d Canaux...');

@@ -60,7 +60,8 @@ if ($doPush) {
       ."<table id=\"updatetable\">\n"
       ."<tr>\n"
       ."<th class=\"lc\">".UPDATE_CHANNEL."</th>\n"
-      ."<th class=\"rc\">".UPDATE_STATUS."</th>\n"
+      ."<th class=\"mc\">".UPDATE_STATUS."</th>\n"
+      ."<th class=\"rc\">".UPDATE_UNDREAD."</th>\n"
       ."</tr>";
     
     $sql = "select id, url, title from channels";    
@@ -73,31 +74,38 @@ if ($doPush) {
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
 	echo "<tr>\n";
 	echo "<td class=\"lc\">$title</td>\n"; flush();
-	echo "<td class=\"rc\">";
+	echo "<td class=\"mc\">";
 	$ret = update($cid);
-	
-	if ($ret & MAGPIE_FEED_ORIGIN_CACHE) {
-	    if ($ret & MAGPIE_FEED_ORIGIN_HTTP_304) {
+
+	if (is_Array($ret)) {
+	    $error = $ret[0];
+	    $unread = $ret[1];
+	} else {
+	    $error = -1;
+	    $unread = 0;
+	}
+	if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
+	    if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
 		echo UPDATE_NOT_MODIFIED;
-	    } elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
+	    } elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
 		echo UPDATE_CACHE_TIMEOUT;
-	    } elseif ($ret & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
+	    } elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
 		echo UPDATE_STATUS_CACHED;
 	    } else {
-		echo $ret;
+		echo $error;
 	    }	    	    
-	} elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_200) {
+	} elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
 	    echo UPDATE_STATUS_OK;
 	} else {
-	    if (is_numeric($ret)) {
+	    if (is_numeric($error)) {
 		echo UPDATE_STATUS_ERROR;
 	    } else {
 		// shoud contain MagpieError at this point
-		echo $ret;
+		echo $error;
 	    }	      
 	}
 	
-	echo "</td>\n";
+	echo "</td>\n<td>" . ($unread?$unread:"&nbsp;") . "</td>\n";       
 	echo "</tr>\n";
 	flush();
     }
