@@ -36,6 +36,7 @@ define ('_TITLE_', "Gregarius");
 define ('_VERSION_', "0.2.7");
 define ('MINUTE',60);
 
+define ('COOKIE_LIFESPAN',60*60*24*999);
 // The useragent used when retrieving the feeds
 define ('MAGPIE_USER_AGENT', "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)"); 
 

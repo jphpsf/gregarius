@@ -28,6 +28,7 @@
 #
 ###############################################################################
 
+
 function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false) {
 
     if (!$no_output_buffering) {
@@ -426,15 +427,16 @@ function itemsList ($title,$items, $options = IL_NONE){
 
 	if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
 	    $collapsed = in_array($cid,$collapsed_ids) 
-	      && !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW));
-	    	    
+	      && !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW))
+		&& !$iunread;
+	    
 	    if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
 		// expanded -> collapsed
 		$collapsed = true;
 		if (!in_array($cid,$collapsed_ids)) {
 		    $collapsed_ids[] = $cid;
 		    $cookie = implode(":",$collapsed_ids);
-		    setcookie('collapsed',$cookie, time()+60*60*24*999);
+		    setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
 		}	    
 	    } elseif (array_key_exists('expand', $_GET) &&$_GET['expand'] == $cid && $collapsed) {
 		//  collapsed -> expanded
@@ -443,7 +445,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 		    $key = array_search($cid,$collapsed_ids);
 		    unset($collapsed_ids[$key]);
 		    $cookie = implode(":",$collapsed_ids);
-		    setcookie('collapsed',$cookie, time()+60*60*24*999);
+		    setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
 		}		
 	    }
 
