@@ -77,9 +77,10 @@ function items($cid,$title) {
       ." from item i, channels c "
       ." where i.cid = $cid and c.id = $cid ";
 
-    if  (isset($_GET['unread']))
+    if  (isset($_GET['unread'])) {
       $sql .= " and unread=1 ";
-		
+    }
+    
     $sql .=" order by added desc";
       
     if (!isset($_GET['all']) && !isset($_GET['unread'])) {
@@ -88,12 +89,20 @@ function items($cid,$title) {
     
     $res = rss_query($sql);    
     $items = array();
-    
-    while (list($title_, $url_, $description_, $unread_, $ts_, $ctitle, $cicon) =  mysql_fetch_row($res)) {
-	$items[]=array(-1, $ctitle, $cicon,$title_,$unread_,$url_,$description_, $ts_);
+        
+    $iconAdded = false;
+      
+    while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle) =  mysql_fetch_row($res)) {
+	$items[]=array(-1, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its);
+	if (! $iconAdded && _USE_FAVICONS_ && $cicon != "") {
+	    $iconAdded = true;
+	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
+	}
     }
     
-    itemsList($title,$items);
+    
+    
+    itemsList($title, $items);
     
     
     $sql = "select count(*) from item where cid=$cid and unread=1";

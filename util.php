@@ -242,6 +242,8 @@ function update($id) {
 function itemsList ($title,$items){
 
     echo "\n\n<h2>$title</h2>\n";
+    
+    
     $cntr=0;
     $prev_cid=0;
     
