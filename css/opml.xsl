@@ -17,7 +17,8 @@
 		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 			<head>
 				 <title><xsl:value-of select="/opml/head/title"/></title> 
-				<link rel="stylesheet" href="css/css.css" type="text/css" />
+				<link rel="stylesheet" href="css/look.css" type="text/css" />
+				<link rel="stylesheet" href="css/layout.css" type="text/css" />
 			</head>
 			<xsl:apply-templates/>
 		</html>
