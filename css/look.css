@@ -265,5 +265,6 @@ legend { font-size:small}
 div#alltags {
  background-color: #f9f9f9;
  border-color: #eee;
+ text-align:justify;
 }
 #alltags a { margin: 0 10px }
