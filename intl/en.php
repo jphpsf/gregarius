@@ -38,10 +38,12 @@ define ('SEE_ALL_UNREAD', "See all %d unread items");
 define ('SEE_ONLY_UNREAD', "Display only unread items (%d)");
 define ('SEE_ALL', "See all %d items for this channel");
 define ('H2_SEARCH_RESULTS_FOR', "%d matches for %s");
+define ('H2_SEARCH_RESULT_FOR',"%d match for %s");
 define ('H2_SEARCH', 'Search %d items');
 define ('SEARCH_SEARCH_QUERY','Search terms:');
-define ('SEARCH_EXACT_MATCH', 'Exact match');
-define ('SEARCH_CONTAINS', 'Containing text');
+define ('SEARCH_MATCH_OR', 'Some terms (OR)');
+define ('SEARCH_MATCH_AND', 'All terms (AND)');                                                                 
+define ('SEARCH_MATCH_EXACT', 'Exact match');
 define ('SEARCH_CHANNELS', 'Channel:');
 
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");

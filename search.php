@@ -41,9 +41,9 @@ require_once("init.php");
 if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     rss_header("Search",LOCATION_SEARCH);
     sideChannels(false);  
-    $exactMatch = (array_key_exists(QUERY_MATCH_MODE, $_POST) && $_POST[QUERY_MATCH_MODE] == SEARCH_EXACT_MATCH);
+    $matchMode = (!array_key_exists(QUERY_MATCH_MODE, $_REQUEST)?SERCH_MATCH_AND:$_REQUEST[QUERY_MATCH_MODE]);
     $cid = (array_key_exists(QUERY_CHANNEL,$_REQUEST))?(int)$_REQUEST[QUERY_CHANNEL]:ALL_CHANNELS_ID;
-    search($_POST[QUERY_PRM], $exactMatch, $cid);
+    search($_POST[QUERY_PRM], $matchMode, $cid);
 } else {
     rss_header("Search",LOCATION_SEARCH,"document.getElementById('query').focus()");  
     sideChannels(false);
@@ -64,16 +64,29 @@ function searchForm($title) {
       ."\n\t\t<p><label for=\"query\">". SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" "
       ." id=\"query\" value=\"". $_REQUEST[QUERY_PRM]."\"/></p>\n"
 
-      ."\n\t\t<p><input type=\"radio\" id=\"qry_exactmatch\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_EXACT_MATCH."\""
-      .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) && $_REQUEST[QUERY_MATCH_MODE] == SEARCH_EXACT_MATCH)?" checked=\"checked\"":"")
+      ."\n\t\t<p><input type=\"radio\" id=\"qry_match_or\" name=\"". QUERY_MATCH_MODE 
+      ."\" value=\"". SEARCH_MATCH_OR."\""
+      .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) && 
+	 $_REQUEST[QUERY_MATCH_MODE] == SEARCH_MATCH_OR)?" checked=\"checked\"":"")
 	."/>\n"
-      ."\t\t<label for=\"qry_exactmatch\">". SEARCH_EXACT_MATCH."</label>\n"
+      ."\t\t<label for=\"qry_match_or\">". SEARCH_MATCH_OR."</label>\n"
 
-      ."\t\t<input type=\"radio\" id=\"qry_contains\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_CONTAINS ."\""
-      .((!array_key_exists(QUERY_MATCH_MODE,$_REQUEST) || $_REQUEST[QUERY_MATCH_MODE] != SEARCH_EXACT_MATCH)?" checked=\"checked\"":"")
+      ."\t\t<input type=\"radio\" id=\"qry_match_and\" name=\"". QUERY_MATCH_MODE 
+      ."\" value=\"". SEARCH_MATCH_AND ."\""
+      .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) &&
+	 $_REQUEST[QUERY_MATCH_MODE] == SEARCH_MATCH_AND || 
+	 !array_key_exists(QUERY_MATCH_MODE,$_REQUEST))?" checked=\"checked\"":"")
 	."/>\n"
-      ."\t\t<label for=\"qry_contains\">". SEARCH_CONTAINS."</label></p>\n"
+      ."\t\t<label for=\"qry_match_and\">". SEARCH_MATCH_AND."</label>\n"
 
+      ."\t\t<input type=\"radio\" id=\"qry_match_exact\" name=\"". QUERY_MATCH_MODE
+      ."\" value=\"". SEARCH_MATCH_EXACT ."\""
+      .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) &&
+	 $_REQUEST[QUERY_MATCH_MODE] == SEARCH_MATCH_EXACT)?" checked=\"checked\"":"")
+	."/>\n"  
+      ."\t\t<label for=\"qry_match_exact\">". SEARCH_MATCH_EXACT."</label></p>\n"
+      
+      
       ."\n\t\t<p><label for=\"". QUERY_CHANNEL ."\">". SEARCH_CHANNELS ."</label>\n"
       ."\t\t<select name=\"".QUERY_CHANNEL."\" id=\"".QUERY_CHANNEL."\">\n"
       ."\t\t\t<option value=\"". ALL_CHANNELS_ID ."\""
@@ -100,34 +113,40 @@ function searchForm($title) {
     echo "</div>\n";
 }
 
-function search($qry,$exactMatch, $channelId) {
-
-    // If we search for an exact match we add spaces before and after the query string.
-    // This obviously isnt't that a good method because we'll miss stuff like 'query_string...' or
-    // 'query_string!'
-    $space = ($exactMatch?" ":"");
+function search($qry,$matchMode, $channelId) {
 
     $qWhere = "";
     $regMatch = "";
-    $terms = explode(" ",$qry);
-    foreach($terms as $term) {
-	$term = trim($term);
-	if ($term != "") {	    
-	    $qWhere .= 
-	      "(i.description like '%$space$term$space%' or "
-	      ." i.title like '%$space$term$space%') and ";
+    
+    if ($matchMode == SEARCH_MATCH_OR || $matchMode == SEARCH_MATCH_AND) {
+	
+	$logicSep = ($matchMode == SEARCH_MATCH_OR?"or":"and");
+	$terms = explode(" ",$qry);    
+	foreach($terms as $term) {
+	    $term = trim($term);
+	    if ($term != "") {	    
+		$qWhere .= 
+		  "(i.description like '%$term%' or "
+		  ." i.title like '%$term%') " .$logicSep;
+	    }
+	    // this will be used later for the highliting regexp
+	    if ($regMatch != "") {
+		$regMatch .= "|";
+	    }
+	    $regMatch .= $term;
 	}
-	// this will be used later for the highliting regexp
-	if ($regMatch != "") {
-	    $regMatch .= "|";
-	}
-	$regMatch .= $term;
+	
+	$qWhere .= ($matchMode == SEARCH_MATCH_OR?" 1=0 ":" 1=1 ");
+    } else {
+	$logicSep = "";
+	$terms[0] = $qry;
+	$qWhere .= 
+	  "(i.description like '%$term%' or "
+	  ." i.title like '%$term%') ";
+	$regMatch = $qry;
     }
     
-    $qWhere .= "1=1";
-    
-    
-    $sql = "select i.title, c.title, c.id, i.unread, i.url, "
+    $sql = "select distinct i.title, c.title, c.id, i.unread, i.url, "
       ." i.description, c.icon, unix_timestamp(i.pubdate) as ts, i.id  "
       ." from item i, channels c, folders f "
       ." where i.cid=c.id and c.parent=f.id and "
@@ -148,7 +167,7 @@ function search($qry,$exactMatch, $channelId) {
 
     $sql .=", i.added desc";
 
-
+    //die($sql);
     
     $res0=rss_query($sql);
     $cnt = mysql_num_rows($res0);
@@ -160,18 +179,20 @@ function search($qry,$exactMatch, $channelId) {
 
 	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
 	    $title_noTags = preg_replace("/<.+?>/","",$ititle);
-
+	    	    
 	    $match = false;
 	    reset($terms);
+	    $match = false;
 	    foreach ($terms as $term) {
-		$match = (stristr($descr_noTags,$term) || stristr($title_noTags, $term));
-		if ($match) {
-		    continue;
-		}
+		$match = ($match || (stristr($descr_noTags,$term) || stristr($title_noTags, $term)));
 	    }
 	    
-	    if ($match) {
-
+	    if ($match) {				
+		if ($hits[$iid]) {
+		    continue;
+		}
+		$hits[$iid] = true;
+		
 		$items[]=array($cid,$ctitle,$cicon,
 
 			       // Credits for the regexp: mike at iaym dot com
@@ -192,7 +213,11 @@ function search($qry,$exactMatch, $channelId) {
 
     $cnt = count($items);
 
-    $title = sprintf(H2_SEARCH_RESULTS_FOR, $cnt, "'" .$qry."'");
+    $humanReadableQuery = implode(" ".strtoupper($logicSep)." ",$terms);
+    
+    $title = sprintf(
+		     (($cnt > 1 || $cnt == 0)?H2_SEARCH_RESULTS_FOR:H2_SEARCH_RESULT_FOR), 
+		     $cnt, "'" .$humanReadableQuery."'");
 
     // If we got not hit, offer the search form.
     if ($cnt > 0) {

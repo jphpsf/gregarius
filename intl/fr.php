@@ -34,10 +34,11 @@ define ('SEE_ALL_UNREAD', "Voir tous les %d &eacute;l&eacute;ments non lus");
 define ('SEE_ONLY_UNREAD', "Seulement afficher les &eacute;l&eacute;ments non lus (%d)");
 define ('SEE_ALL', "Voir tous les %d &eacute;l&eacute;ments pour ce canal");
 define ('H2_SEARCH_RESULTS_FOR', "%d r&eacute;sultats pour %s");
+define ('H2_SEARCH_RESULT_FOR',"%d r&eacute;sultat pour %s");
 define ('H2_SEARCH', 'Rechercher parmi %d &eacute;l&eacute;ments');
-define ('SEARCH_SEARCH_QUERY','Elements de recherche:');
-define ('SEARCH_EXACT_MATCH', 'R&eacute;sultat exacte');
-define ('SEARCH_CONTAINS', 'R&eacute;sultat partiel');
+define ('SEARCH_MATCH_OR', 'Certains termes (OU)');
+define ('SEARCH_MATCH_AND', 'Tous les termes (ET)');
+define ('SEARCH_MATCH_EXACT', 'Phrase');
 define ('SEARCH_CHANNELS', 'Canal:');
 
 define ('H2_UNREAD_ITEMS',"Elements non lus (%d)");
