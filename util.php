@@ -220,8 +220,9 @@ function update($id) {
 
 	foreach ($rss->items as $item) {
 
-	    // item title
-	    $title = $item['title'];
+	    // item title: strip out html tags, shouldn't supposed
+	    // to have any, should it?
+	    $title = strip_tags($item['title']);
 
 	    // item content, if any
 	    if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
