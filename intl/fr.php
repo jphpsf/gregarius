@@ -34,53 +34,52 @@
 
 define ('MARK_READ', "Tous marquer comme lus");
 define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
-define ('SEE_ALL_UNREAD', "Voir tous les %d éléments non lus");
-define ('SEE_ONLY_UNREAD', "Seulement afficher les éléments non lus (%d)");
-define ('SEE_ALL', "Voir tous les %d éléments pour ce canal");
-define ('H2_SEARCH_RESULTS_FOR', "%d résultats pour %s");
-define ('H2_SEARCH', 'Rechercher parmi %d éléments');
-define ('H5_READ_UNREAD_STATS','%d elements, % non lus');
+define ('SEE_ALL_UNREAD', "Voir tous les %d &eacute;l&eacute;ments non lus");
+define ('SEE_ONLY_UNREAD', "Seulement afficher les &eacute;l&eacute;ments non lus (%d)");
+define ('SEE_ALL', "Voir tous les %d &eacute;l&eacute;ments pour ce canal");
+define ('H2_SEARCH_RESULTS_FOR', "%d r&eacute;sultats pour %s");
+define ('H2_SEARCH', 'Rechercher parmi %d &eacute;l&eacute;ments');
 define ('SEARCH_SEARCH_QUERY','Elements de recherche:');
-define ('SEARCH_EXACT_MATCH', 'Résultat exacte');
-define ('SEARCH_CONTAINS', 'Résultat partiel');
+define ('SEARCH_EXACT_MATCH', 'R&eacute;sultat exacte');
+define ('SEARCH_CONTAINS', 'R&eacute;sultat partiel');
 define ('SEARCH_CHANNELS', 'Canal:');
 
 define ('H2_UNREAD_ITEMS',"Elements non lus (%d)");
 define ('H2_RECENT_ITEMS', "Elements récents");
 define ('H2_CHANNELS','Channels');
-define ('ITEMCOUNT_PF', '<strong>%d</strong> éléments (<strong>%d</strong> non lus) dans <strong>%d</strong> canaux');
+define ('ITEMCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments (<strong>%d</strong> non lus) dans <strong>%d</strong> canaux');
 define ('UNREAD_PF', '(<strong>%d non lus</strong>)');
 
 define ('FTR_POWERED_BY', "is powered by ");
 define ('ALL','Tous');
-define ('NAV_HOME','Départ');
-define ('NAV_UPDATE', 'Rafraichir');
-define ('NAV_CHANNEL_ADMIN', 'Admministration');
+define ('NAV_HOME','D&eacute;part');
+define ('NAV_UPDATE', 'Rafraîchir');
+define ('NAV_CHANNEL_ADMIN', 'Administration');
 define ('NAV_SEARCH', "Chercher");
 
-define ('POSTED', 'Publié: ');
+define ('POSTED', 'Publi&eacute;: ');
 define ('SEARCH_GO', 'Chercher');
 
 define ('HOME_FOLDER','Racine');
-define ('VISIT','(visiter)');
+
 // admin
-define ('ADMIN_EDIT', 'éditer');
+define ('ADMIN_EDIT', '&eacute;diter');
 define ('ADMIN_DELETE', 'effacer');
 define ('ADMIN_DELETE2', 'Effacer');
 define ('ADMIN_RENAME', 'Renommer en...');
-define ('ADMIN_CREATE', 'Créer');
+define ('ADMIN_CREATE', 'Cr&eacute;er');
 define ('ADMIN_IMPORT','Importer');
 define ('ADMIN_EXPORT','Exporter');
 define ('ADMIN_ADD','Ajouter');
 define ('ADMIN_YES', 'Oui');
 define ('ADMIN_NO', 'Non');
-define ('ADMIN_FOLDERS','Répertoires:');
+define ('ADMIN_FOLDERS','R&eacute;pertoires:');
 define ('ADMIN_CHANNELS','Canaux:');
 define ('ADMIN_OPML','OPML:');
 
 define ('ADMIN_SUBMIT_CHANGES', 'Poster les modifications');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
-define ('ADMIN_CHANNELS_HEADING_FOLDER','Répertoire');
+define ('ADMIN_CHANNELS_HEADING_FOLDER','R&eacute;pertoire');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
 define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
@@ -92,8 +91,8 @@ define ('ADMIN_OPML_IMPORT','Importer OPML:');
 define ('ADMIN_CHANNEL_NAME','Titre:');
 define ('ADMIN_CHANNEL_RSS_URL','URL RSS:');
 define ('ADMIN_CHANNEL_SITE_URL','URL Site:');
-define ('ADMIN_CHANNEL_FOLDER','Dans le répertoire:');
+define ('ADMIN_CHANNEL_FOLDER','Dans le r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
 
-define ('ADMIN_ARE_YOU_SURE', "Êtes-vous sûr de vouloir éffacer '%s'?");
+define ('ADMIN_ARE_YOU_SURE', "Êtes-vous sûr de vouloir &eacute;ffacer '%s'?");
 ?>

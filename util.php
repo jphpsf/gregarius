@@ -439,13 +439,13 @@ function itemsList ($title,$items, $options = IL_NONE){
 		
 		if (!($options & IL_NO_COLLAPSE) && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
 		    if ($collapsed) {
-			$title = "expand '$ctitle'";
+			$title = EXPAND . " '$ctitle'";
 			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid\">"
 			  ."<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
 			  //."&nbsp;+&nbsp;"
 			  ."</a>\n";
 		    } else {
-			$title = "collapse '$ctitle'";
+			$title = COLLAPSE . " '$ctitle'";
 			echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid\">"
 			  ."<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
 			  //."&nbsp;-&nbsp;"
