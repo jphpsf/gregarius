@@ -1,4 +1,6 @@
 Gregarius 0.3.3
+ 
+ 10.02.2005 Upgraded MagpieRSS to 0.71.1 and kses to 0.2.2
 
  02.02.2005  Added (preliminary) support for table name prefixes, fixed
  a bug in the search query, fixed a tiny bug in OPML export when 
