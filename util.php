@@ -289,6 +289,9 @@ function update($id) {
 		$url = md5($title);
 	    }
 
+	    // make sure the url is properly escaped
+	    $url = str_replace("'","\\'",$url);
+	    
 	    // pubdate
 	    $cDate = -1;
 	    if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
