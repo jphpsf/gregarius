@@ -35,9 +35,9 @@ rss_require ('config.php');
 $browser = new Browser();
 
 // decide wether we use server pushing or not
-$doPush =
+$doPush = true
   // configured
-  defined('DO_SERVER_PUSH') && DO_SERVER_PUSH
+  && getConfig('DO_SERVER_PUSH')
   // not a cron update
   && !array_key_exists('silent',$_GET)
   // browser supports it (Geckos and Opera)
@@ -46,7 +46,7 @@ $doPush =
 
 
 
-if (defined ('MARK_READ_ON_UPDATE') && MARK_READ_ON_UPDATE) {
+if (getConfig ('MARK_READ_ON_UPDATE')) {
     $ts = time();
     $newItems = 0;
 }
@@ -81,7 +81,7 @@ if ($doPush) {
       ."</tr>";
     
     $sql = "select id, url, title from " .getTable("channels");
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	$sql .= " order by parent, position"; 
     } else {
 	$sql .= " order by parent, title";
@@ -151,7 +151,7 @@ if ($doPush) {
     }
 }
 
-if ($newItems > 0 && defined ('MARK_READ_ON_UPDATE') && MARK_READ_ON_UPDATE && $ts > 0) {
+if ($newItems > 0 && getConfig ('MARK_READ_ON_UPDATE') && $ts > 0) {
     rss_query("update " . getTable("item") ." set unread = 0 where unread = 1 and unix_timestamp(added) < $ts");
 }
 

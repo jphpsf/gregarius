@@ -61,7 +61,7 @@ function items($title) {
       ." from ".getTable("item") ." i, ".getTable("channels") ." c, " .getTable("folders") ." f "
       ." where i.cid = c.id and i.unread=1 and f.id=c.parent";
 
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	$sql .= " order by f.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
@@ -74,7 +74,7 @@ function items($title) {
       // for a channel or not. And if not, should the user get them
       // all when he click the channel title?
       
-      //." limit " . ITEMS_ON_CHANNELVIEW
+      //." limit " . getConfig('ITEMS_ON_CHANNELVIEW')
       ;
 
 
@@ -96,7 +96,7 @@ function items($title) {
       ." from " .getTable("channels") . " c, " .getTable("folders") ." f "
       ." where c.parent = f.id ";
     
-      if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	$sql .= " order by f.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";

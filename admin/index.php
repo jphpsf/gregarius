@@ -29,7 +29,6 @@
 ###############################################################################
 
 
-define ('RSS_FILE_LOCATION','/admin');
 
 require_once('../init.php');
 require_once('../opml.php');
@@ -118,7 +117,7 @@ function channels() {
       ."\t<th>". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n";
 
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
     }
 
@@ -130,7 +129,7 @@ function channels() {
       ." from " .getTable("channels") ." c, " . getTable("folders") ." d "
       ." where d.id = c.parent ";
 
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	$sql .=" order by d.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
@@ -140,7 +139,7 @@ function channels() {
     $cntr = 0;
     while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon) = rss_fetch_row($res)) {
 
-	if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+	if (getConfig('USE_MODREWRITE')) {
 	    $outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
 	} else {
 	    $outUrl = getPath() . "feed.php?channel=$id";
@@ -152,13 +151,13 @@ function channels() {
 
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>"
-	  .((defined('USE_FAVICONS') && USE_FAVICONS && $icon != "")?
+	  .((getConfig('USE_FAVICONS') && $icon != "")?
 	    "<img src=\"$icon\" class=\"favicon\" alt=\"$title\" width=\"16\" height=\"16\" />":"")
 	    ."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td>$parentLabel</td>\n"
 	  ."\t<td>$descr</td>\n";
 
-	if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	if (getConfig('ABSOLUTE_ORDERING')) {
 	    echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
 	      ."&amp;action=". ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". ADMIN_MOVE_UP
 	      ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
@@ -192,11 +191,6 @@ function opml() {
 }
 
 function channel_admin() {
-
-    if (defined('DEMO_MODE') && DEMO_MODE == true) {
-	rss_error ("I'm sorry, " . _TITLE_ . " is currently in demo mode. Actual actions are not performed.");
-	return;
-    }
 
     switch ($_REQUEST['action']) {
      case ADMIN_ADD:
@@ -457,7 +451,7 @@ function channel_edit_form($cid) {
       ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";
 
     // Icon
-    if (defined('USE_FAVICONS') && USE_FAVICONS) {
+    if (getConfig('USE_FAVICONS')) {
 	echo "<p><label for=\"c_icon\">" . ADMIN_CHANNEL_ICON ."</label>\n";
 
 	if (trim($icon) != "") {
@@ -492,7 +486,7 @@ function folders() {
       ."<tr>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n";
 
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
     }
 
@@ -501,7 +495,7 @@ function folders() {
 
     $sql = "select id,name from " .getTable("folders");
 
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	$sql .=" order by position asc";
     } else {
 	$sql .=" order by id";
@@ -518,7 +512,7 @@ function folders() {
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>$name</td>\n";
 
-	if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	if (getConfig('ABSOLUTE_ORDERING')) {
 	    echo "\t<td>";
 
 	    if ($id > 0) {
@@ -583,11 +577,6 @@ function folder_combo($name) {
 }
 
 function folder_admin() {
-
-    if (defined('DEMO_MODE') && DEMO_MODE == true) {
-	rss_error ("I'm sorry, " . _TITLE_ . " is currently in demo mode. Actual actions are not performed.");
-	return;
-    }
 
     switch ($_REQUEST['action']) {
      case ADMIN_EDIT_ACTION:
@@ -718,7 +707,7 @@ function create_folder($label) {
 /*************** OPML Export ************/
 
 function opml_export_form() {
-    if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+    if (getConfig('USE_MODREWRITE')) {
 	$method ="post";
 	$action = getPath() ."opml";
     } else {

@@ -36,8 +36,7 @@ define ('NAV_PREV_PREFIX','&larr;&nbsp;');
 define ('NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
 if (
-    defined('USE_MODREWRITE') 
-    && USE_MODREWRITE 
+    getConfig('USE_MODREWRITE') 
     && array_key_exists('channel',$_REQUEST)    
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])     
@@ -165,7 +164,7 @@ if ($iid == "") {
 
 
 sideChannels($cid); 
-if (defined('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
+if (getConfig('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
     items($cid,$title,$iid,$y,$m,$d);
@@ -209,7 +208,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
       
 
     if ( $m==0 && $y==0 ) {
-	$sql .= " limit " .ITEMS_ON_CHANNELVIEW;
+	$sql .= " limit " . getConfig('ITEMS_ON_CHANNELVIEW');
     }
 
     
@@ -222,7 +221,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
     
     while (list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid) =  rss_fetch_row($res)) {
       	$items[]=array($cid, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its, $iispubdate, $iid);
-      	if (! $iconAdded && defined('USE_FAVICON') && USE_FAVICONS && $cicon != "") {
+      	if (! $iconAdded && getConfig('USE_FAVICON') && $cicon != "") {
       	    $iconAdded = true;
       	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
       	}

@@ -39,7 +39,7 @@ function sideChannels($activeId) {
       ." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr "
       ." from " .getTable("channels") ." c, " .getTable("folders") ." f "
       ." where f.id = c.parent";
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('ABSOLUTE_ORDERING')) {
 	$sql .= " order by f.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
@@ -115,12 +115,12 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
     
     
     
-    if (defined('USE_FAVICONS') && USE_FAVICONS && $ico != "") {
+    if (getConfig('USE_FAVICONS') && $ico != "") {
 	// $ret .= "<img src=\"". getPath(). "imgwrp.php?url=$ico\" class=\"favicon\" alt=\"\" />";	
 	$ret .= "<img src=\"$ico\" class=\"favicon\" alt=\"\" />";
     }
     
-    if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+    if (getConfig('USE_MODREWRITE')) {
 	$feedUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
     } else {
 	$feedUrl = getPath() . "feed.php?channel=$cid";
@@ -138,7 +138,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 	$ret .= "|<a href=\"" . htmlentities($siteurl) ."\">www</a>";
     }
     
-    if (defined('_DEBUG_') && _DEBUG_ == true) {
+    if (getConfig('_DEBUG_')) {
 	$ret .= "|<a href=\"". getPath() ."feed.php?channel=$cid&amp;dbg\">dbg</a>";	
     }
     

@@ -35,25 +35,31 @@ if (defined('_DEBUG_') && _DEBUG_ == true) {
 }
 
 function rss_require($file) {
-    
-    $path = dirname($_SERVER['SCRIPT_FILENAME']);
-    if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION . "\$",$path)) {
-	$path = substr($path,0,strlen($path) - strlen(RSS_FILE_LOCATION));
+    if (!defined('GREGARIUS_HOME')) {
+	define('GREGARIUS_HOME',dirname(__FILE__) . "/");
     }
-    require_once($path . "/" . $file);
+    
+    $required_file = GREGARIUS_HOME.  $file;
+    //echo "<pre>requiring: $required_file";
+    require_once($required_file);
+    //echo ": done</pre>\n"; 
+
 }
 
 
 rss_require('constants.php');
-rss_require('config.php');
+rss_require('dbinit.php');
 rss_require('db.php');
+rss_require('config.php');
 rss_require('extlib/rss_fetch.inc');
 rss_require('extlib/rss_utils.inc');
 rss_require('extlib/kses.php');
 rss_require('util.php');
 
-if (defined('LANG') && file_exists('intl/' . LANG . '.php')) {
-    rss_require('intl/' . LANG . '.php');
+
+$lang = getConfig('LANG');
+if ($lang && file_exists("intl/$lang.php")) {
+    rss_require("intl/$lang.php");
 } else {
     rss_require('intl/en.php');
 }

@@ -101,7 +101,7 @@ function searchForm($title) {
 		      ." from " . getTable("channels") ." c, " . getTable("folders"). " f "
 		      ." where f.id=c.parent "
 		      ." order by c.parent asc,"
-		      .((defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING)?"c.position asc":"c.title asc"));
+		      .((getConfig('ABSOLUTE_ORDERING'))?"c.position asc":"c.title asc"));
     
     
     
@@ -187,7 +187,7 @@ function search($qry,$matchMode, $channelId) {
     if (array_key_exists(QUERY_ORDER_BY, $_REQUEST) && $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_DATE) {
 	$sql .= " order by 8 desc";
     } else {
-	if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	if (getConfig('ABSOLUTE_ORDERING')) {
 	    $sql .= " order by f.position asc, c.position asc";
 	} else {
 	    $sql .= " order by c.parent asc, c.title asc";
