@@ -123,7 +123,7 @@ div#channels > ul {
  margin-top: 20px;
 }
 
-div#items {
+div#items,div#search {
  margin-left: 290px;
 }
 
@@ -201,7 +201,13 @@ div#items li {
  clear:right;
  }
 
-div#items img {display: block; }
+//images inside posts
+div.content img {
+ display: block; 
+}
+
+img { border: none }
+
 div#items img.favicon { display: inline; }
 
 .content,.content * {
@@ -254,7 +260,7 @@ h2 {
 
 #items h2 {
  margin-bottom: 10px;
- margin-top: -10px;
+/* margin-top: -10px; */
 }
 
 h3 { 
@@ -326,16 +332,6 @@ input[type="submit"] {
 }
  
 #navlist li.active a { color: #336; } 
-
-#navlist li#srch { 
-    border:none; 
-    background-color: transparent 
-}
-
-#navlist #srchfrm p { 
-    display: inline;
-    vertical-align: top; 
-}
 
 
 #navlist input[type="submit"] {

@@ -30,7 +30,7 @@
 require_once('init.php');
 require_once('opml.php');
 
-rss_header("Channel Admin",3);
+rss_header("Channel Admin",4);
 
 
 main();

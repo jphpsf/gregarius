@@ -27,14 +27,34 @@
 ###############################################################################
 
 
+define ('QUERY_PRM',"query");
 
 require_once("init.php");
-
-rss_header("",1);
+rss_header("Search",3);
 sideChannels(true);
-search($_POST["query"]);
+
+if (array_key_exists(QUERY_PRM,$_POST)) {
+    search($_POST[QUERY_PRM]);
+} else {
+    searchForm();
+}
+
 rss_footer();
 
+
+
+function searchForm() {
+    echo "\n\n<div id=\"search\" class=\"frame\">";    
+    echo 
+      "\n\t\t<form action=\"search.php\" method=\"post\" id=\"srchfrm\">\n"
+      ."\t\t<p><input type=\"text\" name=\"query\" id=\"query\" />\n"
+      ."\t\t<input type=\"submit\" value=\"". SEARCH ."\"/></p>\n"
+      ."\t\t</form>\n";        
+    echo "</div>\n";
+}
+
+  
+  
 function search($qry) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
     //markReadForm($cid);

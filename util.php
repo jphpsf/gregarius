@@ -65,12 +65,14 @@ function nav($title, $active=0) {
       ."\n<h1>".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
       ."\t<li".($active==1?" class=\"active\"":"")."><a href=\"index.php\">".NAV_HOME."</a></li>\n"
-      . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"update.php\">" . NAV_UPDATE. "</a></li>\n"
-      . "\t<li".($active==3?" class=\"active\"":"")."><a href=\"channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
-      . "\t<li".($active==4?" class=\"active\"":"")." id=\"srch\">" . searchForm($_POST["query"]) .  "\t</li>\n"
+      . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"update.php\">" . NAV_UPDATE. "</a></li>\n"      
+      . "\t<li".($active==3?" class=\"active\"":"")."><a href=\"search.php\">".NAV_SEARCH."</a></li>\n"
+      . "\t<li".($active==4?" class=\"active\"":"")."><a href=\"channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
 }
 
+// -> search.php
+/*
 function searchForm($qry) {
     return 
         "\n\t\t<form action=\"search.php\" method=\"post\" id=\"srchfrm\">\n"
@@ -80,6 +82,7 @@ function searchForm($qry) {
     
         
 }
+*/
 
 function ftr() {
     echo "\n<div id=\"footer\" class=\"frame\">\n";

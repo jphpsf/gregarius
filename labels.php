@@ -44,6 +44,6 @@ define ('FTR_POWERED_BY', "is powered by ");
 define ('NAV_HOME','Home');
 define ('NAV_UPDATE', 'Update All');
 define ('NAV_CHANNEL_ADMIN', 'Channel Admin');
-define ('SEARCH', "Search");
+define ('NAV_SEARCH', "Search");
 
 ?>
