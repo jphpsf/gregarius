@@ -30,13 +30,13 @@
 
 function rss_header($title="", $active=0, $onLoadAction="") {
 
-    if (! (defined('_DEBUG_') &&  _DEBUG_)) {
+    //if (! (defined('_DEBUG_') &&  _DEBUG_)) {
 	if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
 	    ob_start('ob_gzhandler');
 	} else {
 	    ob_start();
 	}
-    }
+    //}
     
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"

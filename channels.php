@@ -119,7 +119,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
     if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 	$feedUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
     } else {
-	$feedUrl = getPath() . "feed.php?cid=$cid";
+	$feedUrl = getPath() . "feed.php?channel=$cid";
     }
     
     
@@ -135,7 +135,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
     }
     
     if (defined('_DEBUG_') && _DEBUG_ == true) {
-	$ret .= "|<a href=\"". getPath() ."feed.php?cid=$cid&amp;dbg\">dbg</a>";	
+	$ret .= "|<a href=\"". getPath() ."feed.php?channel=$cid&amp;dbg\">dbg</a>";	
     }
     
     $ret .= "]";
