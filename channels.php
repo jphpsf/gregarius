@@ -116,7 +116,11 @@ function feed($cid, $title, $url, $siteurl, $ico) {
       ." [<a href=\"$url\">xml</a>";
     
     if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
-	$ret .= "|<a href=\"$siteurl\" >www</a>";
+	$ret .= "|<a href=\"$siteurl\">www</a>";
+    }
+    
+    if (defined('_DEBUG_')) {
+	$ret .= "|<a href=\"feed.php?cid=$cid&amp;dbg=1\">dbg</a>";
     }
     
     $ret .= "]";

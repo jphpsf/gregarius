@@ -58,8 +58,12 @@ $res = rss_query("select title from channels where id = $cid");
 list($title) = mysql_fetch_row($res);
 
 rss_header($title);
- sideChannels($cid); 
- items($cid,$title);
+sideChannels($cid); 
+if (defined('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
+    debugFeed($cid);
+} else {
+    items($cid,$title);
+}
 rss_footer();
 
 
@@ -128,4 +132,20 @@ function markReadForm($cid) {
       ."</form>";
     }
 }
+
+
+function debugFeed($cid) {
+    echo "<div id=\"items\" class=\"frame\">\n";
+    $res = rss_query("select url from channels where id = $cid");
+    list($url) = mysql_fetch_row($res);
+    $rss = fetch_rss ($url);
+    echo "<pre>\n";
+    echo htmlentities(print_r($rss,1));
+    echo "</pre>\n";    
+    echo "</div>\n";
+}
+
+
+
+
 ?>

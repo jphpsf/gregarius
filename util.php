@@ -208,9 +208,10 @@ function update($id) {
             //if ($sec == -1) {
             $sec = "now()";
             //}
-    
+	    
             if ($indb == "") {
 					
+		
                 $sql = "insert into item (cid, added, title, url, "
                   ." description, unread, pubdate) "
                   . " values ("
@@ -276,6 +277,62 @@ function itemsList ($title,$items){
         echo "\t</li>\n";        
     }
     echo "</ul>\n";    	
+}
+
+function make_all_abs($in, $base) {
+    
+}
+
+// Credits: Adreas Friedrich, http://www.webmasterworld.com/forum88/334.htm
+function make_abs($rel_uri, $base, $REMOVE_LEADING_DOTS = true) { 
+    preg_match("'^([^:]+://[^/]+)/'", $base, $m); 
+    $base_start = $m[1]; 
+    if (preg_match("'^/'", $rel_uri)) { 
+	return $base_start . $rel_uri; 
+    } 
+    $base = preg_replace("{[^/]+$}", '', $base); 
+    $base .= $rel_uri; 
+    $base = preg_replace("{^[^:]+://[^/]+}", '', $base); 
+    $base_array = explode('/', $base); 
+    if (count($base_array) and!strlen($base_array[0])) 
+      array_shift($base_array); 
+    $i = 1; 
+    while ($i < count($base_array)) { 
+	if ($base_array[$i - 1] == ".") { 
+	    array_splice($base_array, $i - 1, 1); 
+	    if ($i > 1) $i--; 
+	} elseif ($base_array[$i] == ".." and $base_array[$i - 1]!= "..") { 
+	    array_splice($base_array, $i - 1, 2); 
+	    if ($i > 1) { 
+		$i--; 
+		if ($i == count($base_array)) array_push($base_array, ""); 
+	    } 
+	} else { 
+	    $i++; 
+	} 
+    } 
+    if (count($base_array) and $base_array[-1] == ".") 
+      $base_array[-1] = ""; 
+    /* How do we treat the case where there are still some leading ../ 
+     *    segments left? According to RFC2396 we are free to handle that 
+     *    any way we want. The default is to remove them. 
+     * # 
+     *    "If the resulting buffer string still begins with one or more 
+     *    complete path segments of "..", then the reference is considered 
+     *    to be in error. Implementations may handle this error by 
+     *    retaining these components in the resolved path (i.e., treating 
+     *    them as part of the final URI), by removing them from the 
+     *    resolved path (i.e., discarding relative levels above the root), 
+     *    or by avoiding traversal of the reference." 
+     * # 
+     *    http://www.faqs.org/rfcs/rfc2396.html  5.2.6.g 
+     *  */ 
+    if ($REMOVE_LEADING_DOTS) { 
+	while (count($base_array) and preg_match("/^\.\.?$/", $base_array[0])) { 
+	    array_shift($base_array); 
+	} 
+    } 
+    return($base_start . '/' . implode("/", $base_array)); 
 }
 
 ?>
