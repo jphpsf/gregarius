@@ -37,7 +37,7 @@ if (_USE_MODREWRITE_ && array_key_exists('channel',$_REQUEST)) {
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
     if ( mysql_num_rows ( $res ) != 1) {
-	rss_error("I'm having troubles fetching the channel " . $_REQUEST['channel'] . "! <!-- $sqlid -->");
+      rss_error("I'm having troubles fetching the channel " . $_REQUEST['channel'] . "! <!-- $sqlid -->");
     }
     
     
@@ -59,15 +59,14 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
     
 
     if ($next_unread_id == '') {
-	header("Location: http://"
-	       . $_SERVER['HTTP_HOST']
-	       . dirname($_SERVER['PHP_SELF'])
-	       . "/"
-	       );
+      header("Location: http://"
+        . $_SERVER['HTTP_HOST']
+	      . dirname($_SERVER['PHP_SELF'])
+	      . "/"
+      );
     } else {
-	$cid = $next_unread_id;
+	    $cid = $next_unread_id;
     }
-    
 }
 
 assert(is_numeric($cid));
@@ -96,7 +95,7 @@ function items($cid,$title) {
       ." where i.cid = $cid and c.id = $cid ";
 
     if  (isset($_REQUEST['unread'])) {
-	$sql .= " and unread=1 ";
+      $sql .= " and unread=1 ";
     }
     
     $sql .=" order by i.added desc, i.id asc";
@@ -112,11 +111,11 @@ function items($cid,$title) {
     $iconAdded = false;
       
     while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle) =  mysql_fetch_row($res)) {
-	$items[]=array(-1, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its);
-	if (! $iconAdded && _USE_FAVICONS_ && $cicon != "") {
-	    $iconAdded = true;
-	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
-	}
+      	$items[]=array(-1, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its);
+      	if (! $iconAdded && _USE_FAVICONS_ && $cicon != "") {
+      	    $iconAdded = true;
+      	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
+      	}
     }
     
     
@@ -147,7 +146,7 @@ function items($cid,$title) {
     }
       
     if ($readMoreNav != "") {
-	echo "<span class=\"readmore\">$readMoreNav</span>\n";    
+	    echo "<span class=\"readmore\">$readMoreNav</span>\n";    
     }
     
     
@@ -159,13 +158,13 @@ function markReadForm($cid) {
     $res=rss_query($sql);
     list($cnt) = mysql_fetch_row($res);
     if($cnt > 0) {
-	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
-	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
-//	  ."\t<input type=\"hidden\" name=\"all\"/>\n"
-//	  ."\t<input type=\"hidden\" name=\"unread\">\n"
-	  ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
-	  ."</form>";
-    }
+    	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
+    	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
+    //	  ."\t<input type=\"hidden\" name=\"all\"/>\n"
+    //	  ."\t<input type=\"hidden\" name=\"unread\">\n"
+    	  ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
+    	  ."</form>";
+     }
 }
 
 

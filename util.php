@@ -66,8 +66,9 @@ function rss_query ($query) {
 }
 
 function nav($title, $active=0) {
-    echo "\n<div id=\"nav\" class=\"frame\">"
-      ."\n<a id=\"top\"></a>\n"
+   echo "\n<a id=\"top\"></a>\n"
+      ."\n<div id=\"nav\" class=\"frame\">"
+      
       ."\n<h1>".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
       ."\t<li".($active==1?" class=\"active\"":"")."><a href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"

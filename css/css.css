@@ -144,18 +144,12 @@ div#nav a {
  
 div#nav {
    margin-bottom: 5px;
+   
    background-color: #fff;
-   background-image: url(media/arrows.gif);
+   background-image: url(media/arrows.gif); 
    background-position: top right;
    background-repeat: no-repeat;
-
-   /* some weird value for IE5 */
-   height: 50px;
-   
-   /* box model hack again */
-   voice-family: "\"}\"";
-   voice-family:inherit;
-   height:auto;
+ 
  }
 
 div#footer, div#nav {
@@ -418,3 +412,5 @@ span.updateres {
 }
 span.updateres.ok { color: green }
 span.updateres.ko { color: red }
+
+a#top { display: none; height: 0px; }
