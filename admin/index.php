@@ -1,7 +1,7 @@
 <?
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
-# Copyright (C) 2003, 2004 Marco Bonetti
+# Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
 # File: $Id$ $Name$
@@ -28,8 +28,11 @@
 #
 ###############################################################################
 
-require_once('init.php');
-require_once('opml.php');
+
+define ('RSS_FILE_LOCATION','/admin');
+
+require_once('../init.php');
+rss_require('opml.php');
 
 define ('ADMIN_DOMAIN','domain');
 define ('ADMIN_DOMAIN_FOLDER','folder');
@@ -326,8 +329,8 @@ function channel_admin() {
 		}
 
 		for ($i=0;$i<sizeof($opml[$folder]);$i++){
-		    add_channel(trim($opml[$folder][$i]['XMLURL']), $fid);
-		    $ret = add_channel($label,$fid);        
+		    $url_ = trim($opml[$folder][$i]['XMLURL']);
+		    add_channel($url_, $fid);
 		}
 
 	    }
@@ -714,7 +717,7 @@ function create_folder($label) {
 /*************** OPML Export ************/
 
 function opml_export_form() {
-    echo "<form method=\"get\" action=\"". getPath() ."opml.php\">\n"
+    echo "<form method=\"post\" action=\"". getPath() ."opml\">\n"
       ."<p><label for=\"action\">". ADMIN_OPML_EXPORT. "</label>\n"
       ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"". ADMIN_EXPORT ."\"/></p>\n</form>\n";
 }

@@ -1,7 +1,7 @@
 <?
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
-# Copyright (C) 2003, 2004 Marco Bonetti
+# Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
 # File: $Id$ $Name$
@@ -87,7 +87,7 @@ function nav($title, $active=0) {
       . "\t<li".($active == LOCATION_HOME   ?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."\">".NAV_HOME."</a></li>\n"
       . "\t<li".($active == LOCATION_UPDATE ?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
       . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
-      . "\t<li".($active == LOCATION_ADMIN  ?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
+      . "\t<li".($active == LOCATION_ADMIN  ?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."admin/\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
     
     if (defined('SHOW_DEVLOG_LINK') && SHOW_DEVLOG_LINK) {
 	echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">". NAV_DEVLOG ."</a></li>\n";
@@ -578,7 +578,7 @@ function itemsList($title,$items, $options = IL_NONE){
 }
 
 function add_channel($url, $folderid=0) {
-    assert($url != "" && strlen($url) > 7);
+    assert("" != $url && strlen($url) > 7);
     assert(is_numeric($folderid));
 
     $urlDB = htmlentities($url);
@@ -740,6 +740,13 @@ function parse_iso8601 ( $date_str ) {
 function getPath() {
     static $ret;
     $ret = dirname($_SERVER['PHP_SELF']);
+    
+    
+    if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION . "\$",$ret)) {
+	$ret = substr($ret,0,strlen($ret) - strlen(RSS_FILE_LOCATION));
+    }
+    
+    
     if (substr($ret,-1) != "/") {
 	$ret .= "/";
     }

@@ -1,7 +1,7 @@
 <?
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
-# Copyright (C) 2003, 2004 Marco Bonetti
+# Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
 # File: $Id$ $Name$
@@ -34,18 +34,27 @@ if (defined('_DEBUG_') && _DEBUG_ == true) {
     error_reporting(E_NONE);
 }
 
-require_once('constants.php');
-require_once('config.php');
-require_once('db.php');
-require_once('magpierss-0.61/rss_fetch.inc');
-require_once('magpierss-0.61/rss_utils.inc');
-require_once('kses-0.2.1/kses.php');
-require_once('util.php');
+function rss_require($file) {
+    $path = dirname($_SERVER['SCRIPT_FILENAME']);
+    if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION . "\$",$path)) {
+	$path = substr($path,0,strlen($path) - strlen(RSS_FILE_LOCATION));
+    }
+    require_once($path . "/" . $file);
+}
+
+rss_require('constants.php');
+rss_require('config.php');
+rss_require('db.php');
+rss_require('magpierss-0.61/rss_fetch.inc');
+rss_require('magpierss-0.61/rss_utils.inc');
+rss_require('kses-0.2.1/kses.php');
+rss_require('util.php');
 
 if (defined('LANG') && file_exists('intl/' . LANG . '.php')) {
-    require_once('intl/' . LANG . '.php');
+    rss_require('intl/' . LANG . '.php');
 } else {
-    require_once('intl/en.php');
+    rss_require('intl/en.php');
 }
-require_once("channels.php");
+rss_require("channels.php");
+
 ?>

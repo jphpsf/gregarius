@@ -1,3 +1,7 @@
+Gregarius 0.3.3
+
+ 01.02.2005  Moved the admin to a separate directory, fixed a long standing 
+ bug in OPML import (assert violations), updated copyright notices
 
 Gregarius 0.3.2
 
