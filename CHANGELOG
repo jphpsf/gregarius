@@ -1,6 +1,8 @@
 
 Gregarius 0.3.1
 
+ (12.01.2005) Fix: made feed archives work when  MOD_REWRITE is off
+ 
  (11.01.2005) Archives: fixed the buggy bit below, I hope :)
  
  (06.01.2005) Archives: navigate to the previous/successive item when

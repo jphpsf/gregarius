@@ -32,7 +32,8 @@
 
 require_once('init.php');
 
-
+define ('NAV_PREV_PREFIX','&larr;&nbsp;');
+define ('NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
 if (
     defined('USE_MODREWRITE') 
@@ -338,26 +339,15 @@ function items($cid,$title,$iid,$y,$m,$d) {
 		
 	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
 	if($prev != null) {	    
-	    $dlbl = date(($dayView?'F jS':'F Y'),$prev['ts']) . " (".$prev['cnt'].")";
-	    $url = getPath() 
-	      . "$escaped_title/"
-	      .date(($dayView?'Y/m/d/':'Y/m/'),$prev['ts']);
-	      
-	    $readMoreNav .= "<a href=\"$url\" class=\"fl\">&larr;&nbsp;$dlbl</a>\n";
+	    $dlbl = date(($dayView?'F jS':'F Y'),$prev['ts']) . " (".$prev['cnt'].")";	    
+	    $url = makeArchiveUrl($prev['ts'],$escaped_title,$cid,$dayView);
+	    $readMoreNav .= "<a href=\"$url\" class=\"fl\">".NAV_PREV_PREFIX."$dlbl</a>\n";
 	}
 	if($succ != null) {
 	    $dlbl = date(($dayView?'F jS':'F Y'),$succ['ts']) . " (".$succ['cnt'].")";
-	    $url = getPath()
-	      . "$escaped_title/"
-	      .date(($dayView?'Y/m/d/':'Y/m/'),$succ['ts']);
-	    
-	    /*
-	    if ($readMoreNav) {
-		$readMoreNav .= " | ";
-	    }
-	     * */
-	    $readMoreNav .= "<a href=\"$url\" class=\"fr\">$dlbl&nbsp;&rarr;</a>\n";
-	}	
+	    $url = makeArchiveUrl($succ['ts'],$escaped_title,$cid,$dayView);
+	    $readMoreNav .= "<a href=\"$url\" class=\"fr\">$dlbl".NAV_SUCC_POSTFIX."</a>\n";
+	}
     }
     
     

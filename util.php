@@ -521,17 +521,8 @@ function itemsList($title,$items, $options = IL_NONE){
 		// make a permalink url for the date (month)
 		if (strpos(DATE_FORMAT,'F') !== FALSE) {
 		    $mlbl = date('F',$ts);
-		    if (defined('USE_MODREWRITE') && USE_MODREWRITE) { 
-			$murl = 
-			  getPath() 
-			    . "$escaped_title/"
-			  . date("Y/m/",$ts);
-		    } else {
-			$murl = getPath() ."feed.php?channel=$cid&amp;y="
-			  .date('Y',$ts)
-			    ."&amp;m="
-			  .date('m',$ts);			    
-		    }
+		    $murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
+		    
 		    $date_lbl = 
 		      str_replace($mlbl,
 				  "<a href=\"$murl\">$mlbl</a>"
@@ -541,20 +532,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		// make a permalink url for the date (day)
 		if (strpos(DATE_FORMAT,'jS') !== FALSE) {
 		    $dlbl = date('jS',$ts);
-		    
-		    if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
-			$durl =          
-			  getPath()  
-			    . "$escaped_title/"
-			  . date("Y/m/d/",$ts);
-		    } else {
-			$durl = getPath() ."feed.php?channel=$cid&amp;y="
-			  .date('Y',$ts)
-			    ."&amp;m="
-			  .date('m',$ts)
-			    ."&amp;d="
-			  .date('d',$ts);
-		    }
+		    $durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
 		    $date_lbl =
 		      str_replace($dlbl,
 				  "<a href=\"$durl\">$dlbl</a>" 
@@ -724,6 +702,24 @@ function getPath() {
     }
 
     return $ret;
+}
+
+/**
+ * builds an url for an archive link
+ */
+function makeArchiveUrl($ts,$channel,$cid,$dayView ) {
+    if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+	return ( getPath()
+		 . "$channel/"
+		 .date(($dayView?'Y/m/d/':'Y/m/'),$ts));
+    } else {
+	return 
+	  (getPath() ."feed.php?channel=$cid&amp;y="
+	   .date('Y',$ts)
+	   ."&amp;m="
+	   .date('m',$ts)
+	   .($dayView?("&amp;d=".date('d',$ts)):""));	    
+    }    
 }
 
 /**
