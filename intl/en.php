@@ -146,5 +146,7 @@ define ('ADMIN_DOMAIN_CHANNEL_LBL','feeds');
 define ('ADMIN_DOMAIN_ITEM_LBL','items');
 define ('ADMIN_DOMAIN_CONFIG_LBL','config');
 define ('ADMIN_DOMAIN_OPML_LBL','opml');
+define ('ADMIN_BOOKMARKET_LABEL','Subscription bookmarklet [<a href="http://www.squarefree.com/bookmarklets/">?</a>]:');
+define ('ADMIN_BOOKMARKLET_TITLE','Subscribe in Gregarius!');
 
 ?>

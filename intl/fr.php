@@ -132,7 +132,7 @@ define ('ADMIN_FALSE','Non');
 define ('ADMIN_MOVE_UP','&uarr;');
 define ('ADMIN_MOVE_DOWN','&darr;');
 define ('ADMIN_ADD_CHANNEL_EXPL','(Veuillez saisir l\'URL d\'un flux RSS ou d\'un site Internet)');
-define ('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute; dans <a href=\"%s\">%s</a>, lequel d&eacute;sirez-vous souscrir?');
+define ('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute;s dans <a href=\"%s\">%s</a>. Lequel d&eacute;sirez-vous souscrir?');
 
 define ('ADMIN_PRUNE_OLDER','Effacer les &eacute;l&eacute;ments plus anciens que ');
 define ('ADMIN_PRUNE_DAYS','jours');
@@ -146,4 +146,7 @@ define ('ADMIN_DOMAIN_CHANNEL_LBL','chaines');
 define ('ADMIN_DOMAIN_ITEM_LBL','el&eacute;ments');
 define ('ADMIN_DOMAIN_CONFIG_LBL','configuration');
 define ('ADMIN_DOMAIN_OPML_LBL','opml');
+define ('ADMIN_BOOKMARKET_LABEL','Bookmarklet de souscription [<a href="http://www.squarefree.com/bookmarklets/">?</a>]:');
+define ('ADMIN_BOOKMARKLET_TITLE','Ajouter &agrave; Gregarius!');
+
 ?>

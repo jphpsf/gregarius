@@ -40,7 +40,7 @@ input {
  font-weight: bold; 
 }
 
-label, div#channel_admin span {
+label, div#channel_admin span, p.bookmarklet {
  font-size:small;
 }
 
@@ -193,7 +193,7 @@ ul.navlist {
  list-style-type: none;
 }
 
-ul.navlist li {
+ul.navlist li,a.bookmarklet {
  border: 1px solid #ddd;
  background-color: #f4f4f4;
  -moz-border-radius: 5px;

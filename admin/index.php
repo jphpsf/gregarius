@@ -159,7 +159,19 @@ function channels() {
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
     echo "<p style=\"font-size:small\">".ADMIN_ADD_CHANNEL_EXPL."</p>";
     echo "</form>\n\n";
+    
+    
+    // bookmarklet
+    $b_url = "http://" . $_SERVER["HTTP_HOST"] . getPath() . "admin/index.php";
+    $b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=".ADMIN_ADD."&amp;new_channel=";
+    
+    $bookmarklet = "javascript:void(document.location = "
+    ."('$b_url'.concat(document.location)))";
 
+   echo "<p class=\"bookmarklet\">" . ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
+
+
+   // feeds
     echo "<table id=\"channeltable\">\n"
       ."<tr>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
@@ -169,6 +181,7 @@ function channels() {
     if (getConfig('rss.config.absoluteordering')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
     }
+
 
     echo "\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
       ."</tr>\n";
@@ -339,13 +352,14 @@ function channel_admin() {
     $ret__ = ADMIN_DOMAIN_NONE;
     switch ($_REQUEST['action']) {
      case ADMIN_ADD:
+     case 'Add':
 	$label = trim($_REQUEST['new_channel']);
 	$fid = trim($_REQUEST['add_channel_to_folder']);
 	if ($label != 'http://' &&  substr($label, 0,4) == "http") {
 	    $ret = add_channel($label,$fid);
 	    if (is_array($ret) && $ret[0] > -1) {
-		update($ret[0]);
-		$ret__ = ADMIN_DOMAIN_CHANNEL;
+         update($ret[0]);
+         $ret__ = ADMIN_DOMAIN_CHANNEL;
 	    } else {
 		// okay, something went wrong, maybe thats a html url after all?
 		// let's try and see if we can extract some feeds
@@ -373,32 +387,32 @@ function channel_admin() {
 			while(list($id,$feedarr) = each($feeds)) {			    
 			    // we need an URL
 			    if (!array_key_exists('href',$feedarr)) {
-				continue;
+				     continue;
 			    } else {
-				$href = $feedarr['href']; 
+				     $href = $feedarr['href']; 
 			    }
 			     
 			    if (array_key_exists('type',$feedarr)) {
-				$typeLbl = " [" . $feedarr['type'] . "]";
+				     $typeLbl = " [<a href=\"$href\">" . $feedarr['type'] . "</a>]";
 			    }
 			    
 			    $cnt++;
 			    
 			    if (array_key_exists('title',$feedarr)) {
-				$lbl = $feedarr['title'];
+				     $lbl = $feedarr['title'];
 			    } elseif (array_key_exists('type',$feedarr)) {
-				$lbl = $feedarr['type'];
-				$typeLbl = "";
+				     $lbl = $feedarr['type'];
+				     $typeLbl = "";
 			    } elseif (array_key_exists('href',$feedarr)) {
-				$lbl = $feedarr['href'];
+				     $lbl = $feedarr['href'];
 			    } else {
-				$lbl = "Resource $cnt";
+				     $lbl = "Resource $cnt";
 			    }
 			    
 			    
 			    echo "<p>\n\t<input class=\"indent\" type=\"radio\" id=\"fd_$cnt\" name=\"new_channel\" "
 			      ." value=\"$href\"/>\n"
-			      ."\t<label for=\"fd_$cnt\"><a href=\"$href\">$lbl</a>$typeLbl</label>\n"
+			      ."\t<label for=\"fd_$cnt\">$lbl $typeLbl</label>\n"
 			      ."</p>\n";
 			}
 			

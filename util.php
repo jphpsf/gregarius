@@ -51,20 +51,20 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	  ."\t<title>".makeTitle($title)."</title>\n";
 
 	if (getConfig('rss.config.robotsmeta')) {
-	$meta = (
-		 (
-		  array_key_exists('expand',$_REQUEST) || 
-		  array_key_exists('collapse',$_REQUEST) || 
-		  array_key_exists('dbg',$_REQUEST)
-		)?'noindex,follow':getConfig('rss.config.robotsmeta'));
-	echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
+      $meta = (
+          (
+           array_key_exists('expand',$_REQUEST) || 
+           array_key_exists('collapse',$_REQUEST) || 
+           array_key_exists('dbg',$_REQUEST)
+         )?'noindex,follow':getConfig('rss.config.robotsmeta'));
+      echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
 	}
 
 	echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/layout.css\"/>\n"
 	  ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/look.css\"/>\n"
 	  ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
 
-	if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (30*MINUTE)) {
+	if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (40*MINUTE)) {
 	
 	$redirect = "http://"
 	  . $_SERVER['HTTP_HOST']
@@ -816,16 +816,19 @@ function makeArchiveUrl($ts,$channel,$cid,$dayView ) {
  * Fetches a remote URL and returns the content
  */
 function getUrl($url) {
-	$handle = fopen($url, "rb");
+	$handle = @fopen($url, "rb");
+	if (!$handle) {
+	  return "";
+	}
 	$contents = "";
 	do {
-	$data = fread($handle, 8192);
+	$data = @fread($handle, 8192);
 	if (strlen($data) == 0) {
 		break;
 	}
 	$contents .= $data;
 	} while (true);
-	fclose($handle);
+	@fclose($handle);
 	return $contents;
 }
 

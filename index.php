@@ -78,6 +78,7 @@ function items($title) {
       ;
 
 
+
     $res0=rss_query($sql);
     if (rss_num_rows($res0) > 0) {
 
@@ -107,24 +108,23 @@ function items($title) {
     $res1=rss_query($sql);
     $items = array();
     while (list($cid,$ctitle, $icon) = rss_fetch_row($res1)) {
-	
-      	$sql = "select cid, title, url, description, unread, "
-	  ." if (pubdate is null, unix_timestamp(added), unix_timestamp(pubdate)) as ts, "
-	  ." pubdate is not null as ispubdate, "     
-	  ." id  "
-      	  ." from " . getTable("item")
-      	  ." where cid  = $cid and unread = 0"
-      	  ." order by added desc, id asc "
-      	  ." limit 2";
+      
+       $sql = "select cid, title, url, description, unread, "
+        ." if (pubdate is null, unix_timestamp(added), unix_timestamp(pubdate)) as ts, "
+        ." pubdate is not null as ispubdate, "     
+        ." id  "
+        ." from " . getTable("item")
+        ." where cid  = $cid and unread = 0"
+        ." order by added desc, id asc "
+        ." limit 2";
 	
 	$res = rss_query($sql);
-	
-      	if (rss_num_rows($res) > 0) {
-      	    while (list($cid, $ititle, $url, $description, $unread, $ts, $ispubdate, $iid) =  rss_fetch_row($res)) {
-		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts, $ispubdate, $iid);
-      	    }
-      	 }
+   if (rss_num_rows($res) > 0) {
+       while (list($cid, $ititle, $url, $description, $unread, $ts, $ispubdate, $iid) =  rss_fetch_row($res)) {
+          $items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts, $ispubdate, $iid);
+       }
     }
+ }
 
     itemsList(H2_RECENT_ITEMS,$items);
     echo "</div>\n";
