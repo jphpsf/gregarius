@@ -1,5 +1,8 @@
 Gregarius 0.3.3
 
+ 26.02.2005 Create the config table and fill in some default values when
+ it is missing.
+
  20.02.2005 Database backed config!
  
  16.02.2005 Admin sub-views
