@@ -311,6 +311,21 @@ function item_admin() {
 			 ." where added <  date_sub(now(), interval $prune_older $period)";
 
 			if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST)) {
+			
+				//delete the tags for these items
+				$sqlids = "select distinct id " . $sql;							
+				$rs = rss_query($sqlids);
+				$ids = array();
+				while (list($id) = rss_fetch_row($rs)) {
+					$ids[] = $id;
+				}
+				if (count($ids)) {
+					$sqldel = "delete from " .getTable('metatag') . " where fid in ("
+					. implode(",",$ids)	.")";
+					rss_query($sqldel);
+				}
+				
+				// then delete the actual items
 				rss_query( 'delete ' . $sql);
 				$ret__ = ADMIN_DOMAIN_ITEM;
 			} else {
@@ -444,6 +459,17 @@ function channel_admin() {
 	 case ADMIN_DELETE_ACTION:
 		$id = $_REQUEST['cid'];
 		if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_YES) {
+			$rs = rss_query("select distinct id from " .getTable("item") . " where cid=$id");
+			$ids = array();
+			while (list($did) = rss_fetch_row($rs)) {
+					$ids[] = $did;
+			}
+			if (count($ids)) {
+				$sqldel = "delete from " .getTable('metatag') . " where fid in ("
+				. implode(",",$ids)	.")";
+				rss_query($sqldel);
+			}
+				
 			$sql = "delete from " . getTable("item") ." where cid=$id";
 			rss_query($sql);
 			$sql = "delete from " . getTable("channels") ." where id=$id";
@@ -477,6 +503,9 @@ function channel_admin() {
 		rss_query($sql);
 
 		$sql = "delete from " . getTable("folders") ." where id > 0";
+		rss_query($sql);
+		
+		$sql = "delete from " .getTable("item");
 		rss_query($sql);
 
 		$prev_folder = HOME_FOLDER;

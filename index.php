@@ -171,9 +171,14 @@ function items($title) {
          }
        }
     }
-    $litems = array_slice($litems,0,2);
-    $items[] = $litems[0];
-    $items[] = $litems[1];
+    if (count($litems) == 2) {
+       $litems = array_slice($litems,0,2);
+       $items[] = $litems[0];
+       $items[] = $litems[1];
+    } elseif(count($litems)) {
+       $litems = array_slice($litems,0,1);
+       $items[] = $litems[0];
+    }
  }
  /*
 echo "<pre>";
