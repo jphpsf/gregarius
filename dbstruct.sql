@@ -36,7 +36,7 @@ CREATE TABLE `folders` (
 ) TYPE=MyISAM;
 
 
-INSERT INTO `folders` (`id`,`name`) VALUES ("0","home");
+INSERT INTO `folders` (`id`,`name`) VALUES ("0","");
 update folders set id=0 where id=1;
 
 

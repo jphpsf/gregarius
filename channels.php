@@ -32,7 +32,7 @@ require_once('init.php');
 /** displays the channel list **/
 function sideChannels($activeId) {
     echo "\n\n<div id=\"channels\" class=\"frame\">\n";    
-    echo "<h2>Channels</h2>";
+    echo "<h2>".H2_CHANNELS."</h2>";
 
     stats();
           
@@ -100,7 +100,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     $res = rss_query ("select count(*) from item where cid=$cid and unread=1");
     list($cnt) = mysql_fetch_row($res);
     if ($cnt > 0) {
-	$rdLbl= "<strong>($cnt unread)</strong>";
+        $rdLbl= sprintf(UNREAD_PF, $cnt);	
 	$class_= " class=\"unread\"";
     } else {
 	$rdLbl=$class_="";
@@ -153,8 +153,9 @@ function stats() {
     $res = rss_query( "select count(*) from channels");
     list($channelcount)= mysql_fetch_row($res);
     
-    echo "\n<p class=\"stats\"><strong>$total</strong> items (<strong>$unread</strong> unread) "
-      ."in <strong>$channelcount</strong> channels.</p>\n";
+    
+    printf ("\n<p class=\"stats\">" . ITEMCOUNT_PF . "<p>\n" 
+	    ,$total, $unread, $channelcount);
     
 }
 

@@ -30,7 +30,8 @@
 // db
 require_once('dbinit.php');
   
-// magpie
+// Where should magpie store its temporary files? 
+// Apache needs write permissions on this dir.
 define('MAGPIE_CACHE_DIR', '/tmp/magpierss');
 
 // options
@@ -39,7 +40,7 @@ define ('_TITLE_', "Gregarius");
 define ('_VERSION_', "0.1.5");
 define ('_USE_FAVICONS_', true);
 define ('_USE_MODREWRITE_', true);
-define ('MAGPIE_USER_AGENT', "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)");                                  
+define ('MAGPIE_USER_AGENT', "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)");
 define ('MINUTE',60);
 define ('RELOAD_AFTER', 30*MINUTE);
 define ('DATE_FORMAT', "F jS, Y, g:i a");
@@ -51,7 +52,7 @@ define ('_DEBUG_', false);
  define ('_ADMIN_PASSWORD_','123');
 */
 
-define ('LANG', 'en');
+define ('LANG', 'fr');
 
 // feedback
 assert_options(ASSERT_ACTIVE, 1);

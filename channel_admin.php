@@ -107,10 +107,14 @@ function channels() {
 	} else {
 	    $outUrl = $url;
 	}
+	
+	
+	$parentLabel = $parent == ''? HOME_FOLDER:$parent;
+	
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td><a href=\"$outUrl\">$title</a></td>\n"
-	  ."\t<td>$parent</td>\n"
+	  ."\t<td>$parentLabel</td>\n"
 	  ."\t<td>$descr</td>\n"
 	  ."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
 	  ."</tr>\n";
@@ -250,9 +254,10 @@ function channel_edit_form($cid) {
 	} else {
 	    $selected = "";
 	}
-
+	
+	$parentLabel = ($pid == 0)?HOME_FOLDER:$pname;
 	//if ($pid > 0) {
-	echo "\t<option value=\"$pid\" $selected>$pname</option>\n";
+	echo "\t<option value=\"$pid\" $selected>$parentLabel</option>\n";
 	//}
     }
 
@@ -290,8 +295,8 @@ function folders() {
 function folder_combo($name) {
     echo "\n<select name=\"$name\">\n";
     $res = rss_query("select id, name from folders");
-    while (list($id, $name) = mysql_fetch_row($res)) {
-	echo "\t<option value=\"$id\">$name</option>\n";
+    while (list($id, $name) = mysql_fetch_row($res)) {	
+	echo "\t<option value=\"$id\">" .  (($id == 0)?HOME_FOLDER:$name)  ."</option>\n";
     } 
     echo "</select>\n";   
 }
@@ -310,7 +315,7 @@ function folder_admin() {
 	assert(is_numeric($id) && $id>=0);
 
 	if ($id == 0) {
-	    rss_error ("You can't delete the home folder!");
+	    rss_error ("You can't delete the '". HOME_FOLDER ."' folder!");
 	} else {
 	    $sql = "delete from folders where id=$id";
 	    rss_query($sql);

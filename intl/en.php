@@ -42,6 +42,9 @@ define ('SEARCH_CONTAINS', 'Containing text');
 
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
+define ('H2_CHANNELS','Channels');
+define ('ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> channels');
+define ('UNREAD_PF', '(<strong>%d unread</strong>)');
 
 define ('FTR_POWERED_BY', "is powered by ");
 
@@ -53,6 +56,7 @@ define ('NAV_SEARCH', "Search");
 define ('POSTED', 'Posted: ');
 define ('SEARCH_GO', 'Go');
 
+define ('HOME_FOLDER','Root');
 
 // admin
 define ('ADMIN_EDIT', 'edit');
