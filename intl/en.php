@@ -28,15 +28,8 @@
 #
 ###############################################################################
 
-
-
-
-
 define ('MARK_READ', "Mark all as read");
 define ('MARK_CHANNEL_READ', "Mark this feed as read");
-define ('SEE_ALL_UNREAD', "See all %d unread items");
-define ('SEE_ONLY_UNREAD', "Display only unread items (%d)");
-define ('SEE_ALL', "See all %d items for this feed");
 define ('H2_SEARCH_RESULTS_FOR', "%d matches for %s");
 define ('H2_SEARCH_RESULT_FOR',"%d match for %s");
 define ('H2_SEARCH', 'Search %d items');
@@ -69,7 +62,6 @@ define ('FETCHED','Fetched: ');
 define ('TITLE_UPDATING','Updating');
 define ('TITLE_SEARCH','Search');
 define ('TITLE_ADMIN','Feeds Admin');
-
 
 define ('HOME_FOLDER','Root');
 define ('VISIT', '(visit)');

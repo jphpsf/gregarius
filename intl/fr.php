@@ -30,33 +30,38 @@
 
 define ('MARK_READ', "Tous marquer comme lus");
 define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
-define ('SEE_ALL_UNREAD', "Voir tous les %d &eacute;l&eacute;ments non lus");
-define ('SEE_ONLY_UNREAD', "Seulement afficher les &eacute;l&eacute;ments non lus (%d)");
-define ('SEE_ALL', "Voir tous les %d &eacute;l&eacute;ments pour ce canal");
 define ('H2_SEARCH_RESULTS_FOR', "%d r&eacute;sultats pour %s");
 define ('H2_SEARCH_RESULT_FOR',"%d r&eacute;sultat pour %s");
 define ('H2_SEARCH', 'Rechercher parmi %d &eacute;l&eacute;ments');
+define ('SEARCH_SEARCH_QUERY','Termes de recherche:');
 define ('SEARCH_MATCH_OR', 'Certains termes (OU)');
 define ('SEARCH_MATCH_AND', 'Tous les termes (ET)');
 define ('SEARCH_MATCH_EXACT', 'Phrase');
 define ('SEARCH_CHANNELS', 'Canal:');
+define ('SEARCH_ORDER_DATE_CHANNEL','Trier par date, canal');
+define ('SEARCH_ORDER_CHANNEL_DATE','Trier par canal, date');
 
 define ('H2_UNREAD_ITEMS',"Elements non lus (%d)");
-define ('H2_RECENT_ITEMS', "Elements récents");
+define ('H2_RECENT_ITEMS', "Elements recents");
 define ('H2_CHANNELS','Canaux');
+define ('H5_READ_UNREAD_STATS','%d &eacute;l&eacute;ments , %d non lus');
 define ('ITEMCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments (<strong>%d</strong> non lus) dans <strong>%d</strong> canaux');
 define ('UNREAD_PF', '(<strong>%d non lus</strong>)');
 
 define ('FTR_POWERED_BY', "is powered by ");
 define ('ALL','Tous');
 define ('NAV_HOME','D&eacute;part');
-define ('NAV_UPDATE', 'Rafraîchir');
+define ('NAV_UPDATE', 'Rafra&icirc;chir');
 define ('NAV_CHANNEL_ADMIN', 'Administration');
 define ('NAV_SEARCH', "Chercher");
+define ('SEARCH_GO', 'Rechercher');
 
 define ('POSTED', 'Publi&eacute;: ');
 define ('FETCHED', 'R&eacute;cup&eacute;r&eacute;: ');
-define ('SEARCH_GO', 'Chercher');
+
+define ('TITLE_UPDATING','Mise &agrave; jour');
+define ('TITLE_SEARCH','Recherche');
+define ('TITLE_ADMIN','Administration des canaux');
 
 define ('HOME_FOLDER','Racine');
 define ('VISIT', '(visiter)');
@@ -66,12 +71,12 @@ define ('PL_FOR','Lien pour ');
 
 define ('UPDATE_CHANNEL','Canal');
 define ('UPDATE_STATUS','Etat');
-define ('UPDATE_UNDREAD','Nouveaux el&eacute;ments');
+define ('UPDATE_UNDREAD','Nouveaux &eacute;l&eacute;ments');
 
+define ('UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('UPDATE_STATUS_CACHED', 'OK (Depuis cache)');
 define ('UPDATE_STATUS_ERROR','ERREUR');
 define ('UPDATE_H2','Mise &agrave; jour de %d Canaux...');
-define ('UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('UPDATE_CACHE_TIMEOUT','Cache (HTTP Timeout)');
 define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)'); 
 
@@ -94,8 +99,8 @@ define ('ADMIN_SUBMIT_CHANGES', 'Poster les modifications');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','R&eacute;pertoire');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
-define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
 define ('ADMIN_CHANNELS_HEADING_MOVE','D&eacute;placer');
+define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
 define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
 define ('ADMIN_FOLDERS_ADD','Ajouter un r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_ICON','Icone affichee:');
@@ -115,5 +120,4 @@ define('ADMIN_MOVE_UP','&uarr;');
 define('ADMIN_MOVE_DOWN','&darr;');
 define('ADMIN_ADD_CHANNEL_EXPL','(Veuillez saisir l\'URL d\'un flux RSS ou d\'un site Internet)');
 define('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute; dans <a href=\"%s\">%s</a>, lequel d&eacute;sirez-vous souscrir?');
-
 ?>
