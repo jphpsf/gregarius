@@ -108,13 +108,15 @@ assert(is_numeric($iid) || $iid=="");
 if ($iid == "") {
     $res = rss_query("select title,icon from channels where id = $cid");
     list($title,$icon) = mysql_fetch_row($res);
+    rss_header($title);
 } else {
    $res = rss_query ("select c.title, c.icon, i.title from channels c,item i where c.id = $cid and i.cid=c.id and i.id=$iid");
     list($title,$icon,$ititle) = mysql_fetch_row($res);
+    rss_header($title . " " . html_entity_decode(TITLE_SEP) ." " .html_entity_decode($ititle));
 }
 
 
-rss_header($title . " " . html_entity_decode(TITLE_SEP) ." " .html_entity_decode($ititle));
+
 sideChannels($cid); 
 if (defined('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
@@ -182,14 +184,14 @@ function items($cid,$title,$iid) {
     $readMoreNav = "";
     if ($unread_left > 0 && !isset($_REQUEST['unread']) && $shown < $unread_left) {
         if (ITEMS_ON_CHANNELVIEW < $unread_left) {
-            $readMoreNav .= "<a href=\"". getPath() . "feed.php?cid=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
+            $readMoreNav .= "<a href=\"". getPath() . "feed.php?channel=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
         } else { 
-            $readMoreNav .=  "<a href=\"". getPath() . "feed.php?cid=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
+            $readMoreNav .=  "<a href=\"". getPath() . "feed.php?channel=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
         }
     }
     
     if ((!isset($_REQUEST['all']) || isset($_REQUEST['unread'])) && $shown < $allread) {
-        $readMoreNav .= "<a href=\"". getPath() ."feed.php?cid=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
+        $readMoreNav .= "<a href=\"". getPath() ."feed.php?channel=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
     }
       
     if ($readMoreNav != "") {
