@@ -230,7 +230,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
           $items[] = array(
                $cid,
                $ctitle,
-               $icon,
+               $cicon,
                $ititle,
                $iunread,
                $iurl,
