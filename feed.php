@@ -283,8 +283,124 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	}
     }
      */
+    
+    $monthView = $dayView = false;
+    if ($y > 0 && $m > 0 && $d > 0) {
+	$dayView = true;
+    } elseif ($y > 0 && $m > 0 && $d == 0) {
+	$monthView = true;
+    }
+    	    
+    if ($monthView || $dayView) {
+	$ts = mktime(0,0,0,$m,$d,$y);
+	$sql_succ = " select "
+	  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
+	  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
+	  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
+	  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
+	  ." count(*) as cnt_ "
+	  ." from item i  "
+	  ." where cid=$cid "
+	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts "
+	  ." group by y_,m_"
+	  .(($dayView)?",d_ ":"")
+	  ." order by ts_ asc limit 4";
+	
+	//	var_dump($sql_succ);
+	
+	$sql_prev = " select "
+	  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
+	  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
+	  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
+	  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
+	  ." count(*) as cnt_ "
+	  ." from item i  "
+	  ." where cid=$cid "
+	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts "
+	  ." group by y_,m_"
+	  .(($dayView)?",d_ ":"")
+	  ." order by ts_ desc limit 4";
+	
+	$res_prev = rss_query($sql_prev);
+	$res_succ = rss_query($sql_succ);
+	
+	$mCount = (12 * $y + $m);
+	$prev = $succ = null;
+	while ($succ == null && $row=rss_fetch_assoc($res_succ)) {
+	    if ($dayView) {
+		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) > $ts) {
+		    $succ = array(
+				  'y' => $row['y_'], 
+				  'm' => $row['m_'], 
+				  'd' => $row['d_'], 
+				  'cnt' => $row['cnt_'], 
+				  'ts' => $row['ts_']);
+		}
+	    } elseif($monthView) {		
+		if (($row['m_'] + 12 * $row['y_']) > $mCount) {		    
+		    $succ = array(
+				  'y' => $row['y_'],
+				  'm' => $row['m_'],
+				  'cnt' => $row['cnt_'],
+				  'ts' => $row['ts_']);		    
+		}
+		
+	    }
+	}
+	
+	
+	while ($prev == null && $row=rss_fetch_assoc($res_prev)) {
+	    if ($dayView) {
+		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) < $ts) {
+		    $prev = array(
+				  'y' => $row['y_'],
+				  'm' => $row['m_'],
+				  'd' => $row['d_'],
+				  'cnt' => $row['cnt_'],
+				  'ts' => $row['ts_']);
+		}
+	    } elseif($monthView) {
+		if (($row['m_'] + 12 * $row['y_']) < $mCount) {
+		    $prev = array(
+				  'y' => $row['y_'],
+				  'm' => $row['m_'],
+				  'cnt' => $row['cnt_'],
+				  'ts' => $row['ts_']);
+		}
+		
+	    }
+	}
+	
+		
+	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
+	if($prev != null) {	    
+	    $dlbl = date(($dayView?'F jS':'F Y'),$prev['ts']) . " (".$prev['cnt'].")";
+	    $url = getPath() 
+	      . "$escaped_title/"
+	      .date(($dayView?'Y/m/d/':'Y/m/'),$prev['ts']);
+	      
+	    $readMoreNav .= "<a href=\"$url\" class=\"fl\">&larr;&nbsp;$dlbl</a>\n";
+	}
+	if($succ != null) {
+	    $dlbl = date(($dayView?'F jS':'F Y'),$succ['ts']) . " (".$succ['cnt'].")";
+	    $url = getPath()
+	      . "$escaped_title/"
+	      .date(($dayView?'Y/m/d/':'Y/m/'),$succ['ts']);
+	    
+	    /*
+	    if ($readMoreNav) {
+		$readMoreNav .= " | ";
+	    }
+	     * */
+	    $readMoreNav .= "<a href=\"$url\" class=\"fr\">$dlbl&nbsp;&rarr;</a>\n";
+	}	
+    }
+    
+    
+    
     if ($readMoreNav != "") {
-	echo "<span class=\"readmore\">$readMoreNav</span>\n";    
+	echo "<div class=\"readmore\">$readMoreNav";
+	echo "<hr class=\"clearer\"/>\n</div>\n";
     }
     
     

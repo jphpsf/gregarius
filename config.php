@@ -124,6 +124,7 @@ $kses_allowed =
 	'br' => array(),
 	'p' => array(),
 	'blockquote' => array(),
+	'ol' => array(),
 	'ul' => array(),	
 	'li' => array(),
 	'tt' => array(),

@@ -65,6 +65,9 @@ function rss_fetch_row($rs) {
     return  mysql_fetch_row($rs);
 }
 
+function rss_fetch_assoc($rs) {
+    return mysql_fetch_assoc($rs);
+}
 function rss_num_rows($rs) {
     return mysql_num_rows($rs);
 }

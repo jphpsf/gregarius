@@ -81,7 +81,7 @@ function rss_footer() {
 
 function nav($title, $active=0) {
     echo "<div id=\"nav\" class=\"frame\">"
-
+      ."\n<a class=\"hidden\" href=\"#feedcontent\">skip to content</a>\n"
       ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
       . "\t<li".($active == LOCATION_HOME   ?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."\">".NAV_HOME."</a></li>\n"
@@ -338,9 +338,11 @@ function update($id) {
 function itemsList($title,$items, $options = IL_NONE){
 
     if ($title) {
-	echo "\n\n<h2>" 
+	echo "\n\n<h2 id=\"feedcontent\">" 
 	  .rss_htmlspecialchars($title)
 	  ."</h2>\n";
+    } else {
+	echo "\n\n<a id=\"feedcontent\"/>\n";
     }
     
     $cntr=0;

@@ -1,5 +1,13 @@
 
 Gregarius 0.3.1
+ 
+ 
+ (06.01.2005) Archives: navigate to the previous/successive item when
+ 	      looking at archives (buggy)
+	      
+	      Skip to content link (display:none) for text-only browsers
+	      
+	      Enabled <ol> as allowed tags in the config
 
  (02.01.2005) General: Jump to the newly collapsed (or expanded) feed after
  	      collapsing (or expanding)
