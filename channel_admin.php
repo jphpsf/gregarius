@@ -128,7 +128,7 @@ function channels() {
 	if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 	    $outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
 	} else {
-	    $outUrl = getPath() . "feed.php?cid=$cid";
+	    $outUrl = getPath() . "feed.php?channel=$id";
 	}
 
 	$parentLabel = $parent == ''? HOME_FOLDER:$parent;
