@@ -40,7 +40,7 @@ function sideChannels($activeId) {
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.icon "
       ." from channels c, folders d "
       ." where d.id = c.parent"
-      ." order by 6 asc, 2 asc";
+      ." order by c.parent asc, c.title asc";
     
     
     $res = rss_query($sql);

@@ -53,7 +53,7 @@ function items($title) {
       ." i.url, i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
       ." from item i, channels c "
       ." where i.cid = c.id and i.unread=1 "
-      ." order by c.title asc, i.added desc, i.id asc"
+      ." order by c.parent asc, c.title asc, i.added desc, i.id asc"
       
       // Problem: to limit or not to limit?
       // Should the frontpage get the whole load of unread items
@@ -78,7 +78,7 @@ function items($title) {
     $sql = "select "
       ." id, title, icon "
       ." from channels "
-      ." order by 3 asc, 2 asc";
+      ." order by parent asc, title asc";
 
     $res1=rss_query($sql);
     $items = array();
