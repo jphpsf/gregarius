@@ -103,7 +103,7 @@ function channels() {
     folder_combo('add_channel_to_folder');
 
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
-    echo "<p style=\"font-size:small\">(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe)</p>";
+    echo "<p style=\"font-size:small\">".ADMIN_ADD_CHANNEL_EXPL."</p>";
     echo "</form>\n\n";
 
     echo "<table id=\"channeltable\">\n"
@@ -219,7 +219,7 @@ function channel_admin() {
 		    } else {
 			// multiple feeds in the channel
 			echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-			  ."<p>The following feeds were found in <a href=\"$label\">$label</a>, which one would you like to subscribe?</p>\n";
+			  ."<p>".sprintf(ADMIN_FEEDS,$label,$label)."</p>\n";
 			$cnt = 0;
 			while(list($id,$feedarr) = each($feeds)) {			    
 			    // we need an URL
