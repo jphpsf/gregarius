@@ -29,11 +29,13 @@
 ###############################################################################
 
 function rss_header($title="", $active=0, $onLoadAction="") {
-    
+
     if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
-      ob_start('ob_gzhandler');
+	ob_start('ob_gzhandler');
+    } else {
+	ob_start();
     }
-    
+
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
       ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
@@ -44,7 +46,7 @@ function rss_header($title="", $active=0, $onLoadAction="") {
       ."\t<meta name=\"robots\" content=\"NOINDEX,NOFOLLOW\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
-    
+
     if ($active == 1 && defined('RELOAD_AFTER') && RELOAD_AFTER >= (30*MINUTE)) {
 	echo "\t<meta http-equiv=\"refresh\" "
 	  ." content=\"" . RELOAD_AFTER
@@ -53,10 +55,10 @@ function rss_header($title="", $active=0, $onLoadAction="") {
 
     echo "</head>\n"
       ."<body";
-      if ($onLoadAction != "" ) {
-	  echo " onload=\"$onLoadAction\"";
-      }
-      echo ">\n";
+    if ($onLoadAction != "" ) {
+	echo " onload=\"$onLoadAction\"";
+    }
+    echo ">\n";
     nav($title,$active);
 }
 
@@ -73,8 +75,8 @@ function rss_query ($query) {
 
 function nav($title, $active=0) {
 
-      echo "<div id=\"nav\" class=\"frame\">"
-      
+    echo "<div id=\"nav\" class=\"frame\">"
+
       ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
       ."\t<li".($active==1?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
@@ -108,7 +110,7 @@ function rss_error($message) {
 function add_channel($url, $folderid=0) {
     assert($url != "" && strlen($url) > 7);
     assert(is_numeric($folderid));
-    
+
     $urlDB = htmlentities($url);
 
     $rss = fetch_rss( $url );
@@ -125,28 +127,27 @@ function add_channel($url, $folderid=0) {
         //lets see if this server has a favicon
         $icon = "";
         if (defined ('_USE_FAVICONS_') && _USE_FAVICONS_) {
-	    
-	    
-	    // This actually works and display somethign valid, 
+
+	    // This actually works and display somethign valid,
 	    // but these look more like site logos than icons. Wouldn't
 	    // look good constrained to 16x16, would it? :/
-	    
+
 	    /*
-	    // first check whether this feed has an image tag
-	    if (
-		array_key_exists('image',$rss) && // note: array_key_exists on an object var.
-		array_key_exists('url',$rss->image) &&
-		getHttpResponseCode($rss->image['url']))
-	      
-	    {
-		
-		// use this one by default, because it should be a
-		// format even retarded browsers like IE can dig.
-		$icon = $rss->image['url'];		
-	    }
-	    */
-	    
-	    // if we got nothing so far, lets try to fall back to 
+	     // first check whether this feed has an image tag
+	     if (
+	     array_key_exists('image',$rss) && // note: array_key_exists on an object var.
+	     array_key_exists('url',$rss->image) &&
+	     getHttpResponseCode($rss->image['url']))
+	     *
+	     {
+	     *
+	     // use this one by default, because it should be a
+	     // format even retarded browsers like IE can dig.
+	     $icon = $rss->image['url'];
+	     }
+	     */
+
+	    // if we got nothing so far, lets try to fall back to
 	    // favicons
 	    if ($icon == "" && $rss->channel['link']  != "") {
 		$match = get_host($rss->channel['link'], $host);
@@ -156,9 +157,9 @@ function add_channel($url, $folderid=0) {
 		    if (preg_match("/image\/x-icon/", $contentType)) {
 			$icon = $uri;
 		    }
-		    
+
 		}
-	    }	    	    
+	    }
         }
 
         if ($title != "") {
@@ -255,14 +256,12 @@ function update($id) {
 	$rss = fetch_rss( $url );
 
 	if (!$rss && $id != "" && is_numeric($id)) {
-	    return magpie_error();	    
-	} elseif (!$rss) {	    
+	    return magpie_error();
+	} elseif (!$rss) {
 	    //die ($cid . " " . $url . ": " .magpie_error());
 	    continue;
 	}
-	    
-	    
-	
+
 	// base URL for items in this feed.
 	if (array_key_exists('link', $rss->channel)) {
 	    $baseUrl = $rss->channel['link'];
@@ -305,7 +304,7 @@ function update($id) {
 
 	    // make sure the url is properly escaped
 	    $url = str_replace("'","\\'",$url);
-	    
+
 	    // pubdate
 	    $cDate = -1;
 	    if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
@@ -362,14 +361,46 @@ function itemsList ($title,$items, $doNav = false){
     $ret = 0;
     $lastAnchor = "";
 
+    if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {	
+	$collapsed_ids = explode(":",$_COOKIE['collapsed']);		
+    } else {
+	$collapsed_ids = array();
+    }
+
+    
     while (list($row, $item) = each($items)) {
 
 	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
 
+	if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
+	    $collapsed = in_array($cid,$collapsed_ids);		
+	    	    
+	    if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
+		// expanded -> collapsed
+		$collapsed = true;
+		if (!in_array($cid,$collapsed_ids)) {
+		    $collapsed_ids[] = $cid;
+		    $cookie = implode(":",$collapsed_ids);
+		    setcookie('collapsed',$cookie, time()+60*60*24*999);
+		}	    
+	    } elseif (array_key_exists('expand', $_GET) &&$_GET['expand'] == $cid && $collapsed) {
+		//  collapsed -> expanded
+		$collapsed = false;
+		if (in_array($cid,$collapsed_ids)) {
+		    $key = array_search($cid,$collapsed_ids);
+		    unset($collapsed_ids[$key]);
+		    $cookie = implode(":",$collapsed_ids);
+		    setcookie('collapsed',$cookie, time()+60*60*24*999);
+		}		
+	    }
+
+	}
+
+	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle");
+
 	if ($prev_cid != $cid) {
 	    $prev_cid = $cid;
-	    if ($cntr++ > 0) {
-
+	    if ($cntr++ > 0) {		
 		if ($doNav && $lastAnchor != "") {
 		    // link to start of channel
 		    echo "<li class=\"upnav\">\n"
@@ -381,8 +412,27 @@ function itemsList ($title,$items, $doNav = false){
 	    }
 	    if ($ctitle != "" && $cid > -1) {
 		echo "\n<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->\n";
-		echo "\n<h3>\n";
-		if (_USE_FAVICONS_ && $cicon != "") {
+		echo
+		  "\n<h3"
+		  ." id=\"$escaped_title\" "
+		  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
+		    .">\n";
+
+		if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
+		    if ($collapsed) {
+			$title = "expand '$ctitle'";
+			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid\">"
+			  ."<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
+			  //."&nbsp;+&nbsp;"
+			  ."</a>\n";
+		    } else {
+			$title = "collapse '$ctitle'";
+			echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid\">"
+			  ."<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
+			  //."&nbsp;-&nbsp;"
+			  ."</a>\n";
+		    }
+		} elseif (_USE_FAVICONS_ && $cicon != "") {
 		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
 		}
 
@@ -393,64 +443,74 @@ function itemsList ($title,$items, $doNav = false){
 		}
 
 		if (_USE_MODREWRITE_) {
-		    echo "\t<a $anchor href=\"" .getPath() .preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle")."/\">$ctitle</a>\n";
+		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
 		} else {
 		    echo "\t<a $anchor href=\"". getPath() ."feed.php?cid=$cid\">$ctitle</a>\n";
 		}
+				
 		echo "</h3>\n";
 	    }
 
-	    echo "<ul>\n";
+	    if (!$collapsed) {
+		echo "<ul>\n";
+	    }
+	    
+	    // reset the items per channel counter too
+	    $cntr = 0;
 	}
 
-	$cls="item";
-	if (($cntr++ % 2) == 0) {
-	    $cls .= " even";
-	} else {
-	    $cls .= " odd";
-	}
+	if (!$collapsed) {
+	    $cls="item";
+	    if (($cntr++ % 2) == 0) {
+		$cls .= " even";
+	    } else {
+		$cls .= " odd";
+	    }
 
-	if  ($iunread == 1) {
-	    $cls .= " unread";
-	}
+	    if  ($iunread == 1) {
+		$cls .= " unread";
+	    }
 
-	$url = htmlentities($iurl);
-	// some url fields are juste guid's which aren't actual links
-	$isUrl = (substr($url, 0,4) == "http");
-	echo "\t<li class=\"$cls\">\n"
-	  ."\t\t<h4>";
+	    $url = htmlentities($iurl);
+	    // some url fields are juste guid's which aren't actual links
+	    $isUrl = (substr($url, 0,4) == "http");
+	    echo "\t<li class=\"$cls\">\n"
+	      ."\t\t<h4>";
 
-	if ($isUrl) {
-	    echo "<a href=\"$url\">$ititle</a>";
-	} else {
-	    echo $ititle;
-	}
-	
-	echo "</h4>\n";
+	    if ($isUrl) {
+		echo "<a href=\"$url\">$ititle</a>";
+	    } else {
+		echo $ititle;
+	    }
 
-	if ($ts != "") {
-	    echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
-	}
+	    echo "</h4>\n";
 
-	if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
-	    echo "\t\t<div class=\"content\">$idescr</div>"
-//	      ."<br class=\"brkr\"/>\n"
-	      ;
+	    if ($ts != "") {
+		echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
+	    }
+
+	    if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
+		echo "\t\t<div class=\"content\">$idescr\n\t\t</div>";
+	    }
+	    echo "\n\t</li>\n";
+	    $ret++;
 	}
-	echo "\t</li>\n";
-	$ret++;
     }
 
     if ($ret > 0) {
 
-	if ($doNav && $lastAnchor != "") {
+	if ($doNav && $lastAnchor != "" && !$collapsed) {
 	    // link to start of channel
+	    
 	    echo "<li class=\"upnav\">\n"
 	      ."\t<a href=\"#$lastAnchor\">up</a>\n"
 	      ."\t<a href=\"#top\">upup</a>\n"
 	      ."</li>\n";
 	}
-	echo "</ul>\n";
+	
+	if (!$collapsed) {
+	    echo "</ul>\n";
+	}
     }
 
     return $ret;

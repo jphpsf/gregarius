@@ -137,6 +137,7 @@ div.frame {
  padding: 15px;
 }
 
+
 div#nav a { 
  padding: 0 5px; 
  }
@@ -181,8 +182,13 @@ li.item.odd, tr.odd {
  background-color: #f4f4f4;
 }
 
+h3.collapsed {
+ border: 1px solid #ddd;
+ background-color: #f9f9f9;
+}
+  
 
-li.item.even.unread,li.item.odd.unread {
+li.item.even.unread,li.item.odd.unread,h3.collapsed.unread {
  border-color: #eef;
  background-color: #f8f8ff;
 }
@@ -299,6 +305,7 @@ h3 {
  margin: 20px 0 0 0;
 }
 
+h3 a,h3 a img { vertical-align:middle }
 
 
 p.error {
@@ -397,8 +404,9 @@ label, input[type="submit"] {
  cursor: pointer;
 }
 
+
 /* bad bad bad */
-.frame,.item { -moz-border-radius: 5px }
+.frame,.item,h3.collapsed { -moz-border-radius: 5px }
 
 .box { 
  border: 1px solid #eef;
