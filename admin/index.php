@@ -1130,6 +1130,13 @@ function config_admin() {
 
 function admin_menu() {
     $active = array_key_exists(ADMIN_VIEW,$_REQUEST)?$_REQUEST[ADMIN_VIEW]:null;
+
+    $use_mod_rewrite=	  
+      getConfig('rss.output.usemodrewrite');
+    
+    if (function_exists("apache_get_modules")) {
+	$use_mod_rewrite = $use_mod_rewrite && in_array( 'mod_rewrite',apache_get_modules());
+    }
     
     echo "\n<ul class=\"navlist\">\n";
     foreach( 
@@ -1139,7 +1146,7 @@ function admin_menu() {
 		    ADMIN_DOMAIN_OPML
 		    ) as $item) {
 	
-	if (getConfig('rss.output.usemodrewrite')) {
+	if ($use_mod_rewrite) {
 	    $link = $item;
 	} else {
 	    $link = "index.php?view=$item";
