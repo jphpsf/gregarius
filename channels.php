@@ -120,7 +120,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
       "<a $class_ href=\"feed.php?id=$cid\">$title</a> $rdLbl"
       ." [<a href=\"$url\">xml</a>";
     
-    if ($siteurl != "") {
+    if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
 	$ret .= "|<a href=\"$siteurl\" >www</a>";
     }
     

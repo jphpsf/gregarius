@@ -174,14 +174,26 @@ function update($id) {
     $res = rss_query($sql);
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
         $rss = fetch_rss( $url );
-    
+	/*
+	echo "<pre>";
+	var_dump ($rss);
+	echo "</pre>";
+	*/
         foreach ($rss->items as $item) {
-    
-            $title = $item['title'];
-            $description = 
-	      (array_key_exists('description',$item))?	      
-	      kses($item['description'],  $kses_allowed) : "";
 	    
+	    
+	    	    
+            $title = $item['title'];
+     
+	    if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
+		$description = kses($item['content']['encoded'], $kses_allowed);
+	    } elseif (array_key_exists ('description', $item)) {
+		$description = kses($item['description'], $kses_allowed);
+	    } else {
+		$description = "";
+	    }
+		
+		
             $url =  $item['link'];
 	    
 	    $cDate = (array_key_exists('dc',$item) &&
@@ -198,6 +210,7 @@ function update($id) {
             //}
     
             if ($indb == "") {
+					
                 $sql = "insert into item (cid, added, title, url, "
                   ." description, unread, pubdate) "
                   . " values ("
