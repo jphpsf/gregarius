@@ -351,7 +351,7 @@ ul#navlist li {
 }
 
 
-ul#navlist li, input[type="submit"] {
+ul#navlist li {
  height: 23px;
  margin: 2px 2px 0 2px;
  border: 1px solid #ddd;
@@ -359,6 +359,16 @@ ul#navlist li, input[type="submit"] {
  padding: 0.05em 0.1em;
  -moz-border-radius: 5px;
 }
+
+/* doubling because IE chokes on the submit selector */
+input[type="submit"] {
+  height: 23px; 
+  margin: 2px 2px 0 2px; 
+  border: 1px solid #ddd;
+  background-color: #f4f4f4;
+  padding: 0.05em 0.1em;
+  -moz-border-radius: 5px;
+}  
 
 input[type="text"]:focus{
  border-color:#aaa;
