@@ -95,7 +95,7 @@ define ('ABSOLUTE_ORDERING',true);
 
 // How should spiders crawl us?
 // (see http://www.robotstxt.org/wc/meta-user.html for more info)
-define ('ROBOTS_META','index,nofollow');
+define ('ROBOTS_META','index,follow');
 
 // html filtering via kses. DO no modify this unless you know what 
 // you do. See kses-0.2.1/README for more info.

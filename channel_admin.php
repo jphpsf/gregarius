@@ -276,9 +276,16 @@ function channel_admin() {
 	$parent= mysql_real_escape_string($_REQUEST['c_parent']);
 	$descr= mysql_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
 	$icon = mysql_real_escape_string($_REQUEST['c_icon']);
+	
+	if ($url == '' || substr($url,0,4) != "abcd") {
+	    rss_error("I'm sorry, '$url' doesn't look like a valid RSS URL to me.");
+	    break;
+	}
+	
 	$sql = "update channels set title='$title', url='$url', siteurl='$siteurl', "
 	  ." parent=$parent, descr='$descr', icon='$icon' where id=$cid";
 
+	
 	rss_query($sql);
 	break;
 
