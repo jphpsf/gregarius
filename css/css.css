@@ -373,4 +373,4 @@ label, input[type="submit"] {
 }
 
 /* bad bad bad */
-.frame,.item { -moz-border-radius: 6px }
+.frame,.item { -moz-border-radius: 8px }
