@@ -37,7 +37,7 @@ function rss_header($title="", $active=0, $onLoadAction="") {
 	ob_start();
     }
 
-    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
+    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
     
 //    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
@@ -100,7 +100,7 @@ function ftr() {
       ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a> \n"
       ."\tand love\n</span>\n";
 
-    echo "<span>\n\tBest effort valid <a href=\"http://validator.w3.org/check/referer\">XHTML1.1</a>, \n"
+    echo "<span>\n\tBest effort valid <a href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
       ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
     echo "<span>\n\tPage rendered ". date(DATE_FORMAT)."\n</span>\n";
@@ -241,7 +241,7 @@ function makeTitle ($title) {
 
     $ret = ""._TITLE_ . "";
     if ($title != "") {
-	$ret .= " &raquo; " . $title;
+	$ret .= " &raquo; " . htmlentities($title);
     }
     return $ret;
 }
@@ -359,7 +359,7 @@ function update($id) {
  */
 function itemsList ($title,$items, $options = IL_NONE){
 
-    echo "\n\n<h2>$title</h2>\n";
+    echo "\n\n<h2>" . htmlentities($title) ."</h2>\n";
 
     $cntr=0;
     $prev_cid=0;
@@ -414,7 +414,8 @@ function itemsList ($title,$items, $options = IL_NONE){
 	}
 
 	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle");
-
+	$ctitle = htmlentities($ctitle);
+	
 	if ($prev_cid != $cid) {
 	    $prev_cid = $cid;
 	    if ($cntr++ > 0) {		
@@ -459,7 +460,8 @@ function itemsList ($title,$items, $options = IL_NONE){
 		    $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
 		    $anchor = "name=\"$lastAnchor\"";
 		}
-
+		
+	
 		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
 		} else {
