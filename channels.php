@@ -208,23 +208,31 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 		$feedUrl = getPath() . "feed.php?channel=$cid";
 	}
 	 
-	 
 	$ret .= 
 		"<a" 
 		.$class_
 		. ($description!=""?" title=\"$description\"":"")
-		." href=\"$feedUrl\">" . $title ."</a> $rdLbl"
-		." [<a href=\"". htmlentities($url)."\">xml</a>";
-	 
-	if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
-		$ret .= "|<a href=\"" . htmlentities($siteurl) ."\">www</a>";
-	}
-	 
-	if (getConfig('rss.meta.debug')) {
-		$ret .= "|<a href=\"". getPath() ."feed.php?channel=$cid&amp;dbg\">dbg</a>";	
-	}
-	 
-	$ret .= "]";
+		." href=\"$feedUrl\">" . $title ."</a> $rdLbl";
+		
+		
+	// Display meta-information about the feed: w3 url, xml url, if active
+	// debug link
+	
+    if (getConfig('rss.output.showfeedmeta') != NULL) {
+    
+        $ret .= " [<a href=\"". htmlentities($url)."\">xml</a>";
+ 
+        if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
+            $ret .= "|<a href=\"" . htmlentities($siteurl) ."\">www</a>";
+        }
+ 
+        if (getConfig('rss.meta.debug')) {
+            $ret .= "|<a href=\"". getPath() ."feed.php?channel=$cid&amp;dbg\">dbg</a>";	
+        }
+ 
+        $ret .= "]";
+    
+    }
 	 
 	return $ret;
 }

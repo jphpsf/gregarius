@@ -32,61 +32,61 @@ rss_require('util.php');
 
 function getConfig($key) {
     static $config;
-    if ($config == null) {
-	$cfgQry = "select key_,value_,default_,type_,desc_,export_ "
-	  ." from " .getTable("config");
-	
-	$res = rss_query($cfgQry, false);
-
-	if (rss_sql_error() == 1146 || rss_num_rows($res) == 0) {
-	    rss_error("Updating your database schema. This should be a one-time operation.\n");
-	    rss_error("If you see this message over and over, please import the database schema manually.");
-	    initConfig();
-	    insertDefaults();
-	    $res = rss_query($cfgQry);
-	} 
-	
-	
-	$config = array();
-	while (list($key_,$value_,$default_,$type_,$description_,$export_) = rss_fetch_row($res)) {
-	    $value_ = real_strip_slashes($value_);
-	    switch ($type_) {
-	     case 'boolean':
-		$real_value = ($value_ == 'true');
-		break;
+	if ($config == null) {
+		$cfgQry = "select key_,value_,default_,type_,desc_,export_ "
+		  ." from " .getTable("config");
 		
-	     case 'array':
-		$real_value=unserialize($value_);
-		break;
+		$res = rss_query($cfgQry, false);
+	
+		if (rss_sql_error() == 1146 || rss_num_rows($res) == 0) {
+			rss_error("Updating your database schema. This should be a one-time operation.\n");
+			rss_error("If you see this message over and over, please import the database schema manually.");
+			initConfig();
+			insertDefaults();
+			$res = rss_query($cfgQry);
+		} 
 		
-	     case 'enum':
-		$tmp = explode(',',$value_);
-		$idx = array_pop($tmp);
-		$real_value = $tmp[$idx];		
-		break;
 		
-	     case 'num':
-	     case 'string':
-	     default:
-		$real_value = $value_;
-		break;		
-	    }
-	    
-	    $config[$key_] =
-	      array(
-		    'value' => $real_value,
-		    'default' => $default_,
-		    'type' => $type_,
-		    'description' => $description_
-		    );
-	    if ($export_ != '') {
-		define ($export_,(string)$real_value);
-	    }
+		$config = array();
+		while (list($key_,$value_,$default_,$type_,$description_,$export_) = rss_fetch_row($res)) {
+			$value_ = real_strip_slashes($value_);
+			switch ($type_) {
+				case 'boolean':
+					$real_value = ($value_ == 'true');
+					break;
+				
+				 case 'array':
+					$real_value=unserialize($value_);
+					break;
+				
+				 case 'enum':
+					$tmp = explode(',',$value_);
+					$idx = array_pop($tmp);
+					$real_value = $tmp[$idx];		
+					break;
+				
+				 case 'num':
+				 case 'string':
+				 default:
+					$real_value = $value_;
+					break;		
+			}
+			
+			$config[$key_] =
+			  array(
+				'value' => $real_value,
+				'default' => $default_,
+				'type' => $type_,
+				'description' => $description_
+				);
+			if ($export_ != '') {
+			define ($export_,(string)$real_value);
+			}
+		}
 	}
-    }
     
     if (array_key_exists($key,$config)) {
-	return $config[$key]['value'];
+		return $config[$key]['value'];
     }
     
     return null;
@@ -152,6 +152,7 @@ function insertDefaults() {
 		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.serverpush","true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browser (Netscape, Mozilla, FireFox,...) and Opera. These brwosers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL);;
 		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.refreshafter","45","45","num","If this option is set the feeds will be refreshed after x minutes of inactivity. Please respect the feed providers by not setting this value to anything lower than thirty minutes. Set this variable to 0 turn this option off",NULL);;
 		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.input.allowed",'a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}','a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}',"array","This variable controls input filtering. HTML tags and their attributes, which are not in this list, get filtered out when new RSS items are imported",NULL);;
+		insert into __config__ (key_,value_,default_,type_,desc_,export_) values ("rss.output.showfeedmeta",'false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column',NULL);;
 _SQL_
 );
 
