@@ -427,7 +427,7 @@ label, input[type="submit"] {
 
 
 /* bad bad bad */
-.frame,.item,h3.collapsed { -moz-border-radius: 5px }
+.frame,.item,h3.collapsed,table { -moz-border-radius: 5px }
 
 .box { 
  border: 1px solid #eef;
