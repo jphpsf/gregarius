@@ -214,14 +214,14 @@ function edit_tag(id) {
    }
    
     // done! Render some stuff
-    rss_header("Tags " . TITLE_SEP . " " .ucfirst("$tag"));
+    rss_header("Tags " . TITLE_SEP . " " . $tag);
     sideChannels(false);
     
     echo "\n\n<div id=\"items\" class=\"frame\">\n";
     echo "<h2>" . count($items) . " " . (count($items) > 1 ? ITEMS:ITEM)
       ." " 
       . (count($items) > 1 || count($items) == 0? TAG_TAGGEDP:TAG_TAGGED) .""
-      . " \"" . ucfirst($tag) . "\"</h2>\n";
+      . " \"" . $tag . "\"</h2>\n";
     
     if ($gotsome) {
 		itemsList ( "",  $items, IL_NO_COLLAPSE );
@@ -247,9 +247,10 @@ function edit_tag(id) {
     $tags = array();
     $max = 0;
     $min = 100000;
+    $cntr=0;
     while(list($tag,$cnt) = rss_fetch_row($res)) {
-	$tags[$tag] = $cnt;
-
+		$tags[$tag] = $cnt;
+		$cntr++;
     }
     
     
@@ -272,7 +273,8 @@ function edit_tag(id) {
     rss_header("Tags " . TITLE_SEP . " " . TAG_ALL_TAGS);
     sideChannels(false);    
     echo "\n\n<div id=\"items\" class=\"frame\">\n"
-    ."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
+    //."<h2>$cntr " . TAG_TAGS . "</h2>\n"
+	."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
     ."\n\n</div>\n";
     rss_footer();
     
