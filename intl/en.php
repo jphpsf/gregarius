@@ -97,6 +97,7 @@ define ('ADMIN_NO', 'No');
 define ('ADMIN_FOLDERS','Folders:');
 define ('ADMIN_CHANNELS','Feeds:');
 define ('ADMIN_OPML','OPML:');  
+define ('ADMIN_ITEM','Items:');
 define ('ADMIN_CONFIG','Configuration:');
 
 define ('ADMIN_IN_FOLDER','to folder:');
@@ -132,4 +133,11 @@ define ('ADMIN_MOVE_UP','&uarr;');
 define ('ADMIN_MOVE_DOWN','&darr;');
 define ('ADMIN_ADD_CHANNEL_EXPL','(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe)');
 define ('ADMIN_FEEDS','The following feeds were found in <a href="%s">%s</a>, which one would you like to subscribe?');
+
+define ('ADMIN_PRUNE_OLDER','Delete items older than ');
+define ('ADMIN_PRUNE_DAYS','days');
+define ('ADMIN_PRUNE_MONTHS','months');
+define ('ADMIN_PRUNE_YEARS','years');
+define ('PRUNE_KEEP','Keep the most recent items: ');
+
 ?>

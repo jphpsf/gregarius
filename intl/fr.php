@@ -97,6 +97,7 @@ define ('ADMIN_NO', 'Non');
 define ('ADMIN_FOLDERS','R&eacute;pertoires:');
 define ('ADMIN_CHANNELS','Canaux:');
 define ('ADMIN_OPML','OPML:');
+define ('ADMIN_ITEM','El&eacute;ments:');
 define ('ADMIN_CONFIG','Configuration');
 
 define ('ADMIN_IN_FOLDER','au r&eacute;pertoire:');
@@ -132,4 +133,10 @@ define ('ADMIN_MOVE_UP','&uarr;');
 define ('ADMIN_MOVE_DOWN','&darr;');
 define ('ADMIN_ADD_CHANNEL_EXPL','(Veuillez saisir l\'URL d\'un flux RSS ou d\'un site Internet)');
 define ('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute; dans <a href=\"%s\">%s</a>, lequel d&eacute;sirez-vous souscrir?');
+
+define ('ADMIN_PRUNE_OLDER','Effacer les &eacute;l&eacute;ments plus anciens que ');
+define ('ADMIN_PRUNE_DAYS','jours');
+define ('ADMIN_PRUNE_MONTHS','mois');
+define ('ADMIN_PRUNE_YEARS','ans');
+define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
 ?>

@@ -39,6 +39,7 @@ require_once('ds.php');
 define ('ADMIN_DOMAIN','domain');
 define ('ADMIN_DOMAIN_FOLDER','folders');
 define ('ADMIN_DOMAIN_CHANNEL','feeds');
+define ('ADMIN_DOMAIN_ITEM','items');
 define ('ADMIN_DOMAIN_CONFIG','config');
 define ('ADMIN_DOMAIN_OPML','opml');
 define ('ADMIN_DOMAIN_NONE','none');
@@ -50,6 +51,8 @@ define ('ADMIN_MOVE_DOWN_ACTION','down');
 define ('ADMIN_SUBMIT_EDIT','submit_edit');
 define ('ADMIN_VIEW','view');
 define ('ADMIN_CONFIRMED','confirmed');
+define ('ADMIN_PRUNE','prune');
+
 $auth = true;
 
 
@@ -89,6 +92,9 @@ function admin_main($authorised) {
 	     case ADMIN_DOMAIN_CONFIG:
 		$show = config_admin();
 		break;
+		  case ADMIN_DOMAIN_ITEM:
+		  $show = item_admin();
+		  break;
 	     default:
 		break;
 	    }
@@ -101,22 +107,25 @@ function admin_main($authorised) {
 	    }
 	    switch ($show) {
 	     case ADMIN_DOMAIN_CONFIG:
-		config();
-		break;
-	     case ADMIN_DOMAIN_CHANNEL:
-		channels();
-		break;
-	     case ADMIN_DOMAIN_FOLDER:
-		folders();
-		break;
-	     case ADMIN_DOMAIN_OPML:
-		opml();
-		break;	    
-	     case ADMIN_DOMAIN_NONE:
-		break;
-	     default:
-		rss_error( "FIXME: admin unknown view: $show !\n" );
-	    }
+         config();
+         break;
+           case ADMIN_DOMAIN_CHANNEL:
+         channels();
+         break;
+           case ADMIN_DOMAIN_FOLDER:
+         folders();
+         break;
+           case ADMIN_DOMAIN_OPML:
+         opml();
+         break;	    
+           case ADMIN_DOMAIN_NONE:	     
+         break;
+		  case ADMIN_DOMAIN_ITEM:
+		  items();
+		  break;
+	   default:
+		 rss_error( "FIXME: admin unknown view: $show !\n" );
+	   }
 	} else {
 	    rss_error( "FIXME: admin no view!\n" );
 	}
@@ -225,6 +234,35 @@ function opml() {
     echo "</form>\n";
 
     opml_export_form();
+    echo "</div>\n";
+}
+
+function items() {
+    //opml import
+    echo "<h2 class=\"trigger\">". ADMIN_ITEM ."</h2>\n";
+    echo "<div id=\"admin_items\">\n";
+
+    echo "<form method=\"get\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
+    echo "<fieldset class=\"prune\">\n"
+	      ."<legend>Pruning</legend>\n";
+    echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_ITEM."\"/>\n";
+    echo "<label for=\"prune_older\">" . ADMIN_PRUNE_OLDER ."</label>\n";
+    echo "<input type=\"text\" size=\"5\" name=\"prune_older\" id=\"prune_older\" value=\"\" />\n";
+    echo "<select name=\"prune_period\" id=\"prune_period\">\n"
+      ."<option>" . ADMIN_PRUNE_DAYS . "</option>\n"
+      ."<option>" . ADMIN_PRUNE_MONTHS . "</option>\n"
+      ."<option>" . ADMIN_PRUNE_YEARS . "</option>\n"
+      ."</select></p>\n";
+    
+    echo "<p><label for=\"prune_keep\">" . PRUNE_KEEP ."</label>\n"
+      ."<input type=\"text\" name=\"prune_keep\" id=\"prune_keep\" size=\"5\" />"
+      ."</p>";
+      
+    echo "<p><input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE ."\"/></p>\n";
+
+    echo "</fieldset>\n";
+    echo "</form>\n";
+
     echo "</div>\n";
 }
 
@@ -946,7 +984,7 @@ function config_admin() {
 	    
 	    	    
 	    echo "</p>\n"
-	      ."<fieldset id=\"fstags\">\n"
+	      ."<fieldset class=\"tags\">\n"
 	      ."<legend>Tags</legend>\n"
 	      ."<select size=\"8\" name=\"first\" onchange=\"populate2()\">\n"
 	      ."<option>Your browser doesn't support javascript</option>\n"
@@ -954,7 +992,7 @@ function config_admin() {
 	      ."<input type=\"text\" name=\"newtag\" id=\"newtag\" />\n"
 	      ."<input type=\"button\" onclick=\"add1(); return false;\" value=\"add tag\" />\n"
 	      ."<input type=\"button\" onclick=\"delete1(); return false;\" value=\"delete tag\" />\n"
-	      ."</fieldset><fieldset id=\"fsattrs\">\n"
+	      ."</fieldset><fieldset class=\"tags\">\n"
 	      ."<legend>Attributes</legend>\n"
 	      ."<select size=\"8\" name=\"second\">\n"
 	      ."<option>Your browser doesn't support javascript</option>\n"                                                           
@@ -1141,6 +1179,7 @@ function admin_menu() {
     echo "\n<ul class=\"navlist\">\n";
     foreach( 
 	     array (ADMIN_DOMAIN_CHANNEL,
+	       ADMIN_DOMAIN_ITEM,
 		    ADMIN_DOMAIN_CONFIG,
 		    ADMIN_DOMAIN_FOLDER,
 		    ADMIN_DOMAIN_OPML
