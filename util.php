@@ -296,7 +296,7 @@ function itemsList ($title,$items){
 	
 	if ($isUrl) echo "<a href=\"$url\">";
 	
-	echo "$ititle";
+	echo htmlentities($ititle);
 	
 	if ($isUrl) echo "</a>";
 	  
