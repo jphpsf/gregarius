@@ -89,7 +89,7 @@ function channels() {
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
-    echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" />\n";
+    echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" onfocus=\"this.select()\"/>\n";
 
     echo "<label for=\"add_channel_to_folder\">". ADMIN_IN_FOLDER . "</label>\n";
     folder_combo('add_channel_to_folder');
