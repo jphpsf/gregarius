@@ -104,30 +104,30 @@ function add_channel($url) {
      *          echo "</pre>";
      * */
     if ( $rss ) {
-	$title= mysql_real_escape_string ( $rss->channel['title'] );
-	$siteurl= mysql_real_escape_string (htmlentities($rss->channel['link'] ));
-	$descr =  mysql_real_escape_string ($rss->channel['description']);
-
-	//lets see if this server has a favicon
-	$icon = "";
-	if (_USE_FAVICONS_ && $rss->channel['link']  != "") {
-	    $match = get_host($rss->channel['link'], $host);
-	    $uri = "http://" . $host . "favicon.ico";
-	    if ($match && (getHttpResponseCode($uri)))  {
-	      $icon = $uri;
-	    }
-	}
-
-	if ($title != "") {
-	    $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon)"
-	      ." values ('$title', '$urlDB', '$siteurl', 0, '$descr', now(), '$icon')";
-
-	    rss_query($sql);
-	} else {
-	    rss_error ("I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");
-	}
+        $title= mysql_real_escape_string ( $rss->channel['title'] );
+        $siteurl= mysql_real_escape_string (htmlentities($rss->channel['link'] ));
+        $descr =  mysql_real_escape_string ($rss->channel['description']);
+    
+        //lets see if this server has a favicon
+        $icon = "";
+        if (_USE_FAVICONS_ && $rss->channel['link']  != "") {
+            $match = get_host($rss->channel['link'], $host);
+            $uri = "http://" . $host . "favicon.ico";
+            if ($match && (getHttpResponseCode($uri)))  {
+              $icon = $uri;
+            }
+        }
+    
+        if ($title != "") {
+            $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon)"
+              ." values ('$title', '$urlDB', '$siteurl', 0, '$descr', now(), '$icon')";
+    
+            rss_query($sql);
+        } else {
+            rss_error ("I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");
+        }
     } else {
-	rss_error( "I'm sorry, I could'n retrieve <a href=\"$url\">$url</a>.");
+        rss_error( "I'm sorry, I could'n retrieve <a href=\"$url\">$url</a>.");
     }
 }
 
@@ -144,16 +144,17 @@ function get_host($url, & $host) {
     $host = $matches[2];
 
     //ensure we have a slash
-    if (substr($host,-1) != "/")
+    if (substr($host,-1) != "/") {
       $host .= "/";
-
+    }
+    
     return $ret;
 }
 
 function makeTitle ($title) {
     $ret = ""._TITLE_ . "";
     if ($title != "") {
-	$ret .= " &gt; " . $title;
+        $ret .= " &gt; " . $title;
     }
 
     return $ret;
@@ -196,15 +197,15 @@ function update($id) {
             //}
     
             if ($indb == "") {
-            $sql = "insert into item (cid, added, title, url, "
-              ." description, unread, pubdate) "
-              . " values ("
-              ."$cid, now(), '"
-              .mysql_real_escape_string($title) ."', '$url', '"
-              . mysql_real_escape_string($description)
-                ."', 1, $sec)";
-    
-            rss_query($sql);
+                $sql = "insert into item (cid, added, title, url, "
+                  ." description, unread, pubdate) "
+                  . " values ("
+                  ."$cid, now(), '"
+                  .mysql_real_escape_string($title) ."', '$url', '"
+                  . mysql_real_escape_string($description)
+                    ."', 1, $sec)";
+        
+                rss_query($sql);
             }
         }
     }

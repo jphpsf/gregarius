@@ -43,7 +43,7 @@ $res = rss_query("select title from channels where id = $id");
 list($title) = mysql_fetch_row($res);
 
 rss_header($title);
- sideChannels($id);
+ sideChannels($id); 
  items($id,$title);
 rss_footer();
 
@@ -77,24 +77,24 @@ function items($cid,$title) {
     $cntr = 0;
     $lastid = 0;
     while (list($iid_, $cid_, $added_, $title_, $url_, $description_, $unread_, $pubdate_) =  mysql_fetch_row($res)) {
-	$cls="item";
-	if (($cntr++ % 2) == 0) {
-	    $cls .= " even";
-	} else {
-	    $cls .= " odd";
-	}
-	
-	if  ($unread_ == 1) {
-	    $cls .= " unread";
-	}
-	
-	echo "\t<li class=\"$cls\">\n"
-	  ."\t\t<a  href=\"$url_\">$title_</a>\n";
-	if ($description_ != "") {
-	    echo "\t\t<div class=\"content\">$description_</div>\n";
-	}
-	echo "\t</li>\n";       
-	$lastid = $iid_;
+        $cls="item";
+        if (($cntr++ % 2) == 0) {
+            $cls .= " even";
+        } else {
+            $cls .= " odd";
+        }
+        
+        if  ($unread_ == 1) {
+            $cls .= " unread";
+        }
+        
+        echo "\t<li class=\"$cls\">\n"
+          ."\t\t<a  href=\"$url_\">$title_</a>\n";
+        if ($description_ != "") {
+            echo "\t\t<div class=\"content\">$description_</div>\n";
+        }
+        echo "\t</li>\n";       
+        $lastid = $iid_;
     }
     
     
@@ -116,7 +116,7 @@ function items($cid,$title) {
         if (ITEMS_ON_CHANNELVIEW < $unread_left) {
             echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
         } else { 
-	          echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
+            echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
         }
     }
     
@@ -135,10 +135,11 @@ function markReadForm($cid) {
     $res=rss_query($sql);
     list($cnt) = mysql_fetch_row($res);
 
-    if($cnt > 0) 
+    if($cnt > 0) {
       echo "<form action=\"feed.php\" method=\"post\" class=\"markread\">\n"
       ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
       ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
       ."</form>";
+    }
 }
 ?>
