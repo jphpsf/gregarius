@@ -65,7 +65,7 @@ function updateTags($fid,$tags) {
 	return $ret;
 }
 
-$sajax_request_type = "GET";
+$sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . "tags.php";
 sajax_init();
