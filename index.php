@@ -64,7 +64,7 @@ function items($title) {
             $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_ );
         }
 
-        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items, true);
+        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items,  false);
     }
 
     $sql = "select "
