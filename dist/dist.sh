@@ -13,12 +13,12 @@ tar cvfz rss-$1.tar.gz \
  --exclude=*CVS* \
  --exclude=dbinit.php \
  --exclude=dist \
- --exclude=devlog \
  --exclude=favicon.ico \
  --exclude=ico2png \
  --exclude=imgwrp.php \
  --exclude=test.php \
  --exclude=about.php \
+ --exclude=rss_extra.php \
  --exclude=*.\#* \
  --exclude=*.cvsignore \
  --exclude=*.*~ \
@@ -28,8 +28,8 @@ zip -r  rss-$1.zip rss \
  -x \*/CVS\* \
  -x \*/dbinit.php \
  -x \*/dist\* \
- -x \*/devlog\* \
  -x \*/favicon.ico \
+ -x \*/rss_extra.php \
  -x \*/ico2png\* \
  -x \*/imgwrp.php \
  -x \*/about.php \
