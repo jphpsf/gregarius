@@ -34,6 +34,7 @@ require_once('config.php');
 require_once('db.php');
 //require_once('magpierss-0.5.2/rss_fetch.inc');
 require_once('magpierss-0.61/rss_fetch.inc');
+require_once('magpierss-0.61/rss_utils.inc');
 require_once('kses-0.2.1/kses.php');
 require_once('util.php');
 require_once('labels.php');

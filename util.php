@@ -197,17 +197,18 @@ function update($id) {
             $url =  $item['link'];
 	    
 	    $cDate = (array_key_exists('dc',$item) &&
-		array_key_exists('date',$item['dc'])) ?
-		      $item['dc']['date'] : "";
-		      
+		      array_key_exists('date',$item['dc'])) ?
+	      parse_w3cdtf($item['dc']['date']) : "";
+	    
             $sql = "select id from item where cid=$cid and url='$url'";
             $subres = rss_query($sql);
             list($indb) = mysql_fetch_row($subres);
-    
-            //$sec =  strtotime($cDate);
-            //if ($sec == -1) {
-            $sec = "now()";
-            //}
+	    
+	    if ($cDate != "" && $cDate > 0) {
+		$sec = "FROM_UNIXTIME($cDate)";		
+	    } else {
+		$sec = "null";
+	    }
 	    
             if ($indb == "") {
 					
