@@ -286,9 +286,9 @@ function itemsList ($title,$items){
 	}
 	
 	
-        //if ($idescr != "") {
+        if ($idescr != "") {
             echo "\t\t<div class=\"content\">$idescr</div>\n";
-        //}        
+        }        
         echo "\t</li>\n";        
     }
     echo "</ul>\n";    	

@@ -54,8 +54,8 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {
 
 assert(is_numeric($cid));
 
-$res = rss_query("select title from channels where id = $cid");
-list($title) = mysql_fetch_row($res);
+$res = rss_query("select title,icon from channels where id = $cid");
+list($title,$icon) = mysql_fetch_row($res);
 
 rss_header($title);
 sideChannels($cid); 
@@ -72,10 +72,11 @@ function items($cid,$title) {
 
     markReadForm($cid);
         
-    $sql = "select title, url, description, unread, unix_timestamp(pubdate) as ts "
-      ." from item "
-      ." where cid  = $cid ";
-    
+    $sql = " select i.title, i.url, i.description, i.unread, "
+      ." unix_timestamp(i.pubdate) as ts, c.icon, c.title "
+      ." from item i, channels c "
+      ." where i.cid = $cid and c.id = $cid ";
+
     if  (isset($_GET['unread']))
       $sql .= " and unread=1 ";
 		
@@ -88,8 +89,8 @@ function items($cid,$title) {
     $res = rss_query($sql);    
     $items = array();
     
-    while (list($title_, $url_, $description_, $unread_, $ts_) =  mysql_fetch_row($res)) {    
-	$items[]=array(-1,"","",$title_,$unread_,$url_,$description_, $ts_);
+    while (list($title_, $url_, $description_, $unread_, $ts_, $ctitle, $cicon) =  mysql_fetch_row($res)) {
+	$items[]=array(-1, $ctitle, $cicon,$title_,$unread_,$url_,$description_, $ts_);
     }
     
     itemsList($title,$items);
