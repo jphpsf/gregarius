@@ -3,7 +3,7 @@
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003, 2004 Marco Bonetti
 #
-############################################################################### 
+###############################################################################
 # File: $Id$ $Name$
 #
 ###############################################################################
@@ -27,10 +27,6 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-
-
-
-
 
 define ('MARK_READ', "Tous marquer comme lus");
 define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
@@ -61,6 +57,10 @@ define ('POSTED', 'Publi&eacute;: ');
 define ('SEARCH_GO', 'Chercher');
 
 define ('HOME_FOLDER','Racine');
+define ('VISIT', '(visiter)');
+define ('COLLAPSE','collapser');
+define ('EXPAND','&eacute;tendre');
+define ('PL_FOR','Lien pour ');
 
 // admin
 define ('ADMIN_EDIT', '&eacute;diter');

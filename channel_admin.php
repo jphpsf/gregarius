@@ -368,7 +368,7 @@ function folders() {
 }
 
 function folder_combo($name) {
-    echo "\n<select name=\"$name\">\n";
+    echo "\n<select name=\"$name\" id=\"$name\">\n";
     $res = rss_query("select id, name from folders");
     while (list($id, $name) = mysql_fetch_row($res)) {	
 	echo "\t<option value=\"$id\">" .  (($id == 0)?HOME_FOLDER:$name)  ."</option>\n";

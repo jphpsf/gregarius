@@ -512,7 +512,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 
 	    if (defined('USE_PERMALINKS') && USE_PERMALINKS) {
 		$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
-		$ptitle = "permalinkk for '$escaped_title/$escaped_ititle'";
+		$ptitle = PL_FOR. "'$escaped_title/$escaped_ititle'";
 		echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
 		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 		    echo "href=\"" .getPath() ."$escaped_title/$escaped_ititle\">";

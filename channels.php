@@ -53,7 +53,7 @@ function sideChannels($activeId) {
 	    
 	    
 	    if ($prev_parent > 0) {
-		echo tabs(1) ."</ul></li>\n";
+		echo tabs(2) ."</ul>\n" .tabs(1) ."</li>\n";
 	    }
 	    
 	    echo tabs(1) . "<li class=\"folder\">\n"

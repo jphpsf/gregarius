@@ -65,7 +65,7 @@ define ('HOME_FOLDER','Root');
 define ('VISIT', '(visit)');
 define ('COLLAPSE','collapse');
 define ('EXPAND','expand');
-
+define ('PL_FOR','Permalink for ');
 // admin
 define ('ADMIN_EDIT', 'edit');
 define ('ADMIN_DELETE', 'delete');
