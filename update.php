@@ -119,7 +119,7 @@ if ($doPush) {
 	    }	      
 	}
 	echo "<td class=\"mc$cls\">$label</td>\n";       
-	echo "<td class=\"mr\">" . ($unread >0?$unread:"&nbsp;") . "</td>\n";       
+	echo "<td class=\"rc\">" . ($unread >0?$unread:"&nbsp;") . "</td>\n";       
 	echo "</tr>\n";
 	flush();
     }
@@ -141,7 +141,7 @@ if ($doPush) {
 if ($doPush) {
     echo "\n" . PUSH_BOUNDARY ."\n";
     echo "Content-Type: text/html\n\n"
-      ."<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">"
+      ."<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"
       ."<html>\n"
       ."<head>\n"
       ."<title>Redirecting...</title>\n"

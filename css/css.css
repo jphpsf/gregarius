@@ -489,4 +489,6 @@ div#channels, div#items, div#search, div#channel_admin, div#about, div#update {
 
 table#updatetable .lc { width: 60% }
 table#updatetable .mc { width: 30% }
+table#updatetable td.mc.error { color: #700 }
 table#updatetable .rc { width: 10%; text-align:center }
+table#updatetable td.rc { font-weight: bold }
