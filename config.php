@@ -51,7 +51,7 @@ define ('USE_FAVICONS', true);
 // as http://yourserver.com/path/to/rss/channel_name/
 // You must have mod_rewrite installed and configured for your
 // apache install. See also the '.htaccess' file
-define ('USE_MODREWRITE', false);
+define ('USE_MODREWRITE', true);
 
 // If this option is set the feeds will be refreshed after x minutes
 // of inactivity. Please respect the feed providers by not setting
