@@ -70,7 +70,10 @@ define ('DEMO_MODE', false);
 // reporting is a bit more verbose
 define ('_DEBUG_', false);
 
-
+// Output compression is handled by most browsers. 
+define ('OUTPUT_COMPRESSION', true);
+  
+  
 // Leave this commented out, (WIP)
 /* 
  define ('_ADMIN_USERNAME_','test');

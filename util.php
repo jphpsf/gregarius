@@ -29,6 +29,11 @@
 ###############################################################################
 
 function rss_header($title="", $active=0, $onLoadAction="") {
+    
+    if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
+      ob_start('ob_gzhandler');
+    }
+    
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
       ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
