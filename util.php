@@ -59,9 +59,18 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
 
     if ($active == 1 && defined('RELOAD_AFTER') && RELOAD_AFTER >= (30*MINUTE)) {
+	
+	$redirect = "http://"
+	  . $_SERVER['HTTP_HOST']
+	  . dirname($_SERVER['PHP_SELF']);
+	if (substr($redirect,-1) != "/") {
+	    $redirect .= "/";
+	}
+	$redirect .= "update.php";
+	
 	echo "\t<meta http-equiv=\"refresh\" "
 	  ." content=\"" . RELOAD_AFTER
-	  . ";url=update.php\"/>\n";
+	  . ";url=$redirect\"/>\n";
     }
 
     echo "</head>\n"
