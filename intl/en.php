@@ -164,8 +164,8 @@ define ('ADMIN_CANT_RENAME',"You can't rename this folder '%s' becuase such a fo
 define('ADMIN_ERROR_CANT_CREATE',"Looks like you already have a folder called '%s'!");
 
 define ('TAG_TAGS','Tags: ');
-define ('TAG_EDIT','(edit)');
-define ('TAG_SUBMIT','(submit)');
-define ('TAG_SUBMITTING','(...)');
-
+define ('TAG_EDIT','[edit]');
+define ('TAG_SUBMIT','[submit]');
+define ('TAG_SUBMITTING','[...]');
+define ('TAG_ERROR_NO_TAG',"Oops! No items tagged &laquo;%s&raquo; were found.");
 ?>

@@ -109,7 +109,7 @@ function edit_tag(id) {
 		toggle.innerHTML="<?= TAG_SUBMIT ?>";
 		var elem=document.getElementById("t"+id);
 
-                //get rid of the hyperlinks
+		//get rid of the hyperlinks
 		var tags = elem.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"");
 		elem.innerHTML = "<input class=\"tagedit\" id=\"tfield"+id+"\" type=\"text\" value=\"" + tags + "\" />";
 		elem.firstChild.focus();
@@ -132,77 +132,84 @@ function edit_tag(id) {
       .getTable('metatag')." m, ".getTable('tag')." t "
       ." where i.id=m.fid and t.id=m.tid and t.tag='$tag' and m.ttype='item'";
     
-    $res = rss_query($sql);
-    $ids = array();
-    while (list($id) = rss_fetch_row($res)) {
-	$ids[] = $id;
-    }
-    
-    // ok now look up the fields for those items
-    $sql = ""
-      
-      // standard fields
-      ."select i.title,  c.title, c.id, i.unread, "
-      ." i.url, i.description, c.icon, "
-      ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
-      ." i.pubdate is not null as ispubdate, "
-      ." i.id, t.tag  "
+	$res = rss_query($sql);
+   $ids = array();
+   while (list($id) = rss_fetch_row($res)) {
+		$ids[] = $id;
+   }
 
-      // standard left-joins and normal joins
-      ." from ".getTable("item") ." i "
-      ." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
-      ." left join ".getTable('tag')." t on (m.tid=t.id) "
-      . ", " .getTable("channels") ." c, " .getTable("folders") ." f "
-      
-      
-      ." where "
-      ." i.id in (".implode(",",$ids).") "
-      ." and i.cid = c.id  and f.id=c.parent "
-      
-      // order by unread first
-      ." order by i.unread desc, "
-      
-      ."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
-
-    
-    rss_header("Tags " . TITLE_SEP ." $tag");
-    sideChannels(false);
-    
-    echo "\n\n<div id=\"items\" class=\"frame\">";
-    $items = array();
-    $res = rss_query($sql);        
-    if (rss_num_rows($res) > 0) {
+	$gotsome = count($ids) > 0;
+	if ($gotsome) {    
+		 // ok now look up the fields for those items
+		$sql = ""
+			
+			// standard fields
+			."select i.title,  c.title, c.id, i.unread, "
+			." i.url, i.description, c.icon, "
+			." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
+			." i.pubdate is not null as ispubdate, "
+			." i.id, t.tag  "
 	
-	
-	$prevId = -1;
-	while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_, $tag_) = rss_fetch_row($res)) {
-	    if ($prevId != $iid_) {
-		$items[] = array(
-				 $cid_,
-				 $ctitle_,
-				 $icon_ ,
-				 $title_ ,
-				 $unread_ ,
-				 $url_ ,
-				 $descr_,
-				 $ts_,
-				 $iispubdate_,
-				 $iid_,
-				 'tags' => array($tag_)
-				 );
-		$prevId = $iid_;
-	    } else {
-		end($items);
-		$items[key($items)]['tags'][]=$tag_;
-	    }
+			// standard left-joins and normal joins
+			." from ".getTable("item") ." i "
+			." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
+			." left join ".getTable('tag')." t on (m.tid=t.id) "
+			. ", " .getTable("channels") ." c, " .getTable("folders") ." f "
+			
+			
+			." where "
+			." i.id in (".implode(",",$ids).") "
+			." and i.cid = c.id  and f.id=c.parent "
+			
+			// order by unread first
+			." order by i.unread desc, "
+			
+			."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
+		$res = rss_query($sql);  
+		
+		$items = array();
+   
+		if (rss_num_rows($res) > 0) {
+			$prevId = -1;
+			while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_, $tag_) = rss_fetch_row($res)) {
+				if ($prevId != $iid_) {
+					$items[] = array(
+						$cid_,
+						$ctitle_,
+						$icon_ ,
+						$title_ ,
+						$unread_ ,
+						$url_ ,
+						$descr_,
+						$ts_,
+						$iispubdate_,
+						$iid_,
+						'tags' => array($tag_)
+					);
+					$prevId = $iid_;
+				} else {
+					end($items);
+					$items[key($items)]['tags'][]=$tag_;
+				}
+			}
+			
+		}    
+   }
+   
+   // done! Render some stuff
+   rss_header("Tags " . TITLE_SEP ." $tag");
+   sideChannels(false);
+    
+   echo "\n\n<div id=\"items\" class=\"frame\">";
+   if ($gotsome) {
+		itemsList ( "",  $items, IL_NO_COLLAPSE );
+	} else {
+		echo "<p style=\"height: 10em; text-align:center\">";
+		printf(TAG_ERROR_NO_TAG,$tag);
+		echo "</p>";
 	}
-	itemsList ( "",  $items, IL_NO_COLLAPSE );
-    }    
-    
-    echo "</div>\n";
-    rss_footer();
+ 	echo "</div>\n";
+ 	rss_footer();
 }
-
-
 
 ?>

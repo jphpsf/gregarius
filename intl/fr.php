@@ -165,5 +165,5 @@ define ('TAG_TAGS','Tags: ');
 define ('TAG_EDIT','(modifier)');
 define ('TAG_SUBMIT','(sousmettre)');
 define ('TAG_SUBMITTING','(...)');
-
+define ('TAG_ERROR_NO_TAG',"D&eacute;sol&eacute;, aucun &eacute;l&eacute;ment taggu&eacute; &laquo;%s&raquo; n'a pu etre trouv&eacute;.");
 ?>
