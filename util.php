@@ -623,10 +623,9 @@ function add_channel($url, $folderid=0) {
 	      ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
 
 	    rss_query($sql);
+	    $newid = rss_insert_id();
+	    return array($newid,"");
 	    
-	    $res = rss_query ("select max(id) as max from channels");
-	    list($newid) = rss_fetch_row($res);
-	    return array($newid,"");	    
 	} else {
 	    return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");	    
 	}
