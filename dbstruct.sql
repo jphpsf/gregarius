@@ -96,3 +96,53 @@ INSERT INTO `config` (`key_`,`value_`,`default_`,`type_`,`desc_`,`export_`) VALU
 INSERT INTO `config` (`key_`,`value_`,`default_`,`type_`,`desc_`,`export_`) VALUES ("rss.config.refreshafter","45","45","num","If this option is set the feeds will be refreshed after x minutes of inactivity. Please respect the feed providers by not setting this value to anything lower than thirty minutes. \n\nSet this variable to 0 turn this option off",NULL);
 INSERT INTO `config` (`key_`,`value_`,`default_`,`type_`,`desc_`,`export_`) VALUES ("rss.input.allowed","a:17:{s:1:\"a\";a:2:{s:4:\"href\";i:1;s:5:\"title\";i:1;}s:1:\"b\";a:0:{}s:10:\"blockquote\";a:0:{}s:2:\"br\";a:0:{}s:4:\"code\";a:0:{}s:1:\"i\";a:0:{}s:3:\"img\";a:2:{s:3:\"src\";i:1;s:3:\"alt\";i:1;}s:2:\"li\";a:0:{}s:2:\"ol\";a:0:{}s:1:\"p\";a:0:{}s:3:\"pre\";a:0:{}s:5:\"table\";a:0:{}s:2:\"td\";a:0:{}s:2:\"th\";a:0:{}s:2:\"tr\";a:0:{}s:2:\"tt\";a:0:{}s:2:\"ul\";a:0:{}}","a:17:{s:1:\"a\";a:2:{s:4:\"href\";i:1;s:5:\"title\";i:1;}s:1:\"b\";a:0:{}s:10:\"blockquote\";a:0:{}s:2:\"br\";a:0:{}s:4:\"code\";a:0:{}s:1:\"i\";a:0:{}s:3:\"img\";a:2:{s:3:\"src\";i:1;s:3:\"alt\";i:1;}s:2:\"li\";a:0:{}s:2:\"ol\";a:0:{}s:1:\"p\";a:0:{}s:3:\"pre\";a:0:{}s:5:\"table\";a:0:{}s:2:\"td\";a:0:{}s:2:\"th\";a:0:{}s:2:\"tr\";a:0:{}s:2:\"tt\";a:0:{}s:2:\"ul\";a:0:{}}","array","This variable controls input filtering. HTML tags and their attributes, which are not in this list, get filtered out when new RSS items are imported",NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ('rss.output.showfeedmeta','false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column',NULL);
+
+CREATE TABLE tag (
+ id bigint(16) NOT NULL auto_increment,
+ tag varchar(63) NOT NULL default '',                    
+ PRIMARY KEY  (id),
+ UNIQUE KEY tag (tag),
+ KEY id (id)
+) type=MyISAM;                      
+
+CREATE TABLE metatag (
+ fid bigint(16) NOT NULL default '0',                    
+ tid bigint(16) NOT NULL default '0', 
+ ttype enum('item','folder','channel') NOT NULL default 'item', 
+ KEY fid (fid), 
+ KEY tid (tid),
+ KEY ttype (ttype)
+) type=MyISAM;                                 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
