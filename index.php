@@ -66,7 +66,7 @@ function items($title) {
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
     }    
-    $sql .=", i.added desc, i.id asc";
+    $sql .=", i.added desc, i.id asc"
     
       
       // Problem: to limit or not to limit?

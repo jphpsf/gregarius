@@ -160,7 +160,7 @@ _SQL_
 			rss_query("$tok", false);
 		}
 		if (rss_sql_error() > 0) {
-			rss_error(The  .getTable('config') .  ' was created successfully, but I couldn\'t insert the default values. Please do so manually!');
+			rss_error('The '  .getTable('config') .  'table was created successfully, but I couldn\'t insert the default values. Please do so manually!');
 			die();
 		}
 	}

@@ -51,13 +51,13 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	  ."\t<title>".makeTitle($title)."</title>\n";
 
 	if (getConfig('rss.config.robotsmeta')) {
-      $meta = (
-          (
-           array_key_exists('expand',$_REQUEST) || 
-           array_key_exists('collapse',$_REQUEST) || 
-           array_key_exists('dbg',$_REQUEST)
-         )?'noindex,follow':getConfig('rss.config.robotsmeta'));
-      echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
+	  $meta = (
+		  (
+		   array_key_exists('expand',$_REQUEST) || 
+		   array_key_exists('collapse',$_REQUEST) || 
+		   array_key_exists('dbg',$_REQUEST)
+		 )?'noindex,follow':getConfig('rss.config.robotsmeta'));
+	  echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
 	}
 
 	echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/layout.css\"/>\n"
@@ -708,15 +708,18 @@ function _absolute ($relative, $absolute) {
 	$url = parse_url($absolute);
 	
 	// dirname() erkennt auf / endende URLs nicht
-	if ($url['path']{strlen($url['path']) - 1} == '/')
-	  $dir = substr($url['path'], 0, strlen($url['path']) - 1);
-	else
-	  $dir = dirname($url['path']);
-	
+    if (array_key_exists($url, 'path')) {
+		if ($url['path']{strlen($url['path']) - 1} == '/')
+            $dir = substr($url['path'], 0, strlen($url['path']) - 1);
+		else
+            $dir = dirname($url['path']);
+	} else {
+	   $dir ="";
+	}
 	// absoluter Link auf dem gleichen Server
 	if ($relative{0} == '/') {
-	$relative = substr($relative, 1);
-	$dir = '';
+	   $relative = substr($relative, 1);
+	   $dir = '';
 	}
 	
 	// Link fängt mit ./ an
@@ -851,11 +854,11 @@ function extractFeeds($url) {
 		 //populate the return array: attr_name => attr_value
 		 while(list($id2,$match2) = each($res2)) {
 			   $attr = trim($match2[1]);
-			   $val  = trim($match2[2]);
-   			// make sure we have absolute URI's
-   			if (strcasecmp($attr,"href") == 0 &&
-   			strcasecmp(substr($val,0,4),"http") != 0) {
-		       	$val =	($url . $val);
+			   $val	 = trim($match2[2]);
+			// make sure we have absolute URI's
+			if (strcasecmp($attr,"href") == 0 &&
+			strcasecmp(substr($val,0,4),"http") != 0) {
+				$val =	($url . $val);
 			   }
 			   $tmp[$attr] = $val;
 		 }

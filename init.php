@@ -47,7 +47,7 @@ rss_require('config.php');
 if (getConfig('rss.meta.debug')) {
     error_reporting(E_ALL);
 } else {
-    error_reporting(E_NONE);
+    error_reporting(0);
 }   
 
 rss_require('extlib/rss_fetch.inc');
