@@ -96,7 +96,8 @@ function items($cid,$title) {
       $sql .= " and unread=1 ";
     }
     
-    $sql .=" order by added desc";
+    $sql .=" order by i.added desc, i.id asc";
+    //$sql .= " order by i.id asc";
       
     if (!isset($_GET['all']) && !isset($_GET['unread'])) {
       $sql .= " limit ". ITEMS_ON_CHANNELVIEW;

@@ -46,7 +46,7 @@ function items($title) {
       ." i.url, i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
       ." from item i, channels c "
       ." where i.cid = c.id and i.unread=1 "
-      ." order by c.title asc, i.added desc";
+      ." order by c.title asc, i.added desc, i.id asc";
 
     $res0=rss_query($sql);
     if (mysql_num_rows($res0) > 0) {
@@ -66,14 +66,14 @@ function items($title) {
     $res1=rss_query($sql);
 
     $items = array();
-
+    
     while (list($cid,$ctitle, $icon) = mysql_fetch_row($res1)) {
 	
-	 $sql = "select cid, title, url, description, unread, unix_timestamp(pubdate) as ts  "
-	 ." from item "
-	 ." where cid  = $cid and unread = 0"
-	 ." order by added desc"
-	 ." limit 2";
+	$sql = "select cid, title, url, description, unread, unix_timestamp(pubdate) as ts  "
+	  ." from item "
+	  ." where cid  = $cid and unread = 0"
+	  ." order by added desc, id asc "
+	  ." limit 2";
 	
 	 $res = rss_query($sql);
 	
