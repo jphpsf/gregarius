@@ -248,7 +248,7 @@ function itemsList ($title,$items){
 		if (_USE_FAVICONS_ && $cicon != "") {
 		    echo "<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>";
 		}
-		echo "<a href=\"feed.php?id=$cid\">$ctitle</a></h3>\n";
+		echo "<a href=\"feed.php?cid=$cid\">$ctitle</a></h3>\n";
 	    }
 	    
             echo "<ul>\n";

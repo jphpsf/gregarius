@@ -28,13 +28,12 @@
 
 
 require_once('init.php');
-$id= (array_key_exists('id',$_GET))?$_GET['id']:"";
+$cid= (array_key_exists('cid',$_GET))?$_GET['cid']:"";
 
 
 if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {
-    $id = $_POST['cid'];
     
-    $sql = "update item set unread=0 where cid=$id";
+    $sql = "update item set unread=0 where cid=$cid";
     rss_query($sql);
     
     // redirect to the next unread, if any.
@@ -46,25 +45,22 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {
 	       . $_SERVER['HTTP_HOST']
 	       . dirname($_SERVER['PHP_SELF'])
 	       . "/index.php"	       
-	       );	
+	       );
     } else {
-	$id = $next_unread;
+	$cid = $next_unread;
     }
     
 }
 
-assert(is_numeric($id));
+assert(is_numeric($cid));
 
-
-$res = rss_query("select title from channels where id = $id");
+$res = rss_query("select title from channels where id = $cid");
 list($title) = mysql_fetch_row($res);
 
 rss_header($title);
- sideChannels($id); 
- items($id,$title);
+ sideChannels($cid); 
+ items($cid,$title);
 rss_footer();
-
-
 
 
 function items($cid,$title) {
@@ -107,14 +103,14 @@ function items($cid,$title) {
     echo "<span class=\"readmore\">";    
     if ($unread_left > 0 && !isset($_GET['unread'])) {
         if (ITEMS_ON_CHANNELVIEW < $unread_left) {
-            echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
+            echo "<a href=\"feed.php?cid=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
         } else { 
-            echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
+            echo "<a href=\"feed.php?cid=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
         }
     }
     
     if (!isset($_GET['all']) || isset($_GET['unread'])) {
-        echo "<a href=\"feed.php?id=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
+        echo "<a href=\"feed.php?cid=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
     }
       
     echo "</span>\n";    

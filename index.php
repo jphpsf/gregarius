@@ -35,7 +35,7 @@ if (array_key_exists('action', $_POST)
 }
 
 rss_header("",1);
-sideChannels(true);
+sideChannels(false);
 items("last items");
 rss_footer();
 

@@ -87,7 +87,7 @@ li.folder span {
 
 
 /* channels and sub channels */
-div#channels li:hover, div#channels li.folder ul li:hover {
+div#channels li:hover, div#channels li.folder ul li:hover,div#channels li.active {
  background-color: #f8f8ff;
 }
 

@@ -30,17 +30,12 @@
 require_once('init.php');
 
 /** displays the channel list **/
-function sideChannels($id) {
-    
-    
-    echo "\n\n<div id=\"channels\" class=\"frame\">\n";
-    
+function sideChannels($activeId) {
+    echo "\n\n<div id=\"channels\" class=\"frame\">\n";    
     echo "<h2>Channels</h2>";
 
     stats();
-      
-
-    
+          
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.icon "
       ." from channels c, folders d "
@@ -69,7 +64,7 @@ function sideChannels($id) {
 
 	    
 	}
-	echo tabs( ($pid > 0)?3:1  ) . "<li>";
+	echo tabs( ($pid > 0)?3:1  ) . "<li" .  (($id == $activeId)?" class=\"active\"":"") . ">";
 	echo feed($id, $title, $url, $siteurl, $ico);
 	echo "</li>\n";
     }
@@ -117,7 +112,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
 	$ret .= "<img src=\"$ico\" class=\"favicon\" alt=\"\" />";
     }
     $ret .= 
-      "<a $class_ href=\"feed.php?id=$cid\">$title</a> $rdLbl"
+      "<a" .$class_ ." href=\"feed.php?cid=$cid\">$title</a> $rdLbl"
       ." [<a href=\"$url\">xml</a>";
     
     if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
