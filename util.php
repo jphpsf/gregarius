@@ -106,7 +106,9 @@ function ftr() {
       ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"
       ."</span>\n";
 
-    echo "<span>\n\tTentatively valid <a href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
+    echo "<span>\n\tTentatively valid <a title=\"Tentatively valid XHTML: the layout"
+      ." validates, but the actual content coming from the feeds I can't do very much.\" "
+      ." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
       ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
     $res = rss_query("select unix_timestamp(max(added)) as max_added from item");
