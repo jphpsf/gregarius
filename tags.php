@@ -151,7 +151,7 @@ function _et(id) {
     //first, find all the items which have been tagged with the sought tag.
     $sql = "select distinct(i.id) from ".getTable('item')." i, "
       .getTable('metatag')." m, ".getTable('tag')." t "
-      ." where i.id=m.fid and t.id=m.tid and t.tag='$tag' and m.ttype='item'";
+      ." where i.id=m.fid and t.id=m.tid and t.tag='$tag' ";
     
 	$res = rss_query($sql);
    $ids = array();
@@ -173,7 +173,7 @@ function _et(id) {
 	
 			// standard left-joins and normal joins
 			." from ".getTable("item") ." i "
-			." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
+			." left join ".getTable('metatag') ." m on (i.id=m.fid) "
 			." left join ".getTable('tag')." t on (m.tid=t.id) "
 			. ", " .getTable("channels") ." c, " .getTable("folders") ." f "
 			

@@ -178,10 +178,10 @@ function items($cid,$title,$iid,$y,$m,$d) {
       ." c.icon, c.title, i.id, t.tag "
       ." from " .getTable("item") . " i " 
       
-      ." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
+      ." left join ".getTable('metatag') ." m on (i.id=m.fid) "
       ." left join ".getTable('tag')." t on (m.tid=t.id) "
         
-		. ", " . getTable("channels") ." c "
+      . ", " . getTable("channels") ." c "
       ." where i.cid = $cid and c.id = $cid ";
 
     
