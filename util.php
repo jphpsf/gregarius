@@ -185,7 +185,7 @@ function makeTitle ($title) {
 
 function update($id) {
     global $kses_allowed;
-
+      
     $sql = "select id, url, title from channels";
     if ($id != "" && is_numeric($id)) {
 	$sql .= " where id=$id";
@@ -286,9 +286,7 @@ function update($id) {
 	    }
 
 	    if ($indb == "") {
-		
-		
-		
+						
 		$sql = "insert into item (cid, added, title, url, "
 		  ." description, unread, pubdate) "
 		  . " values ("
@@ -303,7 +301,8 @@ function update($id) {
 	    }
 	}
     }
-
+    
+    
     if ($id != "" && is_numeric($id)) {
 	if ($rss) {
 	    // when everything went well, return the error code
@@ -312,6 +311,8 @@ function update($id) {
 	} else {
 	    return array(-1,0);
 	}
+    } else {
+	return array(-1,$unreadCount);
     }
 }
 

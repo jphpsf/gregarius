@@ -41,6 +41,14 @@ $doPush =
   // browser supports it (Geckos and Opera)
   && $browser->supportsServerPush();
 
+
+
+
+if (defined ('MARK_READ_ON_UPDATE') && MARK_READ_ON_UPDATE) {
+    $ts = time();
+    $newItems = 0;
+}
+
 if ($doPush) {
     
     define('PUSH_BOUNDARY',"-------- =_aaaaaaaaaa0");
@@ -122,6 +130,8 @@ if ($doPush) {
 	echo "<td class=\"rc\">" . ($unread >0?$unread:"&nbsp;") . "</td>\n";       
 	echo "</tr>\n";
 	flush();
+	
+	$newItems += $unread;
     }
     
     echo "</table>\n";
@@ -132,11 +142,16 @@ if ($doPush) {
     
     // Sleep two seconds
     sleep(2);
-} else {
-    
-    update("");
+} else {    
+    $ret = update("");
+    if (is_array($ret)) {
+	$newItems = $ret[1];
+    }
 }
 
+if ($newItems > 0 && defined ('MARK_READ_ON_UPDATE') && MARK_READ_ON_UPDATE && $ts > 0) {
+    rss_query("update item set unread = 0 where unread = 1 and unix_timestamp(added) < $ts");
+}
 
 if ($doPush) {
     echo "\n" . PUSH_BOUNDARY ."\n";

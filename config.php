@@ -79,13 +79,10 @@ define ('ALLOW_CHANNEL_COLLAPSE', true);
 
 // Display a permalink icon and allow linking a given item directly
 define('USE_PERMALINKS',true);
-  
-// Leave this commented out, (WIP)
-/* 
- define ('ADMIN_USERNAME','test');
- define ('ADMIN_PASSWORD','123');
-*/
 
+// Mark all old unread feeds as read when updating, if new unread feeds
+// are found
+define('MARK_READ_ON_UPDATE',true);
 
 // Language pack to use. (As of today 'en' and 'fr' ar available)
 define ('LANG', 'en');
