@@ -1,5 +1,7 @@
-Gregarius 0.3.7
+Gregarius 0.3.8
 
+ 02.04.2005 Introduced tagging system for items.
+ 
  31.03.2005 Fixed a tiny old-standing (aesthetic) bug on the sidecolumn
  
  25.03.2005 Ability to turn off feed metainfo in the feed side column
