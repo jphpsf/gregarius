@@ -33,7 +33,7 @@ define ('_TITLE_', "Gregarius");
 
 
 // Application version
-define ('_VERSION_', "0.1.9");
+define ('_VERSION_', "0.2.1");
 define ('MINUTE',60);
 
 // The useragent used when retrieving the feeds
