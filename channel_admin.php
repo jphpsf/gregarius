@@ -40,44 +40,52 @@ define ('ADMIN_MOVE_UP_ACTION','up');
 define ('ADMIN_MOVE_DOWN_ACTION','down');
 define ('ADMIN_SUBMIT_EDIT','submit_edit');
 
+$auth = true;
+
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
     if ($_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME || $_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
 	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
 	header('HTTP/1.0 401 Unauthorized');
 	// mbi:tbd:Gotta do something here...
-	exit();
+	$auth = false;
     }
 }
 
 rss_header("Channel Admin",LOCATION_ADMIN);
 
-main();
+main($auth);
 rss_footer();
 
-$folder_array=array();
+///////////////////////////////////////////////////////////////////////////////////////////
 
-function main() {
+function main($authorised) {
     echo "\n<div id=\"channel_admin\" class=\"frame\">";
 
-    if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
-	switch($_REQUEST[ADMIN_DOMAIN]) {
-	 case ADMIN_DOMAIN_FOLDER:
-	    folder_admin();
-	    break;
-	 case ADMIN_DOMAIN_CHANNEL:
-	    channel_admin();
-	    break;
-	 default:
-	    break;
+    if ($authorised) {
+	if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
+	    switch($_REQUEST[ADMIN_DOMAIN]) {
+	     case ADMIN_DOMAIN_FOLDER:
+		folder_admin();
+		break;
+	     case ADMIN_DOMAIN_CHANNEL:
+		channel_admin();
+		break;
+	     default:
+		break;
+	    }
 	}
+
+	channels();
+	folders();
+	opml();
+
+	echo "\n<div class=\"clearer\"></div>\n";
+
+    } else {
+	rss_error("I'm sorry, you are not authorised to access the administration interface.\n"
+		  ."Please follow <a href=\"".getPath()."\">this link</a> back to the main page.\n"
+		  ."Have  a nice day!");
     }
-
-    channels();
-    folders();
-    opml();
-
-    echo "\n<div class=\"clearer\"></div>\n";
-
     echo "</div>\n";
 }
 
