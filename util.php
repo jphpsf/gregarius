@@ -499,7 +499,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		} else {
 		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
 		}
-		echo "\n\t\t\t<img src=\"".getPath() . "img/pl.gif\" alt=\"$ptitle\"/>\n"
+		echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\"/>\n"
 		  ."\t\t</a>\n";
 	    }
 
