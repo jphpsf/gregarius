@@ -258,12 +258,14 @@ th {
  font-weight: bold; 
 }
 
-table#channeltable,table#foldertable,table#updatetable {
+table#channeltable,table#foldertable,table#updatetable,table#configtable {
  border: 1px solid #ddd;
  margin: 20px 0 5px 0;
  width: 100%;
  font-size: small;
 }
+table#configtable td { vertical-align: top }
+table .cntr { text-align:center}
 
 table tr:hover td { background-color: #f8f8ff }
 
@@ -482,3 +484,4 @@ table#updatetable td.rc { font-weight: bold }
 
 .fl { display: inline; float:left }
 .fr { display: inline; float:right}
+

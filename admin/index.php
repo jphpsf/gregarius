@@ -39,6 +39,7 @@ require_once('../opml.php');
 define ('ADMIN_DOMAIN','domain');
 define ('ADMIN_DOMAIN_FOLDER','folder');
 define ('ADMIN_DOMAIN_CHANNEL','channel');
+define ('ADMIN_DOMAIN_CONFIG','config');
 define ('ADMIN_DELETE_ACTION','delete');
 define ('ADMIN_EDIT_ACTION','edit');
 define ('ADMIN_MOVE_UP_ACTION','up');
@@ -46,6 +47,7 @@ define ('ADMIN_MOVE_DOWN_ACTION','down');
 define ('ADMIN_SUBMIT_EDIT','submit_edit');
 
 $auth = true;
+
 
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
     if (!array_key_exists('PHP_AUTH_USER',$_SERVER) ||
@@ -59,7 +61,7 @@ if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
     }
 }
 
-rss_header(TITLE_ADMIN,LOCATION_ADMIN);
+rss_header(TITLE_ADMIN,LOCATION_ADMIN,'',false,""/* 'domcollapse.js' */);
 
 admin_main($auth);
 rss_footer();
@@ -82,7 +84,8 @@ function admin_main($authorised) {
 		break;
 	    }
 	}
-
+	
+	config();
 	channels();
 	folders();
 	opml();
@@ -102,8 +105,8 @@ function admin_main($authorised) {
 /*************** Channel management ************/
 
 function channels() {
-    echo "\n\n<div id=\"admin_channels\">\n";
-    echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
+    echo "<h2 class=\"trigger\">". ADMIN_CHANNELS ."</h2>\n";
+    echo "<div id=\"admin_channels\">\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
@@ -119,14 +122,14 @@ function channels() {
     echo "<table id=\"channeltable\">\n"
       ."<tr>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
-      ."\t<th>". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
+      ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n";
 
     if (getConfig('ABSOLUTE_ORDERING')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
     }
 
-    echo "\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+    echo "\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
       ."</tr>\n";
 
     $sql = "select "
@@ -159,16 +162,16 @@ function channels() {
 	  .((getConfig('USE_FAVICONS') && $icon != "")?
 	    "<img src=\"$icon\" class=\"favicon\" alt=\"$title\" width=\"16\" height=\"16\" />":"")
 	    ."<a href=\"$outUrl\">$title</a></td>\n"
-	  ."\t<td>$parentLabel</td>\n"
+	  ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
 	  ."\t<td>$descr</td>\n";
 
 	if (getConfig('ABSOLUTE_ORDERING')) {
-	    echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
+	    echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
 	      ."&amp;action=". ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". ADMIN_MOVE_UP
 	      ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
 	      ."&amp;action=". ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".ADMIN_MOVE_DOWN ."</a></td>\n";
 	}
-	echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
+	echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
 	  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT
 	  ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
 	  ."&amp;action=". ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
@@ -181,8 +184,9 @@ function channels() {
 
 function opml() {
     //opml import
-    echo "\n\n<div id=\"admin_opml\">\n";
-    echo "<h2>". ADMIN_OPML ."</h2>\n";
+    echo "<h2 class=\"trigger\">". ADMIN_OPML ."</h2>\n";
+    echo "<div id=\"admin_opml\">\n";
+
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT ."</label>\n";
@@ -477,7 +481,9 @@ function channel_edit_form($cid) {
 /*************** Folder management ************/
 
 function folders() {
-    echo "\n<div id=\"admin_folders\">\n<h2>".ADMIN_FOLDERS."</h2>\n";
+    echo "<h2 class=\"trigger\">".ADMIN_FOLDERS."</h2>\n"
+      ."<div id=\"admin_folders\" class=\"trigger\">\n";
+    
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 
     echo "<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n";
@@ -489,7 +495,7 @@ function folders() {
 
     echo "<table id=\"foldertable\">\n"
       ."<tr>\n"
-      ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n";
+      ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n";
 
     if (getConfig('ABSOLUTE_ORDERING')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
@@ -725,6 +731,88 @@ function opml_export_form() {
       ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"". ADMIN_EXPORT ."\"/></p>\n</form>\n";
 }
 
+
+/*************** Config management ************/
+
+function config() {
+    echo "<h2 class=\"trigger\">".ADMIN_CONFIG.":</h2>\n"
+      ."<div id=\"admin_config\" class=\"trigger\">\n";
+    
+    echo "<table id=\"configtable\">\n"
+      ."<tr>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_KEY ."</th>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_VALUE ."</th>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+      ."</tr>\n";
+
+    $sql = "select * from " .getTable("config");
+
+    $res = rss_query($sql);
+    $cntr = 0;
+    while ($row = rss_fetch_assoc($res)) {
+
+	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
+
+	echo "<tr class=\"$class_\">\n"
+	  ."\t<td>".$row['key_']."</td>\n";
+	
+	echo "\t<td>";
+	switch($row['type_']) {
+	 case 'string':
+	 case 'num':
+	 case 'boolean':
+	    echo $row['value_'];
+	    break;
+	 case 'enum':
+	    $arr = explode(',',$row['value_']);
+	    $idx = array_pop($arr);
+	    foreach ($arr as $i => $val) {
+		if ($i == $idx) 
+		    echo "<em>";
+		echo "&nbsp;$val";
+		 if ($i == $idx)
+		  echo "</em>";   
+	    }
+	    break;
+	 case 'array':
+	    //ugly!
+	    if ($row['key_'] == 'KSES_ALLOWED_TAGS') {
+		$arr = unserialize($row['value_']);
+		foreach ($arr as $tag => $attr) {
+		    echo "&lt;$tag";
+		    foreach ($attr as $nm => $val) {
+			echo "&nbsp;$nm=\"...\"&nbsp;";
+		    }
+		    echo "&gt;\n";
+		}
+	    }
+	    break;	    
+	}
+	
+	echo "</td>\n";
+	
+	echo "\t<td>" .
+	  // source: http://ch2.php.net/manual/en/function.preg-replace.php
+	  preg_replace('/\s(\w+:\/\/)(\S+)/',
+		       ' <a href="\\1\\2">\\1\\2</a>',
+		       $row['desc_']) 
+	    . "</td>\n";
+	
+	echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
+	  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_EDIT
+	  ."</a>";
+	
+	echo "</td>\n"
+	  ."</tr>\n";
+
+    }
+    echo "</table>";
+
+    echo "</div>\n";
+}
+
+/////////
 function real_strip_slashes($string) {
     if (stripslashes($string) == $string) {
 	return $string;

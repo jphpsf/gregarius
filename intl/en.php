@@ -105,6 +105,8 @@ define ('ADMIN_CHANNELS_HEADING_FOLDER','Folder');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_MOVE','Move');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
+define ('ADMIN_CHANNELS_HEADING_KEY','Key');
+define ('ADMIN_CHANNELS_HEADING_VALUE','Value');
 define ('ADMIN_CHANNELS_ADD','Add a feed:');
 define ('ADMIN_FOLDERS_ADD','Add a folder:');
 define ('ADMIN_CHANNEL_ICON','Shown favicon:');

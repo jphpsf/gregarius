@@ -107,6 +107,8 @@ define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_MOVE','D&eacute;placer');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
 define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
+define ('ADMIN_CHANNELS_HEADING_KEY','Clef');
+define ('ADMIN_CHANNELS_HEADING_VALUE','Valeur');  
 define ('ADMIN_FOLDERS_ADD','Ajouter un r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_ICON','Icone affichee:');
 define ('CLEAR_FOR_NONE','(Laisser vide pour ne pas afficher d\icone)');

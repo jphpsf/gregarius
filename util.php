@@ -30,7 +30,7 @@
 
 
 
-function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false) {
+function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false, $script="") {
 
     if (!$no_output_buffering) {
 	if (getConfig('OUTPUT_COMPRESSION')) {
@@ -78,6 +78,9 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	  . ";url=$redirect\"/>\n";
     }
 
+    if ($script != "") {
+	echo "\t<script type=\"text/javascript\" src=\"$script\"></script>\n";
+    }
     echo "</head>\n"
       ."<body";
     if ($onLoadAction != "" ) {
