@@ -1,2 +1,5 @@
 User-agent: *
 Disallow: update.php
+
+User-agent: Googlebot
+Disallow: /*fcollapse=*$

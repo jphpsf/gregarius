@@ -128,12 +128,12 @@ function sideChannels($activeId) {
 		 
 		 	if (getConfig('rss.output.channelcollapse')) {
 		 		if ($iscollapsed) {
-		 			$flabel = "<a href=\"index.php?".EXPAND_ACTION."=$cparent\">$fname</a>";
+		 			$flabel = "<a href=\"".getPath()."index.php?".EXPAND_ACTION."=$cparent\">$fname</a>";
 		 			if (array_key_exists($cparent,$collapsed_folders)) {
 		 				$flabel .= " " . sprintf(UNREAD_PF,$collapsed_folders[$cparent]);
 		 			}
 		 		} else {
-					$flabel = "<a href=\"index.php?".COLLAPSE_ACTION."=$cparent\">$fname</a>";
+					$flabel = "<a href=\"".getPath()."index.php?".COLLAPSE_ACTION."=$cparent\">$fname</a>";
 		 		}
 		 	} else {
 		 		$flabel = "$fname";
