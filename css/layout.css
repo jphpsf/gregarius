@@ -202,6 +202,10 @@ ul.navlist {
  margin: 0;
 }
  
+div#channel_admin ul.navlist {
+ margin-bottom: 1em;
+}
+
 ul.navlist li {
  float: left;
 }
