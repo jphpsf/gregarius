@@ -40,6 +40,7 @@ function rss_require($file) {
 
 
 rss_require('constants.php');
+rss_require('util.php');
 rss_require('dbinit.php');
 rss_require('db.php');
 rss_require('config.php');
@@ -54,7 +55,6 @@ rss_require('extlib/rss_fetch.inc');
 rss_require('extlib/rss_utils.inc');
 rss_require('extlib/kses.php');
 rss_require('extlib/Sajax.php');
-rss_require('util.php');
 
 
 $lang = getConfig('rss.output.lang');

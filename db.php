@@ -94,4 +94,7 @@ function getTable($tableName) {
 	return (" $tableName ");
     }
 }
+
+rss_require('schema.php');
+checkSchema();
 ?>

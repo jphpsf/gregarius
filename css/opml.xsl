@@ -5,11 +5,11 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:output method="html" doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" doctype-public="-//W3C//DTD XHTML 1.1//EN"/>
 	
-	
+	<!--
 	<xsl:param name="sort-by">
 		<xsl:value-of select="@title"/>
 	</xsl:param>
-	
+	-->
 	<xsl:param name="sort-type" select="'text'"/>
 	<xsl:param name="sort-order" select="'ascending'"/>
 
