@@ -125,7 +125,7 @@ function items($title) {
 }
 
 function markAllReadForm() {
-    echo "<form action=\"". getPath() ."index.php\" method=\"post\" class=\"markallread\">"
+    echo "<form action=\"". getPath() ."\" method=\"post\" class=\"markallread\">"
       ."<input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/>"
       ."</form>";
 }

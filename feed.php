@@ -87,14 +87,21 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
     $sql = "select cid,title from item where unread=1 order by added desc limit 1";
     $res = rss_query($sql);
     list ($next_unread_id, $next_unread_title) = mysql_fetch_row($res);
+
     
 
     if ($next_unread_id == '') {
-      header("Location: http://"
-        . $_SERVER['HTTP_HOST']
-	      . dirname($_SERVER['PHP_SELF'])
-	      . "/"
-      );
+	
+	$redirect = "http://"
+	  . $_SERVER['HTTP_HOST']     
+	  . dirname($_SERVER['PHP_SELF']);   
+	
+	if (substr($redirect,-1) != "/") {
+	    $redirect .= "/";
+	} 
+	
+	header("Location: $redirect");
+	exit();
     } else {
 	$cid = $next_unread_id;
     }
