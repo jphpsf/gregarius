@@ -97,13 +97,13 @@ if ($doPush) {
 	    $doSleep = true;
 	}
 	
-	"</td>\n";
+	echo "</td>\n";
 	echo "</tr>\n";
 	flush();
     }
     
     echo "</table>\n";
-    echo "<p><a href=\"".getPath()."\">Redirecting...</a></p>";
+    echo "<p><a href=\"".getPath()."\">Redirecting...</a></p>\n";
     echo "</div>\n";
     rss_footer();
     flush();
