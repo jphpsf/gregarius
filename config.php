@@ -48,7 +48,7 @@ function getConfig($key) {
 	
 	
 	$config = array();
-	while (list($key_,$value_,$default_,$type_,$description,$export_) = rss_fetch_row($res)) {
+	while (list($key_,$value_,$default_,$type_,$description_,$export_) = rss_fetch_row($res)) {
 	    $value_ = real_strip_slashes($value_);
 	    switch ($type_) {
 	     case 'boolean':
