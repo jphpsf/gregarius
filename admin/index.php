@@ -266,6 +266,28 @@ function items() {
     echo "</div>\n";
 }
 
+function item_admin() {
+   switch ($_REQUEST['action']) {
+      case ADMIN_DELETE:
+         $req = rss_query('select count(*) as cnt from ' .getTable('item'));
+         list($cnt) = rss_fetch_row($req);
+         $prune_older = (int) $_REQUEST['prune_older'];
+         $prune_keep = (int) $_REQUEST['prune_keep'];
+         if ($prune_older) {
+            $prune_period = $_REQUEST['prune_period'];
+            
+         } elseif ($prune_keep) {
+         
+         }
+      
+      break;
+      default:
+      break;   
+   }
+
+}
+
+
 function channel_admin() {
 
     $ret__ = ADMIN_DOMAIN_NONE;
