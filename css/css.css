@@ -220,10 +220,11 @@ div#items li.upnav a {
 
 /* images inside posts */
 div.content img {
-  display: block; 
-/*  margin-right: 1em;
-  float:left; */
+  display: block;
 }
+
+
+
 /*
 br.brkr { clear: left }
 */

@@ -108,7 +108,10 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     
     $ret = "";
     
+    
+    
     if (_USE_FAVICONS_ && $ico != "") {
+	// $ret .= "<img src=\"". getPath(). "imgwrp.php?url=$ico\" class=\"favicon\" alt=\"\" />";	
 	$ret .= "<img src=\"$ico\" class=\"favicon\" alt=\"\" />";
     }
     
