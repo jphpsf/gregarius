@@ -37,6 +37,10 @@ if (array_key_exists('action', $_POST)
     rss_query( "update item set unread=0" );
 }
 
+if (array_key_exists('update',$_REQUEST)) {
+ update("");   
+}
+
 rss_header("",LOCATION_HOME);
 
 sideChannels(false);

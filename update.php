@@ -33,7 +33,13 @@ require_once('init.php');
 
 if (! array_key_exists('visual',$_GET)) {
     update("");    
-    header("Location: index.php");
+
+    header("Location: http://"
+	   . $_SERVER['HTTP_HOST']
+	   . dirname($_SERVER['PHP_SELF'])
+
+	   );  
+    
     exit();
 } else {    
     
