@@ -31,7 +31,7 @@
 function getConfig($key) {
     static $config;
     if ($config == null) {
-	$res = rss_query("select key_,value_,default_,type_,desc_,export_ from config");
+	$res = rss_query("select key_,value_,default_,type_,desc_,export_ from " .getTable("config"));
 	$config = array();
 	while (list($key_,$value_,$default_,$type_,$description,$export_) = rss_fetch_row($res)) {
 	    switch ($type_) {
