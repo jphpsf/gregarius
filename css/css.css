@@ -412,5 +412,3 @@ span.updateres {
 }
 span.updateres.ok { color: green }
 span.updateres.ko { color: red }
-
-a#top { display: none; height: 0px; }

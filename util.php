@@ -66,10 +66,10 @@ function rss_query ($query) {
 }
 
 function nav($title, $active=0) {
-   echo "\n<a id=\"top\"></a>\n"
-      ."\n<div id=\"nav\" class=\"frame\">"
+
+      echo "<div id=\"nav\" class=\"frame\">"
       
-      ."\n<h1>".makeTitle($title)."</h1>\n"
+      ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
       ."\t<li".($active==1?" class=\"active\"":"")."><a href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
       . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
