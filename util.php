@@ -85,7 +85,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 		echo "\t<script type=\"text/javascript\" src=\"$script\"></script>\n";
 	}
 
-	echo "\t<script type=\"text/javascript\" src=\"".getPath()."tag.php?js\"></script>\n";
+	echo "\t<script type=\"text/javascript\" src=\"".getPath()."tags.php?js\"></script>\n";
 
 
 	echo "</head>\n"

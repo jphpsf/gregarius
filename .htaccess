@@ -4,7 +4,7 @@
   SetEnvIf Request_URI "/css/" static
   SetEnvIf Request_URI "/img/" static
   SetEnvIf Request_URI "/admin/" static
-  SetEnvIf Request_URI "/test/" static  
+  SetEnvIf Request_URI "/test/" static
   # You can add other lines here to have static content 
   # under a gregarius installation.
   
@@ -12,13 +12,10 @@
   RewriteRule 	^admin\/([a-z]+)$	admin/index.php?view=$1 [L]
   
   #opml
-  RewriteRule 	^opml.*$	opml.php?action=Export [L]
-  
-  		
+  RewriteRule 	^opml.*$		opml.php?action=Export [L]
+
   #tag view
-  RewriteCond %{env:static} ^$
-  RewriteRule tag\/([a-z]+)$  tag.php?tag=$1 [L]
-	
+  RewriteRule	^tag\/([a-z0-9]+)$  	tags.php?tag=$1 [L]
   
   #item view
   RewriteCond  %{env:static} ^$
@@ -26,7 +23,5 @@
   
   #feed view
   RewriteCond  %{env:static} ^$
-  RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2 
-  
-    
+  RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2 [L]
 </IfModule>
