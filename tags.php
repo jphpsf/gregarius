@@ -80,8 +80,22 @@ sajax_export("submit_tag");
 
 /* spit out the javascript for this bugger */
 if (array_key_exists('js',$_GET)) {
-	sajax_show_javascript(); 
-	
+    
+    $js = sajax_get_javascript();
+    
+    if (getConfig('rss.output.cachecontrol')) {	
+	$etag = md5($js);
+	$hdrs = getallheaders();
+	if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
+	    header("HTTP/1.1 304 Not Modified");
+	    flush();
+	    exit();
+	} else {
+	    header("ETag: $etag");
+	}
+    }
+    echo $js;
+
 	// and here is s'more javascript for field editing...
 ?>
 

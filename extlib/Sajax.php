@@ -224,7 +224,7 @@ if (!isset($SAJAX_INCLUDED)) {
 	{
 		echo sajax_get_javascript();
 	}
-
+    
 	
 	$SAJAX_INCLUDED = 1;
 }

@@ -32,6 +32,20 @@
 
 function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false, $script="") {
 
+    
+    if (getConfig('rss.output.cachecontrol')) {
+        $etag = getETag();
+	$hdrs =  getallheaders();
+	if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
+	    header("HTTP/1.1 304 Not Modified");
+	    flush();
+	    exit();	    
+	} else {	    
+	    header('Last-Modified: '.gmstrftime("%a, %d %b %Y %T %Z",getLastModif()));
+	    header("ETag: $etag");
+	}
+    }
+    
 	if (!$no_output_buffering) {
 	if (getConfig('rss.output.compression')) {
 		ob_start('ob_gzhandler');
@@ -40,6 +54,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	}
 	}
 
+    
 	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
 	  ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
 	  ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
@@ -113,8 +128,7 @@ function rss_footer() {
 	  ." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
 	  ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
-	$res = rss_query("select unix_timestamp(max(added)) as max_added from " . getTable("item"));
-	list($ts) = rss_fetch_row($res);
+        $ts = getLastModif();
 	echo "<span>\n\tLast update: "
 		.($ts?date(getConfig('rss.config.dateformat'),$ts):"never")
 	  ."\n</span>\n";
@@ -124,6 +138,18 @@ function rss_footer() {
 	  ."</html>\n";	  
 }
 
+function getLastModif() {
+    static $ret;
+    if ($ret == 0) {
+	$res = rss_query("select unix_timestamp(max(added)) as max_added from " . getTable("item"));
+	list($ret) = rss_fetch_row($res);
+    }
+    return $ret;
+}
+
+function getETag() {
+    return md5(getLastModif() . $_SERVER['PHP_SELF']);    
+}
 
 function nav($title, $active=0) {
 	echo "<div id=\"nav\" class=\"frame\">"
