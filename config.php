@@ -82,8 +82,8 @@ define('USE_PERMALINKS',true);
   
 // Leave this commented out, (WIP)
 /* 
- define ('_ADMIN_USERNAME_','test');
- define ('_ADMIN_PASSWORD_','123');
+ define ('ADMIN_USERNAME','test');
+ define ('ADMIN_PASSWORD','123');
 */
 
 // Language pack to use. (As of today 'en' and 'fr' ar available)

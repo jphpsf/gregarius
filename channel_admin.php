@@ -37,16 +37,15 @@ define ('ADMIN_DOMAIN_CHANNEL','channel');
 define ('ADMIN_DELETE_ACTION','delete');
 define ('ADMIN_EDIT_ACTION','edit');
 
-/*
-if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
-    if ($_SERVER['PHP_AUTH_USER'] != _ADMIN_USERNAME_ || $_SERVER['PHP_AUTH_PW'] != _ADMIN_PASSWORD_ ) {
+
+if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
+    if ($_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME || $_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
 	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
 	header('HTTP/1.0 401 Unauthorized');
 
 	exit();
     }
 }
-*/
 
 rss_header("Channel Admin",LOCATION_ADMIN);
 
