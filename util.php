@@ -608,7 +608,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	    }
 	    
 	      echo "</span>"
-	      . "&nbsp;<a id=\"tt$iid\" href=\"#\" onmouseup=\"_et($iid);\">".TAG_EDIT."</a>"
+	      . "&nbsp;<a id=\"tt$iid\" href=\"#\" onclick=\"_et($iid); return false;\">".TAG_EDIT."</a>"
 	      ."</h5>\n\n";
 
 		/// /tags

@@ -100,7 +100,7 @@ function submit_tag_cb(ret) {
 			 . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=') 
           ?>" + tags[i] + "\">" + tags[i] + "</a> ";
         }
-        html = (html +"</span>&nbsp;<a id=\"tt"+id+"\" href=\"\" onmouseup=\"_et("+id+");\">"
+        html = (html +"</span>&nbsp;<a id=\"tt"+id+"\" href=\"\" onclick=\"_et("+id+"); return false;\">"
                 + "<?= TAG_EDIT ?></a>");
 	fld.innerHTML = html;
 }
