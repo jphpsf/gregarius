@@ -68,7 +68,7 @@ define ('DEMO_MODE', false);
 
 // When in debug mode some extra debug info is shown and the error 
 // reporting is a bit more verbose
-define ('_DEBUG_', true);
+define ('_DEBUG_', false);
 
 // Output compression is handled by most browsers. 
 define ('OUTPUT_COMPRESSION', true);
@@ -114,6 +114,7 @@ $kses_allowed =
 	'ul' => array(),	
 	'li' => array(),
 	'tt' => array(),
-	'code' => array()
+	'code' => array(),
+	'pre' => array()
 	);
 ?>
