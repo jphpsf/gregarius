@@ -36,7 +36,7 @@ function getConfig($key) {
 	while (list($key_,$value_,$default_,$type_,$description,$export_) = rss_fetch_row($res)) {
 	    switch ($type_) {
 	     case 'boolean':
-		$real_val = ($value_ == 'true');
+		$real_value = ($value_ == 'true');
 		break;
 		
 	     case 'array':
