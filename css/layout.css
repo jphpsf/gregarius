@@ -292,3 +292,8 @@ fieldset.tags input, fieldset.tags select {
  display: block;width: 110px;
  margin: 5px 0; 
 }
+
+div#alltags {
+ margin: 30px;
+ padding: 20px;
+}

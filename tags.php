@@ -210,6 +210,56 @@ function edit_tag(id) {
 	}
  	echo "</div>\n";
  	rss_footer();
+} elseif(array_key_exists('alltags',$_GET)) {
+    
+    define ('SMALLEST',25);
+    define ('LARGEST',70);
+    define ('UNIT','pt');
+    
+    $sql = "select tag,count(*) as cnt from "
+      . getTable('metatag') . ","
+      . getTable('tag') .""
+      ." where tid=id group by tid order by 1";
+    
+    $res = rss_query($sql);
+    $tags = array();
+    $max = 0;
+    $min = 100000;
+    while(list($tag,$cnt) = rss_fetch_row($res)) {
+	$tags[$tag] = $cnt;
+	if ($cnt > $max) {
+	    $max = $cnt;
+	}
+	if ($cnt < $min) {
+	    $min = $cnt;
+	}
+    }
+    
+    
+    // Credits: Matt, http://www.hitormiss.org/about/
+    // http://dev.wp-plugins.org/file/weighted-category-list/weighted_categories.php?format=txt
+    $spread = $max - $min;
+    if ($spread <= 0) { $spread = 1; };
+    $fontspread = LARGEST-SMALLEST;
+    $fontstep = $spread / $fontspread;
+    if ($fontspread <= 0) { $fontspread = 1; }
+    $ret = "";
+    foreach ($tags as $tag => $count) {
+	$taglink = getPath() . "tag/$tag";	  
+	$ret .= "\t<a href=\"$taglink\" title=\"$count "
+	  .($count > 1 || $count ==0?ITEMS:ITEM)."\" style=\"font-size: ".
+	  ($smallest + ($count/$fontstep)). UNIT.";\">$tag</a> \n";
+    }
+  
+    // done! Render some stuff
+    rss_header("Tags " . TITLE_SEP . " " . ALL_TAGS);
+    sideChannels(false);    
+    echo "\n\n<div id=\"items\" class=\"frame\">\n"
+    ."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
+    ."\n\n</div>\n";
+    rss_footer();
+    
+    
 }
 
 ?>

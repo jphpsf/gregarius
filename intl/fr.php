@@ -28,6 +28,8 @@
 #
 ###############################################################################
 
+define ('ITEM','&eacute;l&eacute;ment');
+define ('ITEMS','&eacute;l&eacute;ments');
 define ('MARK_READ', "Tous marquer comme lus");
 define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
 define ('H2_SEARCH_RESULTS_FOR', "%d r&eacute;sultats pour %s");

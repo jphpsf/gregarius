@@ -28,6 +28,8 @@
 #
 ###############################################################################
 
+define ('ITEM','item');
+define ('ITEMS','items');
 define ('MARK_READ', "Mark all as read");
 define ('MARK_CHANNEL_READ', "Mark this feed as read");
 define ('H2_SEARCH_RESULTS_FOR', "%d matches for %s");

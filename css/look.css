@@ -109,7 +109,7 @@ h1 {
  font-style:italic;
 }
 
-li.item.even, tr.even { background-color: #f9f9f9; }
+li.item.even, tr.even,div#alltags { background-color: #f9f9f9; }
 li.item.odd, tr.odd { background-color: #f4f4f4; }
 
 h3.collapsed {
@@ -261,3 +261,8 @@ fieldset {
 
 optgroup { margin: 1em 0 0.2em 0;} 
 legend { font-size:small}
+
+div#alltags {
+ background-color: #f9f9f9;
+ border-color: #eee;
+}
