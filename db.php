@@ -48,18 +48,32 @@ function rss_connect($dbserver, $dbuname, $dbpass) {
 
 function rss_select_db($dbname) {
     if (!mysql_select_db($dbname)) {
-	die( "<h1>Error connecting to the database!</h1>\n"
-	  ."<p>Have you edited dbinit.php and correctly defined "
-	  ."the database username and password?</p>\n"
-	  ."<p>Refer to the <a href=\"INSTALL\">INSTALL</a> document "
-	  ."if in doubt</p>\n" );
+		die( "<h1>Error connecting to the database!</h1>\n"
+		  ."<p>Have you edited dbinit.php and correctly defined "
+		  ."the database username and password?</p>\n"
+		  ."<p>Refer to the <a href=\"INSTALL\">INSTALL</a> document "
+		  ."if in doubt</p>\n" );
     }
 }
 
-function rss_query ($query, $dieOnError=true) {
-    $ret =  mysql_query($query);
-    if (!$ret && $dieOnError) {
-      	die ("<p>Failed to execute the SQL query<pre>$query</pre> <p>" .mysql_error() ."</p>");
+function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
+	$ret =  mysql_query($query);
+   
+   if ($error = rss_sql_error()) {
+   	$errorString = mysql_error();
+   }
+   
+   // if we got a missing table error, look for missing tables in the schema 
+   // and try to create them
+   if ($error == 1146 && !$preventRecursion && $dieOnError) {
+		rss_require('schema.php');
+		checkSchema();
+		return rss_query ($query, $dieOnError, true);
+	}
+
+    if ($error && $dieOnError) {
+      	die ("<p>Failed to execute the SQL query <pre>$query</pre> </p>" 
+      	."<p>Error $error: $errorString</p>");
 	} 
 	return $ret;
 }
@@ -95,6 +109,4 @@ function getTable($tableName) {
     }
 }
 
-rss_require('schema.php');
-checkSchema();
 ?>

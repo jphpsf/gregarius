@@ -36,7 +36,7 @@ function getConfig($key) {
 		$cfgQry = "select key_,value_,default_,type_,desc_,export_ "
 		  ." from " .getTable("config");
 		
-		$res = rss_query($cfgQry, false);		
+		$res = rss_query($cfgQry);		
 		
 		$config = array();
 		while (list($key_,$value_,$default_,$type_,$description_,$export_) = rss_fetch_row($res)) {
