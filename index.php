@@ -44,7 +44,10 @@ rss_footer();
 
 function items($title) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
-    
+
+
+
+    // unread items first!
     $sql = "select i.title,  c.title, c.id, i.unread, "
       ." i.url, i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
       ." from item i, channels c "
@@ -70,34 +73,32 @@ function items($title) {
         itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items,  false);
     }
 
+    // next: unread. Must find a better solution instead of iterating over the channels twice.
     $sql = "select "
       ." id, title, icon "
       ." from channels "
       ." order by 3 asc, 2 asc";
 
     $res1=rss_query($sql);
-
     $items = array();
-    
     while (list($cid,$ctitle, $icon) = mysql_fetch_row($res1)) {
 	
-	$sql = "select cid, title, url, description, unread, unix_timestamp(pubdate) as ts  "
-	  ." from item "
-	  ." where cid  = $cid and unread = 0"
-	  ." order by added desc, id asc "
-	  ." limit 2";
+      	$sql = "select cid, title, url, description, unread, unix_timestamp(pubdate) as ts  "
+      	  ." from item "
+      	  ." where cid  = $cid and unread = 0"
+      	  ." order by added desc, id asc "
+      	  ." limit 2";
 	
-	 $res = rss_query($sql);
+	     $res = rss_query($sql);
 	
-	if (mysql_num_rows($res) > 0) {
-	    while (list($cid, $ititle, $url, $description, $unread, $ts) =  mysql_fetch_row($res)) {
-		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts);
-	    }
-	}
+      	if (mysql_num_rows($res) > 0) {
+      	    while (list($cid, $ititle, $url, $description, $unread, $ts) =  mysql_fetch_row($res)) {
+      		    $items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts);
+      	    }
+      	 }
     }
 
-    itemsList(H2_RECENT_ITEMS,$items, false);
-    
+    itemsList(H2_RECENT_ITEMS,$items, false);  
     echo "</div>\n";
 }
 
