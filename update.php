@@ -105,7 +105,7 @@ if ($doPush) {
 	    }	      
 	}
 	
-	echo "</td>\n<td>" . ($unread?$unread:"&nbsp;") . "</td>\n";       
+	echo "</td>\n<td>" . ($unread >0?$unread:"&nbsp;") . "</td>\n";       
 	echo "</tr>\n";
 	flush();
     }

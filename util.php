@@ -304,6 +304,8 @@ function update($id) {
 	    $baseUrl = $rss->channel['link'];
 	}
 
+	$unreadCount = 0;
+	
 	foreach ($rss->items as $item) {
 
 	    // item title
@@ -377,13 +379,16 @@ function update($id) {
 		    ."', 1, $sec)";
 
 		rss_query($sql);
+		$unreadCount++;
 	    }
 	}
     }
 
     if ($id != "" && is_numeric($id)) {
 	if ($rss) {
-	    return array($rss -> rss_origin,0);
+	    // when everything went well, return the error code 
+	    // and numer of new items
+	    return array($rss -> rss_origin,$unreadCount);
 	} else {
 	    return array(-1,0);
 	}
