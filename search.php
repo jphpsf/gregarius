@@ -107,11 +107,31 @@ function search($qry,$exactMatch, $channelId) {
     // 'query_string!'
     $space = ($exactMatch?" ":"");
 
+    $qWhere = "";
+    $regMatch = "";
+    $terms = explode(" ",$qry);
+    foreach($terms as $term) {
+	$term = trim($term);
+	if ($term != "") {	    
+	    $qWhere .= 
+	      "(i.description like '%$space$term$space%' or "
+	      ." i.title like '%$space$term$space%') and ";
+	}
+	// this will be used later for the highliting regexp
+	if ($regMatch != "") {
+	    $regMatch .= "|";
+	}
+	$regMatch .= $term;
+    }
+    
+    $qWhere .= "1=1";
+    
+    
     $sql = "select i.title, c.title, c.id, i.unread, i.url, "
       ." i.description, c.icon, unix_timestamp(i.pubdate) as ts, i.id  "
       ." from item i, channels c, folders f "
       ." where i.cid=c.id and c.parent=f.id and "
-      ."   (i.description like '%$space$qry$space%' or i.title like '%$space$qry$space%') ";
+      .$qWhere;
 
     if ($channelId != ALL_CHANNELS_ID) {
 	$sql .= " and c.id = $channelId ";
@@ -128,6 +148,8 @@ function search($qry,$exactMatch, $channelId) {
 
     $sql .=", i.added desc";
 
+
+    
     $res0=rss_query($sql);
     $cnt = mysql_num_rows($res0);
     $items = array();
@@ -139,21 +161,25 @@ function search($qry,$exactMatch, $channelId) {
 	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
 	    $title_noTags = preg_replace("/<.+?>/","",$ititle);
 
-	    if (stristr($descr_noTags,$qry) || stristr($title_noTags, $qry)) {
+	    $match = false;
+	    reset($terms);
+	    foreach ($terms as $term) {
+		$match = (stristr($descr_noTags,$term) || stristr($title_noTags, $term));
+		if ($match) {
+		    continue;
+		}
+	    }
+	    
+	    if ($match) {
 
 		$items[]=array($cid,$ctitle,$cicon,
 
 			       // Credits for the regexp: mike at iaym dot com
 			       // http://ch2.php.net/manual/en/function.preg-replace.php
-			       /*
-			       preg_replace("'(?!<.*?)($qry)(?![^<>]*?>)'si",
-			       	    HIT_BEFORE . "\\1" . HIT_AFTER,
-			       	    $ititle),
-				*/
 			       $ititle,
 			       $iunread,
 			       $iurl,
-			       preg_replace("'(?!<.*?)($qry)(?![^<>]*?>)'si",
+			       preg_replace("'(?!<.*?)($regMatch)(?![^<>]*?>)'si",
 					    HIT_BEFORE . "\\1" . HIT_AFTER,
 					    $idescr),
 			       $its,
