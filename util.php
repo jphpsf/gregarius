@@ -398,7 +398,7 @@ function update($id) {
 /**
  * renders a list of items. Returns the number of items actually shown
  */
-function itemsList ($title,$items, $options = IL_NONE){
+function itemsList($title,$items, $options = IL_NONE){
 
     echo "\n\n<h2>" . htmlentities($title) ."</h2>\n";
 
@@ -480,7 +480,10 @@ function itemsList ($title,$items, $options = IL_NONE){
 		    .">\n";
 
 		
-		if (!($options & IL_NO_COLLAPSE) && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
+		if (!($options & IL_NO_COLLAPSE) 
+		    && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE
+		    && !$iunread
+		    ) {
 		    if ($collapsed) {
 			$title = EXPAND . " '$ctitle'";
 			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid\">"
@@ -494,7 +497,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 			  //."&nbsp;-&nbsp;"
 			  ."</a>\n";
 		    }
-		} elseif (defined ('USE_FAVICONS') && USE_FAVICONS && $cicon != "") {
+		} elseif (defined ('USE_FAVICONS') && USE_FAVICONS && $cicon != "" && !$iunread) {
 		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
 		}
 
