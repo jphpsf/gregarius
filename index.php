@@ -26,15 +26,11 @@
 #
 ###############################################################################
 
-
-
 require_once("init.php");
-
 
 if ($_POST['action'] != "" && trim($_POST['action']) == trim(MARK_READ)) {
     rss_query( "update item set unread=0" );
 }
-
 
 rss_header("",1);
 sideChannels(true);
@@ -43,10 +39,8 @@ rss_footer();
 
 function items($title) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
-    //markReadForm($cid);
-
     
-    $sql = "select i.id, i.title,  c.title, c.id, i.unread, "
+    $sql = "select i.title,  c.title, c.id, i.unread, "
       ." i.url, i.description, c.icon "
       ." from item i, channels c "
       ." where i.cid = c.id and i.unread=1 "
@@ -54,119 +48,49 @@ function items($title) {
 
     $res0=rss_query($sql);
     if (mysql_num_rows($res0) > 0) {
-        echo "\n\n<h2>". sprintf(H2_UNREAD_ITEMS ,mysql_num_rows($res0)) ."</h2>\n";
-        $ctnr=0;
-        $prev_cid=0;
-        while (list($iid_,$title_,$label_, $cid_, $unread_, $url_, $descr_,  $icon_) = mysql_fetch_row($res0)) {
-            
-            //echo "<!-- prev=$prev_cid, cid=$cid_ -->\n";
-            if ($prev_cid != $cid_) {
-                $prev_cid = $cid_;
-                if ($ctnr++ > 0)
-                  echo "</ul>\n";
-                
-                echo "<h3>";
-                if (_USE_FAVICONS_ && $icon_ != "") {
-                    echo "<img src=\"$icon_\" class=\"favicon\" alt=\"\"/>";
-                }
-                echo "<a href=\"feed.php?id=$cid_\">$label_</a></h3>\n";
-                echo "<ul>\n";
-            }
-    
-            
-            $cls="item";
-            if (($cntr++ % 2) == 0) {
-                $cls .= " even";
-            } else {
-                $cls .= " odd";
-            }
-            
-            if  ($unread_ == 1) {
-                $cls .= " unread";
-            }
-            
-            $url__ = htmlentities($url_);
-            echo "\t<li class=\"$cls\">\n"
-              ."\t\t<a href=\"$url__\">$title_</a>\n";
-            
-            if ($descr_ != "") {
-                echo "\t\t<div class=\"content\">$descr_</div>\n";
-            }
-            
-            echo "\t</li>\n";
-            
+	
+        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_) = mysql_fetch_row($res0)) {
+            $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_ );
         }
-        echo "</ul>\n";
+
+        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items);
     }
-    
-    echo "\n\n<h2>" .  H2_RECENT_ITEMS . "</h2>\n";
-    
+
     $sql = "select "
-      ." id, title, parent, icon "
+      ." id, title, icon "
       ." from channels "
       ." order by 3 asc, 2 asc";
 
-    $res1=rss_query($sql);    
-    while (list($cid,$title,$parent, $icon) = mysql_fetch_row($res1)) {
-	echo "<h3>";
-	if (_USE_FAVICONS_ && $icon != "") {
-	    echo "<img src=\"$icon\" class=\"favicon\" alt=\"\"/>";
-	}
-	
-	echo "<a href=\"feed.php?id=$cid\">$title</a></h3>\n";
+    $res1=rss_query($sql);
 
-	$sql = "select id, cid, added, title, url, description, unread, pubdate "
-	  ." from item "
-	  ." where cid  = $cid "
-	  ." order by added desc"
-	  ." limit 2";
-	$res = rss_query($sql);
+    $items = array();
+
+    while (list($cid,$ctitle, $icon) = mysql_fetch_row($res1)) {
 	
-	if ($res && mysql_num_rows($res) > 0) {
-	  echo "<ul>\n";
-	}
+	 $sql = "select cid, title, url, description, unread "
+	 ." from item "
+	 ." where cid  = $cid "
+	 ." order by added desc"
+	 ." limit 2";
 	
-	$cntr = 0;
-	while (list($id, $cid, $added, $title, $url, $description, $unread, $pubdate) =  mysql_fetch_row($res)) {
-	    $cls="item";
-	    if (($cntr++ % 2) == 0) {
-		$cls .= " even";
-	    } else {
-		$cls .= " odd";
+	 $res = rss_query($sql);
+	
+	if (mysql_num_rows($res) > 0) {
+	    while (list($cid, $ititle, $url, $description, $unread) =  mysql_fetch_row($res)) {
+		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description);
 	    }
-	    
-	    if  ($unread == 1) {
-		$cls .= " unread";
-	    }
-	    
-            $url__ = htmlentities($url);	    
-	    echo "\t<li class=\"$cls\">\n"
-	      ."\t\t<a href=\"$url__\">$title</a>\n";
-	    
-	    if ($description != "") 
-	      echo "\t\t<div class=\"content\">$description</div>\n";
-	    
-	    echo "\t</li>\n";
 	}
-    
-	if ($res && mysql_num_rows($res) > 0) {
-	    echo "</ul>\n";
-	}
-	
-	
-	  
-    }   
+    }
+
+    itemsList(H2_RECENT_ITEMS,$items);
     
     echo "</div>\n";
 }
-
-
 
 function markAllReadForm() {
     echo "<form action=\"index.php\" method=\"post\" class=\"markallread\">"
       ."<input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/>"
       ."</form>";
 }
-
 
 ?>

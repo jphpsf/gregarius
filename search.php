@@ -57,10 +57,9 @@ function searchForm() {
   
 function search($qry) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
-    //markReadForm($cid);
-
     
-    $sql = "select i.id, i.title, c.title, c.id, i.unread, i.url, "
+    
+    $sql = "select i.title, c.title, c.id, i.unread, i.url, "
     ." i.description, c.icon "
     ." from item i, channels c "
     ." where i.cid=c.id and "
@@ -70,49 +69,22 @@ function search($qry) {
     $res0=rss_query($sql);
     $cnt = mysql_num_rows($res0);
     if ($cnt > 0) {
-        echo "\n\n<h2>". sprintf(H2_SEARCH_RESULTS_FOR , $cnt, "'" . $qry . "'") ."</h2>\n";
-        $ctnr=0;
-        $prev_cid=0;
-        while (list($iid_,$title_,$label_, $cid_, $unread_, $url_, $descr_,  $icon_) = mysql_fetch_row($res0)) {
-
-            if ($prev_cid != $cid_) {
-                $prev_cid = $cid_;
-                if ($ctnr++ > 0)
-                  echo "</ul>\n";
-                
-                echo "<h3>";
-                if (_USE_FAVICONS_ && $icon_ != "") {
-                    echo "<img src=\"$icon_\" class=\"favicon\" alt=\"\"/>";
-                }
-                echo "<a href=\"feed.php?id=$cid_\">$label_</a></h3>\n";
-                echo "<ul>\n";
-            }
-    
+	$items=array();
+        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon) = mysql_fetch_row($res0)) {
             
-            $cls="item";
-            if (($cntr++ % 2) == 0) {
-                $cls .= " even";
-            } else {
-                $cls .= " odd";
-            }
-            
-            if  ($unread_ == 1) {
-                $cls .= " unread";
-            }
-            
-            $url__ = htmlentities($url_);
-            echo "\t<li class=\"$cls\">\n"
-              ."\t\t<a href=\"$url__\">". preg_replace("/($qry)/i", "<strong>\$1</strong>", $title_) ."</a>\n";
-            
-            if ($descr_ != "") {
-                
-                echo "\t\t<div class=\"content\">". preg_replace("/($qry)/i", "<strong>\$1</strong>", $descr_) ."</div>\n";
-            }
-            
-            echo "\t</li>\n";
+	    $items[]=array($cid,$ctitle,$cicon,
+			   preg_replace("/($qry)/i","<strong>\$1</strong>",$ititle),
+			   $iunread,
+			   $irul,			   
+			   preg_replace("/($qry)/i","<strong>\$1</strong>",$idescr)			   
+			   );
             
         }
-        echo "</ul>\n";
+	
+	itemsList(
+		  sprintf(H2_SEARCH_RESULTS_FOR, $cnt, "'" .$qry."'"),
+		  $items
+		  );
     }
     echo "</div>\n";
 }

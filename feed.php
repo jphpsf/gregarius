@@ -52,15 +52,10 @@ rss_footer();
 
 function items($cid,$title) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
-    markReadForm($cid);
-    echo "\n\n<h2>$title</h2>\n";
-    
-    
-    
-    echo"\n<ul>\n";
 
-    
-    $sql = "select id, cid, added, title, url, description, unread, pubdate "
+    markReadForm($cid);
+        
+    $sql = "select title, url, description, unread"
       ." from item "
       ." where cid  = $cid ";
     
@@ -73,33 +68,14 @@ function items($cid,$title) {
       $sql .= " limit ". ITEMS_ON_CHANNELVIEW;
     }
     
-    $res = rss_query($sql);
-    $cntr = 0;
-    $lastid = 0;
-    while (list($iid_, $cid_, $added_, $title_, $url_, $description_, $unread_, $pubdate_) =  mysql_fetch_row($res)) {
-        $cls="item";
-        if (($cntr++ % 2) == 0) {
-            $cls .= " even";
-        } else {
-            $cls .= " odd";
-        }
-        
-        if  ($unread_ == 1) {
-            $cls .= " unread";
-        }
-        
-        echo "\t<li class=\"$cls\">\n"
-          ."\t\t<a href=\"$url_\">$title_</a>\n";
-        if ($description_ != "") {
-            echo "\t\t<div class=\"content\">$description_</div>\n";
-        }
-        echo "\t</li>\n";       
-        $lastid = $iid_;
+    $res = rss_query($sql);    
+    $items = array();
+    
+    while (list($title_, $url_, $description_, $unread_) =  mysql_fetch_row($res)) {    
+	$items[]=array(-1,"","",$title_,$unread_,$url_,$description_);
     }
     
-    
-    echo "</ul>\n";
-    
+    itemsList($title,$items);
     
     
     $sql = "select count(*) from item where cid=$cid and unread=1";
@@ -132,7 +108,6 @@ function markReadForm($cid) {
     $sql = "select count(*)  from item where cid=$cid and unread=1";
     $res=rss_query($sql);
     list($cnt) = mysql_fetch_row($res);
-
     if($cnt > 0) {
       echo "<form action=\"feed.php\" method=\"post\" class=\"markread\">\n"
       ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"

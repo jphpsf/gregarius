@@ -71,18 +71,7 @@ function nav($title, $active=0) {
       . "</ul>\n</div>\n";
 }
 
-// -> search.php
-/*
-function searchForm($qry) {
-    return 
-        "\n\t\t<form action=\"search.php\" method=\"post\" id=\"srchfrm\">\n"
-        ."\t\t<p><input type=\"text\" name=\"query\" id=\"query\" />\n"
-        ."\t\t<input type=\"submit\" value=\"". SEARCH ."\"/></p>\n"
-        ."\t\t</form>\n";
-    
-        
-}
-*/
+
 
 function ftr() {
     echo "\n<div id=\"footer\" class=\"frame\">\n";
@@ -186,13 +175,6 @@ function update($id) {
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
         $rss = fetch_rss( $url );
     
-        /*
-         echo "<pre>";
-         var_dump($rss);
-         echo "</pre>";
-         die();
-         */
-    
         foreach ($rss->items as $item) {
     
             $title = $item['title'];
@@ -221,6 +203,57 @@ function update($id) {
             }
         }
     }
+}
+
+
+function itemsList ($title,$items){
+
+    echo "\n\n<h2>$title</h2>\n";
+    $cntr=0;
+    $prev_cid=0;
+    
+    while (list($row, $item) = each($items)) {
+    	
+    	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr) = $item;
+        
+        if ($prev_cid != $cid) {
+            $prev_cid = $cid;
+            if ($cntr++ > 0)
+              echo "</ul>\n";
+
+	    if ($ctitle != "" && $cid > -1) {
+		echo "<h3>";
+		if (_USE_FAVICONS_ && $cicon != "") {
+		    echo "<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>";
+		}
+		echo "<a href=\"feed.php?id=$cid\">$ctitle</a></h3>\n";
+	    }
+	    
+            echo "<ul>\n";
+        }
+
+        
+        $cls="item";
+        if (($cntr++ % 2) == 0) {
+            $cls .= " even";
+        } else {
+            $cls .= " odd";
+        }
+        
+        if  ($iunread == 1) {
+            $cls .= " unread";
+        }
+        
+        $url = htmlentities($iurl);
+        echo "\t<li class=\"$cls\">\n"
+          ."\t\t<a href=\"$url\">$ititle</a>\n";
+        
+        if ($idescr != "") {
+            echo "\t\t<div class=\"content\">$idescr</div>\n";
+        }        
+        echo "\t</li>\n";        
+    }
+    echo "</ul>\n";    	
 }
 
 ?>
