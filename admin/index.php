@@ -143,7 +143,7 @@ function admin_main($authorised) {
 /*************** Channel management ************/
 
 function channels() {
-    echo "<h2 class=\"trigger\">". ADMIN_CHANNELS ."</h2>\n";
+    echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
     echo "<div id=\"admin_channels\">\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
@@ -222,7 +222,7 @@ function channels() {
 
 function opml() {
     //opml import
-    echo "<h2 class=\"trigger\">". ADMIN_OPML ."</h2>\n";
+    echo "<h2>". ADMIN_OPML ."</h2>\n";
     echo "<div id=\"admin_opml\">\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
@@ -239,7 +239,7 @@ function opml() {
 
 function items() {
    
-    echo "<h2 class=\"trigger\">". ADMIN_ITEM ."</h2>\n";
+    echo "<h2>". ADMIN_ITEM ."</h2>\n";
     echo "<div id=\"admin_items\">\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
@@ -612,8 +612,8 @@ function channel_edit_form($cid) {
 /*************** Folder management ************/
 
 function folders() {
-    echo "<h2 class=\"trigger\">".ADMIN_FOLDERS."</h2>\n"
-      ."<div id=\"admin_folders\" class=\"trigger\">\n";
+    echo "<h2>".ADMIN_FOLDERS."</h2>\n"
+      ."<div id=\"admin_folders\">\n";
     
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 
@@ -872,8 +872,8 @@ function opml_export_form() {
 /*************** Config management ************/
 
 function config() {
-    echo "<h2 class=\"trigger\">".ADMIN_CONFIG."</h2>\n"
-      ."<div id=\"admin_config\" class=\"trigger\">\n";
+    echo "<h2>".ADMIN_CONFIG."</h2>\n"
+      ."<div id=\"admin_config\">\n";
     
     echo "<table id=\"configtable\">\n"
       ."<tr>\n"
