@@ -119,8 +119,8 @@ function feed($cid, $title, $url, $siteurl, $ico) {
 	$ret .= "|<a href=\"$siteurl\">www</a>";
     }
     
-    if (defined('_DEBUG_')) {
-	$ret .= "|<a href=\"feed.php?cid=$cid&amp;dbg=1\">dbg</a>";
+    if (defined('_DEBUG_') && _DEBUG_ == true) {
+	$ret .= "|<a href=\"feed.php?cid=$cid&amp;dbg=1\">dbg</a>";	
     }
     
     $ret .= "]";

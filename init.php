@@ -25,7 +25,10 @@
 #
 ###############################################################################
 
-//error_reporting(E_ALL);
+if (defined('_DEBUG_') && _DEBUG_ == true) {
+    error_reporting(E_ALL);
+}
+
 
 require_once('config.php');
 require_once('db.php');
