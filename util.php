@@ -66,7 +66,7 @@ function nav($title, $active=0) {
       ."<ul id=\"navlist\">\n"
       ."\t<li".($active==1?" id=\"active\"":"")."><a href=\"index.php\">".NAV_HOME."</a></li>\n"
       . "\t<li".($active==2?" id=\"active\"":"")."><a href=\"update.php\">" . NAV_UPDATE. "</a></li>\n"
-      . "\t<li".($active==3?" id=\"active\"":"")."><a href=\"channel_mgnt.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
+      . "\t<li".($active==3?" id=\"active\"":"")."><a href=\"channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
 }
 
