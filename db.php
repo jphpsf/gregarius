@@ -72,6 +72,10 @@ function rss_num_rows($rs) {
     return mysql_num_rows($rs);
 }
 
+function rss_insert_id() {
+    return mysql_insert_id();
+}
+
 function rss_real_escape_string($string) {
     return mysql_real_escape_string($string);
 }
