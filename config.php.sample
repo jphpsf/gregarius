@@ -43,7 +43,7 @@ define('ITEMS_ON_CHANNELVIEW', 10);
 define(_TITLE_, "Gregarius");
 define(_VERSION_, "0.90.0");
 define (_USE_FAVICONS_, true);
-define (MAGPIE_USER_AGENT, "" . _TITLE_ . "/" . _VERSION_ . "");
+define (MAGPIE_USER_AGENT, "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)");
 define (MINUTE,60);
 define (RELOAD_AFTER, 30*MINUTE);
 
