@@ -52,7 +52,7 @@ define ('_DEBUG_', false);
  define ('_ADMIN_PASSWORD_','123');
 */
 
-define ('LANG', 'fr');
+define ('LANG', 'en');
 
 // feedback
 assert_options(ASSERT_ACTIVE, 1);
