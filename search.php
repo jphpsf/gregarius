@@ -81,6 +81,9 @@ function searchForm($title) {
 		      ." c.id, c.title  "
 		      ." from channels c "
 		      ." order by parent asc, title asc" );
+    
+    
+    
     while (list($id_,$title_) = mysql_fetch_row($res)) {
 	echo "\t\t\t<option value=\"$id_\""
 	  .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
@@ -110,7 +113,17 @@ function search($qry,$exactMatch, $channelId) {
     if ($channelId != ALL_CHANNELS_ID) {
 	$sql .= " and c.id = $channelId ";
     }
-    $sql .=" order by c.title asc, i.added desc";
+    
+
+    
+    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	$sql .= " order by c.parent asc, c.position asc";
+    } else {
+	$sql .= " order by c.parent asc, c.title asc";
+    }
+    
+
+    $sql .=", i.added desc";
 
     $res0=rss_query($sql);
     $cnt = mysql_num_rows($res0);

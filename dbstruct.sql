@@ -9,19 +9,19 @@
 
 DROP TABLE IF EXISTS `channels`;
 
-CREATE TABLE `channels` (
-  `id` bigint(11) NOT NULL auto_increment,
-  `title` varchar(255) NOT NULL default '',
-  `url` varchar(255) NOT NULL default '',
-  `siteurl` varchar(255) default NULL,
-  `parent` tinyint(4) default '0',
-  `descr` varchar(255) default NULL,
-  `dateadded` datetime default NULL,
-  `icon` varchar(255) default NULL,
-  PRIMARY KEY  (`id`)
+CREATE TABLE channels (
+  id bigint(11) NOT NULL auto_increment,
+  title varchar(255) NOT NULL default '',
+  url varchar(255) NOT NULL default '',
+  siteurl varchar(255) default NULL,
+  parent tinyint(4) default '0',
+  descr varchar(255) default NULL,
+  dateadded datetime default NULL,
+  icon varchar(255) default NULL,
+  position int(11) NOT NULL default '0',
+  PRIMARY KEY  (id)
 ) TYPE=MyISAM;
-
-
+		    
 
 # Dump of table folders
 # ------------------------------

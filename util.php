@@ -130,6 +130,15 @@ function add_channel($url, $folderid=0) {
 	return;
     }
     
+    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	$res = rss_query("select 1+max(position) as np from channels");
+	list($np) = mysql_fetch_row($res);	
+    } else {
+	$np = 0;
+    }
+    
+    
+    // Here we go!
     $rss = fetch_rss( $url );
     /*
      *          echo "<pre>";
@@ -180,8 +189,8 @@ function add_channel($url, $folderid=0) {
         }
 
         if ($title != "") {
-            $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon)"
-              ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon')";
+            $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon, position)"
+	      ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
 
             rss_query($sql);
         } else {

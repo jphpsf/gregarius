@@ -77,7 +77,7 @@ define ('OUTPUT_COMPRESSION', true);
 // Allow collpasing of channels on the main page.
 define ('ALLOW_CHANNEL_COLLAPSE', true);
 
-// Display a permalink icon and allow linking to a given item.
+// Display a permalink icon and allow linking a given item directly
 define('USE_PERMALINKS',true);
   
 // Leave this commented out, (WIP)
@@ -88,6 +88,10 @@ define('USE_PERMALINKS',true);
 
 // Language pack to use. (As of today 'en' and 'fr' ar available)
 define ('LANG', 'en');
+
+
+define ('ABSOLUTE_ORDERING',true);
+
 
 // html filtering via kses. DO no modify this unless you know what 
 // you do. See kses-0.2.1/README for more info.

@@ -82,6 +82,7 @@ define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','R&eacute;pertoire');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
+define ('ADMIN_CHANNELS_HEADING_MOVE','D&eacute;placer');
 define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
 define ('ADMIN_CHANNEL_ICON','Icone affichee:');
 define ('CLEAR_FOR_NONE','(Laisser vide pour ne pas afficher d\icone)');
@@ -95,4 +96,7 @@ define ('ADMIN_CHANNEL_FOLDER','Dans le r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
 
 define ('ADMIN_ARE_YOU_SURE', "Êtes-vous sûr de vouloir &eacute;ffacer '%s'?");
+define('ADMIN_MOVE_UP','monter');
+define('ADMIN_MOVE_DOWN','descendre');
+
 ?>

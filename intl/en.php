@@ -85,6 +85,7 @@ define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Title');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','Folder');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
+define ('ADMIN_CHANNELS_HEADING_MOVE','Move');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
 define ('ADMIN_CHANNELS_ADD','Add a channel:');
 define ('ADMIN_CHANNEL_ICON','Shown favicon:');
@@ -99,4 +100,7 @@ define ('ADMIN_CHANNEL_FOLDER','In folder:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
 
 define ('ADMIN_ARE_YOU_SURE', "Are you sure you wish to delete '%s'?");
+
+define('ADMIN_MOVE_UP','&uarr;');
+define('ADMIN_MOVE_DOWN','&darr;');
 ?>

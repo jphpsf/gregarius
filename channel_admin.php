@@ -36,7 +36,8 @@ define ('ADMIN_DOMAIN_FOLDER','folder');
 define ('ADMIN_DOMAIN_CHANNEL','channel');
 define ('ADMIN_DELETE_ACTION','delete');
 define ('ADMIN_EDIT_ACTION','edit');
-
+define ('ADMIN_MOVE_UP_ACTION','up');
+define ('ADMIN_MOVE_DOWN_ACTION','down');
 
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
     if ($_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME || $_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
@@ -101,15 +102,25 @@ function channels() {
       ."<tr>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
-      ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
-      ."\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n";
+    
+    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {	
+	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
+    }
+    
+    echo "\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
       ."</tr>\n";
 
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon "
       ." from channels c, folders d "
-      ." where d.id = c.parent"
-      ." order by 7 asc, 2 asc";
+      ." where d.id = c.parent ";
+    
+    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {	   
+	$sql .=" order by c.parent asc, c.position asc";
+    } else {
+	$sql .=" order by c.parent asc, c.title asc";	
+    }
 
     $res = rss_query($sql);
     $cntr = 0;
@@ -133,8 +144,17 @@ function channels() {
 	    "<img src=\"$icon\" class=\"favicon\" alt=\"title\" width=\"16\" height=\"16\" />":"")
 	  ."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td>$parentLabel</td>\n"
-	  ."\t<td>$descr</td>\n"
-	  ."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
+	  ."\t<td>$descr</td>\n";
+	
+	if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	    echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". ADMIN_MOVE_UP
+	      ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".ADMIN_MOVE_DOWN ."</a></td>\n";
+	} else {
+	    
+	}
+	
+	echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT
+	  ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
 	  ."</tr>\n";
     }
 
@@ -269,7 +289,44 @@ function channel_admin() {
 
 	rss_query($sql);
 	break;
+	
+	
+     case ADMIN_MOVE_UP_ACTION:
+     case ADMIN_MOVE_DOWN_ACTION: 
+	$id = $_REQUEST['cid'];
+	$res = rss_query("select parent,position from channels where id=$id");
+	list($parent,$position) = mysql_fetch_row($res);
+	$res = rss_query(
+			 "select id, position from channels "
+			 ." where parent=$parent and id != $id order by abs($position-position) limit 2"
+			 );
+		
+	// Let's look for a lower/higher position than the one we got.
+	$switch_with_position=$position;
 
+	while (list($oid,$oposition) = mysql_fetch_row($res)) {
+	    if (
+		// found none yet?
+		($switch_with_position == $position) &&
+		(
+		 // move up: we look for a lower position
+		 ($_REQUEST['action'] == ADMIN_MOVE_UP_ACTION && $oposition < $switch_with_position)
+		 ||
+		 // move up: we look for a higher position
+		 ($_REQUEST['action'] == ADMIN_MOVE_DOWN_ACTION && $oposition > $switch_with_position)
+		 )
+		){
+		$switch_with_position = $oposition;	  
+		$switch_with_id = $oid;
+	    }
+	}
+	// right, lets!
+	if ($switch_with_position != $position) {
+	    rss_query( "update channels set position = $switch_with_position where id=$id" );
+	    rss_query( "update channels set position = $position where id=$switch_with_id" );
+	}
+	break;
+	
      default: break;
     }    
 }

@@ -39,8 +39,12 @@ function sideChannels($activeId) {
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.icon, c.descr "
       ." from channels c, folders d "
-      ." where d.id = c.parent"
-      ." order by c.parent asc, c.title asc";
+      ." where d.id = c.parent";
+    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	$sql .= " order by c.parent asc, c.position asc";
+    } else {
+	$sql .=" order by c.parent asc, c.title asc";
+    }
     
     
     $res = rss_query($sql);
