@@ -36,6 +36,10 @@ define ('SEE_ONLY_UNREAD', "Display only unread items (%d)");
 define ('SEE_ALL', "See all %d items for this channel");
 define ('H2_SEARCH_RESULTS_FOR', "%d results for %s");
 
+define ('SEARCH_SEARCH_QUERY','Search terms:');
+define ('SEARCH_EXACT_MATCH', 'Exact match');
+define ('SEARCH_CONTAINS', 'Containing text');
+
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
 
@@ -47,7 +51,7 @@ define ('NAV_CHANNEL_ADMIN', 'Admin');
 define ('NAV_SEARCH', "Search");
 
 define ('POSTED', 'Posted: ');
-
+define ('SEARCH_GO', 'Go');
 define ('ADMIN_EDIT', 'edit');
 define ('ADMIN_DELETE', 'delete');
 ?>

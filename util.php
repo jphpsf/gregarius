@@ -333,7 +333,10 @@ function itemsList ($title,$items){
         echo "\t</li>\n";
 	$ret++;
     }
-    echo "</ul>\n";
+    
+    if ($ret > 0) {
+	echo "</ul>\n";
+    }
     
     return $ret;
 }

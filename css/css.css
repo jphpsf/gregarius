@@ -43,7 +43,7 @@ h5 {
 }
 
 a:hover,input:hover {color: #336; }
-a,input,select { color: #667 }
+a,input,select,h4 { color: #667 }
 
 
 
@@ -51,11 +51,14 @@ input {
  font-size: small;
  font-weight: bold; 
  margin: 3px;
+ vertical-align: middle;
 }
 
 label {
  font-size:small;
 }
+
+
 
 /* layout */
 div#channels {
@@ -288,7 +291,7 @@ p.error {
  font-weight:bold;
 }
 
-input, select, option, textarea {
+input, select, option, textarea, input[type^="radio"] {
  border: 1px solid #ddd;
  background-color: #f4f4f4;
 }
@@ -366,6 +369,8 @@ p.stats {
 }
 
 .searchhit { border-bottom: 1px solid; font-weight: 900 }
+form#srchfrm p { text-align: left; }
+input#search_go { margin-left: 100px; }
 
 div#channel_managmenet h2 { margin-top: 1em; }
 label, input[type="submit"] {
