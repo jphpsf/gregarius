@@ -37,43 +37,52 @@ require_once('dbinit.php');
 // Apache needs write permissions on this dir.
 define('MAGPIE_CACHE_DIR', '/tmp/magpierss');
 
-// options
+// Number of items shown on for a single channel
 define ('ITEMS_ON_CHANNELVIEW', 10);
-define ('_TITLE_', "Gregarius");
-define ('_VERSION_', "0.1.9");
-define ('_USE_FAVICONS_', true);
-define ('_USE_MODREWRITE_', true);
-define ('MAGPIE_USER_AGENT', "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)");
-define ('MINUTE',60);
-define ('RELOAD_AFTER', 30*MINUTE);
-define ('DATE_FORMAT', "F jS, Y, g:i a");
-define ('DEMO_MODE', false);
-define ('_DEBUG_', true);
 
+// Display the favicon for the channels that have one.
+// Due to a IE bug, some icons do not render correctly on
+// this browser. You can either change the URL to the icon
+// in the admin screen, or turn the favicon displaying off
+// globally here.
+define ('_USE_FAVICONS_', true);
+
+// if this option is set to true the channels can be addressed
+// as http://yourserver.com/path/to/rss/channel_name/
+// You must have mod_rewrite installed and configured for your
+// apache install. See also the '.htaccess' file
+define ('_USE_MODREWRITE_', true);
+
+// If this option is set the feeds will be refreshed after x minutes
+// of inactivity. Please respect the feed providers by not setting
+// this value to anything lower than thirty minutes.
+// Comment the line to turn this feature off.
+define ('RELOAD_AFTER', 30*MINUTE);
+
+// Format to use when displaying dates. See here for help on the format:
+// http://ch.php.net/manual/en/function.date.php
+define ('DATE_FORMAT', "F jS, Y, g:i a");
+
+// When in demo mode most of the admin actions cannot be performed.
+define ('DEMO_MODE', false);
+
+// When in debug mode some extra debug info is shown and the error 
+// reporting is a bit more verbose
+define ('_DEBUG_', false);
+
+
+// Leave this commented out, (WIP)
 /* 
  define ('_ADMIN_USERNAME_','test');
  define ('_ADMIN_PASSWORD_','123');
 */
 
+// Language pack to use. (As of today 'en' and 'fr' ar available)
 define ('LANG', 'en');
 
-// feedback
-assert_options(ASSERT_ACTIVE, 1);
-assert_options(ASSERT_WARNING, 1);
-assert_options(ASSERT_QUIET_EVAL, 0);
+// html filtering via kses. DO no modify this unless you know what 
+// you do. See kses-0.2.1/README for more info.
 
-
-// Create a handler function
-function my_assert_handler($file, $line, $code) {
-    echo "<span class=\"error\">Assertion Failed: File '$file'; Line '$line'; Code '$code'";
-}
-
-// Set up the callback
-assert_options(ASSERT_CALLBACK, 'my_assert_handler');
-
-
-
-// html filtering
 $kses_allowed = 
   array(
 	'img' => array('src' => 1, 'alt'=> 1 

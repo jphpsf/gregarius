@@ -31,9 +31,13 @@
 // Application title
 define ('_TITLE_', "Gregarius");
 
+
 // Application version
 define ('_VERSION_', "0.1.9");
 define ('MINUTE',60);
+
+// The useragent used when retrieving the feeds
+define ('MAGPIE_USER_AGENT', "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)"); 
 
 // feedback
 assert_options(ASSERT_ACTIVE, 1);

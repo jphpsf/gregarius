@@ -32,10 +32,9 @@ if (defined('_DEBUG_') && _DEBUG_ == true) {
     error_reporting(E_ALL);
 }
 
-
+require_once('constants.php');
 require_once('config.php');
 require_once('db.php');
-//require_once('magpierss-0.5.2/rss_fetch.inc');
 require_once('magpierss-0.61/rss_fetch.inc');
 require_once('magpierss-0.61/rss_utils.inc');
 require_once('kses-0.2.1/kses.php');
@@ -46,5 +45,4 @@ if (defined('LANG') && file_exists('intl/' . LANG . '.php')) {
     require_once('intl/en.php');
 }
 require_once("channels.php");
-
 ?>
