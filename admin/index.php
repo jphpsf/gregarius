@@ -48,7 +48,10 @@ define ('ADMIN_SUBMIT_EDIT','submit_edit');
 $auth = true;
 
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
-    if ($_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME || $_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
+    if (!array_key_exists('PHP_AUTH_USER',$_SERVER) ||
+	$_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
+	!array_key_exists('PHP_AUTH_PW',$_SERVER) ||
+	$_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
 	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
 	header('HTTP/1.0 401 Unauthorized');
 	// mbi:tbd:Gotta do something here...

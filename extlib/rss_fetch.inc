@@ -169,7 +169,8 @@ function fetch_rss ($url) {
         // setup headers
         if ( $cache_status == 'STALE' ) {
             $rss = $cache->get( $cache_key );
-            if ( $rss->etag and $rss->last_modified ) {
+	    if ( isset($rss->etag) &&  $rss->etag and 
+		 isset($rss->last_modified) && $rss->last_modified ) {
                 $request_headers['If-None-Match'] = $rss->etag;
                 $request_headers['If-Last-Modified'] = $rss->last_modified;
             }	    
@@ -243,7 +244,11 @@ function fetch_rss ($url) {
         }
         
         // else we totally failed
-        error( $errormsg ); 
+	if ($errormsg) {
+	    global $MAGPIE_ERROR; 
+	    $MAGPIE_ERROR = $errormsg;   
+	}
+        //error( $errormsg ); 
         
         return false;
         

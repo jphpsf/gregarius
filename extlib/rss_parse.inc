@@ -409,7 +409,10 @@ class MagpieRSS {
             }       
         }
         elseif ( $this->is_rss() ) {
-            $this->channel['tagline'] = $this->channel['description'];
+            $this->channel['tagline'] = 
+	      array_key_exists('description',$this->channel)?
+	      $this->channel['description'] : "";
+	    
             for ( $i = 0; $i < count($this->items); $i++) {
                 $item = $this->items[$i];
                 if ( isset($item['description']))
