@@ -96,7 +96,9 @@ define ('ADMIN_CHANNEL_FOLDER','Dans le r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
 
 define ('ADMIN_ARE_YOU_SURE', "Êtes-vous sûr de vouloir &eacute;ffacer '%s'?");
-define('ADMIN_MOVE_UP','monter');
-define('ADMIN_MOVE_DOWN','descendre');
+
+define('ADMIN_MOVE_UP','&uarr;');
+define('ADMIN_MOVE_DOWN','&darr;');
+
 
 ?>
