@@ -75,7 +75,7 @@ function search($qry) {
 	    $items[]=array($cid,$ctitle,$cicon,
 			   preg_replace("/($qry)/i","<strong>\$1</strong>",$ititle),
 			   $iunread,
-			   $irul,			   
+			   $iurl,			   
 			   preg_replace("/($qry)/i","<strong>\$1</strong>",$idescr),
 			   $its
 			   );
