@@ -86,6 +86,7 @@ define('USE_PERMALINKS',true);
  define ('ADMIN_PASSWORD','123');
 */
 
+
 // Language pack to use. (As of today 'en' and 'fr' ar available)
 define ('LANG', 'en');
 
@@ -123,6 +124,10 @@ $kses_allowed =
 	'li' => array(),
 	'tt' => array(),
 	'code' => array(),
-	'pre' => array()
+	'pre' => array(),
+	'table' => array(),
+	'tr' => array(),
+	'td' => array(),
+	'th' => array()
 	);
 ?>
