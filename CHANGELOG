@@ -1,5 +1,8 @@
 Gregarius 0.3.6
 
+ 06.03.2005 Fixed a bug that would prevent accesing the admin section 
+ when mod_rewrite is not enabled
+
  06.03.2005  Fixed a bug which would prevent non-english language
  packs to work in the admin section.
 
