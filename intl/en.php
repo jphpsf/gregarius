@@ -47,6 +47,7 @@ define ('SEARCH_CHANNELS', 'Channel:');
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
 define ('H2_CHANNELS','Channels');
+define ('H5_READ_UNREAD_STATS','%d items, %d unread');
 define ('ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> channels');
 define ('UNREAD_PF', '(<strong>%d unread</strong>)');
 

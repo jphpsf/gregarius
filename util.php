@@ -370,6 +370,17 @@ function itemsList ($title,$items, $options = IL_NONE){
 	}
     } 
         
+    
+
+    if ($options & IL_DO_STATS) {
+	$stats = array();
+	$stats_res = rss_query("select cid,unread,count(*) from item group by 1,2 order by 1,2");
+	while (list($s_cid,$s_unread,$s_count)=mysql_fetch_row($stats_res)) {
+	    $stats[$s_cid][$s_unread] = $s_count;
+	}
+    }
+    
+    
     while (list($row, $item) = each($items)) {
 
 	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
@@ -420,6 +431,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 		  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
 		    .">\n";
 
+		
 		if (!($options & IL_NO_COLLAPSE) && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
 		    if ($collapsed) {
 			$title = "expand '$ctitle'";
@@ -450,6 +462,18 @@ function itemsList ($title,$items, $options = IL_NONE){
 		    echo "\t<a $anchor href=\"". getPath() ."feed.php?cid=$cid\">$ctitle</a>\n";
 		}
 				
+
+		
+		if ($options & IL_DO_STATS) {
+		    $s_unread = (int)( array_key_exists("1", $stats[$cid])?$stats[$cid][1]:0);
+		    $s_total  = (int)$stats[$cid][0] + $s_unread;
+		    echo "<span>"
+		      .sprintf(H5_READ_UNREAD_STATS, 
+			       $s_total, $s_unread
+			       )
+		      ."</span>\n";
+		}
+		
 		echo "</h3>\n";
 	    }
 

@@ -64,5 +64,5 @@ define ('LOCATION_ADMIN',4);
 define ('IL_NONE',   0x00);
 define ('IL_DO_NAV', 0x01);
 define ('IL_NO_COLLAPSE', 0x02);
-
+define ('IL_DO_STATS',0x04);
 ?>

@@ -39,6 +39,7 @@ define ('SEE_ONLY_UNREAD', "Seulement afficher les éléments non lus (%d)");
 define ('SEE_ALL', "Voir tous les %d éléments pour ce canal");
 define ('H2_SEARCH_RESULTS_FOR', "%d résultats pour %s");
 define ('H2_SEARCH', 'Rechercher parmi %d éléments');
+define ('H5_READ_UNREAD_STATS','%d elements, % non lus');
 define ('SEARCH_SEARCH_QUERY','Elements de recherche:');
 define ('SEARCH_EXACT_MATCH', 'Résultat exacte');
 define ('SEARCH_CONTAINS', 'Résultat partiel');
