@@ -1,4 +1,6 @@
 <IfModule mod_rewrite.c>
   RewriteEngine on
-  RewriteRule ^(.+)\/$ feed.php?channel=$1
+  RewriteCond  %{REQUEST_URI} !css\/
+  RewriteCond  %{REQUEST_URI} !img\/
+  RewriteRule ^(.+)\/(.*)?$ feed.php?channel=$1&iid=$2
 </IfModule>

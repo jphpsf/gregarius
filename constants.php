@@ -33,7 +33,7 @@ define ('_TITLE_', "Gregarius");
 
 
 // Application version
-define ('_VERSION_', "0.2.1");
+define ('_VERSION_', "0.2.2");
 define ('MINUTE',60);
 
 // The useragent used when retrieving the feeds
@@ -65,4 +65,5 @@ define ('IL_NONE',   0x00);
 define ('IL_DO_NAV', 0x01);
 define ('IL_NO_COLLAPSE', 0x02);
 define ('IL_DO_STATS',0x04);
+define ('IL_CHANNEL_VIEW',0x08);
 ?>

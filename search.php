@@ -102,7 +102,7 @@ function search($qry,$exactMatch, $channelId) {
     $space = ($exactMatch?" ":"");
 
     $sql = "select i.title, c.title, c.id, i.unread, i.url, "
-      ." i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
+      ." i.description, c.icon, unix_timestamp(i.pubdate) as ts, i.id  "
       ." from item i, channels c "
       ." where i.cid=c.id and "
       ."   (i.description like '%$space$qry$space%' or i.title like '%$space$qry$space%') ";
@@ -118,7 +118,7 @@ function search($qry,$exactMatch, $channelId) {
 
     if ($cnt > 0) {
 	$items=array();
-        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its) = mysql_fetch_row($res0)) {
+        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iid) = mysql_fetch_row($res0)) {
 
 	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
 	    $title_noTags = preg_replace("/<.+?>/","",$ititle);
@@ -129,15 +129,19 @@ function search($qry,$exactMatch, $channelId) {
 
 			       // Credits for the regexp: mike at iaym dot com
 			       // http://ch2.php.net/manual/en/function.preg-replace.php
+			       /*
 			       preg_replace("'(?!<.*?)($qry)(?![^<>]*?>)'si",
-					    HIT_BEFORE . "\\1" . HIT_AFTER,
-					    $ititle),
+			       	    HIT_BEFORE . "\\1" . HIT_AFTER,
+			       	    $ititle),
+				*/
+			       $ititle,
 			       $iunread,
 			       $iurl,
 			       preg_replace("'(?!<.*?)($qry)(?![^<>]*?>)'si",
 					    HIT_BEFORE . "\\1" . HIT_AFTER,
 					    $idescr),
-			       $its
+			       $its,
+			       $iid
 			       );
 	    }
 

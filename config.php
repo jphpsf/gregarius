@@ -77,6 +77,9 @@ define ('OUTPUT_COMPRESSION', true);
 // Allow collpasing of channels on the main page.
 define ('ALLOW_CHANNEL_COLLAPSE', true);
 
+// Display a permalink icon and allow linking to a given item.
+define('USE_PERMALINKS',true);
+  
 // Leave this commented out, (WIP)
 /* 
  define ('_ADMIN_USERNAME_','test');

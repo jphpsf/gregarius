@@ -30,13 +30,14 @@
 
 function rss_header($title="", $active=0, $onLoadAction="") {
 
-
-    if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
-	ob_start('ob_gzhandler');
-    } else {
-	ob_start();
+    if (! (defined('_DEBUG_') &&  _DEBUG_)) {
+	if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
+	    ob_start('ob_gzhandler');
+	} else {
+	    ob_start();
+	}
     }
-
+    
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
     
@@ -387,10 +388,11 @@ function itemsList ($title,$items, $options = IL_NONE){
     
     while (list($row, $item) = each($items)) {
 
-	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
+	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $iid) = $item;
 
 	if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
-	    $collapsed = in_array($cid,$collapsed_ids) && !( $options & IL_NO_COLLAPSE);
+	    $collapsed = in_array($cid,$collapsed_ids) 
+	      && !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW));
 	    	    
 	    if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
 		// expanded -> collapsed
@@ -418,7 +420,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 	
 	if ($prev_cid != $cid) {
 	    $prev_cid = $cid;
-	    if ($cntr++ > 0) {		
+	    if ($cntr++ > 0) {
 		if (($options & IL_DO_NAV) && $lastAnchor != "") {
 		    // link to start of channel
 		    echo "<li class=\"upnav\">\n"
@@ -428,7 +430,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 		}
 		echo "</ul>\n";
 	    }
-	    if ($ctitle != "" && $cid > -1) {
+	    if ($ctitle != "" && !($options & IL_CHANNEL_VIEW)) {
 		echo "\n<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->\n";
 		echo
 		  "\n<h3"
@@ -506,8 +508,23 @@ function itemsList ($title,$items, $options = IL_NONE){
 
 	    // some url fields are juste guid's which aren't actual links
 	    $isUrl = (substr($iurl, 0,4) == "http");
-	    echo "\t<li class=\"$cls\">\n"
-	      ."\t\t<h4>";
+	    echo "\t<li class=\"$cls\">\n";
+
+	    if (defined('USE_PERMALINKS') && USE_PERMALINKS) {
+		$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
+		$ptitle = "permalinkk for '$escaped_title/$escaped_ititle'";
+		echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
+		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+		    echo "href=\"" .getPath() ."$escaped_title/$escaped_ititle\">";
+		} else {
+		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid\">";
+		}    
+		echo "\n\t\t\t<img src=\"".getPath() . "img/pl.gif\" alt=\"$ptitle\"/>\n"
+		  ."\t\t</a>\n";
+	    }  
+	    
+	    
+	    echo "\t\t<h4>";
 
 	    if ($isUrl) {
 		echo "<a href=\"$iurl\">$ititle</a>";
@@ -516,7 +533,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 	    }
 
 	    echo "</h4>\n";
-
+	    	    
 	    if ($ts != "") {
 		echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
 	    }

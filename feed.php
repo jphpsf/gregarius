@@ -42,9 +42,28 @@ if (defined('USE_MODREWRITE') && USE_MODREWRITE && array_key_exists('channel',$_
     
     
     list($cid) = mysql_fetch_row($res);
-} else {
-    $cid= (array_key_exists('cid',$_REQUEST))?$_REQUEST['cid']:"";
+    
+    // lets see if theres an item id as well
+
+    $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
+    $res =  rss_query( "select id from item where title like '$sqlid' and cid=$cid" );
+
+    
+    if ( mysql_num_rows ( $res ) >0) {
+	list($iid) = mysql_fetch_row($res);  
+    } else { 
+	$iid = "";
+    }
+    
+
+    
+
+// no mod rewrite: ugly but effective
+} elseif (array_key_exists('channel',$_REQUEST)) {
+    $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
+    $iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
 }
+
 
 // If we have no channel-id somethign went terribly wrong.
 // Redirect to index.php
@@ -74,11 +93,12 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
 	      . "/"
       );
     } else {
-	    $cid = $next_unread_id;
+	$cid = $next_unread_id;
     }
 }
 
 assert(is_numeric($cid));
+assert(is_numeric($iid) || $iid=="");
 
 $res = rss_query("select title,icon from channels where id = $cid");
 list($title,$icon) = mysql_fetch_row($res);
@@ -88,22 +108,29 @@ sideChannels($cid);
 if (defined('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
-    items($cid,$title);
+    items($cid,$title,$iid);
 }
 rss_footer();
 
 
-function items($cid,$title) {
+function items($cid,$title,$iid) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
 
     markReadForm($cid);
         
     $sql = " select i.title, i.url, i.description, i.unread, "
-      ." unix_timestamp(i.pubdate) as ts, c.icon, c.title "
+      ." unix_timestamp(i.pubdate) as ts, c.icon, c.title, i.id "
       ." from item i, channels c "
       ." where i.cid = $cid and c.id = $cid ";
 
-    if  (isset($_REQUEST['unread'])) {
+    
+    if ($iid != "") {
+	$sql .= " and i.id=$iid";
+    }
+    
+
+    
+    if  (isset($_REQUEST['unread']) && $iid == "") {
       $sql .= " and unread=1 ";
     }
     
@@ -119,8 +146,8 @@ function items($cid,$title) {
         
     $iconAdded = false;
       
-    while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle) =  mysql_fetch_row($res)) {
-      	$items[]=array(-1, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its);
+    while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle, $iid) =  mysql_fetch_row($res)) {
+      	$items[]=array($cid, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its, $iid);
       	if (! $iconAdded && defined('USE_FAVICON') && USE_FAVICONS && $cicon != "") {
       	    $iconAdded = true;
       	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
@@ -129,7 +156,7 @@ function items($cid,$title) {
     
     
     
-    $shown = itemsList($title, $items, IL_NONE);
+    $shown = itemsList($title, $items, IL_CHANNEL_VIEW);
     
     
     $sql = "select count(*) from item where cid=$cid and unread=1";
@@ -155,7 +182,7 @@ function items($cid,$title) {
     }
       
     if ($readMoreNav != "") {
-	    echo "<span class=\"readmore\">$readMoreNav</span>\n";    
+	echo "<span class=\"readmore\">$readMoreNav</span>\n";    
     }
     
     

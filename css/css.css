@@ -35,9 +35,9 @@ h5 {
 }
 
 h4,h5 { display: inline; }
-h5 { 
- margin: 0 0 0 0.5em;
- padding: 0 0 0 0.5em;
+
+h5,h4 {
+ padding: 0 0.2em;
  border-left: 1px solid #ddd;
 }
 
@@ -376,8 +376,8 @@ input[type="submit"] {
 #navlist li.active a,#navlist li a:hover { color: #336; } 
 
 #navlist input[type="submit"] {
-    font-weight:normal;
-    font-size:medium;
+ font-weight:normal;
+ font-size:medium;
 }
 
 
@@ -428,3 +428,8 @@ span.updateres.ko { color: red }
 #admin_opml { margin-left: 50% }
 
 .clearer { clear: both; height: 0 }
+
+/* margin to footer */
+div#channels, div#items, div#search {
+ margin-bottom: 10px;
+}
