@@ -43,7 +43,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
       ."<head>\n"
       ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
-      ."charset=ISO-8859-1\" />\n"
+      ."charset=UTF-8\" />\n"
       ."\t<title>".makeTitle($title)."</title>\n";
 
     if (defined('ROBOTS_META') && ROBOTS_META != '') {
@@ -222,8 +222,9 @@ function update($id) {
 
 	    // item title: strip out html tags, shouldn't supposed
 	    // to have any, should it?
-	    $title = strip_tags($item['title']);
-
+	    //$title = strip_tags($item['title']);
+	    $title = $item['title'];
+	    
 	    // item content, if any
 	    if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
 		$description = kses($item['content']['encoded'], $kses_allowed);
@@ -270,7 +271,14 @@ function update($id) {
 		$cDate = parse_iso8601 ($item['created']);
 	    }
 
-	    // check wether we already have this item
+
+	    // drop items with an url exceeding our column length: we couldn't provide a
+	    // valid link back anyway.
+	    if (strlen($url) >= 255) {
+		continue;
+	    }
+	    
+	    // check wether we already have this item	    
 	    $sql = "select id from item where cid=$cid and url='$url'";
 	    $subres = rss_query($sql);
 	    list($indb) = mysql_fetch_row($subres);
@@ -282,11 +290,14 @@ function update($id) {
 	    }
 
 	    if ($indb == "") {
+		
+		
+		
 		$sql = "insert into item (cid, added, title, url, "
 		  ." description, unread, pubdate) "
 		  . " values ("
 		  ."$cid, now(), '"
-		  .mysql_real_escape_string(htmlentities($title)) ."', "
+		  .mysql_real_escape_string($title) ."', "
 		  ." '$url', '"
 		  . mysql_real_escape_string($description)
 		    ."', 1, $sec)";

@@ -79,7 +79,7 @@ ul, li {
 
 div#channels li,div#opml li {
   display: block;
-  padding: 7px 2px; 
+  padding: 0.6em 2px; 
   margin:0;
   border-bottom: 1px solid  #eef;
   background-color: #fff;
@@ -91,7 +91,7 @@ div#opml li { border: none }
 /* folder items */
 div#channels li ul li {
  border-bottom: none;
- border-left: 1px solid  #eef;
+/* border-left: 1px solid  #eef; */
  padding-left: 10px; 
 }
 
