@@ -129,14 +129,13 @@ function add_channel($url, $folderid=0) {
 	rss_error("Looks like you are already subscribed to this channel");
 	return;
     }
+
+    $res = rss_query("select 1+max(position) as np from channels");
+    list($np) = mysql_fetch_row($res);
     
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
-	$res = rss_query("select 1+max(position) as np from channels");
-	list($np) = mysql_fetch_row($res);	
-    } else {
-	$np = 0;
+    if (!$np) {
+	$np = "0";
     }
-    
     
     // Here we go!
     $rss = fetch_rss( $url );
