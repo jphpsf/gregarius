@@ -63,9 +63,11 @@ function items($title) {
       //." limit " . ITEMS_ON_CHANNELVIEW
       ;
 
-    
+
     $res0=rss_query($sql);
     if (mysql_num_rows($res0) > 0) {
+
+	markAllReadForm();
 	
         while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iid_) = mysql_fetch_row($res0)) {
             $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_, $iid_ );
@@ -108,5 +110,6 @@ function markAllReadForm() {
       ."<input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/>"
       ."</form>";
 }
+
 
 ?>

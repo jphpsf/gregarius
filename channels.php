@@ -79,10 +79,11 @@ function sideChannels($activeId) {
     
     $res=rss_query("select count(*) from item where unread=1");
     list($unread_count) = mysql_fetch_row($res);
-    
+
+    /*
     if ($unread_count > 0)
       markChannelReadForm();
-    
+    */
     echo "\n</div>\n";
 }
 
@@ -140,11 +141,6 @@ function feed($cid, $title, $url, $siteurl, $ico) {
 }
 
 
-function markChannelReadForm() {
-    echo "<form action=\"". getPath() ."index.php\" method=\"post\" class=\"markallread\">"
-      ."<p><input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/></p>"
-      ."</form>";
-}
 
 function stats() {
     $res = rss_query( "select count(*) from item where unread=1" );

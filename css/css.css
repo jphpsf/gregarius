@@ -277,7 +277,7 @@ form#channeledit input[type="text"] {
   width: 50%;
 }
   
-form.markread p{
+form.markread p, form.markallread {
  float: right; 
  margin-top: 0;
  text-align:right;
