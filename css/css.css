@@ -236,8 +236,6 @@ form.markallread {
  text-align:right;
 }
 
-/*a.unread { font-weight: bold; }*/
-
 h2 { 
  margin: 0;
  border-bottom: 1px solid  #eef;
@@ -308,7 +306,7 @@ input[type="submit"] {
  border-color: #ddf;
 }
  
-#navlist li>* {
+#navlist li a {
  float: left;
  display: block;
  text-decoration: none;
@@ -318,7 +316,6 @@ input[type="submit"] {
 }
  
 #navlist li.active a { color: #336; } 
-
 
 #navlist input[type="submit"] {
     font-weight:normal;
