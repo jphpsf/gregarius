@@ -74,11 +74,8 @@ if (
 // If we have no channel-id somethign went terribly wrong.
 // Redirect to index.php
 if (!$cid) {
-      header("Location: http://"
-	     . $_SERVER['HTTP_HOST'] 
-	     . dirname($_SERVER['PHP_SELF']) 
-	     . "/"
-	     );    
+    $red = "http://" . $_SERVER['HTTP_HOST'] . getPath();
+    header("Location: $red");
 }
 
 if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
