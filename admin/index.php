@@ -436,26 +436,12 @@ function channel_edit_form($cid) {
       ."<input type=\"text\" id=\"c_siteurl\" name=\"c_siteurl\" value=\"$siteurl\"/></p>"
 
       // Folder
-      ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n"
-      ."<select name=\"c_parent\" id=\"c_parent\">\n";
-
-    $sql = " select id, name from " . getTable("folders") ." order by id asc";
-    $res = rss_query($sql);
-    while (list($pid, $pname) = rss_fetch_row($res)) {
-	if ($pid == $parent) {
-	    $selected = " selected=\"selected\"";
-	} else {
-	    $selected = "";
-	}
-
-	$parentLabel = ($pname == "")?HOME_FOLDER:$pname;
-	//if ($pid > 0) {
-	echo "\t<option value=\"$pid\" $selected>$parentLabel</option>\n";
-	//}
-    }
-
-    echo "</select></p>\n";
-
+      ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n";
+    
+    folder_combo('c_parent',$parent);
+    
+    echo "</p>\n";
+    
     // Description
     echo "<p><label for=\"c_descr\">". ADMIN_CHANNEL_DESCR ."</label>\n"
       ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";
@@ -465,7 +451,7 @@ function channel_edit_form($cid) {
 	echo "<p><label for=\"c_icon\">" . ADMIN_CHANNEL_ICON ."</label>\n";
 
 	if (trim($icon) != "") {
-	    echo "<img src=\"$icon\" alt=\"$c_name\" class=\"favicon\" width=\"16\" height=\"16\" />\n";
+	    echo "<img src=\"$icon\" alt=\"$title\" class=\"favicon\" width=\"16\" height=\"16\" />\n";
 	    echo "<span>" . CLEAR_FOR_NONE ."</span>";
 	}
 
@@ -579,11 +565,13 @@ function folder_edit($fid) {
 
 }
 
-function folder_combo($name) {
+function folder_combo($name, $selected = -1) {
     echo "\n<select name=\"$name\" id=\"$name\">\n";
     $res = rss_query("select id, name from " .getTable("folders") ." order by id asc");
     while (list($id, $name) = rss_fetch_row($res)) {
-	echo "\t<option value=\"$id\">" .  (($name == "")?HOME_FOLDER:$name)  ."</option>\n";
+	echo "\t<option value=\"$id\""
+	  .($selected > -1 && $selected == $id ? " selected=\"selected\"":"")
+	  .">" .  (($name == "")?HOME_FOLDER:$name)  ."</option>\n";
     }
     echo "</select>\n";
 }
