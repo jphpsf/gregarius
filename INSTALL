@@ -1,0 +1,57 @@
+REQUIREMENTS
+
+  The requirements for installing and running Gregarius are basically the
+  same as those for MagpiRSS (on which Gregarius is based).
+
+
+        MapieRSS requires a recent PHP 4+ (developed with 4.2.0)
+	with xml (expat) support
+		
+  Additionally you will need access to a MySQL database.
+
+QUICK START
+
+  1. Unpack the Gregarius package inside your web root:
+     
+     1.1 If you are installing from a tar.gz file:
+     
+     	 tar xvfz gregarius-xxx.tar.gz 
+     
+     1.2 If you are installing from a zipped file:
+     
+     	 unzip gregarius-xxx.zip
+	 
+  2. cd to the created directory:
+  
+     	cd rss
+	
+  3. Create a configuration file, based on the sample:
+  
+     3.1 Copy the sample config file:
+     
+     	 cp config.php.sample config.php
+	
+     3.2 Edit the config file to suit your needs: make sure
+     to specify valid mysql connection information and point
+     MAGPIE_CACHE_DIR to a directory which the webserver has
+     write-access on. 
+     
+  4. Import the database structure:
+  
+     4.1 from a shell account:
+       
+       mysql -u database_user -h database_host -p database_name < dbstruct.sql
+       
+  
+  5. Point your browser to the URL corresponding the install 
+  location and click "Channel Admin". You can start adding channels 
+  by pasting URLs of RSS or RDF items into the "Add a channel" text 
+  field or you can import a whole structure of items using the OPML
+  import feature.
+  
+
+  
+     	 
+  
+   
+		  
