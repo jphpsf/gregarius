@@ -28,12 +28,15 @@
 #
 ###############################################################################
 
+rss_require('util.php');
+
 function getConfig($key) {
     static $config;
     if ($config == null) {
 	$res = rss_query("select key_,value_,default_,type_,desc_,export_ from " .getTable("config"));
 	$config = array();
 	while (list($key_,$value_,$default_,$type_,$description,$export_) = rss_fetch_row($res)) {
+	    $value_ = real_strip_slashes($value_);
 	    switch ($type_) {
 	     case 'boolean':
 		$real_value = ($value_ == 'true');
@@ -63,8 +66,8 @@ function getConfig($key) {
 		    'type' => $type_,
 		    'description' => $description_
 		    );
-	    if ($export_ == '1') {
-		define ($key_,$real_value);
+	    if ($export_ != '') {
+		define ($export_,(string)$real_value);
 	    }
 	}
     }

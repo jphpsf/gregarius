@@ -105,7 +105,7 @@ if (isset($_GET['action']) && $_GET['action'] == ADMIN_EXPORT) {
       ." where d.id = c.parent";
     
     
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+    if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by d.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";

@@ -44,7 +44,7 @@ rss_require('dbinit.php');
 rss_require('db.php');
 rss_require('config.php');
 
-if (getConfig('_DEBUG_')) {
+if (getConfig('rss.meta.debug')) {
     error_reporting(E_ALL);
 } else {
     error_reporting(E_NONE);
@@ -56,7 +56,7 @@ rss_require('extlib/kses.php');
 rss_require('util.php');
 
 
-$lang = getConfig('LANG');
+$lang = getConfig('rss.output.lang');
 if ($lang && file_exists("intl/$lang.php")) {
     rss_require("intl/$lang.php");
 } else {

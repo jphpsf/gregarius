@@ -314,7 +314,7 @@ p.error {
  font-weight:bold;
 }
 
-input, select, option, textarea {
+input, select, textarea {
  border: 1px solid #ddd;
  background-color: #f4f4f4;
 }
@@ -438,37 +438,6 @@ div#channels, div#items, div#searchfrm, div#channel_admin, div#about, div#update
  margin-bottom: 5px;
 }
 
-/* about page */
-#about li { 
- list-style-type: disc;
- margin-left: 2em;
-}
-
-#about ul {
- margin-top: 1em;
-}
-
-#about p {
- margin-left: 2em;
-}
-
-#about li p {
- margin-left: 0;
-}
-
-#about dd {
- font-style: italic;
-}
-
-#about dt {
-  font-style: italic;
-  font-weight: bold;
-  font-size: large;
-  letter-spacing: 0.05em;
-}      
-
-#about acronym {cursor: help;}
-#about p.cvs {font-family:Courier, monospace,Monospaced }
 
 table#updatetable .lc { width: 60% }
 table#updatetable .mc { width: 30% }
@@ -481,3 +450,19 @@ table#updatetable td.rc { font-weight: bold }
 .fl { display: inline; float:left }
 .fr { display: inline; float:right}
 
+
+fieldset {  
+  width: 120px;
+  text-align: center; display: inline;
+  padding: 10px;
+  margin: 0 10px 0 0;
+  border:1px solid #ddd;
+  -moz-border-radius: 5px;                                                                                                
+}
+ 
+fieldset input, fieldset select { 
+ display: block;width: 110px;
+ margin: 5px 0; 
+}
+
+legend { font-size:small}

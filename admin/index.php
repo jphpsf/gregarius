@@ -33,7 +33,7 @@ define ('RSS_FILE_LOCATION','/admin');
 
 require_once('../init.php');
 require_once('../opml.php');
-
+require_once('ds.php');
 
 
 define ('ADMIN_DOMAIN','domain');
@@ -49,6 +49,7 @@ define ('ADMIN_MOVE_UP_ACTION','up');
 define ('ADMIN_MOVE_DOWN_ACTION','down');
 define ('ADMIN_SUBMIT_EDIT','submit_edit');
 define ('ADMIN_VIEW','view');
+define ('ADMIN_CONFIRMED','confirmed');
 $auth = true;
 
 
@@ -72,8 +73,8 @@ rss_footer();
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 function admin_main($authorised) {
-    echo "\n<div id=\"channel_admin\" class=\"frame\">";
 
+    echo "\n<div id=\"channel_admin\" class=\"frame\">";
     admin_menu();
     
     if ($authorised) {
@@ -86,7 +87,7 @@ function admin_main($authorised) {
 		$show = channel_admin();
 		break;
 	     case ADMIN_DOMAIN_CONFIG:
-		config_admin();
+		$show = config_admin();
 		break;
 	     default:
 		break;
@@ -153,7 +154,7 @@ function channels() {
       ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n";
 
-    if (getConfig('ABSOLUTE_ORDERING')) {
+    if (getConfig('rss.config.absoluteordering')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
     }
 
@@ -165,7 +166,7 @@ function channels() {
       ." from " .getTable("channels") ." c, " . getTable("folders") ." d "
       ." where d.id = c.parent ";
 
-    if (getConfig('ABSOLUTE_ORDERING')) {
+    if (getConfig('rss.config.absoluteordering')) {
 	$sql .=" order by d.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
@@ -175,7 +176,7 @@ function channels() {
     $cntr = 0;
     while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon) = rss_fetch_row($res)) {
 
-	if (getConfig('USE_MODREWRITE')) {
+	if (getConfig('rss.output.usemodrewrite')) {
 	    $outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
 	} else {
 	    $outUrl = getPath() . "feed.php?channel=$id";
@@ -187,13 +188,13 @@ function channels() {
 
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>"
-	  .((getConfig('USE_FAVICONS') && $icon != "")?
+	  .((getConfig('rss.output.showfavicons') && $icon != "")?
 	    "<img src=\"$icon\" class=\"favicon\" alt=\"$title\" width=\"16\" height=\"16\" />":"")
 	    ."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
 	  ."\t<td>$descr</td>\n";
 
-	if (getConfig('ABSOLUTE_ORDERING')) {
+	if (getConfig('rss.config.absoluteordering')) {
 	    echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
 	      ."&amp;action=". ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". ADMIN_MOVE_UP
 	      ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
@@ -324,21 +325,21 @@ function channel_admin() {
 
      case ADMIN_DELETE_ACTION:
 	$id = $_REQUEST['cid'];
-	if (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_YES) {
+	if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_YES) {
 	    $sql = "delete from " . getTable("item") ." where cid=$id";
 	    rss_query($sql);
 	    $sql = "delete from " . getTable("channels") ." where id=$id";
 	    rss_query($sql);
 	    $ret__ = ADMIN_DOMAIN_CHANNEL;
-	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
+	} elseif (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_NO) {
 	    $ret__ = ADMIN_DOMAIN_CHANNEL;
 	} else {
 	    list($cname) = rss_fetch_row(rss_query("select title from " . getTable("channels") ." where id = $id"));
 
 	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$cname); echo "</p>\n"
-	      ."<p><input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_NO ."\"/>\n"
-	      ."<input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_YES ."\"/>\n"
+	      ."<p><input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
+	      ."<input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
 	      ."<input type=\"hidden\" name=\"cid\" value=\"$id\"/>\n"
 	      ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
 	      ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE ."\"/>\n"
@@ -487,7 +488,7 @@ function channel_edit_form($cid) {
       ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";
 
     // Icon
-    if (getConfig('USE_FAVICONS')) {
+    if (getConfig('rss.output.showfavicons')) {
 	echo "<p><label for=\"c_icon\">" . ADMIN_CHANNEL_ICON ."</label>\n";
 
 	if (trim($icon) != "") {
@@ -524,7 +525,7 @@ function folders() {
       ."<tr>\n"
       ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n";
 
-    if (getConfig('ABSOLUTE_ORDERING')) {
+    if (getConfig('rss.config.absoluteordering')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
     }
 
@@ -533,7 +534,7 @@ function folders() {
 
     $sql = "select id,name from " .getTable("folders");
 
-    if (getConfig('ABSOLUTE_ORDERING')) {
+    if (getConfig('rss.config.absoluteordering')) {
 	$sql .=" order by position asc";
     } else {
 	$sql .=" order by id";
@@ -550,7 +551,7 @@ function folders() {
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>$name</td>\n";
 
-	if (getConfig('ABSOLUTE_ORDERING')) {
+	if (getConfig('rss.config.absoluteordering')) {
 	    echo "\t<td>";
 
 	    if ($id > 0) {
@@ -634,20 +635,20 @@ function folder_admin() {
 	    break;
 	}
 
-	if (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_YES) {
+	if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_YES) {
 	    $sql = "delete from " . getTable("folders") ." where id=$id";
 	    rss_query($sql);
             $sql = "update " . getTable("channels") ." set parent=0 where parent=$id";
 	    rss_query($sql);	    
-	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
+	} elseif (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_NO) {
 	    // nop;
 	} else {
 	    list($fname) = rss_fetch_row(rss_query("select name from " .getTable("folders") ." where id = $id"));
 
 	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$fname); echo "</p>\n"
-	      ."<p><input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_NO ."\"/>\n"
-	      ."<input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_YES ."\"/>\n"
+	      ."<p><input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
+	      ."<input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
 	      ."<input type=\"hidden\" name=\"fid\" value=\"$id\"/>\n"
 	      ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n"
 	      ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE_ACTION ."\"/>\n"
@@ -751,7 +752,7 @@ function create_folder($label) {
 /*************** OPML Export ************/
 
 function opml_export_form() {
-    if (getConfig('USE_MODREWRITE')) {
+    if (getConfig('rss.output.usemodrewrite')) {
 	$method ="post";
 	$action = getPath() ."opml";
     } else {
@@ -776,15 +777,15 @@ function config() {
       ."\t<th>". ADMIN_CHANNELS_HEADING_KEY ."</th>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_VALUE ."</th>\n"
       ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
-      ."\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+      ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
       ."</tr>\n";
 
-    $sql = "select * from " .getTable("config");
+    $sql = "select * from " .getTable("config") ." order by key_ asc";
 
     $res = rss_query($sql);
     $cntr = 0;
     while ($row = rss_fetch_assoc($res)) {
-
+	$value =  real_strip_slashes($row['value_']);  
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
 	echo "<tr class=\"$class_\">\n"
@@ -795,22 +796,16 @@ function config() {
 	switch($row['key_']) {
 	    
 	    //specific handling per key
-	 case 'DATE_FORMAT':
-	    echo $row['value_'] 
-	      . " (Sample:&nbsp;"
-	      . preg_replace('/ /','&nbsp;',date($row['value_']))
+	 case 'rss.config.dateformat':
+	    echo $value
+	      . " ("
+	      . preg_replace('/ /','&nbsp;',date($value))
 		.")";
 	    break;
-	 case 'KSES_ALLOWED_TAGS':
+	 case 'rss.input.allowed':
 	    
-	    $arr = unserialize($row['value_']);
-	    foreach ($arr as $tag => $attr) {
-		echo "&lt;$tag";
-		foreach ($attr as $nm => $val) {
-		    echo "&nbsp;$nm=\"...\"&nbsp;";
-		}
-		echo "&gt;\n";
-	    }
+	    $arr = unserialize($value);
+	    echo admin_kses_to_html($arr);
 	    
 	    break;
 	 default:
@@ -821,18 +816,13 @@ function config() {
 	     case 'num':
 	     case 'boolean':
 	     default:
-		echo $row['value_'];
+		echo $value;
 		break;
 	     case 'enum':
-		$arr = explode(',',$row['value_']);
-		$idx = array_pop($arr);
-		foreach ($arr as $i => $val) {
-		    if ($i == $idx) 
-		      echo "<em>";
-		    echo "&nbsp;$val";
-		    if ($i == $idx)
-		      echo "</em>";   
-		}
+		$arr = explode(',',$value);
+		
+		echo admin_enum_to_html($arr);
+
 		break;
 
 	    }
@@ -852,15 +842,17 @@ function config() {
 	echo "\t<td class=\"cntr\">"
 	  ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
 	  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_EDIT
-	  ."</a>"
+	  ."</a>";
 	  
-	  ."|"
+	if ($row['value_'] != $row['default_']) {
+	    echo "|"
 	  
-	  ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
-	  ."&amp;action=". ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_DEFAULT
-	  ."</a>"
-	  
-	  ."</td>\n"
+	      ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
+	      ."&amp;action=". ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_DEFAULT
+	      ."</a>";
+	}
+	
+	echo "</td>\n"
 	  ."</tr>\n";
 
     }
@@ -869,13 +861,272 @@ function config() {
     echo "</div>\n";
 }
 
-/////////
-function real_strip_slashes($string) {
-    if (stripslashes($string) == $string) {
-	return $string;
+
+function config_admin() {
+
+    $ret__ = ADMIN_DOMAIN_CONFIG;
+
+    switch ($_REQUEST['action']) {
+	
+	
+     case ADMIN_DEFAULT_ACTION:
+	if (!array_key_exists('key',$_REQUEST)) {
+	    rss_error('Invalid config key specified.');
+	    break;
+	}
+	$key = $_REQUEST['key'];
+	$res = rss_query("select value_,default_,type_ from " .getTable('config') . " where key_='$key'");
+	list($value,$default,$type) = rss_fetch_row($res);
+	$value = real_strip_slashes($value);
+	$default = real_strip_slashes($default);
+	
+	if ($value == $default) {
+	    rss_error("The value for '$key' is the same as its default value!");
+	    break;
+	}
+	
+	switch ($type) {
+	 case 'enum':
+	    $html_default = admin_enum_to_html(explode(',',$default));
+	    break;
+	 case 'array':
+	    $html_default = admin_kses_to_html(unserialize($default));
+	    break;
+	 default:
+	    $html_default = $default;
+	    break;
+	}
+	
+	if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_YES) {
+	    rss_query("update " . getTable('config') ." set value_=default_ where key_='$key'" );	    
+	} elseif (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_NO) {
+	    //nop
+	} else {
+
+	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE_DEFAULT,$key,$html_default); echo "</p>\n"
+	      ."<p><input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
+	      ."<input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
+	      ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
+	      ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CONFIG."\"/>\n"
+	      ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DEFAULT_ACTION ."\"/>\n"
+	      ."</p>\n</form>\n";
+	    
+	    $ret =  ADMIN_DOMAIN_NONE;
+	} 	
+	break;
+	
+	
+     case ADMIN_EDIT_ACTION:
+	$key_ = $_REQUEST['key'];
+	$res = rss_query("select * from ". getTable('config') . " where key_ ='$key_'");
+	list($key,$value,$default,$type,$desc,$export) =  rss_fetch_row($res);
+	$value = real_strip_slashes($value);
+	
+	echo "<div>\n";
+	echo "\n\n<h2>Edit '$key'</h2>\n";
+	echo "<form id=\"cfg\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+	  ."<p>\n<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"". ADMIN_DOMAIN_CONFIG."\"/>\n"
+	  ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
+	  ."<input type=\"hidden\" name=\"type\" value=\"$type\"/>\n"
+	  
+	  .preg_replace('/\s(\w+:\/\/)(\S+)/',
+		       ' <a href="\\1\\2">\\1\\2</a>',
+		       $desc)   
+	    
+	  ."\n</p>\n"
+	  ."<p>\n";
+
+	switch($key) {
+
+	    
+	 case 'rss.input.allowed':
+	    
+	    $arr = unserialize($value);
+	    
+	    	    
+	    echo "</p>\n"
+	      ."<fieldset id=\"fstags\">\n"
+	      ."<legend>Tags</legend>\n"
+	      ."<select size=\"8\" name=\"first\" onchange=\"populate2()\">\n"
+	      ."<option>Your browser doesn't support javascript</option>\n"
+	      ."</select>\n"
+	      ."<input type=\"text\" name=\"newtag\" id=\"newtag\" />\n"
+	      ."<input type=\"button\" onclick=\"add1(); return false;\" value=\"add tag\" />\n"
+	      ."<input type=\"button\" onclick=\"delete1(); return false;\" value=\"delete tag\" />\n"
+	      ."</fieldset><fieldset id=\"fsattrs\">\n"
+	      ."<legend>Attributes</legend>\n"
+	      ."<select size=\"8\" name=\"second\">\n"
+	      ."<option>Your browser doesn't support javascript</option>\n"                                                           
+	      ."</select>\n"
+	      ."<input type=\"text\" name=\"newattr\" id=\"newattr\" />\n"
+	      ."<input type=\"button\" onclick=\"add2(); return false;\" value=\"add attr\" />"
+	      . "<input type=\"button\" onclick=\"delete2(); return false;\" value=\"delete attr\" />"
+	      ."</fieldset>\n"
+	      ."<p><input type=\"hidden\" name=\"value\" id=\"packed\" value=\"\" />\n"
+	      ;
+	    
+	    $onclickaction = "pack(); return true";
+	    //$preview = true;
+	    
+	    echo "<script type=\"text/javascript\">\n"
+	      ."<!--\n";
+	    jsCode($arr);
+	    echo "\n// -->\n";
+	    echo "</script>\n";   
+	    
+	    break;
+	 default:
+	    
+	    // generic handling per type:
+	    switch ($type) {
+	     case 'string':
+	     case 'num':
+		echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." for $key:</label>\n"
+		  ."<input type=\"text\" id=\"c_value\" name=\"value\" value=\"$value\"/>";
+		break;
+	     case 'boolean':
+		echo ADMIN_CONFIG_VALUE ." for $key:</p><p>";
+		echo "<input type=\"radio\" id=\"c_value_true\" name=\"value\""
+		  .($value == 'true' ? " checked=\"checked\"":"") .""
+		  ." value=\"".ADMIN_TRUE."\" "
+		  ."/>\n"
+		  ."<label for=\"c_value_true\">" . ADMIN_TRUE . "</label>\n";
+
+		echo "<input type=\"radio\" id=\"c_value_false\" name=\"value\""
+		  .($value != 'true' ? " checked=\"checked\"":"") .""
+		  ." value=\"".ADMIN_FALSE."\" "
+		  ."/>\n"
+		  ."<label for=\"c_value_false\">" . ADMIN_FALSE . "</label>\n";
+		break;
+	     case 'enum':		
+		echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." for $key:</label>\n"
+		  ."\t\t<select name=\"value\" id=\"c_value\">\n";
+		$arr = explode(',',$value);
+		$idx = array_pop($arr);
+		foreach ($arr as $i => $val) {
+		    echo "<option value=\"$val\"";
+		    if ($i == $idx)
+		      echo " selected=\"selected\"";
+		    echo ">$val</option>\n";
+		}   		
+		echo "</select>\n";
+		break;
+	    }
+	}
+	
+	echo "</p><p>\n";
+	echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". ADMIN_PREVIEW_CHANGES ."\""
+	      .(isset($onclickaction)?" onclick=\"$onclickaction\"":"") ." />\n":"");
+	
+	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_SUBMIT_CHANGES ."\""
+	  .(isset($onclickaction)?" onclick=\"$onclickaction\"":"")
+	  ." />\n";
+	
+
+	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_CANCEL ."\"/>\n"
+	  ."</p>\n"
+	  ."</form>\n\n</div>\n";
+	
+	
+	$ret__ = ADMIN_DOMAIN_NONE;
+	break;
+	
+     case ADMIN_PREVIEW_CHANGES:
+	rss_error('fixme: preview not yet implemented');
+	break;
+     case ADMIN_SUBMIT_CHANGES:
+	$key = $_REQUEST['key'];
+	$type = $_REQUEST['type'];
+	$value = rss_real_escape_string($_REQUEST['value']);
+	
+	switch ($key) {
+	    
+	 case 'rss.input.allowed':
+	    $ret = array();
+	    $tmp = explode(' ',$value);
+	    foreach ($tmp as $key__) {
+		if (preg_match('|^[a-zA-Z]+$|',$key__)) {
+		    $ret[$key__] = array();
+		} else {
+		    $tmp2 = array();
+		    $attrs = explode(',',$key__);
+		    $key__ = array_shift($attrs);
+		    foreach($attrs as $attr) {
+			$tmp2[$attr] = 1;
+		    }
+		    $ret[$key__] = $tmp2;
+		}
+	    }
+
+	    $sql = "update " . getTable('config') . " set value_='"
+	      .serialize($ret)
+	      ."' where key_='$key'";
+	    
+	    break;
+	 default:
+	    switch($type) {
+	     case 'string':
+		$sql = "update " . getTable('config') . " set value_='$value' where key_='$key'";
+		break;
+	     case 'num':
+		if (!is_numeric($value)) {
+		    rss_error("Oops, I was expecting a numeric value, got '$value' instead!");
+		    break;
+		}
+		$sql = "update " . getTable('config') . " set value_='$value' where key_='$key'";
+		break;
+	     case 'boolean':
+		if ($value != ADMIN_TRUE && $value != ADMIN_FALSE) {
+		    rss_error('Oops, invalid value for ' . $key .": " . $value);
+		    break;
+		}
+		$sql = "update " . getTable('config') . " set value_='"
+		  .($value == ADMIN_TRUE ? 'true':'false') ."'"
+		  ." where key_='$key'";
+		break;
+	     case 'enum':
+		$res  = rss_query( "select value_ from " . getTable('config') . " where key_='$key'" );
+		list($oldvalue) = rss_fetch_row($res);
+		if (strstr($oldvalue,$value) === FALSE) {
+		    rss_error("Oops, invalid value '$value' for this config key");
+		    break;
+		}
+		$arr = explode(',',$oldvalue);
+		$idx = array_pop($arr);
+		$newkey = -1;
+		foreach ($arr as $i => $val) {
+		    if ($val == $value) {
+			$newkey = $i;
+		    }
+		}    
+		reset($arr);
+		if ($newkey > -1) {
+		    array_push($arr, $newkey);
+		    $sql =  "update " . getTable('config') . " set value_='"
+		      .implode(',',$arr) ."'"
+		      ." where key_='$key'";
+		} else {
+		    rss_error("Oops, invalid value '$value' for this config key");
+		}
+		break;
+	     default:
+		rss_error('Ooops, unknown config type: ' . $type);
+		break;
+	    }	    
+	}
+	
+	if (isset($sql)) {
+	    rss_query( $sql );
+	}
+	break;
+     default: break;
     }
-    return real_strip_slashes(stripslashes($string));
+    return $ret__;
 }
+
+
+/////////
 
 function admin_menu() {
     $active = array_key_exists(ADMIN_VIEW,$_REQUEST)?$_REQUEST[ADMIN_VIEW]:null;
@@ -888,10 +1139,33 @@ function admin_menu() {
 		    ADMIN_DOMAIN_OPML
 		    ) as $item) {
 	$cls = ($item==$active?" class=\"active\"":"");
-	echo "\t<li$cls><a href=\"$item\">$item</a></li>\n";	
+	echo "\t<li$cls><a href=\"$item\">" .ucfirst($item) ."</a></li>\n";	
     }
     echo "</ul>\n";
-    
-
 }
+
+function admin_kses_to_html($arr) {
+    $ret = "";
+    foreach ($arr as $tag => $attr) {   
+	$ret .= "&lt;$tag";
+	foreach ($attr as $nm => $val) {
+	    $ret .= "&nbsp;$nm=\"...\"&nbsp;";
+	}
+	$ret .= "&gt;\n";
+    }  
+    return $ret;
+}
+function admin_enum_to_html($arr) {			   
+    $idx = array_pop($arr);
+    $ret = "";
+    foreach ($arr as $i => $val) {
+	if ($i == $idx)
+	//  $ret .= "<em>";
+	  $ret .= "$val";
+	//if ($i == $idx)
+	//  $ret .= "</em>";
+    }
+    return $ret;
+}
+
 ?>

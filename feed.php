@@ -37,7 +37,7 @@ define ('NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
 $y=$m=$d=0;
 if (
-    getConfig('USE_MODREWRITE') 
+    getConfig('rss.output.usemodrewrite')
     && array_key_exists('channel',$_REQUEST)    
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])     
@@ -159,7 +159,7 @@ if ($iid == "") {
 
 
 sideChannels($cid); 
-if (getConfig('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
+if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
     items($cid,$title,$iid,$y,$m,$d);
@@ -203,7 +203,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
       
 
     if ( $m==0 && $y==0 ) {
-	$sql .= " limit " . getConfig('ITEMS_ON_CHANNELVIEW');
+	$sql .= " limit " . getConfig('rss.output.itemsinchannelview');
     }
 
     

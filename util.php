@@ -33,7 +33,7 @@
 function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false, $script="") {
 
     if (!$no_output_buffering) {
-	if (getConfig('OUTPUT_COMPRESSION')) {
+	if (getConfig('rss.output.compression')) {
 	    ob_start('ob_gzhandler');
 	} else {
 	    ob_start();
@@ -46,24 +46,24 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
       ."<head>\n"
       ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
       ."charset="
-      . (getConfig('MAGPIE_OUTPUT_ENCODING')?getConfig('MAGPIE_OUTPUT_ENCODING'):DEFAULT_OUTPUT_ENCODING) .""
+      . (getConfig('rss.output.encoding')?getConfig('rss.output.encoding'):DEFAULT_OUTPUT_ENCODING) .""
       ."\" />\n"
       ."\t<title>".makeTitle($title)."</title>\n";
 
-    if (getConfig('ROBOTS_META')) {
+    if (getConfig('rss.config.robotsmeta')) {
 	$meta = (
 		 (
 		  array_key_exists('expand',$_REQUEST) || 
 		  array_key_exists('collapse',$_REQUEST) || 
 		  array_key_exists('dbg',$_REQUEST)
-		)?'noindex,follow':getConfig('ROBOTS_META'));
+		)?'noindex,follow':getConfig('rss.config.robotsmeta'));
 	echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
     }
 
     echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
 
-    if ($active == 1 && (MINUTE * getConfig('RELOAD_AFTER')) >= (30*MINUTE)) {
+    if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (30*MINUTE)) {
 	
 	$redirect = "http://"
 	  . $_SERVER['HTTP_HOST']
@@ -74,7 +74,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	$redirect .= "update.php";
 	
 	echo "\t<meta http-equiv=\"refresh\" "
-	  ." content=\"" . MINUTE * getConfig('RELOAD_AFTER')
+	  ." content=\"" . MINUTE * getConfig('rss.config.refreshafter')
 	  . ";url=$redirect\"/>\n";
     }
 
@@ -108,7 +108,7 @@ function nav($title, $active=0) {
       . "\t<li".($active == LOCATION_ADMIN  ?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."admin/feeds\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
     
     
-    if (getConfig('SHOW_DEVLOG_LINK')) {
+    if (getConfig('rss.config.showdevloglink')) {
 	echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">". NAV_DEVLOG ."</a></li>\n";
     }
     echo "</ul>\n</div>\n";
@@ -136,7 +136,7 @@ function ftr() {
 
     $res = rss_query("select unix_timestamp(max(added)) as max_added from " . getTable("item"));
     list($ts) = rss_fetch_row($res);
-    echo "<span>\n\tLast update: ". date(getConfig('DATE_FORMAT'),$ts)."\n</span>\n";
+    echo "<span>\n\tLast update: ". date(getConfig('rss.config.dateformat'),$ts)."\n</span>\n";
 
     echo "</div>\n\n";
 }
@@ -219,7 +219,7 @@ function makeTitle ($title) {
 /*** update the given feed(s) **/
 
 function update($id) {
-    $kses_allowed = getConfig('KSES_ALLOWED_TAGS'); //getAllowedTags(); 
+    $kses_allowed = getConfig('rss.input.allowed'); //getAllowedTags(); 
     $unreadCount = 0;
     
     $sql = "select id, url, title from ". getTable("channels");
@@ -376,7 +376,7 @@ function itemsList($title,$items, $options = IL_NONE){
     $lastAnchor = "";
 
     $collapsed_ids=array();
-    if (getConfig('ALLOW_CHANNEL_COLLAPSE')) {
+    if (getConfig('rss.output.channelcollapse')) {
 	if (array_key_exists('collapsed',$_COOKIE)) {
 	    $collapsed_ids = explode(":",$_COOKIE['collapsed']);
 	}
@@ -394,7 +394,7 @@ function itemsList($title,$items, $options = IL_NONE){
 
 	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
 
-	if (getConfig('ALLOW_CHANNEL_COLLAPSE')) {
+	if (getConfig('rss.output.channelcollapse')) {
 	    $collapsed = in_array($cid,$collapsed_ids)
 	      && !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW))
 		&& !$iunread;
@@ -418,6 +418,8 @@ function itemsList($title,$items, $options = IL_NONE){
 		}
 	    }
 
+	} else {
+	    $collapsed = false;
 	}
 
 	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle");
@@ -444,7 +446,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		    .">\n";
 
 		if (!($options & IL_NO_COLLAPSE)
-		    && getConfig('ALLOW_CHANNEL_COLLAPSE')		    
+		    && getConfig('rss.output.channelcollapse')		    
 		    && !$iunread
 		    ) {
 		    if ($collapsed) {
@@ -460,7 +462,7 @@ function itemsList($title,$items, $options = IL_NONE){
 			  //."&nbsp;-&nbsp;"
 			  ."</a>\n";
 		    }
-		} elseif (getConfig('USE_FAVICONS') && $cicon != "" && !$iunread) {
+		} elseif (getConfig('rss.output.showfavicons') && $cicon != "" && !$iunread) {
 		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
 		}
 
@@ -470,7 +472,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		    $anchor = "name=\"$lastAnchor\"";
 		} else { $anchor = "name=\"$escaped_title\""; }
 
-		if (getConfig('USE_MODREWRITE')) {
+		if (getConfig('rss.output.usemodrewrite')) {
 		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
 		} else {
 		    echo "\t<a $anchor href=\"". getPath() ."feed.php?channel=$cid\">$ctitle</a>\n";
@@ -513,13 +515,13 @@ function itemsList($title,$items, $options = IL_NONE){
 	    $isUrl = (substr($iurl, 0,4) == "http");
 	    echo "\t<li class=\"$cls\">\n";
 
-	    if (getConfig('USE_PERMALINKS')) {
+	    if (getConfig('rss.output.usepermalinks')) {
 		$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
 		list($ply,$plm,$pld) = explode(":",date("Y:m:d",$ts));
 		$ptitle = PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
 		echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
 		
-		if ($escaped_ititle != "" && getConfig('USE_MODREWRITE')) {
+		if ($escaped_ititle != "" && getConfig('rss.output.usemodrewrite')) {
 		    echo "href=\"" .getPath() ."$escaped_title/$ply/$plm/$pld/$escaped_ititle\">";
 		} else {
 		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
@@ -541,10 +543,10 @@ function itemsList($title,$items, $options = IL_NONE){
 	    echo "</h4>\n";
 
 	    if ($ts != "") {
-		$date_lbl = date(getConfig('DATE_FORMAT'), $ts);
+		$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
 		
 		// make a permalink url for the date (month)
-		if (strpos(getConfig('DATE_FORMAT'),'F') !== FALSE) {
+		if (strpos(getConfig('rss.config.dateformat'),'F') !== FALSE) {
 		    $mlbl = date('F',$ts);
 		    $murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
 		    
@@ -555,7 +557,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		}
 		
 		// make a permalink url for the date (day)
-		if (strpos(getConfig('DATE_FORMAT'),'jS') !== FALSE) {
+		if (strpos(getConfig('rss.config.dateformat'),'jS') !== FALSE) {
 		    $dlbl = date('jS',$ts);
 		    $durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
 		    $date_lbl =
@@ -642,7 +644,7 @@ function add_channel($url, $folderid=0) {
 
 	//lets see if this server has a favicon
 	$icon = "";
-	if (getConfig('USE_FAVICONS')) {
+	if (getConfig('rss.output.showfavicons')) {
 	    // if we got nothing so far, lets try to fall back to
 	    // favicons
 	    if ($icon == "" && $siteurl  != "") {
@@ -788,7 +790,7 @@ function getPath() {
  * builds an url for an archive link
  */
 function makeArchiveUrl($ts,$channel,$cid,$dayView ) {
-    if (getConfig('USE_MODREWRITE')) {
+    if (getConfig('rss.output.usemodrewrite')) {
 	return ( getPath()
 		 . "$channel/"
 		 .date(($dayView?'Y/m/d/':'Y/m/'),$ts));
@@ -853,10 +855,17 @@ function extractFeeds($url) {
     return $ret;
 }
 
+function real_strip_slashes($string) {
+    if (stripslashes($string) == $string) {
+	    return $string;
+	}
+    return real_strip_slashes(stripslashes($string));
+}    
+
 function rss_htmlspecialchars($in) {
     return htmlspecialchars(
        $in, ENT_NOQUOTES,
-       (getConfig('MAGPIE_OUTPUT_ENCODING')?getConfig('MAGPIE_OUTPUT_ENCODING'):DEFAULT_OUTPUT_ENCODING)
+       (getConfig('rss.output.encoding')?getConfig('rss.output.encoding'):DEFAULT_OUTPUT_ENCODING)
     );
 }
 ?>

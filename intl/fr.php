@@ -82,8 +82,6 @@ define ('UPDATE_H2','Mise &agrave; jour de %d Canaux...');
 define ('UPDATE_CACHE_TIMEOUT','Cache (HTTP Timeout)');
 define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)'); 
 define ('UPDATE_NOT_FOUND','404 Pas Trouv&eacute; (Depuis cache)');
-
-
 // admin
 define ('ADMIN_EDIT', '&eacute;diter');
 define ('ADMIN_DELETE', 'effacer');
@@ -99,22 +97,26 @@ define ('ADMIN_NO', 'Non');
 define ('ADMIN_FOLDERS','R&eacute;pertoires:');
 define ('ADMIN_CHANNELS','Canaux:');
 define ('ADMIN_OPML','OPML:');
-define ('ADMIN_CONFIG','Configuration');                                                                                                         
+define ('ADMIN_CONFIG','Configuration');
+
 define ('ADMIN_IN_FOLDER','au r&eacute;pertoire:');
 define ('ADMIN_SUBMIT_CHANGES', 'Poster les modifications');
+define ('ADMIN_PREVIEW_CHANGES','Pr&eacute;visualiser');
+define ('ADMIN_CANCEL','Anuller');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','R&eacute;pertoire');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_MOVE','D&eacute;placer');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
-define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
 define ('ADMIN_CHANNELS_HEADING_KEY','Clef');
+define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
 define ('ADMIN_CHANNELS_HEADING_VALUE','Valeur');  
 define ('ADMIN_FOLDERS_ADD','Ajouter un r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_ICON','Icone affichee:');
 define ('CLEAR_FOR_NONE','(Laisser vide pour ne pas afficher d\icone)');
 define ('ADMIN_OPML_EXPORT','Exporter OPML:');
 define ('ADMIN_OPML_IMPORT','Importer OPML:');
+define ('ADMIN_CONFIG_VALUE','Valeur');
 
 define ('ADMIN_CHANNEL_NAME','Titre:');
 define ('ADMIN_CHANNEL_RSS_URL','URL RSS:');
@@ -122,10 +124,12 @@ define ('ADMIN_CHANNEL_SITE_URL','URL Site:');
 define ('ADMIN_CHANNEL_FOLDER','Dans le r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
 define ('ADMIN_FOLDER_NAME','Nom du r&eacute;pertoire:');
-define ('ADMIN_ARE_YOU_SURE', "Êtes-vous sûr de vouloir &eacute;ffacer '%s'?");
-
-define('ADMIN_MOVE_UP','&uarr;');
-define('ADMIN_MOVE_DOWN','&darr;');
-define('ADMIN_ADD_CHANNEL_EXPL','(Veuillez saisir l\'URL d\'un flux RSS ou d\'un site Internet)');
-define('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute; dans <a href=\"%s\">%s</a>, lequel d&eacute;sirez-vous souscrir?');
+define ('ADMIN_ARE_YOU_SURE', "Etes-vous sur de vouloir &eacute;ffacer '%s'?");
+define ('ADMIN_ARE_YOU_SURE_DEFAULT',"Etes-vous sur de vouloir remettre la valeur de la cl&eacute '%s' &agrave; sa valeur par d&eacute;faut '%s'?");
+define ('ADMIN_TRUE','Oui');
+define ('ADMIN_FALSE','Non');
+define ('ADMIN_MOVE_UP','&uarr;');
+define ('ADMIN_MOVE_DOWN','&darr;');
+define ('ADMIN_ADD_CHANNEL_EXPL','(Veuillez saisir l\'URL d\'un flux RSS ou d\'un site Internet)');
+define ('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute; dans <a href=\"%s\">%s</a>, lequel d&eacute;sirez-vous souscrir?');
 ?>

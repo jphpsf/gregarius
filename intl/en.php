@@ -101,6 +101,8 @@ define ('ADMIN_CONFIG','Configuration:');
 
 define ('ADMIN_IN_FOLDER','to folder:');
 define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
+define ('ADMIN_PREVIEW_CHANGES','Preview');
+define ('ADMIN_CANCEL','Cancel');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Title');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','Folder');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
@@ -114,6 +116,7 @@ define ('ADMIN_CHANNEL_ICON','Shown favicon:');
 define ('CLEAR_FOR_NONE','(Leave blank for no icon)');
 define ('ADMIN_OPML_EXPORT','Export OPML:');
 define ('ADMIN_OPML_IMPORT','Import OPML:');
+define ('ADMIN_CONFIG_VALUE','Value');
 
 define ('ADMIN_CHANNEL_NAME','Title:');
 define ('ADMIN_CHANNEL_RSS_URL','RSS URL:');
@@ -122,9 +125,11 @@ define ('ADMIN_CHANNEL_FOLDER','In folder:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
 define ('ADMIN_FOLDER_NAME','Folder name:');
 define ('ADMIN_ARE_YOU_SURE', "Are you sure you wish to delete '%s'?");
-
-define('ADMIN_MOVE_UP','&uarr;');
-define('ADMIN_MOVE_DOWN','&darr;');
-define('ADMIN_ADD_CHANNEL_EXPL','(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe)');
-define('ADMIN_FEEDS','The following feeds were found in <a href="%s">%s</a>, which one would you like to subscribe?');
+define ('ADMIN_ARE_YOU_SURE_DEFAULT','Are you sure you wish to reset the value for %s to its default \'%s\'?');
+define ('ADMIN_TRUE','True');
+define ('ADMIN_FALSE','False');
+define ('ADMIN_MOVE_UP','&uarr;');
+define ('ADMIN_MOVE_DOWN','&darr;');
+define ('ADMIN_ADD_CHANNEL_EXPL','(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe)');
+define ('ADMIN_FEEDS','The following feeds were found in <a href="%s">%s</a>, which one would you like to subscribe?');
 ?>

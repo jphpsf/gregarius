@@ -37,7 +37,7 @@ $browser = new Browser();
 // decide wether we use server pushing or not
 $doPush = true
   // configured
-  && getConfig('DO_SERVER_PUSH')
+  && getConfig('rss.config.serverpush')
   // not a cron update
   && !array_key_exists('silent',$_GET)
   // browser supports it (Geckos and Opera)
@@ -46,7 +46,7 @@ $doPush = true
 
 
 
-if (getConfig ('MARK_READ_ON_UPDATE')) {
+if (getConfig ('rss.config.markreadonupdate')) {
     $ts = time();
     $newItems = 0;
 }
@@ -154,7 +154,7 @@ if ($doPush) {
     }
 }
 
-if ($newItems > 0 && getConfig ('MARK_READ_ON_UPDATE') && $ts > 0) {
+if ($newItems > 0 && getConfig ('rss.config.markreadonupdate') && $ts > 0) {
     rss_query("update " . getTable("item") ." set unread = 0 where unread = 1 and unix_timestamp(added) < $ts");
 }
 
