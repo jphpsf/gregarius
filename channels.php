@@ -149,7 +149,7 @@ function sideChannels($activeId) {
 		}
 	
 		if (!$iscollapsed) {
-			echo tabs( ($cid > 0)?3:1	) . "<li" .	 (($cid == $activeId)?" class=\"active\"":"") . ">";
+			echo tabs( ($cparent > 0)?3:1	) . "<li" .	 (($cid == $activeId)?" class=\"active\"":"") . ">";
 			echo feed($cid, $ctitle, $curl, $csiteurl, $cico, $cdescr);
 			echo "</li>\n";
 		}
