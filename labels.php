@@ -47,4 +47,7 @@ define ('NAV_CHANNEL_ADMIN', 'Admin');
 define ('NAV_SEARCH', "Search");
 
 define ('POSTED', 'Posted: ');
+
+define ('ADMIN_EDIT', 'edit');
+define ('ADMIN_DELETE', 'delete');
 ?>

@@ -49,8 +49,8 @@ $folder_array=array();
 function main() {
     echo "\n<div id=\"channel_managmenet\" class=\"frame\">";
 
-    if (array_key_exists('domain',$_POST)) {
-	switch($_POST['domain']) {
+    if (array_key_exists('domain',$_REQUEST)) {
+	switch($_REQUEST['domain']) {
 	 case 'folder':
 	    folder_admin();
 	    break;
@@ -77,17 +77,18 @@ function channels() {
     echo "<input type=\"submit\" name=\"action\" value=\"add\"/></p>\n";
     echo "</form>";
 
-    echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\"><p>\n";
-    echo "<input type=\"hidden\" name=\"domain\" value=\"channel\"/></p>\n";
+    //echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\"><p>\n";
+    //echo "<input type=\"hidden\" name=\"domain\" value=\"channel\"/></p>\n";
     echo "<table id=\"channeltable\">\n"
       ."<tr>\n"
-      ."<th>"
+      //."<th>"
       //."<input type=\"checkbox\" onclick=\"alert('fixme');\"/>"
-      ."&nbsp;"
-      ."</th>\n"
+      //."&nbsp;"
+      //."</th>\n"
       ."<th>Title</th>"
       ."<th>Folder</th>"
       ."<th>Description</th>"
+      ."<th>Action</th>"
       ."</tr>";
 
     $sql = "select "
@@ -106,19 +107,21 @@ function channels() {
 	}
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 	echo "<tr class=\"$class_\">\n"
-	  ."<td><input type=\"checkbox\" name=\"cid\" value=\"$id\"/></td>\n"
+	  //."<td><input type=\"checkbox\" name=\"cid\" value=\"$id\"/></td>\n"
 	  ."<td><a href=\"$outUrl\">$title</a></td>\n"
 	  ."<td>$parent</td>\n"
 	  ."<td>$descr</td>\n"
+	  ."<td><a href=\"".$_SERVER['PHP_SELF']. "?domain=channel&amp;action=edit&amp;cid=$id\">" . ADMIN_EDIT ."</a>"
+	  ."|<a href=\"".$_SERVER['PHP_SELF']. "?domain=channel&amp;action=delete&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
 	  ."</tr>";
     }
 
     echo "</table>\n";
 
-    echo "<p><input type=\"submit\" name=\"action\" value=\"edit\"/>";
-    echo "<input type=\"submit\" name=\"action\" value=\"delete\"/></p>";
+    //echo "<p><input type=\"submit\" name=\"action\" value=\"edit\"/>";
+    //echo "<input type=\"submit\" name=\"action\" value=\"delete\"/></p>";
 
-    echo "</form>\n";
+    //echo "</form>\n";
 
     //opml import
     echo "<h2>OPML:</h2>\n";
@@ -140,19 +143,19 @@ function channel_admin() {
 	return;
     }
 
-    switch ($_POST['action']) {
+    switch ($_REQUEST['action']) {
 
      case 'add':
-	$label = $_POST['new_channel'];
+	$label = $_REQUEST['new_channel'];
 	add_channel($label);
 
 	break;
      case 'edit':
-	$id = $_POST['cid'];
+	$id = $_REQUEST['cid'];
 	channel_edit_form($id);
 	break;
      case 'create':
-	$label=$_POST['new_folder'];
+	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
 
 	$sql = "insert into folders (name) values ('" . mysql_real_escape_string($label) ."')";
@@ -160,7 +163,7 @@ function channel_admin() {
 	break;
 
      case 'delete':
-	$id = $_POST['cid'];
+	$id = $_REQUEST['cid'];
 	$sql = "delete from item where cid=$id";
 	rss_query($sql);
 	$sql = "delete from channels where id=$id";
@@ -168,7 +171,7 @@ function channel_admin() {
 	break;
 
      case 'import':
-	$url = $_POST['opml'];
+	$url = $_REQUEST['opml'];
 	$opml=getOpml($url);
 
 	if (sizeof($opml) > 0) {
@@ -191,12 +194,12 @@ function channel_admin() {
 	break;
 
      case 'submit_channel_edit':
-	$cid = $_POST['cid'];
-	$title= mysql_real_escape_string(real_strip_slashes($_POST['c_name']));
-	$url= mysql_real_escape_string($_POST['c_url']);
-	$siteurl= mysql_real_escape_string($_POST['c_siteurl']);
-	$parent= mysql_real_escape_string($_POST['c_parent']);
-	$descr= mysql_real_escape_string(real_strip_slashes($_POST['c_descr']));
+	$cid = $_REQUEST['cid'];
+	$title= mysql_real_escape_string(real_strip_slashes($_REQUEST['c_name']));
+	$url= mysql_real_escape_string($_REQUEST['c_url']);
+	$siteurl= mysql_real_escape_string($_REQUEST['c_siteurl']);
+	$parent= mysql_real_escape_string($_REQUEST['c_parent']);
+	$descr= mysql_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
 
 	$sql = "update channels set title='$title', url='$url', siteurl='$siteurl', "
 	  ." parent=$parent, descr='$descr' where id=$cid";
@@ -283,10 +286,10 @@ function folder_admin() {
 	return;
     }
 
-    switch ($_POST['action']) {
+    switch ($_REQUEST['action']) {
 
      case 'delete':
-	$id = $_POST['folder'];
+	$id = $_REQUEST['folder'];
 	assert(is_numeric($id) && $id>=0);
 
 	if ($id == 0) {
@@ -302,7 +305,7 @@ function folder_admin() {
      case 'rename':
 	break;
      case 'create':
-	$label=$_POST['new_folder'];
+	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
 
 	$sql = "insert into folders (name) values ('" . mysql_real_escape_string($label) ."')";
