@@ -51,11 +51,11 @@ function items($title) {
     // unread items first!
     $sql = "select i.title,  c.title, c.id, i.unread, "
       ." i.url, i.description, c.icon, unix_timestamp(i.pubdate) as ts, i.id  "
-      ." from item i, channels c "
-      ." where i.cid = c.id and i.unread=1 ";
+      ." from item i, channels c, folders f "
+      ." where i.cid = c.id and i.unread=1 and f.id=c.parent";
 
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
-	$sql .= " order by c.parent asc, c.position asc";
+	$sql .= " order by f.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
     }    
@@ -85,13 +85,14 @@ function items($title) {
 
     // next: unread. Must find a better solution instead of iterating over the channels twice.
     $sql = "select "
-      ." id, title, icon "
-      ." from channels ";
+      ." c.id, c.title, c.icon "
+      ." from channels c, folders f "
+      ." where c.parent = f.id ";
     
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
-	$sql .= " order by parent asc, position asc";
+      if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	$sql .= " order by f.position asc, c.position asc";
     } else {
-	$sql .=" order by parent asc, title asc";
+	$sql .=" order by c.parent asc, c.title asc";
     }
     
     

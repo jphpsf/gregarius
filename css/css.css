@@ -259,14 +259,14 @@ th {
  font-weight: bold; 
 }
 
-table#channeltable {
+table#channeltable,table#foldertable {
  border: 1px solid #ddd;
  margin: 20px 0 5px 0;
  width: 100%;
  font-size: small;
 }
 
-
+table#foldertable { width: auto }
 
 td>input[type="text"] {
  width: 100%;

@@ -41,7 +41,7 @@ function sideChannels($activeId) {
       ." from channels c, folders d "
       ." where d.id = c.parent";
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
-	$sql .= " order by c.parent asc, c.position asc";
+	$sql .= " order by d.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
     }

@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS `folders`;
 CREATE TABLE `folders` (
   `id` tinyint(11) NOT NULL auto_increment,
   `name` varchar(127) NOT NULL default '',
+  position int(11) NOT NULL default '0',    
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
 ) TYPE=MyISAM;

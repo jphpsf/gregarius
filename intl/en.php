@@ -88,6 +88,7 @@ define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_MOVE','Move');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
 define ('ADMIN_CHANNELS_ADD','Add a channel:');
+define ('ADMIN_FOLDERS_ADD','Add a folder:');
 define ('ADMIN_CHANNEL_ICON','Shown favicon:');
 define ('CLEAR_FOR_NONE','(Leave blank for no icon)');
 define ('ADMIN_OPML_EXPORT','Export OPML:');
@@ -98,7 +99,7 @@ define ('ADMIN_CHANNEL_RSS_URL','RSS URL:');
 define ('ADMIN_CHANNEL_SITE_URL','Site URL:');
 define ('ADMIN_CHANNEL_FOLDER','In folder:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
-
+define ('ADMIN_FOLDER_NAME','Folder name:');
 define ('ADMIN_ARE_YOU_SURE', "Are you sure you wish to delete '%s'?");
 
 define('ADMIN_MOVE_UP','&uarr;');

@@ -106,8 +106,8 @@ function search($qry,$exactMatch, $channelId) {
 
     $sql = "select i.title, c.title, c.id, i.unread, i.url, "
       ." i.description, c.icon, unix_timestamp(i.pubdate) as ts, i.id  "
-      ." from item i, channels c "
-      ." where i.cid=c.id and "
+      ." from item i, channels c, folders f "
+      ." where i.cid=c.id and c.parent=f.id and "
       ."   (i.description like '%$space$qry$space%' or i.title like '%$space$qry$space%') ";
 
     if ($channelId != ALL_CHANNELS_ID) {
@@ -117,7 +117,7 @@ function search($qry,$exactMatch, $channelId) {
 
     
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
-	$sql .= " order by c.parent asc, c.position asc";
+	$sql .= " order by f.position asc, c.position asc";
     } else {
 	$sql .= " order by c.parent asc, c.title asc";
     }
