@@ -141,12 +141,25 @@ define ('ADMIN_PRUNE_YEARS','ans');
 define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
 define ('ADMIN_ABOUT_TO_DELETE','Attention: vous allez effacer %s  &eacute;l&eacute;ments (sur %s)');
 define ('ADMIN_PRUNING','Effacement');
-define ('ADMIN_DOMAIN_FOLDER_LBL','canaux');
+define ('ADMIN_DOMAIN_FOLDER_LBL','r&eacute;pertoires');
 define ('ADMIN_DOMAIN_CHANNEL_LBL','chaines');
 define ('ADMIN_DOMAIN_ITEM_LBL','el&eacute;ments');
 define ('ADMIN_DOMAIN_CONFIG_LBL','configuration');
 define ('ADMIN_DOMAIN_OPML_LBL','opml');
 define ('ADMIN_BOOKMARKET_LABEL','Bookmarklet de souscription [<a href="http://www.squarefree.com/bookmarklets/">?</a>]:');
 define ('ADMIN_BOOKMARKLET_TITLE','Ajouter &agrave; Gregarius!');
+
+define ('ADMIN_ERROR_NOT_AUTHORIZED', 
+		"<h1>Non autoris&eacute;</h1>\nVous n'etes pas autoris&eacute; &agrave; acc&eacute;der la section d'administration."
+		."Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir &agrave; la page d'accoeuil.\n"
+		."Merci.");
+
+define ('ADMIN_ERROR_PRUNING_PERIOD',"P&eacute; d'effacement non valide");
+define ('ADMIN_ERROR_NO_PERIOD',"P&eacute; non sp&eacute;cifi&eacute;e");
+define ('ADMIN_BAD_RSS_URL',"Je ne sais pas comment g&eacute;rer cette URL '%s'");
+define ('ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Vous ne pouvez pas effacer le r&eacute;pertoire " . HOME_FOLDER ."!");
+define ('ADMIN_CANT_RENAME',"Vous ne pouvez pas renommer cet &eacute;l&eacute;ment '%s' parce que un &eacute;l&eacute;ment du meme nom existe d&eacute;j&agrave;!");
+define ('ADMIN_ERROR_CANT_CREATE',"Un r&eacute;pertoire du meme nom ('%s') existe d&eacute;j&agrave;!");
+
 
 ?>

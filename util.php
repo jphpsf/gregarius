@@ -679,7 +679,7 @@ function add_channel($url, $folderid=0) {
 		return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");		
 	}
 	} else {
-	return array( -1, "I'm sorry, I could'n retrieve <a href=\"$url\">$url</a>.");
+	return array( -1, "I'm sorry, I couldn't retrieve <a href=\"$url\">$url</a>.");
 	}
 }
 

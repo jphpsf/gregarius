@@ -40,7 +40,7 @@ function getConfig($key) {
 
 	if (rss_sql_error() == 1146 || rss_num_rows($res) == 0) {
 	    rss_error("Updating your database schema. This should be a one-time operation.\n");
-	    rss_error("If you see this message overand over, please import the database schema manually.");
+	    rss_error("If you see this message over and over, please import the database schema manually.");
 	    initConfig();
 	    insertDefaults();
 	    $res = rss_query($cfgQry);

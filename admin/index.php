@@ -124,19 +124,15 @@ function admin_main($authorised) {
 		items();
 		break;
 		 default:
-		rss_error( "FIXME: admin unknown view: $show !\n" );
 		}
 	} else {
-		//rss_error( "FIXME: admin no view!\n" );
 		channels();
 	}
 
 	echo "\n<div class=\"clearer\"></div>\n";
 
 	} else {
-	rss_error("I'm sorry, you are not authorised to access the administration interface.\n"
-		  ."Please follow <a href=\"".getPath()."\">this link</a> back to the main page.\n"
-		  ."Have  a nice day!");
+		rss_error(sprintf(ADMIN_ERROR_NOT_AUTHORIZED,getPath()));
 	}
 	echo "</div>\n";
 }
@@ -306,7 +302,7 @@ function item_admin() {
 					break;
 
 				 default:
-					rss_error('invalid pruning period');
+				 	rss_error(ADMIN_ERROR_PRUNING_PERIOD);
 					return ADMIN_DOMAIN_ITEM;
 				break;
 			}
@@ -332,7 +328,7 @@ function item_admin() {
 				."</form>\n";
 			}
 	} else {
-		rss_error('oops, no period specified');
+		rss_error(ADMIN_ERROR_NO_PERIOD);
 		$ret__ = ADMIN_DOMAIN_ITEM;
 	}
 
@@ -426,7 +422,7 @@ function channel_admin() {
 		}
 		}
 	} else {
-		rss_error("I'm sorry, I dont think I can handle this URL: '$label'");
+		rss_error(sprintf(ADMIN_BAD_RSS_URL,$label));
 		$ret__ = ADMIN_DOMAIN_CHANNEL;
 	}
 	break;
@@ -518,7 +514,7 @@ function channel_admin() {
 		$icon = rss_real_escape_string($_REQUEST['c_icon']);
 	
 		if ($url == '' || substr($url,0,4) != "http") {
-			rss_error("I'm sorry, '$url' doesn't look like a valid RSS URL to me.");
+			rss_error(sprintf(ADMIN_BAD_RSS_URL,$url));
 			$ret__ = ADMIN_DOMAIN_CHANNEL;
 			break;
 		}
@@ -756,7 +752,7 @@ function folder_admin() {
 			assert(is_numeric($id));
 	
 			if ($id == 0) {
-				rss_error("You can't delete the " . HOME_FOLDER . " folder");
+				rss_error(ADMIN_ERROR_CANT_DELETE_HOME_FOLDER);
 				break;
 			}
 		
@@ -791,7 +787,7 @@ function folder_admin() {
 				$res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
 				list($cnt) = rss_fetch_row($res);
 				if ($cnt > 0) {
-					rss_error("You can't rename this folder '$new_label' becuase such a folder already exists.");
+					rss_error(sprintf(ADMIN_CANT_RENAME,$new_label));
 					break;
 				}
 				rss_query("update " .getTable("folders") ." set name='$new_label' where id=$id");
@@ -864,7 +860,7 @@ function create_folder($label) {
 	list($exists) = rss_fetch_row($res);
 
 	if ($exists > 0) {
-		rss_error("Looks like you already have a folder called '$label'");
+		rss_error(sprintf(ADMIN_ERROR_CANT_CREATE, $label));
 		return;
 	}
 
