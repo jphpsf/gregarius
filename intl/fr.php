@@ -38,10 +38,11 @@ define ('SEE_ALL_UNREAD', "Voir tous les %d éléments non lus");
 define ('SEE_ONLY_UNREAD', "Seulement afficher les éléments non lus (%d)");
 define ('SEE_ALL', "Voir tous les %d éléments pour ce canal");
 define ('H2_SEARCH_RESULTS_FOR', "%d résultats pour %s");
-
+define ('H2_SEARCH', 'Rechercher parmi %d éléments');
 define ('SEARCH_SEARCH_QUERY','Elements de recherche:');
 define ('SEARCH_EXACT_MATCH', 'Résultat exacte');
 define ('SEARCH_CONTAINS', 'Résultat partiel');
+define ('SEARCH_CHANNELS', 'Canal:');
 
 define ('H2_UNREAD_ITEMS',"Elements non lus (%d)");
 define ('H2_RECENT_ITEMS', "Elements récents");
@@ -50,7 +51,7 @@ define ('ITEMCOUNT_PF', '<strong>%d</strong> éléments (<strong>%d</strong> non l
 define ('UNREAD_PF', '(<strong>%d non lus</strong>)');
 
 define ('FTR_POWERED_BY', "is powered by ");
-
+define ('ALL','Tous');
 define ('NAV_HOME','Départ');
 define ('NAV_UPDATE', 'Rafraichir');
 define ('NAV_CHANNEL_ADMIN', 'Admministration');
