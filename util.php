@@ -97,10 +97,10 @@ function ftr() {
 
     echo "<span>\n\t<a href=\"http://sourceforge.net/projects/gregarius\">"._TITLE_ . "</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
       ."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
-      ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a> \n"
-      ."\tand love\n</span>\n";
+      ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"
+      ."</span>\n";
 
-    echo "<span>\n\tBest effort valid <a href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
+    echo "<span>\n\tTentatively valid <a href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
       ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
     $res = rss_query("select unix_timestamp(max(added)) as max_added from item");

@@ -53,7 +53,7 @@ define ('H5_READ_UNREAD_STATS','%d items, %d unread');
 define ('ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> channels');
 define ('UNREAD_PF', '(<strong>%d unread</strong>)');
 
-define ('FTR_POWERED_BY', "is powered by ");
+define ('FTR_POWERED_BY', ", powered by ");
 define ('ALL','All');
 define ('NAV_HOME','Home');
 define ('NAV_UPDATE', 'Refresh');
