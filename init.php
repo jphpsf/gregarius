@@ -37,7 +37,11 @@ require_once('magpierss-0.61/rss_fetch.inc');
 require_once('magpierss-0.61/rss_utils.inc');
 require_once('kses-0.2.1/kses.php');
 require_once('util.php');
-require_once('labels.php');
+if (defined('LANG')) {
+    require_once('intl/' . LANG . '.php');
+} else {
+    require_once('intl/en.php');
+}
 require_once("channels.php");
 
 ?>
