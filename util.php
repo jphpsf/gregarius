@@ -285,6 +285,7 @@ function itemsList ($title,$items){
 	    echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
 	}
 	
+	
         //if ($idescr != "") {
             echo "\t\t<div class=\"content\">$idescr</div>\n";
         //}        
