@@ -395,12 +395,6 @@ input[type="text"]:focus{
  
 #navlist li.active a,#navlist li a:hover { color: #336; } 
 
-/*
-#navlist input[type="submit"] {
- font-weight:normal;
- font-size:medium;
-}
-*/
 
 img.favicon {
  width:16px;
@@ -449,6 +443,7 @@ span.updateres.ko { color: red }
 #admin_opml { margin-left: 50% }
 
 .clearer { clear: both; height: 0 }
+.indent { margin-left: 2em ! important; }
 
 /* margin to footer */
 div#channels, div#items, div#search, div#channel_admin, div#about, div#update {

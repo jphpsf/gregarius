@@ -51,7 +51,7 @@ function parse_weblogsDotCom($url) {
      */
 
     global $blogs,$folder;
-    $folder = 'root';
+    $folder = HOME_FOLDER;
     
     $opml = getUrl($url);
     $opml = str_replace("\r", '', $opml);
@@ -87,22 +87,6 @@ function _xml_startElement($xp, $element, $attr) {
 function _xml_endElement($xp, $element) {
     global $blogs,$folder;
     return;
-}
-
-function getUrl($url) {
-
-    $handle = fopen($url, "rb");
-    $contents = "";
-    do {
-	$data = fread($handle, 8192);
-	if (strlen($data) == 0) {
-	    break;
-	}
-	$contents .= $data;
-    } while (true);
-    fclose($handle);
-
-    return $contents;
 }
 
 /** OPML Export                                                          */

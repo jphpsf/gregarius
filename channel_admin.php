@@ -103,6 +103,7 @@ function channels() {
     folder_combo('add_channel_to_folder');
 
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
+    echo "<p style=\"font-size:small\">(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe)</p>";
     echo "</form>\n\n";
 
     echo "<table id=\"channeltable\">\n"
@@ -196,7 +197,69 @@ function channel_admin() {
 	$label = trim($_REQUEST['new_channel']);
 	$fid = trim($_REQUEST['add_channel_to_folder']);
 	if ($label != 'http://' &&  substr($label, 0,4) == "http") {
-	    add_channel($label,$fid);
+	    $ret = add_channel($label,$fid);
+	    if (is_array($ret) && $ret[0] > -1) {
+		update($ret[0]);
+	    } else {
+		// okay, something went wrong, maybe thats a html url after all?
+		// let's try and see if we can extract some feeds
+		$feeds = extractFeeds($label);
+		if (!is_array($feeds) || sizeof($feeds) == 0) {
+		    rss_error($ret[1]);
+		} else {
+		    //one single feed in the html doc, add that
+		    if (is_array($feeds) && sizeof($feeds) == 1 && array_key_exists('href',$feeds[0])) {
+			$ret = add_channel($feeds[0]['href'],$fid);
+			if (is_array($ret) && $ret[0] > -1) {
+			    update($ret[0]);
+			} else {
+			    // failure
+			    rss_error($ret[1]);
+			}
+		    } else {
+			// multiple feeds in the channel
+			echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+			  ."<p>The following feeds were found in <a href=\"$label\">$label</a>, which one would you like to subscribe?</p>\n";
+			$cnt = 0;
+			while(list($id,$feedarr) = each($feeds)) {			    
+			    // we need an URL
+			    if (!array_key_exists('href',$feedarr)) {
+				continue;
+			    } else {
+				$href = $feedarr['href']; 
+			    }
+			     
+			    if (array_key_exists('type',$feedarr)) {
+				$typeLbl = " [" . $feedarr['type'] . "]";
+			    }
+			    
+			    $cnt++;
+			    
+			    if (array_key_exists('title',$feedarr)) {
+				$lbl = $feedarr['title'];
+			    } elseif (array_key_exists('type',$feedarr)) {
+				$lbl = $feedarr['type'];
+				$typeLbl = "";
+			    } elseif (array_key_exists('href',$feedarr)) {
+				$lbl = $feedarr['href'];
+			    } else {
+				$lbl = "Resource $cnt";
+			    }
+			    
+			    
+			    echo "<p>\n\t<input class=\"indent\" type=\"radio\" id=\"fd_$cnt\" name=\"new_channel\" "
+			      ." value=\"$href\"/>\n"
+			      ."\t<label for=\"fd_$cnt\"><a href=\"$href\">$lbl</a>$typeLbl</label>\n"
+			      ."</p>\n";
+			}
+			
+			echo "<input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
+			  ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
+			  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
+			  ."</p>\n</form>\n\n";
+		    }
+		}		
+	    }
 	} else {
 	    rss_error("I'm sorry, I dont think I can handle this URL: '$label'");
 	}
@@ -252,12 +315,7 @@ function channel_admin() {
 	    $sql = "delete from folders where id > 0";
 	    rss_query($sql);
 
-	    //echo "adding: " .$opml[$i]['XMLURL'];
-	    //for ($i=0;$i<sizeof($opml);$i++){
-	    //add_channel(trim($opml[$i]['XMLURL']));
-	    //}
-
-	    $prev_folder = 'root';
+	    $prev_folder = HOME_FOLDER;
 	    $fid = 0;
 	    while (list($folder,$items) = each ($opml)) {
 		if ($folder != $prev_folder) {
@@ -267,6 +325,7 @@ function channel_admin() {
 
 		for ($i=0;$i<sizeof($opml[$folder]);$i++){
 		    add_channel(trim($opml[$folder][$i]['XMLURL']), $fid);
+		    $ret = add_channel($label,$fid);        
 		}
 
 	    }
@@ -284,16 +343,15 @@ function channel_admin() {
 	$parent= mysql_real_escape_string($_REQUEST['c_parent']);
 	$descr= mysql_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
 	$icon = mysql_real_escape_string($_REQUEST['c_icon']);
-	
+
 	if ($url == '' || substr($url,0,4) != "http") {
 	    rss_error("I'm sorry, '$url' doesn't look like a valid RSS URL to me.");
 	    break;
 	}
-	
+
 	$sql = "update channels set title='$title', url='$url', siteurl='$siteurl', "
 	  ." parent=$parent, descr='$descr', icon='$icon' where id=$cid";
 
-	
 	rss_query($sql);
 	break;
 
@@ -405,6 +463,7 @@ function channel_edit_form($cid) {
     echo "<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"/></p>"
       ."</form></div>\n";
 }
+
 
 /*************** Folder management ************/
 
@@ -560,7 +619,7 @@ function folder_admin() {
 
 	$new_label = mysql_real_escape_string($_REQUEST['f_name']);
 	if (is_numeric($id) && strlen($new_label) > 0) {
-	    
+
 	    $res = rss_query("select count(*) as cnt from folders where binary name='$new_label'");
 	    list($cnt) = mysql_fetch_row($res);
 	    if ($cnt > 0) {
@@ -580,7 +639,7 @@ function folder_admin() {
      case ADMIN_MOVE_UP_ACTION:
      case ADMIN_MOVE_DOWN_ACTION:
 	$id = $_REQUEST['fid'];
-	
+
 	if ($id == 0) {
 	    return;
 	}
@@ -592,7 +651,6 @@ function folder_admin() {
 	  ." where  id != $id order by abs($position-position) limit 2";
 
 	$res = rss_query($sql);
-
 
 	// Let's look for a lower/higher position than the one we got.
 	$switch_with_position=$position;
@@ -637,11 +695,11 @@ function create_folder($label) {
 
     $res = rss_query("select 1+max(position) as np from folders");
     list($np) = mysql_fetch_row($res);
-    
+
     if (!np) {
 	$np = "0";
     }
-    
+
     rss_query("insert into folders (name,position) values ('" . mysql_real_escape_string($label) ."', $np)");
     list($fid) = mysql_fetch_row( rss_query("select id from folders where name='". mysql_real_escape_string($label) ."'"));
     return $fid;

@@ -28,7 +28,6 @@
 #
 ###############################################################################
 
-
 function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false) {
 
     if (!$no_output_buffering) {
@@ -38,7 +37,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	    ob_start();
 	}
     }
-    
+
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
@@ -46,15 +45,14 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
       ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
       ."charset=ISO-8859-1\" />\n"
       ."\t<title>".makeTitle($title)."</title>\n";
-    
+
     if (defined('ROBOTS_META') && ROBOTS_META != '') {
 	$meta = ($_REQUEST['expand'] || $_REQUEST['collapse'] || $_REQUEST['dbg'])?'noindex,follow':ROBOTS_META;
 	echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
     }
-    
+
     echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
-
 
     if ($active == 1 && defined('RELOAD_AFTER') && RELOAD_AFTER >= (30*MINUTE)) {
 	echo "\t<meta http-equiv=\"refresh\" "
@@ -83,7 +81,6 @@ function rss_query ($query) {
 }
 
 function nav($title, $active=0) {
-
     echo "<div id=\"nav\" class=\"frame\">"
 
       ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
@@ -118,91 +115,8 @@ function rss_error($message, $returnonly=false) {
     if (!$returnonly) {
 	echo "\n<p class=\"error\">$message</p>\n";
 	return;
-    } 
+    }
     return $message;
-}
-
-function add_channel($url, $folderid=0) {
-    assert($url != "" && strlen($url) > 7);
-    assert(is_numeric($folderid));
-
-    $urlDB = htmlentities($url);
-
-    $res = rss_query("select count(*) as channel_exists from channels where url='$urlDB'");
-    list ($channel_exists) = mysql_fetch_row($res);
-    if ($channel_exists > 0) {
-	rss_error("Looks like you are already subscribed to this channel");
-	return;
-    }
-
-    $res = rss_query("select 1+max(position) as np from channels");
-    list($np) = mysql_fetch_row($res);
-    
-    if (!$np) {
-	$np = "0";
-    }
-    
-    // Here we go!
-    $rss = fetch_rss( $url );
-    /*
-     *          echo "<pre>";
-     *          var_dump($rss);
-     *          echo "</pre>";
-     * */
-    if ( $rss ) {
-        $title= mysql_real_escape_string ( $rss->channel['title'] );
-        $siteurl= mysql_real_escape_string (htmlentities($rss->channel['link'] ));
-        $descr =  mysql_real_escape_string ($rss->channel['description']);
-
-        //lets see if this server has a favicon
-        $icon = "";
-        if (defined ('USE_FAVICONS') && USE_FAVICONS) {
-
-	    // This actually works and display somethign valid,
-	    // but these look more like site logos than icons. Wouldn't
-	    // look good constrained to 16x16, would it? :/
-
-	    /*
-	     // first check whether this feed has an image tag
-	     if (
-	     array_key_exists('image',$rss) && // note: array_key_exists on an object var.
-	     array_key_exists('url',$rss->image) &&
-	     getHttpResponseCode($rss->image['url']))
-	     *
-	     {
-	     *
-	     // use this one by default, because it should be a
-	     // format even retarded browsers like IE can dig.
-	     $icon = $rss->image['url'];
-	     }
-	     */
-
-	    // if we got nothing so far, lets try to fall back to
-	    // favicons
-	    if ($icon == "" && $rss->channel['link']  != "") {
-		$match = get_host($rss->channel['link'], $host);
-		$uri = "http://" . $host . "favicon.ico";
-		//if ($match && (getHttpResponseCode($uri)))  {
-		if ($match && getContentType($uri, $contentType)) {
-		    if (preg_match("/image\/x-icon/", $contentType)) {
-			$icon = $uri;
-		    }
-
-		}
-	    }
-        }
-
-        if ($title != "") {
-            $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon, position)"
-	      ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
-
-            rss_query($sql);
-        } else {
-            rss_error ("I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");
-        }
-    } else {
-        rss_error( "I'm sorry, I could'n retrieve <a href=\"$url\">$url</a>.");
-    }
 }
 
 /** this functions checks wether a URI exists */
@@ -280,13 +194,12 @@ function update($id) {
     if ($id != "" && is_numeric($id)) {
 	$sql .= " where id=$id";
     }
-    
+
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
 	$sql .= " order by parent, position";
     } else {
 	$sql .= " order by parent, title";
     }
-
 
     $res = rss_query($sql);
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
@@ -305,7 +218,7 @@ function update($id) {
 	}
 
 	$unreadCount = 0;
-	
+
 	foreach ($rss->items as $item) {
 
 	    // item title
@@ -386,7 +299,7 @@ function update($id) {
 
     if ($id != "" && is_numeric($id)) {
 	if ($rss) {
-	    // when everything went well, return the error code 
+	    // when everything went well, return the error code
 	    // and numer of new items
 	    return array($rss -> rss_origin,$unreadCount);
 	} else {
@@ -413,9 +326,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	if (array_key_exists('collapsed',$_COOKIE)) {
 	    $collapsed_ids = explode(":",$_COOKIE['collapsed']);
 	}
-    } 
-        
-    
+    }
 
     if ($options & IL_DO_STATS) {
 	$stats = array();
@@ -424,17 +335,16 @@ function itemsList($title,$items, $options = IL_NONE){
 	    $stats[$s_cid][$s_unread] = $s_count;
 	}
     }
-    
-    
+
     while (list($row, $item) = each($items)) {
 
 	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $iid) = $item;
 
 	if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
-	    $collapsed = in_array($cid,$collapsed_ids) 
+	    $collapsed = in_array($cid,$collapsed_ids)
 	      && !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW))
 		&& !$iunread;
-	    
+
 	    if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
 		// expanded -> collapsed
 		$collapsed = true;
@@ -442,7 +352,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		    $collapsed_ids[] = $cid;
 		    $cookie = implode(":",$collapsed_ids);
 		    setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
-		}	    
+		}
 	    } elseif (array_key_exists('expand', $_GET) &&$_GET['expand'] == $cid && $collapsed) {
 		//  collapsed -> expanded
 		$collapsed = false;
@@ -451,14 +361,14 @@ function itemsList($title,$items, $options = IL_NONE){
 		    unset($collapsed_ids[$key]);
 		    $cookie = implode(":",$collapsed_ids);
 		    setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
-		}		
+		}
 	    }
 
 	}
 
 	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle");
 	$ctitle = htmlentities($ctitle);
-	
+
 	if ($prev_cid != $cid) {
 	    $prev_cid = $cid;
 	    if ($cntr++ > 0) {
@@ -479,8 +389,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
 		    .">\n";
 
-		
-		if (!($options & IL_NO_COLLAPSE) 
+		if (!($options & IL_NO_COLLAPSE)
 		    && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE
 		    && !$iunread
 		    ) {
@@ -506,34 +415,30 @@ function itemsList($title,$items, $options = IL_NONE){
 		    $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
 		    $anchor = "name=\"$lastAnchor\"";
 		}
-		
-	
-		
+
 		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
 		} else {
 		    echo "\t<a $anchor href=\"". getPath() ."feed.php?channel=$cid\">$ctitle</a>\n";
 		}
-				
 
-		
 		if ($options & IL_DO_STATS) {
 		    $s_unread = (int)( array_key_exists("1", $stats[$cid])?$stats[$cid][1]:0);
 		    $s_total  = (int)$stats[$cid][0] + $s_unread;
 		    echo "<span>"
-		      .sprintf(H5_READ_UNREAD_STATS, 
+		      .sprintf(H5_READ_UNREAD_STATS,
 			       $s_total, $s_unread
 			       )
-		      ."</span>\n";
+			."</span>\n";
 		}
-		
+
 		echo "</h3>\n";
 	    }
 
 	    if (!$collapsed) {
 		echo "<ul>\n";
 	    }
-	    
+
 	    // reset the items per channel counter too
 	    $cntr = 0;
 	}
@@ -562,12 +467,11 @@ function itemsList($title,$items, $options = IL_NONE){
 		    echo "href=\"" .getPath() ."$escaped_title/$escaped_ititle\">";
 		} else {
 		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid\">";
-		}    
+		}
 		echo "\n\t\t\t<img src=\"".getPath() . "img/pl.gif\" alt=\"$ptitle\"/>\n"
 		  ."\t\t</a>\n";
-	    }  
-	    
-	    
+	    }
+
 	    echo "\t\t<h4>";
 	    if ($ititle == "") {
 		$ititle = "[nt]";
@@ -579,7 +483,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	    }
 
 	    echo "</h4>\n";
-	    	    
+
 	    if ($ts != "") {
 		echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
 	    }
@@ -596,19 +500,81 @@ function itemsList($title,$items, $options = IL_NONE){
 
 	if (($options & IL_DO_NAV) && $lastAnchor != "" && !$collapsed) {
 	    // link to start of channel
-	    
+
 	    echo "<li class=\"upnav\">\n"
 	      ."\t<a href=\"#$lastAnchor\">up</a>\n"
 	      ."\t<a href=\"#top\">upup</a>\n"
 	      ."</li>\n";
 	}
-	
+
 	if (!$collapsed) {
 	    echo "</ul>\n";
 	}
     }
 
     return $ret;
+}
+
+function add_channel($url, $folderid=0) {
+    assert($url != "" && strlen($url) > 7);
+    assert(is_numeric($folderid));
+
+    $urlDB = htmlentities($url);
+
+    
+    $res = rss_query("select count(*) as channel_exists from channels where url='$urlDB'");
+    list ($channel_exists) = mysql_fetch_row($res);
+    if ($channel_exists > 0) {
+	return array(-1,"Looks like you are already subscribed to this channel");
+    }
+
+    $res = rss_query("select 1+max(position) as np from channels");
+    list($np) = mysql_fetch_row($res);
+
+    if (!$np) {
+	$np = "0";
+    }
+
+    // Here we go!
+    $rss = fetch_rss( $url );
+    if ( $rss ) {
+	$title= mysql_real_escape_string ( $rss->channel['title'] );
+	$siteurl= mysql_real_escape_string (htmlentities($rss->channel['link'] ));
+	$descr =  mysql_real_escape_string ($rss->channel['description']);
+
+	//lets see if this server has a favicon
+	$icon = "";
+	if (defined ('USE_FAVICONS') && USE_FAVICONS) {
+
+	    // if we got nothing so far, lets try to fall back to
+	    // favicons
+	    if ($icon == "" && $rss->channel['link']  != "") {
+		$match = get_host($rss->channel['link'], $host);
+		$uri = "http://" . $host . "favicon.ico";
+		//if ($match && (getHttpResponseCode($uri)))  {
+		if ($match && getContentType($uri, $contentType)) {
+		    if (preg_match("/image\/x-icon/", $contentType)) {
+			$icon = $uri;
+		    }
+		}
+	    }
+	}
+
+	if ($title != "") {
+	    $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon, position)"
+	      ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
+
+	    rss_query($sql);
+	    
+	    $res = rss_query ("select max(id) as max from channels");
+	    list($newid) = mysql_fetch_row($res);
+	    return array($newid,"");	    
+	} else {
+	    return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");	    
+	}
+    } else {
+	return array( -1, "I'm sorry, I could'n retrieve <a href=\"$url\">$url</a>.");
+    }
 }
 
 /**
@@ -665,6 +631,11 @@ function parse_iso8601 ( $date_str ) {
     }
 }
 
+/**
+ * Returns the relative path of the install dir, e.g:
+ * http://host.com/thing/ -> "/thing/"
+ * http://host.com/ -> "/"
+ */
 function getPath() {
     static $ret;
     $ret = dirname($_SERVER['PHP_SELF']);
@@ -674,4 +645,55 @@ function getPath() {
 
     return $ret;
 }
+
+/**
+ * Fetches a remote URL and returns the content
+ */
+function getUrl($url) {
+    $handle = fopen($url, "rb");
+    $contents = "";
+    do {
+	$data = fread($handle, 8192);
+	if (strlen($data) == 0) {
+	    break;
+	}
+	$contents .= $data;
+    } while (true);
+    fclose($handle);
+    return $contents;
+}
+
+/**
+ * returns an array of all (hopefully) rss/atom/rdf feeds in the document,
+ * pointed by $url
+ */
+function extractFeeds($url) {
+    $cnt = getUrl($url);
+    $ret = array();
+    //find all link tags
+    if (preg_match_all('|<link \w*="[^"]+"+[^>]*>|U',$cnt,$res)) {
+	while(list($id,$match)=each($res[0])) {
+	    // we only want '<link alternate=...'
+	    if (strpos($match,'alternate') &&
+		// extract the attributes
+		preg_match_all('|([a-zA-Z]*)="([^"]*)|',$match,$res2,PREG_SET_ORDER)) {
+		$tmp = array();
+		//populate the return array: attr_name => attr_value
+		while(list($id2,$match2) = each($res2)) {
+		    $attr = trim($match2[1]);
+		    $val  = trim($match2[2]);
+		    // make sure we have absolute URI's
+		    if (strcasecmp($attr,"href") == 0 &&
+			strcasecmp(substr($val,0,4),"http") != 0) {
+			$val =  ($url . $val);
+		    }
+		    $tmp[$attr] = $val;
+		}
+		$ret[] = $tmp;
+	    }
+	}
+    }
+    return $ret;
+}
+
 ?>
