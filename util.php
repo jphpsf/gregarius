@@ -205,7 +205,9 @@ function update($id) {
     }
 }
 
-
+/**
+ * renders a list of items
+ */
 function itemsList ($title,$items){
 
     echo "\n\n<h2>$title</h2>\n";
