@@ -1,6 +1,5 @@
 
-Gregarius 0.3.1
-
+Gregarius 0.3.2
 
  (12.01.2005) Fix: made feed archives work when  MOD_REWRITE is off
  	      OPML import: make all items as read after an import
