@@ -95,5 +95,7 @@ $kses_allowed =
 	'p' => array(),
 	'blockquote' => array(),
 	'ul' => array(),	
-	'li' => array());
+	'li' => array(),
+	'tt' => array()
+	);
 ?>
