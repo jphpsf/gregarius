@@ -6,7 +6,9 @@
 define ('DBNAME','database_name');
 
 //
-// The username to use when connecting to the database
+// The username to use when connecting to the database. Make sure that
+// thus user owns privileges to CREATE database tables on the above
+// database!
 //
 define ('DBUNAME','database_username');
 
