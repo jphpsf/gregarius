@@ -191,237 +191,253 @@ function search() {
     $term = "";
     if ($matchMode == QUERY_MATCH_OR || $matchMode == QUERY_MATCH_AND) {
 
-		$logicSep = ($matchMode == QUERY_MATCH_OR?"or":"and");
-		$terms = explode(" ",$qry);
-		foreach($terms as $term) {
-			 $term = trim($term);
-			 if ($term != "") {
-			$qWhere .=
-			  "(i.description like '%$term%' or "
-			  ." i.title like '%$term%') " .$logicSep;
-			 }
-			 // this will be used later for the highliting regexp
-			 if ($regMatch != "") {
-			$regMatch .= "|";
-			 }
-			 $regMatch .= $term;
-		}
-	
-		$qWhere .= ($matchMode == QUERY_MATCH_OR?" 1=0 ":" 1=1 ");
-	} else {
-		$logicSep = "";
-		$terms[0] = $qry;
+	$logicSep = ($matchMode == QUERY_MATCH_OR?"or":"and");
+	$terms = explode(" ",$qry);
+	foreach($terms as $term) {
+	    $term = trim($term);
+	    if ($term != "") {
 		$qWhere .=
 		  "(i.description like '%$term%' or "
-		  ." i.title like '%$term%') ";
-		$regMatch = $qry;
+		  ." i.title like '%$term%') " .$logicSep;
+	    }
+	    // this will be used later for the highliting regexp
+	    if ($regMatch != "") {
+		$regMatch .= "|";
+	    }
+	    $regMatch .= $term;
 	}
 
-   $sql = "select distinct i.title, c.title, c.id, i.unread, i.url, "
+	$qWhere .= ($matchMode == QUERY_MATCH_OR?" 1=0 ":" 1=1 ");
+    } else {
+	$logicSep = "";
+	$terms[0] = $qry;
+	$qWhere .=
+	  "(i.description like '%$term%' or "
+	  ." i.title like '%$term%') ";
+	$regMatch = $qry;
+    }
+
+    $sql = "select distinct i.title, c.title, c.id, i.unread, i.url, "
       ." i.description, c.icon, "
       ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
       ." i.pubdate is not null as ispubdate, "
-      ." i.id  "
-      ." from " . getTable("item") ." i, " . getTable("channels") ." c, " . getTable("folders") ." f "
+      ." i.id, t.tag   "
+      ." from " . getTable("item") ." i "
+      
+      ." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
+      ." left join ".getTable('tag')." t on (m.tid=t.id) "
+
+      
+      .", " . getTable("channels") ." c, " . getTable("folders") ." f "
       ." where i.cid=c.id and c.parent=f.id and ("
       .$qWhere .") ";
 
-   if ($channelId != ALL_CHANNELS_ID) {
-		$sql .= " and c.id = $channelId ";
-   }
+    if ($channelId != ALL_CHANNELS_ID) {
+	$sql .= " and c.id = $channelId ";
+    }
 
-   if ($orderBy == QUERY_ORDER_BY_DATE) {
-		$sql .= " order by 8 desc";
-   } else {
-		if (getConfig('rss.config.absoluteordering')) {
-	   	$sql .= " order by f.position asc, c.position asc";
+    if ($orderBy == QUERY_ORDER_BY_DATE) {
+	$sql .= " order by 8 desc";
+    } else {
+	if (getConfig('rss.config.absoluteordering')) {
+	    $sql .= " order by f.position asc, c.position asc";
+	} else {
+	    $sql .= " order by c.parent asc, c.title asc";
+	}
+    }
+
+    $sql .=", i.added desc";
+
+    //echo $sql;
+
+    $res0=rss_query($sql);
+    $cnt = rss_num_rows($res0);
+    $items = array();
+
+    $start__ = $resultsPerPage * $currentPage;
+    $end__  = $start__ + $resultsPerPage -1;
+    if ($resultsPerPage == INFINE_RESULTS) {
+	$end__ = 99999999;
+    }
+
+    if ($cnt > 0) {
+
+	$crnt = 0;
+
+	$prevId = -1;
+	
+	$items=array();
+	while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iispubdate, $iid, $tag_) = rss_fetch_row($res0)) {
+	    
+	    $descr_noTags = strip_tags($idescr);
+	    $title_noTags = strip_tags($ititle);
+
+	    $match = false;
+	    reset($terms);
+	    $match = ($matchMode == QUERY_MATCH_AND || $matchMode == QUERY_MATCH_EXACT);
+	    foreach ($terms as $term) {
+		if ($matchMode == QUERY_MATCH_AND || $matchMode == QUERY_MATCH_EXACT) {
+		    $match =  ((stristr($descr_noTags,$term) || stristr($title_noTags, $term)) && $match);
 		} else {
-	    	$sql .= " order by c.parent asc, c.title asc";
+		    $match = ($match || (stristr($descr_noTags,$term) || stristr($title_noTags, $term)));
 		}
-   }
+	    }
 
-   $sql .=", i.added desc";
+	    if ($match) {
 
-   //echo $sql;
+		if ($iid == $prevId) {
+		    end($items);
+		    $items[key($items)]['tags'][]=$tag_;
+		} else {
+		    $prevId = $iid;
+		    $items[]= array(
+				    $cid,
+				    $ctitle,
+				    $cicon,
+				    // Credits for the regexp: mike at iaym dot com
+				    // http://ch2.php.net/manual/en/function.preg-replace.php
+				    $ititle,
+				    $iunread,
+				    $iurl,
+				    $idescr,
+				    $its,
+				    $iispubdate,
+				    $iid,
+				    'tags' => array($tag_)
+				    );
+		}		    		
+	    }
+	}
+    }
 
-   $res0=rss_query($sql);
-   $cnt = rss_num_rows($res0);
-   $items = array();
-
-   $start__ = $resultsPerPage * $currentPage;
-   $end__  = $start__ + $resultsPerPage -1;
-   if ($resultsPerPage == INFINE_RESULTS) {
-		$end__ = 99999999;
-   }
-
-	if ($cnt > 0) {
+    $cnt =count($items);
+    
+    // get rid of unwanted items
+    $items = array_slice($items,$start__,1+$end__-$start__);
+    
+    // highlite the hits
+    for ($i=0;$i<count($items);$i++) {
+	$items[$i][6] = preg_replace(
+				     "'(?!<.*?)($regMatch)(?![^<>]*?>)'si",
+				     HIT_BEFORE . "\\1" . HIT_AFTER,
+				     $items[$i][6]
+				     );
 	
-		$crnt = 0;
-	
-		$items=array();
-		while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iispubdate, $iid) = rss_fetch_row($res0)) {
-			$descr_noTags = strip_tags($idescr);
-			$title_noTags = strip_tags($ititle);
-		
-			$match = false;
-			reset($terms);
-			$match = ($matchMode == QUERY_MATCH_AND || $matchMode == QUERY_MATCH_EXACT);
-			foreach ($terms as $term) {
-				if ($matchMode == QUERY_MATCH_AND || $matchMode == QUERY_MATCH_EXACT) {
-					 $match =  ((stristr($descr_noTags,$term) || stristr($title_noTags, $term)) && $match);
-				} else {
-					 $match = ($match || (stristr($descr_noTags,$term) || stristr($title_noTags, $term)));
-				}
-		
-			}
-		
-			if ($match) {
-				if (isset($hits) && is_array($hits) && array_key_exists($iid,$hits) && $hits[$iid]) {
-					 continue;
-				}
-		
-				if ($crnt >= $start__ && $crnt <= $end__) {
-					$hits[$iid] = true;
-					$items[]= array(
-						$cid,
-						$ctitle,
-						$cicon,
-						// Credits for the regexp: mike at iaym dot com
-						// http://ch2.php.net/manual/en/function.preg-replace.php
-						"$ititle",
-						$iunread,
-						$iurl,
-						preg_replace(
-							"'(?!<.*?)($regMatch)(?![^<>]*?>)'si",
-							HIT_BEFORE . "\\1" . HIT_AFTER,
-							$idescr
-						),
-						$its,
-						$iispubdate,
-						$iid
-					);
-		
-				}
-		
-				$crnt++;
-			}
+    }
+    
+
+    $humanReadableQuery = implode(" ".strtoupper($logicSep)." ",$terms);
+
+    $title = sprintf(
+		     (($cnt > 1 || $cnt == 0)?H2_SEARCH_RESULTS_FOR:H2_SEARCH_RESULT_FOR),
+		     $cnt, "'" .$humanReadableQuery."'");
+
+    // If we got no hit, offer the search form.
+    if ($cnt > 0) {
+	searchForm($title,false);
+
+	$nav = "";
+	if ($resultsPerPage != INFINE_RESULTS && $cnt > $resultsPerPage) {
+	    $nav .= "<div class=\"readmore\">";
+	    $nav .= SEARCH_RESULTS;
+
+	    // first page
+	    $fp = 0;
+	    //last page
+	    $lp = floor(($cnt -1) / $resultsPerPage);
+	    // current page
+	    $cp = $currentPage;
+	    //shown pages
+	    $pages = array();
+
+	    for ($i=0;$i<4;$i++) {
+		if ($cp - $i >= 0) {
+		    $pages[$cp - $i] = true;
+		} else {
+		    if ($cp + $i < $lp) {
+			$pages[$cp + $i] = true;
+		    }
 		}
+		if ($cp + $i < $lp) {
+		    $pages[$cp + $i] = true;
+		} else {
+		    if ($cp - $i >= 0) {
+			$pages[$cp - $i] = true;
+		    }
+		}
+	    }
+
+	    $pages[0] = true;
+	    $pages[$lp] = true;
+
+	    for ($p=$fp;$p<$lp;$p++) {
+		if (!array_key_exists($p,$pages)) {
+		    if (array_key_exists($p - 1 ,$pages)) {
+			$nav .= " ... ";
+		    }
+		    continue;
+		}
+
+		$cpp = ($p * $resultsPerPage == $start__);
+		if (!$cpp) {
+		    $nav .= " <a href=\""
+		      .$_SERVER['PHP_SELF'] . "?"
+		      .QUERY_PRM . "=$qry&amp;"
+		      .QUERY_MATCH_MODE . "=$matchMode&amp;"
+		      .QUERY_CHANNEL . "=$channelId&amp;"
+		      .QUERY_RESULTS . "=$resultsPerPage&amp;"
+		      .QUERY_ORDER_BY . "=$orderBy&amp;"
+		      .QUERY_CURRENT_PAGE ."=$p"
+		      ."\">";
+		} else {
+		    $nav .= HIT_BEFORE;
+		}
+
+		$nav .= "". (1+$p * $resultsPerPage) ."-" . ((1+$p) * $resultsPerPage) ."";
+
+		if (!$cpp) {
+		    $nav .= "</a>";
+		} else {
+		    $nav .= HIT_AFTER;
+		}
+		if ((1+$p) * $resultsPerPage < $cnt) {
+		    $nav .= ", \n";
+		}
+	    }
+
+	    if ($p * $resultsPerPage >= $end__) {
+		$nav .= " <a href=\""
+		  .$_SERVER['PHP_SELF'] . "?"
+		  .QUERY_PRM . "=$qry&amp;"
+		  .QUERY_MATCH_MODE . "=$matchMode&amp;"
+		  .QUERY_CHANNEL . "=$channelId&amp;"
+		  .QUERY_RESULTS . "=$resultsPerPage&amp;"
+		  .QUERY_ORDER_BY . "=$orderBy&amp;"
+		  .QUERY_CURRENT_PAGE ."=$p"
+		  ."\">";
+		$nav .=  (1+ $p * $resultsPerPage) ."-$cnt";
+		$nav .= "</a> \n";
+	    } else {
+		$nav .= HIT_BEFORE . (1+ $p * $resultsPerPage) ."-$cnt" .HIT_AFTER;
+	    }
+	    $nav .= "<hr class=\"clearer hidden\"/>\n</div>\n";
 	}
 
-   $cnt = $crnt;
+	echo "<div id=\"items\" class=\"frame\">";
+	if ($nav) {
+	    echo $nav;
+	}
 
-   $humanReadableQuery = implode(" ".strtoupper($logicSep)." ",$terms);
+	itemsList( "", $items, IL_NO_COLLAPSE);
 
-   $title = sprintf(
-		(($cnt > 1 || $cnt == 0)?H2_SEARCH_RESULTS_FOR:H2_SEARCH_RESULT_FOR),
-		$cnt, "'" .$humanReadableQuery."'");
+	if ($nav) {
+	    echo $nav;
+	}
 
-   // If we got no hit, offer the search form.
-   if ($cnt > 0) {
-		searchForm($title,false);
-
-		$nav = "";
-		if ($resultsPerPage != INFINE_RESULTS && $cnt > $resultsPerPage) {
-	    	$nav .= "<div class=\"readmore\">";
-	    	$nav .= SEARCH_RESULTS;
-
-	    	// first page
-	    	$fp = 0;
-	    	//last page
-	    	$lp = floor(($cnt -1) / $resultsPerPage);
-	    	// current page
-	    	$cp = $currentPage;
-	    	//shown pages
-	    	$pages = array();
-
-	    	for ($i=0;$i<4;$i++) {
-				if ($cp - $i >= 0) {
-		    		$pages[$cp - $i] = true;
-				} else {
-		    		if ($cp + $i < $lp) {
-						$pages[$cp + $i] = true;
-		    		}
-				}
-				if ($cp + $i < $lp) {
-		    		$pages[$cp + $i] = true;
-				} else {
-		    		if ($cp - $i >= 0) {
-						$pages[$cp - $i] = true;
-		    		}
-				}
-	      }
-
-	    	$pages[0] = true;
-	    	$pages[$lp] = true;
-
-	    	for ($p=$fp;$p<$lp;$p++) {
-				if (!array_key_exists($p,$pages)) {
-		    		if (array_key_exists($p - 1 ,$pages)) {
-						$nav .= " ... ";
-		    		}
-		    		continue;
-				}
-
-				$cpp = ($p * $resultsPerPage == $start__);
-				if (!$cpp) {
-		    		$nav .= " <a href=\""
-		      		.$_SERVER['PHP_SELF'] . "?"
-						.QUERY_PRM . "=$qry&amp;"
-						.QUERY_MATCH_MODE . "=$matchMode&amp;"
-						.QUERY_CHANNEL . "=$channelId&amp;"
-						.QUERY_RESULTS . "=$resultsPerPage&amp;"
-						.QUERY_ORDER_BY . "=$orderBy&amp;"
-						.QUERY_CURRENT_PAGE ."=$p"
-						."\">";
-				} else {
-		    		$nav .= HIT_BEFORE;
-				}
-
-				$nav .= "". (1+$p * $resultsPerPage) ."-" . ((1+$p) * $resultsPerPage) ."";
-
-				if (!$cpp) {
-		    		$nav .= "</a>";
-				} else {
-		    		$nav .= HIT_AFTER;
-				}
-				if ((1+$p) * $resultsPerPage < $cnt) {
-		    		$nav .= ", \n";
-				}
-	      }
-
-	    	if ($p * $resultsPerPage >= $end__) {
-				$nav .= " <a href=\""
-			  .$_SERVER['PHP_SELF'] . "?"
-			  .QUERY_PRM . "=$qry&amp;"
-			  .QUERY_MATCH_MODE . "=$matchMode&amp;"
-			  .QUERY_CHANNEL . "=$channelId&amp;"
-			  .QUERY_RESULTS . "=$resultsPerPage&amp;"
-			  .QUERY_ORDER_BY . "=$orderBy&amp;"
-			  .QUERY_CURRENT_PAGE ."=$p"
-			  ."\">";
-				$nav .=  (1+ $p * $resultsPerPage) ."-$cnt";
-				$nav .= "</a> \n";
-			} else {
-				$nav .= HIT_BEFORE . (1+ $p * $resultsPerPage) ."-$cnt" .HIT_AFTER;
-	    	}
-	    	$nav .= "<hr class=\"clearer hidden\"/>\n</div>\n";
-		}
-
-		echo "<div id=\"items\" class=\"frame\">";
-		if ($nav) {
-	    	echo $nav;
-		}
-		
-		itemsList( "", $items, IL_NO_COLLAPSE);
-	
-		if ($nav) {
-	    	echo $nav;
-		}
-	
-		echo "</div>\n";
-   } else {
-		searchForm($title,true);
-   }
+	echo "</div>\n";
+    } else {
+	searchForm($title,true);
+    }
 }
 
 ?>
