@@ -2,8 +2,7 @@ REQUIREMENTS
 
 	   
   Gregarius requires a relatively up-to-date PHP installation (>= 4.3.0) 
-  with xml (expat) support. It works fairly well with the PHP5 pre-releases
-  it has been tested with.
+  with xml (expat) support. It works fairly well with PHP5.
   
   Your PHP installation must support socket operations. See: 
   http://ch2.php.net/manual/en/function.fsockopen.php
@@ -12,42 +11,44 @@ REQUIREMENTS
 
 QUICK START
 
-  1. Unpack the Gregarius package inside your web root:
-     
-     1.1 If you are installing from a tar.gz archive:
-     
-     	 tar xvfz rss-x.y.z.tar.gz 
-     
-     1.2 If you are installing from a zipped archive:
-     
-     	 unzip rss-x.y.z.zip
+
+
+   1. If you are upgrading from an earlier version make sure you have a
+      backup copy of all the files you have modified.
+   
+   2. If you havent already done so, download the latest release from the
+      sourceforge.net project site.
+
+   3. Unpack the Gregarius package inside your web root:
+	          
+      3.1.  If you are installing from a tar.gz archive:
+	  
+	     tar xvfz rss-x.y.z.tar.gz
+      
+      3.2.  If you are installing from a zipped archive:
+
+            unzip rss-x.y.z.zip
+	       
+   4. cd to the created directory:
+		     
+	    cd rss
+			      
+   5. Create a configuration file, based on the sample:
+				             
+      5.1.  Copy the sample database configuration file:
+
+            cp dbinit.php.sample dbinit.php
+	             
+      5.2.  Edit the dbinit.php file to match your database configuration
+   
+   6. Import the database structure: from the command-line type:
 	 
-  2. cd to the created directory:
-  
-     	cd rss-x.y.z
-	
-  3. Create a configuration file, based on the sample:
-  
-     3.1 Copy the sample database configuration file:
-     
-     	 cp dbinit.php.sample dbinit.php
-     
-     3.2 Edit the dbinit.php file to match your database 
-     configuration
-	
-     3.3 Edit the main configuration file (config.php) to 
-     suit your needs.
-          
-  4. Import the database structure:
-  
-     4.1 from the command-line:
-       
-       mysql -u database_user -h database_host -p database_name < dbstruct.sql
-       
-  
-  5. Point your browser to the URL corresponding the install 
-  location and click "Channel Admin". You can start adding channels 
-  by pasting URLs of RSS or RDF feeds into the "Add a channel" 
-  field. Alternatively you can import a whole structure of items 
-  using the OPML import feature.
- 
+	    mysql -u database_user -h database_host -p database_name < dbstruct.sql
+
+   7. Point your browser to the URL corresponding the install location
+      and click Admin. You can start adding feeds by pasting 
+      URLs of RSS or RDF feeds into the Add a feed field. 
+      Alternatively you can import a whole structure of items using the 
+      OPML import feature.
+
+
