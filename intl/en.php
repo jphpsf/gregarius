@@ -62,7 +62,7 @@ define ('POSTED', 'Posted: ');
 define ('SEARCH_GO', 'Go');
 
 define ('HOME_FOLDER','Root');
-
+define ('VISIT', '(visit)');
 // admin
 define ('ADMIN_EDIT', 'edit');
 define ('ADMIN_DELETE', 'delete');

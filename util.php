@@ -462,6 +462,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 		}
 		
 	
+		
 		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
 		} else {

@@ -111,16 +111,19 @@ function channels() {
     $res = rss_query($sql);
     $cntr = 0;
     while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon) = mysql_fetch_row($res)) {
-	if ($siteurl != "") {
-	    $outUrl = $siteurl;
+	
+	
+	if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+	    $outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
 	} else {
-	    $outUrl = $url;
+	    $outUrl = getPath() . "feed.php?cid=$cid";
 	}
 	
 	
 	$parentLabel = $parent == ''? HOME_FOLDER:$parent;
 	
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
+			
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>"
 	  .((defined('USE_FAVICONS') && USE_FAVICONS && $icon != "")?
@@ -285,10 +288,12 @@ function channel_edit_form($cid) {
       
       // RSS URL
       ."<p><label for=\"c_url\">". ADMIN_CHANNEL_RSS_URL ."</label>\n"
+      ."<a href=\"$url\">" . VISIT . "</a>\n"
       ."<input type=\"text\" id=\"c_url\" name=\"c_url\" value=\"$url\"/></p>"
       
       // Site URL
       ."<p><label for=\"c_siteurl\">". ADMIN_CHANNEL_SITE_URL ."</label>\n"
+      ."<a href=\"$siteurl\">" . VISIT . "</a>\n"      
       ."<input type=\"text\" id=\"c_siteurl\" name=\"c_siteurl\" value=\"$siteurl\"/></p>"
       
       // Folder
@@ -323,7 +328,7 @@ function channel_edit_form($cid) {
 	
 	if (trim($icon) != "") {
 	    echo "<img src=\"$icon\" alt=\"$c_name\" class=\"favicon\" width=\"16\" height=\"16\" />\n";
-	    echo "<span>" . CLEAR_FOR_NONE ."<span>";
+	    echo "<span>" . CLEAR_FOR_NONE ."</span>";
 	}
     
 	echo "<input type=\"text\" id=\"c_icon\" name=\"c_icon\" value=\"$icon\"/></p>\n";
@@ -331,7 +336,7 @@ function channel_edit_form($cid) {
 	echo "<p><input type=\"hidden\" name=\"c_icon\" id=\"c_icon\" value=\"$icon\"/></p>\n";
     }
     
-    echo "<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"></p>"
+    echo "<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"/></p>"
       ."</form></div>\n";
 }
 
