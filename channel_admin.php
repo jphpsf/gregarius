@@ -411,7 +411,7 @@ function folders() {
      *
      */
     echo "<label for=\"new_folder\">".ADMIN_FOLDERS_ADD."</label>\n"
-      ."<input type=\"text\"  name=\"new_folder\" value=\"\" />"
+      ."<input type=\"text\" id=\"new_folder\" name=\"new_folder\" value=\"\" />"
       ."<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
       ."</p></form>\n\n";
 
@@ -458,7 +458,7 @@ function folders() {
 		echo "<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_FOLDER
 		  ."&amp;action=". ADMIN_MOVE_DOWN_ACTION ."&amp;fid=$id\">".ADMIN_MOVE_DOWN ."</a>";
 	    } else {
-		echo "&nbsp";
+		echo "&nbsp;";
 	    }
 
 	    echo "</td>\n";
