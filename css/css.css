@@ -412,3 +412,10 @@ span.updateres {
 }
 span.updateres.ok { color: green }
 span.updateres.ko { color: red }
+
+
+#admin_opml, #admin_folders { width: 48% }
+#admin_folders { float: left }
+#admin_opml { margin-left: 50% }
+
+.clearer { clear: both; height: 0 }

@@ -74,13 +74,18 @@ function main() {
 
     channels();
     folders();
+    opml();
+    
+    echo "\n<div class=\"clearer\"></div>\n";
+    
     echo "</div>\n";
 }
 
 /*************** Channel management ************/
 
 function channels() {
-    echo "\n\n<h2>". ADMIN_CHANNELS ."</h2>\n";
+    echo "\n\n<div id=\"admin_channels\">\n";
+    echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
@@ -127,11 +132,14 @@ function channels() {
 	  ."</tr>\n";
     }
 
-    echo "</table>\n";
-
-
+    echo "</table>\n</div>\n\n\n";
+    
+}
+ 
+function opml() {
     //opml import
-    echo "\n\n<h2>". ADMIN_OPML ."</h2>\n";
+    echo "\n\n<div id=\"admin_opml\">\n";
+    echo "<h2>". ADMIN_OPML ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT ."</label>\n";
@@ -141,6 +149,7 @@ function channels() {
     echo "</form>\n";
 
     opml_export_form();
+    echo "</div>\n";
 }
 
 function channel_admin() {
@@ -308,7 +317,7 @@ function channel_edit_form($cid) {
 /*************** Folder management ************/
 
 function folders() {
-    echo "<h2>".ADMIN_FOLDERS."</h2>\n";
+    echo "\n<div id=\"admin_folders\">\n<h2>".ADMIN_FOLDERS."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n";
 
@@ -324,7 +333,7 @@ function folders() {
     
     echo "<p><input type=\"text\"  name=\"new_folder\" value=\"\" />";
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_CREATE ."\"/>\n";
-    echo "</p></form>";
+    echo "</p></form>\n</div>\n";
 }
 
 function folder_combo($name) {
