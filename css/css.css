@@ -186,6 +186,7 @@ li.item.odd, tr.odd {
 h3.collapsed {
  border: 1px solid #ddd;
  background-color: #f9f9f9;
+ padding-bottom: 0.2em;
 }
   
 

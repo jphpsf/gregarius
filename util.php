@@ -36,9 +36,12 @@ function rss_header($title="", $active=0, $onLoadAction="") {
     } else {
 	ob_start();
     }
+
+    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
+      ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
     
-    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
-      ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
+//    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
+//      ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
       ."<head>\n"
       ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
@@ -305,7 +308,7 @@ function update($id) {
 	    }
 
 	    // make sure the url is properly escaped
-	    $url = str_replace("'","\\'",$url);
+	    $url = htmlentities(str_replace("'","\\'",$url));
 
 	    // pubdate
 	    $cDate = -1;
@@ -336,7 +339,8 @@ function update($id) {
 		  ." description, unread, pubdate) "
 		  . " values ("
 		  ."$cid, now(), '"
-		  .mysql_real_escape_string($title) ."', '$url', '"
+		  .mysql_real_escape_string(htmlentities($title)) ."', "
+		  ." '$url', '"
 		  . mysql_real_escape_string($description)
 		    ."', 1, $sec)";
 
@@ -497,14 +501,13 @@ function itemsList ($title,$items, $options = IL_NONE){
 		$cls .= " unread";
 	    }
 
-	    $url = htmlentities($iurl);
 	    // some url fields are juste guid's which aren't actual links
-	    $isUrl = (substr($url, 0,4) == "http");
+	    $isUrl = (substr($iurl, 0,4) == "http");
 	    echo "\t<li class=\"$cls\">\n"
 	      ."\t\t<h4>";
 
 	    if ($isUrl) {
-		echo "<a href=\"$url\">$ititle</a>";
+		echo "<a href=\"$iurl\">$ititle</a>";
 	    } else {
 		echo $ititle;
 	    }
