@@ -117,7 +117,7 @@ if (isset($_GET['action']) && $_GET['action'] == ADMIN_EXPORT) {
     $res = rss_query($sql);
 
     $dateRes = rss_query("select max(dateadded) from channels");
-    list($dateModif) = mysql_fetch_row($dateRes);
+    list($dateModif) = rss_fetch_row($dateRes);
     $dateLabel = date("r", strtotime($dateModif));
 
     header("Content-Type: text/xml");
@@ -133,7 +133,7 @@ if (isset($_GET['action']) && $_GET['action'] == ADMIN_EXPORT) {
       ."\t<body>\n";
 
     $prev_parent=0;
-    while (list($id, $title, $url, $siteurl, $name, $parent, $descr) = mysql_fetch_row($res)) {
+    while (list($id, $title, $url, $siteurl, $name, $parent, $descr) = rss_fetch_row($res)) {
 	$descr_ = htmlspecialchars ($descr);
 	$title_ = htmlspecialchars($title);
 	$url_ = htmlspecialchars($url);

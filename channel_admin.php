@@ -132,7 +132,7 @@ function channels() {
 
     $res = rss_query($sql);
     $cntr = 0;
-    while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon) = mysql_fetch_row($res)) {
+    while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon) = rss_fetch_row($res)) {
 
 	if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 	    $outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
@@ -274,7 +274,7 @@ function channel_admin() {
 	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
 
-	$sql = "insert into folders (name) values ('" . mysql_real_escape_string($label) ."')";
+	$sql = "insert into folders (name) values ('" . rss_real_escape_string($label) ."')";
 	rss_query($sql);
 	break;
 
@@ -288,7 +288,7 @@ function channel_admin() {
 	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
 	    // nop;
 	} else {
-	    list($cname) = mysql_fetch_row(rss_query("select title from channels where id = $id"));
+	    list($cname) = rss_fetch_row(rss_query("select title from channels where id = $id"));
 
 	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$cname); echo "</p>\n"
@@ -337,12 +337,12 @@ function channel_admin() {
 
      case ADMIN_SUBMIT_EDIT:
 	$cid = $_REQUEST['cid'];
-	$title= mysql_real_escape_string(real_strip_slashes($_REQUEST['c_name']));
-	$url= mysql_real_escape_string($_REQUEST['c_url']);
-	$siteurl= mysql_real_escape_string($_REQUEST['c_siteurl']);
-	$parent= mysql_real_escape_string($_REQUEST['c_parent']);
-	$descr= mysql_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
-	$icon = mysql_real_escape_string($_REQUEST['c_icon']);
+	$title= rss_real_escape_string(real_strip_slashes($_REQUEST['c_name']));
+	$url= rss_real_escape_string($_REQUEST['c_url']);
+	$siteurl= rss_real_escape_string($_REQUEST['c_siteurl']);
+	$parent= rss_real_escape_string($_REQUEST['c_parent']);
+	$descr= rss_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
+	$icon = rss_real_escape_string($_REQUEST['c_icon']);
 
 	if ($url == '' || substr($url,0,4) != "http") {
 	    rss_error("I'm sorry, '$url' doesn't look like a valid RSS URL to me.");
@@ -359,7 +359,7 @@ function channel_admin() {
      case ADMIN_MOVE_DOWN_ACTION:
 	$id = $_REQUEST['cid'];
 	$res = rss_query("select parent,position from channels where id=$id");
-	list($parent,$position) = mysql_fetch_row($res);
+	list($parent,$position) = rss_fetch_row($res);
 	$res = rss_query(
 			 "select id, position from channels "
 			 ." where parent=$parent and id != $id order by abs($position-position) limit 2"
@@ -368,7 +368,7 @@ function channel_admin() {
 	// Let's look for a lower/higher position than the one we got.
 	$switch_with_position=$position;
 
-	while (list($oid,$oposition) = mysql_fetch_row($res)) {
+	while (list($oid,$oposition) = rss_fetch_row($res)) {
 	    if (
 		// found none yet?
 		($switch_with_position == $position) &&
@@ -398,7 +398,7 @@ function channel_admin() {
 function channel_edit_form($cid) {
     $sql = "select id, title, url, siteurl, parent, descr, icon from channels where id=$cid";
     $res = rss_query($sql);
-    list ($id, $title, $url, $siteurl, $parent, $descr, $icon) = mysql_fetch_row($res);
+    list ($id, $title, $url, $siteurl, $parent, $descr, $icon) = rss_fetch_row($res);
 
     echo "<div>\n";
     echo "\n\n<h2>Edit '$title'</h2>\n";
@@ -427,7 +427,7 @@ function channel_edit_form($cid) {
 
     $sql = " select id, name from folders order by id asc";
     $res = rss_query($sql);
-    while (list($pid, $pname) = mysql_fetch_row($res)) {
+    while (list($pid, $pname) = rss_fetch_row($res)) {
 	if ($pid == $parent) {
 	    $selected = " selected=\"selected\"";
 	} else {
@@ -499,7 +499,7 @@ function folders() {
 
     $res = rss_query($sql);
     $cntr = 0;
-    while (list($id, $name) = mysql_fetch_row($res)) {
+    while (list($id, $name) = rss_fetch_row($res)) {
 
 	$name = $name == ''? HOME_FOLDER:$name;
 
@@ -545,7 +545,7 @@ function folder_edit($fid) {
 
     $sql = "select id, name from folders where id=$fid";
     $res = rss_query($sql);
-    list ($id, $name) = mysql_fetch_row($res);
+    list ($id, $name) = rss_fetch_row($res);
 
     echo "<div>\n";
     echo "\n\n<h2>Edit '$name'</h2>\n";
@@ -566,7 +566,7 @@ function folder_edit($fid) {
 function folder_combo($name) {
     echo "\n<select name=\"$name\" id=\"$name\">\n";
     $res = rss_query("select id, name from folders order by id asc");
-    while (list($id, $name) = mysql_fetch_row($res)) {
+    while (list($id, $name) = rss_fetch_row($res)) {
 	echo "\t<option value=\"$id\">" .  (($name == "")?HOME_FOLDER:$name)  ."</option>\n";
     }
     echo "</select>\n";
@@ -601,7 +601,7 @@ function folder_admin() {
 	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
 	    // nop;
 	} else {
-	    list($fname) = mysql_fetch_row(rss_query("select name from folders where id = $id"));
+	    list($fname) = rss_fetch_row(rss_query("select name from folders where id = $id"));
 
 	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$fname); echo "</p>\n"
@@ -617,11 +617,11 @@ function folder_admin() {
      case ADMIN_SUBMIT_EDIT:
 	$id = $_REQUEST['fid'];
 
-	$new_label = mysql_real_escape_string($_REQUEST['f_name']);
+	$new_label = rss_real_escape_string($_REQUEST['f_name']);
 	if (is_numeric($id) && strlen($new_label) > 0) {
 
 	    $res = rss_query("select count(*) as cnt from folders where binary name='$new_label'");
-	    list($cnt) = mysql_fetch_row($res);
+	    list($cnt) = rss_fetch_row($res);
 	    if ($cnt > 0) {
 		rss_error("You can't rename this folder '$new_label' becuase such a folder already exists.");
 		return;
@@ -645,7 +645,7 @@ function folder_admin() {
 	}
 
 	$res = rss_query("select position from folders where id=$id");
-	list($position) = mysql_fetch_row($res);
+	list($position) = rss_fetch_row($res);
 
 	$sql = "select id, position from folders "
 	  ." where  id != $id order by abs($position-position) limit 2";
@@ -655,7 +655,7 @@ function folder_admin() {
 	// Let's look for a lower/higher position than the one we got.
 	$switch_with_position=$position;
 
-	while (list($oid,$oposition) = mysql_fetch_row($res)) {
+	while (list($oid,$oposition) = rss_fetch_row($res)) {
 	    if (
 		// found none yet?
 		($switch_with_position == $position) &&
@@ -685,8 +685,8 @@ function folder_admin() {
 
 function create_folder($label) {
     $res = rss_query ("select count(*) from folders where name='"
-		      .mysql_real_escape_string($label). "'");
-    list($exists) = mysql_fetch_row($res);
+		      .rss_real_escape_string($label). "'");
+    list($exists) = rss_fetch_row($res);
 
     if ($exists > 0) {
 	rss_error("Looks like you already have a folder called '$label'");
@@ -694,14 +694,14 @@ function create_folder($label) {
     }
 
     $res = rss_query("select 1+max(position) as np from folders");
-    list($np) = mysql_fetch_row($res);
+    list($np) = rss_fetch_row($res);
 
     if (!np) {
 	$np = "0";
     }
 
-    rss_query("insert into folders (name,position) values ('" . mysql_real_escape_string($label) ."', $np)");
-    list($fid) = mysql_fetch_row( rss_query("select id from folders where name='". mysql_real_escape_string($label) ."'"));
+    rss_query("insert into folders (name,position) values ('" . rss_real_escape_string($label) ."', $np)");
+    list($fid) = rss_fetch_row( rss_query("select id from folders where name='". rss_real_escape_string($label) ."'"));
     return $fid;
 }
 

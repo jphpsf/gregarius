@@ -77,7 +77,7 @@ if ($doPush) {
 	$sql .= " order by parent, title";
     }
     $res = rss_query($sql);
-    while (list($cid, $url, $title) = mysql_fetch_row($res)) {
+    while (list($cid, $url, $title) = rss_fetch_row($res)) {
 	echo "<tr>\n";
 	echo "<td class=\"lc\">$title</td>\n"; flush();
 

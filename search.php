@@ -47,7 +47,7 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
 } else {
     rss_header("Search",LOCATION_SEARCH,"document.getElementById('query').focus()");  
     sideChannels(false);
-    list($cnt) = mysql_fetch_row(rss_query('select count(*) from item'));
+    list($cnt) = rss_fetch_row(rss_query('select count(*) from item'));
     searchForm(sprintf(H2_SEARCH, $cnt));
 }
 
@@ -103,7 +103,7 @@ function searchForm($title,$addDiv = true) {
     
     
     
-    while (list($id_,$title_) = mysql_fetch_row($res)) {
+    while (list($id_,$title_) = rss_fetch_row($res)) {
 	echo "\t\t\t<option value=\"$id_\""
 	  .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
 	    .">$title_</option>\n";
@@ -173,15 +173,14 @@ function search($qry,$matchMode, $channelId) {
 
     $sql .=", i.added desc";
 
-    //die($sql);
     
     $res0=rss_query($sql);
-    $cnt = mysql_num_rows($res0);
+    $cnt = rss_num_rows($res0);
     $items = array();
 
     if ($cnt > 0) {
 	$items=array();
-        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iid) = mysql_fetch_row($res0)) {
+        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iid) = rss_fetch_row($res0)) {
 
 	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
 	    $title_noTags = preg_replace("/<.+?>/","",$ititle);

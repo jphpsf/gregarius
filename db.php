@@ -28,7 +28,37 @@
 #
 ###############################################################################
 
-mysql_connect(DBSERVER,DBUNAME,DBPASS) or die ("failed to connect to the database");
-mysql_select_db(DBNAME) or die ("failed to select database");
+rss_connect(DBSERVER,DBUNAME,DBPASS);
+rss_select_db(DBNAME);
+
+
+//// The following are just wrappers of their mysql counterpart for now
+//// maybe one day I shall support other rdbms and add some differentiation
+//// in here.
+
+function rss_connect($dbserver, $dbuname, $dbpass) {
+    mysql_connect($dbserver, $dbuname, $dbpass) or die ("failed to connect to the database");    
+}
+
+function rss_select_db($dbname) {
+    mysql_select_db($dbname) or die ("failed to select database");
+}
+
+function rss_query ($query) {
+    $ret =  mysql_query($query) or die ("failed to execute \"$query\": " .mysql_error());
+    return $ret;
+}
+
+function rss_fetch_row($rs) {
+    return  mysql_fetch_row($rs);
+}
+
+function rss_num_rows($rs) {
+    return mysql_num_rows($rs);
+}
+
+function rss_real_escape_string($string) {
+    return mysql_real_escape_string($string);
+}
 
 ?>

@@ -42,8 +42,8 @@ if (
     $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
-    if ( mysql_num_rows ( $res ) == 1) {
-	list($cid) = mysql_fetch_row($res);
+    if ( rss_num_rows ( $res ) == 1) {
+	list($cid) = rss_fetch_row($res);
 	//rss_error("I'm having troubles fetching the channel " . $_REQUEST['channel'] . "! <!-- $sqlid -->");
     } else {
 	$cid = "";
@@ -58,8 +58,8 @@ if (
 	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
 	$res =  rss_query( "select id from item where title like '$sqlid' and cid=$cid" );
 		
-	if ( mysql_num_rows ( $res ) >0) {
-	    list($iid) = mysql_fetch_row($res);  
+	if ( rss_num_rows ( $res ) >0) {
+	    list($iid) = rss_fetch_row($res);  
 	}
     }
 
@@ -86,7 +86,7 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
     // redirect to the next unread, if any.
     $sql = "select cid,title from item where unread=1 order by added desc limit 1";
     $res = rss_query($sql);
-    list ($next_unread_id, $next_unread_title) = mysql_fetch_row($res);
+    list ($next_unread_id, $next_unread_title) = rss_fetch_row($res);
 
     
 
@@ -119,11 +119,11 @@ if ($iid != "" && !is_numeric($iid)) {
 
 if ($iid == "") {
     $res = rss_query("select title,icon from channels where id = $cid");
-    list($title,$icon) = mysql_fetch_row($res);
+    list($title,$icon) = rss_fetch_row($res);
     rss_header($title);
 } else {
    $res = rss_query ("select c.title, c.icon, i.title from channels c,item i where c.id = $cid and i.cid=c.id and i.id=$iid");
-    list($title,$icon,$ititle) = mysql_fetch_row($res);
+    list($title,$icon,$ititle) = rss_fetch_row($res);
     rss_header($title . " " . html_entity_decode(TITLE_SEP) ." " .html_entity_decode($ititle));
 }
 
@@ -170,7 +170,7 @@ function items($cid,$title,$iid) {
         
     $iconAdded = false;
       
-    while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle, $iid) =  mysql_fetch_row($res)) {
+    while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle, $iid) =  rss_fetch_row($res)) {
       	$items[]=array($cid, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its, $iid);
       	if (! $iconAdded && defined('USE_FAVICON') && USE_FAVICONS && $cicon != "") {
       	    $iconAdded = true;
@@ -185,11 +185,11 @@ function items($cid,$title,$iid) {
     
     $sql = "select count(*) from item where cid=$cid and unread=1";
     $res2 = rss_query($sql);
-    list($unread_left) = mysql_fetch_row($res2);
+    list($unread_left) = rss_fetch_row($res2);
 
     $sql = "select count(*) from item where cid=$cid";
     $res2 = rss_query($sql);
-    list($allread) = mysql_fetch_row($res2);
+    list($allread) = rss_fetch_row($res2);
     
     /** read more navigation **/
     $readMoreNav = "";
@@ -216,7 +216,7 @@ function items($cid,$title,$iid) {
 function markReadForm($cid) {
     $sql = "select count(*)  from item where cid=$cid and unread=1";
     $res=rss_query($sql);
-    list($cnt) = mysql_fetch_row($res);
+    list($cnt) = rss_fetch_row($res);
     if($cnt > 0) {
     	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
     	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
@@ -231,7 +231,7 @@ function markReadForm($cid) {
 function debugFeed($cid) {
     echo "<div id=\"items\" class=\"frame\">\n";
     $res = rss_query("select url from channels where id = $cid");
-    list($url) = mysql_fetch_row($res);
+    list($url) = rss_fetch_row($res);
     $rss = fetch_rss ($url);
     echo "<pre>\n";
     echo htmlentities(print_r($rss,1));

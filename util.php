@@ -75,10 +75,6 @@ function rss_footer() {
       ."</html>\n";
 }
 
-function rss_query ($query) {
-    $ret = mysql_query($query) or die ("failed to execute \"$query\": " .mysql_error());
-    return $ret;
-}
 
 function nav($title, $active=0) {
     echo "<div id=\"nav\" class=\"frame\">"
@@ -105,7 +101,7 @@ function ftr() {
       ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
     $res = rss_query("select unix_timestamp(max(added)) as max_added from item");
-    list($ts) = mysql_fetch_row($res);
+    list($ts) = rss_fetch_row($res);
     echo "<span>\n\tLast update: ". date(DATE_FORMAT,$ts)."\n</span>\n";
 
     echo "</div>\n\n";
@@ -202,7 +198,7 @@ function update($id) {
     }
 
     $res = rss_query($sql);
-    while (list($cid, $url, $title) = mysql_fetch_row($res)) {
+    while (list($cid, $url, $title) = rss_fetch_row($res)) {
 	$rss = fetch_rss( $url );
 
 	if (!$rss && $id != "" && is_numeric($id)) {
@@ -281,7 +277,7 @@ function update($id) {
 	    // check wether we already have this item	    
 	    $sql = "select id from item where cid=$cid and url='$url'";
 	    $subres = rss_query($sql);
-	    list($indb) = mysql_fetch_row($subres);
+	    list($indb) = rss_fetch_row($subres);
 
 	    if ($cDate > 0) {
 		$sec = "FROM_UNIXTIME($cDate)";
@@ -297,9 +293,9 @@ function update($id) {
 		  ." description, unread, pubdate) "
 		  . " values ("
 		  ."$cid, now(), '"
-		  .mysql_real_escape_string($title) ."', "
+		  .rss_real_escape_string($title) ."', "
 		  ." '$url', '"
-		  . mysql_real_escape_string($description)
+		  . rss_real_escape_string($description)
 		    ."', 1, $sec)";
 
 		rss_query($sql);
@@ -344,7 +340,7 @@ function itemsList($title,$items, $options = IL_NONE){
     if ($options & IL_DO_STATS) {
 	$stats = array();
 	$stats_res = rss_query("select cid,unread,count(*) from item group by 1,2 order by 1,2");
-	while (list($s_cid,$s_unread,$s_count)=mysql_fetch_row($stats_res)) {
+	while (list($s_cid,$s_unread,$s_count)=rss_fetch_row($stats_res)) {
 	    $stats[$s_cid][$s_unread] = $s_count;
 	}
     }
@@ -536,13 +532,13 @@ function add_channel($url, $folderid=0) {
 
     
     $res = rss_query("select count(*) as channel_exists from channels where url='$urlDB'");
-    list ($channel_exists) = mysql_fetch_row($res);
+    list ($channel_exists) = rss_fetch_row($res);
     if ($channel_exists > 0) {
 	return array(-1,"Looks like you are already subscribed to this channel");
     }
 
     $res = rss_query("select 1+max(position) as np from channels");
-    list($np) = mysql_fetch_row($res);
+    list($np) = rss_fetch_row($res);
 
     if (!$np) {
 	$np = "0";
@@ -551,9 +547,9 @@ function add_channel($url, $folderid=0) {
     // Here we go!
     $rss = fetch_rss( $url );
     if ( $rss ) {
-	$title= mysql_real_escape_string ( $rss->channel['title'] );
-	$siteurl= mysql_real_escape_string (htmlentities($rss->channel['link'] ));
-	$descr =  mysql_real_escape_string ($rss->channel['description']);
+	$title= rss_real_escape_string ( $rss->channel['title'] );
+	$siteurl= rss_real_escape_string (htmlentities($rss->channel['link'] ));
+	$descr =  rss_real_escape_string ($rss->channel['description']);
 
 	//lets see if this server has a favicon
 	$icon = "";
@@ -580,7 +576,7 @@ function add_channel($url, $folderid=0) {
 	    rss_query($sql);
 	    
 	    $res = rss_query ("select max(id) as max from channels");
-	    list($newid) = mysql_fetch_row($res);
+	    list($newid) = rss_fetch_row($res);
 	    return array($newid,"");	    
 	} else {
 	    return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");	    

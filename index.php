@@ -76,15 +76,15 @@ function items($title) {
 
 
     $res0=rss_query($sql);
-    if (mysql_num_rows($res0) > 0) {
+    if (rss_num_rows($res0) > 0) {
 
 	markAllReadForm();
 	
-        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iid_) = mysql_fetch_row($res0)) {
+        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iid_) = rss_fetch_row($res0)) {
             $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_, $iid_ );
         }
 
-        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items );
+        itemsList ( sprintf(H2_UNREAD_ITEMS , rss_num_rows($res0)),  $items );
     }
 
     // next: unread. Must find a better solution instead of iterating over the channels twice.
@@ -103,7 +103,7 @@ function items($title) {
 
     $res1=rss_query($sql);
     $items = array();
-    while (list($cid,$ctitle, $icon) = mysql_fetch_row($res1)) {
+    while (list($cid,$ctitle, $icon) = rss_fetch_row($res1)) {
 	
       	$sql = "select cid, title, url, description, unread, unix_timestamp(pubdate) as ts, id  "
       	  ." from item "
@@ -113,8 +113,8 @@ function items($title) {
 	
 	$res = rss_query($sql);
 	
-      	if (mysql_num_rows($res) > 0) {
-      	    while (list($cid, $ititle, $url, $description, $unread, $ts, $iid) =  mysql_fetch_row($res)) {
+      	if (rss_num_rows($res) > 0) {
+      	    while (list($cid, $ititle, $url, $description, $unread, $ts, $iid) =  rss_fetch_row($res)) {
 		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts, $iid);
       	    }
       	 }

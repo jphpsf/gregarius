@@ -37,25 +37,26 @@ function sideChannels($activeId) {
     stats();
           
     $sql = "select "
-      ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.icon, c.descr "
-      ." from channels c, folders d "
-      ." where d.id = c.parent";
+      ." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr "
+      ." from channels c, folders f "
+      ." where f.id = c.parent";
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
-	$sql .= " order by d.position asc, c.position asc";
+	$sql .= " order by f.position asc, c.position asc";
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
     }
     
     
     $res = rss_query($sql);
-    $channelCount = mysql_num_rows ( $res );
+    $channelCount = rss_num_rows ( $res );
     
     $prev_parent = 0;
     echo "<ul>\n";
-    while (list($id, $title, $url, $siteurl, $parent, $pid, $ico, $description) = mysql_fetch_row($res)) {
+    while (list($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr) 
+	   = rss_fetch_row($res)) {
 	//echo "\n<!-- $title -->\n";	
 	
-	if ($pid != $prev_parent) {
+	if ($cparent != $prev_parent) {
 	    
 	    
 	    if ($prev_parent > 0) {
@@ -63,15 +64,15 @@ function sideChannels($activeId) {
 	    }
 	    
 	    echo tabs(1) . "<li class=\"folder\">\n"
-	      . tabs(2) ."<span>$parent</span>\n";
+	      . tabs(2) ."<span>$fname</span>\n";
 	    
-	    $prev_parent=$pid;
+	    $prev_parent=$cparent;
 	    echo tabs(2) . "<ul>\n";
 
 	    
 	}
-	echo tabs( ($pid > 0)?3:1  ) . "<li" .  (($id == $activeId)?" class=\"active\"":"") . ">";
-	echo feed($id, $title, $url, $siteurl, $ico, $description);
+	echo tabs( ($cid > 0)?3:1  ) . "<li" .  (($cid == $activeId)?" class=\"active\"":"") . ">";
+	echo feed($cid, $ctitle, $curl, $csiteurl, $cico, $cdescr);
 	echo "</li>\n";
     }
     
@@ -82,14 +83,10 @@ function sideChannels($activeId) {
     
     echo "</ul>\n";
     
-    
-    $res=rss_query("select count(*) from item where unread=1");
-    list($unread_count) = mysql_fetch_row($res);
 
-    /*
-    if ($unread_count > 0)
-      markChannelReadForm();
-    */
+    $rescnt=rss_query("select count(*) as cnt from item where unread=1");
+    list($unread_count) = rss_fetch_row($rescnt);
+
     echo "\n</div>\n";
     
     return $channelCount;
@@ -107,7 +104,7 @@ function tabs($count) {
 /** prints out a formatted channel item **/
 function feed($cid, $title, $url, $siteurl, $ico, $description) {
     $res = rss_query ("select count(*) from item where cid=$cid and unread=1");
-    list($cnt) = mysql_fetch_row($res);
+    list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
         $rdLbl= sprintf(UNREAD_PF, $cnt);	
 	$class_= " class=\"unread\"";
@@ -155,13 +152,13 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 
 function stats() {
     $res = rss_query( "select count(*) from item where unread=1" );
-    list($unread)= mysql_fetch_row($res);
+    list($unread)= rss_fetch_row($res);
     
     $res = rss_query( "select count(*) from item" );
-    list($total)= mysql_fetch_row($res);
+    list($total)= rss_fetch_row($res);
     
     $res = rss_query( "select count(*) from channels");
-    list($channelcount)= mysql_fetch_row($res);
+    list($channelcount)= rss_fetch_row($res);
     
     
     printf ("\n<p class=\"stats\">" . ITEMCOUNT_PF . "</p>\n"
