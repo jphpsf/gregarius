@@ -1,12 +1,10 @@
 REQUIREMENTS
 
-  The requirements for installing and running Gregarius are basically the
-  same as those for MagpiRSS (on which Gregarius is based).
+	   
+  Gregarius requires a relatively up-to-date PHP installation (>= 4.3.0) 
+  with xml (expat) support. It works fairly well with the PHP5 pre-releases
+  it has been tested with.
 
-
-        MapieRSS requires a recent PHP 4+ (developed with 4.2.0)
-	with xml (expat) support
-		
   Additionally you will need access to a MySQL database.
 
 QUICK START
