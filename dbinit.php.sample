@@ -28,5 +28,5 @@ define ('DBSERVER', 'localhost');
 // edit dbstruct.sql to match this prefix, *before* you import the 
 // schema :)
 //
-define ('DB_TABLE_PREFIX','');
+//define ('DB_TABLE_PREFIX','');
 ?>
