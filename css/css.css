@@ -87,6 +87,8 @@ div#channels li>ul>li, div#channels li.folder {
  border-bottom: none;
 }
 
+
+
 /* folder icon */
 li.folder {
   background-image: url(media/folder.gif);
