@@ -76,7 +76,7 @@ define ('ADMIN_NO', 'Non');
 define ('ADMIN_FOLDERS','R&eacute;pertoires:');
 define ('ADMIN_CHANNELS','Canaux:');
 define ('ADMIN_OPML','OPML:');
-
+define ('ADMIN_IN_FOLDER','au r&eacute;pertoire:');
 define ('ADMIN_SUBMIT_CHANGES', 'Poster les modifications');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','R&eacute;pertoire');

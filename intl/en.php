@@ -80,7 +80,7 @@ define ('ADMIN_NO', 'No');
 define ('ADMIN_FOLDERS','Folders:');
 define ('ADMIN_CHANNELS','Channels:');
 define ('ADMIN_OPML','OPML:');
-
+define ('ADMIN_IN_FOLDER','to folder:');
 define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Title');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','Folder');

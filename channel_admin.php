@@ -90,6 +90,10 @@ function channels() {
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
     echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" />\n";
+    
+    echo "<label for=\"add_channel_to_folder\">". ADMIN_IN_FOLDER . "</label>\n";
+    folder_combo('add_channel_to_folder');
+    
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
     echo "</form>\n\n";
 
@@ -168,8 +172,9 @@ function channel_admin() {
     switch ($_REQUEST['action']) {	
      case ADMIN_ADD:
 	$label = trim($_REQUEST['new_channel']);
+	$fid = trim($_REQUEST['add_channel_to_folder']);
 	if ($label != 'http://' &&  substr($label, 0,4) == "http") {
-	    add_channel($label);
+	    add_channel($label,$fid);
 	} else {
 	    rss_error("I'm sorry, I dont think I can handle this URL: '$label'");
 	}
