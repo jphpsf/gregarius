@@ -34,12 +34,16 @@ require_once('init.php');
 if (! array_key_exists('visual',$_GET)) {
     update("");    
 
-    header("Location: http://"
-	   . $_SERVER['HTTP_HOST']
-	   . dirname($_SERVER['PHP_SELF'])
-
-	   );  
+    $redirect = "http://"
+      . $_SERVER['HTTP_HOST']
+      . dirname($_SERVER['PHP_SELF']);
     
+    if (substr($redirect,-1) != "/") {
+	$redirect .= "/";
+    }
+    
+    
+    header("Location: $redirect");    
     exit();
 } else {    
     
