@@ -314,7 +314,7 @@ function channel_edit_form($cid) {
 	    $selected = "";
 	}
 	
-	$parentLabel = ($pid == 0)?HOME_FOLDER:$pname;
+	$parentLabel = ($pname == "")?HOME_FOLDER:$pname;
 	//if ($pid > 0) {
 	echo "\t<option value=\"$pid\" $selected>$parentLabel</option>\n";
 	//}
@@ -369,9 +369,9 @@ function folders() {
 
 function folder_combo($name) {
     echo "\n<select name=\"$name\" id=\"$name\">\n";
-    $res = rss_query("select id, name from folders");
+    $res = rss_query("select id, name from folders order by id asc");
     while (list($id, $name) = mysql_fetch_row($res)) {	
-	echo "\t<option value=\"$id\">" .  (($id == 0)?HOME_FOLDER:$name)  ."</option>\n";
+	echo "\t<option value=\"$id\">" .  (($name == "")?HOME_FOLDER:$name)  ."</option>\n";
     } 
     echo "</select>\n";   
 }
@@ -401,6 +401,7 @@ function folder_admin() {
 	break;
      case ADMIN_RENAME:
 	$id = $_REQUEST['folder_rename'];
+	
 	$new_label = mysql_real_escape_string($_REQUEST['folder_rename_to']);
 	if (is_numeric($id) && strlen($new_label) > 0) {
 	    rss_query("update folders set name='$new_label' where id=$id");
@@ -418,6 +419,15 @@ function folder_admin() {
 }
 
 function create_folder($label) {
+    $res = rss_query ("select count(*) from folders where name='"
+		      .mysql_real_escape_string($label). "'");
+    list($exists) = mysql_fetch_row($res);
+    
+    if ($exists > 0) {
+	rss_error("Looks like you already have a folder called '$label'");
+	return;
+    }
+    
     rss_query("insert into folders (name) values ('" . mysql_real_escape_string($label) ."')");
     list($fid) = mysql_fetch_row( rss_query("select id from folders where name='". mysql_real_escape_string($label) ."'"));
     return $fid;
