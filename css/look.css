@@ -19,9 +19,7 @@ h1,h2,h3 {
   line-height:1.1em;
 }
 
-h4 {
-  font-size: medium;
-}
+h4 { font-size: medium; }
 
 h5 { 
  font-size: small;
@@ -29,7 +27,7 @@ h5 {
  color: #aaa;
 }
 
-h5,h4 {
+h4 {
  border-left: 1px solid #ddd;
 }
 
