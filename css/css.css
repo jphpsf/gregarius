@@ -77,7 +77,7 @@ ul, li {
  list-style-type:none; 
 }
 
-div#channels li { 
+div#channels li,div#opml li {
   display: block;
   padding: 7px 2px; 
   margin:0;
@@ -85,6 +85,8 @@ div#channels li {
   background-color: #fff;
   font-size:small;
 }
+
+div#opml li { border: none }
 
 /* folder items */
 div#channels li ul li {

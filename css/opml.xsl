@@ -5,6 +5,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:output method="html" doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" doctype-public="-//W3C//DTD XHTML 1.1//EN"/>
 	
+	
 	<xsl:param name="sort-by">
 		<xsl:value-of select="@title"/>
 	</xsl:param>
@@ -24,7 +25,7 @@
 	
 	<xsl:template match="opml/body">
 		<body>
-			<div id="channels" class="frame" style="width: 90%">
+			<div id="opml" class="frame">
 					<h1><xsl:value-of select="/opml/head/title" /></h1>			
 						<p>
 						   You can use this document within an 
@@ -50,14 +51,19 @@
 			</xsl:when>
 			<xsl:otherwise>
 			        <li>
-				<a href="{@xmlUrl}">XML</a> -
+				  <span style="font-weight:900">
+				    <xsl:value-of select="@text"/>
+				  </span>
+				[<a href="{@xmlUrl}">xml</a>
 				<xsl:choose>
 					<xsl:when test="starts-with(@htmlUrl,'http')">
-						<a href="{@htmlUrl}"><xsl:value-of select="@text"/></a>
+						| <a href="{@htmlUrl}">www</a>
 					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="@text"/>
-					</xsl:otherwise>
+				</xsl:choose>]
+				<xsl:choose>
+				    <xsl:when test="string-length(@description)">
+				      <span style="margin-left: 10px;">(<xsl:value-of select="@description"/>)</span>
+				    </xsl:when>
 				</xsl:choose>
 				</li>
 			</xsl:otherwise>
