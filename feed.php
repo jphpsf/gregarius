@@ -243,47 +243,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
     
     /** read more navigation **/
     $readMoreNav = "";
-    /*
-    if ($unread_left > 0 && !isset($_REQUEST['unread']) && $shown < $unread_left) {
-        if (ITEMS_ON_CHANNELVIEW < $unread_left) {
-            $readMoreNav .= "<a href=\"". getPath() . "feed.php?channel=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
-        } else { 
-            $readMoreNav .=  "<a href=\"". getPath() . "feed.php?channel=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
-        }
-    }
-    
-    if ((!isset($_REQUEST['unread'])) 
-	//&& $shown < $allread
-	) {
 
-	// month view.
-	$sql = "select "
-	  ." if (i.pubdate is null, dayofmonth(i.added), dayofmonth(i.pubdate)) as d, count(*) "
-	  ." from item i where i.cid=$cid and "
-	  ." if (i.pubdate is null, month(i.added)=$m, month(i.pubdate)=$m) and "
-	  ." if (i.pubdate is null, year(i.added)=$y, year(i.pubdate)=$y) "
-	  ." group by d "
-	  ." order by d desc";
-
-	//die($sql);
-	$cal = rss_query($sql);
-
-	if (($nr = rss_num_rows($cal)) > 0) {
-	    $readMoreNav .=  "<table class=\"wide\"><tr><td colspan=\"$nr\">$m/$y</td></tr>\n<tr>";
-	    
-	    while (list($dd,$cc)=rss_fetch_row($cal)) {
-		if ($dd == $d) {
-		    $readMoreNav .= "<td class=\"active\">$dd ($cc)</td>\n";
-		}else {		    		
-		    $url = getPath(). $_REQUEST['channel'] . "/$y/$m/$dd/";
-		    $readMoreNav .= "<td><a href=\"$url\">$dd ($cc)</a></td>\n";
-		}
-	    }
-	    $readMoreNav .=  "\n</tr></table>\n";
-	}
-    }
-     */
-    
     $monthView = $dayView = false;
     if ($y > 0 && $m > 0 && $d > 0) {
 	$dayView = true;
@@ -291,8 +251,14 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	$monthView = true;
     }
     	    
-    if ($monthView || $dayView) {
-	$ts = mktime(0,0,0,$m,$d,$y);
+    if ($monthView ^ $dayView) {
+	if ($monthView) {
+	    $ts_p = mktime(0,0,0,$m+1,0,$y,0);
+	    $ts_s = mktime(0,0,0,$m,1,$y,0);
+	} else {
+	    $ts_p = $ts_s = mktime(0,0,0,$m,$d,$y,0);
+	}
+
 	$sql_succ = " select "
 	  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
 	  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
@@ -301,12 +267,10 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	  ." count(*) as cnt_ "
 	  ." from item i  "
 	  ." where cid=$cid "
-	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts "
+	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts_s "
 	  ." group by y_,m_"
 	  .(($dayView)?",d_ ":"")
 	  ." order by ts_ asc limit 4";
-	
-	//	var_dump($sql_succ);
 	
 	$sql_prev = " select "
 	  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
@@ -316,7 +280,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	  ." count(*) as cnt_ "
 	  ." from item i  "
 	  ." where cid=$cid "
-	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts "
+	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts_p "
 	  ." group by y_,m_"
 	  .(($dayView)?",d_ ":"")
 	  ." order by ts_ desc limit 4";
@@ -328,7 +292,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	$prev = $succ = null;
 	while ($succ == null && $row=rss_fetch_assoc($res_succ)) {
 	    if ($dayView) {
-		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) > $ts) {
+		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) > $ts_s) {
 		    $succ = array(
 				  'y' => $row['y_'], 
 				  'm' => $row['m_'], 
@@ -351,7 +315,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	
 	while ($prev == null && $row=rss_fetch_assoc($res_prev)) {
 	    if ($dayView) {
-		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) < $ts) {
+		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) < $ts_p) {
 		    $prev = array(
 				  'y' => $row['y_'],
 				  'm' => $row['m_'],
