@@ -146,9 +146,9 @@ function fetch_rss ($url) {
         
         if (!$cache->ERROR) {
             // return cache HIT, MISS, or STALE
-	    $cache_status = $cache->check_cache( $url );
+	    $cache_status = $cache->check_cache( $cache_key );
         }
-        
+	
         // if object cached, and cache is fresh, return cached obj
         if ( $cache_status == 'HIT' ) {
             $rss = $cache->get( $cache_key );
@@ -170,7 +170,7 @@ function fetch_rss ($url) {
             if ( $rss->etag and $rss->last_modified ) {
                 $request_headers['If-None-Match'] = $rss->etag;
                 $request_headers['If-Last-Modified'] = $rss->last_modified;
-            }
+            }	    
         }
         
         $resp = _fetch_remote_file( $url, $request_headers );
