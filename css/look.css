@@ -268,4 +268,5 @@ div#alltags {
  text-align:justify;
 
 }
-#alltags a { margin: 15px 10px; vertical-align:middle; }
+#alltags a { margin: 15px 10px; vertical-align:middle; line-height: 50px;
+}

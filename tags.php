@@ -33,8 +33,8 @@ require_once('init.php');
 define ('MAX_TAGS_PER_ITEM',5);
 
 
-// these affect the weigthed the font on the list at /tags/
-define ('SMALLEST',15);
+// these are the fontsizes on the weighted list at /tag/
+define ('SMALLEST',12);
 define ('LARGEST',45);
 define ('UNIT','px');
 
