@@ -31,16 +31,19 @@
 
 define ('QUERY_PRM','query');
 define ('QUERY_MATCH_MODE', 'query_match');
+define ('QUERY_CHANNEL', 'query_channel');
 define ('HIT_BEFORE',"<span class=\"searchhit\">");
 define ('HIT_AFTER',"</span>");
+define ('ALL_CHANNELS_ID', -1);
 
 require_once("init.php");
 rss_header("Search",3);
 sideChannels(false);
 
-if (array_key_exists(QUERY_PRM,$_POST)) {
+if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     $exactMatch = (array_key_exists(QUERY_MATCH_MODE, $_POST) && $_POST[QUERY_MATCH_MODE] == SEARCH_EXACT_MATCH);
-    search($_POST[QUERY_PRM], $exactMatch);
+    $cid = (array_key_exists(QUERY_CHANNEL,$_REQUEST))?(int)$_REQUEST[QUERY_CHANNEL]:ALL_CHANNELS_ID;
+    search($_POST[QUERY_PRM], $exactMatch, $cid);
 } else {    
     list($cnt) = mysql_fetch_row(rss_query('select count(*) from item'));    
     searchForm(sprintf(H2_SEARCH, $cnt));
@@ -55,20 +58,46 @@ function searchForm($title) {
     
     echo
       "\n\t\t<form action=\"". getPath() ."search.php\" method=\"post\" id=\"srchfrm\">\n"
-      ."\t\t<p><label for=\"query\">". SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" id=\"query\" value=\"". $_REQUEST[QUERY_PRM]."\"/></p>\n"
-
-      ."\t\t<p><input type=\"radio\" id=\"qry_exactmatch\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_EXACT_MATCH."\"/>\n"
-      ."\t\t<label for=\"qry_exactmatch\">". SEARCH_EXACT_MATCH."</label>"
+      ."\n\t\t<p><label for=\"query\">". SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" "
+      ." id=\"query\" value=\"". $_REQUEST[QUERY_PRM]."\"/></p>\n"
       
-      ."\t\t<input type=\"radio\" id=\"qry_contains\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_CONTAINS ."\" checked />\n"
-      ."\t\t<label for=\"qry_contains\">". SEARCH_CONTAINS."</label></p>"            
+      ."\n\t\t<p><label for=\"". QUERY_CHANNEL ."\">". SEARCH_CHANNELS ."</label>\n"
+      ."\t\t<select name=\"".QUERY_CHANNEL."\" id=\"".QUERY_CHANNEL."\">\n"
+      ."\t\t\t<option value=\"". ALL_CHANNELS_ID ."\""
+      .((!array_key_exists(QUERY_CHANNEL,$_REQUEST) || $_REQUEST[QUERY_CHANNEL] == ALL_CHANNELS_ID)?" selected=\"selected\"":"")
+      .">" . ALL  . "</option>\n";
+    
+    $res = rss_query( "select " 
+      ." c.id, c.title  "
+      ." from channels c "
+      ." order by parent asc, title asc" );
+    while (list($id_,$title_) = mysql_fetch_row($res)) {
+	echo "\t\t\t<option value=\"$id_\""
+	  .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
+	    .">$title_</option>\n";
+    }
+    
+    echo "\t\t</select></p>\n"
       
-      ."\t\t<p><input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
+      
+      ."\n\t\t<p><input type=\"radio\" id=\"qry_exactmatch\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_EXACT_MATCH."\""
+      .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) && $_REQUEST[QUERY_MATCH_MODE] == SEARCH_EXACT_MATCH)?" checked=\"checked\"":"")
+      ."/>\n"
+      ."\t\t<label for=\"qry_exactmatch\">". SEARCH_EXACT_MATCH."</label>\n"
+      
+      
+      
+      ."\t\t<input type=\"radio\" id=\"qry_contains\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_CONTAINS ."\""
+      .((!array_key_exists(QUERY_MATCH_MODE,$_REQUEST) || $_REQUEST[QUERY_MATCH_MODE] != SEARCH_EXACT_MATCH)?" checked=\"checked\"":"")
+      ."/>\n"
+      ."\t\t<label for=\"qry_contains\">". SEARCH_CONTAINS."</label></p>\n"            
+      
+      ."\n\t\t<p><input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
       ."\t\t</form>\n";
     echo "</div>\n";
 }
 
-function search($qry,$exactMatch) {
+function search($qry,$exactMatch, $channelId) {
 
     
     // If we search for an exact match we add spaces before and after the query string.
@@ -80,8 +109,12 @@ function search($qry,$exactMatch) {
       ." i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
       ." from item i, channels c "
       ." where i.cid=c.id and "
-      ."   (i.description like '%$space$qry$space%' or i.title like '%$space$qry$space%') "
-      ." order by c.title asc, i.added desc";
+      ."   (i.description like '%$space$qry$space%' or i.title like '%$space$qry$space%') ";
+    
+    if ($channelId != ALL_CHANNELS_ID) {
+	$sql .= " and c.id = $channelId ";
+    }
+    $sql .=" order by c.title asc, i.added desc";
 
     $res0=rss_query($sql);
     $cnt = mysql_num_rows($res0);

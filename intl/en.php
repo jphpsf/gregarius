@@ -42,6 +42,7 @@ define ('H2_SEARCH', 'Search %d items');
 define ('SEARCH_SEARCH_QUERY','Search terms:');
 define ('SEARCH_EXACT_MATCH', 'Exact match');
 define ('SEARCH_CONTAINS', 'Containing text');
+define ('SEARCH_CHANNELS', 'Channels:');
 
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
@@ -50,7 +51,7 @@ define ('ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) 
 define ('UNREAD_PF', '(<strong>%d unread</strong>)');
 
 define ('FTR_POWERED_BY', "is powered by ");
-
+define ('ALL','All');
 define ('NAV_HOME','Home');
 define ('NAV_UPDATE', 'Refresh');
 define ('NAV_CHANNEL_ADMIN', 'Admin');

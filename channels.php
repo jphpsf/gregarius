@@ -154,7 +154,7 @@ function stats() {
     list($channelcount)= mysql_fetch_row($res);
     
     
-    printf ("\n<p class=\"stats\">" . ITEMCOUNT_PF . "<p>\n" 
+    printf ("\n<p class=\"stats\">" . ITEMCOUNT_PF . "</p>\n"
 	    ,$total, $unread, $channelcount);
     
 }
