@@ -85,8 +85,9 @@ function submit_tag_cb(ret) {
 	tags=data[1];
 	var fld=document.getElementById("th" + id);
 	fld.innerHTML = 
-		"Tags: <span id=\"t" + id + "\">" + tags + "</span>" 
-		+  "&nbsp;<a id=\"tt"+id+"\" href=\"\" onmouseup=\"edit_tag("+id+");\">(edit)</a>";
+		"<?= TAG_TAGS ?><span id=\"t" + id + "\">" + tags + "</span>" 
+		+  "&nbsp;<a id=\"tt"+id+"\" href=\"\" onmouseup=\"edit_tag("+id+");\">"
+		+ "<?= TAG_EDIT ?></a>";
 }
 
 function submit_tag(id,tags) {
@@ -95,15 +96,15 @@ function submit_tag(id,tags) {
 
 function edit_tag(id) {
 	var toggle = document.getElementById("tt" + id);
-	if (toggle.innerHTML == "(submit)") {
+	if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
 
 		var fld = document.getElementById("tfield" + id);
 		if (fld.value!="") {
-			toggle.innerHTML="(...)";
+			toggle.innerHTML="<?= TAG_SUBMITTING ?>";
 			submit_tag(id,fld.value);
 		}
-	} else if (toggle.innerHTML == "(edit)") {
-		toggle.innerHTML="(submit)";
+	} else if (toggle.innerHTML == <? echo "\"" . TAG_EDIT . "\"" ?>) {
+		toggle.innerHTML="<?= TAG_SUBMIT ?>";
 		var elem=document.getElementById("t"+id);
 		elem.innerHTML = "<input class=\"tagedit\" id=\"tfield"+id+"\" type=\"text\" value=\"" + elem.innerHTML + "\" />";
 		elem.firstChild.focus();

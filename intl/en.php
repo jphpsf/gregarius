@@ -162,4 +162,9 @@ define ('ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"You can't delete the " . HOME_FOL
 define ('ADMIN_CANT_RENAME',"You can't rename this folder '%s' becuase such a folder already exists.");
 define('ADMIN_ERROR_CANT_CREATE',"Looks like you already have a folder called '%s'!");
 
+define ('TAG_TAGS','Tags: ');
+define ('TAG_EDIT','(edit)');
+define ('TAG_SUBMIT','(submit)');
+define ('TAG_SUBMITTING','(...)');
+
 ?>

@@ -596,10 +596,10 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 		/// tags
 
-		echo "\t\t<h5 id=\"th$iid\">Tags: <span id=\"t$iid\">" 
+		echo "\t\t<h5 id=\"th$iid\">". TAG_TAGS ." <span id=\"t$iid\">" 
 			. implode(" ",$tags) 
 			. "</span>"
-			. "&nbsp;<a id=\"tt$iid\" href=\"#\" onmouseup=\"edit_tag($iid);\">(edit)</a>"
+			. "&nbsp;<a id=\"tt$iid\" href=\"#\" onmouseup=\"edit_tag($iid);\">".TAG_EDIT."</a>"
 			."</h5>";
 
 		/// /tags

@@ -161,5 +161,9 @@ define ('ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Vous ne pouvez pas effacer le r&e
 define ('ADMIN_CANT_RENAME',"Vous ne pouvez pas renommer cet &eacute;l&eacute;ment '%s' parce que un &eacute;l&eacute;ment du meme nom existe d&eacute;j&agrave;!");
 define ('ADMIN_ERROR_CANT_CREATE',"Un r&eacute;pertoire du meme nom ('%s') existe d&eacute;j&agrave;!");
 
+define ('TAG_TAGS','Tags: ');
+define ('TAG_EDIT','(modifier)');
+define ('TAG_SUBMIT','(sousmettre)');
+define ('TAG_SUBMITTING','(...)');
 
 ?>
