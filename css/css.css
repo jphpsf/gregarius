@@ -201,7 +201,7 @@ div#items li {
  clear:right;
  }
 
-//images inside posts
+/* images inside posts */
 div.content img {
  display: block; 
 }
@@ -212,6 +212,9 @@ div#items img.favicon { display: inline; }
 
 .content,.content * {
  font-size: small;
+ line-height: 1.4em;
+ text-align:justify;
+ padding-top: 1em;
 }
 
 td,th { padding: 5px; }
