@@ -115,15 +115,15 @@ function searchForm($title) {
     echo "\n\t\t<p><input type=\"radio\" id=\"qry_order_date\" name=\"". QUERY_ORDER_BY
       ."\" value=\"". QUERY_ORDER_BY_DATE ."\""
       .((array_key_exists(QUERY_ORDER_BY,$_REQUEST) &&
-	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_DATE)?" checked=\"checked\"":"")
+	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_DATE ||
+	 !array_key_exists(QUERY_ORDER_BY,$_REQUEST)?" checked=\"checked\"":""))
 	."/>\n"
       ."\t\t<label for=\"qry_order_date\">". SEARCH_ORDER_DATE_CHANNEL ."</label>\n"
       
       ."\t\t<input type=\"radio\" id=\"qry_order_channel\" name=\"". QUERY_ORDER_BY
       ."\" value=\"". QUERY_ORDER_BY_CHANNEL ."\""
       .((array_key_exists(QUERY_ORDER_BY,$_REQUEST) &&
-	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_CHANNEL ||
-	 !array_key_exists(QUERY_ORDER_BY,$_REQUEST))?" checked=\"checked\"":"")
+	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_CHANNEL)?" checked=\"checked\"":"")
 	."/>\n"
       ."\t\t<label for=\"qry_order_channel\">". SEARCH_ORDER_CHANNEL_DATE ."</label></p>\n";
       
