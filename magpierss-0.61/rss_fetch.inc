@@ -46,7 +46,7 @@ define ('MAGPIE_FEED_ORIGIN_HTTP_200', 4);
 define ('MAGPIE_FEED_ORIGIN_HTTP_304', 8);
 // Network, timeout
 define ('MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT', 16);
-// Not checked because age < MAGPIE_CACHE_AGE
+// Not fetched because age < MAGPIE_CACHE_AGE
 define ('MAGPIE_FEED_ORIGIN_NOT_FETCHED', 32);
 
 
