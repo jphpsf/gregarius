@@ -50,17 +50,15 @@ if (
     list($cid) = mysql_fetch_row($res);
     
     // lets see if theres an item id as well
-
-    $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
-    $res =  rss_query( "select id from item where title like '$sqlid' and cid=$cid" );
-
-    
-    if ( mysql_num_rows ( $res ) >0) {
-	list($iid) = mysql_fetch_row($res);  
-    } else { 
-	$iid = "";
+    $iif = "";
+    if (array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
+	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
+	$res =  rss_query( "select id from item where title like '$sqlid' and cid=$cid" );
+		
+	if ( mysql_num_rows ( $res ) >0) {
+	    list($iid) = mysql_fetch_row($res);  
+	}
     }
-    
 
     
 
