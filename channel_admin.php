@@ -620,7 +620,14 @@ function create_folder($label) {
 	return;
     }
 
-    rss_query("insert into folders (name) values ('" . mysql_real_escape_string($label) ."')");
+    $res = rss_query("select 1+max(position) as np from folders");
+    list($np) = mysql_fetch_row($res);
+    
+    if (!np) {
+	$np = "0";
+    }
+    
+    rss_query("insert into folders (name,position) values ('" . mysql_real_escape_string($label) ."', $np)");
     list($fid) = mysql_fetch_row( rss_query("select id from folders where name='". mysql_real_escape_string($label) ."'"));
     return $fid;
 }
