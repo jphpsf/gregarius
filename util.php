@@ -596,13 +596,23 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 		/// tags
 
-	    echo "\t\t<h5 id=\"th$iid\"><a href=\"".getPath()."tag/\">". TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
+	    echo "\t\t<h5 id=\"th$iid\">";
+	    if (getConfig('rss.output.usemodrewrite')) {
+			 echo "<a href=\"".getPath()."tag/\">";
+ 	    } else {
+			 echo "<a href=\"".getPath()."tags.php?alltags\">";
+ 	    }
+	    echo TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
 	    foreach($tags as $tag_) {
-		echo "<a href=\"".getPath()."tag/$tag_\">$tag_</a> ";
+			 if (getConfig('rss.output.usemodrewrite')) {
+				echo "<a href=\"".getPath()."tag/$tag_\">$tag_</a> ";
+			} else {
+				echo "<a href=\"".getPath()."tags.php?tag=$tag_\">$tag_</a> ";
+			}
 	    }
 	    
 	      echo "</span>"
-	      . "&nbsp;<a id=\"tt$iid\" href=\"#\" onmouseup=\"edit_tag($iid);\">".TAG_EDIT."</a>"
+	      . "&nbsp;<a id=\"tt$iid\" href=\"#\" onmouseup=\"_et($iid);\">".TAG_EDIT."</a>"
 	      ."</h5>\n\n";
 
 		/// /tags

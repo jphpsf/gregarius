@@ -91,12 +91,16 @@ function submit_tag_cb(ret) {
 	id=data[0];
 	tags=data[1].split(' ');
 	var fld=document.getElementById("th" + id);
-        var html = "<a href=\"<?= getPath() ?>tag/\"><?= TAG_TAGS ?></a>:&nbsp;"
+        var html = "<a href=\"<?= getPath() 
+        . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?alltags') 
+        ?>\"><?= TAG_TAGS ?></a>:&nbsp;"
               + "<span id=\"t" + id + "\">";
         for (i=0;i<tags.length;i++) {
-          html = html + "<a href=\"<?= getPath(); ?>tag/" + tags[i] + "\">" + tags[i] + "</a> ";
+          html = html + "<a href=\"<?= getPath()
+			 . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=') 
+          ?>" + tags[i] + "\">" + tags[i] + "</a> ";
         }
-        html = (html +"</span>&nbsp;<a id=\"tt"+id+"\" href=\"\" onmouseup=\"edit_tag("+id+");\">"
+        html = (html +"</span>&nbsp;<a id=\"tt"+id+"\" href=\"\" onmouseup=\"_et("+id+");\">"
                 + "<?= TAG_EDIT ?></a>");
 	fld.innerHTML = html;
 }
@@ -106,7 +110,7 @@ function submit_tag(id,tags) {
 }
 
 
-function edit_tag(id) {
+function _et(id) {
 	var toggle = document.getElementById("tt" + id);
 	if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
 		var fld = document.getElementById("tfield" + id);
@@ -263,10 +267,11 @@ function edit_tag(id) {
     if ($fontspread <= 0) { $fontspread = 1; }
     $ret = "";
     foreach ($tags as $tag => $cnt) {
-	$taglink = getPath() . "tag/$tag";	  
-	$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
-	  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
-	  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
+		$taglink = getPath() .
+		(getConfig('rss.output.usemodrewrite')?"tag/$tag":"tags.php?tag=$tag");
+		$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
+		  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
+		  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
     }
   
     // done! Render some stuff
@@ -277,8 +282,6 @@ function edit_tag(id) {
 	."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
     ."\n\n</div>\n";
     rss_footer();
-    
-    
 }
 
 ?>
