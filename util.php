@@ -232,8 +232,14 @@ function update($id) {
 
     $res = rss_query($sql);
     while (list($cid, $url, $title) = rss_fetch_row($res)) {
-	$rss = fetch_rss( $url );
 
+	// suppress warnings because Magpie is rather noisy
+	$old_level = error_reporting(E_ERROR);
+	$rss = fetch_rss( $url );
+	//reset
+	error_reporting($old_level);
+
+	
 	if (!$rss && $id != "" && is_numeric($id)) {
 	    return array(magpie_error(),0);
 	} elseif (!$rss) {	 
