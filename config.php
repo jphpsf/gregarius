@@ -37,6 +37,9 @@ require_once('dbinit.php');
 // Apache needs write permissions on this dir.
 define('MAGPIE_CACHE_DIR', '/tmp/magpierss');
 
+// output encoding for the PHP XML parser.
+define('MAGPIE_OUTPUT_ENCODING', 'UTF-8');
+
 // Number of items shown on for a single channel
 define ('ITEMS_ON_CHANNELVIEW', 10);
 

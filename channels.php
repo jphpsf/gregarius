@@ -132,11 +132,11 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
       "<a" 
       .$class_
       . ($description!=""?" title=\"$description\"":"")
-      ." href=\"$feedUrl\">" .htmlentities($title) ."</a> $rdLbl"
+      ." href=\"$feedUrl\">" . $title ."</a> $rdLbl"
       ." [<a href=\"". htmlentities($url)."\">xml</a>";
     
     if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
-	$ret .= "|<a href=\"$siteurl\">www</a>";
+	$ret .= "|<a href=\"" . htmlentities($siteurl) ."\">www</a>";
     }
     
     if (defined('_DEBUG_') && _DEBUG_ == true) {

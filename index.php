@@ -126,7 +126,7 @@ function items($title) {
 
 function markAllReadForm() {
     echo "<form action=\"". getPath() ."\" method=\"post\" class=\"markallread\">"
-      ."<input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/>"
+      ."<p><input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/></p>"
       ."</form>";
 }
 

@@ -28,6 +28,7 @@
 #
 ###############################################################################
 
+
 function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false) {
 
     if (!$no_output_buffering) {
@@ -43,7 +44,9 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
       ."<head>\n"
       ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
-      ."charset=UTF-8\" />\n"
+      ."charset="
+      . (defined(MAGPIE_OUTPUT_ENCODING)?MAGPIE_OUTPUT_ENCODING:DEFAULT_OUTPUT_ENCODING) .""
+      ."\" />\n"
       ."\t<title>".makeTitle($title)."</title>\n";
 
     if (defined('ROBOTS_META') && ROBOTS_META != '') {
@@ -172,11 +175,15 @@ function get_host($url, & $host) {
     return $ret;
 }
 
+
+/**
+ * Builds a title out of an already encoded strings.
+ */
 function makeTitle ($title) {
 
     $ret = ""._TITLE_ . "";
     if ($title != "") {
-	$ret .= " ".TITLE_SEP." " . htmlentities($title);
+	$ret .= " ".TITLE_SEP." " .  $title ;
     }
     return $ret;
 }
@@ -185,7 +192,10 @@ function makeTitle ($title) {
 
 function update($id) {
     global $kses_allowed;
-      
+    
+    
+    $unreadCount = 0;
+    
     $sql = "select id, url, title from channels";
     if ($id != "" && is_numeric($id)) {
 	$sql .= " where id=$id";
@@ -211,8 +221,6 @@ function update($id) {
 	if (array_key_exists('link', $rss->channel)) {
 	    $baseUrl = $rss->channel['link'];
 	}
-
-	$unreadCount = 0;
 
 	foreach ($rss->items as $item) {
 
@@ -284,17 +292,18 @@ function update($id) {
 	    } else {
 		$sec = "null";
 	    }
-
+	    	    
 	    if ($indb == "") {
+		
 		$sql = "insert into item (cid, added, title, url, "
 		  ." description, unread, pubdate) "
 		  . " values ("
 		  ."$cid, now(), '"
 		  .rss_real_escape_string($title) ."', "
 		  ." '$url', '"
-		  . rss_real_escape_string($description)
-		    ."', 1, $sec)";
-
+		  .rss_real_escape_string($description) ."', "
+		  ."1, $sec)";
+		
 		rss_query($sql);
 		$unreadCount++;
 	    }
@@ -321,7 +330,9 @@ function update($id) {
 function itemsList($title,$items, $options = IL_NONE){
 
     if ($title) {
-	echo "\n\n<h2>" . htmlentities($title) ."</h2>\n";
+	echo "\n\n<h2>" 
+	  .rss_htmlspecialchars($title)
+	  ."</h2>\n";
     }
     
     $cntr=0;
@@ -376,7 +387,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	}
 
 	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle");
-	$ctitle = htmlentities($ctitle);
+	$ctitle = rss_htmlspecialchars($ctitle);
 
 	if ($prev_cid != $cid) {
 	    $prev_cid = $cid;
@@ -706,4 +717,10 @@ function extractFeeds($url) {
     return $ret;
 }
 
+function rss_htmlspecialchars($in) {
+    return htmlspecialchars(
+       $in, ENT_NOQUOTES,
+       (defined(MAGPIE_OUTPUT_ENCODING)?MAGPIE_OUTPUT_ENCODING:DEFAULT_OUTPUT_ENCODING)
+    );
+}
 ?>

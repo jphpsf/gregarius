@@ -294,10 +294,7 @@ form.markallread {
  text-align:center;
 }
 
-h2 { 
- margin: 0;
-/* border-bottom: 1px solid  #eef; */
-}
+h2 {  margin: 0; }
 
 
 #items h2 {

@@ -120,11 +120,15 @@ if ($iid != "" && !is_numeric($iid)) {
 if ($iid == "") {
     $res = rss_query("select title,icon from channels where id = $cid");
     list($title,$icon) = rss_fetch_row($res);
-    rss_header($title);
+    rss_header( rss_htmlspecialchars( $title ) );
 } else {
    $res = rss_query ("select c.title, c.icon, i.title from channels c,item i where c.id = $cid and i.cid=c.id and i.id=$iid");
     list($title,$icon,$ititle) = rss_fetch_row($res);
-    rss_header($title . " " . html_entity_decode(TITLE_SEP) ." " .html_entity_decode($ititle));
+    rss_header(  
+		 rss_htmlspecialchars($title) 
+		 . " " . TITLE_SEP ." " 
+		 .  rss_htmlspecialchars($ititle)  
+	      );
 }
 
 

@@ -46,10 +46,15 @@ assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_QUIET_EVAL, 0);
 
 
+// default output encoding, can be overrided in the config.
+define ('DEFAULT_OUTPUT_ENCODING', 'UTF-8');
+  
+
 // Create a handler function
 function my_assert_handler($file, $line, $code) {
     echo "<span class=\"error\">Assertion Failed: File '$file'; Line '$line'; Code '$code'";
 }
+
 
 // Set up the callback
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');
