@@ -117,5 +117,5 @@ define ('ADMIN_ARE_YOU_SURE', "Are you sure you wish to delete '%s'?");
 define('ADMIN_MOVE_UP','&uarr;');
 define('ADMIN_MOVE_DOWN','&darr;');
 define('ADMIN_ADD_CHANNEL_EXPL','(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe)');
-define('ADMIN_FEEDS','The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?');
+define('ADMIN_FEEDS','The following feeds were found in <a href="%s">%s</a>, which one would you like to subscribe?');
 ?>

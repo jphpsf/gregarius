@@ -253,7 +253,7 @@ function channel_admin() {
 			      ."</p>\n";
 			}
 			
-			echo "<input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
+			echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
 			  ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
 			  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
 			  ."</p>\n</form>\n\n";
