@@ -69,12 +69,12 @@ function main() {
 /*************** Channel management ************/
 
 function channels() {
-    echo "<h2>Channels:</h2>\n";
+    echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n";
-    echo "<label for=\"new_channel\">Add a channel:</label>\n";
+    echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
     echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" />\n";
-    echo "<input type=\"submit\" name=\"action\" value=\"add\"/></p>\n";
+    echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
     echo "</form>";
 
     //echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\"><p>\n";
@@ -85,10 +85,10 @@ function channels() {
       //."<input type=\"checkbox\" onclick=\"alert('fixme');\"/>"
       //."&nbsp;"
       //."</th>\n"
-      ."<th>Title</th>"
-      ."<th>Folder</th>"
-      ."<th>Description</th>"
-      ."<th>Action</th>"
+      ."<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>"
+      ."<th>". ADMIN_CHANNELS_HEADING_FOLDER ."</th>"
+      ."<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>"
+      ."<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>"
       ."</tr>";
 
     $sql = "select "
@@ -124,12 +124,12 @@ function channels() {
     //echo "</form>\n";
 
     //opml import
-    echo "<h2>OPML:</h2>\n";
+    echo "<h2>". ADMIN_OPML ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n";
-    echo "<label for=\"opml\">Import opml:</label>\n";
+    echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT ."</label>\n";
     echo "<input type=\"text\"  name=\"opml\" id=\"opml\" value=\"http://\" />\n";
-    echo "<input type=\"submit\" name=\"action\" value=\"import\"/></p>\n";
+    echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_IMPORT ."\"/></p>\n";
 
     echo "</form>\n";
 
@@ -139,22 +139,22 @@ function channels() {
 function channel_admin() {
 
     if (defined('DEMO_MODE') && DEMO_MODE == true) {
-	rss_error ("I'm sorry, " . _TITLE_ . " is currently in demo mode. Actual actions are not performed.");
+	rss_error ("I'm sorry, " . _TITLE_ . " is currently in demo mode. Actual actions are not performed.");	
 	return;
     }
 
     switch ($_REQUEST['action']) {
 
-     case 'add':
+     case ADMIN_ADD:
 	$label = $_REQUEST['new_channel'];
 	add_channel($label);
 
 	break;
-     case 'edit':
+     case ADMIN_EDIT:
 	$id = $_REQUEST['cid'];
 	channel_edit_form($id);
 	break;
-     case 'create':
+     case ADMIN_CREATE:
 	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
 
@@ -162,7 +162,7 @@ function channel_admin() {
 	rss_query($sql);
 	break;
 
-     case 'delete':
+     case ADMIN_DELETE:
 	$id = $_REQUEST['cid'];
 	$sql = "delete from item where cid=$id";
 	rss_query($sql);
@@ -170,7 +170,7 @@ function channel_admin() {
 	rss_query($sql);
 	break;
 
-     case 'import':
+     case ADMIN_IMPORT:
 	$url = $_REQUEST['opml'];
 	$opml=getOpml($url);
 
@@ -224,13 +224,13 @@ function channel_edit_form($cid) {
       ."<p><input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n"
       ."<input type=\"hidden\" name=\"action\" value=\"submit_channel_edit\"/>\n"
       ."<input type=\"hidden\" name=\"cid\" value=\"$cid\"/>\n"
-      ."<label for=\"c_name\">Title:</label>\n"
+      ."<label for=\"c_name\">". ADMIN_CHANNEL_NAME ."</label>\n"
       ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\"/></p>"
-      ."<p><label for=\"c_url\">RSS URL:</label>\n"
+      ."<p><label for=\"c_url\">". ADMIN_CHANNEL_RSS_URL ."</label>\n"
       ."<input type=\"text\" id=\"c_url\" name=\"c_url\" value=\"$url\"/></p>"
-      ."<p><label for=\"c_siteurl\">Site URL:</label>\n"
+      ."<p><label for=\"c_siteurl\">". ADMIN_CHANNEL_SITE_URL ."</label>\n"
       ."<input type=\"text\" id=\"c_siteurl\" name=\"c_siteurl\" value=\"$siteurl\"/></p>"
-      ."<p><label for=\"c_parent\">In folder:</label>\n"
+      ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n"
       ."<select name=\"c_parent\" id=\"c_parent\">\n";
 
     $sql = " select id, name from folders order by id asc";
@@ -249,17 +249,17 @@ function channel_edit_form($cid) {
 
     echo "</select></p>\n";
 
-    echo "<p><label for=\"c_descr\">Description:</label>\n"
+    echo "<p><label for=\"c_descr\">". ADMIN_CHANNEL_DESCR ."</label>\n"
       ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>"
 
-      ."<p><input type=\"submit\" name=\"action_\" value=\"go\"></p>"
+      ."<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"></p>"
       ."</form></div>\n";
 }
 
 /*************** Folder management ************/
 
 function folders() {
-    echo "<h2>Folders:</h2>\n";
+    echo "<h2>".ADMIN_FOLDERS."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"domain\" value=\"folder\"/>\n";
 
@@ -271,11 +271,11 @@ function folders() {
     }
     echo "</select>\n";
 
-    echo "<input type=\"submit\" name=\"action\" value=\"rename\"/>\n";
-    echo "<input type=\"submit\" name=\"action\" value=\"delete\"/>\n";
+    echo "<input type=\"submit\" name=\"action\" value=\"".ADMIN_RENAME."\"/>\n";
+    echo "<input type=\"submit\" name=\"action\" value=\"".ADMIN_DELETE2."\"/>\n";
 
     echo "<input type=\"text\"  name=\"new_folder\" value=\"\" />";
-    echo "<input type=\"submit\" name=\"action\" value=\"create\"/>\n";
+    echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_CREATE ."\"/>\n";
     echo "</p></form>";
 }
 
@@ -320,8 +320,8 @@ function folder_admin() {
 
 function opml_export_form() {
     echo "<form method=\"get\" action=\"". getPath() ."opml.php\">\n"
-      ."<p><label for=\"action\">Export opml:</label>\n"
-      ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"export\"/></p>\n</form>\n";
+      ."<p><label for=\"action\">". ADMIN_OPML_EXPORT. "</label>\n"
+      ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"". ADMIN_EXPORT ."\"/></p>\n</form>\n";
 }
 
 function real_strip_slashes($string) {

@@ -103,7 +103,7 @@ function getUrl($url) {
 // recursive, but instead relies on the fact that we only have one level
 // of folders.
 // Output should be valid xml. (*fingers crossed*)
-if (isset($_GET['action']) && $_GET['action'] == 'export') {
+if (isset($_GET['action']) && $_GET['action'] == ADMIN_EXPORT) {
     
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.descr "

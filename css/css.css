@@ -291,9 +291,14 @@ p.error {
  font-weight:bold;
 }
 
-input, select, option, textarea, input[type^="radio"] {
+input, select, option, textarea {
  border: 1px solid #ddd;
  background-color: #f4f4f4;
+}
+
+input[type="radio"], input[type="hidden"] {
+ border: none;
+ background-color: transparent;
 }
 
 span.readmore {

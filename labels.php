@@ -52,6 +52,37 @@ define ('NAV_SEARCH', "Search");
 
 define ('POSTED', 'Posted: ');
 define ('SEARCH_GO', 'Go');
+
+
+// admin
 define ('ADMIN_EDIT', 'edit');
 define ('ADMIN_DELETE', 'delete');
+define ('ADMIN_DELETE2', 'Delete');
+define ('ADMIN_RENAME', 'Rename');
+define ('ADMIN_CREATE', 'Create');
+define ('ADMIN_IMPORT','Import');
+define ('ADMIN_EXPORT','Export');
+define ('ADMIN_ADD',' Add');
+
+define ('ADMIN_FOLDERS','Folders:');
+define ('ADMIN_CHANNELS','Channels:');
+define ('ADMIN_OPML','OPML:');
+
+define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
+define ('ADMIN_CHANNELS_HEADING_TITLE','Title');
+define ('ADMIN_CHANNELS_HEADING_FOLDER','Folder');
+define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
+define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
+define ('ADMIN_CHANNELS_ADD','Add a channel:');
+
+define ('ADMIN_OPML_EXPORT','Export OPML:');
+define ('ADMIN_OPML_IMPORT','Import OPML:');
+
+define ('ADMIN_CHANNEL_NAME','Title:');
+define ('ADMIN_CHANNEL_RSS_URL','RSS URL:');
+define ('ADMIN_CHANNEL_SITE_URL','Site URL:');
+define ('ADMIN_CHANNEL_FOLDER','In folder:');
+define ('ADMIN_CHANNEL_DESCR','Description:');
+
+
 ?>
