@@ -37,7 +37,7 @@ function sideChannels($activeId) {
           
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr "
-      ." from channels c, folders f "
+      ." from " .getTable("channels") ." c, " .getTable("folders") ." f "
       ." where f.id = c.parent";
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
 	$sql .= " order by f.position asc, c.position asc";
@@ -83,7 +83,7 @@ function sideChannels($activeId) {
     echo "</ul>\n";
     
 
-    $rescnt=rss_query("select count(*) as cnt from item where unread=1");
+    $rescnt=rss_query("select count(*) as cnt from " .getTable("item") ." where unread=1");
     list($unread_count) = rss_fetch_row($rescnt);
 
     echo "\n</div>\n";
@@ -102,7 +102,7 @@ function tabs($count) {
 
 /** prints out a formatted channel item **/
 function feed($cid, $title, $url, $siteurl, $ico, $description) {
-    $res = rss_query ("select count(*) from item where cid=$cid and unread=1");
+    $res = rss_query ("select count(*) from " .getTable("item") ." where cid=$cid and unread=1");
     list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
         $rdLbl= sprintf(UNREAD_PF, $cnt);	
@@ -150,13 +150,13 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 
 
 function stats() {
-    $res = rss_query( "select count(*) from item where unread=1" );
+    $res = rss_query( "select count(*) from " .getTable("item") ." where unread=1" );
     list($unread)= rss_fetch_row($res);
     
-    $res = rss_query( "select count(*) from item" );
+    $res = rss_query( "select count(*) from " . getTable("item") );
     list($total)= rss_fetch_row($res);
     
-    $res = rss_query( "select count(*) from channels");
+    $res = rss_query( "select count(*) from " .getTable("channels") );
     list($channelcount)= rss_fetch_row($res);
     
     

@@ -43,7 +43,7 @@ if (
     && !is_numeric($_REQUEST['channel'])     
     ) {
     $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
-    $res =  rss_query( "select id from channels where title like '$sqlid'" );
+    $res =  rss_query( "select id from " . getTable("channels") ." where title like '$sqlid'" );
     
     if ( rss_num_rows ( $res ) == 1) {
 	list($cid) = rss_fetch_row($res);
@@ -55,7 +55,7 @@ if (
     $iid = "";
     if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
 	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
-	$res =  rss_query( "select id from item where title like '$sqlid' and cid=$cid" );
+	$res =  rss_query( "select id from " .getTable("item") ." where title like '$sqlid' and cid=$cid" );
 		
 	if ( rss_num_rows ( $res ) >0) {
 	    list($iid) = rss_fetch_row($res);  
@@ -105,11 +105,11 @@ if (!$cid) {
 
 if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
     
-    $sql = "update item set unread=0 where cid=$cid";
+    $sql = "update " .getTable("item") ." set unread=0 where cid=$cid";
     rss_query($sql);
     
     // redirect to the next unread, if any.
-    $sql = "select cid,title from item where unread=1 order by added desc limit 1";
+    $sql = "select cid,title from " . getTable("item") ." where unread=1 order by added desc limit 1";
     $res = rss_query($sql);
     list ($next_unread_id, $next_unread_title) = rss_fetch_row($res);
     
@@ -140,7 +140,7 @@ if ($iid != "" && !is_numeric($iid)) {
 
 
 if ($iid == "") {
-    $res = rss_query("select title,icon from channels where id = $cid");
+    $res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
     list($title,$icon) = rss_fetch_row($res);
     if ($y > 0 && $m > 0 && $d == 0) {
 	$dtitle =  (" " . TITLE_SEP ." " . date('F Y',mktime(0,0,0,$m,1,$y)));
@@ -152,7 +152,8 @@ if ($iid == "") {
     
     rss_header( rss_htmlspecialchars( $title ) . $dtitle);
 } else {
-   $res = rss_query ("select c.title, c.icon, i.title from channels c,item i where c.id = $cid and i.cid=c.id and i.id=$iid");
+   $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, " 
+		     .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid");
     list($title,$icon,$ititle) = rss_fetch_row($res);
     rss_header(  
 		 rss_htmlspecialchars($title) 
@@ -180,7 +181,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
       ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
       ." pubdate is not null as ispubdate, "
       ." c.icon, c.title, i.id "
-      ." from item i, channels c "
+      ." from " .getTable("item") . " i, " . getTable("channels") ." c "
       ." where i.cid = $cid and c.id = $cid ";
 
     
@@ -232,11 +233,11 @@ function items($cid,$title,$iid,$y,$m,$d) {
     $shown = itemsList($title, $items, IL_CHANNEL_VIEW);
     
     
-    $sql = "select count(*) from item where cid=$cid and unread=1";
+    $sql = "select count(*) from " .getTable("item") . " where cid=$cid and unread=1";
     $res2 = rss_query($sql);
     list($unread_left) = rss_fetch_row($res2);
 
-    $sql = "select count(*) from item where cid=$cid";
+    $sql = "select count(*) from " .getTable("item") . " where cid=$cid";
     $res2 = rss_query($sql);
     list($allread) = rss_fetch_row($res2);
     
@@ -264,7 +265,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
 	  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
 	  ." count(*) as cnt_ "
-	  ." from item i  "
+	  ." from " . getTable("item") . "i  "
 	  ." where cid=$cid "
 	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts_s "
 	  ." group by y_,m_"
@@ -277,7 +278,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
 	  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
 	  ." count(*) as cnt_ "
-	  ." from item i  "
+	  ." from " . getTable("item") ." i  "
 	  ." where cid=$cid "
 	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts_p "
 	  ." group by y_,m_"
@@ -360,7 +361,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
 }
 
 function markReadForm($cid) {
-    $sql = "select count(*)  from item where cid=$cid and unread=1";
+    $sql = "select count(*)  from " .getTable("item") ." where cid=$cid and unread=1";
     $res=rss_query($sql);
     list($cnt) = rss_fetch_row($res);
     if($cnt > 0) {
@@ -374,7 +375,7 @@ function markReadForm($cid) {
 
 function debugFeed($cid) {
     echo "<div id=\"items\" class=\"frame\">\n";
-    $res = rss_query("select url from channels where id = $cid");
+    $res = rss_query("select url from " .getTable("channels") ." where id = $cid");
     list($url) = rss_fetch_row($res);
     $rss = fetch_rss ($url);
     echo "<pre>\n";

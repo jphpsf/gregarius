@@ -127,7 +127,7 @@ function channels() {
 
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon "
-      ." from channels c, folders d "
+      ." from " .getTable("channels") ." c, " . getTable("folders") ." d "
       ." where d.id = c.parent ";
 
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
@@ -280,21 +280,21 @@ function channel_admin() {
 	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
 
-	$sql = "insert into folders (name) values ('" . rss_real_escape_string($label) ."')";
+	$sql = "insert into " . getTable("folders") ." (name) values ('" . rss_real_escape_string($label) ."')";
 	rss_query($sql);
 	break;
 
      case ADMIN_DELETE_ACTION:
 	$id = $_REQUEST['cid'];
 	if (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_YES) {
-	    $sql = "delete from item where cid=$id";
+	    $sql = "delete from " . getTable("item") ." where cid=$id";
 	    rss_query($sql);
-	    $sql = "delete from channels where id=$id";
+	    $sql = "delete from " . getTable("channels") ." where id=$id";
 	    rss_query($sql);
 	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
 	    // nop;
 	} else {
-	    list($cname) = rss_fetch_row(rss_query("select title from channels where id = $id"));
+	    list($cname) = rss_fetch_row(rss_query("select title from " . getTable("channels") ." where id = $id"));
 
 	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$cname); echo "</p>\n"
@@ -312,13 +312,13 @@ function channel_admin() {
 	$opml=getOpml($url);
 
 	if (sizeof($opml) > 0) {
-	    $sql = "delete from channels";
+	    $sql = "delete from " . getTable("channels");
 	    rss_query($sql);
 
-	    $sql = "delete from item";
+	    $sql = "delete from " . getTable("item");
 	    rss_query($sql);
 
-	    $sql = "delete from folders where id > 0";
+	    $sql = "delete from " . getTable("folders") ." where id > 0";
 	    rss_query($sql);
 
 	    $prev_folder = HOME_FOLDER;
@@ -340,7 +340,7 @@ function channel_admin() {
 	    update("");
 	    
 	    // mark all items as read
-	    rss_query( "update item set unread=0" );
+	    rss_query( "update " . getTable("item") ." set unread=0" );
 	    
 	}
 	break;
@@ -359,7 +359,7 @@ function channel_admin() {
 	    break;
 	}
 
-	$sql = "update channels set title='$title', url='$url', siteurl='$siteurl', "
+	$sql = "update " .getTable("channels") ." set title='$title', url='$url', siteurl='$siteurl', "
 	  ." parent=$parent, descr='$descr', icon='$icon' where id=$cid";
 
 	rss_query($sql);
@@ -368,10 +368,10 @@ function channel_admin() {
      case ADMIN_MOVE_UP_ACTION:
      case ADMIN_MOVE_DOWN_ACTION:
 	$id = $_REQUEST['cid'];
-	$res = rss_query("select parent,position from channels where id=$id");
+	$res = rss_query("select parent,position from " . getTable("channels") ." where id=$id");
 	list($parent,$position) = rss_fetch_row($res);
 	$res = rss_query(
-			 "select id, position from channels "
+			 "select id, position from " .getTable("channels") 
 			 ." where parent=$parent and id != $id order by abs($position-position) limit 2"
 			 );
 
@@ -396,8 +396,8 @@ function channel_admin() {
 	}
 	// right, lets!
 	if ($switch_with_position != $position) {
-	    rss_query( "update channels set position = $switch_with_position where id=$id" );
-	    rss_query( "update channels set position = $position where id=$switch_with_id" );
+	    rss_query( "update " .getTable("channels") ." set position = $switch_with_position where id=$id" );
+	    rss_query( "update " .getTable("channels") ." set position = $position where id=$switch_with_id" );
 	}
 	break;
 
@@ -406,7 +406,7 @@ function channel_admin() {
 }
 
 function channel_edit_form($cid) {
-    $sql = "select id, title, url, siteurl, parent, descr, icon from channels where id=$cid";
+    $sql = "select id, title, url, siteurl, parent, descr, icon from " .getTable("channels") ." where id=$cid";
     $res = rss_query($sql);
     list ($id, $title, $url, $siteurl, $parent, $descr, $icon) = rss_fetch_row($res);
 
@@ -435,7 +435,7 @@ function channel_edit_form($cid) {
       ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n"
       ."<select name=\"c_parent\" id=\"c_parent\">\n";
 
-    $sql = " select id, name from folders order by id asc";
+    $sql = " select id, name from " . getTable("folders") ." order by id asc";
     $res = rss_query($sql);
     while (list($pid, $pname) = rss_fetch_row($res)) {
 	if ($pid == $parent) {
@@ -499,7 +499,7 @@ function folders() {
     echo "\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
       ."</tr>\n";
 
-    $sql = "select id,name from folders ";
+    $sql = "select id,name from " .getTable("folders");
 
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
 	$sql .=" order by position asc";
@@ -553,7 +553,7 @@ function folders() {
 
 function folder_edit($fid) {
 
-    $sql = "select id, name from folders where id=$fid";
+    $sql = "select id, name from " . getTable("folders") ." where id=$fid";
     $res = rss_query($sql);
     list ($id, $name) = rss_fetch_row($res);
 
@@ -575,7 +575,7 @@ function folder_edit($fid) {
 
 function folder_combo($name) {
     echo "\n<select name=\"$name\" id=\"$name\">\n";
-    $res = rss_query("select id, name from folders order by id asc");
+    $res = rss_query("select id, name from " .getTable("folders") ." order by id asc");
     while (list($id, $name) = rss_fetch_row($res)) {
 	echo "\t<option value=\"$id\">" .  (($name == "")?HOME_FOLDER:$name)  ."</option>\n";
     }
@@ -604,14 +604,14 @@ function folder_admin() {
 	}
 
 	if (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_YES) {
-	    $sql = "delete from folders where id=$id";
+	    $sql = "delete from " . getTable("folders") ." where id=$id";
 	    rss_query($sql);
-            $sql = "update channels set parent=0 where parent=$id";
+            $sql = "update " . getTable("channels") ." set parent=0 where parent=$id";
 	    rss_query($sql);
 	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
 	    // nop;
 	} else {
-	    list($fname) = rss_fetch_row(rss_query("select name from folders where id = $id"));
+	    list($fname) = rss_fetch_row(rss_query("select name from " .getTable("folders") ." where id = $id"));
 
 	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$fname); echo "</p>\n"
@@ -630,13 +630,13 @@ function folder_admin() {
 	$new_label = rss_real_escape_string($_REQUEST['f_name']);
 	if (is_numeric($id) && strlen($new_label) > 0) {
 
-	    $res = rss_query("select count(*) as cnt from folders where binary name='$new_label'");
+	    $res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
 	    list($cnt) = rss_fetch_row($res);
 	    if ($cnt > 0) {
 		rss_error("You can't rename this folder '$new_label' becuase such a folder already exists.");
 		return;
 	    }
-	    rss_query("update folders set name='$new_label' where id=$id");
+	    rss_query("update " .getTable("folders") ." set name='$new_label' where id=$id");
 	}
 	break;
 
@@ -654,10 +654,10 @@ function folder_admin() {
 	    return;
 	}
 
-	$res = rss_query("select position from folders where id=$id");
+	$res = rss_query("select position from " .getTable("folders") ." where id=$id");
 	list($position) = rss_fetch_row($res);
 
-	$sql = "select id, position from folders "
+	$sql = "select id, position from " .getTable("folders")
 	  ." where  id != $id order by abs($position-position) limit 2";
 
 	$res = rss_query($sql);
@@ -684,8 +684,8 @@ function folder_admin() {
 
 	// right, lets!
 	if ($switch_with_position != $position) {
-	    rss_query( "update folders set position = $switch_with_position where id=$id" );
-	    rss_query( "update folders set position = $position where id=$switch_with_id" );
+	    rss_query( "update " . getTable("folders") ." set position = $switch_with_position where id=$id" );
+	    rss_query( "update " . getTable("folders") ." set position = $position where id=$switch_with_id" );
 	}
 	break;
 
@@ -694,7 +694,7 @@ function folder_admin() {
 }
 
 function create_folder($label) {
-    $res = rss_query ("select count(*) from folders where name='"
+    $res = rss_query ("select count(*) from " .getTable("folders") ." where name='"
 		      .rss_real_escape_string($label). "'");
     list($exists) = rss_fetch_row($res);
 
@@ -703,22 +703,30 @@ function create_folder($label) {
 	return;
     }
 
-    $res = rss_query("select 1+max(position) as np from folders");
+    $res = rss_query("select 1+max(position) as np from " . getTable("folders"));
     list($np) = rss_fetch_row($res);
 
     if (!np) {
 	$np = "0";
     }
 
-    rss_query("insert into folders (name,position) values ('" . rss_real_escape_string($label) ."', $np)");
-    list($fid) = rss_fetch_row( rss_query("select id from folders where name='". rss_real_escape_string($label) ."'"));
+    rss_query("insert into " .getTable("folders") ." (name,position) values ('" . rss_real_escape_string($label) ."', $np)");
+    list($fid) = rss_fetch_row( rss_query("select id from " .getTable("folders") ." where name='". rss_real_escape_string($label) ."'"));
     return $fid;
 }
 
 /*************** OPML Export ************/
 
 function opml_export_form() {
-    echo "<form method=\"post\" action=\"". getPath() ."opml\">\n"
+    if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+	$method ="post";
+	$action = getPath() ."opml";
+    } else {
+	$method ="get";
+	$action = getPath() ."opml.php";	
+    }
+      
+    echo "<form method=\"$method\" action=\"$action\">\n"
       ."<p><label for=\"action\">". ADMIN_OPML_EXPORT. "</label>\n"
       ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"". ADMIN_EXPORT ."\"/></p>\n</form>\n";
 }

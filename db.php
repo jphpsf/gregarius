@@ -81,4 +81,11 @@ function rss_real_escape_string($string) {
     return mysql_real_escape_string($string);
 }
 
+function getTable($tableName) {
+    if (defined('DB_TABLE_PREFIX') && "" != DB_TABLE_PREFIX) {
+	return (" " . DB_TABLE_PREFIX . "_" . $tableName . " ");
+    } else {    
+	return (" $tableName ");
+    }
+}
 ?>

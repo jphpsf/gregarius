@@ -1,5 +1,9 @@
 Gregarius 0.3.3
 
+ 02.02.2005  Added (preliminary) support for table name prefixes, fixed
+ a bug in the search query, fixed a tiny bug in OPML export when 
+ mod_rewrite is off
+
  01.02.2005  Moved the admin to a separate directory, fixed a long standing 
  bug in OPML import (assert violations), updated copyright notices
 

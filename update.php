@@ -80,7 +80,7 @@ if ($doPush) {
       ."<th class=\"rc\">".UPDATE_UNDREAD."</th>\n"
       ."</tr>";
     
-    $sql = "select id, url, title from channels";    
+    $sql = "select id, url, title from " .getTable("channels");
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
 	$sql .= " order by parent, position"; 
     } else {
@@ -152,7 +152,7 @@ if ($doPush) {
 }
 
 if ($newItems > 0 && defined ('MARK_READ_ON_UPDATE') && MARK_READ_ON_UPDATE && $ts > 0) {
-    rss_query("update item set unread = 0 where unread = 1 and unix_timestamp(added) < $ts");
+    rss_query("update " . getTable("item") ." set unread = 0 where unread = 1 and unix_timestamp(added) < $ts");
 }
 
 if ($doPush) {

@@ -49,7 +49,7 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
 } else {
     rss_header(TITLE_SEARCH,LOCATION_SEARCH,"document.getElementById('query').focus()");  
     sideChannels(false);
-    list($cnt) = rss_fetch_row(rss_query('select count(*) from item'));
+    list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")));
     searchForm(sprintf(H2_SEARCH, $cnt));
 }
 
@@ -97,16 +97,20 @@ function searchForm($title) {
 	.">" . ALL  . "</option>\n";
 
     $res = rss_query( "select "
-		      ." c.id, c.title  "
-		      ." from channels c "
-		      ." order by parent asc, title asc" );
+		      ." c.id, c.title, f.name, f.id  "
+		      ." from " . getTable("channels") ." c, " . getTable("folders"). " f "
+		      ." where f.id=c.parent "
+		      ." order by c.parent asc,"
+		      .((defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING)?"c.position asc":"c.title asc"));
     
     
     
-    while (list($id_,$title_) = rss_fetch_row($res)) {
+    while (list($id_,$title_, $parent_, $parent_id_) = rss_fetch_row($res)) {
 	echo "\t\t\t<option value=\"$id_\""
 	  .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
-	    .">$title_</option>\n";
+	    .">"
+	  .(($parent_id_ > 0)?"$parent_ / ":"")
+	  ."$title_</option>\n";
     }
 
     echo "\t\t</select></p>\n";
@@ -172,9 +176,9 @@ function search($qry,$matchMode, $channelId) {
       ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "                                                                           
       ." i.pubdate is not null as ispubdate, " 
       ." i.id  "
-      ." from item i, channels c, folders f "
-      ." where i.cid=c.id and c.parent=f.id and "
-      .$qWhere;
+      ." from " . getTable("item") ." i, " . getTable("channels") ." c, " . getTable("folders") ." f "
+      ." where i.cid=c.id and c.parent=f.id and ("
+      .$qWhere .") ";
 
     if ($channelId != ALL_CHANNELS_ID) {
 	$sql .= " and c.id = $channelId ";
@@ -193,7 +197,6 @@ function search($qry,$matchMode, $channelId) {
     
 
     $sql .=", i.added desc";
-
     
     $res0=rss_query($sql);
     $cnt = rss_num_rows($res0);

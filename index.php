@@ -34,7 +34,7 @@ if (array_key_exists('action', $_POST)
     && $_POST['action'] != "" 
     && trim($_POST['action']) == trim(MARK_READ)) {
     
-    rss_query( "update item set unread=0 where unread=1" );
+    rss_query( "update " .getTable("item") . " set unread=0 where unread=1" );
 }
 
 if (array_key_exists('update',$_REQUEST)) {
@@ -58,7 +58,7 @@ function items($title) {
       ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "                                                                                  
       ." i.pubdate is not null as ispubdate, "    
       ." i.id  "
-      ." from item i, channels c, folders f "
+      ." from ".getTable("item") ." i, ".getTable("channels") ." c, " .getTable("folders") ." f "
       ." where i.cid = c.id and i.unread=1 and f.id=c.parent";
 
     if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
@@ -93,7 +93,7 @@ function items($title) {
     // next: unread. Must find a better solution instead of iterating over the channels twice.
     $sql = "select "
       ." c.id, c.title, c.icon "
-      ." from channels c, folders f "
+      ." from " .getTable("channels") . " c, " .getTable("folders") ." f "
       ." where c.parent = f.id ";
     
       if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
@@ -112,7 +112,7 @@ function items($title) {
 	  ." if (pubdate is null, unix_timestamp(added), unix_timestamp(pubdate)) as ts, "
 	  ." pubdate is not null as ispubdate, "     
 	  ." id  "
-      	  ." from item "
+      	  ." from " . getTable("item")
       	  ." where cid  = $cid and unread = 0"
       	  ." order by added desc, id asc "
       	  ." limit 2";

@@ -1,6 +1,32 @@
 <?
+
+//
+// The name of your MySQL database
+//
 define ('DBNAME','database_name');
+
+//
+// The username to use when connecting to the database
+//
 define ('DBUNAME','database_username');
+
+//
+// The password to use when connecting to the database
+//
 define ('DBPASS', 'database_password');
-define ('DBSERVER', 'database_host');
+
+//
+// The hostname of your database server. Unless you know
+// different this should probably be 'localhost' or '127.0.0.1'
+//
+define ('DBSERVER', 'localhost');
+
+//
+// The table name prefix to use. If you specify anything here,
+// say 'gregarius', your database table 'channels' will be referred to 
+// as 'gregarius_channels'. (Note that you'll probably want to 
+// edit dbstruct.sql to match this prefix, *before* you import the 
+// schema :)
+//
+define ('DB_TABLE_PREFIX','');
 ?>

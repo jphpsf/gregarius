@@ -116,7 +116,7 @@ function ftr() {
       ." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
       ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
-    $res = rss_query("select unix_timestamp(max(added)) as max_added from item");
+    $res = rss_query("select unix_timestamp(max(added)) as max_added from " . getTable("item"));
     list($ts) = rss_fetch_row($res);
     echo "<span>\n\tLast update: ". date(DATE_FORMAT,$ts)."\n</span>\n";
 
@@ -207,7 +207,7 @@ function update($id) {
     $kses_allowed = getAllowedTags();
     $unreadCount = 0;
     
-    $sql = "select id, url, title from channels";
+    $sql = "select id, url, title from ". getTable("channels");
     if ($id != "" && is_numeric($id)) {
 	$sql .= " where id=$id";
     }
@@ -294,7 +294,7 @@ function update($id) {
 	    }
 	    
 	    // check wether we already have this item	    
-	    $sql = "select id from item where cid=$cid and url='$url'";
+	    $sql = "select id from " .getTable("item") . " where cid=$cid and url='$url'";
 	    $subres = rss_query($sql);
 	    list($indb) = rss_fetch_row($subres);
 
@@ -306,7 +306,7 @@ function update($id) {
 	    	    
 	    if ($indb == "") {
 		
-		$sql = "insert into item (cid, added, title, url, "
+		$sql = "insert into " . getTable("item") . " (cid, added, title, url, "
 		  ." description, unread, pubdate) "
 		  . " values ("
 		  ."$cid, now(), '"
@@ -363,7 +363,7 @@ function itemsList($title,$items, $options = IL_NONE){
 
     if ($options & IL_DO_STATS) {
 	$stats = array();
-	$stats_res = rss_query("select cid,unread,count(*) from item group by 1,2 order by 1,2");
+	$stats_res = rss_query("select cid,unread,count(*) from " . getTable("item") . " group by 1,2 order by 1,2");
 	while (list($s_cid,$s_unread,$s_count)=rss_fetch_row($stats_res)) {
 	    $stats[$s_cid][$s_unread] = $s_count;
 	}
@@ -583,13 +583,13 @@ function add_channel($url, $folderid=0) {
     $urlDB = htmlentities($url);
 
     
-    $res = rss_query("select count(*) as channel_exists from channels where url='$urlDB'");
+    $res = rss_query("select count(*) as channel_exists from " .getTable("channels") ." where url='$urlDB'");
     list ($channel_exists) = rss_fetch_row($res);
     if ($channel_exists > 0) {
 	return array(-1,"Looks like you are already subscribed to this channel");
     }
 
-    $res = rss_query("select 1+max(position) as np from channels");
+    $res = rss_query("select 1+max(position) as np from " .getTable("channels"));
     list($np) = rss_fetch_row($res);
 
     if (!$np) {
@@ -622,7 +622,7 @@ function add_channel($url, $folderid=0) {
 	}
 
 	if ($title != "") {
-	    $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon, position)"
+	    $sql = "insert into " .getTable("channels") ." (title, url, siteurl, parent, descr, dateadded, icon, position)"
 	      ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
 
 	    rss_query($sql);

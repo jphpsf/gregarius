@@ -1,7 +1,6 @@
 # Tables dumped 2004-01-01 14:29:12 +0100
 # Created by CocoaMySQL (Copyright (c) 2002-2003 Lorenz Textor)
 #
-# Host: localhost   Database: rss
 # ******************************
 
 # Dump of table channels
@@ -38,6 +37,8 @@ CREATE TABLE `folders` (
 
 
 INSERT INTO `folders` (`id`,`name`) VALUES ("0","");
+
+# *Sigh*
 update folders set id=0 where id=1;
 
 

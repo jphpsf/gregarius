@@ -101,7 +101,7 @@ if (isset($_GET['action']) && $_GET['action'] == ADMIN_EXPORT) {
 
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.descr "
-      ." from channels c, folders d "
+      ." from ". getTable("channels") . " c, " .getTable("folders") ." d "
       ." where d.id = c.parent";
     
     
@@ -116,7 +116,7 @@ if (isset($_GET['action']) && $_GET['action'] == ADMIN_EXPORT) {
     
     $res = rss_query($sql);
 
-    $dateRes = rss_query("select max(dateadded) from channels");
+    $dateRes = rss_query("select max(dateadded) from " . getTable("channels"));
     list($dateModif) = rss_fetch_row($dateRes);
     $dateLabel = date("r", strtotime($dateModif));
 
