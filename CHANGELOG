@@ -1,3 +1,7 @@
+Gregarius 0.3.7
+
+ 10.03.2005 Fixed an internationalization issue in the admin section
+
 Gregarius 0.3.6
 
  06.03.2005 Fixed a bug that would prevent accesing the admin section 
