@@ -2,5 +2,6 @@
   RewriteEngine on
   RewriteCond  %{REQUEST_URI} !css\/
   RewriteCond  %{REQUEST_URI} !img\/
+  RewriteCond  %{REQUEST_URI} !magpierss-0.61\/
   RewriteRule ^(.+)\/(.*)?$ feed.php?channel=$1&iid=$2
 </IfModule>

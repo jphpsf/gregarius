@@ -33,7 +33,7 @@ define ('_TITLE_', "Gregarius");
 
 
 // Application version
-define ('_VERSION_', "0.2.9");
+define ('_VERSION_', "0.3.0");
 define ('MINUTE',60);
 
 define ('COOKIE_LIFESPAN',60*60*24*999);

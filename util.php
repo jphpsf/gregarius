@@ -286,7 +286,6 @@ function update($id) {
 	    }
 
 	    if ($indb == "") {
-						
 		$sql = "insert into item (cid, added, title, url, "
 		  ." description, unread, pubdate) "
 		  . " values ("
