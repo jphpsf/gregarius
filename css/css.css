@@ -34,6 +34,7 @@ h5 {
  color: #aaa;
 }
 
+
 h4,h5 { display: inline; }
 
 h5,h4 {
@@ -43,6 +44,7 @@ h5,h4 {
 
 a:hover,input:hover {color: #336; }
 a,input,select,h4 { color: #667 }
+h5 a { color: inherit }
 
 
 
@@ -127,7 +129,7 @@ div#channels > ul {
 
 
 
-div#items,div#search, div#update {
+div#items,div#searchfrm, div#update {
  margin-left: 290px;
 }
 
@@ -251,7 +253,7 @@ div#items img.favicon { display: inline; }
 }
 
 .content { height: auto }
-.item:hover .content a { border-bottom: 1px solid #ccc}
+.item:hover .content a, .item:hover h5 a { border-bottom: 1px solid #ccc}
 
 td,th { padding: 5px; }
 
@@ -330,7 +332,7 @@ span.readmore {
  text-align: right;
 }
 
-span.readmore a {
+span.readmore p {
  display: inline;
  border-left: 1px solid;
  padding: 0 10px;
@@ -426,7 +428,6 @@ label, input[type="submit"] {
 }
 
 span.updateres { 
-/*  margin-left: 2em; */
   position: absolute;
   left: 60%;
   font-weight: bold; 
@@ -443,7 +444,7 @@ span.updateres.ko { color: red }
 .indent { margin-left: 2em ! important; }
 
 /* margin to footer */
-div#channels, div#items, div#search, div#channel_admin, div#about, div#update {
+div#channels, div#items, div#searchfrm, div#channel_admin, div#about, div#update {
  margin-bottom: 5px;
 }
 

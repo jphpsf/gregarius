@@ -51,7 +51,7 @@ if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
     }
 }
 
-rss_header("Channel Admin",LOCATION_ADMIN);
+rss_header(TITLE_ADMIN,LOCATION_ADMIN);
 
 main($auth);
 rss_footer();
@@ -147,7 +147,7 @@ function channels() {
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>"
 	  .((defined('USE_FAVICONS') && USE_FAVICONS && $icon != "")?
-	    "<img src=\"$icon\" class=\"favicon\" alt=\"title\" width=\"16\" height=\"16\" />":"")
+	    "<img src=\"$icon\" class=\"favicon\" alt=\"$title\" width=\"16\" height=\"16\" />":"")
 	    ."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td>$parentLabel</td>\n"
 	  ."\t<td>$descr</td>\n";

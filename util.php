@@ -89,9 +89,15 @@ function nav($title, $active=0) {
       . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
       . "\t<li".($active == LOCATION_ADMIN  ?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
+    
+    
+    echo "<div id=\"ctnr\">\n";
 }
 
 function ftr() {
+    
+    echo "\n</div>\n";
+    
     echo "\n<div id=\"footer\" class=\"frame\">\n";
     echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
 
@@ -358,7 +364,7 @@ function itemsList($title,$items, $options = IL_NONE){
 
     while (list($row, $item) = each($items)) {
 
-	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $iid) = $item;
+	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
 
 	if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
 	    $collapsed = in_array($cid,$collapsed_ids)
@@ -481,12 +487,13 @@ function itemsList($title,$items, $options = IL_NONE){
 
 	    if (defined('USE_PERMALINKS') && USE_PERMALINKS) {
 		$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
-		$ptitle = PL_FOR. "'$escaped_title/$escaped_ititle'";
+		list($ply,$plm,$pld) = explode(":",date("Y:m:d",$ts));
+		$ptitle = PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
 		echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
 		if (defined('USE_MODREWRITE') && USE_MODREWRITE && $escaped_ititle != "") {
-		    echo "href=\"" .getPath() ."$escaped_title/$escaped_ititle\">";
+		    echo "href=\"" .getPath() ."$escaped_title/$ply/$plm/$pld/$escaped_ititle\">";
 		} else {
-		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid\">";
+		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
 		}
 		echo "\n\t\t\t<img src=\"".getPath() . "img/pl.gif\" alt=\"$ptitle\"/>\n"
 		  ."\t\t</a>\n";
@@ -505,7 +512,56 @@ function itemsList($title,$items, $options = IL_NONE){
 	    echo "</h4>\n";
 
 	    if ($ts != "") {
-		echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
+		$date_lbl = date(DATE_FORMAT, $ts);
+		
+		// make a permalink url for the date (month)
+		if (strpos(DATE_FORMAT,'F') !== FALSE) {
+		    $mlbl = date('F',$ts);
+		    if (defined('USE_MODREWRITE') && USE_MODREWRITE) { 
+			$murl = 
+			  getPath() 
+			    . "$escaped_title/"
+			  . date("Y/m/",$ts);
+		    } else {
+			$murl = getPath() ."feed.php?channel=$cid&amp;y="
+			  .date('Y',$ts)
+			    ."&amp;m="
+			  .date('m',$ts);			    
+		    }
+		    $date_lbl = 
+		      str_replace($mlbl,
+				  "<a href=\"$murl\">$mlbl</a>"
+				  ,$date_lbl);
+		}
+		
+		// make a permalink url for the date (day)
+		if (strpos(DATE_FORMAT,'jS') !== FALSE) {
+		    $dlbl = date('jS',$ts);
+		    
+		    if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+			$durl =          
+			  getPath()  
+			    . "$escaped_title/"
+			  . date("Y/m/d/",$ts);
+		    } else {
+			$durl = getPath() ."feed.php?channel=$cid&amp;y="
+			  .date('Y',$ts)
+			    ."&amp;m="
+			  .date('m',$ts)
+			    ."&amp;d="
+			  .date('d',$ts);
+		    }
+		    $date_lbl =
+		      str_replace($dlbl,
+				  "<a href=\"$durl\">$dlbl</a>" 
+				  ,$date_lbl);
+		}   
+		
+		if ($ispubdate) {
+		    echo "\t\t<h5>". POSTED . "$date_lbl</h5>\n";
+		} else {
+		    echo "\t\t<h5>". FETCHED . "$date_lbl</h5>\n";
+		}
 	    }
 
 	    if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {

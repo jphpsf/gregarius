@@ -1,0 +1,21 @@
+
+Gregarius 0.3.1
+
+ (30.12.2004) General: access a given feed's archives by clicking their month
+ 	      or day in channel view (preliminary work)
+
+ (29.12.2004) Search: new order-by feature allows to return the results ordered
+     	      by date,feed or feed,date
+
+ (29.12.2004) Search: minor layout changes
+ 
+ (20.12.2004) New permalink scheme: an item can now be accessed with an url
+ 	      in the form /feed_name/year/month/day/title
+	      
+ (20.12.2004) Get all items for a given feed for given date (month, day)
+ 	      with /feed_name/year/month/ or /feed_name/year/month/day/
+	      respectively. This scheme should replace the ugly "&all"
+	      scheme returning a huge load of items.
+	      
+ (15.12.2004) For those feeds that do not export pubplication dates for the
+ 	      items a "fetched date" is printed out instead.

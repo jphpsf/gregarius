@@ -35,6 +35,9 @@ define ('QUERY_CHANNEL', 'query_channel');
 define ('HIT_BEFORE',"<span class=\"searchhit\">");
 define ('HIT_AFTER',"</span>");
 define ('ALL_CHANNELS_ID', -1);
+define ('QUERY_ORDER_BY','order');
+define ('QUERY_ORDER_BY_DATE','date');
+define ('QUERY_ORDER_BY_CHANNEL','channel');
 
 require_once("init.php");
 
@@ -45,7 +48,7 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     $cid = (array_key_exists(QUERY_CHANNEL,$_REQUEST))?(int)$_REQUEST[QUERY_CHANNEL]:ALL_CHANNELS_ID;
     search($_REQUEST[QUERY_PRM], $matchMode, $cid);
 } else {
-    rss_header("Search",LOCATION_SEARCH,"document.getElementById('query').focus()");  
+    rss_header(TITLE_SEARCH,LOCATION_SEARCH,"document.getElementById('query').focus()");  
     sideChannels(false);
     list($cnt) = rss_fetch_row(rss_query('select count(*) from item'));
     searchForm(sprintf(H2_SEARCH, $cnt));
@@ -53,13 +56,11 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
 
 rss_footer();
 
-function searchForm($title,$addDiv = true) {
+function searchForm($title) {
     
-    if ($addDiv) {
-	echo "\n\n<div id=\"search\" class=\"frame\">";
-    } else {
-	echo "\n\n<div class=\"frame\">";
-    }
+
+    echo "\n\n<div id=\"searchfrm\" class=\"frame\">";
+
     echo "\n\t\t<h2>$title</h2>\n";
 
     echo
@@ -109,14 +110,29 @@ function searchForm($title,$addDiv = true) {
 	    .">$title_</option>\n";
     }
 
-    echo "\t\t</select></p>\n"
+    echo "\t\t</select></p>\n";
 
-      ."\n\t\t<p><input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
+    echo "\n\t\t<p><input type=\"radio\" id=\"qry_order_date\" name=\"". QUERY_ORDER_BY
+      ."\" value=\"". QUERY_ORDER_BY_DATE ."\""
+      .((array_key_exists(QUERY_ORDER_BY,$_REQUEST) &&
+	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_DATE)?" checked=\"checked\"":"")
+	."/>\n"
+      ."\t\t<label for=\"qry_order_date\">". SEARCH_ORDER_DATE_CHANNEL ."</label>\n"
+      
+      ."\t\t<input type=\"radio\" id=\"qry_order_channel\" name=\"". QUERY_ORDER_BY
+      ."\" value=\"". QUERY_ORDER_BY_CHANNEL ."\""
+      .((array_key_exists(QUERY_ORDER_BY,$_REQUEST) &&
+	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_CHANNEL ||
+	 !array_key_exists(QUERY_ORDER_BY,$_REQUEST))?" checked=\"checked\"":"")
+	."/>\n"
+      ."\t\t<label for=\"qry_order_channel\">". SEARCH_ORDER_CHANNEL_DATE ."</label></p>\n";
+      
+    
+    echo "\n\t\t<p><input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
       ."\t\t</form>\n";
     
-    //if ($addDiv) {
-	echo "</div>\n";
-    //}
+
+    echo "</div>\n";    
 }
 
 function search($qry,$matchMode, $channelId) {
@@ -153,7 +169,10 @@ function search($qry,$matchMode, $channelId) {
     }
     
     $sql = "select distinct i.title, c.title, c.id, i.unread, i.url, "
-      ." i.description, c.icon, unix_timestamp(i.pubdate) as ts, i.id  "
+      ." i.description, c.icon, "
+      ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "                                                                           
+      ." i.pubdate is not null as ispubdate, " 
+      ." i.id  "
       ." from item i, channels c, folders f "
       ." where i.cid=c.id and c.parent=f.id and "
       .$qWhere;
@@ -163,11 +182,14 @@ function search($qry,$matchMode, $channelId) {
     }
     
 
-    
-    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
-	$sql .= " order by f.position asc, c.position asc";
+    if (array_key_exists(QUERY_ORDER_BY, $_REQUEST) && $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_DATE) {
+	$sql .= " order by 8 desc";
     } else {
-	$sql .= " order by c.parent asc, c.title asc";
+	if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	    $sql .= " order by f.position asc, c.position asc";
+	} else {
+	    $sql .= " order by c.parent asc, c.title asc";
+	}
     }
     
 
@@ -180,7 +202,7 @@ function search($qry,$matchMode, $channelId) {
 
     if ($cnt > 0) {
 	$items=array();
-        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iid) = rss_fetch_row($res0)) {
+        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its, $iispubdate, $iid) = rss_fetch_row($res0)) {
 
 	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
 	    $title_noTags = preg_replace("/<.+?>/","",$ititle);
@@ -209,6 +231,7 @@ function search($qry,$matchMode, $channelId) {
 					    HIT_BEFORE . "\\1" . HIT_AFTER,
 					    $idescr),
 			       $its,
+			       $iispubdate,
 			       $iid
 			       );
 	    }
@@ -226,12 +249,12 @@ function search($qry,$matchMode, $channelId) {
 
     // If we got not hit, offer the search form.
     if ($cnt > 0) {
-	echo "\n\n<div id=\"items\" class=\"frame\">";
 	searchForm($title,false);
+	echo "<div id=\"items\" class=\"frame\">";
 	itemsList( "", $items, IL_NO_COLLAPSE);
 	echo "</div>\n";
     } else {
-	searchForm($title);
+	searchForm($title,true);
     }
 
 }

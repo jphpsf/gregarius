@@ -33,10 +33,10 @@
 
 
 define ('MARK_READ', "Mark all as read");
-define ('MARK_CHANNEL_READ', "Mark this channel as read");
+define ('MARK_CHANNEL_READ', "Mark this feed as read");
 define ('SEE_ALL_UNREAD', "See all %d unread items");
 define ('SEE_ONLY_UNREAD', "Display only unread items (%d)");
-define ('SEE_ALL', "See all %d items for this channel");
+define ('SEE_ALL', "See all %d items for this feed");
 define ('H2_SEARCH_RESULTS_FOR', "%d matches for %s");
 define ('H2_SEARCH_RESULT_FOR',"%d match for %s");
 define ('H2_SEARCH', 'Search %d items');
@@ -44,13 +44,15 @@ define ('SEARCH_SEARCH_QUERY','Search terms:');
 define ('SEARCH_MATCH_OR', 'Some terms (OR)');
 define ('SEARCH_MATCH_AND', 'All terms (AND)');                                                                 
 define ('SEARCH_MATCH_EXACT', 'Exact match');
-define ('SEARCH_CHANNELS', 'Channel:');
+define ('SEARCH_CHANNELS', 'Feed:');
+define ('SEARCH_ORDER_DATE_CHANNEL','Order by date, feed');
+define ('SEARCH_ORDER_CHANNEL_DATE','Order by feed, date');
 
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
-define ('H2_CHANNELS','Channels');
+define ('H2_CHANNELS','Feeds');
 define ('H5_READ_UNREAD_STATS','%d items, %d unread');
-define ('ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> channels');
+define ('ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds');
 define ('UNREAD_PF', '(<strong>%d unread</strong>)');
 
 define ('FTR_POWERED_BY', ", powered by ");
@@ -59,9 +61,15 @@ define ('NAV_HOME','Home');
 define ('NAV_UPDATE', 'Refresh');
 define ('NAV_CHANNEL_ADMIN', 'Admin');
 define ('NAV_SEARCH', "Search");
+define ('SEARCH_GO', 'Search');
 
 define ('POSTED', 'Posted: ');
-define ('SEARCH_GO', 'Search');
+define ('FETCHED','Fetched: ');
+
+define ('TITLE_UPDATING','Updating');
+define ('TITLE_SEARCH','Search');
+define ('TITLE_ADMIN','Feeds Admin');
+
 
 define ('HOME_FOLDER','Root');
 define ('VISIT', '(visit)');
@@ -69,14 +77,14 @@ define ('COLLAPSE','collapse');
 define ('EXPAND','expand');
 define ('PL_FOR','Permalink for ');
 
-define ('UPDATE_CHANNEL','Channel');
+define ('UPDATE_CHANNEL','Feed');
 define ('UPDATE_STATUS','Status');
 define ('UPDATE_UNDREAD','New Items');
 
 define ('UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('UPDATE_STATUS_CACHED', 'OK (Local cache)');
 define ('UPDATE_STATUS_ERROR','ERROR');
-define ('UPDATE_H2','Updating %d Channels...');
+define ('UPDATE_H2','Updating %d Feeds...');
 define ('UPDATE_CACHE_TIMEOUT','HTTP Timeout (Local cache)');
 define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)');
 
@@ -92,7 +100,7 @@ define ('ADMIN_ADD','Add');
 define ('ADMIN_YES', 'Yes');
 define ('ADMIN_NO', 'No');
 define ('ADMIN_FOLDERS','Folders:');
-define ('ADMIN_CHANNELS','Channels:');
+define ('ADMIN_CHANNELS','Feeds:');
 define ('ADMIN_OPML','OPML:');
 define ('ADMIN_IN_FOLDER','to folder:');
 define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
@@ -101,7 +109,7 @@ define ('ADMIN_CHANNELS_HEADING_FOLDER','Folder');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_MOVE','Move');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
-define ('ADMIN_CHANNELS_ADD','Add a channel:');
+define ('ADMIN_CHANNELS_ADD','Add a feed:');
 define ('ADMIN_FOLDERS_ADD','Add a folder:');
 define ('ADMIN_CHANNEL_ICON','Shown favicon:');
 define ('CLEAR_FOR_NONE','(Leave blank for no icon)');

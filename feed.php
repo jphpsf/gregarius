@@ -32,25 +32,24 @@
 
 require_once('init.php');
 
+
+
 if (
     defined('USE_MODREWRITE') 
     && USE_MODREWRITE 
     && array_key_exists('channel',$_REQUEST)    
-    // this is nasty because a numeric feed title could break this
+    // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])     
-    ) {
+    ) 
+{
     $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
     if ( rss_num_rows ( $res ) == 1) {
 	list($cid) = rss_fetch_row($res);
-	//rss_error("I'm having troubles fetching the channel " . $_REQUEST['channel'] . "! <!-- $sqlid -->");
     } else {
 	$cid = "";
-    }
-    
-    
-
+    }       
     
     // lets see if theres an item id as well
     $iif = "";
@@ -62,13 +61,40 @@ if (
 	    list($iid) = rss_fetch_row($res);  
 	}
     }
+    
 
     
+    // date ?
+    if ($cid != "" 
+	&& array_key_exists('y',$_REQUEST) && $_REQUEST['y'] != "" && is_numeric($_REQUEST['y'])
+	&& array_key_exists('m',$_REQUEST) && $_REQUEST['m'] != "" && is_numeric($_REQUEST['m']))
+	
+    {	
+	
+	$y = (int) $_REQUEST['y'];
+	if ($y < 1000) $y+=2000;
+	
+	$m =  $_REQUEST['m'];	
+	if ($m > 12) {
+	    $m = date("m");
+	}
+	
+	$d =  $_REQUEST['d'];
+	if ($d > 31) {
+	    $d = date("d");
+	} 
+
+    } else {
+	$y = 0;
+	$m = 0;
+	$d = 0;
+    }
 
 // no mod rewrite: ugly but effective
 } elseif (array_key_exists('channel',$_REQUEST)) {
     $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
     $iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
+    $pageNum =  (array_key_exists('page',$_REQUEST))?(int)$_REQUEST['page']:1;
 }
 
 // If we have no channel-id somethign went terribly wrong.
@@ -87,11 +113,8 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
     $sql = "select cid,title from item where unread=1 order by added desc limit 1";
     $res = rss_query($sql);
     list ($next_unread_id, $next_unread_title) = rss_fetch_row($res);
-
     
-
-    if ($next_unread_id == '') {
-	
+    if ($next_unread_id == '') {	
 	$redirect = "http://"
 	  . $_SERVER['HTTP_HOST']     
 	  . dirname($_SERVER['PHP_SELF']);   
@@ -120,7 +143,15 @@ if ($iid != "" && !is_numeric($iid)) {
 if ($iid == "") {
     $res = rss_query("select title,icon from channels where id = $cid");
     list($title,$icon) = rss_fetch_row($res);
-    rss_header( rss_htmlspecialchars( $title ) );
+    if ($y > 0 && $m > 0 && $d == 0) {
+	$dtitle =  (" " . TITLE_SEP ." " . date('F Y',mktime(0,0,0,$m,1,$y)));
+    } elseif ($y > 0 && $m > 0 && $d > 0) {
+	$dtitle =  (" " . TITLE_SEP ." " . date('F jS, Y',mktime(0,0,0,$m,$d,$y)));
+    } else {
+	$dtitle ="";
+    }
+    
+    rss_header( rss_htmlspecialchars( $title ) . $dtitle);
 } else {
    $res = rss_query ("select c.title, c.icon, i.title from channels c,item i where c.id = $cid and i.cid=c.id and i.id=$iid");
     list($title,$icon,$ititle) = rss_fetch_row($res);
@@ -137,17 +168,19 @@ sideChannels($cid);
 if (defined('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
-    items($cid,$title,$iid);
+    items($cid,$title,$iid,$y,$m,$d);
 }
 rss_footer();
 
 
-function items($cid,$title,$iid) {
+function items($cid,$title,$iid,$y,$m,$d) {
     echo "\n\n<div id=\"items\" class=\"frame\">";    
     markReadForm($cid);
-        
+
     $sql = " select i.title, i.url, i.description, i.unread, "
-      ." unix_timestamp(i.pubdate) as ts, c.icon, c.title, i.id "
+      ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
+      ." pubdate is not null as ispubdate, "
+      ." c.icon, c.title, i.id "
       ." from item i, channels c "
       ." where i.cid = $cid and c.id = $cid ";
 
@@ -162,20 +195,33 @@ function items($cid,$title,$iid) {
       $sql .= " and unread=1 ";
     }
     
-    $sql .=" order by i.added desc, i.id asc";
-    //$sql .= " order by i.id asc";
-      
-    if (!array_key_exists('all', $_REQUEST) && !array_key_exists('unread', $_REQUEST)) {
-      $sql .= " limit ". ITEMS_ON_CHANNELVIEW;
+    if ($m > 0 && $y > 0) {
+	$sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
+	  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+	
+	if ($d > 0) {
+	    $sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+	}
     }
     
+    $sql .=" order by i.added desc, i.id asc";
+
+      
+
+    if ( $m==0 && $y==0 ) {
+	$sql .= " limit " .ITEMS_ON_CHANNELVIEW;
+    }
+
+    
+
     $res = rss_query($sql);    
     $items = array();
         
     $iconAdded = false;
       
-    while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle, $iid) =  rss_fetch_row($res)) {
-      	$items[]=array($cid, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its, $iid);
+    
+    while (list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid) =  rss_fetch_row($res)) {
+      	$items[]=array($cid, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its, $iispubdate, $iid);
       	if (! $iconAdded && defined('USE_FAVICON') && USE_FAVICONS && $cicon != "") {
       	    $iconAdded = true;
       	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
@@ -197,6 +243,7 @@ function items($cid,$title,$iid) {
     
     /** read more navigation **/
     $readMoreNav = "";
+    /*
     if ($unread_left > 0 && !isset($_REQUEST['unread']) && $shown < $unread_left) {
         if (ITEMS_ON_CHANNELVIEW < $unread_left) {
             $readMoreNav .= "<a href=\"". getPath() . "feed.php?channel=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
@@ -205,10 +252,37 @@ function items($cid,$title,$iid) {
         }
     }
     
-    if ((!isset($_REQUEST['all']) || isset($_REQUEST['unread'])) && $shown < $allread) {
-        $readMoreNav .= "<a href=\"". getPath() ."feed.php?channel=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
+    if ((!isset($_REQUEST['unread'])) 
+	//&& $shown < $allread
+	) {
+
+	// month view.
+	$sql = "select "
+	  ." if (i.pubdate is null, dayofmonth(i.added), dayofmonth(i.pubdate)) as d, count(*) "
+	  ." from item i where i.cid=$cid and "
+	  ." if (i.pubdate is null, month(i.added)=$m, month(i.pubdate)=$m) and "
+	  ." if (i.pubdate is null, year(i.added)=$y, year(i.pubdate)=$y) "
+	  ." group by d "
+	  ." order by d desc";
+
+	//die($sql);
+	$cal = rss_query($sql);
+
+	if (($nr = rss_num_rows($cal)) > 0) {
+	    $readMoreNav .=  "<table class=\"wide\"><tr><td colspan=\"$nr\">$m/$y</td></tr>\n<tr>";
+	    
+	    while (list($dd,$cc)=rss_fetch_row($cal)) {
+		if ($dd == $d) {
+		    $readMoreNav .= "<td class=\"active\">$dd ($cc)</td>\n";
+		}else {		    		
+		    $url = getPath(). $_REQUEST['channel'] . "/$y/$m/$dd/";
+		    $readMoreNav .= "<td><a href=\"$url\">$dd ($cc)</a></td>\n";
+		}
+	    }
+	    $readMoreNav .=  "\n</tr></table>\n";
+	}
     }
-      
+     */
     if ($readMoreNav != "") {
 	echo "<span class=\"readmore\">$readMoreNav</span>\n";    
     }

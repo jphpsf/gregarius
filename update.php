@@ -55,7 +55,7 @@ if ($doPush) {
     define('ERROR_NOERROR',"");
     define('ERROR_WARNING'," warning");
     define('ERROR_ERROR'," error");
-    
+    define ('NO_NEW_ITEMS','-');
     
     header("Connection: close");
     header("Content-type: multipart/x-mixed-replace;boundary=\"".PUSH_BOUNDARY."\"");
@@ -64,7 +64,7 @@ if ($doPush) {
 
     echo "Content-Type: text/html\n\n";
     
-    rss_header($title="Updating", LOCATION_UPDATE, "", true);
+    rss_header($title=TITLE_UPDATING, LOCATION_UPDATE, "", true);
     $cnt = sideChannels(false);
     
     
@@ -127,7 +127,7 @@ if ($doPush) {
 	    }	      
 	}
 	echo "<td class=\"mc$cls\">$label</td>\n";       
-	echo "<td class=\"rc\">" . ($unread >0?$unread:"&nbsp;") . "</td>\n";       
+	echo "<td class=\"rc\">" . ($unread >0?$unread:NO_NEW_ITEMS) . "</td>\n";       
 	echo "</tr>\n";
 	flush();
 	

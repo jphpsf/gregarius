@@ -54,7 +54,10 @@ function items($title) {
 
     // unread items first!
     $sql = "select i.title,  c.title, c.id, i.unread, "
-      ." i.url, i.description, c.icon, unix_timestamp(i.pubdate) as ts, i.id  "
+      ." i.url, i.description, c.icon, "      
+      ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "                                                                                  
+      ." i.pubdate is not null as ispubdate, "    
+      ." i.id  "
       ." from item i, channels c, folders f "
       ." where i.cid = c.id and i.unread=1 and f.id=c.parent";
 
@@ -80,8 +83,8 @@ function items($title) {
 
 	markAllReadForm();
 	
-        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iid_) = rss_fetch_row($res0)) {
-            $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_, $iid_ );
+        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_) = rss_fetch_row($res0)) {
+            $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_, $iispubdate_, $iid_ );
         }
 
         itemsList ( sprintf(H2_UNREAD_ITEMS , rss_num_rows($res0)),  $items );
@@ -105,7 +108,10 @@ function items($title) {
     $items = array();
     while (list($cid,$ctitle, $icon) = rss_fetch_row($res1)) {
 	
-      	$sql = "select cid, title, url, description, unread, unix_timestamp(pubdate) as ts, id  "
+      	$sql = "select cid, title, url, description, unread, "
+	  ." if (pubdate is null, unix_timestamp(added), unix_timestamp(pubdate)) as ts, "
+	  ." pubdate is not null as ispubdate, "     
+	  ." id  "
       	  ." from item "
       	  ." where cid  = $cid and unread = 0"
       	  ." order by added desc, id asc "
@@ -114,8 +120,8 @@ function items($title) {
 	$res = rss_query($sql);
 	
       	if (rss_num_rows($res) > 0) {
-      	    while (list($cid, $ititle, $url, $description, $unread, $ts, $iid) =  rss_fetch_row($res)) {
-		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts, $iid);
+      	    while (list($cid, $ititle, $url, $description, $unread, $ts, $ispubdate, $iid) =  rss_fetch_row($res)) {
+		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts, $ispubdate, $iid);
       	    }
       	 }
     }

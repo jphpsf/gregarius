@@ -55,6 +55,7 @@ define ('NAV_CHANNEL_ADMIN', 'Administration');
 define ('NAV_SEARCH', "Chercher");
 
 define ('POSTED', 'Publi&eacute;: ');
+define ('FETCHED', 'R&eacute;cup&eacute;r&eacute;: ');
 define ('SEARCH_GO', 'Chercher');
 
 define ('HOME_FOLDER','Racine');
