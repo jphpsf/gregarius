@@ -31,8 +31,8 @@ html, body, td, p, th, a  { padding: 0; }
 body {
   text-align: left;
   margin:0;
-  padding: 10px;
-  color:  #333;
+  padding: 20px;
+  color:  #335;
   background-color: #eee; 
 }
 
@@ -44,12 +44,20 @@ body {
  font-size:  medium;
 }
 
-a:hover,input:hover {color: #985; }
-a,input,select  {color: #765; }
+h1,h2,h3,h4,h5 {
+  font-family: "Trebuchet MS", "Gill Sans", Geneva, Arial, Helvetica, sans-serif;
+  font-style: italic; 
+  letter-spacing: 0.05em;
+}
+
+a:hover,input:hover {color: #223; }
+a,input,select { color: #335 }
+
+
 
 input { 
  font-size: small;
- font-weight: bold;
+ font-weight: bold; 
  margin: 3px;
 }
 
@@ -68,9 +76,9 @@ ul, li {
 
 div#channels li { 
   display: block;
-  padding: 5px 0;
+  padding: 7px 2px;
   margin:0;
-  border-bottom: 1px solid  #ddd;
+  border-bottom: 1px solid  #eef;
   background-color: #fff;
   font-size:small;
 }
@@ -101,7 +109,7 @@ ul>li>ul {
 }
 
 div#channels li:hover {
- background-color: #fff8f8;
+ background-color: #f8f8ff;
 }
 
 
@@ -133,7 +141,7 @@ div#nav {
 div#footer, div#nav {
  margin-top: 5px;
  clear: both;
- padding: 5px;
+ padding: 10px;
 }
 
 div#footer span { 
@@ -161,8 +169,8 @@ li.item.odd, tr.odd {
 
 
 li.item.even.unread,li.item.odd.unread {
- border-color: #ddd;
- background-color: #fff8f8;
+ border-color: #eef;
+ background-color: #f8f8ff;
 }
 
 li.item {
@@ -187,7 +195,6 @@ div#items img.favicon { display: inline; }
 
 .content,.content * {
  font-size: small;
-
 }
 
 td,th { padding: 5px; }
@@ -223,11 +230,11 @@ form.markallread {
  text-align:right;
 }
 
-a.unread { font-weight: bold; }
+/*a.unread { font-weight: bold; }*/
 
 h2 { 
  margin: 0;
- border-bottom: 1px solid  #ddd;
+ border-bottom: 1px solid  #eef;
 }
 
 
@@ -243,14 +250,16 @@ h3 {
  margin: 20px 0 0 0;
 }
 
+
+
 p.error {
  color: red;
  font-weight:bold;
 }
 
 input, select, option, textarea {
- border: 1px solid #aaa;
- background-color: white;
+ border: 1px solid #ddd;
+ background-color: #f4f4f4;
 }
 
 span.readmore {
@@ -279,14 +288,24 @@ ul#navlist li {
  height: 20px;
  margin: 2px 2px 0 2px; 
  border: 1px solid #ddd;
+ background-color: #f4f4f4;
+ padding: 0.1em;
+ height: 1.4em;
 }
- 
-li#active a, #navlist li:hover {
- background-color:  #f4f4f4;
-  height: 20px;
+
+input[type="submit"] {
+ padding: 0.3em; 
 }
+
  
-/* li#active a { color: #000; } */
+#navlist li:hover,input[type="submit"]:hover {
+ background-color:  #f8f8ff;
+ border-color: #ddf;
+}
+
+#active a {
+ color: black;
+}
  
 #navlist a {
  float: left;
@@ -310,3 +329,4 @@ p.stats {
  padding: 0;
  font-size: small;
 }
+
