@@ -42,7 +42,13 @@ $doPush =
   && $browser->supportsServerPush();
 
 if ($doPush) {
+    
     define('PUSH_BOUNDARY',"-------- =_aaaaaaaaaa0");
+    define('ERROR_NOERROR',"");
+    define('ERROR_WARNING'," warning");
+    define('ERROR_ERROR'," error");
+    
+    
     header("Connection: close");
     header("Content-type: multipart/x-mixed-replace;boundary=\"".PUSH_BOUNDARY."\"");
     echo "WARNING: YOUR BROWSER DOESN'T SUPPORT THIS SERVER-PUSH TECHNOLOGY.";
@@ -74,38 +80,46 @@ if ($doPush) {
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
 	echo "<tr>\n";
 	echo "<td class=\"lc\">$title</td>\n"; flush();
-	echo "<td class=\"mc\">";
+
 	$ret = update($cid);
 
+	
 	if (is_Array($ret)) {
 	    $error = $ret[0];
 	    $unread = $ret[1];
 	} else {
-	    $error = -1;
+	    $error = 0;
 	    $unread = 0;
 	}
 	if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
 	    if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
-		echo UPDATE_NOT_MODIFIED;
+		$label = UPDATE_NOT_MODIFIED;
+		$cls = ERROR_NOERROR;
 	    } elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
-		echo UPDATE_CACHE_TIMEOUT;
+		$label = UPDATE_CACHE_TIMEOUT;
+		$cls = ERROR_WARNING;
 	    } elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
-		echo UPDATE_STATUS_CACHED;
+		$label = UPDATE_STATUS_CACHED;
+		$cls = ERROR_NOERROR;
 	    } else {
-		echo $error;
+		$label =  $error;
+		$cls = ERROR_ERROR;
 	    }	    	    
 	} elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
-	    echo UPDATE_STATUS_OK;
+	    $label = UPDATE_STATUS_OK;
+	    $cls = ERROR_NOERROR;
 	} else {
 	    if (is_numeric($error)) {
-		echo UPDATE_STATUS_ERROR;
+		$label= UPDATE_STATUS_ERROR;
+		$cls  = ERROR_ERROR;
 	    } else {
 		// shoud contain MagpieError at this point
-		echo $error;
+		$label= $error;
+		$cls = ERROR_ERROR;
 	    }	      
 	}
-	
-	echo "</td>\n<td>" . ($unread >0?$unread:"&nbsp;") . "</td>\n";       
+	echo "<td class=\"mc$cls\">$label</td>\n";       
+	echo "<td class=\"mr\">" . ($unread >0?$unread:"&nbsp;") . "</td>\n";       
 	echo "</tr>\n";
 	flush();
     }
