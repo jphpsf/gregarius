@@ -276,6 +276,13 @@ function update($id) {
     if ($id !="" && is_numeric($id)) {
 	$sql .= " where id=$id";
     }
+    
+    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	$sql .= " order by parent, position";
+    } else {
+	$sql .= " order by parent, title";
+    }
+
 
     $res = rss_query($sql);
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
@@ -641,7 +648,10 @@ function parse_iso8601 ( $date_str ) {
 
 function getPath() {
     static $ret;
-    $ret = dirname($_SERVER['PHP_SELF']) . "/";
+    $ret = dirname($_SERVER['PHP_SELF']);
+    if (substr($ret,-1) != "/") {
+	$ret .= "/";
+    }
 
     return $ret;
 }
