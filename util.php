@@ -540,7 +540,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 		$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
 		$ptitle = PL_FOR. "'$escaped_title/$escaped_ititle'";
 		echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
-		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
+		if (defined('USE_MODREWRITE') && USE_MODREWRITE && $escaped_ititle != "") {
 		    echo "href=\"" .getPath() ."$escaped_title/$escaped_ititle\">";
 		} else {
 		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid\">";
@@ -551,7 +551,9 @@ function itemsList ($title,$items, $options = IL_NONE){
 	    
 	    
 	    echo "\t\t<h4>";
-
+	    if ($ititle == "") {
+		$ititle = "[nt]";
+	    }
 	    if ($isUrl) {
 		echo "<a href=\"$iurl\">$ititle</a>";
 	    } else {
