@@ -57,7 +57,7 @@ rss_footer();
 $folder_array=array();
 
 function main() {
-    echo "\n<div id=\"channel_managmenet\" class=\"frame\">";
+    echo "\n<div id=\"channel_admin\" class=\"frame\">";
 
     if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
 	switch($_REQUEST[ADMIN_DOMAIN]) {
@@ -71,8 +71,9 @@ function main() {
 	    break;
 	}
     }
-    folders();
+
     channels();
+    folders();
     echo "</div>\n";
 }
 
@@ -97,14 +98,14 @@ function channels() {
       ."</tr>\n";
 
     $sql = "select "
-      ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent "
+      ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon "
       ." from channels c, folders d "
       ." where d.id = c.parent"
       ." order by 7 asc, 2 asc";
 
     $res = rss_query($sql);
     $cntr = 0;
-    while (list($id, $title, $url, $siteurl, $parent, $descr, $pid) = mysql_fetch_row($res)) {
+    while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon) = mysql_fetch_row($res)) {
 	if ($siteurl != "") {
 	    $outUrl = $siteurl;
 	} else {
@@ -116,7 +117,10 @@ function channels() {
 	
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 	echo "<tr class=\"$class_\">\n"
-	  ."\t<td><a href=\"$outUrl\">$title</a></td>\n"
+	  ."\t<td>"
+	  .((defined('_USE_FAVICONS_') && _USE_FAVICONS_ && $icon != "")?
+	    "<img src=\"$icon\" class=\"favicon\" alt=\"title\" width=\"16\" height=\"16\" />":"")
+	  ."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td>$parentLabel</td>\n"
 	  ."\t<td>$descr</td>\n"
 	  ."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
@@ -148,8 +152,12 @@ function channel_admin() {
     
     switch ($_REQUEST['action']) {	
      case ADMIN_ADD:
-	$label = $_REQUEST['new_channel'];
-	add_channel($label);	
+	$label = trim($_REQUEST['new_channel']);
+	if ($label != 'http://' &&  substr($label, 0,4) == "http") {
+	    add_channel($label);
+	} else {
+	    rss_error("I'm sorry, I dont think I can handle this URL: '$label'");
+	}
 	break;
 	
      case ADMIN_EDIT_ACTION:
@@ -204,7 +212,7 @@ function channel_admin() {
 
 	    //echo "adding: " .$opml[$i]['XMLURL'];
 	    for ($i=0;$i<sizeof($opml);$i++){
-		add_channel($opml[$i]['XMLURL']);
+		add_channel(trim($opml[$i]['XMLURL']));
 	    }
 	    //update all the feeds
 	    update("");
@@ -218,9 +226,9 @@ function channel_admin() {
 	$siteurl= mysql_real_escape_string($_REQUEST['c_siteurl']);
 	$parent= mysql_real_escape_string($_REQUEST['c_parent']);
 	$descr= mysql_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
-
+	$icon = mysql_real_escape_string($_REQUEST['c_icon']);
 	$sql = "update channels set title='$title', url='$url', siteurl='$siteurl', "
-	  ." parent=$parent, descr='$descr' where id=$cid";
+	  ." parent=$parent, descr='$descr', icon='$icon' where id=$cid";
 
 	rss_query($sql);
 	break;
@@ -230,9 +238,9 @@ function channel_admin() {
 }
 
 function channel_edit_form($cid) {
-    $sql = "select id, title, url, siteurl, parent, descr from channels where id=$cid";
+    $sql = "select id, title, url, siteurl, parent, descr, icon from channels where id=$cid";
     $res = rss_query($sql);
-    list ($id, $title, $url, $siteurl, $parent, $descr) = mysql_fetch_row($res);
+    list ($id, $title, $url, $siteurl, $parent, $descr, $icon) = mysql_fetch_row($res);
 
     echo "<div>\n";
     echo "\n\n<h2>Edit '$title'</h2>\n";
@@ -240,12 +248,20 @@ function channel_edit_form($cid) {
       ."<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"". ADMIN_DOMAIN_CHANNEL."\"/>\n"
       ."<input type=\"hidden\" name=\"action\" value=\"submit_channel_edit\"/>\n"
       ."<input type=\"hidden\" name=\"cid\" value=\"$cid\"/>\n"
+      
+      // Item name
       ."<label for=\"c_name\">". ADMIN_CHANNEL_NAME ."</label>\n"
       ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\"/></p>"
+      
+      // RSS URL
       ."<p><label for=\"c_url\">". ADMIN_CHANNEL_RSS_URL ."</label>\n"
       ."<input type=\"text\" id=\"c_url\" name=\"c_url\" value=\"$url\"/></p>"
+      
+      // Site URL
       ."<p><label for=\"c_siteurl\">". ADMIN_CHANNEL_SITE_URL ."</label>\n"
       ."<input type=\"text\" id=\"c_siteurl\" name=\"c_siteurl\" value=\"$siteurl\"/></p>"
+      
+      // Folder
       ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n"
       ."<select name=\"c_parent\" id=\"c_parent\">\n";
 
@@ -266,10 +282,26 @@ function channel_edit_form($cid) {
 
     echo "</select></p>\n";
 
+    // Description
     echo "<p><label for=\"c_descr\">". ADMIN_CHANNEL_DESCR ."</label>\n"
-      ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>"
+      ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";
 
-      ."<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"></p>"
+    // Icon
+    if (defined('_USE_FAVICONS_') && _USE_FAVICONS_) {
+	echo "<p><label for=\"c_icon\">" . ADMIN_CHANNEL_ICON ."</label>\n";
+	
+	
+	if (trim($icon) != "") {
+	    echo "(<img src=\"$icon\" alt=\"$c_name\" class=\"admin_icon\" width=\"16\" height=\"16\" />)\n";
+	    echo "<span>" . CLEAR_FOR_NONE ."<span>";
+	}
+    
+	echo "<input type=\"text\" id=\"c_icon\" name=\"c_icon\" value=\"$icon\"/></p>\n";
+    } else {
+	echo "<p><input type=\"hidden\" name=\"c_icon\" id=\"c_icon\" value=\"$icon\"/></p>\n";
+    }
+    
+    echo "<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"></p>"
       ."</form></div>\n";
 }
 

@@ -113,7 +113,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     }
     
     if ( _USE_MODREWRITE_ ) {
-	$feedUrl = getPath() . "$title" ."/";
+	$feedUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
     } else {
 	$feedUrl = getPath() . "feed.php?cid=$cid";
     }

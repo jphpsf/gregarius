@@ -29,53 +29,9 @@
 ###############################################################################
 
 
-require_once('init.php');
-
-if (! array_key_exists('visual',$_GET)) {
-    update("");    
-    header("Location: index.php");
-    exit();
-} else {    
-    
-    $red = 'http://' .$_SERVER['HTTP_HOST']
-      . dirname($_SERVER['PHP_SELF'])
-	. "/index.php";
-    
-      
-    rss_header("update",0,"location.replace('$red');");
-    /*
-    echo "<script type=\"text/javascript\">\n"
-      ."<!-- \n"
-      ."function delay(gap){\n"
-      ."\tvar then,now; then=new Date().getTime();\n"
-      ."\tnow=then;\n"
-      ."\twhile((now-then)<gap)\n"
-      ."\t{now=new Date().getTime();}\n"
-      ."}\n"
-      ."-->\n"
-      ."</script>\n\n";
-    */
-    $res = rss_query( "select "
-		      ." id, title "
-		      ." from channels "
-		      ." order by parent, title asc");
-    
-    echo "<div id=\"update\" class=\"frame\">\n";
-    echo "<ul>\n";
-    while(list($id,$name) = mysql_fetch_row($res)) {
-	echo "\t<li>$name";
-	$ret = update($id);
-	
-	if ($ret == "") {
-	    // no error
-	    echo "<span class=\"updateres ok\">ok</span>";
-	} else {
-	    echo "<span class=\"updateres ok\">ko ($ret)</span>";
-	}
-	echo "</li>\n";
-    }
-    echo "</ul>\n";
-    echo "</div>\n\n";
-    rss_footer();
+function newwindow_filter($in) {
+    $match = '|<a href="(.*)">(.*)</a>|i';
+    $repl  = "<a href=\"\$1\" target=\"blank_\">\$2</a>";
+    return preg_replace($match, $repl, $in);
 }
 ?>

@@ -33,7 +33,7 @@
 require_once('init.php');
 
 if (_USE_MODREWRITE_ && array_key_exists('channel',$_REQUEST)) {
-    $sqlid =  preg_replace("/[^A-Za-z0-9]/","%",$_REQUEST['channel']);
+    $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
     if ( mysql_num_rows ( $res ) != 1) {

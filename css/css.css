@@ -54,7 +54,7 @@ input {
  vertical-align: middle;
 }
 
-label {
+label, div#channel_admin span {
  font-size:small;
 }
 
@@ -242,6 +242,8 @@ div#items img.favicon { display: inline; }
 /* clear:both; */
 }
 
+.content { height: auto }
+
 td,th { padding: 5px; }
 
 th { 
@@ -392,7 +394,7 @@ p.stats {
 form#srchfrm p { text-align: left; }
 input#search_go { margin-left: 100px; }
 
-div#channel_managmenet h2 { margin-top: 1em; }
+div#channel_admin h2 { margin-top: 1em; }
 label, input[type="submit"] {
  cursor: pointer;
 }
@@ -404,3 +406,12 @@ label, input[type="submit"] {
  border: 1px solid #eef;
  text-align:center;
 }
+
+span.updateres { 
+/*  margin-left: 2em; */
+  position: absolute;
+  left: 60%;
+  font-weight: bold; 
+}
+span.updateres.ok { color: green }
+span.updateres.ko { color: red }

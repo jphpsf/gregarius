@@ -28,7 +28,7 @@
 #
 ###############################################################################
 
-function rss_header($title="", $active=0) {
+function rss_header($title="", $active=0, $onLoadAction="") {
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
       ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
@@ -47,7 +47,11 @@ function rss_header($title="", $active=0) {
     }
 
     echo "</head>\n"
-      ."<body>\n";
+      ."<body";
+      if ($onLoadAction != "" ) {
+	  echo " onload=\"$onLoadAction\"";
+      }
+      echo ">\n";
     nav($title,$active);
 }
 
@@ -208,7 +212,7 @@ function update($id) {
     global $kses_allowed;
 
     $sql = "select id, url, title from channels";
-    if (is_numeric($id)) {
+    if ($id !="" && is_numeric($id)) {
 	$sql .= " where id=$id";
     }
 
@@ -216,6 +220,10 @@ function update($id) {
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
 	$rss = fetch_rss( $url );
 
+	if (!$rss && $id != "" && is_numeric($id)) {
+	    return magpie_error();	    
+	}
+	
 	// base URL for items in this feed.
 	if (array_key_exists('link', $rss->channel)) {
 	    $baseUrl = $rss->channel['link'];
@@ -241,7 +249,9 @@ function update($id) {
 
 	    if ($description != "") {
 		require_once ('plugins/urlfilter.php');
+		require_once ('plugins/newwindow.php');
 		$description = urlfilter_filter($description);
+		$description = newwindow_filter($description);
 	    }
 
 	    // link
@@ -291,6 +301,10 @@ function update($id) {
 	    }
 	}
     }
+
+    if ($id != "" && is_numeric($id)) {
+	return "";
+    }
 }
 
 /**
@@ -324,7 +338,7 @@ function itemsList ($title,$items, $doNav = false){
 		echo "</ul>\n";
 	    }
 	    if ($ctitle != "" && $cid > -1) {
-		echo "\n<!-- -------------------------------------------------------- -->\n";
+		echo "\n<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->\n";
 		echo "\n<h3>\n";
 		if (_USE_FAVICONS_ && $cicon != "") {
 		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
@@ -337,7 +351,7 @@ function itemsList ($title,$items, $doNav = false){
 		}
 
 		if (_USE_MODREWRITE_) {
-		    echo "\t<a $anchor href=\"" .getPath() ."$ctitle/\">$ctitle</a>\n";
+		    echo "\t<a $anchor href=\"" .getPath() .preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle")."/\">$ctitle</a>\n";
 		} else {
 		    echo "\t<a $anchor href=\"". getPath() ."feed.php?cid=$cid\">$ctitle</a>\n";
 		}
@@ -364,13 +378,12 @@ function itemsList ($title,$items, $doNav = false){
 	echo "\t<li class=\"$cls\">\n"
 	  ."\t\t<h4>";
 
-	if ($isUrl) echo "<a href=\"$url\">";
-
-	//echo htmlentities($ititle);
-	echo $ititle;
-
-	if ($isUrl) echo "</a>";
-
+	if ($isUrl) {
+	    echo "<a href=\"$url\">$ititle</a>";
+	} else {
+	    echo $ititle;
+	}
+	
 	echo "</h4>\n";
 
 	if ($ts != "") {

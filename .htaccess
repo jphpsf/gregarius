@@ -2,3 +2,6 @@
   RewriteEngine on
   RewriteRule ^(.+)\/$ feed.php?channel=$1
 </IfModule>
+<FilesMatch "update\.php">
+  php_value output_buffering 0
+</FilesMatch>
