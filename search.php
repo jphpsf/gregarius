@@ -114,7 +114,7 @@ function searchForm($title) {
     $prev_parent = -1;
     while (list($id_,$title_, $parent_, $parent_id_) = rss_fetch_row($res)) {
         if ($prev_parent != $parent_id_) {
-            if ($prev_parent != 0) {
+            if ($prev_parent > -1) {
                 echo "\t\t\t</optgroup>\n";
             }
             if ($parent_ == "") { $parent_ = HOME_FOLDER; }
@@ -125,7 +125,7 @@ function searchForm($title) {
         if (strlen($title_ ) > 25) {
             $title_ = substr($title_,0,22) . "...";
         }
-        echo "\t\t\t<option value=\"$id_\""
+        echo "\t\t\t\t<option value=\"$id_\""
           .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && 
              $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
             .">$title_</option>\n";
