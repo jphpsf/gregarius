@@ -916,4 +916,34 @@ function rss_htmlspecialchars($in) {
 	   (getConfig('rss.output.encoding')?getConfig('rss.output.encoding'):DEFAULT_OUTPUT_ENCODING)
 	);
 }
+
+
+//// profiling ////
+$__init_timer=getmicrotime();
+$__prev_timer=0;
+
+function getmicrotime(){
+    list($usec, $sec) = explode(" ",microtime());
+    return ((float)$usec + (float)$sec);
+}
+
+function timer($where) {
+    global $__init_timer, $__prev_timer;
+    $current_timer= getmicrotime();
+    $ret = " t= "
+      . 1000 * ( $current_timer - $__init_timer) . ""
+      . " ms, delta= "
+      . 1000 * ($current_timer - $__prev_timer ) .""
+      ."ms ";
+    $__prev_timer=$current_timer;
+    return $ret;
+}
+
+function _pf($comment, $commentOnly=false) {
+    echo "\n\n\n<!-- " . $comment;
+    if (! $commentOnly)
+      echo timer($comment);
+    echo  "   -->\n\n\n";
+}
+
 ?>
