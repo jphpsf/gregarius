@@ -1,5 +1,10 @@
 <IfModule mod_rewrite.c>
   RewriteEngine on
+
+  SetEnvIf Request_URI "/css/" static
+  SetEnvIf Request_URI "/img/" static
+  SetEnvIf Request_URI "/admin/" static
+  
   
   #admin section
   RewriteRule 	^admin\/([a-z]+)$	admin/index.php?view=$1 [L]
@@ -8,15 +13,10 @@
   RewriteRule 	^opml.*$	opml.php?action=Export [L]
   
   #item view
-  RewriteCond  %{REQUEST_URI} !css\/
-  RewriteCond  %{REQUEST_URI} !img\/
-  RewriteCond  %{REQUEST_URI} !admin\/
+  RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)\/([0-9][0-9][0-9][0-9])\/([0-9][0-9]?)\/?([0-9]?[0-9])?\/?(.*)?$	feed.php?channel=$1&y=$2&m=$3&d=$4&iid=$5 [L]
   
   #feed view
-  RewriteCond  %{REQUEST_URI} !css\/
-  RewriteCond  %{REQUEST_URI} !img\/
-  RewriteCond  %{REQUEST_URI} !magpierss-0.61\/
-  RewriteCond  %{REQUEST_URI} !admin\/
+  RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2  
 </IfModule>
