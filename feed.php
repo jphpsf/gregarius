@@ -89,7 +89,7 @@ function items($cid,$title) {
         }
         
         echo "\t<li class=\"$cls\">\n"
-          ."\t\t<a  href=\"$url_\">$title_</a>\n";
+          ."\t\t<a href=\"$url_\">$title_</a>\n";
         if ($description_ != "") {
             echo "\t\t<div class=\"content\">$description_</div>\n";
         }
@@ -125,8 +125,6 @@ function items($cid,$title) {
     }
       
     echo "</span>\n";    
-    
-    
     echo "</div>\n";
 }
 

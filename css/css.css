@@ -315,9 +315,8 @@ input[type="submit"] {
  background-color:  #f8f8ff;
  border-color: #ddf;
 }
-
  
-#navlist a {
+#navlist li>* {
  float: left;
  display: block;
  text-decoration: none;
@@ -326,7 +325,23 @@ input[type="submit"] {
  letter-spacing: 0.1em;
 }
  
-#navlist li#active a { color: #336; } 
+#navlist li.active a { color: #336; } 
+
+#navlist li#srch { 
+    border:none; 
+    background-color: transparent 
+}
+
+#navlist #srchfrm p { 
+    display: inline;
+    vertical-align: top; 
+}
+
+
+#navlist input[type="submit"] {
+    font-weight:normal;
+    font-size:medium;
+}
 
 
 img.favicon {

@@ -34,7 +34,7 @@ define ('MARK_CHANNEL_READ', "mark this channel as read");
 define ('SEE_ALL_UNREAD', "See all %d unread items");
 define ('SEE_ONLY_UNREAD', "Display only unread items (%d)");
 define ('SEE_ALL', "See all %d items for this channel");
-
+define ('H2_SEARCH_RESULTS_FOR', "%d results for %s");
 
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
@@ -44,5 +44,6 @@ define ('FTR_POWERED_BY', "is powered by ");
 define ('NAV_HOME','Home');
 define ('NAV_UPDATE', 'Update All');
 define ('NAV_CHANNEL_ADMIN', 'Channel Admin');
+define ('SEARCH', "Search");
 
 ?>
