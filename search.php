@@ -111,15 +111,31 @@ function searchForm($title) {
     
     
     
+    $prev_parent = -1;
     while (list($id_,$title_, $parent_, $parent_id_) = rss_fetch_row($res)) {
-	echo "\t\t\t<option value=\"$id_\""
-	  .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && 
-	     $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
-	    .">"
-	  .(($parent_id_ > 0)?"$parent_ / ":"")
-	  ."$title_</option>\n";
+        if ($prev_parent != $parent_id_) {
+            if ($prev_parent != 0) {
+                echo "\t\t\t</optgroup>\n";
+            }
+            if ($parent_ == "") { $parent_ = HOME_FOLDER; }
+            echo "\t\t\t<optgroup label=\"$parent_ /\">\n";
+            $prev_parent = $parent_id_;
+        }
+        
+        if (strlen($title_ ) > 25) {
+            $title_ = substr($title_,0,22) . "...";
+        }
+        echo "\t\t\t<option value=\"$id_\""
+          .((array_key_exists(QUERY_CHANNEL,$_REQUEST) && 
+             $_REQUEST[QUERY_CHANNEL] == $id_)?" selected=\"selected\"":"")
+            .">$title_</option>\n";
     }
 
+
+    if ($prev_parent != 0) {
+        echo "\t\t\t</optgroup>\n";
+    }
+    
     echo "\t\t</select></p>\n";
 
     echo "\n\t\t<p><input type=\"radio\" id=\"qry_order_date\" name=\"". QUERY_ORDER_BY

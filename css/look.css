@@ -256,5 +256,6 @@ fieldset {
   border:1px solid #ddd;
   -moz-border-radius: 5px;                                                                                                
 }
- 
+
+optgroup { margin: 1em 0 0.2em 0;} 
 legend { font-size:small}
