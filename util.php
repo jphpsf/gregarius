@@ -639,10 +639,50 @@ function add_channel($url, $folderid=0) {
  * The regexp probably needs tuning.
  */
 function make_abs($in, $base) {
-    $pattern = "/(<a href=\")([^http](\/)?.*?)\">/im";
-    $repl = "<a href=\"". $base. "\\2\">";
-    return preg_replace($pattern, $repl, $in);
+    return preg_replace(',<a([^>]+)href="([^>"\s]+)",ie',
+			'"<a\1href=\"" . _absolute("\2", $base) . "\""',
+			$in);  
 }
+
+
+/**
+ * A better make_abs method. 
+ * Props: http://www.php-faq.de/q/q-regexp-links-absolut.html
+ */
+function _absolute ($relative, $absolute) {
+    
+    // Link ist schon absolut
+    if (preg_match(',^(https?://|ftp://|mailto:|news:),i', $relative))
+      return $relative;
+    
+    // parse_url() nimmt die URL auseinander
+    $url = parse_url($absolute);
+    
+    // dirname() erkennt auf / endende URLs nicht
+    if ($url['path']{strlen($url['path']) - 1} == '/')
+      $dir = substr($url['path'], 0, strlen($url['path']) - 1);
+    else
+      $dir = dirname($url['path']);
+    
+    // absoluter Link auf dem gleichen Server
+    if ($relative{0} == '/') {
+	$relative = substr($relative, 1);
+	$dir = '';
+    }
+    
+    // Link fängt mit ./ an
+    elseif (substr($relative, 0, 2) == './')
+      $relative = substr($relative, 2);
+    
+    // Referenzen auf höher liegende Verzeichnisse auflösen
+    else while (substr($relative, 0, 3) == '../') {
+	$relative = substr($relative, 3);
+	$dir = substr($dir, 0, strrpos($dir, '/'));
+    }
+    
+    // volle URL zurückgeben
+    return sprintf('%s://%s%s/%s', $url['scheme'], $url['host'], $dir, $relative);
+} 
 
 /**
  * parse an ISO 8601 date, losely based on parse_w3cdtf from MagpieRSS
