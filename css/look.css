@@ -1,14 +1,9 @@
-html, body, td, p, th, a  { padding: 0; }
-
 body {
   text-align: left;
-  margin:0;
-  padding: 20px;
   color:  #335;
   background-color: #eee; 
   background-image: url(media/bg.gif);
 }
-
 
 a { text-decoration: none; }
 
@@ -24,9 +19,7 @@ h1,h2,h3 {
   line-height:1.1em;
 }
 
-h4,h5 {
-  margin:0; 
-  padding:0;
+h4 {
   font-size: medium;
 }
 
@@ -36,11 +29,7 @@ h5 {
  color: #aaa;
 }
 
-
-h4,h5 { display: inline; }
-
 h5,h4 {
- padding: 0 0.2em;
  border-left: 1px solid #ddd;
 }
 
@@ -48,44 +37,20 @@ a:hover,input:hover {color: #336; }
 a,input,select,h4 { color: #667 }
 h5 a { color: inherit }
 
-
-
 input { 
  font-size: small;
  font-weight: bold; 
- margin: 3px;
- vertical-align: middle;
 }
 
-h2 img,h3 img { verticla-align:middle; }
 label, div#channel_admin span {
  font-size:small;
 }
 
-
-
-/* layout */
-div#channels {
- clear:left;
- width: 280px;
- float: left;
- 
- /* Notorious box model hack for IE5, thanks a bunch */
- voice-family: "\"}\""; 
- voice-family:inherit;
- width:250px;
-}
-
 ul, li { 
- margin: 0;
- padding: 0; 
  list-style-type:none; 
 }
 
 div#channels li,div#opml li {
-  display: block;
-  padding: 0.6em 2px; 
-  margin:0;
   border-bottom: 1px solid  #eef;
   background-color: #fff;
   font-size:small;
@@ -96,7 +61,6 @@ div#opml li { border: none }
 /* folder items */
 div#channels li ul li {
  border-bottom: none;
- padding-left: 10px; 
 }
 
 
@@ -105,15 +69,12 @@ div#channels li ul li {
   background-image: url(media/folder.gif);
   background-position: 0px 0.5em;
   background-repeat: no-repeat;
-  padding:0;
 }
 
 /* folder labels */
 .folder span {
   font-weight:bold;
   text-transform: capitalize;
-  padding-left: 25px; 
-  margin:0;
 }
 
 
@@ -124,72 +85,37 @@ div#channels li:hover, div#channels li.folder ul li:hover,div#channels li.active
 
 div#channels li.folder:hover { background-color: transparent}
 
-
-div#channels > ul {
- margin-top: 20px;
-}
-
-
-
-div#items,div#searchfrm, div#update {
- margin-left: 290px;
-}
-
 /** the main divs (nav, side, content, footer, ...) inherit this class */
 div.frame {
  background-color: #fff;
  border: 1px solid #ccc;
- padding: 15px;
 }
 
-
-div#nav a { 
- padding: 0 5px; 
- }
- 
- 
 div#nav {
-   margin-bottom: 5px;   
    background-color: #fff;
    background-image: url(media/arrows.gif); 
    background-position: top right;
-   background-repeat: no-repeat;
- 
- }
-
-div#footer, div#nav {
- clear: both;
- padding: 10px;
+   background-repeat: no-repeat; 
 }
 
 div#footer span { 
- padding:0 5px; 
- margin:0; 
  border-right: 1px solid;  
  font-size:  small;
  color: #777;
 }
 
 h1 { 
- margin: 5px;
- padding:0;
  font-weight: 900;
  font-style:italic;
 }
 
-li.item.even, tr.even { 
- background-color: #f9f9f9;
-}
-
-li.item.odd, tr.odd {
- background-color: #f4f4f4;
-}
+li.item.even, tr.even { background-color: #f9f9f9; }
+li.item.odd, tr.odd { background-color: #f4f4f4; }
 
 h3.collapsed {
  border: 1px solid #ddd;
  border-color: #eee;
  background-color: #f9f9f9;
- padding-bottom: 0.2em;
 }
   
 
@@ -199,47 +125,18 @@ li.item.even.unread,li.item.odd.unread,h3.collapsed.unread {
 }
 
 li.item {
- padding:  5px;
  list-style-type: none;
- margin: 0 0 10px 0;
  border: 1px solid #eee;
 }
 
-div#items ul{
- padding:0;
- margin:0 0 30px 0;
-}
-
-h3.collapsed {
-  margin:0 0 20px 0;
-}
-
-div#items li { 
- padding: 10px 15px;
- clear:right;
-}
-
-div#items li.upnav {
- padding: 0;
- clear:right;
- margin:0; 
- text-align:right;
-}
+div#items li.upnav { text-align:right; }
 
 div#items li.upnav a {
  border-left: 1px solid;
  font-size:  small;
- padding: 0 10px;
-}
-
-/* images inside posts */
-div.content img {
-  display: block;
 }
 
 img { border: none }
-
-div#items img.favicon { display: inline; }
 
 .content,.content * {
  font-size: small;
@@ -247,13 +144,8 @@ div#items img.favicon { display: inline; }
  text-align:justify;
 }
 
-.content { 
- height: auto; 
- width: 99%;
-}
-.item:hover .content a, .item:hover h5 a { border-bottom: 1px solid #ccc}
 
-td,th { padding: 5px; }
+.item:hover .content a, .item:hover h5 a { border-bottom: 1px solid #ccc; }
 
 th { 
  background-color: #f4f4f4; 
@@ -262,54 +154,18 @@ th {
 
 table#channeltable,table#foldertable,table#updatetable,table#configtable {
  border: 1px solid #ddd;
- margin: 20px 0 5px 0;
- width: 100%;
  font-size: small;
 }
-table#configtable td { vertical-align: top }
+
 table .cntr { text-align:center}
 
 table tr:hover td { background-color: #f8f8ff }
-
-table#foldertable { width: auto }
-
-td>input[type="text"] {
- width: 100%;
-}
-
-form#channeledit input {
-  display:block;
-}
-
-form#channeledit input[type="text"] {
-  display:block;
-  width: 50%;
-}
   
-form.markread p, form.markallread {
- float: right; 
- margin-top: 0;
- text-align:right;
-}
+form.markread p, form.markallread { text-align:right; }
 
 form.markallread {
  text-align:center;
 }
-
-h2 {  margin: 0; }
-
-
-#items h2 {
- margin-bottom: 10px;
-}
-
-h3 { 
- padding: 0 5px;
- margin: 20px 0 0 0;
-}
-
-h3 img,h3 img { vertical-align: 10% }
-
 
 p.error {
  color: red;
@@ -327,10 +183,8 @@ input[type="radio"], input[type="hidden"] {
 }
 
 div.readmore {
- display: block;
  text-align: right;
  font-size: small;
- height: 1em;
 }
 
 
@@ -339,31 +193,18 @@ div.readmore {
 
 ul.navlist {
  list-style-type: none;
- padding-bottom: 25px; 
- margin: 0;
-}
- 
-ul.navlist li {
- float: left;
 }
 
-
 ul.navlist li {
- height: 1.3em;
- margin: 2px 2px 0 5px;
  border: 1px solid #ddd;
  background-color: #f4f4f4;
- padding: 0.05em 0.2em;
  -moz-border-radius: 5px;
 }
 
 /* doubling because IE chokes on the submit selector */
 input[type="submit"] {
-  height: 23px; 
-  margin: 2px 2px 0 2px; 
   border: 1px solid #ddd;
   background-color: #f4f4f4;
-  padding: 0.05em 0.1em;
   -moz-border-radius: 5px;
 }  
 
@@ -378,40 +219,21 @@ input[type="text"]:focus{
 }
  
 .navlist li a {
- float: left;
- display: block;
  text-decoration: none;
  font-weight: bold;
  color: #667;
  letter-spacing: 0.1em;
- vertical-align:middle;
 }
  
 .navlist li.active a,.navlist li a:hover { color: #336; } 
 
+img.favicon { border:none; }
 
-img.favicon {
- width:16px;
- height:16px;
- border:none;
- margin-right: 0.5em;
- display: inline;
-}
-
-p.stats {
- margin: 0;
- padding: 0;
- font-size: small;
-}
+p.stats { font-size: small; }
 
 .searchhit { border-bottom: 1px solid; font-weight: 900 }
-form#srchfrm p { text-align: left; }
-input#search_go { margin-left: 100px; }
 
-div#channel_admin h2 { margin-top: 1em; }
-label, input[type="submit"] {
- cursor: pointer;
-}
+label, input[type="submit"] { cursor: pointer; }
 
 
 /* bad bad bad */
@@ -423,48 +245,18 @@ label, input[type="submit"] {
 }
 
 span.updateres { 
-  position: absolute;
-  left: 60%;
   font-weight: bold; 
 }
 span.updateres.ok { color: green }
 span.updateres.ko { color: red }
 
-
-.clearer { clear: both; height: 0;  }
-.clearer.hidden {  display: none; }
-.indent { margin-left: 2em ! important; }
-
-/* margin to footer */
-div#channels, div#items, div#searchfrm, div#channel_admin, div#about, div#update {
- margin-bottom: 5px;
-}
-
-
-table#updatetable .lc { width: 60% }
-table#updatetable .mc { width: 30% }
 table#updatetable td.mc.error { color: #700 }
-table#updatetable .rc { width: 10%; text-align:center }
 table#updatetable td.rc { font-weight: bold }
 
-.hidden { display: none; }
-
-.fl { display: inline; float:left }
-.fr { display: inline; float:right}
-
-
 fieldset {  
-  width: 120px;
-  text-align: center; display: inline;
-  padding: 10px;
-  margin: 0 10px 0 0;
+  text-align: center; 
   border:1px solid #ddd;
   -moz-border-radius: 5px;                                                                                                
 }
  
-fieldset input, fieldset select { 
- display: block;width: 110px;
- margin: 5px 0; 
-}
-
 legend { font-size:small}

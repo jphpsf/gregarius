@@ -60,7 +60,8 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
     }
 
-    echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
+    echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/layout.css\"/>\n"
+      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/look.css\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
 
     if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (30*MINUTE)) {
@@ -361,11 +362,11 @@ function update($id) {
  */
 function itemsList($title,$items, $options = IL_NONE){
 
-    if ( getConfig('rss.output.showfavicons')) {
-	$cicon = $items[0][2];
-    }
     
     if ($title) {
+	if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
+	    $cicon = $items[0][2];
+	}
 	echo "\n\n<h2 id=\"feedcontent\">"
 	  .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")	    
 	  .rss_htmlspecialchars($title)
@@ -456,14 +457,14 @@ function itemsList($title,$items, $options = IL_NONE){
 		    ) {
 		    if ($collapsed) {
 			$title = EXPAND . " '$ctitle'";
-			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">"
-			  ."<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
+			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">\n"
+			  ."\t<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
 			  //."&nbsp;+&nbsp;"
 			  ."</a>\n";
 		    } else {
 			$title = COLLAPSE . " '$ctitle'";
-			echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">"
-			  ."<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
+			echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">\n"
+			  ."\t<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
 			  //."&nbsp;-&nbsp;"
 			  ."</a>\n";
 		    }
