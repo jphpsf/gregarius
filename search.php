@@ -30,7 +30,7 @@
 define ('QUERY_PRM',"query");
 define ('HIT_BEFORE',"<span class=\"searchhit\">");
 define ('HIT_AFTER',"</span>");
-define ('HIT', HIT_BEFORE ."\$1" . HIT_AFTER);
+
 
 require_once("init.php");
 rss_header("Search",3);
@@ -69,7 +69,7 @@ function search($qry) {
     ."   (i.description like '%$qry%' or i.title like '%$qry%') "
     ." order by c.title asc, i.added desc";
 
-    $pQuery = "/($qry)/i";
+
     $res0=rss_query($sql);
     $cnt = mysql_num_rows($res0);
     if ($cnt > 0) {
@@ -77,18 +77,22 @@ function search($qry) {
         while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its) = mysql_fetch_row($res0)) {
             
 	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
-
-	    // This is quite ugly. oOnder if there is a better way to search in plaain text only.
-	    if (count(preg_split($pQuery,$descr_noTags)) == count( preg_split($pQuery,$idescr))) {
+	    $title_noTags = preg_replace("/<.+?>/","",$ititle);
 	    
+	    if (stristr($descr_noTags,$qry) || stristr($title_noTags, $qry)) {
+		
 		$items[]=array($cid,$ctitle,$cicon,
-			       // we dont replace in the title because we pass 
-			       // it through htmlentities later on
-			       //preg_replace("/($qry)/i", HIT,$ititle), 
-			       $ititle,
+
+			       // Credits for the regexp: mike at iaym dot com 
+			       // http://ch2.php.net/manual/en/function.preg-replace.php
+			       preg_replace("'(?!<.*?)($qry)(?![^<>]*?>)'si", 
+					    HIT_BEFORE . "\\1" . HIT_AFTER, 
+					    $ititle),
 			       $iunread,
 			       $iurl,			   
-			       preg_replace("/($qry)/i", HIT ,$idescr),
+			       preg_replace("'(?!<.*?)($qry)(?![^<>]*?>)'si", 
+					    HIT_BEFORE . "\\1" . HIT_AFTER,
+					    $idescr),
 			       $its
 			       );
 	    }
