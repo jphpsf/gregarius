@@ -115,15 +115,41 @@ function add_channel($url) {
 
         //lets see if this server has a favicon
         $icon = "";
-        if (_USE_FAVICONS_ && $rss->channel['link']  != "") {
-            $match = get_host($rss->channel['link'], $host);
-            $uri = "http://" . $host . "favicon.ico";
-            //if ($match && (getHttpResponseCode($uri)))  {
-	    if ($match && getContentType($uri, $contentType)) {
-		if (preg_match("/image\/x-icon/", $contentType)) {
-		    $icon = $uri;
+        if (defined ('_USE_FAVICONS_') && _USE_FAVICONS_) {
+	    
+	    
+	    // This actually works and display somethign valid, 
+	    // but these look more like site logos than icons. Wouldn't
+	    // look good constrained to 16x16, would it? :/
+	    
+	    /*
+	    // first check whether this feed has an image tag
+	    if (
+		array_key_exists('image',$rss) && // note: array_key_exists on an object var.
+		array_key_exists('url',$rss->image) &&
+		getHttpResponseCode($rss->image['url']))
+	      
+	    {
+		
+		// use this one by default, because it should be a
+		// format even retarded browsers like IE can dig.
+		$icon = $rss->image['url'];		
+	    }
+	    */
+	    
+	    // if we got nothing so far, lets try to fall back to 
+	    // favicons
+	    if ($icon == "" && $rss->channel['link']  != "") {
+		$match = get_host($rss->channel['link'], $host);
+		$uri = "http://" . $host . "favicon.ico";
+		//if ($match && (getHttpResponseCode($uri)))  {
+		if ($match && getContentType($uri, $contentType)) {
+		    if (preg_match("/image\/x-icon/", $contentType)) {
+			$icon = $uri;
+		    }
+		    
 		}
-            }
+	    }	    	    
         }
 
         if ($title != "") {
