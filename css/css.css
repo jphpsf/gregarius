@@ -108,13 +108,14 @@ ul>li>ul {
   margin-left: 10px;
 }
 
-div#channels li:hover {
+
+/* channels and sub channels */
+div#channels li:hover, div#channels li.folder>ul>li:hover {
  background-color: #f8f8ff;
 }
 
+div#channels li.folder:hover { background-color: transparent}
 
-li.folder:hover, li.folder>ul>li:hover
-{ background-color: transparent }
 
 div#channels > ul {
  margin-top: 20px;

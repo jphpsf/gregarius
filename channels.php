@@ -61,21 +61,22 @@ function sideChannels($id) {
 		echo tabs(1) ."</ul></li>\n";
 	    }
 	    
-	    echo tabs(1) . "<li class=\"folder\"><span>$parent</span></li>\n";
+	    echo tabs(1) . "<li class=\"folder\">\n"
+	      . tabs(2) ."<span>$parent</span>\n";
 	    
 	    $prev_parent=$pid;
-	    echo tabs(1) . "<li><ul>\n";
+	    echo tabs(2) . "<ul>\n";
 
 	    
 	}
-	echo tabs( ($pid > 0)?2:1  ) . "<li>";
+	echo tabs( ($pid > 0)?3:1  ) . "<li>";
 	echo feed($id, $title, $url, $siteurl, $ico);
 	echo "</li>\n";
-
     }
     
     if ($prev_parent > 0) {
-	echo tabs(1) ."</ul></li>\n";
+	echo tabs(2) ."</ul>\n"
+	  . tabs(1) ."</li>\n";
     }
     
     echo "</ul>\n";
