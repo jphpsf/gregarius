@@ -58,4 +58,11 @@ define ('LOCATION_HOME',1);
 define ('LOCATION_UPDATE',2);
 define ('LOCATION_SEARCH',3);
 define ('LOCATION_ADMIN',4);
+
+
+// Options passed to util::itemsList
+define ('IL_NONE',   0x00);
+define ('IL_DO_NAV', 0x01);
+define ('IL_NO_COLLAPSE', 0x02);
+
 ?>

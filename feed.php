@@ -129,7 +129,7 @@ function items($cid,$title) {
     
     
     
-    $shown = itemsList($title, $items, false, -1);
+    $shown = itemsList($title, $items, IL_NONE);
     
     
     $sql = "select count(*) from item where cid=$cid and unread=1";

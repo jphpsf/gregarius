@@ -353,7 +353,7 @@ function update($id) {
 /**
  * renders a list of items. Returns the number of items actually shown
  */
-function itemsList ($title,$items, $doNav = false, $origin=-1){
+function itemsList ($title,$items, $options = IL_NONE){
 
     echo "\n\n<h2>$title</h2>\n";
 
@@ -375,7 +375,7 @@ function itemsList ($title,$items, $doNav = false, $origin=-1){
 	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
 
 	if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
-	    $collapsed = in_array($cid,$collapsed_ids) && $origin != LOCATION_SEARCH;
+	    $collapsed = in_array($cid,$collapsed_ids) && !( $options & IL_NO_COLLAPSE);
 	    	    
 	    if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
 		// expanded -> collapsed
@@ -403,7 +403,7 @@ function itemsList ($title,$items, $doNav = false, $origin=-1){
 	if ($prev_cid != $cid) {
 	    $prev_cid = $cid;
 	    if ($cntr++ > 0) {		
-		if ($doNav && $lastAnchor != "") {
+		if (($options & IL_DO_NAV) && $lastAnchor != "") {
 		    // link to start of channel
 		    echo "<li class=\"upnav\">\n"
 		      ."\t<a href=\"#$lastAnchor\">up</a>\n"
@@ -420,7 +420,7 @@ function itemsList ($title,$items, $doNav = false, $origin=-1){
 		  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
 		    .">\n";
 
-		if ($origin != LOCATION_SEARCH && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
+		if (!($options & IL_NO_COLLAPSE) && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
 		    if ($collapsed) {
 			$title = "expand '$ctitle'";
 			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid\">"
@@ -439,7 +439,7 @@ function itemsList ($title,$items, $doNav = false, $origin=-1){
 		}
 
 		$anchor = "";
-		if ($doNav) {
+		if ($options & IL_DO_NAV) {
 		    $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
 		    $anchor = "name=\"$lastAnchor\"";
 		}
@@ -501,7 +501,7 @@ function itemsList ($title,$items, $doNav = false, $origin=-1){
 
     if ($ret > 0) {
 
-	if ($doNav && $lastAnchor != "" && !$collapsed) {
+	if (($options & IL_DO_NAV) && $lastAnchor != "" && !$collapsed) {
 	    // link to start of channel
 	    
 	    echo "<li class=\"upnav\">\n"

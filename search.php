@@ -151,7 +151,7 @@ function search($qry,$exactMatch, $channelId) {
     // If we got not hit, offer the search form.
     if ($cnt > 0) {
 	echo "\n\n<div id=\"items\" class=\"frame\">";
-	itemsList( $title, $items, false, LOCATION_SEARCH );
+	itemsList( $title, $items, IL_NO_COLLAPSE);
 	echo "</div>\n";
     } else {
 	searchForm($title);

@@ -71,7 +71,7 @@ function items($title) {
             $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_ );
         }
 
-        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items,  false, LOCATION_HOME);
+        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items );
     }
 
     // next: unread. Must find a better solution instead of iterating over the channels twice.
@@ -99,7 +99,7 @@ function items($title) {
       	 }
     }
 
-    itemsList(H2_RECENT_ITEMS,$items, false, LOCATION_HOME);
+    itemsList(H2_RECENT_ITEMS,$items);
     echo "</div>\n";
 }
 
