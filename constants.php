@@ -59,6 +59,7 @@ define ('LOCATION_HOME',1);
 define ('LOCATION_UPDATE',2);
 define ('LOCATION_SEARCH',3);
 define ('LOCATION_ADMIN',4);
+define ('LOCATION_ABOUT',5);
 
 
 // Options passed to util::itemsList

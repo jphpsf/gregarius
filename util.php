@@ -104,7 +104,9 @@ function ftr() {
     echo "<span>\n\tBest effort valid <a href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
       ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
-    echo "<span>\n\tPage rendered ". date(DATE_FORMAT)."\n</span>\n";
+    $res = rss_query("select unix_timestamp(max(added)) as max_added from item");
+    list($ts) = mysql_fetch_row($res);
+    echo "<span>\n\tLast update: ". date(DATE_FORMAT,$ts)."\n</span>\n";
 
     echo "</div>\n\n";
 }
