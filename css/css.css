@@ -1,0 +1,312 @@
+/*
+###############################################################################
+# Gregarius - A PHP based RSS aggregator.
+# Copyright (C) 2003, 2004 Marco Bonetti
+#
+###############################################################################
+# This program is free software and open source software; you can redistribute
+# it and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the License,
+# or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA  or visit
+# http://www.gnu.org/licenses/gpl.html
+#
+###############################################################################
+# E-mail:      mbonetti at users dot sourceforge dot net
+# Web page:    http://sourceforge.net/projects/gregarius
+#
+###############################################################################
+*/
+
+html, body, td, p, th, a  { padding: 0; }
+
+body {
+  text-align: left;
+  margin:0;
+  padding: 10px;
+  color:  #333;
+  background-color: #eee; 
+}
+
+
+a { text-decoration: none; }
+
+body {
+ font-family: "Trebuchet MS", "Gill Sans", Geneva, Arial, Helvetica, sans-serif;
+ font-size:  medium;
+}
+
+a:hover,input:hover {color: #985; }
+a,input,select  {color: #765; }
+
+input { 
+ font-size: small;
+ font-weight: bold;
+ margin: 3px;
+}
+
+/* layout */
+div#channels {
+ clear:left;
+ width: 250px;
+ float: left;
+}
+
+ul, li { 
+ margin: 0;
+ padding: 0; 
+ list-style-type:none; 
+}
+
+div#channels li { 
+  display: block;
+  padding: 5px 0;
+  margin:0;
+  border-bottom: 1px solid  #ddd;
+  background-color: #fff;
+  font-size:small;
+}
+
+div#channels li>ul>li {
+ border-bottom: none;
+}
+
+/* folder icon */
+li.folder {
+  background-image: url(media/folder.gif);
+  background-position: 0 0.3em;
+  background-repeat: no-repeat;
+  padding:0;
+}
+
+/* folder labels */
+li.folder span {
+  font-weight:bold;
+  text-transform: capitalize;
+  padding-left: 25px;
+  margin:0;
+}
+
+/* folder items */
+ul>li>ul {
+  margin-left: 10px;
+}
+
+div#channels li:hover {
+ background-color: #fff8f8;
+}
+
+
+
+div#items {
+ margin-left: 290px;
+}
+
+/** the main divs (nav, side, content, footer, ...) inherit this class */
+div.frame {
+ background-color: #fff;
+ border: 1px solid #ddd;
+ padding: 15px;
+}
+
+div#nav a { 
+ padding: 0 5px; 
+ }
+ 
+ 
+div#nav {
+   margin-bottom: 5px;
+   background-color: #fff;
+   background-image: url(media/arrows.gif);
+   background-position: top right;
+   background-repeat: no-repeat;
+ }
+
+div#footer, div#nav {
+ margin-top: 5px;
+ clear: both;
+ padding: 5px;
+}
+
+div#footer span { 
+ padding:0 5px; 
+ margin:0; 
+ border-right: 1px solid;  
+ font-size:  small;
+ color: #777;
+}
+
+h1 { 
+ margin: 5px;
+ padding:0;
+ font-weight: 900;
+ font-style:italic;
+}
+
+li.item.even, tr.even { 
+ background-color: #f9f9f9;
+}
+
+li.item.odd, tr.odd {
+ background-color: #f4f4f4;
+}
+
+
+li.item.even.unread,li.item.odd.unread {
+ border-color: #ddd;
+ background-color: #fff8f8;
+}
+
+li.item {
+ padding: 5px;
+ list-style-type: none;
+ margin: 0 0 10px 0;
+ border: 1px solid #eee;
+}
+
+div#items ul{
+ padding:0;
+ margin:0 0 30px 0;
+}
+
+div#items li { 
+ padding: 15px;
+ clear:right;
+ }
+
+div#items img {display: block; }
+div#items img.favicon { display: inline; }
+
+.content,.content * {
+ font-size: small;
+
+}
+
+td,th { padding: 5px; }
+
+th { background-color: #f4f4f4; font-weigth: bold; }
+
+table#channeltable {
+ border: 1px solid #ddd;
+ margin: 20px 0 5px 0;
+ width: 100%;
+}
+
+td>input[type="text"] {
+ width: 100%;
+}
+
+form#channeledit input {
+  display:block;
+}
+
+form#channeledit input[type="text"] {
+  display:block;
+  width: 50%;
+}
+  
+form.markread p{
+ float: right; 
+ margin-top: 0;
+ text-align:right;
+}
+
+form.markallread {
+ text-align:right;
+}
+
+a.unread { font-weight: bold; }
+
+h2 { 
+ margin: 0;
+ border-bottom: 1px solid  #ddd;
+}
+
+
+#items h2 {
+ margin-bottom: 10px;
+ margin-top: -10px;
+}
+
+h3 { 
+ padding: 0 5px;
+ display:block;
+/* background-color: #eee; */
+ margin: 20px 0 0 0;
+}
+
+p.error {
+ color: red;
+ font-weight:bold;
+}
+
+input, select, option, textarea {
+ border: 1px solid #aaa;
+ background-color: white;
+}
+
+span.readmore {
+ display: block;
+ text-align: right;
+}
+span.readmore a {
+ display: inline;
+ border-left: 1px solid;
+ padding: 0 10px;
+ font-size:  small;
+}
+
+
+
+/** from http://css.maxdesign.com.au/listamatic/horizontal11.htm **/
+
+ul#navlist {
+ list-style-type: none;
+ padding-bottom: 28px; 
+ margin: 0;
+}
+ 
+ul#navlist li {
+ float: left;
+ height: 20px;
+ margin: 2px 2px 0 2px; 
+ border: 1px solid #ddd;
+}
+ 
+li#active a, #navlist li:hover {
+ background-color:  #f4f4f4;
+  height: 20px;
+}
+ 
+/* li#active a { color: #000; } */
+ 
+#navlist a {
+ float: left;
+ display: block;
+ text-decoration: none;
+ font-weight: bold;
+}
+ 
+
+
+img.favicon {
+ width:16px;
+ height:16px;
+ border:none;
+ margin-right: 0.5em;
+ display: inline;
+}
+
+p.stats {
+ margin: 0;
+ padding: 0;
+ font-size: small;
+}
