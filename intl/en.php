@@ -61,7 +61,7 @@ define ('NAV_CHANNEL_ADMIN', 'Admin');
 define ('NAV_SEARCH', "Search");
 
 define ('POSTED', 'Posted: ');
-define ('SEARCH_GO', 'Go');
+define ('SEARCH_GO', 'Search');
 
 define ('HOME_FOLDER','Root');
 define ('VISIT', '(visit)');

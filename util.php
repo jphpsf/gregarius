@@ -207,8 +207,7 @@ function update($id) {
 
 	if (!$rss && $id != "" && is_numeric($id)) {
 	    return array(magpie_error(),0);
-	} elseif (!$rss) {
-	    //die ($cid . " " . $url . ": " .magpie_error());
+	} elseif (!$rss) {	 
 	    continue;
 	}
 
@@ -313,8 +312,10 @@ function update($id) {
  */
 function itemsList($title,$items, $options = IL_NONE){
 
-    echo "\n\n<h2>" . htmlentities($title) ."</h2>\n";
-
+    if ($title) {
+	echo "\n\n<h2>" . htmlentities($title) ."</h2>\n";
+    }
+    
     $cntr=0;
     $prev_cid=0;
 

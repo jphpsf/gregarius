@@ -43,7 +43,7 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     sideChannels(false);  
     $matchMode = (!array_key_exists(QUERY_MATCH_MODE, $_REQUEST)?SERCH_MATCH_AND:$_REQUEST[QUERY_MATCH_MODE]);
     $cid = (array_key_exists(QUERY_CHANNEL,$_REQUEST))?(int)$_REQUEST[QUERY_CHANNEL]:ALL_CHANNELS_ID;
-    search($_POST[QUERY_PRM], $matchMode, $cid);
+    search($_REQUEST[QUERY_PRM], $matchMode, $cid);
 } else {
     rss_header("Search",LOCATION_SEARCH,"document.getElementById('query').focus()");  
     sideChannels(false);
@@ -53,10 +53,13 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
 
 rss_footer();
 
-function searchForm($title) {
+function searchForm($title,$addDiv = true) {
     
-    echo "\n\n<div id=\"search\" class=\"frame\">";
-
+    if ($addDiv) {
+	echo "\n\n<div id=\"search\" class=\"frame\">";
+    } else {
+	echo "\n\n<div class=\"frame\">";
+    }
     echo "\n\t\t<h2>$title</h2>\n";
 
     echo
@@ -110,7 +113,10 @@ function searchForm($title) {
 
       ."\n\t\t<p><input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
       ."\t\t</form>\n";
-    echo "</div>\n";
+    
+    //if ($addDiv) {
+	echo "</div>\n";
+    //}
 }
 
 function search($qry,$matchMode, $channelId) {
@@ -222,7 +228,8 @@ function search($qry,$matchMode, $channelId) {
     // If we got not hit, offer the search form.
     if ($cnt > 0) {
 	echo "\n\n<div id=\"items\" class=\"frame\">";
-	itemsList( $title, $items, IL_NO_COLLAPSE);
+	searchForm($title,false);
+	itemsList( "", $items, IL_NO_COLLAPSE);
 	echo "</div>\n";
     } else {
 	searchForm($title);
