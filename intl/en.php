@@ -32,8 +32,8 @@
 
 
 
-define ('MARK_READ', "mark all as read");
-define ('MARK_CHANNEL_READ', "mark this channel as read");
+define ('MARK_READ', "Mark all as read");
+define ('MARK_CHANNEL_READ', "Mark this channel as read");
 define ('SEE_ALL_UNREAD', "See all %d unread items");
 define ('SEE_ONLY_UNREAD', "Display only unread items (%d)");
 define ('SEE_ALL', "See all %d items for this channel");
