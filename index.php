@@ -136,7 +136,7 @@ function items($title) {
         ." i.id, t.tag  "
         ." from " . getTable("item") . " i "
         
-        ." left join ".getTable('metatag') ." m on (i.id=m.fid) "
+        ." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
         ." left join ".getTable('tag')." t on (m.tid=t.id) "
       
         ." where i.cid  = $cid and i.unread = 0"

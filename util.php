@@ -596,7 +596,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 		/// tags
 
-	    echo "\t\t<h5 id=\"th$iid\">". TAG_TAGS ." <span id=\"t$iid\">";
+	    echo "\t\t<h5 id=\"th$iid\"><a href=\"".getPath()."tags/\">". TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
 	    foreach($tags as $tag_) {
 		echo "<a href=\"".getPath()."tag/$tag_\">$tag_</a> ";
 	    }
