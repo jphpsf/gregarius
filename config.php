@@ -57,7 +57,7 @@ define ('_USE_MODREWRITE_', true);
 // of inactivity. Please respect the feed providers by not setting
 // this value to anything lower than thirty minutes.
 // Comment the line to turn this feature off.
-define ('RELOAD_AFTER', 30*MINUTE);
+define ('RELOAD_AFTER', 60*MINUTE);
 
 // Format to use when displaying dates. See here for help on the format:
 // http://ch.php.net/manual/en/function.date.php

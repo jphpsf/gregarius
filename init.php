@@ -30,6 +30,8 @@
 
 if (defined('_DEBUG_') && _DEBUG_ == true) {
     error_reporting(E_ALL);
+} else {
+    error_reporting(E_NONE);
 }
 
 require_once('constants.php');

@@ -248,7 +248,12 @@ function update($id) {
 
 	if (!$rss && $id != "" && is_numeric($id)) {
 	    return magpie_error();	    
+	} elseif (!$rss) {	    
+	    //die ($cid . " " . $url . ": " .magpie_error());
+	    continue;
 	}
+	    
+	    
 	
 	// base URL for items in this feed.
 	if (array_key_exists('link', $rss->channel)) {
