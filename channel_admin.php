@@ -152,6 +152,9 @@ function opml() {
     echo "</div>\n";
 }
 
+
+
+
 function channel_admin() {
     
     if (defined('DEMO_MODE') && DEMO_MODE == true) {
@@ -216,13 +219,31 @@ function channel_admin() {
 	    $sql = "delete from item";
 	    rss_query($sql);
 
-	    //$sql = "delete from folders where id > 0";
-	    //rss_query($sql);
+	    
+	    $sql = "delete from folders where id > 0";
+	    rss_query($sql);
 
 	    //echo "adding: " .$opml[$i]['XMLURL'];
-	    for ($i=0;$i<sizeof($opml);$i++){
-		add_channel(trim($opml[$i]['XMLURL']));
+	    //for ($i=0;$i<sizeof($opml);$i++){
+	    //add_channel(trim($opml[$i]['XMLURL']));
+	    //}
+	    
+	    $prev_folder = 'root';
+	    $fid = 0;
+	    while (list($folder,$items) = each ($opml)) {
+		if ($folder != $prev_folder) {
+		    $fid = create_folder($folder);
+		    $prev_folder = $folder;
+		}
+		
+
+		for ($i=0;$i<sizeof($opml[$folder]);$i++){
+		    add_channel(trim($opml[$folder][$i]['XMLURL']), $fid);
+		}
+
 	    }
+	    
+	    
 	    //update all the feeds
 	    update("");
 	}
@@ -379,12 +400,17 @@ function folder_admin() {
      case ADMIN_CREATE:
 	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
-	$sql = "insert into folders (name) values ('" . mysql_real_escape_string($label) ."')";
-	rss_query($sql);
+	create_folder($label);
 	break;
 	
      default: break;
     }
+}
+
+function create_folder($label) {
+    rss_query("insert into folders (name) values ('" . mysql_real_escape_string($label) ."')");
+    list($fid) = mysql_fetch_row( rss_query("select id from folders where name='". mysql_real_escape_string($label) ."'"));
+    return $fid;
 }
 
 /*************** OPML Export ************/

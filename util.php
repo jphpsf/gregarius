@@ -99,8 +99,10 @@ function rss_error($message) {
     echo "\n<p class=\"error\">$message</p>\n";
 }
 
-function add_channel($url) {
+function add_channel($url, $folderid=0) {
     assert($url != "" && strlen($url) > 7);
+    assert(is_numeric($folderid));
+    
     $urlDB = htmlentities($url);
 
     $rss = fetch_rss( $url );
@@ -155,7 +157,7 @@ function add_channel($url) {
 
         if ($title != "") {
             $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon)"
-              ." values ('$title', '$urlDB', '$siteurl', 0, '$descr', now(), '$icon')";
+              ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon')";
 
             rss_query($sql);
         } else {

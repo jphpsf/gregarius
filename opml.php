@@ -50,8 +50,9 @@ function parse_weblogsDotCom($url) {
      WHEN        seconds since ping
      */
 
-    global $blogs;
-
+    global $blogs,$folder;
+    $folder = 'root';
+    
     $opml = getUrl($url);
     $opml = str_replace("\r", '', $opml);
     $opml = str_replace("\n", '', $opml);
@@ -67,15 +68,24 @@ function parse_weblogsDotCom($url) {
 }
 
 function _xml_startElement($xp, $element, $attr) {
-    global $blogs;
+    global $blogs,$folder;
     if (strcasecmp('outline', $element)) {
 	return;
     }
-    $blogs[] = $attr;
+    
+    if (!array_key_exists('XMLURL',$attr) && array_key_exists('TEXT',$attr)) {
+	$folder = $attr['TEXT'];
+    } else {	
+	if ($folder != '') {
+	    $blogs[$folder][] = $attr;
+	} else {
+	    $blogs[] = $attr;
+	}
+    }
 }
 
 function _xml_endElement($xp, $element) {
-    global $blogs;
+    global $blogs,$folder;
     return;
 }
 

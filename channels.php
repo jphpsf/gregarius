@@ -121,7 +121,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     
     $ret .= 
       "<a" .$class_ ." href=\"$feedUrl\">$title</a> $rdLbl"
-      ." [<a href=\"$url\">xml</a>";
+      ." [<a href=\"". htmlentities($url)."\">xml</a>";
     
     if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
 	$ret .= "|<a href=\"$siteurl\">www</a>";
