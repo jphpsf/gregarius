@@ -28,7 +28,7 @@
 
 
 require_once('init.php');
-$cid= (array_key_exists('cid',$_GET))?$_GET['cid']:"";
+$cid= (array_key_exists('cid',$_REQUEST))?$_REQUEST['cid']:"";
 
 
 if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {

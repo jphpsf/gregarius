@@ -71,7 +71,7 @@ function items($title) {
 	
 	 $sql = "select cid, title, url, description, unread "
 	 ." from item "
-	 ." where cid  = $cid "
+	 ." where cid  = $cid and unread = 0"
 	 ." order by added desc"
 	 ." limit 2";
 	

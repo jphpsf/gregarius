@@ -101,7 +101,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     list($cnt) = mysql_fetch_row($res);
     if ($cnt > 0) {
 	$rdLbl= "<strong>($cnt unread)</strong>";
-	$class_= "class=\"unread\"";
+	$class_= " class=\"unread\"";
     } else {
 	$rdLbl=$class_="";
     }
