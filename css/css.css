@@ -433,6 +433,6 @@ span.updateres.ko { color: red }
 .clearer { clear: both; height: 0 }
 
 /* margin to footer */
-div#channels, div#items, div#search {
+div#channels, div#items, div#search, div#channel_admin {
  margin-bottom: 5px;
 }
