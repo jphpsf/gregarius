@@ -98,12 +98,12 @@ define ('ADMIN_FOLDERS','R&eacute;pertoires:');
 define ('ADMIN_CHANNELS','Canaux:');
 define ('ADMIN_OPML','OPML:');
 define ('ADMIN_ITEM','El&eacute;ments:');
-define ('ADMIN_CONFIG','Configuration');
+define ('ADMIN_CONFIG','Configuration:');
 
 define ('ADMIN_IN_FOLDER','au r&eacute;pertoire:');
 define ('ADMIN_SUBMIT_CHANGES', 'Poster les modifications');
 define ('ADMIN_PREVIEW_CHANGES','Pr&eacute;visualiser');
-define ('ADMIN_CANCEL','Anuller');
+define ('ADMIN_CANCEL','Annuler');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','R&eacute;pertoire');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
@@ -140,4 +140,10 @@ define ('ADMIN_PRUNE_MONTHS','mois');
 define ('ADMIN_PRUNE_YEARS','ans');
 define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
 define ('ADMIN_ABOUT_TO_DELETE','Attention: vous allez effacer %s  &eacute;l&eacute;ments (sur %s)');
+define ('ADMIN_PRUNING','Effacement');
+define ('ADMIN_DOMAIN_FOLDER_LBL','canaux');
+define ('ADMIN_DOMAIN_CHANNEL_LBL','chaines');
+define ('ADMIN_DOMAIN_ITEM_LBL','el&eacute;ments');
+define ('ADMIN_DOMAIN_CONFIG_LBL','configuration');
+define ('ADMIN_DOMAIN_OPML_LBL','opml');
 ?>

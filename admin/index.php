@@ -37,11 +37,6 @@ require_once('ds.php');
 
 
 define ('ADMIN_DOMAIN','domain');
-define ('ADMIN_DOMAIN_FOLDER','folders');
-define ('ADMIN_DOMAIN_CHANNEL','feeds');
-define ('ADMIN_DOMAIN_ITEM','items');
-define ('ADMIN_DOMAIN_CONFIG','config');
-define ('ADMIN_DOMAIN_OPML','opml');
 define ('ADMIN_DOMAIN_NONE','none');
 define ('ADMIN_DELETE_ACTION','delete');
 define ('ADMIN_DEFAULT_ACTION','default');
@@ -52,6 +47,13 @@ define ('ADMIN_SUBMIT_EDIT','submit_edit');
 define ('ADMIN_VIEW','view');
 define ('ADMIN_CONFIRMED','confirmed');
 define ('ADMIN_PRUNE','prune');
+
+define ('ADMIN_DOMAIN_FOLDER','folders');
+define ('ADMIN_DOMAIN_CHANNEL','feeds');
+define ('ADMIN_DOMAIN_ITEM','items');
+define ('ADMIN_DOMAIN_CONFIG','config');
+define ('ADMIN_DOMAIN_OPML','opml');
+
 
 $auth = true;
 
@@ -68,7 +70,7 @@ if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
     }
 }
 
-rss_header(TITLE_ADMIN,LOCATION_ADMIN,'',false,""/* 'domcollapse.js' */);
+rss_header(TITLE_ADMIN,LOCATION_ADMIN,'',false,'');
 
 admin_main($auth);
 rss_footer();
@@ -127,7 +129,8 @@ function admin_main($authorised) {
 		 rss_error( "FIXME: admin unknown view: $show !\n" );
 	   }
 	} else {
-	   channels();
+	    //rss_error( "FIXME: admin no view!\n" );
+	    channels();
 	}
 	
 	echo "\n<div class=\"clearer\"></div>\n";
@@ -143,7 +146,7 @@ function admin_main($authorised) {
 /*************** Channel management ************/
 
 function channels() {
-    echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
+    echo "<h2 class=\"trigger\">". ADMIN_CHANNELS ."</h2>\n";
     echo "<div id=\"admin_channels\">\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
@@ -222,7 +225,7 @@ function channels() {
 
 function opml() {
     //opml import
-    echo "<h2>". ADMIN_OPML ."</h2>\n";
+    echo "<h2 class=\"trigger\">". ADMIN_OPML ."</h2>\n";
     echo "<div id=\"admin_opml\">\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
@@ -239,12 +242,12 @@ function opml() {
 
 function items() {
    
-    echo "<h2>". ADMIN_ITEM ."</h2>\n";
+    echo "<h2 class=\"trigger\">". ADMIN_ITEM ."</h2>\n";
     echo "<div id=\"admin_items\">\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<fieldset class=\"prune\">\n"
-	      ."<legend>Pruning</legend>\n";
+	      ."<legend>".ADMIN_PRUNING."</legend>\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_ITEM."\"/>\n";
     echo "<label for=\"prune_older\">" . ADMIN_PRUNE_OLDER ."</label>\n";
     echo "<input type=\"text\" size=\"5\" name=\"prune_older\" id=\"prune_older\" value=\"\" />\n";
@@ -612,8 +615,8 @@ function channel_edit_form($cid) {
 /*************** Folder management ************/
 
 function folders() {
-    echo "<h2>".ADMIN_FOLDERS."</h2>\n"
-      ."<div id=\"admin_folders\">\n";
+    echo "<h2 class=\"trigger\">".ADMIN_FOLDERS."</h2>\n"
+      ."<div id=\"admin_folders\" class=\"trigger\">\n";
     
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 
@@ -872,8 +875,8 @@ function opml_export_form() {
 /*************** Config management ************/
 
 function config() {
-    echo "<h2>".ADMIN_CONFIG."</h2>\n"
-      ."<div id=\"admin_config\">\n";
+    echo "<h2 class=\"trigger\">".ADMIN_CONFIG."</h2>\n"
+      ."<div id=\"admin_config\" class=\"trigger\">\n";
     
     echo "<table id=\"configtable\">\n"
       ."<tr>\n"
@@ -1243,21 +1246,22 @@ function admin_menu() {
     
     echo "\n<ul class=\"navlist\">\n";
     foreach( 
-	     array (ADMIN_DOMAIN_CHANNEL,
-	       ADMIN_DOMAIN_ITEM,
-		    ADMIN_DOMAIN_CONFIG,
-		    ADMIN_DOMAIN_FOLDER,
-		    ADMIN_DOMAIN_OPML
-		    ) as $item) {
+	     array (
+	      array(ADMIN_DOMAIN_CHANNEL,ADMIN_DOMAIN_CHANNEL_LBL),
+	      array(ADMIN_DOMAIN_ITEM,ADMIN_DOMAIN_ITEM_LBL),
+		  array(ADMIN_DOMAIN_CONFIG,ADMIN_DOMAIN_CONFIG_LBL),
+		  array(ADMIN_DOMAIN_FOLDER,ADMIN_DOMAIN_FOLDER_LBL),
+		  array(ADMIN_DOMAIN_OPML,ADMIN_DOMAIN_OPML_LBL)
+	   ) as $item) {
 	
 	if ($use_mod_rewrite) {
-	    $link = $item;
+	    $link = $item[0];
 	} else {
-	    $link = "index.php?view=$item";
+	    $link = "index.php?view=".$item[0];
 	}
-	
-	$cls = ($item==$active?" class=\"active\"":"");
-	echo "\t<li$cls><a href=\"$link\">" .ucfirst($item) ."</a></li>\n";	
+	$lbl = $item[1];
+	$cls = ($item[0]==$active?" class=\"active\"":"");
+	echo "\t<li$cls><a href=\"$link\">" .ucfirst($lbl) ."</a></li>\n";	
     }
     echo "</ul>\n";
 }

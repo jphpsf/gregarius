@@ -31,6 +31,7 @@
 
 
 require_once('init.php');
+rss_require('extlib/rss_fetch.inc');
 
 define ('NAV_PREV_PREFIX','&larr;&nbsp;');
 define ('NAV_SUCC_POSTFIX','&nbsp;&rarr;');
@@ -372,8 +373,11 @@ function markReadForm($cid) {
 function debugFeed($cid) {
     echo "<div id=\"items\" class=\"frame\">\n";
     $res = rss_query("select url from " .getTable("channels") ." where id = $cid");
+    if (! defined('MAGPIE_DEBUG')) {
+    	define ('MAGPIE_DEBUG',true);
+    }
     list($url) = rss_fetch_row($res);
-    $rss = fetch_rss ($url);
+    $rss = fetch_rss($url);
     echo "<pre>\n";
     echo htmlentities(print_r($rss,1));
     echo "</pre>\n";    

@@ -140,4 +140,11 @@ define ('ADMIN_PRUNE_MONTHS','months');
 define ('ADMIN_PRUNE_YEARS','years');
 define ('PRUNE_KEEP','Keep the most recent items: ');
 define ('ADMIN_ABOUT_TO_DELETE','Warning: you are about to delete %s items (of %s)');
+define ('ADMIN_PRUNING','Pruning');
+define ('ADMIN_DOMAIN_FOLDER_LBL','folders');
+define ('ADMIN_DOMAIN_CHANNEL_LBL','feeds');
+define ('ADMIN_DOMAIN_ITEM_LBL','items');
+define ('ADMIN_DOMAIN_CONFIG_LBL','config');
+define ('ADMIN_DOMAIN_OPML_LBL','opml');
+
 ?>
