@@ -73,8 +73,8 @@ define ('TITLE_ADMIN','Feeds Admin');
 
 define ('HOME_FOLDER','Root');
 define ('VISIT', '(visit)');
-define ('COLLAPSE','collapse');
-define ('EXPAND','expand');
+define ('COLLAPSE','[-] collapse');
+define ('EXPAND','[+] expand');
 define ('PL_FOR','Permalink for ');
 
 define ('UPDATE_CHANNEL','Feed');

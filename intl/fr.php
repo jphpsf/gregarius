@@ -60,8 +60,8 @@ define ('SEARCH_GO', 'Chercher');
 
 define ('HOME_FOLDER','Racine');
 define ('VISIT', '(visiter)');
-define ('COLLAPSE','collapser');
-define ('EXPAND','&eacute;tendre');
+define ('COLLAPSE','[-] collapser');
+define ('EXPAND','[+] &eacute;tendre');
 define ('PL_FOR','Lien pour ');
 
 define ('UPDATE_CHANNEL','Canal');
