@@ -34,7 +34,7 @@ if (array_key_exists('action', $_POST)
     && $_POST['action'] != "" 
     && trim($_POST['action']) == trim(MARK_READ)) {
     
-    rss_query( "update item set unread=0" );
+    rss_query( "update item set unread=0 where unread=1" );
 }
 
 if (array_key_exists('update',$_REQUEST)) {

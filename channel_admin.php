@@ -334,6 +334,10 @@ function channel_admin() {
 
 	    //update all the feeds
 	    update("");
+	    
+	    // mark all items as read
+	    rss_query( "update item set unread=0" );
+	    
 	}
 	break;
 
