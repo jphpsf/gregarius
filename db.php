@@ -37,11 +37,23 @@ rss_select_db(DBNAME);
 //// in here.
 
 function rss_connect($dbserver, $dbuname, $dbpass) {
-    mysql_connect($dbserver, $dbuname, $dbpass) or die ("failed to connect to the database");    
+    if (!mysql_connect($dbserver, $dbuname, $dbpass)) {
+	die( "<h1>Error connecting to the database!</h1>\n"
+	  ."<p>Have you edited dbinit.php and correctly defined "
+	  ."the database username and password?</p>\n" );
+	
+	
+    }
 }
 
 function rss_select_db($dbname) {
-    mysql_select_db($dbname) or die ("failed to select database");
+    if (!mysql_select_db($dbname)) {
+	die( "<h1>Error connecting to the database!</h1>\n"
+	  ."<p>Have you edited dbinit.php and correctly defined "
+	  ."the database username and password?</p>\n"
+	  ."<p>Refer to the <a href=\"INSTALL\">INSTALL</a> document "
+	  ."if in doubt</p>\n" );
+    }
 }
 
 function rss_query ($query) {
