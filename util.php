@@ -46,7 +46,7 @@ function rss_header($title="", $active=0, $onLoadAction="") {
       ."\t<title>".makeTitle($title)."</title>\n";
     
     if (defined('ROBOTS_META') && ROBOTS_META != '') {
-	$meta = ($_REQUEST['expand'] || $_REQUEST['collapse'])?'noindex,follow':ROBOTS_META;
+	$meta = ($_REQUEST['expand'] || $_REQUEST['collapse'] || $_REQUEST['dbg'])?'noindex,follow':ROBOTS_META;
 	echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
     }
     
