@@ -176,19 +176,18 @@ function update($id) {
     $res = rss_query($sql);
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
         $rss = fetch_rss( $url );
-	/*
-	echo "<pre>";
-	var_dump ($rss);
-	echo "</pre>";
-	*/
 	
+	// base URL for items in this feed.
 	if (array_key_exists('link', $rss->channel)) {
 	    $baseUrl = $rss->channel['link'];
 	}
-        foreach ($rss->items as $item) {
-	    	   	    	    
-            $title = $item['title'];
-     
+	
+        foreach ($rss->items as $item) {	   
+	    
+	    // item title
+	    $title = $item['title'];
+	    
+	    // item content, if any
 	    if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
 		$description = kses($item['content']['encoded'], $kses_allowed);
 	    } elseif (array_key_exists ('description', $item)) {
@@ -201,16 +200,23 @@ function update($id) {
 		$description = make_abs($description, $baseUrl);
 	    }
 	    
+	    if ($description != "") {
+		require_once ('plugins/urlfilter.php');
+		$description = urlfilter_filter($description);
+	    }
+	    
+	    // link
 	    if (array_key_exists('link',$item) && $item['link'] != "") {
 		$url = $item['link'];
 	    } elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
 		$url = $item['guid'];
 	    } else {
-		// fall to something basic
+		// fall back to something basic
 		$url = md5($title);
 	    }
 	    
 	    
+	    // pubdate
 	    $cDate = -1;	    	    
 	    if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
 		// RSS 1.0 
@@ -224,6 +230,7 @@ function update($id) {
 	    }
 
 	    
+	    // check wether we already have this item
             $sql = "select id from item where cid=$cid and url='$url'";
             $subres = rss_query($sql);
             list($indb) = mysql_fetch_row($subres);
