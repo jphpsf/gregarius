@@ -62,8 +62,9 @@ define ('ADMIN_RENAME', 'Rename');
 define ('ADMIN_CREATE', 'Create');
 define ('ADMIN_IMPORT','Import');
 define ('ADMIN_EXPORT','Export');
-define ('ADMIN_ADD',' Add');
-
+define ('ADMIN_ADD','Add');
+define ('ADMIN_YES', 'Yes');
+define ('ADMIN_NO', 'No');
 define ('ADMIN_FOLDERS','Folders:');
 define ('ADMIN_CHANNELS','Channels:');
 define ('ADMIN_OPML','OPML:');
@@ -84,5 +85,5 @@ define ('ADMIN_CHANNEL_SITE_URL','Site URL:');
 define ('ADMIN_CHANNEL_FOLDER','In folder:');
 define ('ADMIN_CHANNEL_DESCR','Description:');
 
-
+define ('ADMIN_ARE_YOU_SURE', "Are you sure you wish to delete '%s'?");
 ?>

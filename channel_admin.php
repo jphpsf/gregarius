@@ -28,7 +28,7 @@
 require_once('init.php');
 require_once('opml.php');
 
-/*
+
 if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
     if ($_SERVER['PHP_AUTH_USER'] != _ADMIN_USERNAME_ || $_SERVER['PHP_AUTH_PW'] != _ADMIN_PASSWORD_ ) {
 	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
@@ -37,7 +37,8 @@ if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
 	exit();
     }
 }
-*/
+
+
 rss_header("Channel Admin",4);
 
 
@@ -164,10 +165,25 @@ function channel_admin() {
 
      case ADMIN_DELETE:
 	$id = $_REQUEST['cid'];
-	$sql = "delete from item where cid=$id";
-	rss_query($sql);
-	$sql = "delete from channels where id=$id";
-	rss_query($sql);
+	if (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_YES) {
+	    $sql = "delete from item where cid=$id";
+	    rss_query($sql);
+	    $sql = "delete from channels where id=$id";
+	    rss_query($sql);	    
+	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
+	    // nop;
+	} else {
+	    list($cname) = mysql_fetch_row(rss_query("select title from channels where id = $id"));
+	    
+	    echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+	      ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$cname); echo "</p>\n"
+	      ."<p><input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_NO ."\"/>\n"
+	      ."<input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_YES ."\"/>\n"
+	      ."<input type=\"hidden\" name=\"cid\" value=\"$id\"/>\n"
+	      ."<input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n"
+	      ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE ."\"/>\n"
+	      ."</p>\n</form>\n";
+	}
 	break;
 
      case ADMIN_IMPORT:
