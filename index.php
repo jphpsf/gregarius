@@ -89,11 +89,11 @@ function items($title) {
       	  ." order by added desc, id asc "
       	  ." limit 2";
 	
-	     $res = rss_query($sql);
+	$res = rss_query($sql);
 	
       	if (mysql_num_rows($res) > 0) {
       	    while (list($cid, $ititle, $url, $description, $unread, $ts) =  mysql_fetch_row($res)) {
-      		    $items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts);
+		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts);
       	    }
       	 }
     }

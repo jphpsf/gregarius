@@ -77,10 +77,10 @@ function nav($title, $active=0) {
       
       ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
-      ."\t<li".($active==1?" class=\"active\"":"")."><a href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
-      . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
-      . "\t<li".($active==3?" class=\"active\"":"")."><a href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
-      . "\t<li".($active==4?" class=\"active\"":"")."><a href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
+      ."\t<li".($active==1?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
+      . "\t<li".($active==2?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
+      . "\t<li".($active==3?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
+      . "\t<li".($active==4?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
 }
 
