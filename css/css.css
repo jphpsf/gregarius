@@ -36,8 +36,13 @@ input {
 /* layout */
 div#channels {
  clear:left;
- width: 250px;
+ width: 280px;
  float: left;
+ 
+ /* Notorious box model hack for IE5, thanks a bunch */
+ voice-family: "\"}\""; 
+ voice-family:inherit;
+ width:250px;
 }
 
 ul, li { 
@@ -48,17 +53,20 @@ ul, li {
 
 div#channels li { 
   display: block;
-   padding: 7px 2px; 
+  padding: 7px 2px; 
   margin:0;
   border-bottom: 1px solid  #eef;
   background-color: #fff;
   font-size:small;
 }
 
-div#channels li>ul>li, div#channels li.folder {
+/* folder items */
+div#channels li ul li {
  border-bottom: none;
-}
+ border-left: 1px solid  #eef;
 
+padding-left: 10px;
+}
 
 
 /* folder icon */
@@ -77,14 +85,9 @@ li.folder span {
   margin:0;
 }
 
-/* folder items */
-ul>li>ul {
-  margin-left: 10px;
-}
-
 
 /* channels and sub channels */
-div#channels li:hover, div#channels li.folder>ul>li:hover {
+div#channels li:hover, div#channels li.folder ul li:hover {
  background-color: #f8f8ff;
 }
 
@@ -117,6 +120,14 @@ div#nav {
    background-image: url(media/arrows.gif);
    background-position: top right;
    background-repeat: no-repeat;
+
+   /* some weird value for IE5 */
+   height: 50px;
+   
+   /* box model hack again */
+   voice-family: "\"}\"";
+   voice-family:inherit;
+   height:auto;
  }
 
 div#footer, div#nav {
