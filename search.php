@@ -38,27 +38,26 @@ sideChannels(false);
 if (array_key_exists(QUERY_PRM,$_POST)) {
     $exactMatch = (array_key_exists(QUERY_MATCH_MODE, $_POST) && $_POST[QUERY_MATCH_MODE] == SEARCH_EXACT_MATCH);
     search($_POST[QUERY_PRM], $exactMatch);
-} else {
-    searchForm();
+} else {    
+    list($cnt) = mysql_fetch_row(rss_query('select count(*) from item'));    
+    searchForm(sprintf(H2_SEARCH, $cnt));
 }
 
 rss_footer();
 
-function searchForm() {
+function searchForm($title) {
     echo "\n\n<div id=\"search\" class=\"frame\">";
     
-
-    echo "\n\t\t<h2>Search in titles and content</h2>\n"; 
-
+    echo "\n\t\t<h2>$title</h2>\n"; 
     
     echo
       "\n\t\t<form action=\"". getPath() ."search.php\" method=\"post\" id=\"srchfrm\">\n"
-      ."\t\t<p><label for=\"query\">". SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" id=\"query\" /></p>\n"
+      ."\t\t<p><label for=\"query\">". SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" id=\"query\" value=\"". $_REQUEST[QUERY_PRM]."\"/></p>\n"
 
       ."\t\t<p><input type=\"radio\" id=\"qry_exactmatch\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_EXACT_MATCH."\"/>\n"
       ."\t\t<label for=\"qry_exactmatch\">". SEARCH_EXACT_MATCH."</label>"
       
-      ."\t\t<input type=\"radio\" id=\"qry_contains\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_CONTAINS ."\"/>\n"
+      ."\t\t<input type=\"radio\" id=\"qry_contains\" name=\"". QUERY_MATCH_MODE ."\" value=\"". SEARCH_CONTAINS ."\" checked />\n"
       ."\t\t<label for=\"qry_contains\">". SEARCH_CONTAINS."</label></p>"            
       
       ."\t\t<p><input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
@@ -67,8 +66,11 @@ function searchForm() {
 }
 
 function search($qry,$exactMatch) {
-    echo "\n\n<div id=\"items\" class=\"frame\">";
+
     
+    // If we search for an exact match we add spaces before and after the query string.
+    // This obviously isnt't that a good method because we'll miss stuff like 'query_string...' or
+    // 'query_string!'
     $space = ($exactMatch?" ":"");
     
     $sql = "select i.title, c.title, c.id, i.unread, i.url, "
@@ -112,12 +114,17 @@ function search($qry,$exactMatch) {
     
     $cnt = count($items);
     
-    itemsList(
-	      sprintf(H2_SEARCH_RESULTS_FOR, $cnt, "'" .$qry."'"),
-	      $items
-	      );
+    $title = sprintf(H2_SEARCH_RESULTS_FOR, $cnt, "'" .$qry."'");
     
-    echo "</div>\n";
+    // If we got not hit, offer the search form.
+    if ($cnt > 0) {
+	echo "\n\n<div id=\"items\" class=\"frame\">";    
+	itemsList( $title, $items );    
+	echo "</div>\n";
+    } else {
+	searchForm($title);
+    }
+   
 }
 
 ?>

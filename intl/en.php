@@ -35,7 +35,7 @@ define ('SEE_ALL_UNREAD', "See all %d unread items");
 define ('SEE_ONLY_UNREAD', "Display only unread items (%d)");
 define ('SEE_ALL', "See all %d items for this channel");
 define ('H2_SEARCH_RESULTS_FOR', "%d results for %s");
-
+define ('H2_SEARCH', 'Search %d items');
 define ('SEARCH_SEARCH_QUERY','Search terms:');
 define ('SEARCH_EXACT_MATCH', 'Exact match');
 define ('SEARCH_CONTAINS', 'Containing text');
