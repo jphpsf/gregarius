@@ -77,6 +77,7 @@ $kses_allowed =
 	'b' => array(),
 	'i' => array(),
 	'a' => array('href' => 1, 'title' => 1),
+	'br' => array(),
 	'p' => array(),
 	'blockquote' => array(),
 	'ul' => array(),	
