@@ -29,9 +29,11 @@
 ###############################################################################
 
 
+define ('RSS_FILE_LOCATION','/admin');
 
 require_once('../init.php');
 require_once('../opml.php');
+
 
 
 define ('ADMIN_DOMAIN','domain');
