@@ -117,7 +117,7 @@ function items($cid,$title) {
     
     
     
-    itemsList($title, $items);
+    $shown = itemsList($title, $items);
     
     
     $sql = "select count(*) from item where cid=$cid and unread=1";
@@ -129,20 +129,24 @@ function items($cid,$title) {
     list($allread) = mysql_fetch_row($res2);
     
     /** read more navigation **/
-    echo "<span class=\"readmore\">";    
-    if ($unread_left > 0 && !isset($_GET['unread'])) {
+    $readMoreNav = "";
+    if ($unread_left > 0 && !isset($_GET['unread']) && $shown < $unread_left) {
         if (ITEMS_ON_CHANNELVIEW < $unread_left) {
-            echo "<a href=\"feed.php?cid=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
+            $readMoreNav .= "<a href=\"". getPath() . "feed.php?cid=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
         } else { 
-            echo "<a href=\"feed.php?cid=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
+            $readMoreNav .=  "<a href=\"". getPath() . "feed.php?cid=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
         }
     }
     
-    if (!isset($_GET['all']) || isset($_GET['unread'])) {
-        echo "<a href=\"feed.php?cid=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
+    if ((!isset($_GET['all']) || isset($_GET['unread']) && unread_left > 1) && $shown < $unread_left) {
+        $readMoreNav .= "<a href=\"". getPath() ."feed.php?cid=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
     }
       
-    echo "</span>\n";    
+    if ($readMoreNav != "") {
+	echo "<span class=\"readmore\">$readMoreNav</span>\n";    
+    }
+    
+    
     echo "</div>\n";
 }
 

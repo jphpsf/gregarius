@@ -128,7 +128,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     }
     
     if (defined('_DEBUG_') && _DEBUG_ == true) {
-	$ret .= "|<a href=\"feed.php?cid=$cid&amp;dbg=1\">dbg</a>";	
+	$ret .= "|<a href=\"". getPath() ."feed.php?cid=$cid&amp;dbg=1\">dbg</a>";	
     }
     
     $ret .= "]";

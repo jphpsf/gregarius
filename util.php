@@ -194,9 +194,16 @@ function update($id) {
 	    } else {
 		$description = "";
 	    }
-		
-		
-            $url =  $item['link'];
+	    
+	    if (array_key_exists('link',$item) && $item['link'] != "") {
+		$url = $item['link'];
+	    } elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
+		$url = $item['guid'];
+	    } else {
+		// fall to something basic
+		$url = md5($title);
+	    }
+	    
 	    
 	    $cDate = -1;	    	    
 	    if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
@@ -221,9 +228,7 @@ function update($id) {
 		$sec = "null";
 	    }
 	    
-            if ($indb == "") {
-					
-		
+            if ($indb == "") {							
                 $sql = "insert into item (cid, added, title, url, "
                   ." description, unread, pubdate) "
                   . " values ("
@@ -239,7 +244,7 @@ function update($id) {
 }
 
 /**
- * renders a list of items
+ * renders a list of items. Returns the number of items actually shown
  */
 function itemsList ($title,$items){
 
@@ -248,6 +253,8 @@ function itemsList ($title,$items){
     
     $cntr=0;
     $prev_cid=0;
+    
+    $ret = 0;
     
     while (list($row, $item) = each($items)) {
     	
@@ -282,8 +289,18 @@ function itemsList ($title,$items){
         }
         
         $url = htmlentities($iurl);
+	// some url fields are juste guid's which aren't actual links
+	$isUrl = (substr($url, 0,4) == "http");
         echo "\t<li class=\"$cls\">\n"
-          ."\t\t<h4><a href=\"$url\">$ititle</a></h4>\n";
+          ."\t\t<h4>";
+	
+	if ($isUrl) echo "<a href=\"$url\">";
+	
+	echo "$ititle";
+	
+	if ($isUrl) echo "</a>";
+	  
+	echo "</h4>\n";
         
 	if ($ts != "") {
 	    echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
@@ -293,9 +310,12 @@ function itemsList ($title,$items){
         if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
             echo "\t\t<div class=\"content\">$idescr</div>\n";
         }        
-        echo "\t</li>\n";        
+        echo "\t</li>\n";
+	$ret++;
     }
-    echo "</ul>\n";    	
+    echo "</ul>\n";
+    
+    return $ret;
 }
 
 function make_all_abs($in, $base) {
