@@ -72,7 +72,7 @@ function items($cid,$title) {
 
     markReadForm($cid);
         
-    $sql = "select title, url, description, unread"
+    $sql = "select title, url, description, unread, unix_timestamp(pubdate) as ts "
       ." from item "
       ." where cid  = $cid ";
     
@@ -88,8 +88,8 @@ function items($cid,$title) {
     $res = rss_query($sql);    
     $items = array();
     
-    while (list($title_, $url_, $description_, $unread_) =  mysql_fetch_row($res)) {    
-	$items[]=array(-1,"","",$title_,$unread_,$url_,$description_);
+    while (list($title_, $url_, $description_, $unread_, $ts_) =  mysql_fetch_row($res)) {    
+	$items[]=array(-1,"","",$title_,$unread_,$url_,$description_, $ts_);
     }
     
     itemsList($title,$items);

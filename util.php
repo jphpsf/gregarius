@@ -85,7 +85,7 @@ function ftr() {
     echo "<span>\n\tBest effort valid <a href=\"http://validator.w3.org/check/referer\">XHTML1.1</a>, \n"
       ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
-    echo "<span>\n\tPage rendered ". date("D M j Y, G:i:s T")."\n</span>\n";
+    echo "<span>\n\tPage rendered ". date(DATE_FORMAT)."\n</span>\n";
 
     echo "</div>\n\n";
 }
@@ -196,15 +196,24 @@ function update($id) {
 		
             $url =  $item['link'];
 	    
-	    $cDate = (array_key_exists('dc',$item) &&
-		      array_key_exists('date',$item['dc'])) ?
-	      parse_w3cdtf($item['dc']['date']) : "";
+	    $cDate = -1;	    	    
+	    if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
+		// RSS 1.0 
+		$cDate =  parse_w3cdtf($item['dc']['date']);
+	    } elseif (array_key_exists('pubdate',$item)) {
+		// RSS 2.0 (?)
+		$cDate = strtotime ($item['pubdate']);
+	    } elseif (array_key_exists('created',$item)) {
+		// atom
+		$cDate = parse_iso8601 ($item['created']);
+	    }
+
 	    
             $sql = "select id from item where cid=$cid and url='$url'";
             $subres = rss_query($sql);
             list($indb) = mysql_fetch_row($subres);
 	    
-	    if ($cDate != "" && $cDate > 0) {
+	    if ($cDate > 0) {
 		$sec = "FROM_UNIXTIME($cDate)";		
 	    } else {
 		$sec = "null";
@@ -238,7 +247,7 @@ function itemsList ($title,$items){
     
     while (list($row, $item) = each($items)) {
     	
-    	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr) = $item;
+    	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
         
         if ($prev_cid != $cid) {
             $prev_cid = $cid;
@@ -270,8 +279,12 @@ function itemsList ($title,$items){
         
         $url = htmlentities($iurl);
         echo "\t<li class=\"$cls\">\n"
-          ."\t\t<a href=\"$url\">$ititle</a>\n";
+          ."\t\t<h4><a href=\"$url\">$ititle</a></h4>\n";
         
+	if ($ts != "") {
+	    echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
+	}
+	
         if ($idescr != "") {
             echo "\t\t<div class=\"content\">$idescr</div>\n";
         }        
@@ -334,6 +347,51 @@ function make_abs($rel_uri, $base, $REMOVE_LEADING_DOTS = true) {
 	} 
     } 
     return($base_start . '/' . implode("/", $base_array)); 
+}
+
+
+/**
+ * parse an ISO 8601 date, losely based on parse_w3cdtf from MagpieRSS 
+ */
+function parse_iso8601 ( $date_str ) {    
+    # regex to match wc3dtf
+    $pat = "/(\d{4})-?(\d{2})-?(\d{2})T?(\d{2}):?(\d{2})(:?(\d{2}))?(?:([-+])(\d{2}):?(\d{2})|(Z))?/";
+    
+    if ( preg_match( $pat, $date_str, $match ) ) {
+	list( $year, $month, $day, $hours, $minutes, $seconds) =
+	  array( $match[1], $match[2], $match[3], $match[4], $match[5], $match[6]);
+	
+	# calc epoch for current date assuming GMT
+	$epoch = gmmktime( $hours, $minutes, $seconds, $month, $day, $year);
+	
+	$offset = 0;
+	if ( $match[10] == 'Z' ) {
+	    # zulu time, aka GMT
+	}
+	else {
+	    list( $tz_mod, $tz_hour, $tz_min ) =
+	      array( $match[8], $match[9], $match[10]);
+	    
+	    # zero out the variables
+	    if ( ! $tz_hour ) { $tz_hour = 0; }
+	    if ( ! $tz_min ) { $tz_min = 0; }
+	    
+	    $offset_secs = (($tz_hour*60)+$tz_min)*60;
+	    
+	    # is timezone ahead of GMT?  then subtract offset
+	    #
+	    if ( $tz_mod == '+' ) {
+		$offset_secs = $offset_secs * -1;
+	    }
+	    
+	    $offset = $offset_secs;
+	}
+	$epoch = $epoch + $offset;
+	return $epoch;
+    }
+    else {
+	return -1;
+    }
 }
 
 ?>

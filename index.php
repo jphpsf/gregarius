@@ -43,7 +43,7 @@ function items($title) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
     
     $sql = "select i.title,  c.title, c.id, i.unread, "
-      ." i.url, i.description, c.icon "
+      ." i.url, i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
       ." from item i, channels c "
       ." where i.cid = c.id and i.unread=1 "
       ." order by c.title asc, i.added desc";
@@ -51,8 +51,8 @@ function items($title) {
     $res0=rss_query($sql);
     if (mysql_num_rows($res0) > 0) {
 	
-        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_) = mysql_fetch_row($res0)) {
-            $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_ );
+        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_) = mysql_fetch_row($res0)) {
+            $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_ );
         }
 
         itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items);
@@ -69,7 +69,7 @@ function items($title) {
 
     while (list($cid,$ctitle, $icon) = mysql_fetch_row($res1)) {
 	
-	 $sql = "select cid, title, url, description, unread "
+	 $sql = "select cid, title, url, description, unread, unix_timestamp(pubdate) as ts  "
 	 ." from item "
 	 ." where cid  = $cid and unread = 0"
 	 ." order by added desc"
@@ -78,8 +78,8 @@ function items($title) {
 	 $res = rss_query($sql);
 	
 	if (mysql_num_rows($res) > 0) {
-	    while (list($cid, $ititle, $url, $description, $unread) =  mysql_fetch_row($res)) {
-		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description);
+	    while (list($cid, $ititle, $url, $description, $unread, $ts) =  mysql_fetch_row($res)) {
+		$items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts);
 	    }
 	}
     }

@@ -60,7 +60,7 @@ function search($qry) {
     
     
     $sql = "select i.title, c.title, c.id, i.unread, i.url, "
-    ." i.description, c.icon "
+    ." i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
     ." from item i, channels c "
     ." where i.cid=c.id and "
     ."   (i.description like '%$qry%' or i.title like '%$qry%') "
@@ -70,13 +70,14 @@ function search($qry) {
     $cnt = mysql_num_rows($res0);
     if ($cnt > 0) {
 	$items=array();
-        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon) = mysql_fetch_row($res0)) {
+        while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its) = mysql_fetch_row($res0)) {
             
 	    $items[]=array($cid,$ctitle,$cicon,
 			   preg_replace("/($qry)/i","<strong>\$1</strong>",$ititle),
 			   $iunread,
 			   $irul,			   
-			   preg_replace("/($qry)/i","<strong>\$1</strong>",$idescr)			   
+			   preg_replace("/($qry)/i","<strong>\$1</strong>",$idescr),
+			   $its
 			   );
             
         }

@@ -46,4 +46,5 @@ define ('NAV_UPDATE', 'Update All');
 define ('NAV_CHANNEL_ADMIN', 'Channel Admin');
 define ('NAV_SEARCH', "Search");
 
+define ('POSTED', 'Posted: ');
 ?>
