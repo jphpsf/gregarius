@@ -105,12 +105,13 @@ class MagpieRSS {
 	# Check for a valid xml header if input encoding detection is on
 	# or php's xml parser will choke
 	if (($detect_encoding || $input_encoding == null) &&
-	    preg_match('|.*<\?xml.*encoding.*>|i',$source) == 0) {
+	    preg_match('|^\s*<\?xml[^\?]*\?>|i',$source) == 0) {
 	    # We don't have much of a choice here: we must force an input
 	    # encoding even though it could be wrong
 	    $detect_encoding = false;
 	    $input_encoding = "UTF-8";
 	}
+	
 	
         list($parser, $source) = $this->create_parser($source, 
                 $output_encoding, $input_encoding, $detect_encoding);
