@@ -32,7 +32,13 @@
 
 require_once('init.php');
 
-if (defined('USE_MODREWRITE') && USE_MODREWRITE && array_key_exists('channel',$_REQUEST)) {
+if (
+    defined('USE_MODREWRITE') 
+    && USE_MODREWRITE 
+    && array_key_exists('channel',$_REQUEST)    
+    // this is nasty because a numeric feed title could break this
+    && !is_numeric($_REQUEST['channel'])     
+    ) {
     $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
@@ -63,7 +69,6 @@ if (defined('USE_MODREWRITE') && USE_MODREWRITE && array_key_exists('channel',$_
     $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
     $iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
 }
-
 
 // If we have no channel-id somethign went terribly wrong.
 // Redirect to index.php
@@ -198,7 +203,7 @@ function markReadForm($cid) {
     	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
     //	  ."\t<input type=\"hidden\" name=\"all\"/>\n"
     //	  ."\t<input type=\"hidden\" name=\"unread\">\n"
-    	  ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
+    	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
     	  ."</form>";
      }
 }
