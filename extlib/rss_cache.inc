@@ -109,7 +109,7 @@ class RSSCache {
     function check_cache ( $url ) {
         $this->ERROR = "";
         $filename = $this->file_name( $url );
-        
+
         if ( file_exists( $filename ) ) {
             // find how long ago the file was added to the cache
             // and whether that is longer then MAX_AGE
