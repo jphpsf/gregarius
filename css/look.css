@@ -266,5 +266,6 @@ div#alltags {
  background-color: #f9f9f9;
  border-color: #eee;
  text-align:justify;
+
 }
-#alltags a { margin: 0 10px }
+#alltags a { margin: 15px 10px; vertical-align:middle; }
