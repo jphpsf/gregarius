@@ -58,12 +58,12 @@ if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
 
 rss_header(TITLE_ADMIN,LOCATION_ADMIN);
 
-main($auth);
+admin_main($auth);
 rss_footer();
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-function main($authorised) {
+function admin_main($authorised) {
     echo "\n<div id=\"channel_admin\" class=\"frame\">";
 
     if ($authorised) {

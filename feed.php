@@ -67,9 +67,7 @@ if (
     if ($cid != "" 
 	&& array_key_exists('y',$_REQUEST) && $_REQUEST['y'] != "" && is_numeric($_REQUEST['y'])
 	&& array_key_exists('m',$_REQUEST) && $_REQUEST['m'] != "" && is_numeric($_REQUEST['m']))
-	
     {	
-	
 	$y = (int) $_REQUEST['y'];
 	if ($y < 1000) $y+=2000;
 	
@@ -82,13 +80,13 @@ if (
 	if ($d > 31) {
 	    $d = date("d");
 	} 
-
     } else {
 	$y = 0;
 	$m = 0;
 	$d = 0;
     }
-
+    
+    
 // no mod rewrite: ugly but effective
 } elseif (array_key_exists('channel',$_REQUEST)) {
     $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
@@ -141,9 +139,9 @@ if ($iid != "" && !is_numeric($iid)) {
 if ($iid == "") {
     $res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
     list($title,$icon) = rss_fetch_row($res);
-    if ($y > 0 && $m > 0 && $d == 0) {
+    if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
 	$dtitle =  (" " . TITLE_SEP ." " . date('F Y',mktime(0,0,0,$m,1,$y)));
-    } elseif ($y > 0 && $m > 0 && $d > 0) {
+    } elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
 	$dtitle =  (" " . TITLE_SEP ." " . date('F jS, Y',mktime(0,0,0,$m,$d,$y)));
     } else {
 	$dtitle ="";

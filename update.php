@@ -29,7 +29,7 @@
 ###############################################################################
 
 require_once('init.php');
-rss_require ('plugins/browser.php');
+rss_require ('extlib/browser.php');
 rss_require ('config.php');
 
 $browser = new Browser();

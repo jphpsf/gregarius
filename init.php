@@ -27,13 +27,6 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-
-if (defined('_DEBUG_') && _DEBUG_ == true) {
-    error_reporting(E_ALL);
-} else {
-    error_reporting(E_NONE);
-}
-
 function rss_require($file) {
     if (!defined('GREGARIUS_HOME')) {
 	define('GREGARIUS_HOME',dirname(__FILE__) . "/");
@@ -43,7 +36,6 @@ function rss_require($file) {
     //echo "<pre>requiring: $required_file";
     require_once($required_file);
     //echo ": done</pre>\n"; 
-
 }
 
 
@@ -51,6 +43,13 @@ rss_require('constants.php');
 rss_require('dbinit.php');
 rss_require('db.php');
 rss_require('config.php');
+
+if (getConfig('_DEBUG_')) {
+    error_reporting(E_ALL);
+} else {
+    error_reporting(E_NONE);
+}   
+
 rss_require('extlib/rss_fetch.inc');
 rss_require('extlib/rss_utils.inc');
 rss_require('extlib/kses.php');
@@ -65,4 +64,10 @@ if ($lang && file_exists("intl/$lang.php")) {
 }
 
 rss_require("channels.php");
+
+
+// my-hacks support
+if (file_exists(dirname(__FILE__) . '/rss_extra.php')) {
+    rss_require('rss_extra.php');
+}
 ?>

@@ -51,7 +51,12 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
       ."\t<title>".makeTitle($title)."</title>\n";
 
     if (getConfig('ROBOTS_META')) {
-	$meta = ($_REQUEST['expand'] || $_REQUEST['collapse'] || $_REQUEST['dbg'])?'noindex,follow':getConfig('ROBOTS_META');
+	$meta = (
+		 (
+		  array_key_exists('expand',$_REQUEST) || 
+		  array_key_exists('collapse',$_REQUEST) || 
+		  array_key_exists('dbg',$_REQUEST)
+		)?'noindex,follow':getConfig('ROBOTS_META'));
 	echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
     }
 
@@ -161,11 +166,8 @@ function getContentType( $link,&$contentType ) {
 	$documentpath .= "?" . $url_parts["query"];
     }
     $host = $url_parts["host"];
-    $port = $url_parts["port"];
+    $port = (array_key_exists('port',$url_parts)?$url_parts["port"]:"80");
 
-    if (empty( $port )) {
-	$port = "80";
-    }
     $socket = @fsockopen( $host, $port, $errno, $errstr, 30 );
     $ret = false;
     if (!$socket) {
@@ -610,17 +612,32 @@ function add_channel($url, $folderid=0) {
     // Here we go!
     $rss = fetch_rss( $url );
     if ( $rss ) {
-	$title= rss_real_escape_string ( $rss->channel['title'] );
-	$siteurl= rss_real_escape_string (htmlentities($rss->channel['link'] ));
-	$descr =  rss_real_escape_string ($rss->channel['description']);
+	
+	if (is_object($rss) && array_key_exists('title',$rss->channel)) {
+	    $title= rss_real_escape_string ( $rss->channel['title'] );
+	} else { 
+	    $title = "";
+	}
+	
+	if (is_object($rss) && array_key_exists('link',$rss->channel)) {
+	    $siteurl= rss_real_escape_string (htmlentities($rss->channel['link'] ));
+	} else {
+	    $siteurl = "";
+	}
+	
+	if (is_object($rss) && array_key_exists('description',$rss->channel)) {
+	    $descr =  rss_real_escape_string ($rss->channel['description']);
+	} else {
+	    $descr = "";
+	}
 
 	//lets see if this server has a favicon
 	$icon = "";
 	if (getConfig('USE_FAVICONS')) {
 	    // if we got nothing so far, lets try to fall back to
 	    // favicons
-	    if ($icon == "" && $rss->channel['link']  != "") {
-		$match = get_host($rss->channel['link'], $host);
+	    if ($icon == "" && $siteurl  != "") {
+		$match = get_host($siteurl, $host);
 		$uri = "http://" . $host . "favicon.ico";
 		//if ($match && (getHttpResponseCode($uri)))  {
 		if ($match && getContentType($uri, $contentType)) {

@@ -65,8 +65,9 @@ function searchForm($title) {
     echo
       "\n\t\t<form action=\"". getPath() ."search.php\" method=\"post\" id=\"srchfrm\">\n"
       ."\n\t\t<p><label for=\"query\">". SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" "
-      ." id=\"query\" value=\"". $_REQUEST[QUERY_PRM]."\"/></p>\n"
-
+      ." id=\"query\" value=\"". (array_key_exists(QUERY_PRM,$_REQUEST)?$_REQUEST[QUERY_PRM]:"")
+	."\"/></p>\n"
+      
       ."\n\t\t<p><input type=\"radio\" id=\"qry_match_or\" name=\"". QUERY_MATCH_MODE 
       ."\" value=\"". SEARCH_MATCH_OR."\""
       .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) && 
@@ -141,6 +142,7 @@ function search($qry,$matchMode, $channelId) {
 
     $qWhere = "";
     $regMatch = "";
+    $term = "";
     
     if ($matchMode == SEARCH_MATCH_OR || $matchMode == SEARCH_MATCH_AND) {
 	
@@ -216,7 +218,7 @@ function search($qry,$matchMode, $channelId) {
 	    }
 	    
 	    if ($match) {				
-		if ($hits[$iid]) {
+		if (isset($hits) && is_array($hits) && array_key_exists($iid,$hits) && $hits[$iid]) {
 		    continue;
 		}
 		$hits[$iid] = true;
