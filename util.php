@@ -25,8 +25,6 @@
 #
 ###############################################################################
 
-
-
 function rss_header($title="", $active=0) {
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
       ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
@@ -38,8 +36,8 @@ function rss_header($title="", $active=0) {
       ."\t<meta name=\"robots\" content=\"NOINDEX,NOFOLLOW\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n";
 
-    if ($active == 1 && defined('RELOAD_AFTER') 
-    /* && RELOAD_AFTER > (30*MINUTE) */) {
+    if ($active == 1 && defined('RELOAD_AFTER')
+	/* && RELOAD_AFTER > (30*MINUTE) */) {
 	echo "\t<meta http-equiv=\"refresh\" "
 	  ." content=\"" . RELOAD_AFTER
 	  . ";url=update.php\"/>\n";
@@ -67,13 +65,11 @@ function nav($title, $active=0) {
       ."\n<h1>".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
       ."\t<li".($active==1?" class=\"active\"":"")."><a href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
-      . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"      
+      . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
       . "\t<li".($active==3?" class=\"active\"":"")."><a href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
       . "\t<li".($active==4?" class=\"active\"":"")."><a href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
 }
-
-
 
 function ftr() {
     echo "\n<div id=\"footer\" class=\"frame\">\n";
@@ -110,21 +106,24 @@ function add_channel($url) {
         $title= mysql_real_escape_string ( $rss->channel['title'] );
         $siteurl= mysql_real_escape_string (htmlentities($rss->channel['link'] ));
         $descr =  mysql_real_escape_string ($rss->channel['description']);
-    
+
         //lets see if this server has a favicon
         $icon = "";
         if (_USE_FAVICONS_ && $rss->channel['link']  != "") {
             $match = get_host($rss->channel['link'], $host);
             $uri = "http://" . $host . "favicon.ico";
-            if ($match && (getHttpResponseCode($uri)))  {
-              $icon = $uri;
+            //if ($match && (getHttpResponseCode($uri)))  {
+	    if ($match && getContentType($uri, $contentType)) {
+		if (preg_match("/image\/x-icon/", $contentType)) {
+		    $icon = $uri;
+		}
             }
         }
-    
+
         if ($title != "") {
             $sql = "insert into channels (title, url, siteurl, parent, descr, dateadded, icon)"
               ." values ('$title', '$urlDB', '$siteurl', 0, '$descr', now(), '$icon')";
-    
+
             rss_query($sql);
         } else {
             rss_error ("I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");
@@ -140,6 +139,43 @@ function getHttpResponseCode($forUri) {
     return (($fp)?true:false);
 }
 
+function getContentType( $link,&$contentType ) {
+    $url_parts = @parse_url( $link );
+    if ( empty( $url_parts["host"] ) ) {
+	return( false );
+    }
+    if ( !empty( $url_parts["path"] ) )  {
+	$documentpath = $url_parts["path"];
+    } else {
+	$documentpath = "/";
+    }
+    if ( !empty( $url_parts["query"] ) ) {
+	$documentpath .= "?" . $url_parts["query"];
+    }
+    $host = $url_parts["host"];
+    $port = $url_parts["port"];
+
+    if (empty( $port )) {
+	$port = "80";
+    }
+    $socket = @fsockopen( $host, $port, $errno, $errstr, 30 );
+    $ret = false;
+    if (!$socket) {
+	return(false);
+    } else {
+	fwrite ($socket, "GET ".$documentpath." HTTP/1.0\r\nHost: $host\r\n\r\n");
+	while (! feof($socket)) {
+	    $line = fgets( $socket, 100 );
+	    if (preg_match("/Content-Type: (.*)/i", $line, $matches)) {
+		$contentType = $matches[1];
+		$ret = true;
+		break;
+	    }
+	}
+    }
+    return $ret;
+}
+
 // basically strips folder resources from URIs.
 // http://pear.php.net/package/HTTP_Client/ --> http://pear.php.net/
 function get_host($url, & $host) {
@@ -148,16 +184,16 @@ function get_host($url, & $host) {
 
     //ensure we have a slash
     if (substr($host,-1) != "/") {
-      $host .= "/";
+	$host .= "/";
     }
-    
+
     return $ret;
 }
 
 function makeTitle ($title) {
     $ret = ""._TITLE_ . "";
     if ($title != "") {
-        $ret .= " &gt; " . $title;
+	$ret .= " &gt; " . $title;
     }
 
     return $ret;
@@ -170,23 +206,23 @@ function update($id) {
 
     $sql = "select id, url, title from channels";
     if (is_numeric($id)) {
-        $sql .= " where id=$id";
+	$sql .= " where id=$id";
     }
 
     $res = rss_query($sql);
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
-        $rss = fetch_rss( $url );
-	
+	$rss = fetch_rss( $url );
+
 	// base URL for items in this feed.
 	if (array_key_exists('link', $rss->channel)) {
 	    $baseUrl = $rss->channel['link'];
 	}
-	
-        foreach ($rss->items as $item) {	   
-	    
+
+	foreach ($rss->items as $item) {
+
 	    // item title
 	    $title = $item['title'];
-	    
+
 	    // item content, if any
 	    if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
 		$description = kses($item['content']['encoded'], $kses_allowed);
@@ -195,16 +231,16 @@ function update($id) {
 	    } else {
 		$description = "";
 	    }
-	    
+
 	    if ($description != "" && $baseUrl != "") {
 		$description = make_abs($description, $baseUrl);
 	    }
-	    
+
 	    if ($description != "") {
 		require_once ('plugins/urlfilter.php');
 		$description = urlfilter_filter($description);
 	    }
-	    
+
 	    // link
 	    if (array_key_exists('link',$item) && $item['link'] != "") {
 		$url = $item['link'];
@@ -214,12 +250,11 @@ function update($id) {
 		// fall back to something basic
 		$url = md5($title);
 	    }
-	    
-	    
+
 	    // pubdate
-	    $cDate = -1;	    	    
+	    $cDate = -1;
 	    if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
-		// RSS 1.0 
+		// RSS 1.0
 		$cDate =  parse_w3cdtf($item['dc']['date']);
 	    } elseif (array_key_exists('pubdate',$item)) {
 		// RSS 2.0 (?)
@@ -229,30 +264,29 @@ function update($id) {
 		$cDate = parse_iso8601 ($item['created']);
 	    }
 
-	    
 	    // check wether we already have this item
-            $sql = "select id from item where cid=$cid and url='$url'";
-            $subres = rss_query($sql);
-            list($indb) = mysql_fetch_row($subres);
-	    
+	    $sql = "select id from item where cid=$cid and url='$url'";
+	    $subres = rss_query($sql);
+	    list($indb) = mysql_fetch_row($subres);
+
 	    if ($cDate > 0) {
-		$sec = "FROM_UNIXTIME($cDate)";		
+		$sec = "FROM_UNIXTIME($cDate)";
 	    } else {
 		$sec = "null";
 	    }
-	    
-            if ($indb == "") {							
-                $sql = "insert into item (cid, added, title, url, "
-                  ." description, unread, pubdate) "
-                  . " values ("
-                  ."$cid, now(), '"
-                  .mysql_real_escape_string($title) ."', '$url', '"
-                  . mysql_real_escape_string($description)
-                    ."', 1, $sec)";
-        
-                rss_query($sql);
-            }
-        }
+
+	    if ($indb == "") {
+		$sql = "insert into item (cid, added, title, url, "
+		  ." description, unread, pubdate) "
+		  . " values ("
+		  ."$cid, now(), '"
+		  .mysql_real_escape_string($title) ."', '$url', '"
+		  . mysql_real_escape_string($description)
+		    ."', 1, $sec)";
+
+		rss_query($sql);
+	    }
+	}
     }
 }
 
@@ -262,20 +296,20 @@ function update($id) {
 function itemsList ($title,$items, $doNav = false){
 
     echo "\n\n<h2>$title</h2>\n";
-    
+
     $cntr=0;
     $prev_cid=0;
-    
+
     $ret = 0;
     $lastAnchor = "";
-    
+
     while (list($row, $item) = each($items)) {
-    	
-    	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
-        
-        if ($prev_cid != $cid) {
-            $prev_cid = $cid;
-            if ($cntr++ > 0) {
+
+	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
+
+	if ($prev_cid != $cid) {
+	    $prev_cid = $cid;
+	    if ($cntr++ > 0) {
 
 		if ($doNav && $lastAnchor != "") {
 		    // link to start of channel
@@ -292,14 +326,13 @@ function itemsList ($title,$items, $doNav = false){
 		if (_USE_FAVICONS_ && $cicon != "") {
 		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
 		}
-		
+
 		$anchor = "";
 		if ($doNav) {
 		    $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
 		    $anchor = "name=\"$lastAnchor\"";
-		} 
-		
-		
+		}
+
 		if (_USE_MODREWRITE_) {
 		    echo "\t<a $anchor href=\"" .getPath() ."$ctitle/\">$ctitle</a>\n";
 		} else {
@@ -307,49 +340,47 @@ function itemsList ($title,$items, $doNav = false){
 		}
 		echo "</h3>\n";
 	    }
-	    
-            echo "<ul>\n";	    
-        }
 
-        
-        $cls="item";
-        if (($cntr++ % 2) == 0) {
-            $cls .= " even";
-        } else {
-            $cls .= " odd";
-        }
-        
-        if  ($iunread == 1) {
-            $cls .= " unread";
-        }
-        
-        $url = htmlentities($iurl);
+	    echo "<ul>\n";
+	}
+
+	$cls="item";
+	if (($cntr++ % 2) == 0) {
+	    $cls .= " even";
+	} else {
+	    $cls .= " odd";
+	}
+
+	if  ($iunread == 1) {
+	    $cls .= " unread";
+	}
+
+	$url = htmlentities($iurl);
 	// some url fields are juste guid's which aren't actual links
 	$isUrl = (substr($url, 0,4) == "http");
-        echo "\t<li class=\"$cls\">\n"
-          ."\t\t<h4>";
-	
+	echo "\t<li class=\"$cls\">\n"
+	  ."\t\t<h4>";
+
 	if ($isUrl) echo "<a href=\"$url\">";
-	
+
 	//echo htmlentities($ititle);
 	echo $ititle;
-	
+
 	if ($isUrl) echo "</a>";
-	  
+
 	echo "</h4>\n";
-        
+
 	if ($ts != "") {
 	    echo "\t\t<h5>". POSTED . date(DATE_FORMAT, $ts). "</h5>\n";
 	}
-	
-	
-        if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
-            echo "\t\t<div class=\"content\">$idescr</div>\n";
-        }        
-        echo "\t</li>\n";
+
+	if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
+	    echo "\t\t<div class=\"content\">$idescr</div>\n";
+	}
+	echo "\t</li>\n";
 	$ret++;
     }
-    
+
     if ($ret > 0) {
 
 	if ($doNav && $lastAnchor != "") {
@@ -359,9 +390,9 @@ function itemsList ($title,$items, $doNav = false){
 	      ."\t<a href=\"#top\">upup</a>\n"
 	      ."</li>\n";
 	}
-	echo "</ul>\n";	
+	echo "</ul>\n";
     }
-    
+
     return $ret;
 }
 
@@ -375,21 +406,20 @@ function make_abs($in, $base) {
     return preg_replace($pattern, $repl, $in);
 }
 
-
 /**
- * parse an ISO 8601 date, losely based on parse_w3cdtf from MagpieRSS 
+ * parse an ISO 8601 date, losely based on parse_w3cdtf from MagpieRSS
  */
-function parse_iso8601 ( $date_str ) {    
+function parse_iso8601 ( $date_str ) {
     # regex to match wc3dtf
     $pat = "/(\d{4})-?(\d{2})-?(\d{2})T?(\d{2}):?(\d{2})(:?(\d{2}))?(?:([-+])(\d{2}):?(\d{2})|(Z))?/";
-    
+
     if ( preg_match( $pat, $date_str, $match ) ) {
 	list( $year, $month, $day, $hours, $minutes, $seconds) =
 	  array( $match[1], $match[2], $match[3], $match[4], $match[5], $match[6]);
-	
+
 	# calc epoch for current date assuming GMT
 	$epoch = gmmktime( $hours, $minutes, $seconds, $month, $day, $year);
-	
+
 	$offset = 0;
 	if ( $match[10] == 'Z' ) {
 	    # zulu time, aka GMT
@@ -397,19 +427,19 @@ function parse_iso8601 ( $date_str ) {
 	else {
 	    list( $tz_mod, $tz_hour, $tz_min ) =
 	      array( $match[8], $match[9], $match[10]);
-	    
+
 	    # zero out the variables
 	    if ( ! $tz_hour ) { $tz_hour = 0; }
 	    if ( ! $tz_min ) { $tz_min = 0; }
-	    
+
 	    $offset_secs = (($tz_hour*60)+$tz_min)*60;
-	    
+
 	    # is timezone ahead of GMT?  then subtract offset
 	    #
 	    if ( $tz_mod == '+' ) {
 		$offset_secs = $offset_secs * -1;
 	    }
-	    
+
 	    $offset = $offset_secs;
 	}
 	$epoch = $epoch + $offset;
@@ -423,7 +453,7 @@ function parse_iso8601 ( $date_str ) {
 function getPath() {
     static $ret;
     $ret = dirname($_SERVER['PHP_SELF']) . "/";
-    
+
     return $ret;
 }
 ?>

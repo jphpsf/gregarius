@@ -158,8 +158,8 @@ function markReadForm($cid) {
     if($cnt > 0) {
 	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
 	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
-	  ."\t<input type=\"hidden\" name=\"all\"/>\n"
-	  ."\t<input type=\"hidden\" name=\"unread\">\n"
+//	  ."\t<input type=\"hidden\" name=\"all\"/>\n"
+//	  ."\t<input type=\"hidden\" name=\"unread\">\n"
 	  ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
 	  ."</form>";
     }
