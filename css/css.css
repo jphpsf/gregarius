@@ -95,7 +95,7 @@ div#channels li ul li {
 
 
 /* folder icon */
-li.folder {
+.folder {
   background-image: url(media/folder.gif);
   background-position: 0px 0.5em;
   background-repeat: no-repeat;
@@ -103,7 +103,7 @@ li.folder {
 }
 
 /* folder labels */
-li.folder span {
+.folder span {
   font-weight:bold;
   text-transform: capitalize;
   padding-left: 25px; 
