@@ -460,7 +460,7 @@ function itemsList ($title,$items, $options = IL_NONE){
 		echo "\n<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->\n";
 		echo
 		  "\n<h3"
-		  ." id=\"$escaped_title\" "
+		  //." id=\"$escaped_title\" "
 		  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
 		    .">\n";
 
