@@ -34,6 +34,21 @@ if ($_POST['action'] != "") {
     
     $sql = "update item set unread=0 where cid=$id";
     rss_query($sql);
+    
+    // redirect to the next unread, if any.
+    $sql = "select cid from item where unread=1 order by added desc limit 1";
+    $res = rss_query($sql);
+    list ($next_unread) = mysql_fetch_row($res);
+    if ($next_unread == '') {
+	header("Location: http://"
+	       . $_SERVER['HTTP_HOST']
+	       . dirname($_SERVER['PHP_SELF'])
+	       . "/index.php"	       
+	       );	
+    } else {
+	$id = $next_unread;
+    }
+    
 }
 
 assert(is_numeric($id));
