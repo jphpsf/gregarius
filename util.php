@@ -166,47 +166,47 @@ function update($id) {
 
     $sql = "select id, url, title from channels";
     if (is_numeric($id)) {
-	$sql .= " where id=$id";
+        $sql .= " where id=$id";
     }
 
     $res = rss_query($sql);
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
-	$rss = fetch_rss( $url );
-
-	/*
-	 echo "<pre>";
-	 var_dump($rss);
-	 echo "</pre>";
-	 die();
-	 */
-
-	foreach ($rss->items as $item) {
-
-	    $title = $item['title'];
-	    $description = kses($item['description'],  $kses_allowed);
-	    $url =  $item['link'];
-	    $cDate = $item['dc']['date'];
-	    $sql = "select id from item where cid=$cid and url='$url'";
-	    $subres = rss_query($sql);
-	    list($indb) = mysql_fetch_row($subres);
-
-	    //$sec =  strtotime($cDate);
-	    //if ($sec == -1) {
-	    $sec = "now()";
-	    //}
-
-	    if ($indb == "") {
-		$sql = "insert into item (cid, added, title, url, "
-		  ." description, unread, pubdate) "
-		  . " values ("
-		  ."$cid, now(), '"
-		  .mysql_real_escape_string($title) ."', '$url', '"
-		  . mysql_real_escape_string($description)
-		    ."', 1, $sec)";
-
-		rss_query($sql);
-	    }
-	}
+        $rss = fetch_rss( $url );
+    
+        /*
+         echo "<pre>";
+         var_dump($rss);
+         echo "</pre>";
+         die();
+         */
+    
+        foreach ($rss->items as $item) {
+    
+            $title = $item['title'];
+            $description = kses($item['description'],  $kses_allowed);
+            $url =  $item['link'];
+            $cDate = $item['dc']['date'];
+            $sql = "select id from item where cid=$cid and url='$url'";
+            $subres = rss_query($sql);
+            list($indb) = mysql_fetch_row($subres);
+    
+            //$sec =  strtotime($cDate);
+            //if ($sec == -1) {
+            $sec = "now()";
+            //}
+    
+            if ($indb == "") {
+            $sql = "insert into item (cid, added, title, url, "
+              ." description, unread, pubdate) "
+              . " values ("
+              ."$cid, now(), '"
+              .mysql_real_escape_string($title) ."', '$url', '"
+              . mysql_real_escape_string($description)
+                ."', 1, $sec)";
+    
+            rss_query($sql);
+            }
+        }
     }
 }
 
