@@ -46,8 +46,17 @@ function items($title) {
       ." i.url, i.description, c.icon, unix_timestamp(i.pubdate) as ts  "
       ." from item i, channels c "
       ." where i.cid = c.id and i.unread=1 "
-      ." order by c.title asc, i.added desc, i.id asc";
+      ." order by c.title asc, i.added desc, i.id asc"
+      
+      // Problem: to limit or not to limit?
+      // Should the frontpage get the whole load of unread items
+      // for a channel or not. And if not, should the user get them
+      // all when he click the channel title?
+      
+      //." limit " . ITEMS_ON_CHANNELVIEW
+      ;
 
+    
     $res0=rss_query($sql);
     if (mysql_num_rows($res0) > 0) {
 	
@@ -55,7 +64,7 @@ function items($title) {
             $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_ );
         }
 
-        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items);
+        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items, true);
     }
 
     $sql = "select "
@@ -84,7 +93,7 @@ function items($title) {
 	}
     }
 
-    itemsList(H2_RECENT_ITEMS,$items);
+    itemsList(H2_RECENT_ITEMS,$items, false);
     
     echo "</div>\n";
 }

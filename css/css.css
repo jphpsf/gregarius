@@ -124,6 +124,8 @@ div#channels > ul {
  margin-top: 20px;
 }
 
+
+
 div#items,div#search {
  margin-left: 290px;
 }
@@ -198,17 +200,29 @@ li.item {
  border: 1px solid #eee;
 }
 
-/* li.item > a.first-child { margin-top: 10px;} */
-
 div#items ul{
  padding:0;
  margin:0 0 30px 0;
 }
 
+
 div#items li { 
  padding: 10px 15px;
  clear:right;
- }
+}
+
+div#items li.upnav {
+ padding: 0;
+ clear:right;
+ margin:0; 
+ text-align:right;
+}
+
+div#items li.upnav a {
+ border-left: 1px solid;
+ font-size:  small;
+ padding: 0 10px;
+}
 
 /* images inside posts */
 div.content img {
@@ -305,13 +319,13 @@ span.readmore {
  display: block;
  text-align: right;
 }
+
 span.readmore a {
  display: inline;
  border-left: 1px solid;
  padding: 0 10px;
  font-size:  small;
 }
-
 
 
 /** from http://css.maxdesign.com.au/listamatic/horizontal11.htm **/
@@ -351,7 +365,7 @@ input[type="submit"] {
  letter-spacing: 0.1em;
 }
  
-#navlist li.active a { color: #336; } 
+#navlist li.active a,#navlist li a:hover { color: #336; } 
 
 #navlist input[type="submit"] {
     font-weight:normal;
@@ -383,7 +397,7 @@ label, input[type="submit"] {
 }
 
 /* bad bad bad */
-.frame,.item { -moz-border-radius: 8px }
+.frame,.item { -moz-border-radius: 5px }
 
 .box { 
  border: 1px solid #eef;

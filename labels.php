@@ -58,7 +58,7 @@ define ('SEARCH_GO', 'Go');
 define ('ADMIN_EDIT', 'edit');
 define ('ADMIN_DELETE', 'delete');
 define ('ADMIN_DELETE2', 'Delete');
-define ('ADMIN_RENAME', 'Rename');
+define ('ADMIN_RENAME', 'Rename to...');
 define ('ADMIN_CREATE', 'Create');
 define ('ADMIN_IMPORT','Import');
 define ('ADMIN_EXPORT','Export');

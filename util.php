@@ -259,15 +259,15 @@ function update($id) {
 /**
  * renders a list of items. Returns the number of items actually shown
  */
-function itemsList ($title,$items){
+function itemsList ($title,$items, $doNav = false){
 
     echo "\n\n<h2>$title</h2>\n";
-    
     
     $cntr=0;
     $prev_cid=0;
     
     $ret = 0;
+    $lastAnchor = "";
     
     while (list($row, $item) = each($items)) {
     	
@@ -275,24 +275,40 @@ function itemsList ($title,$items){
         
         if ($prev_cid != $cid) {
             $prev_cid = $cid;
-            if ($cntr++ > 0)
-              echo "</ul>\n";
+            if ($cntr++ > 0) {
 
+		if ($doNav && $lastAnchor != "") {
+		    // link to start of channel
+		    echo "<li class=\"upnav\">\n"
+		      ."\t<a href=\"#$lastAnchor\">up</a>\n"
+		      ."\t<a href=\"#top\">upup</a>\n"
+		      ."</li>\n";
+		}
+		echo "</ul>\n";
+	    }
 	    if ($ctitle != "" && $cid > -1) {
-		echo "<h3>";
+		echo "\n<!-- -------------------------------------------------------- -->\n";
+		echo "\n<h3>\n";
 		if (_USE_FAVICONS_ && $cicon != "") {
-		    echo "<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>";
+		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
 		}
 		
+		$anchor = "";
+		if ($doNav) {
+		    $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
+		    $anchor = "name=\"$lastAnchor\"";
+		} 
+		
+		
 		if (_USE_MODREWRITE_) {
-		    echo "<a href=\"" .getPath() ."$ctitle/\">$ctitle</a>";
+		    echo "\t<a $anchor href=\"" .getPath() ."$ctitle/\">$ctitle</a>\n";
 		} else {
-		    echo "<a href=\"". getPath() ."feed.php?cid=$cid\">$ctitle</a>";
+		    echo "\t<a $anchor href=\"". getPath() ."feed.php?cid=$cid\">$ctitle</a>\n";
 		}
 		echo "</h3>\n";
 	    }
 	    
-            echo "<ul>\n";
+            echo "<ul>\n";	    
         }
 
         
@@ -335,7 +351,15 @@ function itemsList ($title,$items){
     }
     
     if ($ret > 0) {
-	echo "</ul>\n";
+
+	if ($doNav && $lastAnchor != "") {
+	    // link to start of channel
+	    echo "<li class=\"upnav\">\n"
+	      ."\t<a href=\"#$lastAnchor\">up</a>\n"
+	      ."\t<a href=\"#top\">upup</a>\n"
+	      ."</li>\n";
+	}
+	echo "</ul>\n";	
     }
     
     return $ret;

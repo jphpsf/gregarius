@@ -28,7 +28,11 @@
 require_once('init.php');
 require_once('opml.php');
 
+define ('DOMAIN','domain');
+define ('DOMAIN_FOLDER','folder');
+define ('DOMAIN_CHANNEL','channel');
 
+/*
 if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
     if ($_SERVER['PHP_AUTH_USER'] != _ADMIN_USERNAME_ || $_SERVER['PHP_AUTH_PW'] != _ADMIN_PASSWORD_ ) {
 	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
@@ -37,7 +41,7 @@ if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
 	exit();
     }
 }
-
+*/
 
 rss_header("Channel Admin",4);
 
@@ -50,12 +54,12 @@ $folder_array=array();
 function main() {
     echo "\n<div id=\"channel_managmenet\" class=\"frame\">";
 
-    if (array_key_exists('domain',$_REQUEST)) {
-	switch($_REQUEST['domain']) {
-	 case 'folder':
+    if (array_key_exists(DOMAIN,$_REQUEST)) {
+	switch($_REQUEST[DOMAIN]) {
+	 case DOMAIN_FOLDER:
 	    folder_admin();
 	    break;
-	 case 'channel':
+	 case DOMAIN_CHANNEL:
 	    channel_admin();
 	    break;
 	 default:
@@ -70,27 +74,22 @@ function main() {
 /*************** Channel management ************/
 
 function channels() {
-    echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
+    echo "\n\n<h2>". ADMIN_CHANNELS ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-    echo "<p><input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n";
+    echo "<p><input type=\"hidden\" name=\"". DOMAIN."\" value=\"".DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
     echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
-    echo "</form>";
+    echo "</form>\n\n";
 
-    //echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\"><p>\n";
-    //echo "<input type=\"hidden\" name=\"domain\" value=\"channel\"/></p>\n";
+
     echo "<table id=\"channeltable\">\n"
       ."<tr>\n"
-      //."<th>"
-      //."<input type=\"checkbox\" onclick=\"alert('fixme');\"/>"
-      //."&nbsp;"
-      //."</th>\n"
-      ."<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>"
-      ."<th>". ADMIN_CHANNELS_HEADING_FOLDER ."</th>"
-      ."<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>"
-      ."<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>"
-      ."</tr>";
+      ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
+      ."\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+      ."</tr>\n";
 
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent "
@@ -108,26 +107,21 @@ function channels() {
 	}
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 	echo "<tr class=\"$class_\">\n"
-	  //."<td><input type=\"checkbox\" name=\"cid\" value=\"$id\"/></td>\n"
-	  ."<td><a href=\"$outUrl\">$title</a></td>\n"
-	  ."<td>$parent</td>\n"
-	  ."<td>$descr</td>\n"
-	  ."<td><a href=\"".$_SERVER['PHP_SELF']. "?domain=channel&amp;action=edit&amp;cid=$id\">" . ADMIN_EDIT ."</a>"
-	  ."|<a href=\"".$_SERVER['PHP_SELF']. "?domain=channel&amp;action=delete&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
-	  ."</tr>";
+	  ."\t<td><a href=\"$outUrl\">$title</a></td>\n"
+	  ."\t<td>$parent</td>\n"
+	  ."\t<td>$descr</td>\n"
+	  ."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".DOMAIN."=". DOMAIN_CHANNEL."&amp;action=edit&amp;cid=$id\">" . ADMIN_EDIT ."</a>\n"
+	  ."\t|<a href=\"".$_SERVER['PHP_SELF']. "?".DOMAIN."=". DOMAIN_CHANNEL."&amp;action=delete&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
+	  ."</tr>\n";
     }
 
     echo "</table>\n";
 
-    //echo "<p><input type=\"submit\" name=\"action\" value=\"edit\"/>";
-    //echo "<input type=\"submit\" name=\"action\" value=\"delete\"/></p>";
-
-    //echo "</form>\n";
 
     //opml import
-    echo "<h2>". ADMIN_OPML ."</h2>\n";
+    echo "\n\n<h2>". ADMIN_OPML ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-    echo "<p><input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n";
+    echo "<p><input type=\"hidden\" name=\"". DOMAIN ."\" value=\"".DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT ."</label>\n";
     echo "<input type=\"text\"  name=\"opml\" id=\"opml\" value=\"http://\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_IMPORT ."\"/></p>\n";
@@ -180,7 +174,7 @@ function channel_admin() {
 	      ."<p><input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_NO ."\"/>\n"
 	      ."<input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_YES ."\"/>\n"
 	      ."<input type=\"hidden\" name=\"cid\" value=\"$id\"/>\n"
-	      ."<input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n"
+	      ."<input type=\"hidden\" name=\"".DOMAIN."\" value=\"".DOMAIN_CHANNEL."\"/>\n"
 	      ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE ."\"/>\n"
 	      ."</p>\n</form>\n";
 	}
@@ -235,9 +229,9 @@ function channel_edit_form($cid) {
     list ($id, $title, $url, $siteurl, $parent, $descr) = mysql_fetch_row($res);
 
     echo "<div>\n";
-    echo "<h2>Edit '$title'</h2>\n";
+    echo "\n\n<h2>Edit '$title'</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"channeledit\">\n"
-      ."<p><input type=\"hidden\" name=\"domain\" value=\"channel\"/>\n"
+      ."<p><input type=\"hidden\" name=\"".DOMAIN."\" value=\"". DOMAIN_CHANNEL."\"/>\n"
       ."<input type=\"hidden\" name=\"action\" value=\"submit_channel_edit\"/>\n"
       ."<input type=\"hidden\" name=\"cid\" value=\"$cid\"/>\n"
       ."<label for=\"c_name\">". ADMIN_CHANNEL_NAME ."</label>\n"
@@ -277,22 +271,30 @@ function channel_edit_form($cid) {
 function folders() {
     echo "<h2>".ADMIN_FOLDERS."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-    echo "<p><input type=\"hidden\" name=\"domain\" value=\"folder\"/>\n";
+    echo "<p><input type=\"hidden\" name=\"".DOMAIN."\" value=\"".DOMAIN_FOLDER."\"/>\n";
 
-    echo "<select name=\"folder\">\n";
-    $res = rss_query("select id, name from folders");
-
-    while (list($id, $name) = mysql_fetch_row($res)) {
-	echo "\t<option value=\"$id\">$name</option>\n";
-    }
-    echo "</select>\n";
-
+    folder_combo('folder_rename');
     echo "<input type=\"submit\" name=\"action\" value=\"".ADMIN_RENAME."\"/>\n";
+    echo "<input type=\"text\"  name=\"folder_rename_to\" value=\"\" /></p>";   
+    
+    echo "<p>";
+    folder_combo('folder_delete');                  
     echo "<input type=\"submit\" name=\"action\" value=\"".ADMIN_DELETE2."\"/>\n";
+    echo "</p>\n";
 
-    echo "<input type=\"text\"  name=\"new_folder\" value=\"\" />";
+    
+    echo "<p><input type=\"text\"  name=\"new_folder\" value=\"\" />";
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_CREATE ."\"/>\n";
     echo "</p></form>";
+}
+
+function folder_combo($name) {
+    echo "\n<select name=\"$name\">\n";
+    $res = rss_query("select id, name from folders");
+    while (list($id, $name) = mysql_fetch_row($res)) {
+	echo "\t<option value=\"$id\">$name</option>\n";
+    } 
+    echo "</select>\n";   
 }
 
 function folder_admin() {
@@ -304,8 +306,8 @@ function folder_admin() {
 
     switch ($_REQUEST['action']) {
 
-     case 'delete':
-	$id = $_REQUEST['folder'];
+     case ADMIN_DELETE2:
+	$id = $_REQUEST['folder_delete'];
 	assert(is_numeric($id) && $id>=0);
 
 	if ($id == 0) {
@@ -318,16 +320,21 @@ function folder_admin() {
 	}
 
 	break;
-     case 'rename':
+     case ADMIN_RENAME:
+	$id = $_REQUEST['folder_rename'];
+	$new_label = mysql_real_escape_string($_REQUEST['folder_rename_to']);
+	if (is_numeric($id) && strlen($new_label) > 0) {
+	    rss_query("update folders set name='$new_label' where id=$id");
+	}
 	break;
-     case 'create':
+	
+     case ADMIN_CREATE:
 	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
-
 	$sql = "insert into folders (name) values ('" . mysql_real_escape_string($label) ."')";
 	rss_query($sql);
-
 	break;
+	
      default: break;
     }
 }
