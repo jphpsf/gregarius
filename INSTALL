@@ -25,14 +25,15 @@ QUICK START
 	
   3. Create a configuration file, based on the sample:
   
-     3.1 Copy the sample config file:
+     3.1 Copy the sample database config file:
      
-     	 cp config.php.sample config.php
+     	 cp dbinit.php.sample dbinit.php
+     
+     3.2 Edit the dbinit.php file to match your database 
+     cofiguration
 	
-     3.2 Edit the config file to suit your needs: make sure
-     to specify valid mysql connection information and point
-     MAGPIE_CACHE_DIR to a directory which the webserver has
-     write-access on. 
+     3.3 Edit the config file to suit your needs.
+
      
   4. Import the database structure:
   
@@ -46,10 +47,4 @@ QUICK START
   by pasting URLs of RSS or RDF items into the "Add a channel" text 
   field or you can import a whole structure of items using the OPML
   import feature.
-  
-
-  
-     	 
-  
-   
-		  
+ 
