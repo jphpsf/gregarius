@@ -167,7 +167,7 @@ function opml() {
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT ."</label>\n";
-    echo "<input type=\"text\"  name=\"opml\" id=\"opml\" value=\"http://\" />\n";
+    echo "<input type=\"text\"  name=\"opml\" id=\"opml\" value=\"http://\" onfocus=\"this.select()\"/>\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_IMPORT ."\"/></p>\n";
 
     echo "</form>\n";
