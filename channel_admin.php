@@ -561,7 +561,7 @@ function folder_admin() {
 	$new_label = mysql_real_escape_string($_REQUEST['f_name']);
 	if (is_numeric($id) && strlen($new_label) > 0) {
 	    
-	    $res = rss_query("select count(*) as cnt from folders where name='$new_label'");
+	    $res = rss_query("select count(*) as cnt from folders where binary name='$new_label'");
 	    list($cnt) = mysql_fetch_row($res);
 	    if ($cnt > 0) {
 		rss_error("You can't rename this folder '$new_label' becuase such a folder already exists.");
