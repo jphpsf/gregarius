@@ -63,12 +63,6 @@ CREATE TABLE `item` (
 
 
 
-# Tables dumped 2005-02-10 20:19:39 +0100
-# Created by CocoaMySQL (Copyright (c) 2002-2003 Lorenz Textor)
-#
-# Host: localhost   Database: rss
-# ******************************
-
 # Dump of table config
 # ------------------------------
 
@@ -82,7 +76,7 @@ CREATE TABLE `config` (
   `desc_` text,
   `export_` tinyint(4) default '0',
   PRIMARY KEY  (`key_`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) TYPE=MyISAM;
 
 -- default config
 INSERT INTO `config` (`key_`,`value_`,`default_`,`type_`,`desc_`,`export_`) VALUES ("MAGPIE_CACHE_DIR","/tmp/magpierss","/tmp/magpierss","string","Where should magpie store its temporary files? (Apache needs write permissions on this dir.)","1");
