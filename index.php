@@ -54,8 +54,7 @@ function items($title) {
 
     $res0=rss_query($sql);
     if (mysql_num_rows($res0) > 0) {
-	echo "\n\n<h2>Unread items (". mysql_num_rows($res0).")</h2>\n";
-	//echo "<ul>\n";
+	echo "\n\n<h2>". sprintf(H2_UNREAD_ITEMS ,mysql_num_rows($res0)) ."</h2>\n";
 	$ctnr=0;
 	$prev_cid=0;
 	while (list($iid_,$title_,$label_, $cid_, $unread_, $url_, $descr_,  $icon_) = mysql_fetch_row($res0)) {
@@ -101,7 +100,7 @@ function items($title) {
 	echo "</ul>\n";
     }
     
-    echo "\n\n<h2>Recent items</h2>\n";
+    echo "\n\n<h2>" .  H2_RECENT_ITEMS . "</h2>\n";
     
     $sql = "select "
       ." id, title, parent, icon "

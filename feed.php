@@ -113,14 +113,17 @@ function items($cid,$title) {
     /** read more navigation **/
     echo "<span class=\"readmore\">";    
     if ($unread_left > 0 && !isset($_GET['unread'])) {
-	if (ITEMS_ON_CHANNELVIEW < $unread_left)
-	  echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">See all $unread_left unread items</a>";
-	else 
-	  echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">Display only unread items ($unread_left)</a>";
+        if (ITEMS_ON_CHANNELVIEW < $unread_left) {
+            echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
+        } else { 
+	          echo "<a href=\"feed.php?id=$cid&amp;all&amp;unread\">". sprintf(SEE_ONLY_UNREAD,$unread_left) ."</a>";
+        }
     }
+    
     if (!isset($_GET['all']) || isset($_GET['unread'])) {
-	echo "<a href=\"feed.php?id=$cid&amp;all\">See all $allread items for this channel</a>";
-    }	    
+        echo "<a href=\"feed.php?id=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
+    }
+      
     echo "</span>\n";    
     
     
@@ -134,7 +137,7 @@ function markReadForm($cid) {
 
     if($cnt > 0) 
       echo "<form action=\"feed.php\" method=\"post\" class=\"markread\">\n"
-      ."\t<p><input type=\"submit\" name=\"action\" value=\"mark this channel as read\"/>\n"
+      ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
       ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
       ."</form>";
 }

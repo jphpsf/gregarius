@@ -31,6 +31,7 @@ require_once('db.php');
 require_once('magpierss-0.5.2/rss_fetch.inc');
 require_once('kses-0.2.1/kses.php');
 require_once('util.php');
+require_once('labels.php');
 require_once("channels.php");
 
 ?>
