@@ -33,10 +33,9 @@
  * Returns the number of added tables;
  */ 
 function checkSchema() {
-	$rs = rss_query( "show tables" );
+	
 	$missing_tables = array();
 	$actual_tables=array();
-	
 	$expected_tables = array (
 		"channels" => trim(getTable("channels")),
 		"config" => trim(getTable("config")),
@@ -46,6 +45,7 @@ function checkSchema() {
 		"tag" => trim(getTable("tag"))
 	);
 	
+	$rs = rss_query( "show tables" );
 	while(list($tbl) = rss_fetch_row($rs)) {
 		$actual_tables[]=$tbl;
 	}
