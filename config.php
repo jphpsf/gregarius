@@ -28,35 +28,35 @@
 
 
 // db
-define ('DBNAME','database_name');
-define ('DBUNAME','datanase_username');
-define ('DBPASS', 'database_password');
-define ('DBSERVER', 'database_host');
-
-
+require_once('dbinit.php');
+  
 // magpie
 define('MAGPIE_CACHE_DIR', '/tmp/magpierss');
-
 
 // options
 define ('ITEMS_ON_CHANNELVIEW', 10);
 define ('_TITLE_', "Gregarius");
-define ('_VERSION_', "0.1.2");
+define ('_VERSION_', "0.1.5");
 define ('_USE_FAVICONS_', true);
-define ('_USE_MODREWRITE_', false);
-define ('_DEBUG_',false);
-define ('MAGPIE_USER_AGENT', "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)");
+define ('_USE_MODREWRITE_', true);
+define ('MAGPIE_USER_AGENT', "" . _TITLE_ . "/" . _VERSION_ . " (http://sourceforge.net/projects/gregarius)");                                  
 define ('MINUTE',60);
 define ('RELOAD_AFTER', 30*MINUTE);
 define ('DATE_FORMAT', "F jS, Y, g:i a");
 define ('DEMO_MODE', false);
+define ('_DEBUG_', false);
 
+/* 
+ define ('_ADMIN_USERNAME_','test');
+ define ('_ADMIN_PASSWORD_','123');
+*/
+
+define ('LANG', 'en');
 
 // feedback
 assert_options(ASSERT_ACTIVE, 1);
 assert_options(ASSERT_WARNING, 1);
 assert_options(ASSERT_QUIET_EVAL, 0);
-
 
 
 // Create a handler function
@@ -80,6 +80,4 @@ $kses_allowed =
 	'blockquote' => array(),
 	'ul' => array(),	
 	'li' => array());
-
-
 ?>

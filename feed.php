@@ -44,7 +44,7 @@ if (_USE_MODREWRITE_ && array_key_exists('channel',$_REQUEST)) {
 }
 
 
-if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {
+if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
     
     $sql = "update item set unread=0 where cid=$cid";
     rss_query($sql);
@@ -92,14 +92,14 @@ function items($cid,$title) {
       ." from item i, channels c "
       ." where i.cid = $cid and c.id = $cid ";
 
-    if  (isset($_GET['unread'])) {
-      $sql .= " and unread=1 ";
+    if  (isset($_REQUEST['unread'])) {
+	$sql .= " and unread=1 ";
     }
     
     $sql .=" order by i.added desc, i.id asc";
     //$sql .= " order by i.id asc";
       
-    if (!isset($_GET['all']) && !isset($_GET['unread'])) {
+    if (!array_key_exists('all', $_REQUEST) && !array_key_exists('unread', $_REQUEST)) {
       $sql .= " limit ". ITEMS_ON_CHANNELVIEW;
     }
     
@@ -131,7 +131,7 @@ function items($cid,$title) {
     
     /** read more navigation **/
     $readMoreNav = "";
-    if ($unread_left > 0 && !isset($_GET['unread']) && $shown < $unread_left) {
+    if ($unread_left > 0 && !isset($_REQUEST['unread']) && $shown < $unread_left) {
         if (ITEMS_ON_CHANNELVIEW < $unread_left) {
             $readMoreNav .= "<a href=\"". getPath() . "feed.php?cid=$cid&amp;all&amp;unread\">" . sprintf(SEE_ALL_UNREAD,$unread_left) . "</a>";
         } else { 
@@ -139,7 +139,7 @@ function items($cid,$title) {
         }
     }
     
-    if ((!isset($_GET['all']) || isset($_GET['unread'])) && $shown < $allread) {
+    if ((!isset($_REQUEST['all']) || isset($_REQUEST['unread'])) && $shown < $allread) {
         $readMoreNav .= "<a href=\"". getPath() ."feed.php?cid=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
     }
       
@@ -156,10 +156,12 @@ function markReadForm($cid) {
     $res=rss_query($sql);
     list($cnt) = mysql_fetch_row($res);
     if($cnt > 0) {
-      echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
-      ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
-      ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
-      ."</form>";
+	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
+	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
+	  ."\t<input type=\"hidden\" name=\"all\"/>\n"
+	  ."\t<input type=\"hidden\" name=\"unread\">\n"
+	  ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
+	  ."</form>";
     }
 }
 

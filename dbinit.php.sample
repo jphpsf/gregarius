@@ -1,0 +1,6 @@
+<?
+define ('DBNAME','database_name');
+define ('DBUNAME','database_username');
+define ('DBPASS', 'database_password');
+define ('DBSERVER', 'database_host');
+?>

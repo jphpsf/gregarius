@@ -28,9 +28,11 @@
 require_once('init.php');
 require_once('opml.php');
 
-define ('DOMAIN','domain');
-define ('DOMAIN_FOLDER','folder');
-define ('DOMAIN_CHANNEL','channel');
+define ('ADMIN_DOMAIN','domain');
+define ('ADMIN_DOMAIN_FOLDER','folder');
+define ('ADMIN_DOMAIN_CHANNEL','channel');
+define ('ADMIN_DELETE_ACTION','delete');
+define ('ADMIN_EDIT_ACTION','edit');
 
 /*
 if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
@@ -54,12 +56,12 @@ $folder_array=array();
 function main() {
     echo "\n<div id=\"channel_managmenet\" class=\"frame\">";
 
-    if (array_key_exists(DOMAIN,$_REQUEST)) {
-	switch($_REQUEST[DOMAIN]) {
-	 case DOMAIN_FOLDER:
+    if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
+	switch($_REQUEST[ADMIN_DOMAIN]) {
+	 case ADMIN_DOMAIN_FOLDER:
 	    folder_admin();
 	    break;
-	 case DOMAIN_CHANNEL:
+	 case ADMIN_DOMAIN_CHANNEL:
 	    channel_admin();
 	    break;
 	 default:
@@ -76,7 +78,7 @@ function main() {
 function channels() {
     echo "\n\n<h2>". ADMIN_CHANNELS ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-    echo "<p><input type=\"hidden\" name=\"". DOMAIN."\" value=\"".DOMAIN_CHANNEL."\"/>\n";
+    echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
     echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
@@ -110,8 +112,7 @@ function channels() {
 	  ."\t<td><a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td>$parent</td>\n"
 	  ."\t<td>$descr</td>\n"
-	  ."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".DOMAIN."=". DOMAIN_CHANNEL."&amp;action=edit&amp;cid=$id\">" . ADMIN_EDIT ."</a>\n"
-	  ."\t|<a href=\"".$_SERVER['PHP_SELF']. "?".DOMAIN."=". DOMAIN_CHANNEL."&amp;action=delete&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
+	  ."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL."&amp;action=". ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
 	  ."</tr>\n";
     }
 
@@ -121,7 +122,7 @@ function channels() {
     //opml import
     echo "\n\n<h2>". ADMIN_OPML ."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-    echo "<p><input type=\"hidden\" name=\"". DOMAIN ."\" value=\"".DOMAIN_CHANNEL."\"/>\n";
+    echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
     echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT ."</label>\n";
     echo "<input type=\"text\"  name=\"opml\" id=\"opml\" value=\"http://\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_IMPORT ."\"/></p>\n";
@@ -132,23 +133,23 @@ function channels() {
 }
 
 function channel_admin() {
-
+    
     if (defined('DEMO_MODE') && DEMO_MODE == true) {
 	rss_error ("I'm sorry, " . _TITLE_ . " is currently in demo mode. Actual actions are not performed.");	
 	return;
     }
-
-    switch ($_REQUEST['action']) {
-
+    
+    switch ($_REQUEST['action']) {	
      case ADMIN_ADD:
 	$label = $_REQUEST['new_channel'];
-	add_channel($label);
-
+	add_channel($label);	
 	break;
-     case ADMIN_EDIT:
+	
+     case ADMIN_EDIT_ACTION:
 	$id = $_REQUEST['cid'];
 	channel_edit_form($id);
 	break;
+	
      case ADMIN_CREATE:
 	$label=$_REQUEST['new_folder'];
 	assert(strlen($label) > 0);
@@ -157,7 +158,7 @@ function channel_admin() {
 	rss_query($sql);
 	break;
 
-     case ADMIN_DELETE:
+     case ADMIN_DELETE_ACTION:
 	$id = $_REQUEST['cid'];
 	if (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_YES) {
 	    $sql = "delete from item where cid=$id";
@@ -174,7 +175,7 @@ function channel_admin() {
 	      ."<p><input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_NO ."\"/>\n"
 	      ."<input type=\"submit\" name=\"confirmed\" value=\"". ADMIN_YES ."\"/>\n"
 	      ."<input type=\"hidden\" name=\"cid\" value=\"$id\"/>\n"
-	      ."<input type=\"hidden\" name=\"".DOMAIN."\" value=\"".DOMAIN_CHANNEL."\"/>\n"
+	      ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
 	      ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE ."\"/>\n"
 	      ."</p>\n</form>\n";
 	}
@@ -214,13 +215,11 @@ function channel_admin() {
 	$sql = "update channels set title='$title', url='$url', siteurl='$siteurl', "
 	  ." parent=$parent, descr='$descr' where id=$cid";
 
-	//die($sql);
 	rss_query($sql);
 	break;
 
      default: break;
-    }
-
+    }    
 }
 
 function channel_edit_form($cid) {
@@ -231,7 +230,7 @@ function channel_edit_form($cid) {
     echo "<div>\n";
     echo "\n\n<h2>Edit '$title'</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"channeledit\">\n"
-      ."<p><input type=\"hidden\" name=\"".DOMAIN."\" value=\"". DOMAIN_CHANNEL."\"/>\n"
+      ."<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"". ADMIN_DOMAIN_CHANNEL."\"/>\n"
       ."<input type=\"hidden\" name=\"action\" value=\"submit_channel_edit\"/>\n"
       ."<input type=\"hidden\" name=\"cid\" value=\"$cid\"/>\n"
       ."<label for=\"c_name\">". ADMIN_CHANNEL_NAME ."</label>\n"
@@ -271,7 +270,7 @@ function channel_edit_form($cid) {
 function folders() {
     echo "<h2>".ADMIN_FOLDERS."</h2>\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-    echo "<p><input type=\"hidden\" name=\"".DOMAIN."\" value=\"".DOMAIN_FOLDER."\"/>\n";
+    echo "<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n";
 
     folder_combo('folder_rename');
     echo "<input type=\"submit\" name=\"action\" value=\"".ADMIN_RENAME."\"/>\n";
@@ -351,7 +350,6 @@ function real_strip_slashes($string) {
     if (stripslashes($string) == $string) {
 	return $string;
     }
-
     return real_strip_slashes(stripslashes($string));
 }
 ?>
