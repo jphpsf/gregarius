@@ -57,7 +57,8 @@ function rss_select_db($dbname) {
 }
 
 function rss_query ($query) {
-    $ret =  mysql_query($query) or die ("failed to execute \"$query\": " .mysql_error());
+    $ret =  mysql_query($query) 
+      or die ("<p>Failed to execute the SQL query<pre>$query</pre> <p>" .mysql_error() ."</p>");
     return $ret;
 }
 
