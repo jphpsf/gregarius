@@ -47,9 +47,9 @@ function rss_require($file) {
 rss_require('constants.php');
 rss_require('config.php');
 rss_require('db.php');
-rss_require('magpierss-0.61/rss_fetch.inc');
-rss_require('magpierss-0.61/rss_utils.inc');
-rss_require('kses-0.2.1/kses.php');
+rss_require('extlib/rss_fetch.inc');
+rss_require('extlib/rss_utils.inc');
+rss_require('extlib/kses.php');
 rss_require('util.php');
 
 if (defined('LANG') && file_exists('intl/' . LANG . '.php')) {

@@ -1,4 +1,4 @@
-kses 0.2.1 README  [kses strips evil scripts!]
+kses 0.2.2 README  [kses strips evil scripts!]
 =================
 
 
@@ -64,7 +64,8 @@ It also normalizes HTML entities as a nice side effect.
 
 * It handles NULL bytes and Opera's chr(173) whitespace characters.
 
-* There is both a procedural version and an object-oriented version of kses.
+* There is a procedural version and two object-oriented versions (for PHP 4
+  and PHP 5) of kses.
 
 
 * USE IT *
@@ -116,19 +117,16 @@ a simple addslashes() call.
 
 You should take a look at the documentation in the docs/ directory and the
 examples in the examples/ directory, to get more information on how to use
-kses. The object-oriented version of kses is also worth checking out, and it's
-included in the oop/ directory.
+kses. The object-oriented versions of kses are also worth checking out, and
+they're included in the oop/ directory.
 
 
-* UPGRADING FROM 0.1.0 OR 0.2.0 TO 0.2.1 *
+* UPGRADING TO 0.2.2 *
 
 
-kses 0.2.1 is backwards compatible with 0.1.0 and 0.2.0, so upgrading should
-just be a matter of using a new version of kses.php instead of an old one!
-
-When you're ready to start using 0.2.1's new features, you can read about them
-in the files in the docs/ directory. The ChangeLog also summarizes the new
-features in this release.
+kses 0.2.2 is backwards compatible with all previous releases, so upgrading
+should just be a matter of using a new version of kses.php instead of an old
+one.
 
 
 * NEW VERSIONS, MAILING LISTS AND BUG REPORTS *
@@ -158,15 +156,20 @@ idea, securitywise.)
 Here are the other stand-alone, open source HTML filters that we currently know
 of:
 
-* XSS filter for PHP4 - the filter from Squirrelmail
+* Htmlfilter for PHP - the filter from Squirrelmail
   PHP
   Konstantin Riabitsev
-  http://www.mricon.com/html/phpfilter.html
+  http://linux.duke.edu/projects/mini/htmlfilter/
 
 * HTML::StripScripts and related CPAN modules
   Perl
   Nick Cleaton
   http://search.cpan.org/perldoc?HTML%3A%3AStripScripts
+
+* SafeHtmlChecker [is this really open source?]
+  PHP
+  Simon Willison
+  http://simon.incutio.com/archive/2003/02/23/safeHtmlChecker
 
 There are also a lot of HTML filters that were written specifically for some
 program. Some of them are better than others.
@@ -178,7 +181,7 @@ stand-alone, open-source filters.
 * DEDICATION *
 
 
-kses 0.2.1 is dedicated to Mischa the cat.
+kses 0.2.2 is dedicated to Audrey Tautou and Jean-Pierre Jeunet.
 
 
 * MISC *
@@ -200,4 +203,4 @@ recursive acronym (every open-source project should have one!) for "kses
 strips evil scripts".
 
 
-// Ulf and the kses gang, September 2003
+// Ulf and the kses development group, February 2005
