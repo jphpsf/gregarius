@@ -41,6 +41,7 @@ define ('ADMIN_DOMAIN_FOLDER','folder');
 define ('ADMIN_DOMAIN_CHANNEL','channel');
 define ('ADMIN_DOMAIN_CONFIG','config');
 define ('ADMIN_DELETE_ACTION','delete');
+define ('ADMIN_DEFAULT_ACTION','default');
 define ('ADMIN_EDIT_ACTION','edit');
 define ('ADMIN_MOVE_UP_ACTION','up');
 define ('ADMIN_MOVE_DOWN_ACTION','down');
@@ -758,37 +759,54 @@ function config() {
 	  ."\t<td>".$row['key_']."</td>\n";
 	
 	echo "\t<td>";
-	switch($row['type_']) {
-	 case 'string':
-	 case 'num':
-	 case 'boolean':
-	    echo $row['value_'];
+
+	switch($row['key_']) {
+	    
+	    //specific handling per key
+	 case 'DATE_FORMAT':
+	    echo $row['value_'] 
+	      . " (Sample:&nbsp;"
+	      . preg_replace('/ /','&nbsp;',date($row['value_']))
+		.")";
 	    break;
-	 case 'enum':
-	    $arr = explode(',',$row['value_']);
-	    $idx = array_pop($arr);
-	    foreach ($arr as $i => $val) {
-		if ($i == $idx) 
-		    echo "<em>";
-		echo "&nbsp;$val";
-		 if ($i == $idx)
-		  echo "</em>";   
-	    }
-	    break;
-	 case 'array':
-	    //ugly!
-	    if ($row['key_'] == 'KSES_ALLOWED_TAGS') {
-		$arr = unserialize($row['value_']);
-		foreach ($arr as $tag => $attr) {
-		    echo "&lt;$tag";
-		    foreach ($attr as $nm => $val) {
-			echo "&nbsp;$nm=\"...\"&nbsp;";
-		    }
-		    echo "&gt;\n";
+	 case 'KSES_ALLOWED_TAGS':
+	    
+	    $arr = unserialize($row['value_']);
+	    foreach ($arr as $tag => $attr) {
+		echo "&lt;$tag";
+		foreach ($attr as $nm => $val) {
+		    echo "&nbsp;$nm=\"...\"&nbsp;";
 		}
+		echo "&gt;\n";
 	    }
-	    break;	    
+	    
+	    break;
+	 default:
+	    
+	    // generic handling per type:
+	    switch ($row['type_']) {				
+	     case 'string':		
+	     case 'num':
+	     case 'boolean':
+	     default:
+		echo $row['value_'];
+		break;
+	     case 'enum':
+		$arr = explode(',',$row['value_']);
+		$idx = array_pop($arr);
+		foreach ($arr as $i => $val) {
+		    if ($i == $idx) 
+		      echo "<em>";
+		    echo "&nbsp;$val";
+		    if ($i == $idx)
+		      echo "</em>";   
+		}
+		break;
+
+	    }
+	    break;
 	}
+
 	
 	echo "</td>\n";
 	
@@ -799,11 +817,18 @@ function config() {
 		       $row['desc_']) 
 	    . "</td>\n";
 	
-	echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
+	echo "\t<td class=\"cntr\">"
+	  ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
 	  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_EDIT
-	  ."</a>";
-	
-	echo "</td>\n"
+	  ."</a>"
+	  
+	  ."|"
+	  
+	  ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
+	  ."&amp;action=". ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_DEFAULT
+	  ."</a>"
+	  
+	  ."</td>\n"
 	  ."</tr>\n";
 
     }

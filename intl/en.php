@@ -90,6 +90,7 @@ define ('ADMIN_RENAME', 'Rename to...');
 define ('ADMIN_CREATE', 'Create');
 define ('ADMIN_IMPORT','Import');
 define ('ADMIN_EXPORT','Export');
+define ('ADMIN_DEFAULT','default');
 define ('ADMIN_ADD','Add');
 define ('ADMIN_YES', 'Yes');
 define ('ADMIN_NO', 'No');
