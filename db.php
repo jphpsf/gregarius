@@ -56,10 +56,12 @@ function rss_select_db($dbname) {
     }
 }
 
-function rss_query ($query) {
-    $ret =  mysql_query($query) 
-      or die ("<p>Failed to execute the SQL query<pre>$query</pre> <p>" .mysql_error() ."</p>");
-    return $ret;
+function rss_query ($query, $dieOnError=true) {
+    $ret =  mysql_query($query);
+    if (!$ret && $dieOnError) {
+      	die ("<p>Failed to execute the SQL query<pre>$query</pre> <p>" .mysql_error() ."</p>");
+	} 
+	return $ret;
 }
 
 function rss_fetch_row($rs) {
@@ -71,6 +73,10 @@ function rss_fetch_assoc($rs) {
 }
 function rss_num_rows($rs) {
     return mysql_num_rows($rs);
+}
+
+function rss_sql_error() {
+	return mysql_errno();
 }
 
 function rss_insert_id() {
