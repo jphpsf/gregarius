@@ -355,11 +355,11 @@ ul#navlist li {
 
 
 ul#navlist li {
- height: 23px;
- margin: 2px 2px 0 2px;
+ height: 1.3em;
+ margin: 2px 2px 0 5px;
  border: 1px solid #ddd;
  background-color: #f4f4f4;
- padding: 0.05em 0.1em;
+ padding: 0.05em 0.2em;
  -moz-border-radius: 5px;
 }
 
@@ -390,6 +390,7 @@ input[type="text"]:focus{
  font-weight: bold;
  color: #667;
  letter-spacing: 0.1em;
+ vertical-align:middle;
 }
  
 #navlist li.active a,#navlist li a:hover { color: #336; } 
