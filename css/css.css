@@ -216,7 +216,7 @@ div#items img.favicon { display: inline; }
  font-size: small;
  line-height: 1.4em;
  text-align:justify;
- padding-top: 1em;
+/* padding-top: 1em; */
 /* clear:both; */
 }
 

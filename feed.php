@@ -138,7 +138,7 @@ function items($cid,$title) {
         }
     }
     
-    if ((!isset($_GET['all']) || isset($_GET['unread']) && unread_left > 1) && $shown < $unread_left) {
+    if ((!isset($_GET['all']) || isset($_GET['unread']) && allread > 1) && $shown < $allread) {
         $readMoreNav .= "<a href=\"". getPath() ."feed.php?cid=$cid&amp;all\">". sprintf(SEE_ALL,$allread)."</a>";
     }
       

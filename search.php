@@ -31,7 +31,7 @@ define ('QUERY_PRM',"query");
 
 require_once("init.php");
 rss_header("Search",3);
-sideChannels(true);
+sideChannels(false);
 
 if (array_key_exists(QUERY_PRM,$_POST)) {
     search($_POST[QUERY_PRM]);
@@ -66,22 +66,29 @@ function search($qry) {
     ."   (i.description like '%$qry%' or i.title like '%$qry%') "
     ." order by c.title asc, i.added desc";
 
+    $pQuery = "/($qry)/i";
     $res0=rss_query($sql);
     $cnt = mysql_num_rows($res0);
     if ($cnt > 0) {
 	$items=array();
         while (list($ititle,$ctitle, $cid, $iunread, $iurl, $idescr,  $cicon, $its) = mysql_fetch_row($res0)) {
             
-	    $items[]=array($cid,$ctitle,$cicon,
-			   preg_replace("/($qry)/i","<strong>\$1</strong>",$ititle),
-			   $iunread,
-			   $iurl,			   
-			   preg_replace("/($qry)/i","<strong>\$1</strong>",$idescr),
-			   $its
-			   );
+	    $descr_noTags = preg_replace("/<.+?>/","",$idescr);
+
+	    // This is quite ugly. oOnder if there is a better way to search in plaain text only.
+	    if (count(preg_split($pQuery,$descr_noTags)) == count( preg_split($pQuery,$idescr))) {
+	    
+		$items[]=array($cid,$ctitle,$cicon,
+			       preg_replace("/($qry)/i","<strong>\$1</strong>",$ititle),
+			       $iunread,
+			       $iurl,			   
+			       preg_replace("/($qry)/i","<strong>\$1</strong>",$idescr),
+			       $its
+			       );
+	    }
             
         }
-	
+	$cnt = count($items);
 	itemsList(
 		  sprintf(H2_SEARCH_RESULTS_FOR, $cnt, "'" .$qry."'"),
 		  $items

@@ -28,7 +28,18 @@
 require_once('init.php');
 require_once('opml.php');
 
+/*
+if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
+    if ($_SERVER['PHP_AUTH_USER'] != _ADMIN_USERNAME_ || $_SERVER['PHP_AUTH_PW'] != _ADMIN_PASSWORD_ ) {
+	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
+	header('HTTP/1.0 401 Unauthorized');
+
+	exit();
+    }
+}
+*/
 rss_header("Channel Admin",4);
+
 
 main();
 rss_footer();
