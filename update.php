@@ -41,8 +41,6 @@ $doPush =
   // browser supports it (Geckos and Opera)
   && $browser->supportsServerPush();
 
-$doSleep = false;
-
 if ($doPush) {
     define('PUSH_BOUNDARY',"-------- =_aaaaaaaaaa0");
     header("Connection: close");
@@ -61,8 +59,8 @@ if ($doPush) {
       
       ."<table id=\"updatetable\">\n"
       ."<tr>\n"
-      ."<th>".UPDATE_CHANNEL."</th>\n"
-      ."<th>".UPDATE_STATUS."</th>\n"
+      ."<th class=\"lc\">".UPDATE_CHANNEL."</th>\n"
+      ."<th class=\"rc\">".UPDATE_STATUS."</th>\n"
       ."</tr>";
     
     $sql = "select id, url, title from channels";    
@@ -74,8 +72,8 @@ if ($doPush) {
     $res = rss_query($sql);
     while (list($cid, $url, $title) = mysql_fetch_row($res)) {
 	echo "<tr>\n";
-	echo "<td>$title</td>\n"; flush();
-	echo "<td>";
+	echo "<td class=\"lc\">$title</td>\n"; flush();
+	echo "<td class=\"rc\">";
 	$ret = update($cid);
 	
 	if ($ret & MAGPIE_FEED_ORIGIN_CACHE) {
@@ -83,18 +81,20 @@ if ($doPush) {
 		echo UPDATE_NOT_MODIFIED;
 	    } elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
 		echo UPDATE_CACHE_TIMEOUT;
-		$doSleep = true;
 	    } elseif ($ret & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
 		echo UPDATE_STATUS_CACHED;
 	    } else {
 		echo $ret;
-		$doSleep = true;
 	    }	    	    
 	} elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_200) {
 	    echo UPDATE_STATUS_OK;
 	} else {
-	    echo UPDATE_STATUS_ERROR;
-	    $doSleep = true;
+	    if (is_numeric($ret)) {
+		echo UPDATE_STATUS_ERROR;
+	    } else {
+		// shoud contain MagpieError at this point
+		echo $ret;
+	    }	      
 	}
 	
 	echo "</td>\n";
@@ -109,11 +109,7 @@ if ($doPush) {
     flush();
     
     // Sleep two seconds
-    if ($doSleep) {
-	sleep(2);
-    } else {
-	sleep(1);
-    }
+    sleep(2);
 } else {
     
     update("");

@@ -486,3 +486,6 @@ div#channels, div#items, div#search, div#channel_admin, div#about, div#update {
 
 #about acronym {cursor: help;}
 #about p.cvs {font-family:Courier, monospace,Monospaced }
+
+table#updatetable .lc { width: 60% }
+table#updatetable .rc { width: 40% }
