@@ -32,8 +32,15 @@ require_once('init.php');
 
 define ('MAX_TAGS_PER_ITEM',5);
 
+
+// these affect the weigthed the font on the list at /tags/
+define ('SMALLEST',15);
+define ('LARGEST',45);
+define ('UNIT','px');
+
+
 function submit_tag($id,$tags) {
-	$ftags = preg_replace('/[^a-zA-Z0-9\ _]/','',strtolower(trim($tags)));
+	$ftags = preg_replace('/[^a-zA-Z0-9\ _\.]/','', trim($tags));
 	$tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
 	$ftags = implode(" ",updateTags($id,$tarr));
 	return "$id,". $ftags;
@@ -97,17 +104,26 @@ function submit_tag(id,tags) {
 	x_submit_tag(id, tags, submit_tag_cb);
 }
 
+
 function edit_tag(id) {
 	var toggle = document.getElementById("tt" + id);
 	if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
 		var fld = document.getElementById("tfield" + id);
-		if (fld.value!="") {
-			toggle.innerHTML="<?= TAG_SUBMITTING ?>";
-			submit_tag(id,fld.value);
-		}
+                toggle.innerHTML="<?= TAG_SUBMITTING ?>";
+		submit_tag(id,fld.value);
 	} else if (toggle.innerHTML == <? echo "\"" . TAG_EDIT . "\"" ?>) {
+                var elem=document.getElementById("t"+id);
+                
+                <? /*
+                newlink = document.createElement("a");
+                newlink.setAttribute("href","#");
+                newlink.setAttribute("onclick","cancel_edit(" 
+                     + id + ",'" + elem.innerHTML +"');");
+                newlink.innerHTML = "[cancel]";
+                toggle.parentNode.appendChild(newlink);
+		 */ ?>
 		toggle.innerHTML="<?= TAG_SUBMIT ?>";
-		var elem=document.getElementById("t"+id);
+		
 
 		//get rid of the hyperlinks
 		var tags = elem.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"");
@@ -125,7 +141,7 @@ function edit_tag(id) {
     exit();
 } elseif(array_key_exists('tag',$_GET)) {
     // while this one displays a list of items for the requested tag
-    $tag = rss_real_escape_string(strtolower($_GET['tag']));
+    $tag = rss_real_escape_string($_GET['tag']);
 
     //first, find all the items which have been tagged with the sought tag.
     $sql = "select distinct(i.id) from ".getTable('item')." i, "
@@ -196,12 +212,17 @@ function edit_tag(id) {
 		}    
    }
    
-   // done! Render some stuff
-   rss_header("Tags " . TITLE_SEP ." $tag");
-   sideChannels(false);
+    // done! Render some stuff
+    rss_header("Tags " . TITLE_SEP . " " .ucfirst("$tag"));
+    sideChannels(false);
     
-   echo "\n\n<div id=\"items\" class=\"frame\">";
-   if ($gotsome) {
+    echo "\n\n<div id=\"items\" class=\"frame\">\n";
+    echo "<h2>" . count($items) . " " . (count($items) > 1 ? ITEMS:ITEM)
+      ." " 
+      . (count($items) > 1? TAG_TAGGEDP:TAG_TAGGED) .""
+      . " \"" . ucfirst($tag) . "\"</h2>\n";
+    
+    if ($gotsome) {
 		itemsList ( "",  $items, IL_NO_COLLAPSE );
 	} else {
 		echo "<p style=\"height: 10em; text-align:center\">";
@@ -210,12 +231,12 @@ function edit_tag(id) {
 	}
  	echo "</div>\n";
  	rss_footer();
+    
+    
+    
 } elseif(array_key_exists('alltags',$_GET)) {
     
-    define ('SMALLEST',25);
-    define ('LARGEST',70);
-    define ('UNIT','pt');
-    
+    // the all tags weighted list
     $sql = "select tag,count(*) as cnt from "
       . getTable('metatag') . ","
       . getTable('tag') .""
@@ -227,32 +248,27 @@ function edit_tag(id) {
     $min = 100000;
     while(list($tag,$cnt) = rss_fetch_row($res)) {
 	$tags[$tag] = $cnt;
-	if ($cnt > $max) {
-	    $max = $cnt;
-	}
-	if ($cnt < $min) {
-	    $min = $cnt;
-	}
+
     }
     
     
     // Credits: Matt, http://www.hitormiss.org/about/
     // http://dev.wp-plugins.org/file/weighted-category-list/weighted_categories.php?format=txt
-    $spread = $max - $min;
+    $spread = max($tags) - min($tags);
     if ($spread <= 0) { $spread = 1; };
-    $fontspread = LARGEST-SMALLEST;
+    $fontspread = LARGEST - SMALLEST;
     $fontstep = $spread / $fontspread;
     if ($fontspread <= 0) { $fontspread = 1; }
     $ret = "";
-    foreach ($tags as $tag => $count) {
+    foreach ($tags as $tag => $cnt) {
 	$taglink = getPath() . "tag/$tag";	  
-	$ret .= "\t<a href=\"$taglink\" title=\"$count "
-	  .($count > 1 || $count ==0?ITEMS:ITEM)."\" style=\"font-size: ".
-	  ($smallest + ($count/$fontstep)). UNIT.";\">$tag</a> \n";
+	$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
+	  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
+	  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
     }
   
     // done! Render some stuff
-    rss_header("Tags " . TITLE_SEP . " " . ALL_TAGS);
+    rss_header("Tags " . TITLE_SEP . " " . TAG_ALL_TAGS);
     sideChannels(false);    
     echo "\n\n<div id=\"items\" class=\"frame\">\n"
     ."<div id=\"alltags\" class=\"frame\">$ret</div>\n"

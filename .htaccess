@@ -16,7 +16,7 @@
 
   #tag view
   RewriteRule	^tags?\/?$		tags.php?alltags [L]
-  RewriteRule	^tag\/([a-z0-9_]+)$  	tags.php?tag=$1 [L]
+  RewriteRule	^tag\/([a-zA-Z0-9_\.]+)$  	tags.php?tag=$1 [L]
   
   #item view
   RewriteCond  %{env:static} ^$

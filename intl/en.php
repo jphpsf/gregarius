@@ -170,4 +170,7 @@ define ('TAG_EDIT','[edit]');
 define ('TAG_SUBMIT','[submit]');
 define ('TAG_SUBMITTING','[...]');
 define ('TAG_ERROR_NO_TAG',"Oops! No items tagged &laquo;%s&raquo; were found.");
+define ('TAG_ALL_TAGS','All Tags');
+define ('TAG_TAGGED','tagged');
+define ('TAG_TAGGEDP','tagged');
 ?>

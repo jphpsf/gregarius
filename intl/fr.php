@@ -164,8 +164,11 @@ define ('ADMIN_CANT_RENAME',"Vous ne pouvez pas renommer cet &eacute;l&eacute;me
 define ('ADMIN_ERROR_CANT_CREATE',"Un r&eacute;pertoire du meme nom ('%s') existe d&eacute;j&agrave;!");
 
 define ('TAG_TAGS','Tags: ');
-define ('TAG_EDIT','(modifier)');
-define ('TAG_SUBMIT','(sousmettre)');
-define ('TAG_SUBMITTING','(...)');
+define ('TAG_EDIT','[modifier]');
+define ('TAG_SUBMIT','[valider]');
+define ('TAG_SUBMITTING','[ ... ]');
 define ('TAG_ERROR_NO_TAG',"D&eacute;sol&eacute;, aucun &eacute;l&eacute;ment taggu&eacute; &laquo;%s&raquo; n'a pu etre trouv&eacute;.");
+define ('TAG_ALL_TAGS','Tous les Tags');
+define ('TAG_TAGGED','taggu&eacute;');
+define ('TAG_TAGGEDP','taggu&eacute;s');
 ?>
