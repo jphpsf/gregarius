@@ -399,17 +399,6 @@ function folders() {
 
     echo "<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n";
 
-    /*
-     folder_combo('folder_rename');
-     echo "<input type=\"submit\" name=\"action\" value=\"".ADMIN_RENAME."\"/>\n";
-     echo "<input type=\"text\"  name=\"folder_rename_to\" value=\"\" /></p>";
-     *
-     echo "<p>";
-     folder_combo('folder_delete');
-     echo "<input type=\"submit\" name=\"action\" value=\"".ADMIN_DELETE2."\"/>\n";
-     echo "</p>\n";
-     *
-     */
     echo "<label for=\"new_folder\">".ADMIN_FOLDERS_ADD."</label>\n"
       ."<input type=\"text\" id=\"new_folder\" name=\"new_folder\" value=\"\" />"
       ."<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
@@ -436,7 +425,6 @@ function folders() {
 
     $res = rss_query($sql);
     $cntr = 0;
-    $firstAfterRoot = false;
     while (list($id, $name) = mysql_fetch_row($res)) {
 
 	$name = $name == ''? HOME_FOLDER:$name;
@@ -557,6 +545,13 @@ function folder_admin() {
 
 	$new_label = mysql_real_escape_string($_REQUEST['f_name']);
 	if (is_numeric($id) && strlen($new_label) > 0) {
+	    
+	    $res = rss_query("select count(*) as cnt from folders where name='$new_label'");
+	    list($cnt) = mysql_fetch_row($res);
+	    if ($cnt > 0) {
+		rss_error("You can't rename this folder '$new_label' becuase such a folder already exists.");
+		return;
+	    }
 	    rss_query("update folders set name='$new_label' where id=$id");
 	}
 	break;
