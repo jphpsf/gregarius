@@ -91,7 +91,7 @@ function submit_tag_cb(ret) {
 	id=data[0];
 	tags=data[1].split(' ');
 	var fld=document.getElementById("th" + id);
-        var html = "<a href=\"<?= getPath() ?>tags/\"><?= TAG_TAGS ?></a>:&nbsp;"
+        var html = "<a href=\"<?= getPath() ?>tag/\"><?= TAG_TAGS ?></a>:&nbsp;"
               + "<span id=\"t" + id + "\">";
         for (i=0;i<tags.length;i++) {
           html = html + "<a href=\"<?= getPath(); ?>tag/" + tags[i] + "\">" + tags[i] + "</a> ";
