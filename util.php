@@ -227,7 +227,7 @@ function update($id) {
 	$sql .= " where id=$id";
     }
     
-    if (getConfig('ABSOLUTE_ORDERING')) {
+    if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by parent, position";
     } else {
 	$sql .= " order by parent, title";

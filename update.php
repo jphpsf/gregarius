@@ -81,7 +81,7 @@ if ($doPush) {
       ."</tr>";
     
     $sql = "select id, url, title from " .getTable("channels");
-    if (getConfig('ABSOLUTE_ORDERING')) {
+    if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by parent, position"; 
     } else {
 	$sql .= " order by parent, title";
