@@ -1138,8 +1138,15 @@ function admin_menu() {
 		    ADMIN_DOMAIN_FOLDER,
 		    ADMIN_DOMAIN_OPML
 		    ) as $item) {
+	
+	if (getConfig('rss.output.usemodrewrite')) {
+	    $link = $item;
+	} else {
+	    $link = "index.php?view=$item";
+	}
+	
 	$cls = ($item==$active?" class=\"active\"":"");
-	echo "\t<li$cls><a href=\"$item\">" .ucfirst($item) ."</a></li>\n";	
+	echo "\t<li$cls><a href=\"$link\">" .ucfirst($item) ."</a></li>\n";	
     }
     echo "</ul>\n";
 }
