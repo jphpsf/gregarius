@@ -68,7 +68,7 @@ define ('RELOAD_AFTER', 45*MINUTE);
 // or less depends on the fact that this date format contains the 
 // "F" (Month) and "jS" (day) elements in this form. So feel free to change
 // the order of the elements, but better leave those two tokens in :)
-define ('DATE_FORMAT', "F jS, Y, g:i a T");
+define ('DATE_FORMAT', "F jS, Y, g:ia T");
 
 // When in demo mode most of the admin actions cannot be performed.
 define ('DEMO_MODE', false);
