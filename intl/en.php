@@ -65,6 +65,7 @@ define ('TITLE_UPDATING','Updating');
 define ('TITLE_SEARCH','Search');
 define ('TITLE_ADMIN','Feeds Admin');
 
+
 define ('HOME_FOLDER','Root');
 define ('VISIT', '(visit)');
 define ('COLLAPSE','[-] collapse');

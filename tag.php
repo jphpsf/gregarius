@@ -163,8 +163,9 @@ function edit_tag(id) {
       ." order by i.unread desc, "
       
       ."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
-      
-    rss_header("",LOCATION_TAG);
+
+    
+    rss_header("Tags " . TITLE_SEP ." $tag");
     sideChannels(false);
     
     echo "\n\n<div id=\"items\" class=\"frame\">";
@@ -195,7 +196,7 @@ function edit_tag(id) {
 		$items[key($items)]['tags'][]=$tag_;
 	    }
 	}
-	itemsList ( H2_TAGS,  $items, IL_NO_COLLAPSE );
+	itemsList ( "",  $items, IL_NO_COLLAPSE );
     }    
     
     echo "</div>\n";
