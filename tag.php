@@ -82,12 +82,15 @@ if (array_key_exists('js',$_GET)) {
 function submit_tag_cb(ret) {
 	data= ret.split(',');
 	id=data[0];
-	tags=data[1];
+	tags=data[1].split(' ');
 	var fld=document.getElementById("th" + id);
-	fld.innerHTML = 
-		"<?= TAG_TAGS ?><span id=\"t" + id + "\">" + tags + "</span>" 
-		+  "&nbsp;<a id=\"tt"+id+"\" href=\"\" onmouseup=\"edit_tag("+id+");\">"
-		+ "<?= TAG_EDIT ?></a>";
+        var html = "<?= TAG_TAGS ?><span id=\"t" + id + "\">";
+        for (i=0;i<tags.length;i++) {
+          html = html + "<a href=\"<?= getPath(); ?>tag/" + tags[i] + "\">" + tags[i] + "</a> ";
+        }
+        html = (html +"</span>&nbsp;<a id=\"tt"+id+"\" href=\"\" onmouseup=\"edit_tag("+id+");\">"
+                + "<?= TAG_EDIT ?></a>");
+	fld.innerHTML = html;
 }
 
 function submit_tag(id,tags) {
@@ -97,7 +100,6 @@ function submit_tag(id,tags) {
 function edit_tag(id) {
 	var toggle = document.getElementById("tt" + id);
 	if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
-
 		var fld = document.getElementById("tfield" + id);
 		if (fld.value!="") {
 			toggle.innerHTML="<?= TAG_SUBMITTING ?>";
@@ -106,7 +108,10 @@ function edit_tag(id) {
 	} else if (toggle.innerHTML == <? echo "\"" . TAG_EDIT . "\"" ?>) {
 		toggle.innerHTML="<?= TAG_SUBMIT ?>";
 		var elem=document.getElementById("t"+id);
-		elem.innerHTML = "<input class=\"tagedit\" id=\"tfield"+id+"\" type=\"text\" value=\"" + elem.innerHTML + "\" />";
+
+                //get rid of the hyperlinks
+		var tags = elem.innerHTML.replace(/<\/?a[^>]*>(\ $)?/g,"");
+		elem.innerHTML = "<input class=\"tagedit\" id=\"tfield"+id+"\" type=\"text\" value=\"" + tags + "\" />";
 		elem.firstChild.focus();
 	} 
 	return false;
