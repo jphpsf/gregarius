@@ -268,14 +268,18 @@ table#updatetable .rc { width: 10%; text-align:center }
 
 
 fieldset {  
-  width: 120px;
   text-align: center; 
   display: inline;
   padding: 10px;
   margin: 0 10px 0 0;
 }
+
+fieldset.tags {  
+  width: 120px;
+}
  
-fieldset input, fieldset select { 
+ 
+fieldset.tags input, fieldset.tags select { 
  display: block;width: 110px;
  margin: 5px 0; 
 }
