@@ -145,8 +145,7 @@ div#nav a {
  
  
 div#nav {
-   margin-bottom: 5px;
-   
+   margin-bottom: 5px;   
    background-color: #fff;
    background-image: url(media/arrows.gif); 
    background-position: top right;
@@ -155,7 +154,6 @@ div#nav {
  }
 
 div#footer, div#nav {
- margin-top: 5px;
  clear: both;
  padding: 10px;
 }
@@ -431,5 +429,5 @@ span.updateres.ko { color: red }
 
 /* margin to footer */
 div#channels, div#items, div#search {
- margin-bottom: 10px;
+ margin-bottom: 5px;
 }
