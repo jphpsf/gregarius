@@ -736,7 +736,7 @@ function _absolute ($relative, $absolute) {
 	$url = parse_url($absolute);
 	
 	// dirname() erkennt auf / endende URLs nicht
-    if (array_key_exists($url, 'path')) {
+    if (array_key_exists('path', $url)) {
 		if ($url['path']{strlen($url['path']) - 1} == '/')
             $dir = substr($url['path'], 0, strlen($url['path']) - 1);
 		else
