@@ -51,7 +51,7 @@ define ('USE_FAVICONS', true);
 // as http://yourserver.com/path/to/rss/channel_name/
 // You must have mod_rewrite installed and configured for your
 // apache install. See also the '.htaccess' file
-define ('USE_MODREWRITE', true);
+define ('USE_MODREWRITE', false);
 
 // If this option is set the feeds will be refreshed after x minutes
 // of inactivity. Please respect the feed providers by not setting
@@ -61,14 +61,14 @@ define ('RELOAD_AFTER', 45*MINUTE);
 
 // Format to use when displaying dates. See here for help on the format:
 // http://ch.php.net/manual/en/function.date.php
-define ('DATE_FORMAT', "F jS, Y, g:i a");
+define ('DATE_FORMAT', "F jS, Y, g:i a T");
 
 // When in demo mode most of the admin actions cannot be performed.
 define ('DEMO_MODE', false);
 
 // When in debug mode some extra debug info is shown and the error 
 // reporting is a bit more verbose
-define ('_DEBUG_', true);
+define ('_DEBUG_', false);
 
 // Output compression is handled by most browsers. 
 define ('OUTPUT_COMPRESSION', true);
@@ -100,11 +100,12 @@ $kses_allowed =
 	'b' => array(),
 	'i' => array(),
 	'a' => array('href' => 1, 'title' => 1),
-//	'br' => array(),
+	'br' => array(),
 	'p' => array(),
 	'blockquote' => array(),
 	'ul' => array(),	
 	'li' => array(),
-	'tt' => array()
+	'tt' => array(),
+	'code' => array()
 	);
 ?>
