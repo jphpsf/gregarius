@@ -47,6 +47,7 @@ sideChannels(false);
 items("last items");
 rss_footer();
 
+
 function items($title) {
     echo "\n\n<div id=\"items\" class=\"frame\">";
 
@@ -57,8 +58,11 @@ function items($title) {
       ." i.url, i.description, c.icon, "      
       ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "                                                                                  
       ." i.pubdate is not null as ispubdate, "    
-      ." i.id  "
-      ." from ".getTable("item") ." i, ".getTable("channels") ." c, " .getTable("folders") ." f "
+      ." i.id, t.tag  "
+      ." from ".getTable("item") ." i "
+      ." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
+      ." left join ".getTable('tag')." t on (m.tid=t.id) "
+      . ", " .getTable("channels") ." c, " .getTable("folders") ." f "
       ." where i.cid = c.id and i.unread=1 and f.id=c.parent";
 
     if (getConfig('rss.config.absoluteordering')) {
@@ -66,7 +70,7 @@ function items($title) {
     } else {
 	$sql .=" order by c.parent asc, c.title asc";
     }    
-    $sql .=", i.added desc, i.id asc"
+    $sql .=", i.added desc, i.id asc, t.tag"
     
       
       // Problem: to limit or not to limit?
@@ -78,17 +82,34 @@ function items($title) {
       ;
 
 
-
     $res0=rss_query($sql);
     if (rss_num_rows($res0) > 0) {
 
 	markAllReadForm();
 	
-        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_) = rss_fetch_row($res0)) {
-            $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_, $iispubdate_, $iid_ );
+	     $prevId = -1;
+        while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_, $tag_) = rss_fetch_row($res0)) {
+            if ($prevId != $iid_) {
+               $items[] = array(
+                  $cid_, 
+                  $ctitle_, 
+                  $icon_ , 
+                  $title_ , 
+                  1 , 
+                  $url_ , 
+                  $descr_, 
+                  $ts_, 
+                  $iispubdate_, 
+                  $iid_, 
+                  'tags' => array($tag_)
+               );
+               $prevId = $iid_;
+            } else {
+               end($items);
+               $items[key($items)]['tags'][]=$tag_;
+            }
         }
-
-        itemsList ( sprintf(H2_UNREAD_ITEMS , rss_num_rows($res0)),  $items );
+        itemsList ( sprintf(H2_UNREAD_ITEMS , count($items)),  $items );
     }
 
     // next: unread. Must find a better solution instead of iterating over the channels twice.
@@ -109,25 +130,59 @@ function items($title) {
     $items = array();
     while (list($cid,$ctitle, $icon) = rss_fetch_row($res1)) {
       
-       $sql = "select cid, title, url, description, unread, "
-        ." if (pubdate is null, unix_timestamp(added), unix_timestamp(pubdate)) as ts, "
-        ." pubdate is not null as ispubdate, "     
-        ." id  "
-        ." from " . getTable("item")
-        ." where cid  = $cid and unread = 0"
-        ." order by added desc, id asc "
-        ." limit 2";
-	
+       $sql = "select i.cid, i.title, i.url, i.description, i.unread, "
+        ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
+        ." i.pubdate is not null as ispubdate, "     
+        ." i.id, t.tag  "
+        ." from " . getTable("item") . " i "
+        
+        ." left join ".getTable('metatag') ." m on (i.id=m.fid) "
+        ." left join ".getTable('tag')." t on (m.tid=t.id) "
+      
+        ." where i.cid  = $cid and i.unread = 0"
+        ." order by added desc, id asc, t.tag ";
+	     
 	$res = rss_query($sql);
+	$added = 0;
+	$litems=array();
    if (rss_num_rows($res) > 0) {
-       while (list($cid, $ititle, $url, $description, $unread, $ts, $ispubdate, $iid) =  rss_fetch_row($res)) {
-          $items[] = array($cid,$ctitle,$icon,$ititle,$unread,$url,$description, $ts, $ispubdate, $iid);
+ 	    $prevId = -1;
+       while ($added <=3 && list($cid, $ititle, $url, $description, $unread, $ts, $ispubdate, $iid, $tag_) =  rss_fetch_row($res)) {       
+         $added++;
+         if($prevId != $iid) {
+            $litems[] = array(
+               $cid,
+               $ctitle,
+               $icon,
+               $ititle,
+               $unread,
+               $url,
+               $description,
+               $ts,
+               $ispubdate,
+               $iid,
+               'tags' => array($tag_)
+            );
+            $prevId = $iid;
+         } else {
+            end($litems);
+            $litems[key($litems)]['tags'][]=$tag_;
+            $added--;
+         }
        }
     }
+    $litems = array_slice($litems,0,2);
+    $items[] = $litems[0];
+    $items[] = $litems[1];
  }
-
-    itemsList(H2_RECENT_ITEMS,$items);
-    echo "</div>\n";
+ /*
+echo "<pre>";
+var_dump($items);
+echo "</pre>\n";
+*/
+ 
+ itemsList(H2_RECENT_ITEMS,$items);
+ echo "</div>\n";
 }
 
 function markAllReadForm() {

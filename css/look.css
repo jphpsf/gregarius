@@ -21,10 +21,10 @@ h1,h2,h3 {
 
 h4 { font-size: medium; }
 
-h5 { 
- font-size: small;
- font-weight: normal;
- color: #aaa;
+h5,h5 input.tagedit { 
+ font-size: small !important;
+ font-weight: normal !important;
+ color: #aaa !important;
 }
 
 h4 {
@@ -39,6 +39,8 @@ input {
  font-size: small;
  font-weight: bold; 
 }
+
+input.tagedit { font-weight: normal; font-size: smaller;}
 
 label, div#channel_admin span, p.bookmarklet {
  font-size:small;

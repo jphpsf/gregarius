@@ -22,10 +22,12 @@ h4 {
 }
 
 h5 {
- margin:0 0 1em 0;
+ margin:0 0 0.3em 0;
  padding:0;
  display: block; 
 }
+
+h5.il { display: inline !important }
 
 input { 
  margin: 3px;
@@ -141,6 +143,8 @@ div#items li.upnav {
 div#items li.upnav a {
  padding: 0 10px;
 }
+
+div.content {margin-top: 1em; }
 
 /* images inside posts */
 div.content img { display: block; }

@@ -175,13 +175,18 @@ function items($cid,$title,$iid,$y,$m,$d) {
     $sql = " select i.title, i.url, i.description, i.unread, "
       ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
       ." pubdate is not null as ispubdate, "
-      ." c.icon, c.title, i.id "
-      ." from " .getTable("item") . " i, " . getTable("channels") ." c "
+      ." c.icon, c.title, i.id, t.tag "
+      ." from " .getTable("item") . " i " 
+      
+      ." left join ".getTable('metatag') ." m on (i.id=m.fid) "
+      ." left join ".getTable('tag')." t on (m.tid=t.id) "
+        
+		. ", " . getTable("channels") ." c "
       ." where i.cid = $cid and c.id = $cid ";
 
     
     if ($iid != "") {
-	$sql .= " and i.id=$iid";
+		$sql .= " and i.id=$iid";
     }
     
 
@@ -204,7 +209,10 @@ function items($cid,$title,$iid,$y,$m,$d) {
       
 
     if ( $m==0 && $y==0 ) {
-	$sql .= " limit " . getConfig('rss.output.itemsinchannelview');
+		//$sql .= " limit " . getConfig('rss.output.itemsinchannelview');
+		$limit = getConfig('rss.output.itemsinchannelview');
+    } else {
+    	$limit = 9999;
     }
 
     
@@ -214,19 +222,33 @@ function items($cid,$title,$iid,$y,$m,$d) {
         
     $iconAdded = false;
       
-    
-    while (list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid) =  rss_fetch_row($res)) {
-      	$items[]=array($cid, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its, $iispubdate, $iid);
-/*
-	if (! $iconAdded && getConfig('rss.output.showfavicons') && $cicon != "") {
-      	    $iconAdded = true;
-      	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
-      	}
- */
+    $added = 0;
+    $prevId = -1;
+    while ($added <= $limit && list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid, $tag_) =  rss_fetch_row($res)) {
+    	$added++;
+      if($prevId != $iid) {
+          $items[] = array(
+               $cid,
+               $ctitle,
+               $icon,
+               $ititle,
+               $iunread,
+               $iurl,
+               $idescription,
+               $its,
+               $iispubdate,
+               $iid,
+               'tags' => array($tag_)
+          );
+          $prevId = $iid;
+       } else {
+      	end($items);
+         $items[key($items)]['tags'][]=$tag_;
+         $added--;
+       }
     }
     
-    
-    
+    $items = array_slice($items,0,$limit);
     $shown = itemsList($title, $items, IL_CHANNEL_VIEW);
     
     

@@ -56,12 +56,12 @@ $auth = true;
 
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
 	if (!array_key_exists('PHP_AUTH_USER',$_SERVER) ||
-	$_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
-	!array_key_exists('PHP_AUTH_PW',$_SERVER) ||
-	$_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
-	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
-	header('HTTP/1.0 401 Unauthorized');
-	$auth = false;
+		$_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
+		!array_key_exists('PHP_AUTH_PW',$_SERVER) ||
+		$_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
+	  		header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
+	  		header('HTTP/1.0 401 Unauthorized');
+	  		$auth = false;
 	}
 }
 
@@ -80,58 +80,58 @@ function admin_main($authorised) {
 
 	echo "\n<div id=\"channel_admin\" class=\"frame\">";
 
-	if ($authorised) {
-	admin_menu();
-	if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
-		switch($_REQUEST[ADMIN_DOMAIN]) {
-		 case ADMIN_DOMAIN_FOLDER:
-		$show = folder_admin();
-		break;
-		 case ADMIN_DOMAIN_CHANNEL:
-		$show = channel_admin();
-		break;
-		 case ADMIN_DOMAIN_CONFIG:
-		$show = config_admin();
-		break;
-		 case ADMIN_DOMAIN_ITEM:
-		$show = item_admin();
-		break;
-		 default:
-		break;
-		}
-	}
-
-	if (array_key_exists(ADMIN_VIEW,$_REQUEST) || isset($show)) {
-		if (!isset($show)) {
-		$show = $_REQUEST[ADMIN_VIEW];
-		}
-		switch ($show) {
-		 case ADMIN_DOMAIN_CONFIG:
-		config();
-		break;
-		 case ADMIN_DOMAIN_CHANNEL:
-		channels();
-		break;
-		 case ADMIN_DOMAIN_FOLDER:
-		folders();
-		break;
-		 case ADMIN_DOMAIN_OPML:
-		opml();
-		break;
-		 case ADMIN_DOMAIN_NONE:
-		break;
-		 case ADMIN_DOMAIN_ITEM:
-		items();
-		break;
-		 default:
-		}
-	} else {
-		channels();
-	}
-
-	echo "\n<div class=\"clearer\"></div>\n";
-
-	} else {
+    if ($authorised) {
+      admin_menu();
+      if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
+         switch($_REQUEST[ADMIN_DOMAIN]) {
+          case ADMIN_DOMAIN_FOLDER:
+         $show = folder_admin();
+         break;
+          case ADMIN_DOMAIN_CHANNEL:
+         $show = channel_admin();
+         break;
+          case ADMIN_DOMAIN_CONFIG:
+         $show = config_admin();
+         break;
+          case ADMIN_DOMAIN_ITEM:
+         $show = item_admin();
+         break;
+          default:
+         break;
+         }
+      }
+   
+      if (array_key_exists(ADMIN_VIEW,$_REQUEST) || isset($show)) {
+         if (!isset($show)) {
+         $show = $_REQUEST[ADMIN_VIEW];
+         }
+         switch ($show) {
+          case ADMIN_DOMAIN_CONFIG:
+         config();
+         break;
+          case ADMIN_DOMAIN_CHANNEL:
+         channels();
+         break;
+          case ADMIN_DOMAIN_FOLDER:
+         folders();
+         break;
+          case ADMIN_DOMAIN_OPML:
+         opml();
+         break;
+          case ADMIN_DOMAIN_NONE:
+         break;
+          case ADMIN_DOMAIN_ITEM:
+         items();
+         break;
+          default:
+         }
+      } else {
+         channels();
+      }
+   
+      echo "\n<div class=\"clearer\"></div>\n";
+   
+   } else {
 		rss_error(sprintf(ADMIN_ERROR_NOT_AUTHORIZED,getPath()));
 	}
 	echo "</div>\n";

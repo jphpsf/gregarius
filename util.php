@@ -82,8 +82,12 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	}
 
 	if ($script != "") {
-	echo "\t<script type=\"text/javascript\" src=\"$script\"></script>\n";
+		echo "\t<script type=\"text/javascript\" src=\"$script\"></script>\n";
 	}
+
+	echo "\t<script type=\"text/javascript\" src=\"".getPath()."tag.php?js\"></script>\n";
+
+
 	echo "</head>\n"
 	  ."<body";
 	if ($onLoadAction != "" ) {
@@ -368,15 +372,15 @@ function itemsList($title,$items, $options = IL_NONE){
 
 	
 	if ($title) {
-	if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
-		$cicon = $items[0][2];
-	}
-	echo "\n\n<h2 id=\"feedcontent\">"
-	  .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")		
-	  .rss_htmlspecialchars($title)
-	  ."</h2>\n";
+		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
+			$cicon = $items[0][2];
+		}
+		echo "\n\n<h2 id=\"feedcontent\">"
+			.(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")		
+			.rss_htmlspecialchars($title)
+			."</h2>\n";
 	} else {
-	echo "\n\n<a id=\"feedcontent\"/>\n";
+		echo "\n\n<a id=\"feedcontent\"/>\n";
 	}
 	
 	$cntr=0;
@@ -387,23 +391,30 @@ function itemsList($title,$items, $options = IL_NONE){
 
 	$collapsed_ids=array();
 	if (getConfig('rss.output.channelcollapse')) {
-	if (array_key_exists('collapsed',$_COOKIE)) {
-		$collapsed_ids = explode(":",$_COOKIE['collapsed']);
-	}
+		if (array_key_exists('collapsed',$_COOKIE)) {
+			$collapsed_ids = explode(":",$_COOKIE['collapsed']);
+		}
 	}
 
-	if ($options & IL_DO_STATS) {
-	$stats = array();
-	$stats_res = rss_query("select cid,unread,count(*) from " . getTable("item") . " group by 1,2 order by 1,2");
-	while (list($s_cid,$s_unread,$s_count)=rss_fetch_row($stats_res)) {
-		$stats[$s_cid][$s_unread] = $s_count;
-	}
-	}
+   if ($options & IL_DO_STATS) {
+      $stats = array();
+      $stats_res = rss_query("select cid,unread,count(*) from " . getTable("item") . " group by 1,2 order by 1,2");
+      while (list($s_cid,$s_unread,$s_count)=rss_fetch_row($stats_res)) {
+         $stats[$s_cid][$s_unread] = $s_count;
+      }
+   }
 
 	while (list($row, $item) = each($items)) {
 
 	list($cid, $ctitle, $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
-
+	if (array_key_exists('tags',$item)) {
+		$tags = $item['tags'];
+		if (count($tags) && $tags[0] == NULL) {
+			$tags = array();
+		}
+	} else {
+		$tags = array();
+	}
 	if (getConfig('rss.output.channelcollapse')) {
 		$collapsed = in_array($cid,$collapsed_ids)
 		  && !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW))
@@ -553,35 +564,47 @@ function itemsList($title,$items, $options = IL_NONE){
 		echo "</h4>\n";
 
 		if ($ts != "") {
-		$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
-		
-		// make a permalink url for the date (month)
-		if (strpos(getConfig('rss.config.dateformat'),'F') !== FALSE) {
-			$mlbl = date('F',$ts);
-			$murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
+			$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
 			
-			$date_lbl = 
-			  str_replace($mlbl,
-				  "<a href=\"$murl\">$mlbl</a>"
-				  ,$date_lbl);
+			// make a permalink url for the date (month)
+			if (strpos(getConfig('rss.config.dateformat'),'F') !== FALSE) {
+				$mlbl = date('F',$ts);
+				$murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
+				
+				$date_lbl = 
+				  str_replace($mlbl,
+					  "<a href=\"$murl\">$mlbl</a>"
+					  ,$date_lbl);
+			}
+			
+			// make a permalink url for the date (day)
+			if (strpos(getConfig('rss.config.dateformat'),'jS') !== FALSE) {
+				$dlbl = date('jS',$ts);
+				$durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
+				$date_lbl =
+				  str_replace($dlbl,
+					  "<a href=\"$durl\">$dlbl</a>" 
+					  ,$date_lbl);
+			}	
+			
+			if ($ispubdate) {
+				echo "\t\t<h5>". POSTED . "$date_lbl</h5>\n";
+			} else {
+				echo "\t\t<h5>". FETCHED . "$date_lbl</h5>\n";
+			}
 		}
+	
+		/// tags
+
+		echo "\t\t<h5 id=\"th$iid\">Tags: <span id=\"t$iid\">" 
+			. implode(" ",$tags) 
+			. "</span>"
+			. "&nbsp;<a id=\"tt$iid\" href=\"#\" onmouseup=\"edit_tag($iid);\">(edit)</a>"
+			."</h5>";
+
+		/// /tags
 		
-		// make a permalink url for the date (day)
-		if (strpos(getConfig('rss.config.dateformat'),'jS') !== FALSE) {
-			$dlbl = date('jS',$ts);
-			$durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
-			$date_lbl =
-			  str_replace($dlbl,
-				  "<a href=\"$durl\">$dlbl</a>" 
-				  ,$date_lbl);
-		}	
 		
-		if ($ispubdate) {
-			echo "\t\t<h5>". POSTED . "$date_lbl</h5>\n";
-		} else {
-			echo "\t\t<h5>". FETCHED . "$date_lbl</h5>\n";
-		}
-		}
 
 		if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
 		echo "\t\t<div class=\"content\">$idescr\n\t\t</div>";
