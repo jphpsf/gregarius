@@ -35,6 +35,7 @@ require_once('init.php');
 define ('NAV_PREV_PREFIX','&larr;&nbsp;');
 define ('NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
+$y=$m=$d=0;
 if (
     getConfig('USE_MODREWRITE') 
     && array_key_exists('channel',$_REQUEST)    
@@ -80,10 +81,6 @@ if (
 	if ($d > 31) {
 	    $d = date("d");
 	} 
-    } else {
-	$y = 0;
-	$m = 0;
-	$d = 0;
     }
     
     
