@@ -6,6 +6,7 @@ body {
   padding: 20px;
   color:  #335;
   background-color: #eee; 
+  background-image: url(media/bg.gif);
 }
 
 
@@ -93,7 +94,6 @@ div#opml li { border: none }
 /* folder items */
 div#channels li ul li {
  border-bottom: none;
-/* border-left: 1px solid  #eef; */
  padding-left: 10px; 
 }
 
@@ -136,7 +136,7 @@ div#items,div#searchfrm, div#update {
 /** the main divs (nav, side, content, footer, ...) inherit this class */
 div.frame {
  background-color: #fff;
- border: 1px solid #ddd;
+ border: 1px solid #ccc;
  padding: 15px;
 }
 
@@ -235,11 +235,6 @@ div.content img {
   display: block;
 }
 
-
-
-/*
-br.brkr { clear: left }
-*/
 img { border: none }
 
 div#items img.favicon { display: inline; }
@@ -248,8 +243,6 @@ div#items img.favicon { display: inline; }
  font-size: small;
  line-height: 1.4em;
  text-align:justify;
-/* padding-top: 1em; */
-/* clear:both; */
 }
 
 .content { height: auto }
@@ -301,7 +294,6 @@ h2 {  margin: 0; }
 
 #items h2 {
  margin-bottom: 10px;
-/* margin-top: -10px; */
 }
 
 h3 { 
