@@ -42,7 +42,7 @@ define ('H2_SEARCH', 'Search %d items');
 define ('SEARCH_SEARCH_QUERY','Search terms:');
 define ('SEARCH_EXACT_MATCH', 'Exact match');
 define ('SEARCH_CONTAINS', 'Containing text');
-define ('SEARCH_CHANNELS', 'Channels:');
+define ('SEARCH_CHANNELS', 'Channel:');
 
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
