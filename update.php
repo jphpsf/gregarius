@@ -66,7 +66,7 @@ if ($doPush) {
 
     echo "Content-Type: text/html\n\n";
     
-    rss_header($title=TITLE_UPDATING, LOCATION_UPDATE, "", true);
+    rss_header($title=TITLE_UPDATING, LOCATION_UPDATE, "", (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
     $cnt = sideChannels(false);
     
     

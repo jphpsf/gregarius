@@ -65,7 +65,7 @@ if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
 	}
 }
 
-rss_header(TITLE_ADMIN,LOCATION_ADMIN,'',false,'');
+rss_header(TITLE_ADMIN,LOCATION_ADMIN,'', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
 
 admin_main($auth);
 rss_footer();

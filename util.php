@@ -29,11 +29,10 @@
 ###############################################################################
 
 
-
-function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false, $script="") {
+function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE) {
 
     
-    if (getConfig('rss.output.cachecontrol')) {
+    if (!($options & HDR_NO_CACHECONTROL) && getConfig('rss.output.cachecontrol')) {
         $etag = getETag();
 	$hdrs =  getallheaders();
 	if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
@@ -46,14 +45,14 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	}
     }
     
-	if (!$no_output_buffering) {
-	if (getConfig('rss.output.compression')) {
+	if (!($options & HDR_NO_OUPUTBUFFERING)) {
+	    if (getConfig('rss.output.compression')) {
 		ob_start('ob_gzhandler');
-	} else {
+	    } else {
 		ob_start();
+	    }
 	}
-	}
-
+    
     
 	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
 	  ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
@@ -96,11 +95,8 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	  . ";url=$redirect\"/>\n";
 	}
 
-	if ($script != "") {
-		echo "\t<script type=\"text/javascript\" src=\"$script\"></script>\n";
-	}
-
-	echo "\t<script type=\"text/javascript\" src=\"".getPath()."tags.php?js\"></script>\n";
+    
+    echo "\t<script type=\"text/javascript\" src=\"".getPath()."tags.php?js\"></script>\n";
 
 
 	echo "</head>\n"
