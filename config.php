@@ -33,12 +33,17 @@ rss_require('util.php');
 function getConfig($key) {
     static $config;
     if ($config == null) {
-	$res = rss_query("select key_,value_,default_,type_,desc_,export_ from " .getTable("config"), false);
+	$cfgQry = "select key_,value_,default_,type_,desc_,export_ "
+	  ." from " .getTable("config");
+	
+	$res = rss_query($cfgQry, false);
 
 	if (rss_sql_error() == 1146 || rss_num_rows($res) == 0) {
-		initConfig();
-		insertDefaults();
-		return getConfig($key);
+	    rss_error("Updating your database schema. This should be a one-time operation.\n");
+	    rss_error("If you see this message overand over, please import the database schema manually.");
+	    initConfig();
+	    insertDefaults();
+	    $res = rss_query($cfgQry);
 	} 
 	
 	
