@@ -30,22 +30,24 @@
 
 function rss_header($title="", $active=0, $onLoadAction="") {
 
+
     if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
 	ob_start('ob_gzhandler');
     } else {
 	ob_start();
     }
-
+    
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
       ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
       ."<head>\n"
       ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
       ."charset=ISO-8859-1\" />\n"
-      ."\t<title>".makeTitle($title)."</title>\n"
+      ."\t<title>".makeTitle($title)."</title>\n"    
       ."\t<meta name=\"robots\" content=\"NOINDEX,NOFOLLOW\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
+
 
     if ($active == 1 && defined('RELOAD_AFTER') && RELOAD_AFTER >= (30*MINUTE)) {
 	echo "\t<meta http-equiv=\"refresh\" "
@@ -79,10 +81,10 @@ function nav($title, $active=0) {
 
       ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
-      ."\t<li".($active==1?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
-      . "\t<li".($active==2?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
-      . "\t<li".($active==3?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
-      . "\t<li".($active==4?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
+      . "\t<li".($active == LOCATION_HOME   ?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
+      . "\t<li".($active == LOCATION_UPDATE ?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
+      . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
+      . "\t<li".($active == LOCATION_ADMIN  ?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
 }
 
@@ -126,7 +128,7 @@ function add_channel($url, $folderid=0) {
 
         //lets see if this server has a favicon
         $icon = "";
-        if (defined ('_USE_FAVICONS_') && _USE_FAVICONS_) {
+        if (defined ('USE_FAVICONS') && USE_FAVICONS) {
 
 	    // This actually works and display somethign valid,
 	    // but these look more like site logos than icons. Wouldn't
@@ -233,11 +235,11 @@ function get_host($url, & $host) {
 }
 
 function makeTitle ($title) {
+
     $ret = ""._TITLE_ . "";
     if ($title != "") {
-	$ret .= " &gt; " . $title;
+	$ret .= " &raquo; " . $title;
     }
-
     return $ret;
 }
 
@@ -351,7 +353,7 @@ function update($id) {
 /**
  * renders a list of items. Returns the number of items actually shown
  */
-function itemsList ($title,$items, $doNav = false){
+function itemsList ($title,$items, $doNav = false, $origin=-1){
 
     echo "\n\n<h2>$title</h2>\n";
 
@@ -361,19 +363,19 @@ function itemsList ($title,$items, $doNav = false){
     $ret = 0;
     $lastAnchor = "";
 
-    if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {	
-	$collapsed_ids = explode(":",$_COOKIE['collapsed']);		
-    } else {
-	$collapsed_ids = array();
-    }
-
-    
+    $collapsed_ids=array();
+    if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
+	if (array_key_exists('collapsed',$_COOKIE)) {
+	    $collapsed_ids = explode(":",$_COOKIE['collapsed']);
+	}
+    } 
+        
     while (list($row, $item) = each($items)) {
 
 	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts) = $item;
 
 	if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
-	    $collapsed = in_array($cid,$collapsed_ids);		
+	    $collapsed = in_array($cid,$collapsed_ids) && $origin != LOCATION_SEARCH;
 	    	    
 	    if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
 		// expanded -> collapsed
@@ -418,7 +420,7 @@ function itemsList ($title,$items, $doNav = false){
 		  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
 		    .">\n";
 
-		if (defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
+		if ($origin != LOCATION_SEARCH && defined('ALLOW_CHANNEL_COLLAPSE') && ALLOW_CHANNEL_COLLAPSE) {
 		    if ($collapsed) {
 			$title = "expand '$ctitle'";
 			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid\">"
@@ -432,7 +434,7 @@ function itemsList ($title,$items, $doNav = false){
 			  //."&nbsp;-&nbsp;"
 			  ."</a>\n";
 		    }
-		} elseif (_USE_FAVICONS_ && $cicon != "") {
+		} elseif (defined ('USE_FAVICONS') && USE_FAVICONS && $cicon != "") {
 		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
 		}
 
@@ -442,7 +444,7 @@ function itemsList ($title,$items, $doNav = false){
 		    $anchor = "name=\"$lastAnchor\"";
 		}
 
-		if (_USE_MODREWRITE_) {
+		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
 		} else {
 		    echo "\t<a $anchor href=\"". getPath() ."feed.php?cid=$cid\">$ctitle</a>\n";

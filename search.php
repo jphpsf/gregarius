@@ -37,7 +37,7 @@ define ('HIT_AFTER',"</span>");
 define ('ALL_CHANNELS_ID', -1);
 
 require_once("init.php");
-rss_header("Search",3);
+rss_header("Search",LOCATION_SEARCH);
 sideChannels(false);
 
 if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
@@ -151,7 +151,7 @@ function search($qry,$exactMatch, $channelId) {
     // If we got not hit, offer the search form.
     if ($cnt > 0) {
 	echo "\n\n<div id=\"items\" class=\"frame\">";
-	itemsList( $title, $items );
+	itemsList( $title, $items, false, LOCATION_SEARCH );
 	echo "</div>\n";
     } else {
 	searchForm($title);

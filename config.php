@@ -45,13 +45,13 @@ define ('ITEMS_ON_CHANNELVIEW', 10);
 // this browser. You can either change the URL to the icon
 // in the admin screen, or turn the favicon displaying off
 // globally here.
-define ('_USE_FAVICONS_', true);
+define ('USE_FAVICONS', true);
 
 // if this option is set to true the channels can be addressed
 // as http://yourserver.com/path/to/rss/channel_name/
 // You must have mod_rewrite installed and configured for your
 // apache install. See also the '.htaccess' file
-define ('_USE_MODREWRITE_', true);
+define ('USE_MODREWRITE', true);
 
 // If this option is set the feeds will be refreshed after x minutes
 // of inactivity. Please respect the feed providers by not setting
@@ -68,7 +68,7 @@ define ('DEMO_MODE', false);
 
 // When in debug mode some extra debug info is shown and the error 
 // reporting is a bit more verbose
-define ('_DEBUG_', false);
+define ('_DEBUG_', true);
 
 // Output compression is handled by most browsers. 
 define ('OUTPUT_COMPRESSION', true);

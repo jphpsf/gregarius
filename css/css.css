@@ -34,9 +34,8 @@ h5 {
  color: #aaa;
 }
 
-h4 { display: inline; }
+h4,h5 { display: inline; }
 h5 { 
- display: inline; 
  margin: 0 0 0 0.5em;
  padding: 0 0 0 0.5em;
  border-left: 1px solid #ddd;
@@ -300,8 +299,6 @@ h2 {
 
 h3 { 
  padding: 0 5px;
- display:block;
-/* background-color: #eee; */
  margin: 20px 0 0 0;
 }
 

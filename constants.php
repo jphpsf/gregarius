@@ -54,4 +54,8 @@ function my_assert_handler($file, $line, $code) {
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');
 
 
+define ('LOCATION_HOME',1);
+define ('LOCATION_UPDATE',2);
+define ('LOCATION_SEARCH',3);
+define ('LOCATION_ADMIN',4);
 ?>

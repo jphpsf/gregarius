@@ -42,7 +42,7 @@ if (! array_key_exists('visual',$_GET)) {
 	. "/index.php";
     
       
-    rss_header("update",0,"location.replace('$red');");
+    rss_header("update",LOCATION_UPDATE,"location.replace('$red');");
     /*
     echo "<script type=\"text/javascript\">\n"
       ."<!-- \n"

@@ -37,7 +37,8 @@ if (array_key_exists('action', $_POST)
     rss_query( "update item set unread=0" );
 }
 
-rss_header("",1);
+rss_header("",LOCATION_HOME);
+
 sideChannels(false);
 items("last items");
 rss_footer();
@@ -70,7 +71,7 @@ function items($title) {
             $items[] = array($cid_, $ctitle_, $icon_ , $title_ , 1 , $url_ , $descr_, $ts_ );
         }
 
-        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items,  false);
+        itemsList ( sprintf(H2_UNREAD_ITEMS , mysql_num_rows($res0)),  $items,  false, LOCATION_HOME);
     }
 
     // next: unread. Must find a better solution instead of iterating over the channels twice.
@@ -98,7 +99,7 @@ function items($title) {
       	 }
     }
 
-    itemsList(H2_RECENT_ITEMS,$items, false);  
+    itemsList(H2_RECENT_ITEMS,$items, false, LOCATION_HOME);
     echo "</div>\n";
 }
 

@@ -110,12 +110,12 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     
     
     
-    if (_USE_FAVICONS_ && $ico != "") {
+    if (defined('USE_FAVICONS') && USE_FAVICONS && $ico != "") {
 	// $ret .= "<img src=\"". getPath(). "imgwrp.php?url=$ico\" class=\"favicon\" alt=\"\" />";	
 	$ret .= "<img src=\"$ico\" class=\"favicon\" alt=\"\" />";
     }
     
-    if ( _USE_MODREWRITE_ ) {
+    if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 	$feedUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
     } else {
 	$feedUrl = getPath() . "feed.php?cid=$cid";

@@ -32,7 +32,7 @@
 
 require_once('init.php');
 
-if (_USE_MODREWRITE_ && array_key_exists('channel',$_REQUEST)) {
+if (defined('USE_MODREWRITE') && USE_MODREWRITE && array_key_exists('channel',$_REQUEST)) {
     $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
@@ -112,7 +112,7 @@ function items($cid,$title) {
       
     while (list($ititle, $iurl, $idescription, $iunread, $its, $cicon, $ctitle) =  mysql_fetch_row($res)) {
       	$items[]=array(-1, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its);
-      	if (! $iconAdded && _USE_FAVICONS_ && $cicon != "") {
+      	if (! $iconAdded && defined('USE_FAVICON') && USE_FAVICONS && $cicon != "") {
       	    $iconAdded = true;
       	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
       	}
@@ -120,7 +120,7 @@ function items($cid,$title) {
     
     
     
-    $shown = itemsList($title, $items);
+    $shown = itemsList($title, $items, false, -1);
     
     
     $sql = "select count(*) from item where cid=$cid and unread=1";

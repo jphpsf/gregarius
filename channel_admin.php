@@ -48,7 +48,7 @@ if (defined('_ADMIN_USERNAME_') && defined ('_ADMIN_PASSWORD_')) {
 }
 */
 
-rss_header("Channel Admin",4);
+rss_header("Channel Admin",LOCATION_ADMIN);
 
 
 main();
@@ -123,7 +123,7 @@ function channels() {
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>"
-	  .((defined('_USE_FAVICONS_') && _USE_FAVICONS_ && $icon != "")?
+	  .((defined('USE_FAVICONS') && USE_FAVICONS && $icon != "")?
 	    "<img src=\"$icon\" class=\"favicon\" alt=\"title\" width=\"16\" height=\"16\" />":"")
 	  ."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td>$parentLabel</td>\n"
@@ -317,7 +317,7 @@ function channel_edit_form($cid) {
       ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";
 
     // Icon
-    if (defined('_USE_FAVICONS_') && _USE_FAVICONS_) {
+    if (defined('USE_FAVICONS') && USE_FAVICONS) {
 	echo "<p><label for=\"c_icon\">" . ADMIN_CHANNEL_ICON ."</label>\n";
 	
 	
