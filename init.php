@@ -35,12 +35,14 @@ if (defined('_DEBUG_') && _DEBUG_ == true) {
 }
 
 function rss_require($file) {
+    
     $path = dirname($_SERVER['SCRIPT_FILENAME']);
     if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION . "\$",$path)) {
 	$path = substr($path,0,strlen($path) - strlen(RSS_FILE_LOCATION));
     }
     require_once($path . "/" . $file);
 }
+
 
 rss_require('constants.php');
 rss_require('config.php');
@@ -55,6 +57,6 @@ if (defined('LANG') && file_exists('intl/' . LANG . '.php')) {
 } else {
     rss_require('intl/en.php');
 }
-rss_require("channels.php");
 
+rss_require("channels.php");
 ?>

@@ -1,4 +1,5 @@
 <?
+
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
@@ -26,8 +27,6 @@
 ###############################################################################
 
 
-
-require_once('init.php');
 
 /** displays the channel list **/
 function sideChannels($activeId) {
@@ -165,5 +164,4 @@ function stats() {
 	    ,$total, $unread, $channelcount);
     
 }
-
 ?>

@@ -119,8 +119,6 @@ define ('DO_SERVER_PUSH',true);
 
 // html filtering via kses. DO no modify this unless you know what 
 // you do. See kses-0.2.1/README for more info.
-
-
 function  getAllowedTags() {
     return 
       array(
