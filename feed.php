@@ -41,8 +41,7 @@ if (
     && array_key_exists('channel',$_REQUEST)    
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])     
-    ) 
-{
+    ) {
     $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
@@ -53,7 +52,7 @@ if (
     }       
     
     // lets see if theres an item id as well
-    $iif = "";
+    $iid = "";
     if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
 	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
 	$res =  rss_query( "select id from item where title like '$sqlid' and cid=$cid" );
@@ -95,7 +94,6 @@ if (
 } elseif (array_key_exists('channel',$_REQUEST)) {
     $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
     $iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
-    $pageNum =  (array_key_exists('page',$_REQUEST))?(int)$_REQUEST['page']:1;
 }
 
 // If we have no channel-id somethign went terribly wrong.
@@ -368,8 +366,6 @@ function markReadForm($cid) {
     if($cnt > 0) {
     	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
     	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
-    //	  ."\t<input type=\"hidden\" name=\"all\"/>\n"
-    //	  ."\t<input type=\"hidden\" name=\"unread\">\n"
     	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
     	  ."</form>";
      }
@@ -386,8 +382,5 @@ function debugFeed($cid) {
     echo "</pre>\n";    
     echo "</div>\n";
 }
-
-
-
 
 ?>

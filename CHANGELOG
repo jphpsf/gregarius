@@ -1,8 +1,10 @@
 
 Gregarius 0.3.1
 
+
  (12.01.2005) Fix: made feed archives work when  MOD_REWRITE is off
  	      OPML import: make all items as read after an import
+	      Fix: replaced the buggy make_abs method in util.php
  
  (11.01.2005) Archives: fixed the buggy bit below, I hope :)
  
