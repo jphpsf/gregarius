@@ -111,6 +111,9 @@ if ($doPush) {
 	    } elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
 		$label = UPDATE_STATUS_CACHED;
 		$cls = ERROR_NOERROR;
+	    } elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
+		$label = UPDATE_NOT_FOUND;
+		$cls = ERROR_ERROR;
 	    } else {
 		$label =  $error;
 		$cls = ERROR_ERROR;

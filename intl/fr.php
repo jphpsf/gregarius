@@ -80,6 +80,8 @@ define ('UPDATE_STATUS_ERROR','ERREUR');
 define ('UPDATE_H2','Mise &agrave; jour de %d Canaux...');
 define ('UPDATE_CACHE_TIMEOUT','Cache (HTTP Timeout)');
 define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)'); 
+define ('UPDATE_NOT_FOUND','404 Pas Trouv&eacute; (Depuis cache)');
+
 
 // admin
 define ('ADMIN_EDIT', '&eacute;diter');

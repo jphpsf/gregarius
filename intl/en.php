@@ -80,7 +80,7 @@ define ('UPDATE_STATUS_ERROR','ERROR');
 define ('UPDATE_H2','Updating %d Feeds...');
 define ('UPDATE_CACHE_TIMEOUT','HTTP Timeout (Local cache)');
 define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)');
-
+define ('UPDATE_NOT_FOUND','404 Not Found (Local cache)');
 // admin
 define ('ADMIN_EDIT', 'edit');
 define ('ADMIN_DELETE', 'delete');

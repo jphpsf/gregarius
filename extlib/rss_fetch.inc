@@ -43,10 +43,12 @@ define ('MAGPIE_FEED_ORIGIN_CACHE', 2);
 define ('MAGPIE_FEED_ORIGIN_HTTP_200', 4);
 // Network, not modified
 define ('MAGPIE_FEED_ORIGIN_HTTP_304', 8);
+// Cache, 404
+define ('MAGPIE_FEED_ORIGIN_HTTP_404', 16);
 // Network, timeout
-define ('MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT', 16);
+define ('MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT', 32);
 // Not fetched because age < MAGPIE_CACHE_AGE
-define ('MAGPIE_FEED_ORIGIN_NOT_FETCHED', 32);
+define ('MAGPIE_FEED_ORIGIN_NOT_FETCHED', 64);
 
 /* 
  * CONSTANTS - redefine these in your script to change the
@@ -205,7 +207,7 @@ function fetch_rss ($url) {
                 elseif ( $resp->error ) {
                     # compensate for Snoopy's annoying habbit to tacking
                     # on '\n'
-                    $http_error = substr($resp->error, 0, -2); 
+                    $http_error = substr($resp->error, 0, -2);
                     $errormsg .= "(HTTP Error: $http_error)";
                 }
                 else {
@@ -224,7 +226,19 @@ function fetch_rss ($url) {
             if ( MAGPIE_DEBUG ) {
                 debug("Returning STALE object for $url");
             }
-	    $rss -> rss_origin = MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT | MAGPIE_FEED_ORIGIN_CACHE;
+	    $rss -> rss_origin = MAGPIE_FEED_ORIGIN_CACHE;
+	    if (is_object($resp) && isset($resp->status)) {
+		switch ($resp->status) {
+		 case '404':
+		    $rss -> rss_origin |= MAGPIE_FEED_ORIGIN_HTTP_404;
+		    break;
+		 default:
+		    $rss -> rss_origin |= MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT;
+		    break;		    
+		}
+	    } else {
+		$rss -> rss_origin |= MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT;
+	    }
             return $rss;
         }
         
@@ -306,9 +320,9 @@ function _response_to_rss ($resp, $rss_origin = 0) {
     
     // if RSS parsed successfully       
     if ( $rss and !$rss->ERROR) {
-        
-        // find Etag, and Last-Modified
-        foreach($resp->headers as $h) {
+         
+         // find Etag, and Last-Modified
+	 foreach($resp->headers as $h) {
             // 2003-03-02 - Nicola Asuni (www.tecnick.com) - fixed bug "Undefined offset: 1"
             if (strpos($h, ": ")) {
                 list($field, $val) = explode(": ", $h, 2);
