@@ -684,6 +684,7 @@ function extractFeeds($url) {
 	while(list($id,$match)=each($res[0])) {
 	    // we only want '<link alternate=...'
 	    if (strpos($match,'alternate') &&
+		!strpos($match,'stylesheet') &&
 		// extract the attributes
 		preg_match_all('|([a-zA-Z]*)="([^"]*)|',$match,$res2,PREG_SET_ORDER)) {
 		$tmp = array();
