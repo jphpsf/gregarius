@@ -25,6 +25,8 @@
 #
 ###############################################################################
 
+
+
 function rss_header($title="", $active=0) {
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
       ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
@@ -34,7 +36,7 @@ function rss_header($title="", $active=0) {
       ."charset=ISO-8859-1\" />\n"
       ."\t<title>".makeTitle($title)."</title>\n"
       ."\t<meta name=\"robots\" content=\"NOINDEX,NOFOLLOW\"/>\n"
-      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/css.css\"/>\n";
+      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n";
 
     if ($active == 1 && defined('RELOAD_AFTER') 
     /* && RELOAD_AFTER > (30*MINUTE) */) {
@@ -64,10 +66,10 @@ function nav($title, $active=0) {
       ."\n<a id=\"top\"></a>\n"
       ."\n<h1>".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
-      ."\t<li".($active==1?" class=\"active\"":"")."><a href=\"index.php\">".NAV_HOME."</a></li>\n"
-      . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"update.php\">" . NAV_UPDATE. "</a></li>\n"      
-      . "\t<li".($active==3?" class=\"active\"":"")."><a href=\"search.php\">".NAV_SEARCH."</a></li>\n"
-      . "\t<li".($active==4?" class=\"active\"":"")."><a href=\"channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
+      ."\t<li".($active==1?" class=\"active\"":"")."><a href=\"". getPath() ."index.php\">".NAV_HOME."</a></li>\n"
+      . "\t<li".($active==2?" class=\"active\"":"")."><a href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"      
+      . "\t<li".($active==3?" class=\"active\"":"")."><a href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
+      . "\t<li".($active==4?" class=\"active\"":"")."><a href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
 }
 
@@ -288,7 +290,7 @@ function itemsList ($title,$items){
 	}
 	
 	
-        if ($idescr != "") {
+        if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
             echo "\t\t<div class=\"content\">$idescr</div>\n";
         }        
         echo "\t</li>\n";        
@@ -397,4 +399,10 @@ function parse_iso8601 ( $date_str ) {
     }
 }
 
+function getPath() {
+    static $ret;
+    $ret = dirname($_SERVER['PHP_SELF']) . "/";
+    
+    return $ret;
+}
 ?>

@@ -305,7 +305,7 @@ function folder_admin() {
 /*************** OPML Export ************/
 
 function opml_export_form() {
-    echo "<form method=\"get\" action=\"opml.php\">\n"
+    echo "<form method=\"get\" action=\"". getPath() ."opml.php\">\n"
       ."<p><label for=\"action\">Export opml:</label>\n"
       ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"export\"/></p>\n</form>\n";
 }

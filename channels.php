@@ -111,8 +111,16 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     if (_USE_FAVICONS_ && $ico != "") {
 	$ret .= "<img src=\"$ico\" class=\"favicon\" alt=\"\" />";
     }
+    
+    if ( _USE_MODREWRITE_ ) {
+	$feedUrl = getPath() . "$title" ."/";
+    } else {
+	$feedUrl = getPath() . "feed.php?cid=$cid";
+    }
+    
+    
     $ret .= 
-      "<a" .$class_ ." href=\"feed.php?cid=$cid\">$title</a> $rdLbl"
+      "<a" .$class_ ." href=\"$feedUrl\">$title</a> $rdLbl"
       ." [<a href=\"$url\">xml</a>";
     
     if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
@@ -130,7 +138,7 @@ function feed($cid, $title, $url, $siteurl, $ico) {
 
 
 function markChannelReadForm() {
-    echo "<form action=\"index.php\" method=\"post\" class=\"markallread\">"
+    echo "<form action=\"". getPath() ."index.php\" method=\"post\" class=\"markallread\">"
       ."<p><input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/></p>"
       ."</form>";
 }

@@ -28,7 +28,20 @@
 
 
 require_once('init.php');
-$cid= (array_key_exists('cid',$_REQUEST))?$_REQUEST['cid']:"";
+
+if (_USE_MODREWRITE_ && array_key_exists('channel',$_REQUEST)) {
+    $sqlid =  preg_replace("/[^A-Za-z0-9]/","%",$_REQUEST['channel']);
+    $res =  rss_query( "select id from channels where title like '$sqlid'" );
+    
+    if ( mysql_num_rows ( $res ) != 1) {
+	rss_error("I'm having troubles fetching the channel " . $_REQUEST['channel'] . "! <!-- $sqlid -->");
+    }
+    
+    
+    list($cid) = mysql_fetch_row($res);
+} else {
+    $cid= (array_key_exists('cid',$_REQUEST))?$_REQUEST['cid']:"";
+}
 
 
 if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {
@@ -37,17 +50,19 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {
     rss_query($sql);
     
     // redirect to the next unread, if any.
-    $sql = "select cid from item where unread=1 order by added desc limit 1";
+    $sql = "select cid,title from item where unread=1 order by added desc limit 1";
     $res = rss_query($sql);
-    list ($next_unread) = mysql_fetch_row($res);
-    if ($next_unread == '') {
+    list ($next_unread_id, $next_unread_title) = mysql_fetch_row($res);
+    
+
+    if ($next_unread_id == '') {
 	header("Location: http://"
 	       . $_SERVER['HTTP_HOST']
 	       . dirname($_SERVER['PHP_SELF'])
-	       . "/index.php"	       
+	       . "/"
 	       );
     } else {
-	$cid = $next_unread;
+	$cid = $next_unread_id;
     }
     
 }
@@ -136,7 +151,7 @@ function markReadForm($cid) {
     $res=rss_query($sql);
     list($cnt) = mysql_fetch_row($res);
     if($cnt > 0) {
-      echo "<form action=\"feed.php\" method=\"post\" class=\"markread\">\n"
+      echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
       ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
       ."\t<input type=\"hidden\" name=\"cid\" value=\"$cid\"/></p>\n"
       ."</form>";
