@@ -41,6 +41,8 @@ $doPush =
   // browser supports it (Geckos and Opera)
   && $browser->supportsServerPush();
 
+$doSleep = false;
+
 if ($doPush) {
     define('PUSH_BOUNDARY',"-------- =_aaaaaaaaaa0");
     header("Connection: close");
@@ -81,15 +83,18 @@ if ($doPush) {
 		echo UPDATE_NOT_MODIFIED;
 	    } elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
 		echo UPDATE_CACHE_TIMEOUT;
+		$doSleep = true;
 	    } elseif ($ret & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
 		echo UPDATE_STATUS_CACHED;
 	    } else {
 		echo $ret;
+		$doSleep = true;
 	    }	    	    
 	} elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_200) {
 	    echo UPDATE_STATUS_OK;
 	} else {
 	    echo UPDATE_STATUS_ERROR;
+	    $doSleep = true;
 	}
 	
 	"</td>\n";
@@ -98,9 +103,17 @@ if ($doPush) {
     }
     
     echo "</table>\n";
+    echo "<p><a href=\"".getPath()."\">Redirecting...</a></p>";
     echo "</div>\n";
     rss_footer();
     flush();
+    
+    // Sleep two seconds
+    if ($doSleep) {
+	sleep(2);
+    } else {
+	sleep(1);
+    }
 } else {
     
     update("");
