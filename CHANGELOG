@@ -1,6 +1,9 @@
 
 Gregarius 0.3.1
 
+ (02.01.2005) General: Jump to the newly collapsed (or expanded) feed after
+ 	      collapsing (or expanding)
+
  (30.12.2004) General: access a given feed's archives by clicking their month
  	      or day in channel view (preliminary work)
 

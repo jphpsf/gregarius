@@ -423,13 +423,13 @@ function itemsList($title,$items, $options = IL_NONE){
 		    ) {
 		    if ($collapsed) {
 			$title = EXPAND . " '$ctitle'";
-			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid\">"
+			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">"
 			  ."<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
 			  //."&nbsp;+&nbsp;"
 			  ."</a>\n";
 		    } else {
 			$title = COLLAPSE . " '$ctitle'";
-			echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid\">"
+			echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">"
 			  ."<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
 			  //."&nbsp;-&nbsp;"
 			  ."</a>\n";
@@ -442,7 +442,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		if ($options & IL_DO_NAV) {
 		    $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
 		    $anchor = "name=\"$lastAnchor\"";
-		}
+		} else { $anchor = "name=\"$escaped_title\""; }
 
 		if (defined('USE_MODREWRITE') && USE_MODREWRITE) {
 		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
