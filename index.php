@@ -81,7 +81,7 @@ function items($title) {
       //." limit " . getConfig('rss.output.itemsinchannelview')
       ;
 
-
+    //echo $sql;
     $res0=rss_query($sql);
     if (rss_num_rows($res0) > 0) {
 

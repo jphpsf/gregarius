@@ -14,11 +14,19 @@
   #opml
   RewriteRule 	^opml.*$	opml.php?action=Export [L]
   
+  		
+  #tag view
+  RewriteCond %{env:static} ^$
+  RewriteRule tag\/([a-z]+)$  tag.php?tag=$1 [L]
+	
+  
   #item view
   RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)\/([0-9][0-9][0-9][0-9])\/([0-9][0-9]?)\/?([0-9]?[0-9])?\/?(.*)?$	feed.php?channel=$1&y=$2&m=$3&d=$4&iid=$5 [L]
   
   #feed view
   RewriteCond  %{env:static} ^$
-  RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2  
+  RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2 
+  
+    
 </IfModule>
