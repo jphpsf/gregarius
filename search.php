@@ -28,6 +28,9 @@
 
 
 define ('QUERY_PRM',"query");
+define ('HIT_BEFORE',"<span class=\"searchhit\">");
+define ('HIT_AFTER',"</span>");
+define ('HIT', HIT_BEFORE ."\$1" . HIT_AFTER);
 
 require_once("init.php");
 rss_header("Search",3);
@@ -79,10 +82,13 @@ function search($qry) {
 	    if (count(preg_split($pQuery,$descr_noTags)) == count( preg_split($pQuery,$idescr))) {
 	    
 		$items[]=array($cid,$ctitle,$cicon,
-			       preg_replace("/($qry)/i","<strong>\$1</strong>",$ititle),
+			       // we dont replace in the title because we pass 
+			       // it through htmlentities later on
+			       //preg_replace("/($qry)/i", HIT,$ititle), 
+			       $ititle,
 			       $iunread,
 			       $iurl,			   
-			       preg_replace("/($qry)/i","<strong>\$1</strong>",$idescr),
+			       preg_replace("/($qry)/i", HIT ,$idescr),
 			       $its
 			       );
 	    }
