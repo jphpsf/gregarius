@@ -26,9 +26,12 @@ define ('DBSERVER', 'localhost');
 //
 // The table name prefix to use. If you specify anything here,
 // say 'gregarius', your database table 'channels' will be referred to 
-// as 'gregarius_channels'. (Note that you'll probably want to 
-// edit dbstruct.sql to match this prefix, *before* you import the 
-// schema :)
+// as 'gregarius_channels'. This is useful to avoid table collisions when 
+// your hosting provider only allows you one single database and several
+// applications rely on that db.
+//
+// If this is not the case you can safely ignore this option.
 //
 //define ('DB_TABLE_PREFIX','');
+
 ?>
