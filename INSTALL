@@ -4,6 +4,9 @@ REQUIREMENTS
   Gregarius requires a relatively up-to-date PHP installation (>= 4.3.0) 
   with xml (expat) support. It works fairly well with the PHP5 pre-releases
   it has been tested with.
+  
+  Your PHP installation must support socket operations. See: 
+  http://ch2.php.net/manual/en/function.fsockopen.php
 
   Additionally you will need access to a MySQL database.
 
