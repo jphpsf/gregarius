@@ -348,17 +348,20 @@ ul#navlist {
  
 ul#navlist li {
  float: left;
- height: 23px;
- margin: 2px 2px 0 2px; 
- border: 1px solid #ddd;
- -moz-border-radius: 5px;
- background-color: #f4f4f4;
- padding: 0.05em 0.1em; 
 }
 
-input[type="submit"] {
- padding: 0.1em 0.3em;
- font-size:small;
+
+ul#navlist li, input[type="submit"] {
+ height: 23px;
+ margin: 2px 2px 0 2px;
+ border: 1px solid #ddd;
+ background-color: #f4f4f4;
+ padding: 0.05em 0.1em;
+ -moz-border-radius: 5px;
+}
+
+input[type="text"]:focus{
+ border-color:#aaa;
 }
 
  
@@ -378,11 +381,12 @@ input[type="submit"] {
  
 #navlist li.active a,#navlist li a:hover { color: #336; } 
 
+/*
 #navlist input[type="submit"] {
  font-weight:normal;
  font-size:medium;
 }
-
+*/
 
 img.favicon {
  width:16px;
