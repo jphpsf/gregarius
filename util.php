@@ -50,14 +50,16 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 	  ."\" />\n"
 	  ."\t<title>".makeTitle($title)."</title>\n";
 
-	if (getConfig('rss.config.robotsmeta')) {
-	  $meta = (
-		  (
-		   array_key_exists('expand',$_REQUEST) || 
-		   array_key_exists('collapse',$_REQUEST) ||
-		   array_key_exists('fcollapse',$_REQUEST) ||
-		   array_key_exists('fexpand',$_REQUEST) ||
-		   array_key_exists('dbg',$_REQUEST)
+    if (getConfig('rss.config.robotsmeta')) {
+	$meta = (
+		 (
+		  array_key_exists('expand',$_REQUEST) || 
+		  array_key_exists('collapse',$_REQUEST) ||		  
+		  strstr($_SERVER['REQUEST_URI'], 'fcollapse') ||
+		  strstr($_SERVER['REQUEST_URI'],'fexpand') ||
+		  //array_key_exists('fcollapse',$_REQUEST) ||
+		  //array_key_exists('fexpand',$_REQUEST) ||
+		  array_key_exists('dbg',$_REQUEST)
 		 )?'noindex,follow':getConfig('rss.config.robotsmeta'));
 	  echo "\t<meta name=\"robots\" content=\"$meta\"/>\n";
 	}
