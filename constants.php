@@ -53,6 +53,7 @@ function my_assert_handler($file, $line, $code) {
 // Set up the callback
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');
 
+define ('TITLE_SEP', '&raquo;');
 
 define ('LOCATION_HOME',1);
 define ('LOCATION_UPDATE',2);
@@ -66,4 +67,6 @@ define ('IL_DO_NAV', 0x01);
 define ('IL_NO_COLLAPSE', 0x02);
 define ('IL_DO_STATS',0x04);
 define ('IL_CHANNEL_VIEW',0x08);
+
+
 ?>

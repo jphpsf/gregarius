@@ -109,8 +109,12 @@ function ftr() {
     echo "</div>\n\n";
 }
 
-function rss_error($message) {
-    echo "\n<p class=\"error\">$message</p>\n";
+function rss_error($message, $returnonly=false) {
+    if (!$returnonly) {
+	echo "\n<p class=\"error\">$message</p>\n";
+	return;
+    } 
+    return $message;
 }
 
 function add_channel($url, $folderid=0) {
@@ -119,6 +123,13 @@ function add_channel($url, $folderid=0) {
 
     $urlDB = htmlentities($url);
 
+    $res = rss_query("select count(*) as channel_exists from channels where url='$urlDB'");
+    list ($channel_exists) = mysql_fetch_row($res);
+    if ($channel_exists > 0) {
+	rss_error("Looks like you are already subscribed to this channel");
+	return;
+    }
+    
     $rss = fetch_rss( $url );
     /*
      *          echo "<pre>";
@@ -242,7 +253,7 @@ function makeTitle ($title) {
 
     $ret = ""._TITLE_ . "";
     if ($title != "") {
-	$ret .= " &raquo; " . htmlentities($title);
+	$ret .= " ".TITLE_SEP." " . htmlentities($title);
     }
     return $ret;
 }

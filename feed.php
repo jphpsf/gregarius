@@ -105,10 +105,16 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
 assert(is_numeric($cid));
 assert(is_numeric($iid) || $iid=="");
 
-$res = rss_query("select title,icon from channels where id = $cid");
-list($title,$icon) = mysql_fetch_row($res);
+if ($iid == "") {
+    $res = rss_query("select title,icon from channels where id = $cid");
+    list($title,$icon) = mysql_fetch_row($res);
+} else {
+   $res = rss_query ("select c.title, c.icon, i.title from channels c,item i where c.id = $cid and i.cid=c.id and i.id=$iid");
+    list($title,$icon,$ititle) = mysql_fetch_row($res);
+}
 
-rss_header($title);
+
+rss_header($title . " " . html_entity_decode(TITLE_SEP) ." " .html_entity_decode($ititle));
 sideChannels($cid); 
 if (defined('_DEBUG_') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
