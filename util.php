@@ -361,8 +361,13 @@ function update($id) {
  */
 function itemsList($title,$items, $options = IL_NONE){
 
+    if ( getConfig('rss.output.showfavicons')) {
+	$cicon = $items[0][2];
+    }
+    
     if ($title) {
-	echo "\n\n<h2 id=\"feedcontent\">" 
+	echo "\n\n<h2 id=\"feedcontent\">"
+	  .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")	    
 	  .rss_htmlspecialchars($title)
 	  ."</h2>\n";
     } else {
@@ -392,7 +397,7 @@ function itemsList($title,$items, $options = IL_NONE){
 
     while (list($row, $item) = each($items)) {
 
-	list($cid, $ctitle,  $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
+	list($cid, $ctitle, $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
 
 	if (getConfig('rss.output.channelcollapse')) {
 	    $collapsed = in_array($cid,$collapsed_ids)

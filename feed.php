@@ -211,15 +211,17 @@ function items($cid,$title,$iid,$y,$m,$d) {
     $res = rss_query($sql);    
     $items = array();
         
-    $iconAdded = true;
+    $iconAdded = false;
       
     
     while (list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid) =  rss_fetch_row($res)) {
       	$items[]=array($cid, $ctitle, $cicon, $ititle,$iunread,$iurl,$idescription, $its, $iispubdate, $iid);
-      	if (! $iconAdded && getConfig('rss.output.showfavicons') && $cicon != "") {
+/*
+	if (! $iconAdded && getConfig('rss.output.showfavicons') && $cicon != "") {
       	    $iconAdded = true;
       	     $title = ("<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>" . $title);
       	}
+ */
     }
     
     
