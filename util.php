@@ -276,7 +276,13 @@ function itemsList ($title,$items){
 		if (_USE_FAVICONS_ && $cicon != "") {
 		    echo "<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>";
 		}
-		echo "<a href=\"feed.php?cid=$cid\">$ctitle</a></h3>\n";
+		
+		if (_USE_MODREWRITE_) {
+		    echo "<a href=\"" .getPath() ."$ctitle/\">$ctitle</a>";
+		} else {
+		    echo "<a href=\"". getPath() ."feed.php?cid=$cid\">$ctitle</a>";
+		}
+		echo "</h3>\n";
 	    }
 	    
             echo "<ul>\n";

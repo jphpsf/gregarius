@@ -1,5 +1,4 @@
 <IfModule mod_rewrite.c>
   RewriteEngine on
-  RewriteRule (.*)\/$ feed.php?channel=$1
-  RewriteRule (.*)\/(.*)\/$ feed.php?channel=$2
+  RewriteRule ^(.+)\/$ feed.php?channel=$1
 </IfModule>

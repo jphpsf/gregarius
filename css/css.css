@@ -371,3 +371,6 @@ div#channel_managmenet h2 { margin-top: 1em; }
 label, input[type="submit"] {
  cursor: pointer;
 }
+
+/* bad bad bad */
+.frame,.item { -moz-border-radius: 6px }
