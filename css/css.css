@@ -226,10 +226,13 @@ div#items li.upnav a {
 
 /* images inside posts */
 div.content img {
- display: block; 
+  display: block; 
+/*  margin-right: 1em;
+  float:left; */
 }
-
-
+/*
+br.brkr { clear: left }
+*/
 img { border: none }
 
 div#items img.favicon { display: inline; }

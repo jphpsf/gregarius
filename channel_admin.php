@@ -292,7 +292,7 @@ function channel_edit_form($cid) {
 	
 	
 	if (trim($icon) != "") {
-	    echo "(<img src=\"$icon\" alt=\"$c_name\" class=\"admin_icon\" width=\"16\" height=\"16\" />)\n";
+	    echo "<img src=\"$icon\" alt=\"$c_name\" class=\"favicon\" width=\"16\" height=\"16\" />\n";
 	    echo "<span>" . CLEAR_FOR_NONE ."<span>";
 	}
     

@@ -391,7 +391,9 @@ function itemsList ($title,$items, $doNav = false){
 	}
 
 	if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
-	    echo "\t\t<div class=\"content\">$idescr</div>\n";
+	    echo "\t\t<div class=\"content\">$idescr</div>"
+//	      ."<br class=\"brkr\"/>\n"
+	      ;
 	}
 	echo "\t</li>\n";
 	$ret++;

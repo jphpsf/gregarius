@@ -84,7 +84,7 @@ define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
 define ('ADMIN_CHANNELS_HEADING_ACTION','Action');
 define ('ADMIN_CHANNELS_ADD','Add a channel:');
 define ('ADMIN_CHANNEL_ICON','Shown favicon:');
-define ('CLEAR_FOR_NONE','Clear for no icon');
+define ('CLEAR_FOR_NONE','(Leave blank for no icon)');
 define ('ADMIN_OPML_EXPORT','Export OPML:');
 define ('ADMIN_OPML_IMPORT','Import OPML:');
 
