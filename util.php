@@ -42,8 +42,9 @@ function rss_header($title="", $active=0, $onLoadAction="") {
       ."charset=ISO-8859-1\" />\n"
       ."\t<title>".makeTitle($title)."</title>\n"
       ."\t<meta name=\"robots\" content=\"NOINDEX,NOFOLLOW\"/>\n"
-      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n";
-
+      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
+      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
+    
     if ($active == 1 && defined('RELOAD_AFTER') && RELOAD_AFTER >= (30*MINUTE)) {
 	echo "\t<meta http-equiv=\"refresh\" "
 	  ." content=\"" . RELOAD_AFTER
