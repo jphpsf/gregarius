@@ -364,7 +364,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
     
     if ($readMoreNav != "") {
 	echo "<div class=\"readmore\">$readMoreNav";
-	echo "<hr class=\"clearer\"/>\n</div>\n";
+	echo "<hr class=\"clearer hidden\"/>\n</div>\n";
     }
     
     

@@ -436,7 +436,8 @@ span.updateres.ko { color: red }
 #admin_folders { float: left }
 #admin_opml { margin-left: 50% }
 
-.clearer { clear: both; height: 0; display: none; }
+.clearer { clear: both; height: 0;  }
+.clearer.hidden {  display: none; }
 .indent { margin-left: 2em ! important; }
 
 /* margin to footer */

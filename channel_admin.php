@@ -79,6 +79,8 @@ function main($authorised) {
 	folders();
 	opml();
 
+	//echo "<hr class=\"clearer\"/>\n</div>\n";
+	
 	echo "\n<div class=\"clearer\"></div>\n";
 
     } else {
