@@ -107,6 +107,8 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     if ($cnt > 0) {
 	$rdLbl= "<strong>($cnt unread)</strong>";
 	$class_= "class=\"unread\"";
+    } else {
+	$rdLbl=$class_="";
     }
     
     $ret = "";

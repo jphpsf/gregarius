@@ -28,8 +28,10 @@
 
 
 require_once('init.php');
-$id=$_GET['id'];
-if ($_POST['action'] != "") {
+$id= (array_key_exists('id',$_GET))?$_GET['id']:"";
+
+
+if (array_key_exists ('action', $_POST) && $_POST['action'] != "") {
     $id = $_POST['cid'];
     
     $sql = "update item set unread=0 where cid=$id";

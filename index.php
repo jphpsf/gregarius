@@ -1,5 +1,4 @@
 <?
-
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003, 2004 Marco Bonetti
@@ -28,7 +27,10 @@
 
 require_once("init.php");
 
-if ($_POST['action'] != "" && trim($_POST['action']) == trim(MARK_READ)) {
+if (array_key_exists('action', $_POST) 
+    && $_POST['action'] != "" 
+    && trim($_POST['action']) == trim(MARK_READ)) {
+    
     rss_query( "update item set unread=0" );
 }
 

@@ -102,7 +102,9 @@ function kses_split2($string, $allowed_html, $allowed_protocols)
   $elem = $matches[2];
   $attrlist = $matches[3];
 
-  if (!is_array($allowed_html[strtolower($elem)]))
+  if (
+      !array_key_exists(strtolower($elem),$allowed_html)
+      || !is_array($allowed_html[strtolower($elem)]))
     return '';
     # They are using a not allowed HTML element
 
@@ -129,8 +131,9 @@ function kses_attr($element, $attr, $allowed_html, $allowed_protocols)
 
 # Are any attributes allowed at all for this element?
 
-  if (count($allowed_html[strtolower($element)]) == 0)
-    return "<$element$xhtml_slash>";
+    if (! array_key_exists(strtolower($element),$allowed_html)
+	|| count($allowed_html[strtolower($element)]) == 0)
+      return "<$element$xhtml_slash>";
 
 # Split it
 
@@ -143,8 +146,13 @@ function kses_attr($element, $attr, $allowed_html, $allowed_protocols)
 
   foreach ($attrarr as $arreach)
   {
-    $current = $allowed_html[strtolower($element)]
-                            [strtolower($arreach['name'])];
+      if (array_key_exists(strtolower($element), $allowed_html)
+	  && array_key_exists(strtolower($arreach['name']),$allowed_html[strtolower($element)])) {
+	  $current = $allowed_html[strtolower($element)]
+	    [strtolower($arreach['name'])];
+      } else {
+	  $current = '';
+      }
     if ($current == '')
       continue; # the attribute is not allowed
 

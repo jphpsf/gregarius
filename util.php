@@ -178,9 +178,16 @@ function update($id) {
         foreach ($rss->items as $item) {
     
             $title = $item['title'];
-            $description = kses($item['description'],  $kses_allowed);
+            $description = 
+	      (array_key_exists('description',$item))?	      
+	      kses($item['description'],  $kses_allowed) : "";
+	    
             $url =  $item['link'];
-            $cDate = $item['dc']['date'];
+	    
+	    $cDate = (array_key_exists('dc',$item) &&
+		array_key_exists('date',$item['dc'])) ?
+		      $item['dc']['date'] : "";
+		      
             $sql = "select id from item where cid=$cid and url='$url'";
             $subres = rss_query($sql);
             list($indb) = mysql_fetch_row($subres);
