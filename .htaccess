@@ -1,6 +1,8 @@
 <IfModule mod_rewrite.c>
   RewriteEngine on
   
+  RewriteRule 	^admin\/([a-z]+)$	admin/index.php?view=$1 [L]
+  
   RewriteRule 	^opml.*$	opml.php?action=Export [L]
   
   RewriteCond  %{REQUEST_URI} !css\/
@@ -14,4 +16,5 @@
   RewriteCond  %{REQUEST_URI} !admin\/
   RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2
  
+  
 </IfModule>

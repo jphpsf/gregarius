@@ -37,16 +37,18 @@ require_once('../opml.php');
 
 
 define ('ADMIN_DOMAIN','domain');
-define ('ADMIN_DOMAIN_FOLDER','folder');
-define ('ADMIN_DOMAIN_CHANNEL','channel');
+define ('ADMIN_DOMAIN_FOLDER','folders');
+define ('ADMIN_DOMAIN_CHANNEL','feeds');
 define ('ADMIN_DOMAIN_CONFIG','config');
+define ('ADMIN_DOMAIN_OPML','opml');
+define ('ADMIN_DOMAIN_NONE','none');
 define ('ADMIN_DELETE_ACTION','delete');
 define ('ADMIN_DEFAULT_ACTION','default');
 define ('ADMIN_EDIT_ACTION','edit');
 define ('ADMIN_MOVE_UP_ACTION','up');
 define ('ADMIN_MOVE_DOWN_ACTION','down');
 define ('ADMIN_SUBMIT_EDIT','submit_edit');
-
+define ('ADMIN_VIEW','view');
 $auth = true;
 
 
@@ -72,26 +74,51 @@ rss_footer();
 function admin_main($authorised) {
     echo "\n<div id=\"channel_admin\" class=\"frame\">";
 
+    admin_menu();
+    
     if ($authorised) {
 	if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
 	    switch($_REQUEST[ADMIN_DOMAIN]) {
 	     case ADMIN_DOMAIN_FOLDER:
-		folder_admin();
+		$show = folder_admin();
 		break;
 	     case ADMIN_DOMAIN_CHANNEL:
-		channel_admin();
+		$show = channel_admin();
+		break;
+	     case ADMIN_DOMAIN_CONFIG:
+		config_admin();
 		break;
 	     default:
 		break;
 	    }
 	}
 	
-	config();
-	channels();
-	folders();
-	opml();
-
-	//echo "<hr class=\"clearer\"/>\n</div>\n";
+	
+	if (array_key_exists(ADMIN_VIEW,$_REQUEST) || isset($show)) {
+	    if (!isset($show)) {
+		$show = $_REQUEST[ADMIN_VIEW];
+	    }
+	    switch ($show) {
+	     case ADMIN_DOMAIN_CONFIG:
+		config();
+		break;
+	     case ADMIN_DOMAIN_CHANNEL:
+		channels();
+		break;
+	     case ADMIN_DOMAIN_FOLDER:
+		folders();
+		break;
+	     case ADMIN_DOMAIN_OPML:
+		opml();
+		break;	    
+	     case ADMIN_DOMAIN_NONE:
+		break;
+	     default:
+		rss_error( "FIXME: admin unknown view: $show !\n" );
+	    }
+	} else {
+	    rss_error( "FIXME: admin no view!\n" );
+	}
 	
 	echo "\n<div class=\"clearer\"></div>\n";
 
@@ -202,6 +229,7 @@ function opml() {
 
 function channel_admin() {
 
+    $ret__ = ADMIN_DOMAIN_NONE;
     switch ($_REQUEST['action']) {
      case ADMIN_ADD:
 	$label = trim($_REQUEST['new_channel']);
@@ -210,21 +238,25 @@ function channel_admin() {
 	    $ret = add_channel($label,$fid);
 	    if (is_array($ret) && $ret[0] > -1) {
 		update($ret[0]);
+		$ret__ = ADMIN_DOMAIN_CHANNEL;
 	    } else {
 		// okay, something went wrong, maybe thats a html url after all?
 		// let's try and see if we can extract some feeds
 		$feeds = extractFeeds($label);
 		if (!is_array($feeds) || sizeof($feeds) == 0) {
 		    rss_error($ret[1]);
+		    $ret__ = ADMIN_DOMAIN_CHANNEL; 
 		} else {
 		    //one single feed in the html doc, add that
 		    if (is_array($feeds) && sizeof($feeds) == 1 && array_key_exists('href',$feeds[0])) {
 			$ret = add_channel($feeds[0]['href'],$fid);
 			if (is_array($ret) && $ret[0] > -1) {
 			    update($ret[0]);
+			    $ret__ = ADMIN_DOMAIN_CHANNEL; 
 			} else {
 			    // failure
 			    rss_error($ret[1]);
+			    $ret__ = ADMIN_DOMAIN_CHANNEL; 
 			}
 		    } else {
 			// multiple feeds in the channel
@@ -272,6 +304,7 @@ function channel_admin() {
 	    }
 	} else {
 	    rss_error("I'm sorry, I dont think I can handle this URL: '$label'");
+	    $ret__ = ADMIN_DOMAIN_CHANNEL; 
 	}
 	break;
 
@@ -286,6 +319,7 @@ function channel_admin() {
 
 	$sql = "insert into " . getTable("folders") ." (name) values ('" . rss_real_escape_string($label) ."')";
 	rss_query($sql);
+	$ret__ = ADMIN_DOMAIN_FOLDER;
 	break;
 
      case ADMIN_DELETE_ACTION:
@@ -295,8 +329,9 @@ function channel_admin() {
 	    rss_query($sql);
 	    $sql = "delete from " . getTable("channels") ." where id=$id";
 	    rss_query($sql);
+	    $ret__ = ADMIN_DOMAIN_CHANNEL;
 	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
-	    // nop;
+	    $ret__ = ADMIN_DOMAIN_CHANNEL;
 	} else {
 	    list($cname) = rss_fetch_row(rss_query("select title from " . getTable("channels") ." where id = $id"));
 
@@ -345,8 +380,9 @@ function channel_admin() {
 	    
 	    // mark all items as read
 	    rss_query( "update " . getTable("item") ." set unread=0" );
-	    
+
 	}
+	$ret__ = ADMIN_DOMAIN_CHANNEL;
 	break;
 
      case ADMIN_SUBMIT_EDIT:
@@ -360,6 +396,7 @@ function channel_admin() {
 
 	if ($url == '' || substr($url,0,4) != "http") {
 	    rss_error("I'm sorry, '$url' doesn't look like a valid RSS URL to me.");
+	    $ret__ = ADMIN_DOMAIN_CHANNEL;
 	    break;
 	}
 
@@ -367,6 +404,7 @@ function channel_admin() {
 	  ." parent=$parent, descr='$descr', icon='$icon' where id=$cid";
 
 	rss_query($sql);
+	$ret__ = ADMIN_DOMAIN_CHANNEL;
 	break;
 
      case ADMIN_MOVE_UP_ACTION:
@@ -403,10 +441,12 @@ function channel_admin() {
 	    rss_query( "update " .getTable("channels") ." set position = $switch_with_position where id=$id" );
 	    rss_query( "update " .getTable("channels") ." set position = $position where id=$switch_with_id" );
 	}
+	$ret__ = ADMIN_DOMAIN_CHANNEL;
 	break;
 
      default: break;
     }
+    return $ret__;
 }
 
 function channel_edit_form($cid) {
@@ -578,9 +618,11 @@ function folder_combo($name, $selected = -1) {
 
 function folder_admin() {
 
+    $ret__ = ADMIN_DOMAIN_FOLDER;
     switch ($_REQUEST['action']) {
      case ADMIN_EDIT_ACTION:
 	folder_edit($_REQUEST['fid']);
+	$ret__ = ADMIN_DOMAIN_NONE;                                                                      
 	break;
 
      case ADMIN_DELETE_ACTION:
@@ -589,14 +631,14 @@ function folder_admin() {
 
 	if ($id == 0) {
 	    rss_error("You can't delete the " . HOME_FOLDER . " folder");
-	    return;
+	    break;
 	}
 
 	if (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_YES) {
 	    $sql = "delete from " . getTable("folders") ." where id=$id";
 	    rss_query($sql);
             $sql = "update " . getTable("channels") ." set parent=0 where parent=$id";
-	    rss_query($sql);
+	    rss_query($sql);	    
 	} elseif (array_key_exists('confirmed',$_REQUEST) && $_REQUEST['confirmed'] == ADMIN_NO) {
 	    // nop;
 	} else {
@@ -610,6 +652,7 @@ function folder_admin() {
 	      ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n"
 	      ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE_ACTION ."\"/>\n"
 	      ."</p>\n</form>\n";
+	    $ret__ = ADMIN_DOMAIN_NONE;
 	}
 	break;
 
@@ -623,7 +666,7 @@ function folder_admin() {
 	    list($cnt) = rss_fetch_row($res);
 	    if ($cnt > 0) {
 		rss_error("You can't rename this folder '$new_label' becuase such a folder already exists.");
-		return;
+		break;
 	    }
 	    rss_query("update " .getTable("folders") ." set name='$new_label' where id=$id");
 	}
@@ -680,6 +723,7 @@ function folder_admin() {
 
      default: break;
     }
+    return $ret__;
 }
 
 function create_folder($label) {
@@ -695,7 +739,7 @@ function create_folder($label) {
     $res = rss_query("select 1+max(position) as np from " . getTable("folders"));
     list($np) = rss_fetch_row($res);
 
-    if (!np) {
+    if (!$np) {
 	$np = "0";
     }
 
@@ -724,7 +768,7 @@ function opml_export_form() {
 /*************** Config management ************/
 
 function config() {
-    echo "<h2 class=\"trigger\">".ADMIN_CONFIG.":</h2>\n"
+    echo "<h2 class=\"trigger\">".ADMIN_CONFIG."</h2>\n"
       ."<div id=\"admin_config\" class=\"trigger\">\n";
     
     echo "<table id=\"configtable\">\n"
@@ -831,5 +875,23 @@ function real_strip_slashes($string) {
 	return $string;
     }
     return real_strip_slashes(stripslashes($string));
+}
+
+function admin_menu() {
+    $active = array_key_exists(ADMIN_VIEW,$_REQUEST)?$_REQUEST[ADMIN_VIEW]:null;
+    
+    echo "\n<ul class=\"navlist\">\n";
+    foreach( 
+	     array (ADMIN_DOMAIN_CHANNEL,
+		    ADMIN_DOMAIN_CONFIG,
+		    ADMIN_DOMAIN_FOLDER,
+		    ADMIN_DOMAIN_OPML
+		    ) as $item) {
+	$cls = ($item==$active?" class=\"active\"":"");
+	echo "\t<li$cls><a href=\"$item\">$item</a></li>\n";	
+    }
+    echo "</ul>\n";
+    
+
 }
 ?>

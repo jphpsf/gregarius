@@ -97,7 +97,7 @@ define ('ADMIN_NO', 'No');
 define ('ADMIN_FOLDERS','Folders:');
 define ('ADMIN_CHANNELS','Feeds:');
 define ('ADMIN_OPML','OPML:');  
-define ('ADMIN_CONFIG','Config');
+define ('ADMIN_CONFIG','Configuration:');
 
 define ('ADMIN_IN_FOLDER','to folder:');
 define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
