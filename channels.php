@@ -48,11 +48,11 @@ function sideChannels($activeId) {
 		}
 		
 		//get unread count per folder
-		$sql = "select f.id, f.name, count(*) as cnt "
-		." from item i, channels c, folders f "
-		." where i.unread=1 and i.cid=c.id and c.parent=f.id "
-		." group by 1";	
-		$res  = rss_query($sql);
+	    $sql = "select f.id, f.name, count(*) as cnt "	      
+	      ." from " .getTable('item') ." i, " .getTable('channels') . " c, " .getTable('folders') ." f "
+	      ." where i.unread=1 and i.cid=c.id and c.parent=f.id "
+	      ." group by 1";	
+	    $res  = rss_query($sql);
 		
 		while (list($cid,$cname,$cuc) = rss_fetch_row($res)) {
 			$collapsed_folders[$cid]=$cuc;
