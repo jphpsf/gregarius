@@ -26,15 +26,18 @@
 ###############################################################################
 
 function rss_header($title="", $active=0) {
-    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
+    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
+      ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
       ."<head>\n"
-      ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\" />\n"
+      ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
+      ."charset=ISO-8859-1\" />\n"
       ."\t<title>".makeTitle($title)."</title>\n"
       ."\t<meta name=\"robots\" content=\"NOINDEX,NOFOLLOW\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/css.css\"/>\n";
 
-    if ($active == 1 && defined('RELOAD_AFTER') /* && RELOAD_AFTER > (30*MINUTE) */) {
+    if ($active == 1 && defined('RELOAD_AFTER') 
+    /* && RELOAD_AFTER > (30*MINUTE) */) {
 	echo "\t<meta http-equiv=\"refresh\" "
 	  ." content=\"" . RELOAD_AFTER
 	  . ";url=update.php\"/>\n";
@@ -61,11 +64,13 @@ function nav($title, $active=0) {
       ."\n<a id=\"top\"></a>\n"
       ."\n<h1>".makeTitle($title)."</h1>\n"
       ."<ul id=\"navlist\">\n"
-      ."\t<li".($active==1?" id=\"active\"":"")."><a href=\"index.php\">Home</a></li>\n"
-      . "\t<li".($active==2?" id=\"active\"":"")."><a href=\"update.php\">Update All</a></li>\n"
-      . "\t<li".($active==3?" id=\"active\"":"")."><a href=\"channel_mgnt.php\">Channel Admin</a></li>\n"
+      ."\t<li".($active==1?" id=\"active\"":"")."><a href=\"index.php\">".NAV_HOME."</a></li>\n"
+      . "\t<li".($active==2?" id=\"active\"":"")."><a href=\"update.php\">" . NAV_UPDATE. "</a></li>\n"
+      . "\t<li".($active==3?" id=\"active\"":"")."><a href=\"channel_mgnt.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
       . "</ul>\n</div>\n";
 }
+
+
 
 function ftr() {
     echo "\n<div id=\"footer\" class=\"frame\">\n";
