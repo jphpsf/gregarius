@@ -28,21 +28,108 @@
 #
 ###############################################################################
 
-
 require_once('init.php');
-update("");
+require_once('plugins/browser.php');
+$browser = new Browser();
 
-// silently exit (for updates via cron)
-if (! array_key_exists('silent',$_GET)) {
-    $redirect = "http://"
-      . $_SERVER['HTTP_HOST']
-      . dirname($_SERVER['PHP_SELF']);
+// decide wether we use server pushing or not
+$doPush =
+  // configured
+  defined('DO_SERVER_PUSH') && DO_SERVER_PUSH
+  // not a cron update
+  && !array_key_exists('silent',$_GET)
+  // browser supports it (Geckos and Opera)
+  && $browser->supportsServerPush();
+
+if ($doPush) {
+    define('PUSH_BOUNDARY',"-------- =_aaaaaaaaaa0");
+    header("Connection: close");
+    header("Content-type: multipart/x-mixed-replace;boundary=\"".PUSH_BOUNDARY."\"");
+    echo "WARNING: YOUR BROWSER DOESN'T SUPPORT THIS SERVER-PUSH TECHNOLOGY.";
+    echo "\n" . PUSH_BOUNDARY ."\n";
+
+    echo "Content-Type: text/html\n\n";
     
-    if (substr($redirect,-1) != "/") {
-	$redirect .= "/";
+    rss_header($title="Updating", LOCATION_UPDATE, "", true);
+    $cnt = sideChannels(false);
+    
+    
+    echo "<div id=\"update\" class=\"frame\">\n"
+      ."<h2>". sprintf(UPDATE_H2,$cnt) ."</h2>\n"
+      
+      ."<table id=\"updatetable\">\n"
+      ."<tr>\n"
+      ."<th>".UPDATE_CHANNEL."</th>\n"
+      ."<th>".UPDATE_STATUS."</th>\n"
+      ."</tr>";
+    
+    $sql = "select id, url, title from channels";    
+    if (defined('ABSOLUTE_ORDERING') && ABSOLUTE_ORDERING) {
+	$sql .= " order by parent, position"; 
+    } else {
+	$sql .= " order by parent, title";
     }
-        
-    header("Location: $redirect");
+    $res = rss_query($sql);
+    while (list($cid, $url, $title) = mysql_fetch_row($res)) {
+	echo "<tr>\n";
+	echo "<td>$title</td>\n"; flush();
+	echo "<td>";
+	$ret = update($cid);
+	
+	if ($ret & MAGPIE_FEED_ORIGIN_CACHE) {
+	    if ($ret & MAGPIE_FEED_ORIGIN_HTTP_304) {
+		echo UPDATE_NOT_MODIFIED;
+	    } elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
+		echo UPDATE_CACHE_TIMEOUT;
+	    } elseif ($ret & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
+		echo UPDATE_STATUS_CACHED;
+	    } else {
+		echo $ret;
+	    }	    	    
+	} elseif ($ret & MAGPIE_FEED_ORIGIN_HTTP_200) {
+	    echo UPDATE_STATUS_OK;
+	} else {
+	    echo UPDATE_STATUS_ERROR;
+	}
+	
+	"</td>\n";
+	echo "</tr>\n";
+	flush();
+    }
+    
+    echo "</table>\n";
+    echo "</div>\n";
+    rss_footer();
+    flush();
+} else {
+    
+    update("");
 }
-exit();
+
+
+if ($doPush) {
+    echo "\n" . PUSH_BOUNDARY ."\n";
+    echo "Content-Type: text/html\n\n"
+      ."<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">"
+      ."<html>\n"
+      ."<head>\n"
+      ."<title>Redirecting...</title>\n"
+      ."<meta http-equiv=\"refresh\" content=\"0;url=index.php\"/>\n"
+      ."</head>\n"
+      ."<body/>\n"
+      ."</html>";
+
+    echo "\n" . PUSH_BOUNDARY ."\n";
+    echo "WARNING: YOUR BROWSER DOESN'T SUPPORT THIS SERVER-PUSH TECHNOLOGY.\n";
+} else {
+    if (! array_key_exists('silent',$_GET)) {
+	$redirect = "http://"
+	  . $_SERVER['HTTP_HOST']
+	  . dirname($_SERVER['PHP_SELF']);
+	if (substr($redirect,-1) != "/") {
+	    $redirect .= "/";
+	}
+	header("Location: $redirect");
+    }
+}
 ?>

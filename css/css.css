@@ -127,7 +127,7 @@ div#channels > ul {
 
 
 
-div#items,div#search {
+div#items,div#search, div#update {
  margin-left: 290px;
 }
 
@@ -260,7 +260,7 @@ th {
  font-weight: bold; 
 }
 
-table#channeltable,table#foldertable {
+table#channeltable,table#foldertable,table#updatetable {
  border: 1px solid #ddd;
  margin: 20px 0 5px 0;
  width: 100%;
@@ -451,6 +451,38 @@ span.updateres.ko { color: red }
 .clearer { clear: both; height: 0 }
 
 /* margin to footer */
-div#channels, div#items, div#search, div#channel_admin {
+div#channels, div#items, div#search, div#channel_admin, div#about, div#update {
  margin-bottom: 5px;
 }
+
+/* about page */
+#about li { 
+ list-style-type: disc;
+ margin-left: 2em;
+}
+
+#about ul {
+ margin-top: 1em;
+}
+
+#about p {
+ margin-left: 2em;
+}
+
+#about li p {
+ margin-left: 0;
+}
+
+#about dd {
+ font-style: italic;
+}
+
+#about dt {
+  font-style: italic;
+  font-weight: bold;
+  font-size: large;
+  letter-spacing: 0.05em;
+}      
+
+#about acronym {cursor: help;}
+#about p.cvs {font-family:Courier, monospace,Monospaced }

@@ -66,6 +66,16 @@ define ('VISIT', '(visit)');
 define ('COLLAPSE','collapse');
 define ('EXPAND','expand');
 define ('PL_FOR','Permalink for ');
+
+define ('UPDATE_CHANNEL','Channel');
+define ('UPDATE_STATUS','Status');
+define ('UPDATE_STATUS_OK','OK (HTTP 200)');
+define ('UPDATE_STATUS_CACHED', 'OK (Local cache)');
+define ('UPDATE_STATUS_ERROR','ERROR');
+define ('UPDATE_H2','Updating %d Channels...');
+define ('UPDATE_CACHE_TIMEOUT','HTTP Timeout (Local cache)');
+define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)');
+
 // admin
 define ('ADMIN_EDIT', 'edit');
 define ('ADMIN_DELETE', 'delete');

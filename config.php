@@ -97,6 +97,14 @@ define ('ABSOLUTE_ORDERING',true);
 // (see http://www.robotstxt.org/wc/meta-user.html for more info)
 define ('ROBOTS_META','index,follow');
 
+
+// Use server push on update.php for a more user-friendly experience.
+// This is only supported by Mozilla browser (Netscape, Mozilla, FireFox,...)
+// and Opera. These brwosers will be autodetected.
+// If you're not using one of these (you should) you can as well turn this off.
+define ('DO_SERVER_PUSH',true);
+
+
 // html filtering via kses. DO no modify this unless you know what 
 // you do. See kses-0.2.1/README for more info.
 

@@ -42,7 +42,7 @@ define ('SEARCH_CHANNELS', 'Canal:');
 
 define ('H2_UNREAD_ITEMS',"Elements non lus (%d)");
 define ('H2_RECENT_ITEMS', "Elements récents");
-define ('H2_CHANNELS','Channels');
+define ('H2_CHANNELS','Canaux');
 define ('ITEMCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments (<strong>%d</strong> non lus) dans <strong>%d</strong> canaux');
 define ('UNREAD_PF', '(<strong>%d non lus</strong>)');
 
@@ -61,6 +61,15 @@ define ('VISIT', '(visiter)');
 define ('COLLAPSE','collapser');
 define ('EXPAND','&eacute;tendre');
 define ('PL_FOR','Lien pour ');
+
+define ('UPDATE_CHANNEL','Canal');
+define ('UPDATE_STATUS','Etat');
+define ('UPDATE_STATUS_CACHED', 'OK (Depuis cache)');
+define ('UPDATE_STATUS_ERROR','ERREUR');
+define ('UPDATE_H2','Mise &agrave; jour de %d Canaux...');
+define ('UPDATE_STATUS_OK','OK (HTTP 200)');
+define ('UPDATE_CACHE_TIMEOUT','Cache (HTTP Timeout)');
+define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)'); 
 
 // admin
 define ('ADMIN_EDIT', '&eacute;diter');

@@ -128,7 +128,10 @@ class MagpieRSS {
 	var $image			= array();
 	var $feed_type;
 	var $feed_version;
-
+	
+	//mbi: origin of this feed
+	var $rss_origin = 0;
+	
 	// parser variables
 	var $stack				= array(); // parser stack
 	var $inchannel			= false;
@@ -138,10 +141,11 @@ class MagpieRSS {
 	var $inimage 			= false;
 	var $current_field		= '';
 	var $current_namespace	= false;
-	
+		
 	var $ERROR = "";
 	
 	var $_CONTENT_CONSTRUCTS = array('content', 'summary', 'info', 'title', 'tagline', 'copyright');
+		
 /*======================================================================*\
     Function: MagpieRSS
     Purpose:  Constructor, sets up XML parser,parses source,

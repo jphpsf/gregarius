@@ -35,6 +35,21 @@ define('MAGPIE_EXTLIB', MAGPIE_DIR . 'extlib' . DIR_SEP);
 require_once( MAGPIE_EXTLIB . 'Snoopy.class.inc');
 
 
+////mbi: define origin codes:
+// Fetched from network
+define ('MAGPIE_FEED_ORIGIN_NETWORK', 1);
+// Fetched from disk
+define ('MAGPIE_FEED_ORIGIN_CACHE', 2);
+// Network, downloaded
+define ('MAGPIE_FEED_ORIGIN_HTTP_200', 4);
+// Network, not modified
+define ('MAGPIE_FEED_ORIGIN_HTTP_304', 8);
+// Network, timeout
+define ('MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT', 16);
+// Not checked because age < MAGPIE_CACHE_AGE
+define ('MAGPIE_FEED_ORIGIN_NOT_FETCHED', 32);
+
+
 /* 
  * CONSTANTS - redefine these in your script to change the
  * behaviour of fetch_rss() currently, most options effect the cache
@@ -99,7 +114,8 @@ function fetch_rss ($url) {
 		// fetch file, and parse it
 		$resp = _fetch_remote_file( $url );
 		if ( is_success( $resp->status ) ) {
-			return _response_to_rss( $resp );
+			return _response_to_rss( $resp, 
+						 MAGPIE_FEED_ORIGIN_NETWORK | MAGPIE_FEED_ORIGIN_HTTP_200 );
 		}
 		else {
 			error("Failed to fetch $url and cache is off");
@@ -135,11 +151,12 @@ function fetch_rss ($url) {
 		if ( $cache_status == 'HIT' ) {
 			$rss = $cache->get( $url );
 			if ( isset($rss) and $rss ) {
-				$rss->from_cache = 1;
-				if ( MAGPIE_DEBUG > 1) {
+			    $rss->from_cache = 1;
+			    if ( MAGPIE_DEBUG > 1) {
 				debug("MagpieRSS: Cache HIT", E_USER_NOTICE);
-			}
-				return $rss;
+			    }
+			    $rss -> rss_origin = MAGPIE_FEED_ORIGIN_CACHE | MAGPIE_FEED_ORIGIN_NOT_FETCHED;
+			    return $rss;
 			}
 		}
 		
@@ -163,11 +180,12 @@ function fetch_rss ($url) {
 					debug("Got 304 for $url");
 				}
 				// reset cache on 304 (at minutillo insistent prodding)
+				$rss->rss_origin = MAGPIE_FEED_ORIGIN_CACHE | MAGPIE_FEED_ORIGIN_HTTP_304;
 				$cache->set($url, $rss);
 				return $rss;
 			}
 			elseif ( is_success( $resp->status ) ) {
-				$rss = _response_to_rss( $resp );
+			    $rss = _response_to_rss( $resp, MAGPIE_FEED_ORIGIN_NETWORK | MAGPIE_FEED_ORIGIN_HTTP_200 );
 				if ( $rss ) {
 					if (MAGPIE_DEBUG > 1) {
 						debug("Fetch successful");
@@ -201,7 +219,8 @@ function fetch_rss ($url) {
 			if ( MAGPIE_DEBUG ) {
 				debug("Returning STALE object for $url");
 			}
-			return $rss;
+		    $rss -> rss_origin = MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT | MAGPIE_FEED_ORIGIN_CACHE;
+		    return $rss;
 		}
 		
 		// else we totally failed
@@ -277,7 +296,7 @@ function _fetch_remote_file ($url, $headers = "" ) {
 	Input:		an HTTP response object (see Snoopy)
 	Output:		parsed RSS object (see rss_parse)
 \*=======================================================================*/
-function _response_to_rss ($resp) {
+function _response_to_rss ($resp, $rss_origin = 0) {
 	$rss = new MagpieRSS( $resp->results );
 	
 	// if RSS parsed successfully		
@@ -303,6 +322,7 @@ function _response_to_rss ($resp) {
 			}
 		}
 		
+	        $rss -> rss_origin = $rss_origin;
 		return $rss;	
 	} // else construct error message
 	else {

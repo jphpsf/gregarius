@@ -28,15 +28,16 @@
 #
 ###############################################################################
 
-function rss_header($title="", $active=0, $onLoadAction="") {
+function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false) {
 
-    
-    if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
-	ob_start('ob_gzhandler');
-    } else {
+    if (!$no_output_buffering) {
+	if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
+	    ob_start('ob_gzhandler');
+	} else {
 	    ob_start();
+	}
     }
-      
+    
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
@@ -275,7 +276,7 @@ function update($id) {
     global $kses_allowed;
 
     $sql = "select id, url, title from channels";
-    if ($id !="" && is_numeric($id)) {
+    if ($id != "" && is_numeric($id)) {
 	$sql .= " where id=$id";
     }
     
@@ -380,7 +381,11 @@ function update($id) {
     }
 
     if ($id != "" && is_numeric($id)) {
-	return "";
+	if ($rss) {
+	    return $rss -> rss_origin;
+	} else {
+	    return -1;
+	}
     }
 }
 

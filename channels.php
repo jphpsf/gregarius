@@ -48,6 +48,8 @@ function sideChannels($activeId) {
     
     
     $res = rss_query($sql);
+    $channelCount = mysql_num_rows ( $res );
+    
     $prev_parent = 0;
     echo "<ul>\n";
     while (list($id, $title, $url, $siteurl, $parent, $pid, $ico, $description) = mysql_fetch_row($res)) {
@@ -89,6 +91,8 @@ function sideChannels($activeId) {
       markChannelReadForm();
     */
     echo "\n</div>\n";
+    
+    return $channelCount;
 }
 
 
