@@ -266,6 +266,8 @@ table#channeltable,table#foldertable {
  font-size: small;
 }
 
+table tr:hover td { background-color: #f8f8ff }
+
 table#foldertable { width: auto }
 
 td>input[type="text"] {
