@@ -120,26 +120,27 @@ define ('DO_SERVER_PUSH',true);
 // html filtering via kses. DO no modify this unless you know what 
 // you do. See kses-0.2.1/README for more info.
 
-$kses_allowed = 
-  array(
-	'img' => array('src' => 1, 'alt'=> 1 
-		       //,  'align' => 1, 'vspace' => 1, 'hspace' => 1
-		       ),
-	'b' => array(),
-	'i' => array(),
-	'a' => array('href' => 1, 'title' => 1),
-	'br' => array(),
-	'p' => array(),
-	'blockquote' => array(),
-	'ol' => array(),
-	'ul' => array(),	
-	'li' => array(),
-	'tt' => array(),
-	'code' => array(),
-	'pre' => array(),
-	'table' => array(),
-	'tr' => array(),
-	'td' => array(),
-	'th' => array()
+
+function  getAllowedTags() {
+    return 
+      array(
+	    'img' => array('src' => 1, 'alt'=> 1),
+	    'b' => array(),
+	    'i' => array(),
+	    'a' => array('href' => 1, 'title' => 1),
+	    'br' => array(),
+	    'p' => array(),
+	    'blockquote' => array(),
+	    'ol' => array(),
+	    'ul' => array(),	
+	    'li' => array(),
+	    'tt' => array(),
+	    'code' => array(),
+	    'pre' => array(),
+	    'table' => array(),
+	    'tr' => array(),
+	    'td' => array(),
+	    'th' => array()
 	);
+}
 ?>

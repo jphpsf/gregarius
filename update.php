@@ -29,7 +29,9 @@
 ###############################################################################
 
 require_once('init.php');
-require_once('plugins/browser.php');
+rss_require ('plugins/browser.php');
+rss_require ('config.php');
+
 $browser = new Browser();
 
 // decide wether we use server pushing or not

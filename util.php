@@ -29,6 +29,7 @@
 ###############################################################################
 
 
+
 function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering = false) {
 
     if (!$no_output_buffering) {
@@ -203,9 +204,7 @@ function makeTitle ($title) {
 /*** update the given feed(s) **/
 
 function update($id) {
-    global $kses_allowed;
-    
-    
+    $kses_allowed = getAllowedTags();
     $unreadCount = 0;
     
     $sql = "select id, url, title from channels";
