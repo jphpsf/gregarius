@@ -98,7 +98,28 @@ function rss_header($title="", $active=0, $onLoadAction="", $no_output_buffering
 }
 
 function rss_footer() {
-	ftr();
+	echo "\n</div>\n";
+	
+	echo "\n<div id=\"footer\" class=\"frame\">\n";
+	echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
+
+	echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">"._TITLE_ . "</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
+	  ."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
+	  ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"
+	  ."</span>\n";
+
+	echo "<span>\n\tTentatively valid <a title=\"Tentatively valid XHTML: the layout"
+	  ." validates, but the actual content coming from the feeds I can't do very much.\" "
+	  ." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
+	  ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
+
+	$res = rss_query("select unix_timestamp(max(added)) as max_added from " . getTable("item"));
+	list($ts) = rss_fetch_row($res);
+	echo "<span>\n\tLast update: "
+		.($ts?date(getConfig('rss.config.dateformat'),$ts):"never")
+	  ."\n</span>\n";
+
+	echo "</div>\n\n";
 	echo "</body>\n"
 	  ."</html>\n";	  
 }
@@ -124,31 +145,6 @@ function nav($title, $active=0) {
 	echo "<div id=\"ctnr\">\n";
 }
 
-function ftr() {
-	
-	echo "\n</div>\n";
-	
-	echo "\n<div id=\"footer\" class=\"frame\">\n";
-	echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
-
-	echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">"._TITLE_ . "</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
-	  ."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
-	  ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"
-	  ."</span>\n";
-
-	echo "<span>\n\tTentatively valid <a title=\"Tentatively valid XHTML: the layout"
-	  ." validates, but the actual content coming from the feeds I can't do very much.\" "
-	  ." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
-	  ."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
-
-	$res = rss_query("select unix_timestamp(max(added)) as max_added from " . getTable("item"));
-	list($ts) = rss_fetch_row($res);
-	echo "<span>\n\tLast update: "
-	  .date(getConfig('rss.config.dateformat'),$ts)
-	  ."\n</span>\n";
-
-	echo "</div>\n\n";
-}
 
 function rss_error($message, $returnonly=false) {
 	if (!$returnonly) {

@@ -496,42 +496,36 @@ function channel_admin() {
 		$opml=getOpml($url);
 
 		if (sizeof($opml) > 0) {
-			$sql = "delete from " . getTable("channels");
-		rss_query($sql);
-
-		$sql = "delete from " . getTable("item");
-		rss_query($sql);
-
-		$sql = "delete from " . getTable("folders") ." where id > 0";
-		rss_query($sql);
 		
-		$sql = "delete from " .getTable("item");
-		rss_query($sql);
+			rss_query("delete from " . getTable("metatag"));
+			rss_query("delete from " . getTable("channels"));
+			rss_query("delete from " . getTable("item"));
+			rss_query("delete from " . getTable("folders") ." where id > 0");
 
-		$prev_folder = HOME_FOLDER;
-		$fid = 0;
-		while (list($folder,$items) = each ($opml)) {
-		if ($folder != $prev_folder) {
-			$fid = create_folder($folder);
-			$prev_folder = $folder;
+			$prev_folder = HOME_FOLDER;
+			$fid = 0;
+			while (list($folder,$items) = each ($opml)) {
+				if ($folder != $prev_folder) {
+					$fid = create_folder($folder);
+					$prev_folder = $folder;
+				}
+		
+				for ($i=0;$i<sizeof($opml[$folder]);$i++){
+					$url_ = trim($opml[$folder][$i]['XMLURL']);
+					add_channel($url_, $fid);
+				}
+		
+			}
+	
+			//update all the feeds
+			update("");
+	
+			// mark all items as read
+			rss_query( "update " . getTable("item") ." set unread=0" );
+
 		}
-
-		for ($i=0;$i<sizeof($opml[$folder]);$i++){
-			$url_ = trim($opml[$folder][$i]['XMLURL']);
-			add_channel($url_, $fid);
-		}
-
-		}
-
-		//update all the feeds
-		update("");
-
-		// mark all items as read
-		rss_query( "update " . getTable("item") ." set unread=0" );
-
-	}
-	$ret__ = ADMIN_DOMAIN_CHANNEL;
-	break;
+		$ret__ = ADMIN_DOMAIN_CHANNEL;
+		break;
 
 	 case ADMIN_SUBMIT_EDIT:
 		$cid = $_REQUEST['cid'];

@@ -222,12 +222,16 @@ function _et(id) {
     sideChannels(false);
     
     echo "\n\n<div id=\"items\" class=\"frame\">\n";
-    echo "<h2>" . count($items) . " " . (count($items) > 1 ? ITEMS:ITEM)
-      ." " 
-      . (count($items) > 1 || count($items) == 0? TAG_TAGGEDP:TAG_TAGGED) .""
-      . " \"" . $tag . "\"</h2>\n";
+    
     
     if ($gotsome) {
+		 
+		 echo "<h2>" . count($items) . " " . (count($items) > 1 ? ITEMS:ITEM)
+			." " 
+			. (count($items) > 1 || count($items) == 0? TAG_TAGGEDP:TAG_TAGGED) .""
+			. " \"" . $tag . "\"</h2>\n";
+
+
 		itemsList ( "",  $items, IL_NO_COLLAPSE );
 	} else {
 		echo "<p style=\"height: 10em; text-align:center\">";
