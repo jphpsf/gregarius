@@ -50,8 +50,8 @@ h1,h2,h3,h4,h5 {
   letter-spacing: 0.05em;
 }
 
-a:hover,input:hover {color: #223; }
-a,input,select { color: #335 }
+a:hover,input:hover {color: #336; }
+a,input,select { color: #667 }
 
 
 
@@ -112,7 +112,9 @@ div#channels li:hover {
  background-color: #f8f8ff;
 }
 
-
+div#channels > ul {
+ margin-top: 20px;
+}
 
 div#items {
  margin-left: 290px;
@@ -302,17 +304,17 @@ input[type="submit"] {
  border-color: #ddf;
 }
 
-#active a {
- color: black;
-}
  
 #navlist a {
  float: left;
  display: block;
  text-decoration: none;
  font-weight: bold;
+ color: #667;
+ letter-spacing: 0.1em;
 }
  
+#navlist li#active a { color: #336; } 
 
 
 img.favicon {

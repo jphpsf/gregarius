@@ -39,7 +39,7 @@ define ('SEE_ALL', "See all %d items for this channel");
 define ('H2_UNREAD_ITEMS',"Unread items (%d)");
 define ('H2_RECENT_ITEMS', "Recent items");
 
-define ('FTR_POWERED_BY', "is powered by");
+define ('FTR_POWERED_BY', "is powered by ");
 
 define ('NAV_HOME','Home');
 define ('NAV_UPDATE', 'Update All');
