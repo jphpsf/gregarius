@@ -42,16 +42,19 @@ if (
     $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
     $res =  rss_query( "select id from channels where title like '$sqlid'" );
     
-    if ( mysql_num_rows ( $res ) != 1) {
-      rss_error("I'm having troubles fetching the channel " . $_REQUEST['channel'] . "! <!-- $sqlid -->");
+    if ( mysql_num_rows ( $res ) == 1) {
+	list($cid) = mysql_fetch_row($res);
+	//rss_error("I'm having troubles fetching the channel " . $_REQUEST['channel'] . "! <!-- $sqlid -->");
+    } else {
+	$cid = "";
     }
     
     
-    list($cid) = mysql_fetch_row($res);
+
     
     // lets see if theres an item id as well
     $iif = "";
-    if (array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
+    if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
 	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
 	$res =  rss_query( "select id from item where title like '$sqlid' and cid=$cid" );
 		
@@ -108,7 +111,14 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
 }
 
 assert(is_numeric($cid));
-assert(is_numeric($iid) || $iid=="");
+
+$itemFound = true;
+if ($iid != "" && !is_numeric($iid)) {
+    //item was deleted
+    $itemFound = false;
+    $iid = "";
+}
+
 
 if ($iid == "") {
     $res = rss_query("select title,icon from channels where id = $cid");
@@ -132,8 +142,7 @@ rss_footer();
 
 
 function items($cid,$title,$iid) {
-    echo "\n\n<div id=\"items\" class=\"frame\">";
-
+    echo "\n\n<div id=\"items\" class=\"frame\">";    
     markReadForm($cid);
         
     $sql = " select i.title, i.url, i.description, i.unread, "
