@@ -91,14 +91,14 @@ div#channels li {
 div#channels li ul li {
  border-bottom: none;
  border-left: 1px solid  #eef;
- padding-left: 10px;
+ padding-left: 10px; 
 }
 
 
 /* folder icon */
 li.folder {
   background-image: url(media/folder.gif);
-  background-position: 15px 0.5em;
+  background-position: 0px 0.5em;
   background-repeat: no-repeat;
   padding:0;
 }
@@ -107,7 +107,7 @@ li.folder {
 li.folder span {
   font-weight:bold;
   text-transform: capitalize;
-  padding-left: 35px;
+  padding-left: 25px; 
   margin:0;
 }
 
