@@ -37,7 +37,7 @@ function sideChannels($activeId) {
     stats();
           
     $sql = "select "
-      ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.icon "
+      ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.icon, c.descr "
       ." from channels c, folders d "
       ." where d.id = c.parent"
       ." order by c.parent asc, c.title asc";
@@ -46,7 +46,7 @@ function sideChannels($activeId) {
     $res = rss_query($sql);
     $prev_parent = 0;
     echo "<ul>\n";
-    while (list($id, $title, $url, $siteurl, $parent, $pid, $ico) = mysql_fetch_row($res)) {
+    while (list($id, $title, $url, $siteurl, $parent, $pid, $ico, $description) = mysql_fetch_row($res)) {
 	//echo "\n<!-- $title -->\n";	
 	
 	if ($pid != $prev_parent) {
@@ -65,7 +65,7 @@ function sideChannels($activeId) {
 	    
 	}
 	echo tabs( ($pid > 0)?3:1  ) . "<li" .  (($id == $activeId)?" class=\"active\"":"") . ">";
-	echo feed($id, $title, $url, $siteurl, $ico);
+	echo feed($id, $title, $url, $siteurl, $ico, $description);
 	echo "</li>\n";
     }
     
@@ -97,7 +97,7 @@ function tabs($count) {
 
 
 /** prints out a formatted channel item **/
-function feed($cid, $title, $url, $siteurl, $ico) {
+function feed($cid, $title, $url, $siteurl, $ico, $description) {
     $res = rss_query ("select count(*) from item where cid=$cid and unread=1");
     list($cnt) = mysql_fetch_row($res);
     if ($cnt > 0) {
@@ -124,7 +124,10 @@ function feed($cid, $title, $url, $siteurl, $ico) {
     
     
     $ret .= 
-      "<a" .$class_ ." href=\"$feedUrl\">" .htmlentities($title) ."</a> $rdLbl"
+      "<a" 
+      .$class_
+      . ($description!=""?" title=\"$description\"":"")
+      ." href=\"$feedUrl\">" .htmlentities($title) ."</a> $rdLbl"
       ." [<a href=\"". htmlentities($url)."\">xml</a>";
     
     if ($siteurl != "" && substr($siteurl,0,4) == 'http') {
