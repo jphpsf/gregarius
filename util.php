@@ -30,26 +30,26 @@
 
 function rss_header($title="", $active=0, $onLoadAction="") {
 
-    //if (! (defined('_DEBUG_') &&  _DEBUG_)) {
-	if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
-	    ob_start('ob_gzhandler');
-	} else {
+    
+    if (defined('OUTPUT_COMPRESSION') && OUTPUT_COMPRESSION) {
+	ob_start('ob_gzhandler');
+    } else {
 	    ob_start();
-	}
-    //}
+    }
     
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
-    
-//    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" "
-//      ."\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
       ."<head>\n"
       ."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
       ."charset=ISO-8859-1\" />\n"
-      ."\t<title>".makeTitle($title)."</title>\n"    
-      ."\t<meta name=\"robots\" content=\"NOINDEX,NOFOLLOW\"/>\n"
-      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
+      ."\t<title>".makeTitle($title)."</title>\n";
+    
+    if (defined('ROBOTS_META') && ROBOTS_META != '') {
+	echo "\t<meta name=\"robots\" content=\"". ROBOTS_META ."\"/>\n";
+    }
+    
+    echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/css.css\"/>\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\"/>\n";
 
 

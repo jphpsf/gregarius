@@ -89,9 +89,13 @@ define('USE_PERMALINKS',true);
 // Language pack to use. (As of today 'en' and 'fr' ar available)
 define ('LANG', 'en');
 
-
+// Allow ordering of channels in the admin. 
+// (Uses channel title instead)
 define ('ABSOLUTE_ORDERING',true);
 
+// How should spiders crawl us?
+// (see http://www.robotstxt.org/wc/meta-user.html for more info)
+define ('ROBOTS_META','index,nofollow');
 
 // html filtering via kses. DO no modify this unless you know what 
 // you do. See kses-0.2.1/README for more info.
