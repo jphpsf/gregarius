@@ -211,7 +211,7 @@ function items($cid,$title,$iid,$y,$m,$d) {
     $res = rss_query($sql);    
     $items = array();
         
-    $iconAdded = false;
+    $iconAdded = true;
       
     
     while (list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid) =  rss_fetch_row($res)) {
