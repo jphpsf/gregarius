@@ -34,8 +34,8 @@ h5 {
  color: #777;
 }
 
-h4 { text-align: left;  }
-h5 { text-align: right; margin-top: -1.3em; }
+h4 { text-align: left; float: left; }
+h5 { text-align: right; float:right; /*margin-top: -1.3em;*/ }
 
 
 a:hover,input:hover {color: #336; }
