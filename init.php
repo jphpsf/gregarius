@@ -28,14 +28,14 @@
 #
 ###############################################################################
 function rss_require($file) {
-    if (!defined('GREGARIUS_HOME')) {
-	define('GREGARIUS_HOME',dirname(__FILE__) . "/");
-    }
+   if (!defined('GREGARIUS_HOME')) {
+	  define('GREGARIUS_HOME',dirname(__FILE__) . "/");
+	}
     
-    $required_file = GREGARIUS_HOME.  $file;
-    //echo "<pre>requiring: $required_file";
-    require_once($required_file);
-    //echo ": done</pre>\n"; 
+   $required_file = GREGARIUS_HOME.  $file;
+   //echo "<pre>requiring: $required_file";
+   require_once($required_file);
+   //echo ": done</pre>\n"; 
 }
 
 
@@ -57,7 +57,8 @@ rss_require('util.php');
 
 
 $lang = getConfig('rss.output.lang');
-if ($lang && file_exists("intl/$lang.php")) {
+
+if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
     rss_require("intl/$lang.php");
 } else {
     rss_require('intl/en.php');
