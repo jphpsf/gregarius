@@ -110,7 +110,7 @@ function edit_tag(id) {
 		var elem=document.getElementById("t"+id);
 
                 //get rid of the hyperlinks
-		var tags = elem.innerHTML.replace(/<\/?a[^>]*>(\ $)?/g,"");
+		var tags = elem.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"");
 		elem.innerHTML = "<input class=\"tagedit\" id=\"tfield"+id+"\" type=\"text\" value=\"" + tags + "\" />";
 		elem.firstChild.focus();
 	} 
