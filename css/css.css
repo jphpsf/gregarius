@@ -251,7 +251,7 @@ div#items img.favicon { display: inline; }
 }
 
 .content { height: auto }
-.content:hover a { border-bottom: 1px solid #ccc}
+.item:hover .content a { border-bottom: 1px solid #ccc}
 
 td,th { padding: 5px; }
 
