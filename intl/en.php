@@ -54,6 +54,7 @@ define ('NAV_HOME','Home');
 define ('NAV_UPDATE', 'Refresh');
 define ('NAV_CHANNEL_ADMIN', 'Admin');
 define ('NAV_SEARCH', "Search");
+define ('NAV_DEVLOG', "Devlog");
 define ('SEARCH_GO', 'Search');
 
 define ('POSTED', 'Posted: ');

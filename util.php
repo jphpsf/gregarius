@@ -87,8 +87,12 @@ function nav($title, $active=0) {
       . "\t<li".($active == LOCATION_HOME   ?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."\">".NAV_HOME."</a></li>\n"
       . "\t<li".($active == LOCATION_UPDATE ?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
       . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
-      . "\t<li".($active == LOCATION_ADMIN  ?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n"
-      . "</ul>\n</div>\n";
+      . "\t<li".($active == LOCATION_ADMIN  ?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."channel_admin.php\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
+    
+    if (defined('SHOW_DEVLOG_LINK') && SHOW_DEVLOG_LINK) {
+	echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">". NAV_DEVLOG ."</a></li>\n";
+    }
+    echo "</ul>\n</div>\n";
     
     
     echo "<div id=\"ctnr\">\n";
@@ -101,7 +105,7 @@ function ftr() {
     echo "\n<div id=\"footer\" class=\"frame\">\n";
     echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
 
-    echo "<span>\n\t<a href=\"http://sourceforge.net/projects/gregarius\">"._TITLE_ . "</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
+    echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">"._TITLE_ . "</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
       ."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
       ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"
       ."</span>\n";

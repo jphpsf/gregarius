@@ -70,7 +70,14 @@ define ('RELOAD_AFTER', 45*MINUTE);
 // the order of the elements, but better leave those two tokens in :)
 define ('DATE_FORMAT', "F jS, Y, g:ia T");
 
+
+// Show a link to the gregarius devlog. This is mainly useful on the actual
+// live gregarius site (http://gregarius.net/).You can safely set this to 'false'
+// if you don't want to display a link back.
+define('SHOW_DEVLOG_LINK', true);
+
 // When in demo mode most of the admin actions cannot be performed.
+// mbi/26.01.05: this will be deprecated some day.
 define ('DEMO_MODE', false);
 
 // When in debug mode some extra debug info is shown and the error 
