@@ -248,9 +248,9 @@ function update($id) {
 
 	    if ($description != "") {
 		require_once ('plugins/urlfilter.php');
-		require_once ('plugins/newwindow.php');
+		//require_once ('plugins/newwindow.php');
 		$description = urlfilter_filter($description);
-		$description = newwindow_filter($description);
+		//$description = newwindow_filter($description);
 	    }
 
 	    // link
