@@ -37,14 +37,16 @@ define ('HIT_AFTER',"</span>");
 define ('ALL_CHANNELS_ID', -1);
 
 require_once("init.php");
-rss_header("Search",LOCATION_SEARCH);
-sideChannels(false);
 
 if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
+    rss_header("Search",LOCATION_SEARCH);
+    sideChannels(false);  
     $exactMatch = (array_key_exists(QUERY_MATCH_MODE, $_POST) && $_POST[QUERY_MATCH_MODE] == SEARCH_EXACT_MATCH);
     $cid = (array_key_exists(QUERY_CHANNEL,$_REQUEST))?(int)$_REQUEST[QUERY_CHANNEL]:ALL_CHANNELS_ID;
     search($_POST[QUERY_PRM], $exactMatch, $cid);
 } else {
+    rss_header("Search",LOCATION_SEARCH,"document.getElementById('query').focus()");  
+    sideChannels(false);
     list($cnt) = mysql_fetch_row(rss_query('select count(*) from item'));
     searchForm(sprintf(H2_SEARCH, $cnt));
 }
@@ -52,6 +54,7 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
 rss_footer();
 
 function searchForm($title) {
+    
     echo "\n\n<div id=\"search\" class=\"frame\">";
 
     echo "\n\t\t<h2>$title</h2>\n";
