@@ -139,4 +139,5 @@ define ('ADMIN_PRUNE_DAYS','jours');
 define ('ADMIN_PRUNE_MONTHS','mois');
 define ('ADMIN_PRUNE_YEARS','ans');
 define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
+define ('ADMIN_ABOUT_TO_DELETE','Attention: vous allez effacer %s  &eacute;l&eacute;ments (sur %s)');
 ?>

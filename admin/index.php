@@ -58,13 +58,13 @@ $auth = true;
 
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
     if (!array_key_exists('PHP_AUTH_USER',$_SERVER) ||
-	$_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
-	!array_key_exists('PHP_AUTH_PW',$_SERVER) ||
-	$_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
-	header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
-	header('HTTP/1.0 401 Unauthorized');
-	// mbi:tbd:Gotta do something here...
-	$auth = false;
+      $_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
+      !array_key_exists('PHP_AUTH_PW',$_SERVER) ||
+      $_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
+         header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
+         header('HTTP/1.0 401 Unauthorized');
+         // mbi:tbd:Gotta do something here...
+	   $auth = false;
     }
 }
 
@@ -175,11 +175,11 @@ function channels() {
       ." from " .getTable("channels") ." c, " . getTable("folders") ." d "
       ." where d.id = c.parent ";
 
-    if (getConfig('rss.config.absoluteordering')) {
-	$sql .=" order by d.position asc, c.position asc";
-    } else {
-	$sql .=" order by c.parent asc, c.title asc";
-    }
+   if (getConfig('rss.config.absoluteordering')) {
+	  $sql .=" order by d.position asc, c.position asc";
+   } else {
+	  $sql .=" order by c.parent asc, c.title asc";
+   }
 
     $res = rss_query($sql);
     $cntr = 0;
@@ -238,11 +238,11 @@ function opml() {
 }
 
 function items() {
-    //opml import
+   
     echo "<h2 class=\"trigger\">". ADMIN_ITEM ."</h2>\n";
     echo "<div id=\"admin_items\">\n";
 
-    echo "<form method=\"get\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
+    echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<fieldset class=\"prune\">\n"
 	      ."<legend>Pruning</legend>\n";
     echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_ITEM."\"/>\n";
@@ -254,11 +254,12 @@ function items() {
       ."<option>" . ADMIN_PRUNE_YEARS . "</option>\n"
       ."</select></p>\n";
     
+    /*
     echo "<p><label for=\"prune_keep\">" . PRUNE_KEEP ."</label>\n"
       ."<input type=\"text\" name=\"prune_keep\" id=\"prune_keep\" size=\"5\" />"
       ."</p>";
-      
-    echo "<p><input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE ."\"/></p>\n";
+    */  
+    echo "<p><input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\"/></p>\n";
 
     echo "</fieldset>\n";
     echo "</form>\n";
@@ -267,24 +268,66 @@ function items() {
 }
 
 function item_admin() {
+   $ret__ = ADMIN_DOMAIN_NONE; 
    switch ($_REQUEST['action']) {
-      case ADMIN_DELETE:
+      case ADMIN_DELETE2:
          $req = rss_query('select count(*) as cnt from ' .getTable('item'));
          list($cnt) = rss_fetch_row($req);
          $prune_older = (int) $_REQUEST['prune_older'];
-         $prune_keep = (int) $_REQUEST['prune_keep'];
+         //$prune_keep = (int) $_REQUEST['prune_keep'];
          if ($prune_older) {
-            $prune_period = $_REQUEST['prune_period'];
+            switch ($_REQUEST['prune_period']) {
+               case ADMIN_PRUNE_DAYS:
+                  $period = 'day';
+               break;
+               
+               case ADMIN_PRUNE_MONTHS:
+                  $period = 'month';
+               break;
+               
+               case ADMIN_PRUNE_YEARS:
+                  $period = 'year';
+               break;
+               
+               default:
+                  rss_error('invalid pruning period');
+                  return ADMIN_DOMAIN_ITEM;
+               break;
+            }
             
-         } elseif ($prune_keep) {
-         
+            $sql = " from ".getTable('item')." where added <  date_sub(now(), interval $prune_older $period)";
+
+            if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST)) {
+               rss_query( 'delete ' . $sql);
+               $ret__ = ADMIN_DOMAIN_ITEM; 
+
+            } else {
+               list($cnt_d) = rss_fetch_row(rss_query( 
+                "select count(*) as cnt " . $sql));
+               rss_error(sprintf(ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt));    
+               
+              echo "<form action=\"\" method=\"post\">\n"
+               ."<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_ITEM."\" />\n"
+               ."<input type=\"hidden\" name=\"prune_older\" value=\"".$_REQUEST['prune_older']."\" />\n"
+               ."<input type=\"hidden\" name=\"prune_period\" value=\"".$_REQUEST['prune_period']."\" />\n"
+               ."<input type=\"hidden\" name=\"".ADMIN_CONFIRMED."\" value=\"1\" />\n"
+               ."<input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\" />\n"
+               ."<input type=\"submit\" name=\"action\" value=\"". ADMIN_CANCEL ."\"/>\n"
+	           ."</p>\n"
+	           ."</form>\n"; 
+            }
+         } else {
+            rss_error('oops, no period specified');
+            $ret__ = ADMIN_DOMAIN_ITEM; 
          }
       
       break;
       default:
+         $ret__ = ADMIN_DOMAIN_ITEM; 
       break;   
    }
 
+   return $ret__;
 }
 
 

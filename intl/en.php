@@ -139,5 +139,5 @@ define ('ADMIN_PRUNE_DAYS','days');
 define ('ADMIN_PRUNE_MONTHS','months');
 define ('ADMIN_PRUNE_YEARS','years');
 define ('PRUNE_KEEP','Keep the most recent items: ');
-
+define ('ADMIN_ABOUT_TO_DELETE','Warning: you are about to delete %s items (of %s)');
 ?>
