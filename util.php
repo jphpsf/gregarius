@@ -665,78 +665,78 @@ function itemsList($title,$items, $options = IL_NONE){
 }
 
 function add_channel($url, $folderid=0) {
-	assert("" != $url && strlen($url) > 7);
-	assert(is_numeric($folderid));
-
-	$urlDB = htmlentities($url);
-
-	
-	$res = rss_query("select count(*) as channel_exists from " .getTable("channels") ." where url='$urlDB'");
-	list ($channel_exists) = rss_fetch_row($res);
-	if ($channel_exists > 0) {
+    assert("" != $url && strlen($url) > 7);
+    assert(is_numeric($folderid));
+    
+    $urlDB = htmlentities($url);
+    
+    
+    $res = rss_query("select count(*) as channel_exists from " .getTable("channels") ." where url='$urlDB'");
+    list ($channel_exists) = rss_fetch_row($res);
+    if ($channel_exists > 0) {
 	return array(-1,"Looks like you are already subscribed to this channel");
-	}
-
-	$res = rss_query("select 1+max(position) as np from " .getTable("channels"));
-	list($np) = rss_fetch_row($res);
-
-	if (!$np) {
+    }
+    
+    $res = rss_query("select 1+max(position) as np from " .getTable("channels"));
+    list($np) = rss_fetch_row($res);
+    
+    if (!$np) {
 	$np = "0";
-	}
-
-	// Here we go!
-	$rss = fetch_rss( $url );
-	if ( $rss ) {
+    }
+    
+    // Here we go!
+    $rss = fetch_rss( $url );
+    if ( $rss ) {
 	
 	if (is_object($rss) && array_key_exists('title',$rss->channel)) {
-		$title= rss_real_escape_string ( $rss->channel['title'] );
+	    $title= rss_real_escape_string ( $rss->channel['title'] );
 	} else { 
-		$title = "";
+	    $title = "";
 	}
 	
 	if (is_object($rss) && array_key_exists('link',$rss->channel)) {
-		$siteurl= rss_real_escape_string (htmlentities($rss->channel['link'] ));
+	    $siteurl= rss_real_escape_string (htmlentities($rss->channel['link'] ));
 	} else {
-		$siteurl = "";
+	    $siteurl = "";
 	}
 	
 	if (is_object($rss) && array_key_exists('description',$rss->channel)) {
-		$descr =  rss_real_escape_string ($rss->channel['description']);
+	    $descr =  rss_real_escape_string ($rss->channel['description']);
 	} else {
-		$descr = "";
+	    $descr = "";
 	}
-
+	
 	//lets see if this server has a favicon
 	$icon = "";
 	if (getConfig('rss.output.showfavicons')) {
-		// if we got nothing so far, lets try to fall back to
-		// favicons
-		if ($icon == "" && $siteurl	 != "") {
+	    // if we got nothing so far, lets try to fall back to
+	    // favicons
+	    if ($icon == "" && $siteurl	 != "") {
 		$match = get_host($siteurl, $host);
 		$uri = "http://" . $host . "favicon.ico";
 		//if ($match && (getHttpResponseCode($uri)))  {
 		if ($match && getContentType($uri, $contentType)) {
-			if (preg_match("/image\/x-icon/", $contentType)) {
+		    if (preg_match("/image\/x-icon/", $contentType)) {
 			$icon = $uri;
-			}
+		    }
 		}
-		}
+	    }
 	}
-
+	
 	if ($title != "") {
-		$sql = "insert into " .getTable("channels") ." (title, url, siteurl, parent, descr, dateadded, icon, position)"
-		  ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
-
-		rss_query($sql);
-		$newid = rss_insert_id();
-		return array($newid,"");
-		
+	    $sql = "insert into " .getTable("channels") ." (title, url, siteurl, parent, descr, dateadded, icon, position)"
+	      ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
+	    
+	    rss_query($sql);
+	    $newid = rss_insert_id();
+	    return array($newid,"");
+	    
 	} else {
-		return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");		
+	    return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");		
 	}
-	} else {
+    } else {
 	return array( -1, "I'm sorry, I couldn't retrieve <a href=\"$url\">$url</a>.");
-	}
+    }
 }
 
 /**
@@ -899,7 +899,7 @@ function extractFeeds($url) {
 	$cnt = getUrl($url);
 	$ret = array();
 	//find all link tags
-	if (preg_match_all('|<link \w*="[^"]+"+[^>]*>|U',$cnt,$res)) {
+	if (preg_match_all('|<link \w*="[^"]+"+[^>]*>|Ui',$cnt,$res)) {
 	  while(list($id,$match)=each($res[0])) {
 		 // we only want '<link alternate=...'
 		 if (strpos($match,'alternate') &&
