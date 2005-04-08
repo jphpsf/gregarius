@@ -114,7 +114,7 @@ function rss_footer() {
 	echo "\n<div id=\"footer\" class=\"frame\">\n";
 	echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
 
-	echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">"._TITLE_ . "</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
+	echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">Gregarius</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
 	  ."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
 	  ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"
 	  ."</span>\n";
