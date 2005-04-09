@@ -172,9 +172,10 @@ function getFromDelicious_cb(ret) {
  html = '';
  for(i=0;i<tags.length;i++) {
   if (tags[i] != '') {
-    html = html+"<a href=\"#\" onclick=\"addToTags(" + id +",'"
+    html += "<a href=\"#\" onclick=\"addToTags(" + id +",'"
     +tags[i]
-    +"'); return false;\">"+tags[i]+"</a>&nbsp;";
+    +"'); return false;\">"+tags[i]+"</a>"
+    if(i<tags.length -1) { html += "&nbsp;"; }
   }
  }
  if (html == '') {
