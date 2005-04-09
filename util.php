@@ -614,7 +614,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 		/// tags
 
-	    echo "\t\t<h5 id=\"th$iid\">";
+	    echo "\t\t<h5>";
 	    if (getConfig('rss.output.usemodrewrite')) {
 			 echo "<a href=\"".getPath()."tag/\">";
  	    } else {
@@ -622,6 +622,7 @@ function itemsList($title,$items, $options = IL_NONE){
  	    }
 	    echo TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
 	    foreach($tags as $tag_) {
+	    	 $tag_ = trim($tag_);
 			 if (getConfig('rss.output.usemodrewrite')) {
 				echo "<a href=\"".getPath()."tag/$tag_\">$tag_</a> ";
 			} else {
@@ -629,9 +630,10 @@ function itemsList($title,$items, $options = IL_NONE){
 			}
 	    }
 	    
-	      echo "</span>"
-	      . "&nbsp;<a id=\"tt$iid\" href=\"#\" onclick=\"_et($iid); return false;\">".TAG_EDIT."</a>"
-	      ."</h5>\n\n";
+	    echo "</span>&nbsp;[<span id=\"ta$iid\">"
+	      . "<a href=\"#\" onclick=\"_et($iid); return false;\">"
+	      .TAG_EDIT."</a>"
+	      ."</span>]</h5>\n\n";
 
 		/// /tags
 		

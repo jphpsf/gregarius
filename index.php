@@ -48,13 +48,21 @@ if (array_key_exists('update',$_REQUEST)) {
 rss_header("",LOCATION_HOME);
 
 sideChannels(false);
-items("last items");
+echo "\n\n<div id=\"items\" class=\"frame\">";
+$cntUnread = unreadItems();
 
+if (!getConfig('rss.output.noreaditems')) {
+   readItems();
+} elseif($cntUnread == 0) {
+   itemsList( sprintf(H2_UNREAD_ITEMS , count($items)));
+}
+
+echo "</div>\n";
+    
 rss_footer();
 
 
-function items($title) {
-    echo "\n\n<div id=\"items\" class=\"frame\">";
+function unreadItems() {
 
     // unread items first!
     $sql = "select i.title,  c.title, c.id, i.unread, "
@@ -85,7 +93,7 @@ function items($title) {
 
     //echo $sql;
     $res0=rss_query($sql);
-
+    $ret = 0;
     if (rss_num_rows($res0) > 0) {
 
 	markAllReadForm();
@@ -114,13 +122,15 @@ function items($title) {
         }
 
 
-
-        itemsList ( sprintf(H2_UNREAD_ITEMS , count($items)),  $items );
+        $ret = count($items); 
+        itemsList ( sprintf(H2_UNREAD_ITEMS , $ret),  $items );
 
 
     }
+    return $ret;
+}
 
-    // next: unread. Must find a better solution instead of iterating over the channels twice.
+function readItems() {
     $sql = "select "
       ." c.id, c.title, c.icon "
       ." from " .getTable("channels") . " c, " .getTable("folders") ." f "
@@ -202,16 +212,9 @@ function items($title) {
 	    $items[] = $litems[0];
 	}
     }
-    /*
-     echo "<pre>";
-     var_dump($items);
-     echo "</pre>\n";
-     */
-
-
     itemsList(H2_RECENT_ITEMS,$items);
     
-    echo "</div>\n";
+
 }
 
 function markAllReadForm() {

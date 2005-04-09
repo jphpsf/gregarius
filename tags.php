@@ -30,17 +30,22 @@
 
 require_once('init.php');
 
+// an item should have this many tags, at most
 define ('MAX_TAGS_PER_ITEM',5);
 
+// This regexp is used both in php and javascript, basically
+// it is used to filter out everything but the allowed tag
+// characters, plus a whitespace
+define ('ALLOWED_TAGS_REGEXP', '/[^a-zA-Z0-9\ _\.]/');
 
 // these are the fontsizes on the weighted list at /tag/
-define ('SMALLEST',12);
+define ('SMALLEST',10);
 define ('LARGEST',45);
 define ('UNIT','px');
 
 
 function submit_tag($id,$tags) {
-	$ftags = preg_replace('/[^a-zA-Z0-9\ _\.]/','', trim($tags));
+	$ftags = preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags));
 	$tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
 	$ftags = implode(" ",updateTags($id,$tarr));
 	return "$id,". $ftags;
@@ -72,18 +77,43 @@ function updateTags($fid,$tags) {
 	return $ret;
 }
 
+function getFromDelicious($id) {
+    list($url)= rss_fetch_row(
+	 rss_query('select url from '  . getTable('item')  ." where id=$id"));
+    $ret = array();
+	 if($url) {
+		$fp = @fopen("http://del.icio.us/url/" . md5($url),"r");
+		if ($fp) {
+			 $bfr = fread($fp,2000);
+			 @fclose($fp);
+		}
+		define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
+		if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
+			 $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
+			 foreach($hits as $hit) {
+				$ret[] = $hit[1];
+			 }
+		}
+	 }
+    return "$id," .implode(" ",$ret);
+}
+
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . "tags.php";
 sajax_init();
-sajax_export("submit_tag");
+if (getConfig('rss.input.tags.delicious')) {
+	sajax_export("submit_tag","getFromDelicious");
+} else {
+	sajax_export("submit_tag");
+}
 
 /* spit out the javascript for this bugger */
 if (array_key_exists('js',$_GET)) {
     
     $js = sajax_get_javascript();
     
-    if (getConfig('rss.output.cachecontrol')) {	
+   // The javascript output shall be cached
 	$etag = md5($js);
 	$hdrs = getallheaders();
 	if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
@@ -93,61 +123,125 @@ if (array_key_exists('js',$_GET)) {
 	} else {
 	    header("ETag: $etag");
 	}
-    }
-    echo $js;
+   echo $js;
 
 	// and here is s'more javascript for field editing...
 ?>
 
+/// End Sajax javscript 
+/// From here on: Copyright (C) 2003 - 2005 Marco Bonetti, gregarius.net 
+/// Released under GPL
+
+function setTags(id,tagss) {
+  tags = tagss.split(' ');
+  
+  var fld=document.getElementById("t" + id);
+  var html = "";
+  for (i=0;i<tags.length;i++) {
+	 html = html + "<a href=\"<?= getPath()
+	 . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=') 
+	 ?>" + tags[i] + "\">" + tags[i] + "</a> ";
+  }
+  fld.innerHTML = html;	
+  
+  var aspan=document.getElementById("ta" + id);
+  aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?= TAG_EDIT ?></a>";
+}
 
 function submit_tag_cb(ret) {
 	data= ret.split(',');
 	id=data[0];
-	tags=data[1].split(' ');
-	var fld=document.getElementById("th" + id);
-        var html = "<a href=\"<?= getPath() 
-        . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?alltags') 
-        ?>\"><?= TAG_TAGS ?></a>:&nbsp;"
-              + "<span id=\"t" + id + "\">";
-        for (i=0;i<tags.length;i++) {
-          html = html + "<a href=\"<?= getPath()
-			 . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=') 
-          ?>" + tags[i] + "\">" + tags[i] + "</a> ";
-        }
-        html = (html +"</span>&nbsp;<a id=\"tt"+id+"\" href=\"\" onclick=\"_et("+id+"); return false;\">"
-                + "<?= TAG_EDIT ?></a>");
-	fld.innerHTML = html;
+	tags=data[1];
+	setTags(id,tags);
 }
 
 function submit_tag(id,tags) {
 	x_submit_tag(id, tags, submit_tag_cb);
 }
 
+<? if (getConfig('rss.input.tags.delicious')) { ?>
+function get_from_delicious(id) {
+ x_getFromDelicious(id,getFromDelicious_cb);
+}
+
+function getFromDelicious_cb(ret) {
+ data=ret.split(',');
+ id=data[0];
+ tags=data[1].split(' ');
+ var span=document.getElementById('dt'+id);
+ html = '';
+ for(i=0;i<tags.length;i++) {
+  if (tags[i] != '') {
+    html = html+"<a href=\"#\" onclick=\"addToTags(" + id +",'"
+    +tags[i]
+    +"'); return false;\">"+tags[i]+"</a>&nbsp;";
+  }
+ }
+ if (html == '') {
+  html = '<?= TAG_SUGGESTIONS_NONE ?>';
+ } 
+ span.innerHTML = '(' + html + ')';
+}
+
+function addToTags(id,tag) {
+ var fld = document.getElementById("tfield" + id);
+ fld.value=fld.value+ " " + tag;
+}
+
+<? } ?>
 
 function _et(id) {
-	var toggle = document.getElementById("tt" + id);
+   var actionSpan = document.getElementById("ta" + id);
+	var toggle = actionSpan.firstChild;
 	if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
 		var fld = document.getElementById("tfield" + id);
-                toggle.innerHTML="<?= TAG_SUBMITTING ?>";
+      toggle.innerHTML="<?= TAG_SUBMITTING ?>";
 		submit_tag(id,fld.value);
-	} else if (toggle.innerHTML == <? echo "\"" . TAG_EDIT . "\"" ?>) {
-                var elem=document.getElementById("t"+id);
-                
-                <? /*
-                newlink = document.createElement("a");
-                newlink.setAttribute("href","#");
-                newlink.setAttribute("onclick","cancel_edit(" 
-                     + id + ",'" + elem.innerHTML +"');");
-                newlink.innerHTML = "[cancel]";
-                toggle.parentNode.appendChild(newlink);
-		 */ ?>
+	} else if (toggle.innerHTML == "<?= TAG_EDIT ?>") {
+	   var isIE=document.all?true:false;
+	   // the tag container
+	   var tc=document.getElementById("t"+id);
+		var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"").replace(<?=ALLOWED_TAGS_REGEXP ?>gi,"");
+		// submit link
 		toggle.innerHTML="<?= TAG_SUBMIT ?>";
-		
+		// cancel link
+		cancel = document.createElement("a");
+		cancel.style.margin="0 0 0 0.5em";
+		cancel.innerHTML = "<?= TAG_CANCEL ?>";
+		cancel.setAttribute("href","#");
+		if (isIE) {
+		    // the IE sucky way
+		    cancel.onclick = function() { setTags(id,tags); return false;}
+	   } else {
+	      // the proper DOM way
+			cancel.setAttribute("onclick","setTags("+id+",'"+tags+"'); return false;");
+	   }
+		actionSpan.appendChild(cancel);
 
-		//get rid of the hyperlinks
-		var tags = elem.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"");
-		elem.innerHTML = "<input class=\"tagedit\" id=\"tfield"+id+"\" type=\"text\" value=\"" + tags + "\" />";
-		elem.firstChild.focus();
+<? if (getConfig('rss.input.tags.delicious')) { ?>
+		// get tag suggestions from del.icio.us		 
+		newspan = document.createElement("span");
+		newspan.setAttribute("id","dt" + id);
+		newspan.style.margin="0 0 0 0.5em";
+		newspan.innerHTML = "<?= TAG_SUGGESTIONS ?>: (...) ]";
+		actionSpan.appendChild(newspan);
+		get_from_delicious(id);
+<? } ?>
+		tc.innerHTML = "<input class=\"tagedit\" id=\"tfield"
+		 +id+"\" type=\"text\" value=\"" + tags + "\" />";
+                
+		// set the caret to the end of the field for bloody IE
+		var control = tc.firstChild;
+		control.focus();
+		if (control.createTextRange) {
+			var range = control.createTextRange();
+		range.collapse(false);
+			range.select();
+		} else if (control.setSelectionRange) {
+			control.focus();
+			var length = control.value.length;
+			control.setSelectionRange(length, length);
+		}
 	} 
 	return false;
 }
@@ -301,5 +395,6 @@ function _et(id) {
     ."\n\n</div>\n";
     rss_footer();
 }
+
 
 ?>
