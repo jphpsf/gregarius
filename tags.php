@@ -98,6 +98,34 @@ function getFromDelicious($id) {
     return "$id," .implode(" ",$ret);
 }
 
+function relatedTags($tag) {
+   /* related tags */
+   $res = rss_query("select fid,tid from "
+   . getTable('metatag') ." m, " 
+   . getTable('tag') ." t  where m.tid=t.id "
+   ." and t.tag='$tag'");
+   $fids=array();
+   $ctid = -1;
+   while (list($fid,$tid) = rss_fetch_row($res)) {
+   	$fids[] = $fid;
+   	$ctid = $tid;
+   }
+   $rtags = array();
+   if (count($fids)) {
+   	$res = rss_query("select t.tag, count(*) from "
+   	  . getTable('metatag') ." m, " 
+		  . getTable('tag') ." t "
+		  ." where m.tid=t.id and m.fid in (" .implode(",",$fids). ")"
+		  ." and t.id != $ctid"
+		  ." group by 1 order by 2 desc");
+		 while (list($rtag,$cnt) = rss_fetch_row($res)) {
+		 	$rtags[] = $rtag;
+		 	$rtagsc[$rtag] = $cnt;
+		 }
+    }
+    return $rtags;
+}
+
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . "tags.php";
@@ -326,43 +354,16 @@ function _et(id) {
 		}    
    }
    
-   /* related tags */
-   $res = rss_query("select fid,tid from "
-   . getTable('metatag') ." m, " 
-   . getTable('tag') ." t  where m.tid=t.id "
-   ." and t.tag='$tag'");
-   $fids=array();
-   $ctid = -1;
-   while (list($fid,$tid) = rss_fetch_row($res)) {
-   	$fids[] = $fid;
-   	$ctid = $tid;
-   }
-   if (count($fids)) {
-   	$res = rss_query("select t.tag, count(*) from "
-   	  . getTable('metatag') ." m, " 
-		  . getTable('tag') ." t "
-		  ." where m.tid=t.id and m.fid in (" .implode(",",$fids). ")"
-		  ." and t.id != $ctid"
-		  ." group by 1 order by 2 desc");
-		 $rtags = array();
-		 while (list($rtag,$cnt) = rss_fetch_row($res)) {
-		 	$rtags[] = $rtag;
-		 	$rtagsc[$rtag] = $cnt;
-		 }
+
 		 
-		 $related = array();
-		 foreach($rtags as $rtag) {
-		 
-		 	$related[] = "<a href=\""
-		 	.getPath()
-		 	.(getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag")
-		 	."\">$rtag</a>";
-		 	
-		 }
-   } else { 
-   	$related ="";
-   }
-   /* /related tags */
+	$rtags = relatedTags($tag);
+	$related = array();
+	foreach($rtags as $rtag) {
+		$related[] = "<a href=\""
+		.getPath()
+		.(getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag")
+		."\">$rtag</a>";
+	}
    
     // done! Render some stuff
     rss_header("Tags " . TITLE_SEP . " " . $tag);
