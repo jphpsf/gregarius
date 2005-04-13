@@ -174,4 +174,6 @@ define ('TAG_TAGGED','tagg&eacute;');
 define ('TAG_TAGGEDP','tagg&eacute;s');
 define ('TAG_SUGGESTIONS','suggestions');
 define ('TAG_SUGGESTIONS_NONE','aucune suggestion');
+define ('TAG_RELATED','Tags proches: ');
+
 ?>

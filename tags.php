@@ -326,12 +326,51 @@ function _et(id) {
 		}    
    }
    
+   /* related tags */
+   $res = rss_query("select fid,tid from "
+   . getTable('metatag') ." m, " 
+   . getTable('tag') ." t  where m.tid=t.id "
+   ." and t.tag='$tag'");
+   $fids=array();
+   $ctid = -1;
+   while (list($fid,$tid) = rss_fetch_row($res)) {
+   	$fids[] = $fid;
+   	$ctid = $tid;
+   }
+   if (count($fids)) {
+   	$res = rss_query("select t.tag, count(*) from "
+   	  . getTable('metatag') ." m, " 
+		  . getTable('tag') ." t "
+		  ." where m.tid=t.id and m.fid in (" .implode(",",$fids). ")"
+		  ." and t.id != $ctid"
+		  ." group by 1 order by 2 desc");
+		 $rtags = array();
+		 while (list($rtag,$cnt) = rss_fetch_row($res)) {
+		 	$rtags[] = $rtag;
+		 	$rtagsc[$rtag] = $cnt;
+		 }
+		 
+		 $related = array();
+		 foreach($rtags as $rtag) {
+		 
+		 	$related[] = "<a href=\""
+		 	.getPath()
+		 	.(getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag")
+		 	."\">$rtag</a>";
+		 	
+		 }
+   } else { 
+   	$related ="";
+   }
+   /* /related tags */
+   
     // done! Render some stuff
     rss_header("Tags " . TITLE_SEP . " " . $tag);
     sideChannels(false);
     
+
     echo "\n\n<div id=\"items\" class=\"frame\">\n";
-    
+
     
     if ($gotsome) {
 		 
@@ -340,7 +379,11 @@ function _et(id) {
 			. (count($items) > 1 || count($items) == 0? TAG_TAGGEDP:TAG_TAGGED) .""
 			. " \"" . $tag . "\"</h2>\n";
 
-
+     
+     if (count($related)) {
+    	echo "\n<p>" . TAG_RELATED . implode(", ", $related) ."</p>\n";
+     }
+    
 		itemsList ( "",  $items, IL_NO_COLLAPSE );
 	} else {
 		echo "<p style=\"height: 10em; text-align:center\">";
