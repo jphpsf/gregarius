@@ -286,7 +286,7 @@ function update($id) {
 		// item title: strip out html tags, shouldn't supposed
 		// to have any, should it?
 		//$title = strip_tags($item['title']);
-		$title = array_key_exists('title',$item)?$item['title']:"";
+		$title = array_key_exists('title',$item)?strip_tags($item['title']):"";
 		
 		// item content, if any
 		if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
