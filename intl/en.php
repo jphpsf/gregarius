@@ -63,6 +63,8 @@ define ('SEARCH_GO', 'Search');
 define ('POSTED', 'Posted: ');
 define ('FETCHED','Fetched: ');
 
+define ('LBL_AND','and');
+
 define ('TITLE_UPDATING','Updating');
 define ('TITLE_SEARCH','Search');
 define ('TITLE_ADMIN','Feeds Admin');

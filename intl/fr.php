@@ -63,6 +63,8 @@ define ('SEARCH_GO', 'Rechercher');
 define ('POSTED', 'Publi&eacute;: ');
 define ('FETCHED', 'R&eacute;cup&eacute;r&eacute;: ');
 
+define ('LBL_AND','et');
+
 define ('TITLE_UPDATING','Mise &agrave; jour');
 define ('TITLE_SEARCH','Recherche');
 define ('TITLE_ADMIN','Administration des canaux');

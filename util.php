@@ -389,22 +389,23 @@ function update($id) {
 function itemsList($title,$items, $options = IL_NONE){
 
 	
-	if ($title) {
-		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
-			$cicon = $items[0][2];
-		}
-	    
-	    $anchor = (!defined('FEEDCONTENT_ANCHOR_SET')?" id=\"feedcontent\"":"");
-		echo "\n\n<h2$anchor>"
-			.(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")		
-			.rss_htmlspecialchars($title)
-			."</h2>\n";
-	    define ('FEEDCONTENT_ANCHOR_SET',true);
-	    
-	} else {
-	    echo "\n\n<a id=\"feedcontent\"/></a>\n";
+    if ($title) {
+	if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
+	    $cicon = $items[0][2];
 	}
 	
+	$anchor = (!defined('FEEDCONTENT_ANCHOR_SET')?" id=\"feedcontent\"":"");
+	echo "\n\n<h2$anchor>"
+	  .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")		
+	    .rss_htmlspecialchars($title)
+	      ."</h2>\n";
+	define ('FEEDCONTENT_ANCHOR_SET',true);
+	
+    } else {
+	echo "\n\n<a id=\"feedcontent\"></a>\n";
+	define ('FEEDCONTENT_ANCHOR_SET',true);
+    }
+    
 	$cntr=0;
 	$prev_cid=0;
 

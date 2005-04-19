@@ -43,85 +43,99 @@ define ('SMALLEST',10);
 define ('LARGEST',45);
 define ('UNIT','px');
 
-
 function submit_tag($id,$tags) {
-	$ftags = preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags));
-	$tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
-	$ftags = implode(" ",updateTags($id,$tarr));
-	return "$id,". $ftags;
+    $ftags = preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags));
+    $tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
+    $ftags = implode(" ",updateTags($id,$tarr));
+    return "$id,". $ftags;
 }
 
 function updateTags($fid,$tags) {
-	rss_query("delete from " .getTable('metatag') . " where fid=$fid and ttype='item'");
-	$ret = array();
-	foreach($tags as $tag) {
-		$ttag = trim($tag);
-		if ($ttag == "" || in_array($ttag,$ret)) {
-			continue;
-		}
-		rss_query( "insert into ". getTable('tag'). " (tag) values ('$ttag')", false );
-		$tid = 0;
-		if(rss_sql_error() == 1062) {
-			list($tid)=rss_fetch_row(rss_query("select id from " .getTable('tag') . " where tag='$ttag'"));
-		} else {
-			$tid = rss_insert_id();
-		}
-		if ($tid) {
-			rss_query( "insert into ". getTable('metatag'). " (fid,tid) values ($fid,$tid)" );
-			if (rss_sql_error() == 0) {
-				$ret[] = $ttag;
-			}
-		}
+    rss_query("delete from " .getTable('metatag') . " where fid=$fid and ttype='item'");
+    $ret = array();
+    foreach($tags as $tag) {
+	$ttag = trim($tag);
+	if ($ttag == "" || in_array($ttag,$ret)) {
+	    continue;
 	}
-	sort($ret);
-	return $ret;
+	rss_query( "insert into ". getTable('tag'). " (tag) values ('$ttag')", false );
+	$tid = 0;
+	if(rss_sql_error() == 1062) {
+	    list($tid)=rss_fetch_row(rss_query("select id from " .getTable('tag') . " where tag='$ttag'"));
+	} else {
+	    $tid = rss_insert_id();
+	}
+	if ($tid) {
+	    rss_query( "insert into ". getTable('metatag'). " (fid,tid) values ($fid,$tid)" );
+	    if (rss_sql_error() == 0) {
+		$ret[] = $ttag;
+	    }
+	}
+    }
+    sort($ret);
+    return $ret;
 }
 
 function getFromDelicious($id) {
     list($url)= rss_fetch_row(
-	 rss_query('select url from '  . getTable('item')  ." where id=$id"));
+			      rss_query('select url from '  . getTable('item')  ." where id=$id"));
     $ret = array();
-	 if($url) {
-		$fp = @fopen("http://del.icio.us/url/" . md5($url),"r");
-		if ($fp) {
-			 $bfr = fread($fp,2000);
-			 @fclose($fp);
-		}
-		define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
-		if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
-			 $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
-			 foreach($hits as $hit) {
-				$ret[] = $hit[1];
-			 }
-		}
-	 }
+    if($url) {
+	$fp = @fopen("http://del.icio.us/url/" . md5($url),"r");
+	if ($fp) {
+	    $bfr = fread($fp,2000);
+	    @fclose($fp);
+	}
+	define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
+	if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
+	    $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
+	    foreach($hits as $hit) {
+		$ret[] = $hit[1];
+	    }
+	}
+    }
     return "$id," .implode(" ",$ret);
 }
 
-function relatedTags($tag) {
-   /* related tags */
-   $res = rss_query("select fid,tid from "
-   . getTable('metatag') ." m, " 
-   . getTable('tag') ." t  where m.tid=t.id "
-   ." and t.tag='$tag'");
-   $fids=array();
-   $ctid = -1;
-   while (list($fid,$tid) = rss_fetch_row($res)) {
-   	$fids[] = $fid;
-   	$ctid = $tid;
-   }
-   $rtags = array();
-   if (count($fids)) {
-   	$res = rss_query("select t.tag, count(*) from "
-   	  . getTable('metatag') ." m, " 
-		  . getTable('tag') ." t "
-		  ." where m.tid=t.id and m.fid in (" .implode(",",$fids). ")"
-		  ." and t.id != $ctid"
-		  ." group by 1 order by 2 desc");
-		 while (list($rtag,$cnt) = rss_fetch_row($res)) {
-		 	$rtags[] = $rtag;
-		 	$rtagsc[$rtag] = $cnt;
-		 }
+function relatedTags($tags) {
+    /* related tags */
+    $twhere = "";
+    foreach($tags as $tag){
+	$twhere .= "t.tag='$tag' or ";
+    }
+    $twhere .= "1=0";
+    
+    $sql="select fid,tid from "
+      . getTable('metatag') ." m, "
+      . getTable('tag') ." t  where m.tid=t.id "
+      ." and ($twhere)";
+    
+    //echo $sql;
+    $res = rss_query($sql);
+    $fids=array();
+    $ctid = -1;
+    while (list($fid,$tid) = rss_fetch_row($res)) {
+	$fids[] = $fid;
+	$tids[] = $tid;
+    }
+    $fids=array_unique($fids);
+    $tids=array_unique($tids);
+    
+    $rtags = array();
+    if (count($fids)) {
+	$sql = "select t.tag, count(*) from "
+	  . getTable('metatag') ." m, "
+	  . getTable('tag') ." t "
+	  ." where m.tid=t.id and m.fid in (" 
+	  . implode(",",$fids). ")"
+	  ." and t.id not in ("
+	  . implode(",",$tids) . ")"
+	  ." group by 1 order by 2 desc";
+	//echo $sql;
+	$res = rss_query($sql);
+	while ((list($rtag,$cnt) = rss_fetch_row($res))) {
+	    $rtags[$rtag] = $cnt;
+	}
     }
     return $rtags;
 }
@@ -131,47 +145,47 @@ $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . "tags.php";
 sajax_init();
 if (getConfig('rss.input.tags.delicious')) {
-	sajax_export("submit_tag","getFromDelicious");
+    sajax_export("submit_tag","getFromDelicious");
 } else {
-	sajax_export("submit_tag");
+    sajax_export("submit_tag");
 }
 
 /* spit out the javascript for this bugger */
 if (array_key_exists('js',$_GET)) {
-    
+
     $js = sajax_get_javascript();
-    
-   // The javascript output shall be cached
-	$etag = md5($js);
-	$hdrs = getallheaders();
-	if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
-	    header("HTTP/1.1 304 Not Modified");
-	    flush();
-	    exit();
-	} else {
-	    header("ETag: $etag");
-	}
-   echo $js;
 
-	// and here is s'more javascript for field editing...
-?>
+    // The javascript output shall be cached
+    $etag = md5($js);
+    $hdrs = getallheaders();
+    if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
+	header("HTTP/1.1 304 Not Modified");
+	flush();
+	exit();
+    } else {
+	header("ETag: $etag");
+    }
+    echo $js;
 
-/// End Sajax javscript 
-/// From here on: Copyright (C) 2003 - 2005 Marco Bonetti, gregarius.net 
+    // and here is s'more javascript for field editing...
+    ?>
+
+/// End Sajax javscript
+/// From here on: Copyright (C) 2003 - 2005 Marco Bonetti, gregarius.net
 /// Released under GPL
 
 function setTags(id,tagss) {
   tags = tagss.split(' ');
-  
+
   var fld=document.getElementById("t" + id);
   var html = "";
   for (i=0;i<tags.length;i++) {
 	 html = html + "<a href=\"<?= getPath()
-	 . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=') 
+	 . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=')
 	 ?>" + tags[i] + "\">" + tags[i] + "</a> ";
   }
-  fld.innerHTML = html;	
-  
+  fld.innerHTML = html;
+
   var aspan=document.getElementById("ta" + id);
   aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?= TAG_EDIT ?></a>";
 }
@@ -187,7 +201,7 @@ function submit_tag(id,tags) {
 	x_submit_tag(id, tags, submit_tag_cb);
 }
 
-<? if (getConfig('rss.input.tags.delicious')) { ?>
+    <? if (getConfig('rss.input.tags.delicious')) { ?>
 function get_from_delicious(id) {
  x_getFromDelicious(id,getFromDelicious_cb);
 }
@@ -208,7 +222,7 @@ function getFromDelicious_cb(ret) {
  }
  if (html == '') {
   html = '<?= TAG_SUGGESTIONS_NONE ?>';
- } 
+ }
  span.innerHTML = '(' + html + ')';
 }
 
@@ -217,7 +231,7 @@ function addToTags(id,tag) {
  fld.value=fld.value+ " " + tag;
 }
 
-<? } ?>
+	<? } ?>
 
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
@@ -247,18 +261,18 @@ function _et(id) {
 	   }
 		actionSpan.appendChild(cancel);
 
-<? if (getConfig('rss.input.tags.delicious')) { ?>
-		// get tag suggestions from del.icio.us		 
+	    <? if (getConfig('rss.input.tags.delicious')) { ?>
+		// get tag suggestions from del.icio.us
 		newspan = document.createElement("span");
 		newspan.setAttribute("id","dt" + id);
 		newspan.style.margin="0 0 0 0.5em";
 		newspan.innerHTML = "<?= TAG_SUGGESTIONS ?>: (...) ]";
 		actionSpan.appendChild(newspan);
 		get_from_delicious(id);
-<? } ?>
+		<? } ?>
 		tc.innerHTML = "<input class=\"tagedit\" id=\"tfield"
 		 +id+"\" type=\"text\" value=\"" + tags + "\" />";
-                
+
 		// set the caret to the end of the field for bloody IE
 		var control = tc.firstChild;
 		control.focus();
@@ -271,150 +285,173 @@ function _et(id) {
 			var length = control.value.length;
 			control.setSelectionRange(length, length);
 		}
-	} 
+	}
 	return false;
 }
 
-<?
-	exit();
+    <?
+    exit();
 } elseif(array_key_exists('rs',$_REQUEST)) {
     // this one handles the xmlhttprequest call from the above javascript
     sajax_handle_client_request();
     exit();
 } elseif(array_key_exists('tag',$_GET)) {
-    // while this one displays a list of items for the requested tag
-    $tag = rss_real_escape_string($_GET['tag']);
+    // while this one displays a list of items for the requested tag(s)
+    $tag = $_GET['tag'];
+    $twhere = "";
+    $tarr = explode (" ",$tag);
+    $hrTag = implode (" " . LBL_AND ." ",$tarr);
+    $urlTag = implode("+",$tarr);
+    
+    foreach ($tarr as $ttkn) {
+	$twhere .= " t.tag='" 
+	  .trim(rss_real_escape_string($ttkn)) ."' or";
+    }
+    $twhere .= " 1=0";
 
-    //first, find all the items which have been tagged with the sought tag.
-    $sql = "select distinct(i.id) from ".getTable('item')." i, "
+    $sql = "select fid, count(*) as cnt from "
       .getTable('metatag')." m, ".getTable('tag')." t "
-      ." where i.id=m.fid and t.id=m.tid and t.tag='$tag' ";
+      ." where m.tid=t.id and ($twhere)  "
+      ." group by fid order by 2 desc";
     
+    $res = rss_query($sql);
+    $ids = array();
+    while ((list($id,$cnt) = rss_fetch_row($res)) && $cnt >= count($tarr)) {
+	$ids[] = $id;
+    }
+
+    $gotsome = count($ids) > 0;
+    if ($gotsome) {
+	// ok now look up the fields for those items
+	$sql = ""
+
+	  // standard fields
+	  ."select i.title,  c.title, c.id, i.unread, "
+	  ." i.url, i.description, c.icon, "
+	  ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
+	  ." i.pubdate is not null as ispubdate, "
+	  ." i.id, t.tag  "
+
+	  // standard left-joins and normal joins
+	  ." from ".getTable("item") ." i "
+	  ." left join ".getTable('metatag') ." m on (i.id=m.fid) "
+	  ." left join ".getTable('tag')." t on (m.tid=t.id) "
+	  . ", " .getTable("channels") ." c, " .getTable("folders") ." f "
+
+	  ." where "
+	  ." i.id in (".implode(",",$ids).") "
+	  ." and i.cid = c.id  and f.id=c.parent "
+
+	  // order by unread first
+	  ." order by i.unread desc, "
+
+	  ."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
 	$res = rss_query($sql);
-   $ids = array();
-   while (list($id) = rss_fetch_row($res)) {
-		$ids[] = $id;
-   }
 
-	$gotsome = count($ids) > 0;
-	if ($gotsome) {    
-		 // ok now look up the fields for those items
-		$sql = ""
-			
-			// standard fields
-			."select i.title,  c.title, c.id, i.unread, "
-			." i.url, i.description, c.icon, "
-			." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
-			." i.pubdate is not null as ispubdate, "
-			." i.id, t.tag  "
-	
-			// standard left-joins and normal joins
-			." from ".getTable("item") ." i "
-			." left join ".getTable('metatag') ." m on (i.id=m.fid) "
-			." left join ".getTable('tag')." t on (m.tid=t.id) "
-			. ", " .getTable("channels") ." c, " .getTable("folders") ." f "
-			
-			
-			." where "
-			." i.id in (".implode(",",$ids).") "
-			." and i.cid = c.id  and f.id=c.parent "
-			
-			// order by unread first
-			." order by i.unread desc, "
-			
-			."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
-		$res = rss_query($sql);  
-		
-		$items = array();
-   
-		if (rss_num_rows($res) > 0) {
-			$prevId = -1;
-			while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_, $tag_) = rss_fetch_row($res)) {
-				if ($prevId != $iid_) {
-					$items[] = array(
-						$cid_,
-						$ctitle_,
-						$icon_ ,
-						$title_ ,
-						$unread_ ,
-						$url_ ,
-						$descr_,
-						$ts_,
-						$iispubdate_,
-						$iid_,
-						'tags' => array($tag_)
-					);
-					$prevId = $iid_;
-				} else {
-					end($items);
-					$items[key($items)]['tags'][]=$tag_;
-				}
-			}
-			
-		}    
-   }
-   
+	$items = array();
+	$allTags =array();
 
-		 
-	$rtags = relatedTags($tag);
-	$related = array();
-	foreach($rtags as $rtag) {
-		$related[] = "<a href=\""
-		.getPath()
-		.(getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag")
-		."\">$rtag</a>";
+	if (rss_num_rows($res) > 0) {
+	    $prevId = -1;
+	    while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_, $tag_) = rss_fetch_row($res)) {
+		if (array_key_exists($tag_,$allTags)) {
+		    $allTags[ $tag_ ]++;
+		} else {
+		    $allTags[ $tag_ ]=1;
+		}
+		if ($prevId != $iid_) {
+		    $items[] = array(
+				     $cid_,
+				     $ctitle_,
+				     $icon_ ,
+				     $title_ ,
+				     $unread_ ,
+				     $url_ ,
+				     $descr_,
+				     $ts_,
+				     $iispubdate_,
+				     $iid_,
+				     'tags' => array($tag_)
+				     );
+		    $prevId = $iid_;
+		} else {
+		    end($items);
+		    $items[key($items)]['tags'][]=$tag_;
+		}
+	    }
+
 	}
-   
+    }
+
+    $rtags = relatedTags($tarr);
+    $related = array();
+    foreach($rtags as $rtag => $cnt) {
+	$relLbl = "<a href=\""
+	  .getPath() .""
+	  .(getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag") .""
+	  ."\">$rtag</a>";
+	
+	$relPlus=array_key_exists($rtag,$allTags);
+	if ($relPlus) {
+	    $relLbl .= "&nbsp;[<a "
+	      ."title=\"$cnt " 
+	      . ($cnt > 1 ? ITEMS:ITEM) ." "
+	      . ($cnt > 1 || $cnt == 0? TAG_TAGGEDP:TAG_TAGGED) ." '"
+	      . $hrTag ." " .LBL_AND .  " $rtag'\" "
+	      . "href=\""
+	      . getPath() .""
+	      . (getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag") .""
+	      . "+".$urlTag
+	      . "\">+</a>]";
+	}
+	$idx = ($relPlus?$allTags[$rtag]:0);
+	$related["$idx" . "_" ."$rtag"] = $relLbl ."";
+    }
+    krsort($related);
     // done! Render some stuff
-    rss_header("Tags " . TITLE_SEP . " " . $tag);
+    rss_header("Tags " . TITLE_SEP . " " . $hrTag);
     sideChannels(false);
-    
 
     echo "\n\n<div id=\"items\" class=\"frame\">\n";
 
-    
     if ($gotsome) {
-		 
-		 echo "<h2>" . count($items) . " " . (count($items) > 1 ? ITEMS:ITEM)
-			." " 
-			. (count($items) > 1 || count($items) == 0? TAG_TAGGEDP:TAG_TAGGED) .""
-			. " \"" . $tag . "\"</h2>\n";
 
-     
-     if (count($related)) {
-    	echo "\n<p>" . TAG_RELATED . implode(", ", $related) ."</p>\n";
-     }
-    
-		itemsList ( "",  $items, IL_NO_COLLAPSE );
-	} else {
-		echo "<p style=\"height: 10em; text-align:center\">";
-		printf(TAG_ERROR_NO_TAG,$tag);
-		echo "</p>";
+	echo "<h2>" . count($items) . " " . (count($items) > 1 ? ITEMS:ITEM)
+	  ." "
+	  . (count($items) > 1 || count($items) == 0? TAG_TAGGEDP:TAG_TAGGED) .""
+	  . " \"" . $hrTag . "\"</h2>\n";
+
+	if (count($related)) {
+	    echo "\n<p>" . TAG_RELATED ."\n". implode(", \n", $related) ."\n</p>\n";
 	}
- 	echo "</div>\n";
- 	rss_footer();
-    
-    
-    
+
+	itemsList ( "",  $items, IL_NO_COLLAPSE );
+    } else {
+	echo "<p style=\"height: 10em; text-align:center\">";
+	printf(TAG_ERROR_NO_TAG,$hrTag);
+	echo "</p>";
+    }
+    echo "</div>\n";
+    rss_footer();
+
 } elseif(array_key_exists('alltags',$_GET)) {
-    
+
     // the all tags weighted list
     $sql = "select tag,count(*) as cnt from "
       . getTable('metatag') . ","
       . getTable('tag') .""
       ." where tid=id group by tid order by 1";
-    
+
     $res = rss_query($sql);
     $tags = array();
     $max = 0;
     $min = 100000;
     $cntr=0;
     while(list($tag,$cnt) = rss_fetch_row($res)) {
-		$tags[$tag] = $cnt;
-		$cntr++;
+	$tags[$tag] = $cnt;
+	$cntr++;
     }
-    
-    
+
     // Credits: Matt, http://www.hitormiss.org/about/
     // http://dev.wp-plugins.org/file/weighted-category-list/weighted_categories.php?format=txt
     $spread = max($tags) - min($tags);
@@ -424,22 +461,21 @@ function _et(id) {
     if ($fontspread <= 0) { $fontspread = 1; }
     $ret = "";
     foreach ($tags as $tag => $cnt) {
-		$taglink = getPath() .
-		(getConfig('rss.output.usemodrewrite')?"tag/$tag":"tags.php?tag=$tag");
-		$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
-		  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
-		  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
+	$taglink = getPath() .
+	  (getConfig('rss.output.usemodrewrite')?"tag/$tag":"tags.php?tag=$tag");
+	$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
+	  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
+	  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
     }
-  
+
     // done! Render some stuff
     rss_header("Tags " . TITLE_SEP . " " . TAG_ALL_TAGS);
-    sideChannels(false);    
+    sideChannels(false);
     echo "\n\n<div id=\"items\" class=\"frame\">\n"
-    //."<h2>$cntr " . TAG_TAGS . "</h2>\n"
-	."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
-    ."\n\n</div>\n";
+      //."<h2>$cntr " . TAG_TAGS . "</h2>\n"
+      ."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
+      ."\n\n</div>\n";
     rss_footer();
 }
-
 
 ?>
