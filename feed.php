@@ -283,20 +283,21 @@ function items($cid,$title,$iid,$y,$m,$d,$nv) {
 
 
     if ($nv != null) {
-	list($prev,$succ,$up) = $nv;
-	if($prev != null) {
-	    $readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".NAV_PREV_PREFIX. $prev['lbl'] ."</a>\n";
-	}
-	if($succ != null) {
-	    $readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">". $succ['lbl'] .NAV_SUCC_POSTFIX."</a>\n";
-	}
-	
-	if ($readMoreNav != "") {
-	    echo "<div class=\"readmore\">$readMoreNav";
-	    echo "<hr class=\"clearer hidden\"/>\n</div>\n";
-	}
-    }        
-    echo "</div>\n";
+		list($prev,$succ,$up) = $nv;
+		$readMoreNav = "";
+		if($prev != null) {
+			 $readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".NAV_PREV_PREFIX. $prev['lbl'] ."</a>\n";
+		}
+		if($succ != null) {
+			 $readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">". $succ['lbl'] .NAV_SUCC_POSTFIX."</a>\n";
+		}
+		
+		if ($readMoreNav != "") {
+			 echo "<div class=\"readmore\">$readMoreNav";
+			 echo "<hr class=\"clearer hidden\"/>\n</div>\n";
+		}
+   }        
+   echo "</div>\n";
 }
     
 function makeNav($cid,$y,$m,$d) {
@@ -310,122 +311,122 @@ function makeNav($cid,$y,$m,$d) {
 	$monthView = true;
     }
     	    
-    if ($monthView ^ $dayView) {
-	if ($monthView) {
-	    $ts_p = mktime(0,0,0,$m+1,0,$y);
-	    $ts_s = mktime(0,0,0,$m,1,$y);
-	} else {
-	    $ts_p = mktime(23,59,59,$m,$d-1,$y);
-	    $ts_s = mktime(0,0,0,$m,$d,$y);
-	}
-
-	$sql_succ = " select "
-	  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
-	  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
-	  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
-	  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
-	  ." count(*) as cnt_ "
-	  ." from " . getTable("item") . "i  "
-	  ." where cid=$cid "
-	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts_s "
-	  ." group by y_,m_"
-	  .(($dayView)?",d_ ":"")
-	  ." order by ts_ asc limit 4";
-	
-	$sql_prev = " select "
-	  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
-	  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
-	  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
-	  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
-	  ." count(*) as cnt_ "
-	  ." from " . getTable("item") ." i  "
-	  ." where cid=$cid "
-	  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts_p "
-	  ." group by y_,m_"
-	  .(($dayView)?",d_ ":"")
-	  ." order by ts_ desc limit 4";
-
-	//echo "<!-- $sql_prev -->\n";
-	$res_prev = rss_query($sql_prev);
-	$res_succ = rss_query($sql_succ);
-	
-	$mCount = (12 * $y + $m);
-	$prev = $succ = $up = null;
-	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);	
-	while ($succ == null && $row=rss_fetch_assoc($res_succ)) {
-	    if ($dayView) {
-		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) > $ts_s) {
-		    $succ = array(
-				  'y' => $row['y_'], 
-				  'm' => $row['m_'], 
-				  'd' => $row['d_'], 
-				  'cnt' => $row['cnt_'], 
-				  'ts' => $row['ts_'],
-				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-				  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
-				  );
+	if ($monthView ^ $dayView) {
+		if ($monthView) {
+			 $ts_p = mktime(0,0,0,$m+1,0,$y);
+			 $ts_s = mktime(0,0,0,$m,1,$y);
+		} else {
+			 $ts_p = mktime(23,59,59,$m,$d-1,$y);
+			 $ts_s = mktime(0,0,0,$m,$d,$y);
 		}
-	    } elseif($monthView) {		
-		if (($row['m_'] + 12 * $row['y_']) > $mCount) {		    
-		    $succ = array(
-				  'y' => $row['y_'],
-				  'm' => $row['m_'],
-				  'cnt' => $row['cnt_'],
-				  'ts' => $row['ts_'],
-				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-				  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
-				  );
+	
+		$sql_succ = " select "
+		  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
+		  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
+		  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
+		  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
+		  ." count(*) as cnt_ "
+		  ." from " . getTable("item") . "i  "
+		  ." where cid=$cid "
+		  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts_s "
+		  ." group by y_,m_"
+		  .(($dayView)?",d_ ":"")
+		  ." order by ts_ asc limit 4";
+		
+		$sql_prev = " select "
+		  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
+		  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
+		  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
+		  .(($dayView)?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
+		  ." count(*) as cnt_ "
+		  ." from " . getTable("item") ." i  "
+		  ." where cid=$cid "
+		  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts_p "
+		  ." group by y_,m_"
+		  .(($dayView)?",d_ ":"")
+		  ." order by ts_ desc limit 4";
+	
+		//echo "<!-- $sql_prev -->\n";
+		$res_prev = rss_query($sql_prev);
+		$res_succ = rss_query($sql_succ);
+		
+		$mCount = (12 * $y + $m);
+		$prev = $succ = $up = null;
+		$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);	
+		while ($succ == null && $row=rss_fetch_assoc($res_succ)) {
+			 if ($dayView) {
+			if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) > $ts_s) {
+				 $succ = array(
+					  'y' => $row['y_'], 
+					  'm' => $row['m_'], 
+					  'd' => $row['d_'], 
+					  'cnt' => $row['cnt_'], 
+					  'ts' => $row['ts_'],
+					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+					  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
+					  );
+			}
+			 } elseif($monthView) {		
+			if (($row['m_'] + 12 * $row['y_']) > $mCount) {		    
+				 $succ = array(
+					  'y' => $row['y_'],
+					  'm' => $row['m_'],
+					  'cnt' => $row['cnt_'],
+					  'ts' => $row['ts_'],
+					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+					  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
+					  );
+			}
+			
+			 }
 		}
 		
-	    }
-	}
 	
-
-	while ($prev == null && $row=rss_fetch_assoc($res_prev)) {
-	    if ($dayView) {
-		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) < $ts_p) {
-		    $prev = array(
-				  'y' => $row['y_'],
-				  'm' => $row['m_'],
-				  'd' => $row['d_'],
-				  'cnt' => $row['cnt_'],
-				  'ts' => $row['ts_'],
-				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-				  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
-				  );
-		}
-	    } elseif($monthView) {
-		if (($row['m_'] + 12 * $row['y_']) < $mCount) {
-		    $prev = array(
-				  'y' => $row['y_'],
-				  'm' => $row['m_'],
-				  'cnt' => $row['cnt_'],
-				  'ts' => $row['ts_'],
-				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-				  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
-				  );
+		while ($prev == null && $row=rss_fetch_assoc($res_prev)) {
+			 if ($dayView) {
+			if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) < $ts_p) {
+				 $prev = array(
+					  'y' => $row['y_'],
+					  'm' => $row['m_'],
+					  'd' => $row['d_'],
+					  'cnt' => $row['cnt_'],
+					  'ts' => $row['ts_'],
+					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+					  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
+					  );
+			}
+			 } elseif($monthView) {
+			if (($row['m_'] + 12 * $row['y_']) < $mCount) {
+				 $prev = array(
+					  'y' => $row['y_'],
+					  'm' => $row['m_'],
+					  'cnt' => $row['cnt_'],
+					  'ts' => $row['ts_'],
+					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+					  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
+					  );
+			}
+			
+			 }
 		}
 		
-	    }
-	}
+		if ($dayView) {
+			 $ts = mktime(0,0,0,$m,10,$y);
+			 $up = array(
+				'y' => $y,
+				'm' => $m,
+				'url' => makeArchiveUrl($ts,$escaped_title,$cid,false),
+				'lbl' => date('F Y',$ts)
+				);
+		} elseif ($monthView) {
+			 $up = array(
+				'url' => getPath() . $escaped_title ."/",
+				'lbl' => '');
+		}
+		
 	
-	if ($dayView) {
-	    $ts = mktime(0,0,0,$m,10,$y);
-	    $up = array(
-			'y' => $y,
-			'm' => $m,
-			'url' => makeArchiveUrl($ts,$escaped_title,$cid,false),
-			'lbl' => date('F Y',$ts)
-			);
-	} elseif ($monthView) {
-	    $up = array(
-			'url' => getPath() . $escaped_title ."/",
-			'lbl' => '');
+		return array($prev,$succ, $up);
 	}
-	
-
-	return array($prev,$succ, $up);
-    }
 	
     return null;
 
