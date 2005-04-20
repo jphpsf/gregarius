@@ -161,20 +161,30 @@ if (($nv = makeNav($cid,$y,$m,$d)) != null) {
 
 
 if ($iid == "") {
-    $res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
-    list($title,$icon) = rss_fetch_row($res);
-    if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
-	$dtitle =  (" " . TITLE_SEP ." " . date('F Y',mktime(0,0,0,$m,1,$y)));
-    } elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
-	$dtitle =  (" " . TITLE_SEP ." " . date('F jS, Y',mktime(0,0,0,$m,$d,$y)));
-    } else {
-	$dtitle ="";
-    }
-    
-    rss_header( rss_htmlspecialchars( $title ) . $dtitle,0,"", HDR_NONE, $links);
-
+	// "channel mode"
+	$res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
+	list($title,$icon) = rss_fetch_row($res);
+	if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
+		$dtitle =  (" " . TITLE_SEP ." " . date('F Y',mktime(0,0,0,$m,1,$y)));
+	} elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
+		$dtitle =  (" " . TITLE_SEP ." " . date('F jS, Y',mktime(0,0,0,$m,$d,$y)));
+	} else {
+		$dtitle ="";
+	}
+	
+	if ($links) {
+		foreach ($links as $rel => $val) {
+			if (($lbl = $links[$rel]['title']) != "") {
+				$links[$rel]['title'] = $title . " " . TITLE_SEP ." " . $lbl;
+			} else {
+				$links[$rel]['title'] = $title;
+			}
+		}
+	}
+   rss_header( rss_htmlspecialchars( $title ) . $dtitle,0,"", HDR_NONE, $links);
+   
 } else {
-    
+    // "item mode"
     $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, " 
 		     .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid");
     list($title,$icon,$ititle) = rss_fetch_row($res);
@@ -200,7 +210,6 @@ rss_footer();
 
 function items($cid,$title,$iid,$y,$m,$d,$nv) {
     echo "\n\n<div id=\"items\" class=\"frame\">";    
-    markReadForm($cid);
 
     $sql = " select i.title, i.url, i.description, i.unread, "
       ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
@@ -251,10 +260,13 @@ function items($cid,$title,$iid,$y,$m,$d,$nv) {
     $items = array();
         
     $iconAdded = false;
-      
+    $hasUnreadItems = false;  
     $added = 0;
     $prevId = -1;
     while ($added <= $limit && list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid, $tag_) =  rss_fetch_row($res)) {
+    	
+		$hasUnreadItems |= $iunread;
+    	
     	$added++;
       if($prevId != $iid) {
           $items[] = array(
@@ -278,6 +290,10 @@ function items($cid,$title,$iid,$y,$m,$d,$nv) {
        }
     }
     
+    if ($hasUnreadItems) {
+		 markReadForm($cid);
+	}
+
     $items = array_slice($items,0,$limit);
     $shown = itemsList($title, $items, IL_CHANNEL_VIEW);
 
@@ -363,7 +379,7 @@ function makeNav($cid,$y,$m,$d) {
 					  'cnt' => $row['cnt_'], 
 					  'ts' => $row['ts_'],
 					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-					  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
+					  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? ITEMS:ITEM) .")"
 					  );
 			}
 			 } elseif($monthView) {		
@@ -374,7 +390,7 @@ function makeNav($cid,$y,$m,$d) {
 					  'cnt' => $row['cnt_'],
 					  'ts' => $row['ts_'],
 					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-					  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
+					  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? ITEMS:ITEM) .")"
 					  );
 			}
 			
@@ -392,7 +408,7 @@ function makeNav($cid,$y,$m,$d) {
 					  'cnt' => $row['cnt_'],
 					  'ts' => $row['ts_'],
 					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-					  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
+					  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? ITEMS:ITEM) .")"
 					  );
 			}
 			 } elseif($monthView) {
@@ -403,7 +419,7 @@ function makeNav($cid,$y,$m,$d) {
 					  'cnt' => $row['cnt_'],
 					  'ts' => $row['ts_'],
 					  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
-					  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
+					  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_']." ". ($row['cnt_'] > 1? ITEMS:ITEM) .")"
 					  );
 			}
 			
@@ -433,22 +449,17 @@ function makeNav($cid,$y,$m,$d) {
 }
 
 function markReadForm($cid) {
-    $sql = "select count(*)  from " .getTable("item") ." where cid=$cid and unread=1";
-    $res=rss_query($sql);
-    list($cnt) = rss_fetch_row($res);
-    if($cnt > 0) {
-    	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
-    	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
-    	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
-    	  ."</form>";
-     }
+  	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
+  	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
+  	  ."</form>";
 }
 
 
 function debugFeed($cid) {
     echo "<div id=\"items\" class=\"frame\">\n";
     $res = rss_query("select url from " .getTable("channels") ." where id = $cid");
-    if (! defined('MAGPIE_DEBUG')) {
+    if (! defined('MAGPIE_DEBUG') || !MAGPIE_DEBUG) {
     	define ('MAGPIE_DEBUG',true);
     }
     list($url) = rss_fetch_row($res);
