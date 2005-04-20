@@ -237,7 +237,7 @@ label, input[type="submit"] { cursor: pointer; }
 
 
 /* bad bad bad */
-.frame,.item,h3.collapsed,table { -moz-border-radius: 5px }
+.frame,.item,h3.collapsed,table,div.content img { -moz-border-radius: 5px }
 
 .box { 
  border: 1px solid #eef;
@@ -270,3 +270,11 @@ div#alltags {
 }
 #alltags a { margin: 15px 10px; vertical-align:middle; line-height: 50px;
 }
+
+div.content img { 
+ padding: 0.4em; 
+ margin: 0.8em 0; 
+ border: 1px solid #ddd;
+}
+
+

@@ -133,6 +133,32 @@ if ($iid != "" && !is_numeric($iid)) {
     $iid = "";
 }
 
+//precompute the navigation hints, which will be passed to the header as <link>s
+$links = NULL;
+if (($nv = makeNav($cid,$y,$m,$d)) != null) {
+    list($prev,$succ, $up) = $nv;
+    $links =array();
+    if ($prev != null) {
+	$links['prev'] =
+	  array('title' => $prev['lbl'],
+		'href' => $prev['url']);
+    }
+    if ($succ != null) {
+	$links['next'] =
+	  array(
+		'title' => $succ['lbl'],
+		'href' => $succ['url']);	
+    }
+    if ($up != null) {
+	$links['up'] = 
+	  array(
+		'title' => $up['lbl'],
+		'href' => $up['url']
+		);
+    }
+}
+
+
 
 if ($iid == "") {
     $res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
@@ -145,16 +171,20 @@ if ($iid == "") {
 	$dtitle ="";
     }
     
-    rss_header( rss_htmlspecialchars( $title ) . $dtitle);
+    rss_header( rss_htmlspecialchars( $title ) . $dtitle,0,"", HDR_NONE, $links);
+
 } else {
-   $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, " 
+    
+    $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, " 
 		     .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid");
     list($title,$icon,$ititle) = rss_fetch_row($res);
+
     rss_header(  
 		 rss_htmlspecialchars($title) 
 		 . " " . TITLE_SEP ." " 
-		 .  rss_htmlspecialchars($ititle)  
-	      );
+		 .  rss_htmlspecialchars($ititle),
+		 0,"", HDR_NONE, $links
+		 );
 }
 
 
@@ -163,12 +193,12 @@ sideChannels($cid);
 if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
-    items($cid,$title,$iid,$y,$m,$d);
+    items($cid,$title,$iid,$y,$m,$d,$nv);
 }
 rss_footer();
 
 
-function items($cid,$title,$iid,$y,$m,$d) {
+function items($cid,$title,$iid,$y,$m,$d,$nv) {
     echo "\n\n<div id=\"items\" class=\"frame\">";    
     markReadForm($cid);
 
@@ -250,16 +280,26 @@ function items($cid,$title,$iid,$y,$m,$d) {
     
     $items = array_slice($items,0,$limit);
     $shown = itemsList($title, $items, IL_CHANNEL_VIEW);
-    
-    
-    $sql = "select count(*) from " .getTable("item") . " where cid=$cid and unread=1";
-    $res2 = rss_query($sql);
-    list($unread_left) = rss_fetch_row($res2);
 
-    $sql = "select count(*) from " .getTable("item") . " where cid=$cid";
-    $res2 = rss_query($sql);
-    list($allread) = rss_fetch_row($res2);
+
+    if ($nv != null) {
+	list($prev,$succ,$up) = $nv;
+	if($prev != null) {
+	    $readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".NAV_PREV_PREFIX. $prev['lbl'] ."</a>\n";
+	}
+	if($succ != null) {
+	    $readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">". $succ['lbl'] .NAV_SUCC_POSTFIX."</a>\n";
+	}
+	
+	if ($readMoreNav != "") {
+	    echo "<div class=\"readmore\">$readMoreNav";
+	    echo "<hr class=\"clearer hidden\"/>\n</div>\n";
+	}
+    }        
+    echo "</div>\n";
+}
     
+function makeNav($cid,$y,$m,$d) {
     /** read more navigation **/
     $readMoreNav = "";
 
@@ -272,10 +312,11 @@ function items($cid,$title,$iid,$y,$m,$d) {
     	    
     if ($monthView ^ $dayView) {
 	if ($monthView) {
-	    $ts_p = mktime(0,0,0,$m+1,0,$y,0);
-	    $ts_s = mktime(0,0,0,$m,1,$y,0);
+	    $ts_p = mktime(0,0,0,$m+1,0,$y);
+	    $ts_s = mktime(0,0,0,$m,1,$y);
 	} else {
-	    $ts_p = $ts_s = mktime(0,0,0,$m,$d,$y,0);
+	    $ts_p = mktime(23,59,59,$m,$d-1,$y);
+	    $ts_s = mktime(0,0,0,$m,$d,$y);
 	}
 
 	$sql_succ = " select "
@@ -303,12 +344,14 @@ function items($cid,$title,$iid,$y,$m,$d) {
 	  ." group by y_,m_"
 	  .(($dayView)?",d_ ":"")
 	  ." order by ts_ desc limit 4";
-	
+
+	//echo "<!-- $sql_prev -->\n";
 	$res_prev = rss_query($sql_prev);
 	$res_succ = rss_query($sql_succ);
 	
 	$mCount = (12 * $y + $m);
-	$prev = $succ = null;
+	$prev = $succ = $up = null;
+	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);	
 	while ($succ == null && $row=rss_fetch_assoc($res_succ)) {
 	    if ($dayView) {
 		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) > $ts_s) {
@@ -317,7 +360,10 @@ function items($cid,$title,$iid,$y,$m,$d) {
 				  'm' => $row['m_'], 
 				  'd' => $row['d_'], 
 				  'cnt' => $row['cnt_'], 
-				  'ts' => $row['ts_']);
+				  'ts' => $row['ts_'],
+				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+				  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
+				  );
 		}
 	    } elseif($monthView) {		
 		if (($row['m_'] + 12 * $row['y_']) > $mCount) {		    
@@ -325,13 +371,16 @@ function items($cid,$title,$iid,$y,$m,$d) {
 				  'y' => $row['y_'],
 				  'm' => $row['m_'],
 				  'cnt' => $row['cnt_'],
-				  'ts' => $row['ts_']);		    
+				  'ts' => $row['ts_'],
+				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+				  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
+				  );
 		}
 		
 	    }
 	}
 	
-	
+
 	while ($prev == null && $row=rss_fetch_assoc($res_prev)) {
 	    if ($dayView) {
 		if (mktime(0,0,0,$row['m_'],$row['d_'],$row['y_']) < $ts_p) {
@@ -340,7 +389,10 @@ function items($cid,$title,$iid,$y,$m,$d) {
 				  'm' => $row['m_'],
 				  'd' => $row['d_'],
 				  'cnt' => $row['cnt_'],
-				  'ts' => $row['ts_']);
+				  'ts' => $row['ts_'],
+				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+				  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_'].")"
+				  );
 		}
 	    } elseif($monthView) {
 		if (($row['m_'] + 12 * $row['y_']) < $mCount) {
@@ -348,35 +400,35 @@ function items($cid,$title,$iid,$y,$m,$d) {
 				  'y' => $row['y_'],
 				  'm' => $row['m_'],
 				  'cnt' => $row['cnt_'],
-				  'ts' => $row['ts_']);
+				  'ts' => $row['ts_'],
+				  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,$dayView),
+				  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_'].")"
+				  );
 		}
 		
 	    }
 	}
 	
-		
-	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
-	if($prev != null) {	    
-	    $dlbl = date(($dayView?'F jS':'F Y'),$prev['ts']) . " (".$prev['cnt'].")";	    
-	    $url = makeArchiveUrl($prev['ts'],$escaped_title,$cid,$dayView);
-	    $readMoreNav .= "<a href=\"$url\" class=\"fl\">".NAV_PREV_PREFIX."$dlbl</a>\n";
+	if ($dayView) {
+	    $ts = mktime(0,0,0,$m,10,$y);
+	    $up = array(
+			'y' => $y,
+			'm' => $m,
+			'url' => makeArchiveUrl($ts,$escaped_title,$cid,false),
+			'lbl' => date('F Y',$ts)
+			);
+	} elseif ($monthView) {
+	    $up = array(
+			'url' => getPath() . $escaped_title ."/",
+			'lbl' => '');
 	}
-	if($succ != null) {
-	    $dlbl = date(($dayView?'F jS':'F Y'),$succ['ts']) . " (".$succ['cnt'].")";
-	    $url = makeArchiveUrl($succ['ts'],$escaped_title,$cid,$dayView);
-	    $readMoreNav .= "<a href=\"$url\" class=\"fr\">$dlbl".NAV_SUCC_POSTFIX."</a>\n";
-	}
+	
+
+	return array($prev,$succ, $up);
     }
-    
-    
-    
-    if ($readMoreNav != "") {
-	echo "<div class=\"readmore\">$readMoreNav";
-	echo "<hr class=\"clearer hidden\"/>\n</div>\n";
-    }
-    
-    
-    echo "</div>\n";
+	
+    return null;
+
 }
 
 function markReadForm($cid) {

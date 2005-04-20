@@ -1,5 +1,4 @@
 <?
-
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
@@ -187,10 +186,11 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 	$res = rss_query ("select count(*) from " .getTable("item") ." where cid=$cid and unread=1");
 	list($cnt) = rss_fetch_row($res);
 	if ($cnt > 0) {
-		$rdLbl= sprintf(UNREAD_PF, $cnt); 
-		$class_= " class=\"unread\"";
+	    $rdLbl= sprintf(UNREAD_PF, $cnt); 
+	    $class_= " class=\"feed title unread\"";
 	} else {
-		$rdLbl=$class_="";
+	    $rdLbl= "";
+	    $class_= " class=\"feed title\" ";
 	}
 	 
 	$ret = "";
