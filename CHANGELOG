@@ -1,5 +1,7 @@
 Gregarius 0.3.9
  
+ 20.04.2005 Navigation links (<link rel=...> in the header, if your browser supports them)
+ 
  18.04.2005 Logical operator AND can applied to tags (a la del.icio.us: /tag/tag1+tag2)
  
  16.04.2005 Bug: Stripping tags from item titles
