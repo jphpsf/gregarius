@@ -491,9 +491,10 @@ function makeNav($cid,$iid,$y,$m,$d) {
 				  
 				$rs = rss_query($sql);
 				$found = false;
+				$stop = false;
 				$prev__ = null;
 				$fCounter = 0;
-				while ($fCounter < 2 && list($title_,$iid_,$ts_,$y_,$m_,$d_) = rss_fetch_row($rs)) {
+				while (!$stop && list($title_,$iid_,$ts_,$y_,$m_,$d_) = rss_fetch_row($rs)) {
 					if  ($iid_ == $iid) {
 					 	//this is the "current" item, get a hold on the previous one
 						$found = true;
@@ -524,6 +525,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 								  	. preg_replace("/[^A-Za-z0-9\.]/","_",$title_),
 								  'lbl' =>$title_
 							);	
+							$stop = true;
 						}
 					}
 					
