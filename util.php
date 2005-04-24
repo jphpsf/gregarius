@@ -100,7 +100,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
 	foreach ($links as $rel => $link) {
 	    echo "\t<link rel=\"$rel\" ";
 	    foreach ($link as $attr => $val) {
-		echo "$attr=\"$val\" ";
+		echo "$attr=\"". htmlentities($val,ENT_COMPAT,"UTF-8")."\" ";
 	    }
 	    echo "/>\n";
 	}
