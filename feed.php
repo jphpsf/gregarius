@@ -175,7 +175,7 @@ if ($iid == "") {
 	if ($links) {
 		foreach ($links as $rel => $val) {
 			if (($lbl = $links[$rel]['title']) != "") {
-				$links[$rel]['title'] = $title . " " . html_entity_decode(TITLE_SEP)." " . $lbl;
+				$links[$rel]['title'] = $title . " " . TITLE_SEP ." " . $lbl;
 			} else {
 				$links[$rel]['title'] = $title;
 			}
@@ -306,7 +306,7 @@ function items($cid,$title,$iid,$y,$m,$d,$nv) {
 			if (strlen($lbl) > 40) {
 				$lbl = substr($lbl,0,37) . "...";
 			}
-			$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
+			//$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
 			$readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".NAV_PREV_PREFIX ."$lbl</a>\n";
 		}
 		if($succ != null) {
@@ -314,7 +314,7 @@ function items($cid,$title,$iid,$y,$m,$d,$nv) {
 			if (strlen($lbl) > 40) {
 				$lbl = substr($lbl,0,37) . "...";
 			}
-			$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
+			//$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
 			$readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">$lbl".NAV_SUCC_POSTFIX."</a>\n";
 		}
 		
