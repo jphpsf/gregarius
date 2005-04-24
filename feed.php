@@ -175,9 +175,9 @@ if ($iid == "") {
 	if ($links) {
 		foreach ($links as $rel => $val) {
 			if (($lbl = $links[$rel]['title']) != "") {
-				$links[$rel]['title'] = $title . " " . TITLE_SEP ." " . $lbl;
+				$links[$rel]['title'] = htmlentities( $title,ENT_COMPAT,"UTF-8" ) . " " . TITLE_SEP ." " . $lbl;
 			} else {
-				$links[$rel]['title'] = $title;
+				$links[$rel]['title'] = htmlentities( $title,ENT_COMPAT,"UTF-8" );
 			}
 		}
 	}
@@ -507,7 +507,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 								  'ts' => $pts_,
 								  'url' =>  makeArchiveUrl($pts_,$escaped_title,$cid,true)
 									. preg_replace("/[^A-Za-z0-9\.]/","_",$ptitle_),
-								  'lbl' => $ptitle_
+								  'lbl' => htmlentities( $ptitle_,ENT_COMPAT,"UTF-8" )
 							);
 						}
 					}
@@ -523,7 +523,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 								  'ts' => $ts_,
 								  'url' =>  makeArchiveUrl($ts_,$escaped_title,$cid,true)
 								  	. preg_replace("/[^A-Za-z0-9\.]/","_",$title_),
-								  'lbl' =>$title_
+								  'lbl' => htmlentities($title_,ENT_COMPAT,"UTF-8")
 							);	
 							$stop = true;
 						}
