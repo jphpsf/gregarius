@@ -54,7 +54,7 @@ $cntUnread = unreadItems();
 if (!getConfig('rss.output.noreaditems')) {
    readItems();
 } elseif($cntUnread == 0) {
-   itemsList( sprintf(H2_UNREAD_ITEMS , count($items)));
+   itemsList( sprintf(H2_UNREAD_ITEMS , count($items)), IL_TITLE_NO_ESCAPE);
 }
 
 echo "</div>\n";
@@ -123,7 +123,7 @@ function unreadItems() {
 
 
         $ret = count($items); 
-        itemsList ( sprintf(H2_UNREAD_ITEMS , $ret),  $items );
+        itemsList ( sprintf(H2_UNREAD_ITEMS , $ret),  $items, IL_TITLE_NO_ESCAPE );
 
 
     }
@@ -212,7 +212,7 @@ function readItems() {
 	    $items[] = $litems[0];
 	}
     }
-    itemsList(H2_RECENT_ITEMS,$items);
+    itemsList(H2_RECENT_ITEMS,$items, IL_TITLE_NO_ESCAPE);
     
 
 }

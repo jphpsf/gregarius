@@ -156,7 +156,7 @@ define ('ADMIN_BOOKMARKLET_TITLE','Subscribe in Gregarius!');
 
 
 define ('ADMIN_ERROR_NOT_AUTHORIZED', 
- 		"<h1>Not Authorised!</h1>\nYou are not authorised to access the administration interface.\n"
+ 		"<h1>Not Authorized!</h1>\nYou are not authorized to access the administration interface.\n"
 		."Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 		."Have  a nice day!");
 		
@@ -164,7 +164,7 @@ define ('ADMIN_ERROR_PRUNING_PERIOD','Invalid pruning period');
 define ('ADMIN_ERROR_NO_PERIOD','oops, no period specified');
 define ('ADMIN_BAD_RSS_URL',"I'm sorry, I don't think I can handle this URL: '%s'");
 define ('ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"You can't delete the " . HOME_FOLDER . " folder");
-define ('ADMIN_CANT_RENAME',"You can't rename this folder '%s' becuase such a folder already exists.");
+define ('ADMIN_CANT_RENAME',"You can't rename this folder '%s' because such a folder already exists.");
 define('ADMIN_ERROR_CANT_CREATE',"Looks like you already have a folder called '%s'!");
 
 define ('TAG_TAGS','Tags');

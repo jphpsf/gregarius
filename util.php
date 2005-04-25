@@ -388,21 +388,25 @@ function update($id) {
  */
 function itemsList($title,$items, $options = IL_NONE){
 
-    if ($title) {
-	if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
-	    $cicon = $items[0][2];
-	}
+	$anchor = "";	
+	if (!defined('FEEDCONTENT_ANCHOR_SET')) {
+		$anchor = " id=\"feedcontent\"";
+		define ('FEEDCONTENT_ANCHOR_SET',true);
+	} 
+	
+	
+   if ($title) {
+		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
+			 $cicon = $items[0][2];
+		}
+	
+		echo "\n\n<h2$anchor>"
+		 .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")
+		 .($options & IL_TITLE_NO_ESCAPE ? $title:rss_htmlspecialchars($title))
+		 ."</h2>\n";
 
-	$anchor = (!defined('FEEDCONTENT_ANCHOR_SET')?" id=\"feedcontent\"":"");
-	echo "\n\n<h2$anchor>"
-	  .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")
-	    .rss_htmlspecialchars($title)
-	      ."</h2>\n";
-	define ('FEEDCONTENT_ANCHOR_SET',true);
-
-    } else {
-	echo "\n\n<a id=\"feedcontent\"></a>\n";
-	define ('FEEDCONTENT_ANCHOR_SET',true);
+    } elseif ($anchor != "") {
+		echo "\n\n<a$anchor></a>\n";
     }
 
     $cntr=0;

@@ -44,20 +44,20 @@ define ('SEARCH_ORDER_DATE_CHANNEL','Trier par date, canal');
 define ('SEARCH_ORDER_CHANNEL_DATE','Trier par canal, date');
 define ('SEARCH_RESULTS','R&eacute;sultats: ');
 define ('SEARCH_RESULTS_PER_PAGE','R&eacute;sultats par page:'); 
-define ('H2_UNREAD_ITEMS',"Elements non lus (%d)");
-define ('H2_RECENT_ITEMS', "Elements recents");
+define ('H2_UNREAD_ITEMS',"El&eacute;ments non lus (%d)");
+define ('H2_RECENT_ITEMS', "El&eacute;ments r&eacute;cents");
 define ('H2_CHANNELS','Canaux');
 define ('H5_READ_UNREAD_STATS','%d &eacute;l&eacute;ments , %d non lus');
 define ('ITEMCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments (<strong>%d</strong> non lus) dans <strong>%d</strong> canaux');
 define ('UNREAD_PF', '(<strong>%d non lus</strong>)');
 
-define ('FTR_POWERED_BY', "is powered by ");
+define ('FTR_POWERED_BY', "est propuls&eacute; par ");
 define ('ALL','Tous');
-define ('NAV_HOME','D&eacute;part');
-define ('NAV_UPDATE', 'Rafra&icirc;chir');
+define ('NAV_HOME','Accueil');
+define ('NAV_UPDATE', 'Mise &agrave; jour');
 define ('NAV_CHANNEL_ADMIN', 'Administration');
-define ('NAV_SEARCH', "Chercher");
-define ('NAV_DEVLOG', "Devlog");
+define ('NAV_SEARCH', "Recherche");
+define ('NAV_DEVLOG', "Journal du d&eacute;veloppeur");
 define ('SEARCH_GO', 'Rechercher');
 
 define ('POSTED', 'Publi&eacute;: ');
@@ -71,8 +71,8 @@ define ('TITLE_ADMIN','Administration des canaux');
 
 define ('HOME_FOLDER','Racine');
 define ('VISIT', '(visiter)');
-define ('COLLAPSE','[-] collapser');
-define ('EXPAND','[+] &eacute;tendre');
+define ('COLLAPSE','[-] replier');
+define ('EXPAND','[+] d&eacute;plier');
 define ('PL_FOR','Lien pour ');
 
 define ('UPDATE_CHANNEL','Canal');
@@ -84,7 +84,7 @@ define ('UPDATE_STATUS_CACHED', 'OK (Depuis cache)');
 define ('UPDATE_STATUS_ERROR','ERREUR');
 define ('UPDATE_H2','Mise &agrave; jour de %d Canaux...');
 define ('UPDATE_CACHE_TIMEOUT','Cache (HTTP Timeout)');
-define ('UPDATE_NOT_MODIFIED','OK (304 Not modified)'); 
+define ('UPDATE_NOT_MODIFIED','OK (304 Pas de modifications)'); 
 define ('UPDATE_NOT_FOUND','404 Pas Trouv&eacute; (Depuis cache)');
 // admin
 define ('ADMIN_EDIT', '&eacute;diter');
@@ -117,7 +117,7 @@ define ('ADMIN_CHANNELS_HEADING_KEY','Clef');
 define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
 define ('ADMIN_CHANNELS_HEADING_VALUE','Valeur');  
 define ('ADMIN_FOLDERS_ADD','Ajouter un r&eacute;pertoire:');
-define ('ADMIN_CHANNEL_ICON','Icone affichee:');
+define ('ADMIN_CHANNEL_ICON','Icone affich&eacute;e:');
 define ('CLEAR_FOR_NONE','(Laisser vide pour ne pas afficher d\icone)');
 define ('ADMIN_OPML_EXPORT','Exporter OPML:');
 define ('ADMIN_OPML_IMPORT','Importer OPML:');
@@ -136,7 +136,7 @@ define ('ADMIN_FALSE','Non');
 define ('ADMIN_MOVE_UP','&uarr;');
 define ('ADMIN_MOVE_DOWN','&darr;');
 define ('ADMIN_ADD_CHANNEL_EXPL','(Veuillez saisir l\'URL d\'un flux RSS ou d\'un site Internet)');
-define ('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute;s dans <a href=\"%s\">%s</a>. Lequel d&eacute;sirez-vous souscrir?');
+define ('ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute;s dans <a href=\"%s\">%s</a>. Auquel d&eacute;sirez-vous souscrir?');
 
 define ('ADMIN_PRUNE_OLDER','Effacer les &eacute;l&eacute;ments plus anciens que ');
 define ('ADMIN_PRUNE_DAYS','jours');
@@ -144,9 +144,9 @@ define ('ADMIN_PRUNE_MONTHS','mois');
 define ('ADMIN_PRUNE_YEARS','ans');
 define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
 define ('ADMIN_ABOUT_TO_DELETE','Attention: vous allez effacer %s  &eacute;l&eacute;ments (sur %s)');
-define ('ADMIN_PRUNING','Effacement');
+define ('ADMIN_PRUNING','Suppression');
 define ('ADMIN_DOMAIN_FOLDER_LBL','r&eacute;pertoires');
-define ('ADMIN_DOMAIN_CHANNEL_LBL','chaines');
+define ('ADMIN_DOMAIN_CHANNEL_LBL','canaux');
 define ('ADMIN_DOMAIN_ITEM_LBL','el&eacute;ments');
 define ('ADMIN_DOMAIN_CONFIG_LBL','configuration');
 define ('ADMIN_DOMAIN_OPML_LBL','opml');
@@ -154,28 +154,28 @@ define ('ADMIN_BOOKMARKET_LABEL','Bookmarklet de souscription [<a href="http://w
 define ('ADMIN_BOOKMARKLET_TITLE','Ajouter &agrave; Gregarius!');
 
 define ('ADMIN_ERROR_NOT_AUTHORIZED', 
-		"<h1>Non autoris&eacute;</h1>\nVous n'etes pas autoris&eacute; &agrave; acc&eacute;der la section d'administration."
-		."Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir &agrave; la page d'accoeuil.\n"
+		"<h1>Non autoris&eacute;</h1>\nVous n'&ecirc;tes pas autoris&eacute; &agrave; acc&eacute;der la section d'administration."
+		."Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir &agrave; la page d'acceuil.\n"
 		."Merci.");
 
 define ('ADMIN_ERROR_PRUNING_PERIOD',"P&eacute; d'effacement non valide");
 define ('ADMIN_ERROR_NO_PERIOD',"P&eacute; non sp&eacute;cifi&eacute;e");
 define ('ADMIN_BAD_RSS_URL',"Je ne sais pas comment g&eacute;rer cette URL '%s'");
 define ('ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Vous ne pouvez pas effacer le r&eacute;pertoire " . HOME_FOLDER ."!");
-define ('ADMIN_CANT_RENAME',"Vous ne pouvez pas renommer cet &eacute;l&eacute;ment '%s' parce que un &eacute;l&eacute;ment du meme nom existe d&eacute;j&agrave;!");
-define ('ADMIN_ERROR_CANT_CREATE',"Un r&eacute;pertoire du meme nom ('%s') existe d&eacute;j&agrave;!");
+define ('ADMIN_CANT_RENAME',"Vous ne pouvez pas renommer cet &eacute;l&eacute;ment '%s' parce que un &eacute;l&eacute;ment du m&ecirc;me nom existe d&eacute;j&agrave;!");
+define ('ADMIN_ERROR_CANT_CREATE',"Un r&eacute;pertoire du m&ecirc;me nom ('%s') existe d&eacute;j&agrave;!");
 
 define ('TAG_TAGS','Tags');
 define ('TAG_EDIT','modifier');
 define ('TAG_SUBMIT','valider');
 define ('TAG_CANCEL','annuler');
 define ('TAG_SUBMITTING','...');
-define ('TAG_ERROR_NO_TAG',"D&eacute;sol&eacute;, aucun &eacute;l&eacute;ment taggu&eacute; &laquo;%s&raquo; n'a pu etre trouv&eacute;.");
+define ('TAG_ERROR_NO_TAG',"D&eacute;sol&eacute;, aucun &eacute;l&eacute;ment taggu&eacute; &laquo;%s&raquo; n'a pu &ecirc;tre trouv&eacute;.");
 define ('TAG_ALL_TAGS','Tous les Tags');
 define ('TAG_TAGGED','tagg&eacute;');
 define ('TAG_TAGGEDP','tagg&eacute;s');
 define ('TAG_SUGGESTIONS','suggestions');
 define ('TAG_SUGGESTIONS_NONE','aucune suggestion');
-define ('TAG_RELATED','Tags proches: ');
+define ('TAG_RELATED','Tags similaires: ');
 
 ?>
