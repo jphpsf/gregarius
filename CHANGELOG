@@ -1,3 +1,8 @@
+Gregarius 0.4.1
+
+ 25.04.2005 Fixed a bug that would be triggered on non-apache-module
+  	    installations of PHP
+
 Gregarius 0.4.0
  
  20.04.2005 Navigation links (<link rel=...> in the header, if your browser supports them)

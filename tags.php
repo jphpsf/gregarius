@@ -157,8 +157,7 @@ if (array_key_exists('js',$_GET)) {
 
     // The javascript output shall be cached
     $etag = md5($js);
-    $hdrs = getallheaders();
-    if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
+    if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && $_SERVER['HTTP_IF_NONE_MATCH'] == $etag) {
 	header("HTTP/1.1 304 Not Modified");
 	flush();
 	exit();
