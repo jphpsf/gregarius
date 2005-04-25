@@ -190,7 +190,7 @@ function setTags(id,tagss) {
 }
 
 function submit_tag_cb(ret) {
-	data= ret.split(',');
+	data= ret.replace(/[^a-zA-Z0-9\ _\.,]/gi,"").split(',');
 	id=data[0];
 	tags=data[1];
 	setTags(id,tags);
