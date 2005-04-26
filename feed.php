@@ -51,20 +51,7 @@ if (
     } else {
 	$cid = "";
     }       
-    
-    // lets see if theres an item id as well
-    $iid = "";
-    if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
-	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
-	$res =  rss_query( "select id from " .getTable("item") ." where title like '$sqlid' and cid=$cid" );
-		
-	if ( rss_num_rows ( $res ) >0) {
-	    list($iid) = rss_fetch_row($res);  
-	}
-    }
-    
-
-    
+        
     // date ?
     if ($cid != "" 
 	&& array_key_exists('y',$_REQUEST) && $_REQUEST['y'] != "" && is_numeric($_REQUEST['y'])
@@ -82,6 +69,31 @@ if (
 	if ($d > 31) {
 	    $d = date("d");
 	} 
+    }
+    
+    
+    
+    // lets see if theres an item id as well
+    $iid = "";
+    if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
+	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
+	$sql = "select id from " .getTable("item") ." i where i.title like '$sqlid' and i.cid=$cid";
+	if ($m > 0 && $y > 0) {
+	    $sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
+	      ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+	    
+	    if ($d > 0) {
+		$sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+	    }
+	}
+	
+	$sql .=" order by i.added desc, i.id asc";
+	
+	$res =  rss_query( $sql );
+	
+	if ( rss_num_rows ( $res ) >0) {
+	    list($iid) = rss_fetch_row($res);
+	}
     }
     
     
@@ -245,7 +257,7 @@ function items($cid,$title,$iid,$y,$m,$d,$nv) {
     
     $sql .=" order by i.added desc, i.id asc";
 
-      
+    //echo $sql;
 
     if ( $m==0 && $y==0 ) {
 		//$sql .= " limit " . getConfig('rss.output.itemsinchannelview');
