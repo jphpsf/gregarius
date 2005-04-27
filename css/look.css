@@ -66,9 +66,10 @@ div#channels li ul li {
 
 /* folder icon */
 .folder {
-  background-image: url(media/folder.gif);
+  /* background-image: url(media/folder.gif); 
   background-position: 0px 0.5em;
   background-repeat: no-repeat;
+  */
 }
 
 /* folder labels */

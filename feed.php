@@ -42,75 +42,97 @@ if (
     && array_key_exists('channel',$_REQUEST)    
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])     
-    ) {
-    $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
-    $res =  rss_query( "select id from " . getTable("channels") ." where title like '$sqlid'" );
-    
-    if ( rss_num_rows ( $res ) == 1) {
-	list($cid) = rss_fetch_row($res);
-    } else {
-	$cid = "";
-    }       
-        
-    // date ?
-    if ($cid != "" 
-	&& array_key_exists('y',$_REQUEST) && $_REQUEST['y'] != "" && is_numeric($_REQUEST['y'])
-	&& array_key_exists('m',$_REQUEST) && $_REQUEST['m'] != "" && is_numeric($_REQUEST['m']))
-    {	
-	$y = (int) $_REQUEST['y'];
-	if ($y < 1000) $y+=2000;
-	
-	$m =  $_REQUEST['m'];	
-	if ($m > 12) {
-	    $m = date("m");
-	}
-	
-	$d =  $_REQUEST['d'];
-	if ($d > 31) {
-	    $d = date("d");
-	} 
-    }
-    
-    
-    
-    // lets see if theres an item id as well
-    $iid = "";
-    if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
-	$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
-	$sql = "select id from " .getTable("item") ." i where i.title like '$sqlid' and i.cid=$cid";
-	if ($m > 0 && $y > 0) {
-	    $sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
-	      ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
-	    
-	    if ($d > 0) {
-		$sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
-	    }
-	}
-	
-	$sql .=" order by i.added desc, i.id asc";
-	
-	$res =  rss_query( $sql );
-	
-	if ( rss_num_rows ( $res ) >0) {
-	    list($iid) = rss_fetch_row($res);
-	}
-    }
-    
-    
-// no mod rewrite: ugly but effective
-} elseif (array_key_exists('channel',$_REQUEST)) {
+	) {
+		 $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
+		 $res =  rss_query( "select id from " . getTable("channels") ." where title like '$sqlid'" );
+		 
+		if ( rss_num_rows ( $res ) == 1) {
+			list($cid) = rss_fetch_row($res);
+		} else {
+			$cid = "";
+			
+			// is this a folder?
+			$res = rss_query("select c.id, c.parent from ". getTable('channels')." c, "
+				. getTable('folders') . " f "
+				." where c.parent=f.id and f.name like '$sqlid' and f.id > 0");
+				
+			if ( rss_num_rows ( $res ) > 0) {
+				$cids = array();
+				while (list ($cid__,$fid__) = rss_fetch_row($res)) {
+					$cids[] = $cid__;
+					$fid = $fid__;
+				}
+			}
+		}       
+			  
+		// date ?
+		if ($cid != "" 
+			&& array_key_exists('y',$_REQUEST) && $_REQUEST['y'] != "" && is_numeric($_REQUEST['y'])
+			&& array_key_exists('m',$_REQUEST) && $_REQUEST['m'] != "" && is_numeric($_REQUEST['m'])) {	
+				$y = (int) $_REQUEST['y'];
+				if ($y < 1000) $y+=2000;
+				
+				$m =  $_REQUEST['m'];	
+				if ($m > 12) {
+					 $m = date("m");
+				}
+				
+				$d =  $_REQUEST['d'];
+				if ($d > 31) {
+					 $d = date("d");
+				} 
+		 }
+		 
+		 
+		 
+		 // lets see if theres an item id as well
+		 $iid = "";
+		 if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
+			$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
+			$sql = "select id from " .getTable("item") ." i where i.title like '$sqlid' and i.cid=$cid";
+			if ($m > 0 && $y > 0) {
+				 $sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
+					." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+				 
+				 if ($d > 0) {
+				$sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+				 }
+			}
+			
+			$sql .=" order by i.added desc, i.id asc";
+			
+			$res =  rss_query( $sql );
+			
+			if ( rss_num_rows ( $res ) >0) {
+				 list($iid) = rss_fetch_row($res);
+			}
+		 }  
+	// no mod rewrite: ugly but effective
+	} elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQUEST)) {
     $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
     $iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
+    $fid= (array_key_exists('folder',$_REQUEST))?$_REQUEST['folder']:"";
+    if ($fid) {
+    		$res = rss_query("select c.id from ". getTable('channels')." c "
+				." where c.parent=$fid and c.parent > 0");
+				
+			if ( rss_num_rows ( $res ) > 0) {
+				$cids = array();
+				while (list ($cid__) = rss_fetch_row($res)) {
+					$cids[] = $cid__;
+				}
+			}	
+    }
 }
 
 // If we have no channel-id somethign went terribly wrong.
 // Redirect to index.php
-if (!$cid) {
+if (!$cid && !(isset($cids) && is_array($cids) && count($cids))) {
     $red = "http://" . $_SERVER['HTTP_HOST'] . getPath();
     header("Location: $red");
 }
 
-if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
+if ($cid && array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
     
     $sql = "update " .getTable("item") ." set unread=0 where cid=$cid";
     rss_query($sql);
@@ -121,22 +143,22 @@ if (array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ
     list ($next_unread_id, $next_unread_title) = rss_fetch_row($res);
     
     if ($next_unread_id == '') {	
-	$redirect = "http://"
-	  . $_SERVER['HTTP_HOST']     
-	  . dirname($_SERVER['PHP_SELF']);   
-	
-	if (substr($redirect,-1) != "/") {
-	    $redirect .= "/";
-	} 
-	
-	header("Location: $redirect");
-	exit();
+		$redirect = "http://"
+		  . $_SERVER['HTTP_HOST']     
+		  . dirname($_SERVER['PHP_SELF']);   
+		
+		if (substr($redirect,-1) != "/") {
+			 $redirect .= "/";
+		} 
+		
+		header("Location: $redirect");
+		exit();
     } else {
-	$cid = $next_unread_id;
+		$cid = $next_unread_id;
     }
 }
 
-assert(is_numeric($cid));
+assert(is_numeric($cid) || (isset($fid) && isset($cids) && is_array($cids) && count($cids)));
 
 $itemFound = true;
 if ($iid != "" && !is_numeric($iid)) {
@@ -147,7 +169,7 @@ if ($iid != "" && !is_numeric($iid)) {
 
 //precompute the navigation hints, which will be passed to the header as <link>s
 $links = NULL;
-if (($nv = makeNav($cid,$iid,$y,$m,$d)) != null) {
+if ($cid && ($nv = makeNav($cid,$iid,$y,$m,$d)) != null) {
     list($prev,$succ, $up) = $nv;
     $links =array();
     if ($prev != null) {
@@ -173,16 +195,25 @@ if (($nv = makeNav($cid,$iid,$y,$m,$d)) != null) {
 
 
 if ($iid == "") {
-	// "channel mode"
-	$res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
-	list($title,$icon) = rss_fetch_row($res);
-	if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
-		$dtitle =  (" " . TITLE_SEP ." " . date('F Y',mktime(0,0,0,$m,1,$y)));
-	} elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
-		$dtitle =  (" " . TITLE_SEP ." " . date('F jS, Y',mktime(0,0,0,$m,$d,$y)));
+	// "channel / folder mode"
+	if ($cid) {
+		$res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
+		list($title,$icon) = rss_fetch_row($res);
+		if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
+			$dtitle =  (" " . TITLE_SEP ." " . date('F Y',mktime(0,0,0,$m,1,$y)));
+		} elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
+			$dtitle =  (" " . TITLE_SEP ." " . date('F jS, Y',mktime(0,0,0,$m,$d,$y)));
+		} else {
+			$dtitle ="";
+		}
+	} elseif($fid) {
+		list($title) = rss_fetch_row( rss_query("select name from " . getTable('folders') . " where id = $fid") );
+		$dtitle ="";
 	} else {
 		$dtitle ="";
+		$title = "";
 	}
+	
 	
 	if ($links) {
 		foreach ($links as $rel => $val) {
@@ -215,99 +246,114 @@ sideChannels($cid);
 if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
-    items($cid,$title,$iid,$y,$m,$d,$nv);
+	if ($cid && !(isset($cids) && is_array($cids) && count($cids))) {
+   	$cids = array($cid); 
+   }
+	items($cids,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null));
 }
 rss_footer();
 
 
-function items($cid,$title,$iid,$y,$m,$d,$nv) {
-    echo "\n\n<div id=\"items\" class=\"frame\">";    
-
-    $sql = " select i.title, i.url, i.description, i.unread, "
-      ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
-      ." pubdate is not null as ispubdate, "
-      ." c.icon, c.title, i.id, t.tag "
-      ." from " .getTable("item") . " i " 
-      
-      ." left join ".getTable('metatag') ." m on (i.id=m.fid) "
-      ." left join ".getTable('tag')." t on (m.tid=t.id) "
-        
-      . ", " . getTable("channels") ." c "
-      ." where i.cid = $cid and c.id = $cid ";
-
-    
-    if ($iid != "") {
-		$sql .= " and i.id=$iid";
-    }
-    
-
-    
-    if  (isset($_REQUEST['unread']) && $iid == "") {
-      $sql .= " and unread=1 ";
-    }
-    
-    if ($m > 0 && $y > 0) {
-	$sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
-	  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+function items($cids,$title,$iid,$y,$m,$d,$nv) {
+   echo "\n\n<div id=\"items\" class=\"frame\">";    
+	$items = array();
+	foreach ($cids as $cid) {
+		 $sitems = array();
+		 $sql = " select i.title, i.url, i.description, i.unread, "
+			." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
+			." pubdate is not null as ispubdate, "
+			." c.icon, c.title, i.id, t.tag "
+			." from " .getTable("item") . " i " 
+			
+			." left join ".getTable('metatag') ." m on (i.id=m.fid) "
+			." left join ".getTable('tag')." t on (m.tid=t.id) "
+			  
+			. ", " . getTable("channels") ." c "
+			." where i.cid = $cid and c.id = $cid ";
 	
-	if ($d > 0) {
-	    $sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
-	}
-    }
-    
-    $sql .=" order by i.added desc, i.id asc";
+		 
+		 if ($iid != "") {
+			$sql .= " and i.id=$iid";
+		 }
+		 
+	
+		 
+		 if  (isset($_REQUEST['unread']) && $iid == "") {
+			$sql .= " and unread=1 ";
+		 }
+		 
+		 if ($m > 0 && $y > 0) {
+		$sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
+		  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+		
+		if ($d > 0) {
+			 $sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+		}
+		 }
+		 
+		 $sql .=" order by i.added desc, i.id asc";
+	
+		 //echo $sql;
+	
+		 if ( $m==0 && $y==0 ) {
+			//$sql .= " limit " . getConfig('rss.output.itemsinchannelview');
+			$limit = getConfig('rss.output.itemsinchannelview');
+		 } else {
+			$limit = 9999;
+		 }
+	
+		 
+	
+		 $res = rss_query($sql);    
+		 
+			  
+		 $iconAdded = false;
+		 $hasUnreadItems = false;  
+		 $added = 0;
+		 $prevId = -1;
+		 while ($added <= $limit && list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid_, $tag_) =  rss_fetch_row($res)) {
+			
+			$hasUnreadItems |= $iunread;
+			
+			$added++;
+			if($prevId != $iid_) {
+				 $sitems[] = array(
+						$cid,
+						$ctitle,
+						$cicon,
+						$ititle,
+						$iunread,
+						$iurl,
+						$idescription,
+						$its,
+						$iispubdate,
+						$iid_,
+						'tags' => array($tag_)
+				 );
+				 $prevId = $iid_;
+			 } else {
+				end($sitems);
+				$sitems[key($sitems)]['tags'][]=$tag_;
+				$added--;
+			 }
+		 }
+		 
+		
 
-    //echo $sql;
+	
+		 $sitems = array_slice($sitems,0,$limit);
+		 foreach($sitems as $sitem) {
+			$items[] = $sitem;
+		 }
+	 }
 
-    if ( $m==0 && $y==0 ) {
-		//$sql .= " limit " . getConfig('rss.output.itemsinchannelview');
-		$limit = getConfig('rss.output.itemsinchannelview');
-    } else {
-    	$limit = 9999;
-    }
-
-    
-
-    $res = rss_query($sql);    
-    $items = array();
-        
-    $iconAdded = false;
-    $hasUnreadItems = false;  
-    $added = 0;
-    $prevId = -1;
-    while ($added <= $limit && list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid, $tag_) =  rss_fetch_row($res)) {
-    	
-		$hasUnreadItems |= $iunread;
-    	
-    	$added++;
-      if($prevId != $iid) {
-          $items[] = array(
-               $cid,
-               $ctitle,
-               $cicon,
-               $ititle,
-               $iunread,
-               $iurl,
-               $idescription,
-               $its,
-               $iispubdate,
-               $iid,
-               'tags' => array($tag_)
-          );
-          $prevId = $iid;
-       } else {
-      	end($items);
-         $items[key($items)]['tags'][]=$tag_;
-         $added--;
-       }
-    }
-    
-    if ($hasUnreadItems) {
+	 $severalFeeds = count($cids) > 1;
+    if ($hasUnreadItems && !$severalFeeds) {
 		 markReadForm($cid);
-	}
-
-    $items = array_slice($items,0,$limit);
-    $shown = itemsList($title, $items, IL_CHANNEL_VIEW);
+	 }
+	 
+	 
+    $shown = itemsList($title, $items, ($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
 
 
     if ($nv != null) {

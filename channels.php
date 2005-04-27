@@ -127,19 +127,27 @@ function sideChannels($activeId) {
 		 
 		 	if (getConfig('rss.output.channelcollapse')) {
 		 		if ($iscollapsed) {
-		 			$flabel = "<a href=\"".getPath()."index.php?".EXPAND_ACTION."=$cparent\">$fname</a>";
+		 			$flabel = "<a href=\"".getPath()."index.php?".EXPAND_ACTION."=$cparent\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
 		 			if (array_key_exists($cparent,$collapsed_folders)) {
 		 				$flabel .= " " . sprintf(UNREAD_PF,$collapsed_folders[$cparent]);
 		 			}
 		 		} else {
-					$flabel = "<a href=\"".getPath()."index.php?".COLLAPSE_ACTION."=$cparent\">$fname</a>";
+					$flabel = "<a href=\"".getPath()."index.php?".COLLAPSE_ACTION."=$cparent\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
 		 		}
 		 	} else {
-		 		$flabel = "$fname";
+		 		$flabel = "<img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" />";
 		 	}
 		 	
+		 	if ( getConfig('rss.output.usemodrewrite')) {
+		 		$rlink =  preg_replace("/[^a-zA-Z_]/","_",$fname) . "/";
+		 	} else {
+		 		$rlink = "feed.php?folder=$cparent";
+		 	}
+		 	
+		 	$flink = "<a href=\"" .getPath() . $rlink ."\">" .htmlentities($fname) ."</a>";
+		 	
 			echo tabs(1) . "<li class=\"folder ". ($iscollapsed?"collapsed":"expanded")."\">\n"
-				. tabs(2) ."<span>$flabel</span>\n";
+				. tabs(2) . "<span>$flabel $flink</span>\n";
 		 	
 		 	if (!$iscollapsed) {
 				echo tabs(2) . "<ul>\n"; 
@@ -212,7 +220,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 		"<a" 
 		.$class_
 		. ($description!=""?" title=\"$description\"":"")
-		." href=\"$feedUrl\">" . $title ."</a> $rdLbl";
+		." href=\"$feedUrl\">" . htmlspecialchars($title) ."</a> $rdLbl";
 		
 		
 	// Display meta-information about the feed: w3 url, xml url, if active

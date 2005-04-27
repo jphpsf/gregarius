@@ -76,6 +76,7 @@ define ('IL_NO_COLLAPSE', 0x02);
 define ('IL_DO_STATS',0x04);
 define ('IL_CHANNEL_VIEW',0x08);
 define ('IL_TITLE_NO_ESCAPE',0x10);
+define ('IL_FOLDER_VIEW',0x20);
 
 // Options for rss_header
 define ('HDR_NONE', 0x00);

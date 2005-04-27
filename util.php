@@ -395,19 +395,21 @@ function itemsList($title,$items, $options = IL_NONE){
     } 
 	
 	
-    if ($title) {
-	if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
-	    $cicon = $items[0][2];
-	}
-	
-	echo "\n\n<h2$anchor>"
-	  .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>":"")
-	    .($options & IL_TITLE_NO_ESCAPE ? $title:rss_htmlspecialchars($title))
-	      ."</h2>\n";
-	
-    } elseif ($anchor != "") {
-	echo "\n\n<a$anchor></a>\n";
-    }
+	if ($title) {
+		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
+			 $cicon = $items[0][2];
+		} elseif (($options & IL_FOLDER_VIEW) && getConfig('rss.output.showfavicons')) {
+			 $cicon = getPath() . "css/media/folder.gif";		
+		}
+		
+		echo "\n\n<h2$anchor>"
+		  .(isset($cicon) && $cicon !="" ?"<img src=\"$cicon\" class=\"favicon\" alt=\"$title\"/>":"")
+			 .($options & IL_TITLE_NO_ESCAPE ? $title:rss_htmlspecialchars($title))
+				."</h2>\n";
+		
+	} elseif ($anchor != "") {
+		echo "\n\n<a$anchor></a>\n";
+   }
 
     $cntr=0;
     $prev_cid=0;
@@ -430,246 +432,234 @@ function itemsList($title,$items, $options = IL_NONE){
 	}
     }
 
-    while (list($row, $item) = each($items)) {
-
-	list($cid, $ctitle, $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
-	if (array_key_exists('tags',$item)) {
-	    $tags = $item['tags'];
-	    if (count($tags) && $tags[0] == NULL) {
-		$tags = array();
-	    }
-	} else {
-	    $tags = array();
-	}
-	if (getConfig('rss.output.channelcollapse')) {
-	    $collapsed = in_array($cid,$collapsed_ids)
-	      && !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW))
-		&& !$iunread;
-
-	    if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
-		// expanded -> collapsed
-		$collapsed = true;
-		if (!in_array($cid,$collapsed_ids)) {
-		    $collapsed_ids[] = $cid;
-		    $cookie = implode(":",$collapsed_ids);
-		    setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
-		}
-	    } elseif (array_key_exists('expand', $_GET) &&$_GET['expand'] == $cid && $collapsed) {
-		//	collapsed -> expanded
-		$collapsed = false;
-		if (in_array($cid,$collapsed_ids)) {
-		    $key = array_search($cid,$collapsed_ids);
-		    unset($collapsed_ids[$key]);
-		    $cookie = implode(":",$collapsed_ids);
-		    setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
-		}
-	    }
-
-	} else {
-	    $collapsed = false;
-	}
-
-	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle");
-	$ctitle = rss_htmlspecialchars($ctitle);
-
-	if ($prev_cid != $cid) {
-	    $prev_cid = $cid;
-	    if ($cntr++ > 0) {
-		if (($options & IL_DO_NAV) && $lastAnchor != "") {
-		    // link to start of channel
-		    echo "<li class=\"upnav\">\n"
-		      ."\t<a href=\"#$lastAnchor\">up</a>\n"
-		      ."\t<a href=\"#top\">upup</a>\n"
-		      ."</li>\n";
-		}
-		echo "</ul>\n";
-	    }
-	    if ($ctitle != "" && !($options & IL_CHANNEL_VIEW)) {
-		echo "\n<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->\n";
-		echo
-		  "\n<h3"
-		  //." id=\"$escaped_title\" "
-		  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
-		    .">\n";
-
-		if (!($options & IL_NO_COLLAPSE)
-		    && getConfig('rss.output.channelcollapse')
-		    && !$iunread
-		    ) {
-		    if ($collapsed) {
-			$title = EXPAND . " '$ctitle'";
-			echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">\n"
-			  ."\t<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
-			  //."&nbsp;+&nbsp;"
-			  ."</a>\n";
-		    } else {
-			$title = COLLAPSE . " '$ctitle'";
-			echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">\n"
-			  ."\t<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
-			  //."&nbsp;-&nbsp;"
-			  ."</a>\n";
-		    }
-		} elseif (getConfig('rss.output.showfavicons') && $cicon != "" && !$iunread) {
-		    echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
-		}
-
-		$anchor = "";
-		if ($options & IL_DO_NAV) {
-		    $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
-		    $anchor = "name=\"$lastAnchor\"";
-		} else { $anchor = "name=\"$escaped_title\""; }
-
-		if (getConfig('rss.output.usemodrewrite')) {
-		    echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
+	while (list($row, $item) = each($items)) {
+	
+		list($cid, $ctitle, $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
+		if (array_key_exists('tags',$item)) {
+			 $tags = $item['tags'];
+			 if (count($tags) && $tags[0] == NULL) {
+			$tags = array();
+			 }
 		} else {
-		    echo "\t<a $anchor href=\"". getPath() ."feed.php?channel=$cid\">$ctitle</a>\n";
+			 $tags = array();
 		}
-
-		if ($options & IL_DO_STATS) {
-		    $s_unread = (int)( array_key_exists("1", $stats[$cid])?$stats[$cid][1]:0);
-		    $s_total  = (int)$stats[$cid][0] + $s_unread;
-		    echo "<span>"
-		      .sprintf(H5_READ_UNREAD_STATS,
-			       $s_total, $s_unread
-			       )
-			."</span>\n";
-		}
-
-		echo "</h3>\n";
-	    }
-
-	    if (!$collapsed) {
-		echo "<ul>\n";
-	    }
-
-	    // reset the items per channel counter too
-	    $cntr = 0;
-	}
-
-	if (!$collapsed) {
-	    $cls="item";
-	    if (($cntr++ % 2) == 0) {
-		$cls .= " even";
-	    } else {
-		$cls .= " odd";
-	    }
-
-	    if	($iunread == 1) {
-		$cls .= " unread";
-	    }
-
-	    // some url fields are juste guid's which aren't actual links
-	    $isUrl = (substr($iurl, 0,4) == "http");
-	    echo "\t<li class=\"$cls\">\n";
-
-	    if (getConfig('rss.output.usepermalinks')) {
-		$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
-		list($ply,$plm,$pld) = explode(":",date("Y:m:d",$ts));
-		$ptitle = PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
-		echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
-
-		if ($escaped_ititle != "" && getConfig('rss.output.usemodrewrite')) {
-		    echo "href=\"" .getPath() ."$escaped_title/$ply/$plm/$pld/$escaped_ititle\">";
+		if (getConfig('rss.output.channelcollapse')) {
+			 $collapsed = in_array($cid,$collapsed_ids)
+				&& !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW))
+			&& !$iunread;
+	
+			 if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
+			// expanded -> collapsed
+			$collapsed = true;
+			if (!in_array($cid,$collapsed_ids)) {
+				 $collapsed_ids[] = $cid;
+				 $cookie = implode(":",$collapsed_ids);
+				 setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
+			}
+			 } elseif (array_key_exists('expand', $_GET) &&$_GET['expand'] == $cid && $collapsed) {
+			//	collapsed -> expanded
+			$collapsed = false;
+			if (in_array($cid,$collapsed_ids)) {
+				 $key = array_search($cid,$collapsed_ids);
+				 unset($collapsed_ids[$key]);
+				 $cookie = implode(":",$collapsed_ids);
+				 setcookie('collapsed',$cookie, time()+COOKIE_LIFESPAN);
+			}
+			 }
+	
 		} else {
-		    echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
+			 $collapsed = false;
 		}
-		echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\"/>\n"
-		  ."\t\t</a>\n";
-	    }
-
-	    echo "\t\t<h4>";
-	    if ($ititle == "") {
-		$ititle = "[nt]";
-	    }
-	    if ($isUrl) {
-		echo "<a href=\"$iurl\">$ititle</a>";
-	    } else {
-		echo $ititle;
-	    }
-
-	    echo "</h4>\n";
-
-	    if ($ts != "") {
-		$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
-
-		// make a permalink url for the date (month)
-		if (strpos(getConfig('rss.config.dateformat'),'F') !== FALSE) {
-		    $mlbl = date('F',$ts);
-		    $murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
-
-		    $date_lbl =
-		      str_replace($mlbl,
-				  "<a href=\"$murl\">$mlbl</a>"
-				  ,$date_lbl);
+	
+		$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_","$ctitle");
+		$ctitle = rss_htmlspecialchars($ctitle);
+	
+		if ($prev_cid != $cid) {
+			 $prev_cid = $cid;
+			 if ($cntr++ > 0) {
+			if (($options & IL_DO_NAV) && $lastAnchor != "") {
+				 // link to start of channel
+				 echo "<li class=\"upnav\">\n"
+					."\t<a href=\"#$lastAnchor\">up</a>\n"
+					."\t<a href=\"#top\">upup</a>\n"
+					."</li>\n";
+			}
+			echo "</ul>\n";
+			 }
+			 if ($ctitle != "" && !($options & IL_CHANNEL_VIEW)) {
+			echo "\n<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->\n";
+			echo
+			  "\n<h3"
+			  //." id=\"$escaped_title\" "
+			  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
+				 .">\n";
+	
+			if (!($options & IL_NO_COLLAPSE)
+				 && getConfig('rss.output.channelcollapse')
+				 && !$iunread
+				 ) {
+				 if ($collapsed) {
+				$title = EXPAND . " '$ctitle'";
+				echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">\n"
+				  ."\t<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
+				  //."&nbsp;+&nbsp;"
+				  ."</a>\n";
+				 } else {
+				$title = COLLAPSE . " '$ctitle'";
+				echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">\n"
+				  ."\t<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
+				  //."&nbsp;-&nbsp;"
+				  ."</a>\n";
+				 }
+			} elseif (getConfig('rss.output.showfavicons') && $cicon != "" && (!$iunread || ($options & IL_FOLDER_VIEW ))) {
+				 echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
+			}
+	
+			$anchor = "";
+			if ($options & IL_DO_NAV) {
+				 $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
+				 $anchor = "name=\"$lastAnchor\"";
+			} else { $anchor = "name=\"$escaped_title\""; }
+	
+			if (getConfig('rss.output.usemodrewrite')) {
+				 echo "\t<a $anchor href=\"" .getPath() ."$escaped_title/\">$ctitle</a>\n";
+			} else {
+				 echo "\t<a $anchor href=\"". getPath() ."feed.php?channel=$cid\">$ctitle</a>\n";
+			}
+	
+			if ($options & IL_DO_STATS) {
+				 $s_unread = (int)( array_key_exists("1", $stats[$cid])?$stats[$cid][1]:0);
+				 $s_total  = (int)$stats[$cid][0] + $s_unread;
+				 echo "<span>"
+					.sprintf(H5_READ_UNREAD_STATS,
+						 $s_total, $s_unread
+						 )
+				."</span>\n";
+			}
+	
+			echo "</h3>\n";
+			 }
+	
+			 if (!$collapsed) {
+			echo "<ul>\n";
+			 }
+	
+			 // reset the items per channel counter too
+			 $cntr = 0;
 		}
-
-		// make a permalink url for the date (day)
-		if (strpos(getConfig('rss.config.dateformat'),'jS') !== FALSE) {
-		    $dlbl = date('jS',$ts);
-		    $durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
-		    $date_lbl =
-		      str_replace($dlbl,
-				  "<a href=\"$durl\">$dlbl</a>"
-				  ,$date_lbl);
+	
+		if (!$collapsed) {
+			 $cls="item";
+			 if (($cntr++ % 2) == 0) {
+			$cls .= " even";
+			 } else {
+			$cls .= " odd";
+			 }
+	
+			 if	($iunread == 1) {
+			$cls .= " unread";
+			 }
+	
+			 // some url fields are juste guid's which aren't actual links
+			 $isUrl = (substr($iurl, 0,4) == "http");
+			 echo "\t<li class=\"$cls\">\n";
+	
+			 if (getConfig('rss.output.usepermalinks')) {
+			$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
+			list($ply,$plm,$pld) = explode(":",date("Y:m:d",$ts));
+			$ptitle = PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
+			echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
+	
+			if ($escaped_ititle != "" && getConfig('rss.output.usemodrewrite')) {
+				 echo "href=\"" .getPath() ."$escaped_title/$ply/$plm/$pld/$escaped_ititle\">";
+			} else {
+				 echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
+			}
+			echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\"/>\n"
+			  ."\t\t</a>\n";
+			 }
+	
+			 echo "\t\t<h4>";
+			 if ($ititle == "") {
+			$ititle = "[nt]";
+			 }
+			 if ($isUrl) {
+			echo "<a href=\"$iurl\">$ititle</a>";
+			 } else {
+			echo $ititle;
+			 }
+	
+			 echo "</h4>\n";
+	
+			 if ($ts != "") {
+			$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
+	
+			// make a permalink url for the date (month)
+			if (strpos(getConfig('rss.config.dateformat'),'F') !== FALSE) {
+				 $mlbl = date('F',$ts);
+				 $murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
+	
+				 $date_lbl =
+					str_replace($mlbl,
+					  "<a href=\"$murl\">$mlbl</a>"
+					  ,$date_lbl);
+			}
+	
+			// make a permalink url for the date (day)
+			if (strpos(getConfig('rss.config.dateformat'),'jS') !== FALSE) {
+				 $dlbl = date('jS',$ts);
+				 $durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
+				 $date_lbl =
+					str_replace($dlbl,
+					  "<a href=\"$durl\">$dlbl</a>"
+					  ,$date_lbl);
+			}
+	
+			if ($ispubdate) {
+				 echo "\t\t<h5>". POSTED . "$date_lbl</h5>\n";
+			} else {
+				 echo "\t\t<h5>". FETCHED . "$date_lbl</h5>\n";
+			}
+			 }
+	
+			 /// tags
+	
+			 echo "\t\t<h5>";
+			 if (getConfig('rss.output.usemodrewrite')) {
+			echo "<a href=\"".getPath()."tag/\">";
+			 } else {
+			echo "<a href=\"".getPath()."tags.php?alltags\">";
+			 }
+			 echo TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
+			 foreach($tags as $tag_) {
+			$tag_ = trim($tag_);
+			if (getConfig('rss.output.usemodrewrite')) {
+				 echo "<a href=\"".getPath()."tag/$tag_\">$tag_</a> ";
+			} else {
+				 echo "<a href=\"".getPath()."tags.php?tag=$tag_\">$tag_</a> ";
+			}
+			 }
+	
+			 echo "</span>&nbsp;[<span id=\"ta$iid\">"
+				. "<a href=\"#\" onclick=\"_et($iid); return false;\">"
+				.TAG_EDIT."</a>"
+				."</span>]</h5>\n\n";
+	
+			 /// /tags
+	
+			 if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
+			echo "\t\t<div class=\"content\">$idescr\n\t\t</div>";
+			 }
+			 echo "\n\t</li>\n";
+			 $ret++;
 		}
-
-		if ($ispubdate) {
-		    echo "\t\t<h5>". POSTED . "$date_lbl</h5>\n";
-		} else {
-		    echo "\t\t<h5>". FETCHED . "$date_lbl</h5>\n";
-		}
-	    }
-
-	    /// tags
-
-	    echo "\t\t<h5>";
-	    if (getConfig('rss.output.usemodrewrite')) {
-		echo "<a href=\"".getPath()."tag/\">";
-	    } else {
-		echo "<a href=\"".getPath()."tags.php?alltags\">";
-	    }
-	    echo TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
-	    foreach($tags as $tag_) {
-		$tag_ = trim($tag_);
-		if (getConfig('rss.output.usemodrewrite')) {
-		    echo "<a href=\"".getPath()."tag/$tag_\">$tag_</a> ";
-		} else {
-		    echo "<a href=\"".getPath()."tags.php?tag=$tag_\">$tag_</a> ";
-		}
-	    }
-
-	    echo "</span>&nbsp;[<span id=\"ta$iid\">"
-	      . "<a href=\"#\" onclick=\"_et($iid); return false;\">"
-	      .TAG_EDIT."</a>"
-	      ."</span>]</h5>\n\n";
-
-	    /// /tags
-
-	    if ($idescr != "" && trim(str_replace("&nbsp;","",$idescr)) != "") {
-		echo "\t\t<div class=\"content\">$idescr\n\t\t</div>";
-	    }
-	    echo "\n\t</li>\n";
-	    $ret++;
 	}
-    }
 
-    if ($ret > 0) {
-
-	if (($options & IL_DO_NAV) && $lastAnchor != "" && !$collapsed) {
-	    // link to start of channel
-
-	    echo "<li class=\"upnav\">\n"
-	      ."\t<a href=\"#$lastAnchor\">up</a>\n"
-	      ."\t<a href=\"#top\">upup</a>\n"
-	      ."</li>\n";
+   if ($ret > 0 && !$collapsed) {
+			 echo "</ul>\n";
 	}
 
-	if (!$collapsed) {
-	    echo "</ul>\n";
-	}
-    }
-
-    return $ret;
+	return $ret;
 }
 
 function add_channel($url, $folderid=0) {

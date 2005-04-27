@@ -58,10 +58,10 @@ div#channels li, div#opml li {
 }
 
 /* folder items */
+
 div#channels li ul li {
  padding-left: 10px; 
 }
-
 
 /* folder icon */
 .folder {
@@ -70,9 +70,11 @@ div#channels li ul li {
 
 /* folder labels */
 .folder span {
-  padding-left: 25px; 
+ /* padding-left: 25px; */
   margin:0;
 }
+
+.folder span img {   vertical-align: middle; margin-right: 0.5em;}
 
 div#channels > ul {
  margin-top: 20px;
