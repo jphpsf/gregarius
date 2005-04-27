@@ -1,5 +1,7 @@
 Gregarius 0.4.1
 
+ 27.04.2005 Folder view
+
  25.04.2005 Fixed a bug that would be triggered on non-apache-module
   	    installations of PHP
 
