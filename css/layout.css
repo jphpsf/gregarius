@@ -167,7 +167,7 @@ td,th { padding: 5px; }
 
 table#channeltable,table#foldertable,table#updatetable,table#configtable {
  margin: 20px 0 5px 0;
- width: 100%;
+ width: 99.2%;
 }
 
 table#foldertable { width: auto }

@@ -278,4 +278,24 @@ div.content img {
  border: 1px solid #ddd;
 }
 
+div#pbholder {
+  -moz-border-radius: 3px; 
+  border: 1px solid #ccc; 
+  width:99.2%; 
+  text-align:left; 
+  height:1.5em; 
+  padding:0; 
+  margin:auto;
+}
 
+div#pbar {
+   font-size:small; 
+   font-weight: bold; 
+   color: #777; 
+   line-height:1.35em; 
+   width:0%; 
+   background-color: #eee;
+   margin:2px; 
+   padding: 0; 
+   border: 1px solid #bbb;
+}
