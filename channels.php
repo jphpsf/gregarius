@@ -144,7 +144,7 @@ function sideChannels($activeId) {
 		 		$rlink = "feed.php?folder=$cparent";
 		 	}
 		 	
-		 	$flink = "<a href=\"" .getPath() . $rlink ."\">" .htmlentities($fname) ."</a>";
+		 	$flink = "<a href=\"" .getPath() . $rlink ."\">" .htmlentities($fname,ENT_COMPAT,'UTF-8') ."</a>";
 		 	
 			echo tabs(1) . "<li class=\"folder ". ($iscollapsed?"collapsed":"expanded")."\">\n"
 				. tabs(2) . "<span>$flabel $flink</span>\n";
