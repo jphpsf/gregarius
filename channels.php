@@ -139,7 +139,7 @@ function sideChannels($activeId) {
 		 	}
 		 	
 		 	if ( getConfig('rss.output.usemodrewrite')) {
-		 		$rlink =  preg_replace("/[^a-zA-Z_]/","_",$fname) . "/";
+		 		$rlink =  preg_replace("/[^a-zA-Z0-9_]/","_",$fname) . "/";
 		 	} else {
 		 		$rlink = "feed.php?folder=$cparent";
 		 	}
