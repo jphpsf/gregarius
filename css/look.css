@@ -163,7 +163,7 @@ th {
  font-weight: bold; 
 }
 
-table#channeltable,table#foldertable,table#updatetable,table#configtable {
+table#channeltable,table#foldertable,table#updatetable,table#configtable,.content table {
  border: 1px solid #ddd;
  font-size: small;
 }
