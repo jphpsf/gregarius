@@ -617,10 +617,11 @@ function makeNav($cid,$iid,$y,$m,$d) {
 }
 
 function markReadForm($cid) {
-  	echo "<form action=\"". getPath() ."feed.php\" method=\"post\" class=\"markread\">\n"
+	
+  	echo "<div id=\"feedaction\"><form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
-  	  ."</form>";
+  	  ."</form></div>";
 }
 
 

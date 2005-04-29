@@ -30,8 +30,6 @@
 
 define ('ITEM','item');
 define ('ITEMS','items');
-define ('MARK_READ', "Mark all as read");
-define ('MARK_CHANNEL_READ', "Mark this feed as read");
 define ('H2_SEARCH_RESULTS_FOR', "%d matches for %s");
 define ('H2_SEARCH_RESULT_FOR',"%d match for %s");
 define ('H2_SEARCH', 'Search %d items');
@@ -179,5 +177,11 @@ define ('TAG_TAGGEDP','tagged');
 define ('TAG_SUGGESTIONS','suggestions');
 define ('TAG_SUGGESTIONS_NONE','no suggestions');
 define ('TAG_RELATED','Related tags: ');
+
+define ('MARK_READ', "Mark all items as read");
+define ('MARK_CHANNEL_READ', "Mark this feed as read");
+define ('SHOW_UNREAD_ALL_SHOW','Show items: ');
+define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Unread only');
+define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Read and unread');
 
 ?>

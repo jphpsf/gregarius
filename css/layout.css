@@ -180,11 +180,23 @@ form#channeledit input[type="text"] {
   display:block;
   width: 50%;
 }
-  
-form.markread p, form.markallread {
- float: right; 
- margin-top: 0;
+
+div#feedaction {
+   float:right;
+   padding:0;
+   margin:0;
+   text-align:right;
+   display:block;
 }
+
+div#feedaction form, div#feedaction form p { 
+ text-align:right;
+ margin:0;
+ padding:0;
+}
+
+form#frmShow { margin-bottom: 0.4em !important; }
+  
 
 #items h2 { margin-bottom: 10px; }
 

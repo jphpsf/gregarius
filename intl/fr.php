@@ -30,8 +30,6 @@
 
 define ('ITEM','&eacute;l&eacute;ment');
 define ('ITEMS','&eacute;l&eacute;ments');
-define ('MARK_READ', "Tous marquer comme lus");
-define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
 define ('H2_SEARCH_RESULTS_FOR', "%d r&eacute;sultats pour %s");
 define ('H2_SEARCH_RESULT_FOR',"%d r&eacute;sultat pour %s");
 define ('H2_SEARCH', 'Rechercher parmi %d &eacute;l&eacute;ments');
@@ -177,5 +175,11 @@ define ('TAG_TAGGEDP','tagg&eacute;s');
 define ('TAG_SUGGESTIONS','suggestions');
 define ('TAG_SUGGESTIONS_NONE','aucune suggestion');
 define ('TAG_RELATED','Tags similaires: ');
+
+define ('MARK_READ', "Tous marquer comme lus");
+define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
+define ('SHOW_UNREAD_ALL_SHOW','Afficher les &eacute;l&eacute;ments: ');
+define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Non lus uniquement');
+define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non-lus');
 
 ?>

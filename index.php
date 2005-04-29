@@ -30,8 +30,25 @@
 
 require_once("init.php");
 
-//global $__init_timer;
-//$__init_timer= getmicrotime();
+
+define ('SHOW_UNREAD_ONLY',1);
+define ('SHOW_READ_AND_UNREAD',2);
+define ('SHOW_WHAT','show');
+
+
+// Show unread items on the front page?
+// default to the config value, user can override this via a cookie
+$show_what = (getConfig('rss.output.noreaditems') ?
+	SHOW_UNREAD_ONLY : SHOW_READ_AND_UNREAD );
+	
+if (array_key_exists(SHOW_WHAT,$_POST)) {
+	$show_what = $_POST[SHOW_WHAT];
+	$period = time()+COOKIE_LIFESPAN;
+	setcookie(SHOW_WHAT, $show_what , $period);  
+} elseif (array_key_exists(SHOW_WHAT,$_COOKIE)) {
+	$show_what = $_COOKIE[SHOW_WHAT];
+}
+
 
 if (array_key_exists('action', $_POST)
     && $_POST['action'] != ""
@@ -49,9 +66,9 @@ rss_header("",LOCATION_HOME);
 
 sideChannels(false);
 echo "\n\n<div id=\"items\" class=\"frame\">";
-$cntUnread = unreadItems();
+$cntUnread = unreadItems($show_what);
 
-if (!getConfig('rss.output.noreaditems')) {
+if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
    readItems();
 } elseif($cntUnread == 0) {
    itemsList( sprintf(H2_UNREAD_ITEMS , count($items)), IL_TITLE_NO_ESCAPE);
@@ -62,7 +79,7 @@ echo "</div>\n";
 rss_footer();
 
 
-function unreadItems() {
+function unreadItems($show_what) {
 
     // unread items first!
     $sql = "select i.title,  c.title, c.id, i.unread, "
@@ -96,7 +113,10 @@ function unreadItems() {
     $ret = 0;
     if (rss_num_rows($res0) > 0) {
 
+	echo "\n<div id=\"feedaction\">\n";
+   showViewForm($show_what);
 	markAllReadForm();
+	echo "</div>\n";
 
 	$prevId = -1;
         while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_, $tag_) = rss_fetch_row($res0)) {
@@ -218,9 +238,28 @@ function readItems() {
 }
 
 function markAllReadForm() {
-    echo "<form action=\"". getPath() ."\" method=\"post\" class=\"markallread\">"
+    echo "<form action=\"". getPath() ."\" method=\"post\">"
       ."<p><input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/></p>"
-      ."</form>";
+      ."</form>\n";
 }
 
+function showViewForm($curValue) {
+
+   //default: read and unread!
+   $readAndUndredaSelected = " selected=\"selected\"";
+   $unreadOnlySelected = "";   
+   if($curValue == SHOW_UNREAD_ONLY) {
+     $readAndUndredaSelected = "";
+     $unreadOnlySelected = " selected=\"selected\"";
+   } 
+   echo "<form action=\"".getPath() . "\" method=\"post\" id=\"frmShow\">"
+      ."<p><label for=\"".SHOW_WHAT."\">".SHOW_UNREAD_ALL_SHOW."</label>\n"
+		."<select name=\"".SHOW_WHAT."\" id=\"".SHOW_WHAT."\" "
+		   ." onchange=\"document.getElementById('frmShow').submit();\">\n"
+		."\t<option value=\"".SHOW_UNREAD_ONLY."\"$unreadOnlySelected>"
+		   . SHOW_UNREAD_ALL_UNREAD_ONLY . "</option>\n"
+      ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"$readAndUndredaSelected>"
+         . SHOW_UNREAD_ALL_READ_AND_UNREAD . "</option>\n"
+      ."</select></p></form>\n";
+}
 ?>

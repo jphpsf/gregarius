@@ -40,6 +40,12 @@ input {
  font-weight: bold; 
 }
 
+
+span#feedaction form p input {
+ font-size: small !important;
+   font-weight:400 !important;
+}
+
 input.tagedit { font-weight: normal; font-size: smaller;}
 
 label, div#channel_admin span, p.bookmarklet {
@@ -178,6 +184,7 @@ input, select, textarea {
  background-color: #f4f4f4;
 }
 
+
 input[type="radio"], input[type="hidden"] {
  border: none;
  background-color: transparent;
@@ -208,6 +215,7 @@ input[type="submit"] {
   background-color: #f4f4f4;
   -moz-border-radius: 5px;
 }  
+
 
 input[type="text"]:focus{
  border-color:#aaa;
