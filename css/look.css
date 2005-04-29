@@ -56,6 +56,10 @@ ul, li {
  list-style-type:none; 
 }
 
+.content li, content.ul {
+   list-style-type:circle; 
+}
+
 div#channels li,div#opml li {
   border-bottom: 1px solid  #eef;
   background-color: #fff;

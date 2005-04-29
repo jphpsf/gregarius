@@ -136,6 +136,17 @@ div#items li {
  clear:right;
 }
 
+.content li {
+   padding: 0.1em 0.2em !important;
+   margin-left: 1.2em;
+}
+
+.content li p{
+   margin:0; padding:0;
+}
+
+.content table td { padding: 0.1em; margin: 0 }
+
 div#items li.upnav {
  padding: 0;
  clear:right;
