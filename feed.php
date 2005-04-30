@@ -62,8 +62,9 @@ if (
     && !is_numeric($_REQUEST['channel'])     
 	) {
 		 $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
-		 $res =  rss_query( "select id from " . getTable("channels") ." where title like '$sqlid'" );
-		 
+		 $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
+		 $res =  rss_query( $sql );
+		 //echo $sql;
 		if ( rss_num_rows ( $res ) == 1) {
 			list($cid) = rss_fetch_row($res);
 		} else {
@@ -145,12 +146,12 @@ if (
 
 // If we have no channel-id somethign went terribly wrong.
 // Redirect to index.php
-if (!$cid && !(isset($cids) && is_array($cids) && count($cids))) {
+if (!isset($cid) && !(isset($cids) && is_array($cids) && count($cids))) {
     $red = "http://" . $_SERVER['HTTP_HOST'] . getPath();
     header("Location: $red");
 }
 
-if ($cid && array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
+if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
     
     $sql = "update " .getTable("item") ." set unread=0 where cid=$cid";
     rss_query($sql);
