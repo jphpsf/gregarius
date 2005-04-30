@@ -200,11 +200,17 @@ div#feedaction {
    display:block;
 }
 
+
 div#feedaction form, div#feedaction form p { 
  text-align:right;
  margin:0;
  padding:0;
 }
+
+div#feedaction.withmargin {
+   margin-bottom: 0.8em;
+}
+
 
 form#frmShow { margin-bottom: 0.4em !important; }
   

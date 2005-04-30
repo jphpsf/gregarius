@@ -36,6 +36,24 @@ rss_require('extlib/rss_fetch.inc');
 define ('NAV_PREV_PREFIX','&larr;&nbsp;');
 define ('NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
+
+
+
+// Show unread items on the front page?
+// default to the config value, user can override this via a cookie
+$show_what = (getConfig('rss.output.noreaditems') ?
+	SHOW_UNREAD_ONLY : SHOW_READ_AND_UNREAD );
+	
+if (array_key_exists(SHOW_WHAT,$_POST)) {
+	$show_what = $_POST[SHOW_WHAT];
+	$period = time()+COOKIE_LIFESPAN;
+	setcookie(SHOW_WHAT, $show_what , $period, getPath());  
+} elseif (array_key_exists(SHOW_WHAT,$_COOKIE)) {
+	$show_what = $_COOKIE[SHOW_WHAT];
+}
+
+
+
 $y=$m=$d=0;
 if (
     getConfig('rss.output.usemodrewrite')
@@ -249,12 +267,43 @@ if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
 	if ($cid && !(isset($cids) && is_array($cids) && count($cids))) {
    	$cids = array($cid); 
    }
-	items($cids,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null));
+	items($cids,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
 }
 rss_footer();
 
 
-function items($cids,$title,$iid,$y,$m,$d,$nv) {
+function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
+
+	$do_show=$show_what;
+	//should we honour unread-only?
+	if ($show_what == SHOW_UNREAD_ONLY) {
+	
+		// permalink will always be printed
+		if ($iid != "") {
+			$do_show = SHOW_READ_AND_UNREAD;
+		} else {
+			// archives, folders, channels
+			$sql = "select count(*) from " . getTable('item') . " where"
+			." unread = 1 ";
+			//archive?
+			if ($m > 0 && $y > 0) {
+				$sql .= " and if (pubdate is null, month(added)= $m , month(pubdate) = $m) "
+			  		." and if (pubdate is null, year(added)= $y , year(pubdate) = $y) ";
+				if ($d > 0) {
+					$sql .= " and if (pubdate is null, dayofmonth(added)= $d , dayofmonth(pubdate) = $d) ";
+				}
+		 	}
+		 
+		 	$sql .= " and cid in (".implode(',',$cids).")";
+		 	
+		 	list($unreadCount) = rss_fetch_row(rss_query($sql));
+		 	if ($unreadCount == 0) {
+		 		$do_show = SHOW_READ_AND_UNREAD;
+		 	}
+		}
+	}
+
+
    echo "\n\n<div id=\"items\" class=\"frame\">";    
 	$items = array();
 	foreach ($cids as $cid) {
@@ -278,17 +327,17 @@ function items($cids,$title,$iid,$y,$m,$d,$nv) {
 		 
 	
 		 
-		 if  (isset($_REQUEST['unread']) && $iid == "") {
-			$sql .= " and unread=1 ";
+		 if  ($do_show == SHOW_UNREAD_ONLY) {
+			$sql .= " and i.unread=1 ";
 		 }
 		 
 		 if ($m > 0 && $y > 0) {
-		$sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
-		  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+			$sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
+			  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
 		
-		if ($d > 0) {
-			 $sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
-		}
+			if ($d > 0) {
+				 $sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+			}
 		 }
 		 
 		 $sql .=" order by i.added desc, i.id asc";
@@ -304,9 +353,8 @@ function items($cids,$title,$iid,$y,$m,$d,$nv) {
 	
 		 
 	
-		 $res = rss_query($sql);    
+		 $res = rss_query($sql);
 		 
-			  
 		 $iconAdded = false;
 		 $hasUnreadItems = false;  
 		 $added = 0;
@@ -347,9 +395,18 @@ function items($cids,$title,$iid,$y,$m,$d,$nv) {
 		 }
 	 }
 
+
 	 $severalFeeds = count($cids) > 1;
-    if ($hasUnreadItems && !$severalFeeds) {
-		 markReadForm($cid);
+    if ($hasUnreadItems && $iid == "") {
+		 echo "<div id=\"feedaction\" class=\"withmargin\">";
+
+    	 showViewForm($show_what);
+    	 
+    	 if (!$severalFeeds) {
+		 	markReadForm($cid);
+		 }
+		 
+		 echo "</div>\n";
 	 }
 	 
 	 
@@ -618,10 +675,10 @@ function makeNav($cid,$iid,$y,$m,$d) {
 
 function markReadForm($cid) {
 	
-  	echo "<div id=\"feedaction\"><form action=\"". getPath() ."feed.php\" method=\"post\">\n"
+  	echo "<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
-  	  ."</form></div>";
+  	  ."</form>";
 }
 
 

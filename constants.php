@@ -83,4 +83,11 @@ define ('HDR_NONE', 0x00);
 define ('HDR_NO_OUPUTBUFFERING', 0x01);
 define ('HDR_NO_CACHECONTROL', 0x02);
 
+
+// options for show unread-only/all
+define ('SHOW_UNREAD_ONLY',1);
+define ('SHOW_READ_AND_UNREAD',2);
+define ('SHOW_WHAT','show');
+
+
 ?>

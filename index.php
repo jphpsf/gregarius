@@ -31,10 +31,6 @@
 require_once("init.php");
 
 
-define ('SHOW_UNREAD_ONLY',1);
-define ('SHOW_READ_AND_UNREAD',2);
-define ('SHOW_WHAT','show');
-
 
 // Show unread items on the front page?
 // default to the config value, user can override this via a cookie
@@ -44,7 +40,7 @@ $show_what = (getConfig('rss.output.noreaditems') ?
 if (array_key_exists(SHOW_WHAT,$_POST)) {
 	$show_what = $_POST[SHOW_WHAT];
 	$period = time()+COOKIE_LIFESPAN;
-	setcookie(SHOW_WHAT, $show_what , $period);  
+	setcookie(SHOW_WHAT, $show_what , $period,getPath());  
 } elseif (array_key_exists(SHOW_WHAT,$_COOKIE)) {
 	$show_what = $_COOKIE[SHOW_WHAT];
 }
@@ -243,23 +239,5 @@ function markAllReadForm() {
       ."</form>\n";
 }
 
-function showViewForm($curValue) {
 
-   //default: read and unread!
-   $readAndUndredaSelected = " selected=\"selected\"";
-   $unreadOnlySelected = "";   
-   if($curValue == SHOW_UNREAD_ONLY) {
-     $readAndUndredaSelected = "";
-     $unreadOnlySelected = " selected=\"selected\"";
-   } 
-   echo "<form action=\"".getPath() . "\" method=\"post\" id=\"frmShow\">"
-      ."<p><label for=\"".SHOW_WHAT."\">".SHOW_UNREAD_ALL_SHOW."</label>\n"
-		."<select name=\"".SHOW_WHAT."\" id=\"".SHOW_WHAT."\" "
-		   ." onchange=\"document.getElementById('frmShow').submit();\">\n"
-		."\t<option value=\"".SHOW_UNREAD_ONLY."\"$unreadOnlySelected>"
-		   . SHOW_UNREAD_ALL_UNREAD_ONLY . "</option>\n"
-      ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"$readAndUndredaSelected>"
-         . SHOW_UNREAD_ALL_READ_AND_UNREAD . "</option>\n"
-      ."</select></p></form>\n";
-}
 ?>

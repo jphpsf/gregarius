@@ -180,6 +180,6 @@ define ('MARK_READ', "Tous marquer comme lus");
 define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
 define ('SHOW_UNREAD_ALL_SHOW','Afficher les &eacute;l&eacute;ments: ');
 define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Non lus uniquement');
-define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non-lus');
+define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non lus');
 
 ?>

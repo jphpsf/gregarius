@@ -963,4 +963,26 @@ function _pf($comment, $commentOnly=false) {
     echo  "   -->\n\n\n";
 }
 
+function showViewForm($curValue) {
+
+   //default: read and unread!
+   $readAndUndredaSelected = " selected=\"selected\"";
+   $unreadOnlySelected = "";   
+   if($curValue == SHOW_UNREAD_ONLY) {
+     $readAndUndredaSelected = "";
+     $unreadOnlySelected = " selected=\"selected\"";
+   } 
+   
+   // post back to self, we should be able to handle the request, shouldn't we.
+   echo "<form action=\"". $_SERVER['REQUEST_URI'] . "\" method=\"post\" id=\"frmShow\">"
+      ."<p><label for=\"".SHOW_WHAT."\">".SHOW_UNREAD_ALL_SHOW."</label>\n"
+		."<select name=\"".SHOW_WHAT."\" id=\"".SHOW_WHAT."\" "
+		   ." onchange=\"document.getElementById('frmShow').submit();\">\n"
+		."\t<option value=\"".SHOW_UNREAD_ONLY."\"$unreadOnlySelected>"
+		   . SHOW_UNREAD_ALL_UNREAD_ONLY . "</option>\n"
+      ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"$readAndUndredaSelected>"
+         . SHOW_UNREAD_ALL_READ_AND_UNREAD . "</option>\n"
+      ."</select></p></form>\n";
+}
+
 ?>
