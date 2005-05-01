@@ -48,8 +48,13 @@ function sideChannels($activeId) {
 
 	//get unread count per folder
 	$sql = "select f.id, f.name, count(*) as cnt "
-	  ." from " .getTable('item') ." i, " .getTable('channels') . " c, " .getTable('folders') ." f "
-	  ." where i.unread=1 and i.cid=c.id and c.parent=f.id "
+	  ." from " 
+	  .getTable('item') ." i, " 
+	  .getTable('channels') . " c, " 
+	  .getTable('folders') ." f "
+	  ." where i.unread & ". FEED_MODE_UNREAD_STATE
+	  ." and !(unread & " . FEED_MODE_PRIVATE_STATE .")"
+	  ." and i.cid=c.id and c.parent=f.id "
 	  ." group by 1";
 	$res  = rss_query($sql);
 
@@ -94,9 +99,10 @@ function sideChannels($activeId) {
     }
 
     $sql = "select "
-      ." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr "
+      ." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr, c.mode "
       ." from " .getTable("channels") ." c, " .getTable("folders") ." f "
-      ." where f.id = c.parent";
+      ." where f.id = c.parent"
+      ." and !(c.mode & " . FEED_MODE_PRIVATE_STATE  .") ";
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
     } else {
@@ -172,9 +178,10 @@ function sideChannels($activeId) {
 
     echo "</ul>\n";
 
-    $rescnt=rss_query("select count(*) as cnt from " .getTable("item") ." where unread=1");
+	/*
+    $rescnt=rss_query("select count(*) as cnt from " .getTable("item") ." where unread & " . FEED_MODE_UNREAD_STATE . " & ! " .FEED_MODE_PRIVATE_STATE);
     list($unread_count) = rss_fetch_row($rescnt);
-
+*/
     echo "\n</div>\n";
     return $channelCount;
 }
@@ -188,7 +195,7 @@ function tabs($count) {
 
 /** prints out a formatted channel item **/
 function feed($cid, $title, $url, $siteurl, $ico, $description) {
-    $res = rss_query ("select count(*) from " .getTable("item") ." where cid=$cid and unread=1");
+    $res = rss_query ("select count(*) from " .getTable("item") ." where cid=$cid and unread & "  . FEED_MODE_UNREAD_STATE);
     list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
 	$rdLbl= sprintf(UNREAD_PF, $cnt);
@@ -240,7 +247,9 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 }
 
 function stats() {
-    $res = rss_query( "select count(*) from " .getTable("item") ." where unread=1" );
+	 $sql = "select count(*) from " .getTable("item") ." where unread & " . FEED_MODE_UNREAD_STATE ;
+	 $sql .= " and !(unread & " .  FEED_MODE_PRIVATE_STATE .")";
+    $res = rss_query( $sql );
     list($unread)= rss_fetch_row($res);
 
     $res = rss_query( "select count(*) from " . getTable("item") );

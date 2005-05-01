@@ -60,7 +60,7 @@ function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
 	$ret =  mysql_query($query);
    
    if ($error = rss_sql_error()) {
-   	$errorString = mysql_error();
+   	$errorString = rss_sql_error_message();
    }
    
    // if we got a missing table error, look for missing tables in the schema 
@@ -69,6 +69,12 @@ function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
 		rss_require('schema.php');
 		checkSchema();
 		return rss_query ($query, $dieOnError, true);
+	} elseif ($error == 1054 && !$preventRecursion && $dieOnError) {
+		if (preg_match("/^[^']+'([^']+)'.*$/",$errorString,$matches)) {
+			rss_require('schema.php');
+			checkSchemaColumns($matches[1]);
+			return rss_query ($query, $dieOnError, true);
+		}
 	}
 
     if ($error && $dieOnError) {
@@ -91,6 +97,10 @@ function rss_num_rows($rs) {
 
 function rss_sql_error() {
 	return mysql_errno();
+}
+
+function rss_sql_error_message () {
+	return mysql_error();
 }
 
 function rss_insert_id() {

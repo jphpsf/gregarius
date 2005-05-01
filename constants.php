@@ -89,5 +89,25 @@ define ('SHOW_UNREAD_ONLY',1);
 define ('SHOW_READ_AND_UNREAD',2);
 define ('SHOW_WHAT','show');
 
+// feed "modes": (default is 0001: unread)
+// xxx0 read / xxx1: unread
+define ('FEED_MODE_UNREAD_STATE', 0x01);
+// xx0x not sticky / xx1x: sticky
+define ('FEED_MODE_STICKY_STATE', 0x02);
+// x0xx public / x1xx: private
+define ('FEED_MODE_PRIVATE_STATE', 0x04);
+// 0xxx available / 1xxx: deleted
+define ('FEED_MODE_DELETED_STATE', 0x08);
 
+// these are just helpers for the above
+define ('SET_MODE_READ_STATE',
+   FEED_MODE_STICKY_STATE  | 
+   FEED_MODE_PRIVATE_STATE | 
+   FEED_MODE_DELETED_STATE);
+   
+define ('SET_MODE_PUBLIC_STATE',
+   FEED_MODE_UNREAD_STATE  | 
+   FEED_MODE_STICKY_STATE  | 
+   FEED_MODE_DELETED_STATE);
+   
 ?>

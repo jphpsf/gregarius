@@ -18,6 +18,7 @@ CREATE TABLE channels (
   dateadded datetime default NULL,
   icon varchar(255) default NULL,
   position int(11) NOT NULL default '0',
+  mode int(16) NOT NULL default '1',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 		    

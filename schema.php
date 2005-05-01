@@ -86,6 +86,33 @@ function checkSchema() {
 	return $updated;
 }
 
+
+/**
+ * this function handles specific schema updates that occurred 
+ * during version updates.
+ *
+ * @return the number of updated tables
+ */
+function checkSchemaColumns($column) {
+	$updated = 0;
+	switch($column) {
+		case 'c.mode':
+		case 'mode':
+			// default feed mode, added in 0.4.1
+			rss_query('alter table ' .getTable('channels') .' add column mode int(16) not null default 1');
+			if (rss_sql_error() == 0) {
+				$updated++;
+				rss_error("updated schema for table " . getTable('channels'));
+			} else {
+				rss_error("Failed updating schema for table " . getTable('channels')
+				.": " . rss_sql_error_message()
+				);
+			}
+		break;
+	}
+	return $updated;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -103,6 +130,7 @@ function _init_channels() {
   			dateadded datetime default NULL,
   			icon varchar(255) default NULL,
   			position int(11) NOT NULL default '0',
+			mode int(16) NOT NULL default '1',
   			PRIMARY KEY  (id)
 		) TYPE=MyISAM;    
 _SQL_

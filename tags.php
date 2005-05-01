@@ -342,7 +342,7 @@ function _et(id) {
 	  ." and i.cid = c.id  and f.id=c.parent "
 
 	  // order by unread first
-	  ." order by i.unread desc, "
+	  ." order by (i.unread & " .FEED_MODE_UNREAD_STATE." ) desc, "
 
 	  ."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
 	$res = rss_query($sql);

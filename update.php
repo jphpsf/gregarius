@@ -155,7 +155,9 @@ if ($doPush) {
 }
 
 if ($newItems > 0 && getConfig ('rss.config.markreadonupdate') && $ts > 0) {
-    rss_query("update " . getTable("item") ." set unread = 0 where unread = 1 and unix_timestamp(added) < $ts");
+    rss_query("update " . getTable("item") 
+    ." set unread = unread & ".SET_MODE_READ_STATE
+    ." where unread = 1 and unix_timestamp(added) < $ts");
 }
 
 if ($doPush) {

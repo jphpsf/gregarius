@@ -144,7 +144,7 @@ function admin_main($authorised) {
  * feeds table
  */
 function channels() {
-	echo "<h2 class=\"trigger\">". ADMIN_CHANNELS ."</h2>\n";
+	echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
 	echo "<div id=\"admin_channels\">\n";
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 	echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
@@ -172,8 +172,9 @@ function channels() {
 	  ."<tr>\n"
 	  ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
 	  ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n";
-
+	  ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"	  
+	  ."\t<th>". ADMIN_CHANNELS_HEADING_PRIVATE."</th>\n";
+	  
 	if (getConfig('rss.config.absoluteordering')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
 	}
@@ -182,7 +183,7 @@ function channels() {
 	  ."</tr>\n";
 
 	$sql = "select "
-	  ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon "
+	  ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon, c.mode "
 	  ." from " .getTable("channels") ." c, " . getTable("folders") ." d "
 	  ." where d.id = c.parent ";
 
@@ -194,7 +195,7 @@ function channels() {
 
 	$res = rss_query($sql);
 	$cntr = 0;
-	while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon) = rss_fetch_row($res)) {
+	while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon,$mode) = rss_fetch_row($res)) {
 
 	if (getConfig('rss.output.usemodrewrite')) {
 		$outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
@@ -212,7 +213,8 @@ function channels() {
 		"<img src=\"$icon\" class=\"favicon\" alt=\"$title\" width=\"16\" height=\"16\" />":"")
 		."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
-	  ."\t<td>$descr</td>\n";
+	  ."\t<td>$descr</td>\n"
+	  ."\t<td class=\"cntr\">".(($mode & FEED_MODE_PRIVATE_STATE)?"P":"&nbsp;")."</td>\n";
 
 	if (getConfig('rss.config.absoluteordering')) {
 		echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
@@ -535,6 +537,25 @@ function channel_admin() {
 		$parent= rss_real_escape_string($_REQUEST['c_parent']);
 		$descr= rss_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
 		$icon = rss_real_escape_string($_REQUEST['c_icon']);
+		$priv = (array_key_exists('c_private',$_REQUEST) && $_REQUEST['c_private'] == '1');
+		$old_priv = ($_REQUEST['old_priv'] == '1');
+		if ($priv != $old_priv) {
+			$mode = ", mode = mode ";
+			if ($priv) {
+				$mode .=  " | " . FEED_MODE_PRIVATE_STATE;
+				rss_query ('update ' . getTable('item') 
+				." set unread = unread | " . FEED_MODE_PRIVATE_STATE 
+				." where cid=$cid");
+			} else {
+				$mode .= " & " .SET_MODE_PUBLIC_STATE;
+				
+				rss_query ('update ' . getTable('item') 
+				." set unread = unread & " . SET_MODE_PUBLIC_STATE 
+				." where cid=$cid");
+			}
+		} else { 
+			$mode = "";
+		}
 	
 		if ($url == '' || substr($url,0,4) != "http") {
 			rss_error(sprintf(ADMIN_BAD_RSS_URL,$url));
@@ -542,8 +563,10 @@ function channel_admin() {
 			break;
 		}
 	
-		$sql = "update " .getTable("channels") ." set title='$title', url='$url', siteurl='$siteurl', "
-		  ." parent=$parent, descr='$descr', icon='$icon' where id=$cid";
+		$sql = "update " .getTable("channels") 
+			." set title='$title', url='$url', siteurl='$siteurl', "
+		  ." parent=$parent, descr='$descr', icon='$icon' "
+		  ." $mode where id=$cid";
 	
 		rss_query($sql);
 		$ret__ = ADMIN_DOMAIN_CHANNEL;
@@ -592,12 +615,12 @@ function channel_admin() {
 }
 
 function channel_edit_form($cid) {
-	$sql = "select id, title, url, siteurl, parent, descr, icon from " .getTable("channels") ." where id=$cid";
+	$sql = "select id, title, url, siteurl, parent, descr, icon, mode from " .getTable("channels") ." where id=$cid";
 	$res = rss_query($sql);
-	list ($id, $title, $url, $siteurl, $parent, $descr, $icon) = rss_fetch_row($res);
+	list ($id, $title, $url, $siteurl, $parent, $descr, $icon,$mode) = rss_fetch_row($res);
 
 	echo "<div>\n";
-	echo "\n\n<h2>Edit '$title'</h2>\n";
+	echo "\n\n<h2>".ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"channeledit\">\n"
 	  ."<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"". ADMIN_DOMAIN_CHANNEL."\"/>\n"
 	  ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_SUBMIT_EDIT ."\"/>\n"
@@ -621,6 +644,19 @@ function channel_edit_form($cid) {
 	  ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n";
 
 	folder_combo('c_parent',$parent);
+	
+	if ($mode & FEED_MODE_PRIVATE_STATE) {
+		$pchk = " checked=\"checked\" ";
+		$old_priv = "1";
+	} else {
+		$pchk = "";
+		$old_priv = "0";
+	}
+	echo "</p><p><label for=\"c_private\">". ADMIN_CHANNEL_PRIVATE ."</label>\n"
+		."<input style=\"display:inline\" type=\"checkbox\" id=\"c_private\" name=\"c_private\" "
+		."value=\"1\"$pchk />\n";
+		
+	echo "<input type=\"hidden\" name=\"old_priv\" value=\"$old_priv\" />\n";
 
 	echo "</p>\n";
 

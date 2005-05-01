@@ -252,7 +252,7 @@ function update($id) {
     $kses_allowed = getConfig('rss.input.allowed'); //getAllowedTags();
     $unreadCount = 0;
 
-    $sql = "select id, url, title from ". getTable("channels");
+    $sql = "select id, url, title, mode from ". getTable("channels");
     if ($id != "" && is_numeric($id)) {
 	$sql .= " where id=$id";
     }
@@ -264,7 +264,7 @@ function update($id) {
     }
 
     $res = rss_query($sql);
-    while (list($cid, $url, $title) = rss_fetch_row($res)) {
+    while (list($cid, $url, $title, $mode) = rss_fetch_row($res)) {
 
 	// suppress warnings because Magpie is rather noisy
 	$old_level = error_reporting(E_ERROR);
@@ -362,7 +362,7 @@ function update($id) {
 		  .rss_real_escape_string($title) ."', "
 		  ." '$url', '"
 		  .rss_real_escape_string($description) ."', "
-		  ."1, $sec)";
+		  ."$mode, $sec)";
 
 		rss_query($sql);
 		$unreadCount++;
@@ -370,17 +370,17 @@ function update($id) {
 	}
     }
 
-    if ($id != "" && is_numeric($id)) {
-	if ($rss) {
-	    // when everything went well, return the error code
-	    // and numer of new items
-	    return array($rss -> rss_origin,$unreadCount);
+	if ($id != "" && is_numeric($id)) {
+		if ($rss) {
+			// when everything went well, return the error code
+			// and numer of new items
+			return array($rss -> rss_origin,$unreadCount);
+		} else {
+			 return array(-1,0);
+		}
 	} else {
-	    return array(-1,0);
-	}
-    } else {
-	return array(-1,$unreadCount);
-    }
+		return array(-1,$unreadCount);
+   }
 }
 
 /**
@@ -426,7 +426,7 @@ function itemsList($title,$items, $options = IL_NONE){
 
     if ($options & IL_DO_STATS) {
 	$stats = array();
-	$stats_res = rss_query("select cid,unread,count(*) from " . getTable("item") . " group by 1,2 order by 1,2");
+	$stats_res = rss_query("select cid,(unread & ".FEED_MODE_UNREAD_STATE.") ,count(*) from " . getTable("item") . " group by 1,2 order by 1,2");
 	while (list($s_cid,$s_unread,$s_count)=rss_fetch_row($stats_res)) {
 	    $stats[$s_cid][$s_unread] = $s_count;
 	}
@@ -446,7 +446,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		if (getConfig('rss.output.channelcollapse')) {
 			 $collapsed = in_array($cid,$collapsed_ids)
 				&& !( $options & (IL_NO_COLLAPSE | IL_CHANNEL_VIEW))
-			&& !$iunread;
+			&& !($iunread & FEED_MODE_UNREAD_STATE);
 	
 			 if (array_key_exists('collapse', $_GET) && $_GET['collapse'] == $cid) {
 			// expanded -> collapsed
@@ -491,12 +491,12 @@ function itemsList($title,$items, $options = IL_NONE){
 			echo
 			  "\n<h3"
 			  //." id=\"$escaped_title\" "
-			  . ($collapsed?" class=\"collapsed".($iunread?" unread":"")."\"":"")
+			  . ($collapsed?" class=\"collapsed".(($iunread & FEED_MODE_UNREAD_STATE)?" unread":"")."\"":"")
 				 .">\n";
 	
 			if (!($options & IL_NO_COLLAPSE)
 				 && getConfig('rss.output.channelcollapse')
-				 && !$iunread
+				 && !($iunread & FEED_MODE_UNREAD_STATE)
 				 ) {
 				 if ($collapsed) {
 				$title = EXPAND . " '$ctitle'";
@@ -511,13 +511,14 @@ function itemsList($title,$items, $options = IL_NONE){
 				  //."&nbsp;-&nbsp;"
 				  ."</a>\n";
 				 }
-			} elseif (getConfig('rss.output.showfavicons') && $cicon != "" && (!$iunread || ($options & IL_FOLDER_VIEW ))) {
+			} elseif (getConfig('rss.output.showfavicons') && $cicon != "" 
+				&& (!($iunread & FEED_MODE_UNREAD_STATE) || ($options & IL_FOLDER_VIEW ))) {
 				 echo "\t<img src=\"$cicon\" class=\"favicon\" alt=\"\"/>\n";
 			}
 	
 			$anchor = "";
 			if ($options & IL_DO_NAV) {
-				 $lastAnchor = $ctitle . ($iunread==1?" (unread)":" (read)");
+				 $lastAnchor = $ctitle . (($iunread & FEED_MODE_UNREAD_STATE) ?" (unread)":" (read)");
 				 $anchor = "name=\"$lastAnchor\"";
 			} else { $anchor = "name=\"$escaped_title\""; }
 	
@@ -556,7 +557,7 @@ function itemsList($title,$items, $options = IL_NONE){
 			$cls .= " odd";
 			 }
 	
-			 if	($iunread == 1) {
+			 if	($iunread & FEED_MODE_UNREAD_STATE) {
 			$cls .= " unread";
 			 }
 	

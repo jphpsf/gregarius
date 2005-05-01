@@ -49,8 +49,8 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 if (array_key_exists('action', $_POST)
     && $_POST['action'] != ""
     && trim($_POST['action']) == trim(MARK_READ)) {
-
-    rss_query( "update " .getTable("item") . " set unread=0 where unread=1" );
+    rss_query( "update " .getTable("item") . " set unread=unread & "
+     .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE);
 }
 
 if (array_key_exists('update',$_REQUEST)) {
@@ -87,7 +87,9 @@ function unreadItems($show_what) {
       ." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
       ." left join ".getTable('tag')." t on (m.tid=t.id) "
       . ", " .getTable("channels") ." c, " .getTable("folders") ." f "
-      ." where i.cid = c.id and i.unread=1 and f.id=c.parent";
+      ." where i.cid = c.id and i.unread & " . FEED_MODE_UNREAD_STATE 
+      ." and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")"
+      ." and f.id=c.parent";
 
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
@@ -180,11 +182,11 @@ function readItems() {
 	  .") "
 	  ." left join ".getTable('tag')." t on (m.tid=t.id) "
 
-	  ." where i.cid  = $cid and i.unread = 0"
+	  ." where i.cid  = $cid and !(i.unread & " .FEED_MODE_UNREAD_STATE .")"
+	  ." and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")"
 	  ." order by added desc, id asc, t.tag "
 	  
 	  ." limit 10";
-       
 	$res = rss_query($sql);
 
 
