@@ -100,13 +100,21 @@ function searchForm($title) {
 	 $_REQUEST[QUERY_CHANNEL] == ALL_CHANNELS_ID)?" selected=\"selected\"":"")
 	.">" . ALL  . "</option>\n";
 
-    $res = rss_query( "select "
+	$sql = "select "
 		      ." c.id, c.title, f.name, f.id  "
 		      ." from " . getTable("channels") ." c, " . getTable("folders"). " f "
-		      ." where f.id=c.parent "
-		      ." order by c.parent asc,"
-		      .((getConfig('rss.config.absoluteordering'))?"c.position asc":"c.title asc"));
+		      ." where f.id=c.parent ";
+		      
+		      if (hidePrivate()) {
+					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		      }
+		      
+		      $sql .= " order by c.parent asc,"
+		      .(
+		      	(getConfig('rss.config.absoluteordering'))?
+		      	 "c.position asc":"c.title asc");
 
+    $res = rss_query($sql);
     $prev_parent = -1;
     while (list($id_,$title_, $parent_, $parent_id_) = rss_fetch_row($res)) {
         if ($prev_parent != $parent_id_) {
@@ -235,6 +243,10 @@ function search() {
     if ($channelId != ALL_CHANNELS_ID) {
 	$sql .= " and c.id = $channelId ";
     }
+    
+    if (hidePrivate()) {
+		$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+	 }
 
     if ($orderBy == QUERY_ORDER_BY_DATE) {
 	$sql .= " order by 8 desc";
@@ -322,7 +334,6 @@ function search() {
 				     HIT_BEFORE . "\\1" . HIT_AFTER,
 				     $items[$i][6]
 				     );
-	
     }
     
 

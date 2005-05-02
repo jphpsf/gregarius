@@ -339,10 +339,13 @@ function _et(id) {
 
 	  ." where "
 	  ." i.id in (".implode(",",$ids).") "
-	  ." and i.cid = c.id  and f.id=c.parent "
-
-	  // order by unread first
-	  ." order by (i.unread & " .FEED_MODE_UNREAD_STATE." ) desc, "
+	  ." and i.cid = c.id  and f.id=c.parent ";
+	  
+		if (hidePrivate()) {
+			$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		}
+		// order by unread first
+	  $sql .= " order by (i.unread & " .FEED_MODE_UNREAD_STATE." ) desc, "
 
 	  ."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
 	$res = rss_query($sql);
@@ -437,10 +440,17 @@ function _et(id) {
 
     // the all tags weighted list
     $sql = "select tag,count(*) as cnt from "
-      . getTable('metatag') . ","
-      . getTable('tag') .""
-      ." where tid=id group by tid order by 1";
+      . getTable('metatag') . " left join item i on (fid=i.id),"
+      . getTable('tag') ." t "
+      ." where tid=t.id ";
+      
+      if (hidePrivate()) {
+			$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		}
+		
+      $sql .= "group by tid order by 1";
 
+	 
     $res = rss_query($sql);
     $tags = array();
     $max = 0;

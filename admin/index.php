@@ -65,6 +65,10 @@ if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
 	}
 }
 
+if ($auth) {
+	setAdminCookie();
+}
+
 rss_header(TITLE_ADMIN,LOCATION_ADMIN,'', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
 
 admin_main($auth);
@@ -1361,5 +1365,13 @@ function admin_enum_to_html($arr) {
 			$ret .= "$val";
 	}
 	return $ret;
+}
+
+/**
+ * this function will set an admin cookie, which doesn't play a role in
+ * authentication, but only allows access to Private items
+ */
+function setAdminCookie() {
+	setcookie(PRIVATE_COOKIE, getPrivateCookieVal(), time()+COOKIE_LIFESPAN, getPath());
 }
 ?>

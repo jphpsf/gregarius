@@ -157,7 +157,16 @@ if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MA
     rss_query($sql);
     
     // redirect to the next unread, if any.
-    $sql = "select cid,title from " . getTable("item") ." where unread & ".FEED_MODE_UNREAD_STATE." order by added desc limit 1";
+    $sql = "select cid,title from " . getTable("item") 
+    	." where unread & ".FEED_MODE_UNREAD_STATE;
+    	
+    	
+		if (hidePrivate()) {
+				$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		}
+    	
+    	$sql .=" order by added desc limit 1";
+    	
     $res = rss_query($sql);
     list ($next_unread_id, $next_unread_title) = rss_fetch_row($res);
     
@@ -318,8 +327,11 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			." left join ".getTable('tag')." t on (m.tid=t.id) "
 			  
 			. ", " . getTable("channels") ." c "
-			." where i.cid = $cid and c.id = $cid "
-			." and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+			." where i.cid = $cid and c.id = $cid ";
+			
+			if (hidePrivate()) {
+				$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ") ";
+			}
 		 
 		 if ($iid != "") {
 			$sql .= " and i.id=$iid";
@@ -496,8 +508,13 @@ function makeNav($cid,$iid,$y,$m,$d) {
 			  ." count(*) as cnt_ "
 			  ." from " . getTable("item") . "i  "
 			  ." where cid=$cid "
-			  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts_s "
-			  ." group by y_,m_"
+			  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts_s ";
+			  
+			  	if (hidePrivate()) {
+					$sql_succ .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		      }
+			  
+			  $sql_succ = " group by y_,m_"
 			  .(($currentView == 'day')?",d_ ":"")
 			  ." order by ts_ asc limit 4";
 			
@@ -509,8 +526,14 @@ function makeNav($cid,$iid,$y,$m,$d) {
 			  ." count(*) as cnt_ "
 			  ." from " . getTable("item") ." i  "
 			  ." where cid=$cid "
-			  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts_p "
-			  ." group by y_,m_"
+			  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts_p ";
+			  
+			  
+			  	if (hidePrivate()) {
+					$sql_prev .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		      }
+		      
+			  $sql_prev .= " group by y_,m_"
 			  .(($currentView == 'day')?",d_ ":"")
 			  ." order by ts_ desc limit 4";
 		
@@ -601,8 +624,13 @@ function makeNav($cid,$iid,$y,$m,$d) {
 				  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
 				  ." dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_ "
 				  ." from " .getTable("item") . " i " 
-				  ." where i.cid = $cid  "
-				  ." order by i.added desc, i.id asc";
+				  ." where i.cid = $cid  ";
+				  
+					if (hidePrivate()) {
+						$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+					}
+		      
+				  $sql .= " order by i.added desc, i.id asc";
 				  
 				$rs = rss_query($sql);
 				$found = false;

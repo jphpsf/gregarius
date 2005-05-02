@@ -103,7 +103,12 @@ if (isset($_GET['action']) && $_GET['action'] == ADMIN_EXPORT) {
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.descr "
       ." from ". getTable("channels") . " c, " .getTable("folders") ." d "
       ." where d.id = c.parent";
-    
+      
+      
+		if (hidePrivate()) {
+			$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		}
+	
     
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by d.position asc, c.position asc";

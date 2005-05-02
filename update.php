@@ -81,6 +81,12 @@ if ($doPush) {
       ."</tr>";
     
     $sql = "select id, url, title from " .getTable("channels");
+    
+    
+	if (hidePrivate()) {
+		$sql .=" where !(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+	}
+		      
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by parent, position"; 
     } else {

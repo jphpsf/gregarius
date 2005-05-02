@@ -986,4 +986,28 @@ function showViewForm($curValue) {
       ."</select></p></form>\n";
 }
 
+
+define ('PRIVATE_COOKIE','prv');
+function getPrivateCookieVal($prefix = DBUNAME) {
+	$val = $prefix . $_SERVER["SERVER_NAME"];
+	if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
+		$val .= ADMIN_USERNAME . ADMIN_PASSWORD;
+	}
+	return md5($val);
+}
+
+
+function hidePrivate() {
+	static $ret;
+	if ($ret == null) {
+		if (!array_key_exists(PRIVATE_COOKIE,$_COOKIE)) {
+			$ret = true;
+		} else {
+			$ret = !($_COOKIE[PRIVATE_COOKIE] == getPrivateCookieVal());
+		}
+	}
+	
+	return $ret;
+}
+
 ?>

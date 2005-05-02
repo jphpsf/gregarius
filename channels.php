@@ -52,10 +52,15 @@ function sideChannels($activeId) {
 	  .getTable('item') ." i, " 
 	  .getTable('channels') . " c, " 
 	  .getTable('folders') ." f "
-	  ." where i.unread & ". FEED_MODE_UNREAD_STATE
-	  ." and !(unread & " . FEED_MODE_PRIVATE_STATE .")"
-	  ." and i.cid=c.id and c.parent=f.id "
+	  ." where i.unread & ". FEED_MODE_UNREAD_STATE;
+	
+	if (hidePrivate()) {
+		$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";
+	}
+	
+	 $sql .= " and i.cid=c.id and c.parent=f.id "
 	  ." group by 1";
+	  
 	$res  = rss_query($sql);
 
 	while (list($cid,$cname,$cuc) = rss_fetch_row($res)) {
@@ -101,8 +106,12 @@ function sideChannels($activeId) {
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr, c.mode "
       ." from " .getTable("channels") ." c, " .getTable("folders") ." f "
-      ." where f.id = c.parent"
-      ." and !(c.mode & " . FEED_MODE_PRIVATE_STATE  .") ";
+      ." where f.id = c.parent";
+      
+      if (hidePrivate()) {
+			$sql .= " and !(c.mode & " . FEED_MODE_PRIVATE_STATE  .") ";
+		}
+		
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
     } else {
@@ -178,10 +187,6 @@ function sideChannels($activeId) {
 
     echo "</ul>\n";
 
-	/*
-    $rescnt=rss_query("select count(*) as cnt from " .getTable("item") ." where unread & " . FEED_MODE_UNREAD_STATE . " & ! " .FEED_MODE_PRIVATE_STATE);
-    list($unread_count) = rss_fetch_row($rescnt);
-*/
     echo "\n</div>\n";
     return $channelCount;
 }
@@ -248,7 +253,9 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 
 function stats() {
 	 $sql = "select count(*) from " .getTable("item") ." where unread & " . FEED_MODE_UNREAD_STATE ;
-	 $sql .= " and !(unread & " .  FEED_MODE_PRIVATE_STATE .")";
+	 if (hidePrivate()) {
+		 $sql .= " and !(unread & " .  FEED_MODE_PRIVATE_STATE .")";
+	 }
     $res = rss_query( $sql );
     list($unread)= rss_fetch_row($res);
 

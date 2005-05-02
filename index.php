@@ -87,10 +87,13 @@ function unreadItems($show_what) {
       ." left join ".getTable('metatag') ." m on (i.id=m.fid and m.ttype='item') "
       ." left join ".getTable('tag')." t on (m.tid=t.id) "
       . ", " .getTable("channels") ." c, " .getTable("folders") ." f "
-      ." where i.cid = c.id and i.unread & " . FEED_MODE_UNREAD_STATE 
-      ." and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")"
-      ." and f.id=c.parent";
-
+      ." where i.cid = c.id and i.unread & " . FEED_MODE_UNREAD_STATE
+		." and f.id=c.parent ";
+      
+      if (hidePrivate()) {
+			$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ") ";
+		}
+      
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
     } else {
@@ -182,11 +185,15 @@ function readItems() {
 	  .") "
 	  ." left join ".getTable('tag')." t on (m.tid=t.id) "
 
-	  ." where i.cid  = $cid and !(i.unread & " .FEED_MODE_UNREAD_STATE .")"
-	  ." and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")"
-	  ." order by added desc, id asc, t.tag "
+	  ." where i.cid  = $cid and !(i.unread & " .FEED_MODE_UNREAD_STATE .")";
 	  
+	  if (hidePrivate()) {
+	  	$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+	  }
+	  
+	  $sql .= " order by added desc, id asc, t.tag "
 	  ." limit 10";
+	  
 	$res = rss_query($sql);
 
 
