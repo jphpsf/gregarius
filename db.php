@@ -108,7 +108,13 @@ function rss_insert_id() {
 }
 
 function rss_real_escape_string($string) {
-    return mysql_real_escape_string($string);
+    if (function_exists('mysql_real_escape_string')) {
+	return mysql_real_escape_string($string);
+    } elseif (function_exists('mysql_escape_string')) {
+	return mysql_escape_string($string);
+    } else {
+	die( rss_error("Your PHP version doesn't meet Gregarius' minimal requirements, please consider upgrading!", true));
+    }
 }
 
 function getTable($tableName) {
