@@ -124,13 +124,20 @@ function relatedTags($tags) {
     $rtags = array();
     if (count($fids)) {
 	$sql = "select t.tag, count(*) from "
-	  . getTable('metatag') ." m, "
+	  . getTable('metatag') ." m left join " .getTable('item')
+	  ." i on (m.fid=i.id), "
 	  . getTable('tag') ." t "
 	  ." where m.tid=t.id and m.fid in (" 
 	  . implode(",",$fids). ")"
 	  ." and t.id not in ("
-	  . implode(",",$tids) . ")"
-	  ." group by 1 order by 2 desc";
+	  . implode(",",$tids) . ")";
+	        
+    if (hidePrivate()) {
+		$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+	 }
+	  
+	  $sql .= " group by 1 order by 2 desc";
+	  
 	//echo $sql;
 	$res = rss_query($sql);
 	while ((list($rtag,$cnt) = rss_fetch_row($res))) {
