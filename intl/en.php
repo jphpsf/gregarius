@@ -145,6 +145,9 @@ define ('ADMIN_PRUNE_DAYS','days');
 define ('ADMIN_PRUNE_MONTHS','months');
 define ('ADMIN_PRUNE_YEARS','years');
 define ('PRUNE_KEEP','Keep the most recent items: ');
+define ('ADMIN_PRUNE_INCLUDE_STICKY','Delete Sticky items too: ');
+define ('ADMIN_PRUNE_EXCLUDE_TAGS','Do not delete items tagged... ');
+
 define ('ADMIN_ABOUT_TO_DELETE','Warning: you are about to delete %s items (of %s)');
 define ('ADMIN_PRUNING','Pruning');
 define ('ADMIN_DOMAIN_FOLDER_LBL','folders');

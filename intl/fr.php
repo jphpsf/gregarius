@@ -144,6 +144,8 @@ define ('ADMIN_PRUNE_DAYS','jours');
 define ('ADMIN_PRUNE_MONTHS','mois');
 define ('ADMIN_PRUNE_YEARS','ans');
 define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
+define ('ADMIN_PRUNE_INCLUDE_STICKY','Effacer les &eacute;l&eacute;ments \'Sticky\' aussi: ');
+define ('ADMIN_PRUNE_EXCLUDE_TAGS','Ne pas effacer les &eacute;l&eacute;ments tagg&eacute;s ...');
 define ('ADMIN_ABOUT_TO_DELETE','Attention: vous allez effacer %s  &eacute;l&eacute;ments (sur %s)');
 define ('ADMIN_PRUNING','Suppression');
 define ('ADMIN_DOMAIN_FOLDER_LBL','r&eacute;pertoires');
