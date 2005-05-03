@@ -1,5 +1,7 @@
 Gregarius 0.4.1
-
+ 
+ 03.05.2005 Item pruning: exclude deletion of items tagged with a given tag-list
+ 
  29.04.2005 Toggle to show only unread items on the front page
  
  27.04.2005 Folder view
