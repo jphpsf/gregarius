@@ -252,6 +252,10 @@ function _es(id, status) {
 	if (div = document.getElementById('sad'+id)) {
    	div.innerHTML = ''
    		+ '<form class="sf" id="sf"'+id+'" action="#" method="post">'
+   		+ '<p><input type="checkbox" id="sf' + id + 'u" value="1"'
+   		+ (status & <?= FEED_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
+   		+ ' />'
+			+ '<label for="sf' + id + 'u"><?= STATE_UNREAD ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 's" value="1"'
    		+ (status & <?= FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
    		+ ' />'
@@ -261,7 +265,7 @@ function _es(id, status) {
    		+ ' />'
 			+ '<label for="sf' + id + 'p"><?= STATE_PRIVATE ?></label></p>'
 			+ '<p class="sbm">'
-			+ '<a href="#" onclick="_sis('+id+'); return false;"><?= ADMIN_OK ?></a>'
+			+ '<a href="#" onclick="_ses('+id+'); return false;"><?= ADMIN_OK ?></a>'
 			+ '<a href="#" onclick="_ces('+id+'); return false;"><?= ADMIN_CANCEL ?></a></p>'
    		+ '</form>';
    	div.className = 'ief';
@@ -276,8 +280,8 @@ function _ces(id) {
 	}
 }
 
-function _sis(id) {
-
+function _ses(id) {
+	
 }
 <? }
 

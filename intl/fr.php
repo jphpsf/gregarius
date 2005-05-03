@@ -188,6 +188,7 @@ define ('SHOW_UNREAD_ALL_SHOW','Afficher les &eacute;l&eacute;ments: ');
 define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Non lus uniquement');
 define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non lus');
 
+define ('STATE_UNREAD','Non lu (Sp&eacute;cifie l\\\'&eacute; lu/non lu de cet &eacute;l&eacute;ment)');
 define ('STATE_STICKY','Sticky (L\\\'&eacute;l&eacute;ment ne sera pas effac&eacute;)');
 define ('STATE_PRIVATE','Priv&eacute; (Seulement les administrateurs peuvent voir les &eacute;l&eacute;ments priv&eacute;s)');
 

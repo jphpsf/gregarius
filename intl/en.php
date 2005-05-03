@@ -191,6 +191,7 @@ define ('SHOW_UNREAD_ALL_SHOW','Show items: ');
 define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Unread only');
 define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Read and unread');
 
+define ('STATE_UNREAD','Unread (Set this item\\\'s read/unread state)');
 define ('STATE_STICKY','Sticky (Won\\\'t be deleted when you prune items)');
 define ('STATE_PRIVATE','Private (Only administrators can see private items)');
 ?>
