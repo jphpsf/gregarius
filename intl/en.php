@@ -102,11 +102,12 @@ define ('ADMIN_CHANNELS','Feeds:');
 define ('ADMIN_OPML','OPML:');  
 define ('ADMIN_ITEM','Items:');
 define ('ADMIN_CONFIG','Configuration:');
+define ('ADMIN_OK','OK');
+define ('ADMIN_CANCEL','Cancel');
 
 define ('ADMIN_IN_FOLDER','to folder:');
 define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
 define ('ADMIN_PREVIEW_CHANGES','Preview');
-define ('ADMIN_CANCEL','Cancel');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Title');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','Folder');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
@@ -190,4 +191,6 @@ define ('SHOW_UNREAD_ALL_SHOW','Show items: ');
 define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Unread only');
 define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Read and unread');
 
+define ('STATE_STICKY','Sticky (Won\\\'t be deleted when you prune items)');
+define ('STATE_PRIVATE','Private (Only administrators can see private items)');
 ?>

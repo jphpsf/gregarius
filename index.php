@@ -127,7 +127,7 @@ function unreadItems($show_what) {
 				 $ctitle_,
 				 $icon_ ,
 				 $title_ ,
-				 1 ,
+				 $unread_ ,
 				 $url_ ,
 				 $descr_,
 				 $ts_,

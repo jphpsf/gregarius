@@ -558,7 +558,7 @@ function itemsList($title,$items, $options = IL_NONE){
 			 }
 	
 			 if	($iunread & FEED_MODE_UNREAD_STATE) {
-			$cls .= " unread";
+			$cls = "item unread";
 			 }
 	
 			 // some url fields are juste guid's which aren't actual links
@@ -576,15 +576,17 @@ function itemsList($title,$items, $options = IL_NONE){
 			} else {
 				 echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
 			}
-			echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\"/>\n"
+			echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\" />\n"
 			  ."\t\t</a>\n";
 			 }
 
-            /*
+            
            if (! hidePrivate()) {
-            echo "\t\t<a id=\"sa$iid\" href=\"#\" onclick=\"_es(".$iid.",".$iunread."); return false;\">E</a>\n";
+            echo "\t\t<a id=\"sa$iid\" href=\"#\" onclick=\"_es(".$iid.",".$iunread."); return false;\">\n"
+            ."\t\t\t<img src=\"".getPath() . "css/media/edit.gif\" alt=\"".ADMIN_EDIT."\" />\n"
+            ."\t\t</a>\n";
            }
-              */
+           
 			 echo "\t\t<h4>";
 			 if ($ititle == "") {
 			$ititle = "[nt]";
@@ -597,11 +599,11 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 			 echo "</h4>\n";
 			 
-			/*
-            if (! hidePrivate()) {
-                echo "\t\t<div id=\"sad$iid\" style=\"display:none\" ></div>";
-            }
-            */
+			
+			if (! hidePrivate()) {
+				 echo "\t\t<div id=\"sad$iid\" style=\"display:none\" ></div>";
+			}
+		
 			 if ($ts != "") {
 			$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
 	

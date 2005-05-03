@@ -101,11 +101,12 @@ define ('ADMIN_CHANNELS','Canaux:');
 define ('ADMIN_OPML','OPML:');
 define ('ADMIN_ITEM','El&eacute;ments:');
 define ('ADMIN_CONFIG','Configuration:');
+define ('ADMIN_OK','OK');
+define ('ADMIN_CANCEL','Annuler');
 
 define ('ADMIN_IN_FOLDER','au r&eacute;pertoire:');
 define ('ADMIN_SUBMIT_CHANGES', 'Poster les modifications');
 define ('ADMIN_PREVIEW_CHANGES','Pr&eacute;visualiser');
-define ('ADMIN_CANCEL','Annuler');
 define ('ADMIN_CHANNELS_HEADING_TITLE','Titre');
 define ('ADMIN_CHANNELS_HEADING_FOLDER','R&eacute;pertoire');
 define ('ADMIN_CHANNELS_HEADING_DESCR','Description');
@@ -186,5 +187,8 @@ define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
 define ('SHOW_UNREAD_ALL_SHOW','Afficher les &eacute;l&eacute;ments: ');
 define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Non lus uniquement');
 define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non lus');
+
+define ('STATE_STICKY','Sticky (L\\\'&eacute;l&eacute;ment ne sera pas effac&eacute;)');
+define ('STATE_PRIVATE','Priv&eacute; (Seulement les administrateurs peuvent voir les &eacute;l&eacute;ments priv&eacute;s)');
 
 ?>

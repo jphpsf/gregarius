@@ -382,7 +382,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 						$ctitle,
 						$cicon,
 						$ititle,
-						$iunread & FEED_MODE_UNREAD_STATE,
+						$iunread,
 						$iurl,
 						$idescription,
 						$its,

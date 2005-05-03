@@ -14,7 +14,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-# FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU General Public License for
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 # more details.
 #
 # You should have received a copy of the GNU General Public License along
@@ -23,8 +23,8 @@
 # http://www.gnu.org/licenses/gpl.html
 #
 ###############################################################################
-# E-mail:	   mbonetti at users dot sourceforge dot net
-# Web page:	   http://sourceforge.net/projects/gregarius
+# E-mail:      mbonetti at users dot sourceforge dot net
+# Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
 
@@ -42,26 +42,26 @@ function __priv__updateTags($fid,$tags) {
         . " where fid=$fid and ttype='item'");
     $ret = array();
     foreach($tags as $tag) {
-    	$ttag = trim($tag);
-    	if ($ttag == "" || in_array($ttag,$ret)) {
-    	    continue;
-    	}
-    	rss_query( "insert into ". getTable('tag')
+        $ttag = trim($tag);
+        if ($ttag == "" || in_array($ttag,$ret)) {
+            continue;
+        }
+        rss_query( "insert into ". getTable('tag')
             . " (tag) values ('$ttag')", false );
-    	$tid = 0;
-    	if(rss_sql_error() == 1062) {
-    	    list($tid)=rss_fetch_row(rss_query("select id from "
+        $tid = 0;
+        if(rss_sql_error() == 1062) {
+            list($tid)=rss_fetch_row(rss_query("select id from "
                 .getTable('tag') . " where tag='$ttag'"));
-    	} else {
-    	    $tid = rss_insert_id();
-    	}
-    	if ($tid) {
-    	    rss_query( "insert into ". getTable('metatag')
+        } else {
+            $tid = rss_insert_id();
+        }
+        if ($tid) {
+            rss_query( "insert into ". getTable('metatag')
                         . " (fid,tid) values ($fid,$tid)" );
-    	    if (rss_sql_error() == 0) {
-    		  $ret[] = $ttag;
-    	    }
-    	}
+            if (rss_sql_error() == 0) {
+              $ret[] = $ttag;
+            }
+        }
     }
     sort($ret);
     return $ret;
@@ -69,21 +69,21 @@ function __priv__updateTags($fid,$tags) {
 
 function __exp__getFromDelicious($id) {
     list($url)= rss_fetch_row(
-			      rss_query('select url from '  . getTable('item')  ." where id=$id"));
+                  rss_query('select url from '  . getTable('item')  ." where id=$id"));
     $ret = array();
     if($url) {
-	$fp = @fopen("http://del.icio.us/url/" . md5($url),"r");
-	if ($fp) {
-	    $bfr = fread($fp,2000);
-	    @fclose($fp);
-	}
-	define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
-	if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
-	    $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
-	    foreach($hits as $hit) {
-		$ret[] = $hit[1];
-	    }
-	}
+    $fp = @fopen("http://del.icio.us/url/" . md5($url),"r");
+    if ($fp) {
+        $bfr = fread($fp,2000);
+        @fclose($fp);
+    }
+    define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
+    if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
+        $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
+        foreach($hits as $hit) {
+        $ret[] = $hit[1];
+        }
+    }
     }
     return "$id," .implode(" ",$ret);
 }
@@ -113,11 +113,11 @@ if (array_key_exists('js',$_GET)) {
     $etag = md5($js);
     /*
     if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && $_SERVER['HTTP_IF_NONE_MATCH'] == $etag) {
-	   header("HTTP/1.1 304 Not Modified");
-	   flush();
-	   exit();
+       header("HTTP/1.1 304 Not Modified");
+       flush();
+       exit();
     } else {
-	   header("ETag: $etag");
+       header("ETag: $etag");
   }
   */
     echo $js;
@@ -135,9 +135,9 @@ function setTags(id,tagss) {
   var fld=document.getElementById("t" + id);
   var html = "";
   for (i=0;i<tags.length;i++) {
-	 html = html + "<a href=\"<?= getPath()
-	 . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=')
-	 ?>" + tags[i] + "\">" + tags[i] + "</a> ";
+     html = html + "<a href=\"<?= getPath()
+     . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=')
+     ?>" + tags[i] + "\">" + tags[i] + "</a> ";
   }
   fld.innerHTML = html;
 
@@ -146,14 +146,14 @@ function setTags(id,tagss) {
 }
 
 function submit_tag_cb(ret) {
-	data= ret.replace(/[^a-zA-Z0-9\ _\.,]/gi,"").split(',');
-	id=data[0];
-	tags=data[1];
-	setTags(id,tags);
+    data= ret.replace(/[^a-zA-Z0-9\ _\.,]/gi,"").split(',');
+    id=data[0];
+    tags=data[1];
+    setTags(id,tags);
 }
 
 function submit_tag(id,tags) {
-	x___exp__submitTag(id, tags, submit_tag_cb);
+    x___exp__submitTag(id, tags, submit_tag_cb);
 }
 
 <? if (getConfig('rss.input.tags.delicious')) { ?>
@@ -191,80 +191,94 @@ function addToTags(id,tag) {
 
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
-	var toggle = actionSpan.firstChild;
-	if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
-		var fld = document.getElementById("tfield" + id);
+    var toggle = actionSpan.firstChild;
+    if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
+        var fld = document.getElementById("tfield" + id);
       toggle.innerHTML="<?= TAG_SUBMITTING ?>";
-		submit_tag(id,fld.value);
-	} else if (toggle.innerHTML == "<?= TAG_EDIT ?>") {
-	   var isIE=document.all?true:false;
-	   // the tag container
-	   var tc=document.getElementById("t"+id);
-		var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"").replace(<?=ALLOWED_TAGS_REGEXP ?>gi,"");
-		// submit link
-		toggle.innerHTML="<?= TAG_SUBMIT ?>";
-		// cancel link
-		cancel = document.createElement("a");
-		cancel.style.margin="0 0 0 0.5em";
-		cancel.innerHTML = "<?= TAG_CANCEL ?>";
-		cancel.setAttribute("href","#");
-		if (isIE) {
-		    // the IE sucky way
-		    cancel.onclick = function() { setTags(id,tags); return false;}
-	   } else {
-	      // the proper DOM way
-			cancel.setAttribute("onclick","setTags("+id+",'"+tags+"'); return false;");
-	   }
-		actionSpan.appendChild(cancel);
+        submit_tag(id,fld.value);
+    } else if (toggle.innerHTML == "<?= TAG_EDIT ?>") {
+       var isIE=document.all?true:false;
+       // the tag container
+       var tc=document.getElementById("t"+id);
+        var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"").replace(<?=ALLOWED_TAGS_REGEXP ?>gi,"");
+        // submit link
+        toggle.innerHTML="<?= TAG_SUBMIT ?>";
+        // cancel link
+        cancel = document.createElement("a");
+        cancel.style.margin="0 0 0 0.5em";
+        cancel.innerHTML = "<?= TAG_CANCEL ?>";
+        cancel.setAttribute("href","#");
+        if (isIE) {
+            // the IE sucky way
+            cancel.onclick = function() { setTags(id,tags); return false;}
+       } else {
+          // the proper DOM way
+            cancel.setAttribute("onclick","setTags("+id+",'"+tags+"'); return false;");
+       }
+        actionSpan.appendChild(cancel);
 
-	    <? if (getConfig('rss.input.tags.delicious')) { ?>
-		// get tag suggestions from del.icio.us
-		newspan = document.createElement("span");
-		newspan.setAttribute("id","dt" + id);
-		newspan.style.margin="0 0 0 0.5em";
-		newspan.innerHTML = "<?= TAG_SUGGESTIONS ?>: (...) ]";
-		actionSpan.appendChild(newspan);
-		get_from_delicious(id);
-		<? } ?>
-		tc.innerHTML = "<input class=\"tagedit\" id=\"tfield"
-		 +id+"\" type=\"text\" value=\"" + tags + "\" />";
+        <? if (getConfig('rss.input.tags.delicious')) { ?>
+        // get tag suggestions from del.icio.us
+        newspan = document.createElement("span");
+        newspan.setAttribute("id","dt" + id);
+        newspan.style.margin="0 0 0 0.5em";
+        newspan.innerHTML = "<?= TAG_SUGGESTIONS ?>: (...) ]";
+        actionSpan.appendChild(newspan);
+        get_from_delicious(id);
+        <? } ?>
+        tc.innerHTML = "<input class=\"tagedit\" id=\"tfield"
+         +id+"\" type=\"text\" value=\"" + tags + "\" />";
 
-		// set the caret to the end of the field for bloody IE
-		var control = tc.firstChild;
-		control.focus();
-		if (control.createTextRange) {
-			var range = control.createTextRange();
-		range.collapse(false);
-			range.select();
-		} else if (control.setSelectionRange) {
-			control.focus();
-			var length = control.value.length;
-			control.setSelectionRange(length, length);
-		}
-	}
-	return false;
+        // set the caret to the end of the field for bloody IE
+        var control = tc.firstChild;
+        control.focus();
+        if (control.createTextRange) {
+            var range = control.createTextRange();
+        range.collapse(false);
+            range.select();
+        } else if (control.setSelectionRange) {
+            control.focus();
+            var length = control.value.length;
+            control.setSelectionRange(length, length);
+        }
+    }
+    return false;
 }
 
 
 <? if (! hidePrivate()) { ?>
 
 function _es(id, status) {
-    if (a = (document.getElementById('sa'+id))) {
-        div = document.getElementById('sad'+id);
-        if (a.innerHTML == 'E') {
-            div.innerHTML = '(item editing div here)';
-            div.style.display = "block";
-            a.innerHTML = 'ok';
-        } else {
-            div.style.display = "none";
-            a.innerHTML = 'E';
-        }
-    }
+	if (div = document.getElementById('sad'+id)) {
+   	div.innerHTML = ''
+   		+ '<form class="sf" id="sf"'+id+'" action="#" method="post">'
+   		+ '<p><input type="checkbox" id="sf' + id + 's" value="1"'
+   		+ (status & <?= FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
+   		+ ' />'
+			+ '<label for="sf' + id + 's"><?= STATE_STICKY ?></label></p>'
+   		+ '<p><input type="checkbox" id="sf' + id + 'p" value="1"'
+   		+ (status & <?= FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
+   		+ ' />'
+			+ '<label for="sf' + id + 'p"><?= STATE_PRIVATE ?></label></p>'
+			+ '<p class="sbm">'
+			+ '<a href="#" onclick="_sis('+id+'); return false;"><?= ADMIN_OK ?></a>'
+			+ '<a href="#" onclick="_ces('+id+'); return false;"><?= ADMIN_CANCEL ?></a></p>'
+   		+ '</form>';
+   	div.className = 'ief';
+      div.style.display = "block";
+   }
 }
 
+function _ces(id) {
+	if (div = document.getElementById('sad'+id)) {
+		div.className = '';
+		div.style.display='none';
+	}
+}
 
-//Error: uncaught exception: [Exception... "Node cannot be inserted at the specified point in the hierarchy"  code: "3" nsresult: "0x80530003 (NS_ERROR_DOM_HIERARCHY_REQUEST_ERR)"  location: "http://127.0.0.1/rss/ajax.php?js Line: 216"]
+function _sis(id) {
 
+}
 <? }
 
 flush();
