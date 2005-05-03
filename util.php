@@ -106,7 +106,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
 	}
     }
 
-    echo "\t<script type=\"text/javascript\" src=\"".getPath()."tags.php?js\"></script>\n";
+    echo "\t<script type=\"text/javascript\" src=\"".getPath()."ajax.php?js\"></script>\n";
     echo "</head>\n"
       ."<body";
     if ($onLoadAction != "" ) {
