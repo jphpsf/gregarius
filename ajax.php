@@ -38,33 +38,34 @@ function __exp__submitTag($id,$tags) {
 }
 
 function __priv__updateTags($fid,$tags) {
-    rss_query("delete from " .getTable('metatag') . " where fid=$fid and ttype='item'");
+    rss_query("delete from " .getTable('metatag')
+        . " where fid=$fid and ttype='item'");
     $ret = array();
     foreach($tags as $tag) {
-	$ttag = trim($tag);
-	if ($ttag == "" || in_array($ttag,$ret)) {
-	    continue;
-	}
-	rss_query( "insert into ". getTable('tag'). " (tag) values ('$ttag')", false );
-	$tid = 0;
-	if(rss_sql_error() == 1062) {
-	    list($tid)=rss_fetch_row(rss_query("select id from " .getTable('tag')
-                                            . " where tag='$ttag'"));
-	} else {
-	    $tid = rss_insert_id();
-	}
-	if ($tid) {
-	    rss_query( "insert into ". getTable('metatag'). " (fid,tid) values ($fid,$tid)" );
-	    if (rss_sql_error() == 0) {
-		$ret[] = $ttag;
-	    }
-	}
+    	$ttag = trim($tag);
+    	if ($ttag == "" || in_array($ttag,$ret)) {
+    	    continue;
+    	}
+    	rss_query( "insert into ". getTable('tag')
+            . " (tag) values ('$ttag')", false );
+    	$tid = 0;
+    	if(rss_sql_error() == 1062) {
+    	    list($tid)=rss_fetch_row(rss_query("select id from "
+                .getTable('tag') . " where tag='$ttag'"));
+    	} else {
+    	    $tid = rss_insert_id();
+    	}
+    	if ($tid) {
+    	    rss_query( "insert into ". getTable('metatag')
+                        . " (fid,tid) values ($fid,$tid)" );
+    	    if (rss_sql_error() == 0) {
+    		  $ret[] = $ttag;
+    	    }
+    	}
     }
     sort($ret);
     return $ret;
 }
-
-
 
 function __exp__getFromDelicious($id) {
     list($url)= rss_fetch_row(
@@ -90,14 +91,18 @@ function __exp__getFromDelicious($id) {
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . basename(__FILE__);
-$sajax_export_list = array("__exp__submitTag");
 
+// Non standard! One usually calls sajax_export() ...
+$sajax_export_list = array("__exp__submitTag");
 if (getConfig('rss.input.tags.delicious')) {
     $sajax_export_list[] = "__exp__getFromDelicious";
 }
 
 sajax_init();
 
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 /* spit out the javascript for this bugger */
 if (array_key_exists('js',$_GET)) {
@@ -106,13 +111,15 @@ if (array_key_exists('js',$_GET)) {
     
     // The javascript output shall be cached
     $etag = md5($js);
+    /*
     if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && $_SERVER['HTTP_IF_NONE_MATCH'] == $etag) {
 	   header("HTTP/1.1 304 Not Modified");
 	   flush();
 	   exit();
     } else {
 	   header("ETag: $etag");
-    }
+  }
+  */
     echo $js;
 
     // and here is s'more javascript for field editing...
@@ -149,7 +156,8 @@ function submit_tag(id,tags) {
 	x___exp__submitTag(id, tags, submit_tag_cb);
 }
 
-    <? if (getConfig('rss.input.tags.delicious')) { ?>
+<? if (getConfig('rss.input.tags.delicious')) { ?>
+
 function get_from_delicious(id) {
  x___exp__getFromDelicious(id,getFromDelicious_cb);
 }
@@ -179,7 +187,7 @@ function addToTags(id,tag) {
  fld.value=fld.value+ " " + tag;
 }
 
-	<? } ?>
+<? } ?>
 
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
@@ -237,11 +245,40 @@ function _et(id) {
 	return false;
 }
 
-    <?
-    exit();
+
+<? if (! hidePrivate()) { ?>
+
+function _es(id, status) {
+    if (a = (document.getElementById('sa'+id))) {
+        div = document.getElementById('sad'+id);
+        if (a.innerHTML == 'E') {
+            div.innerHTML = '(item editing div here)';
+            div.style.display = "block";
+            a.innerHTML = 'ok';
+        } else {
+            div.style.display = "none";
+            a.innerHTML = 'E';
+        }
+    }
+}
+
+
+//Error: uncaught exception: [Exception... "Node cannot be inserted at the specified point in the hierarchy"  code: "3" nsresult: "0x80530003 (NS_ERROR_DOM_HIERARCHY_REQUEST_ERR)"  location: "http://127.0.0.1/rss/ajax.php?js Line: 216"]
+
+<? }
+
+flush();
+exit();
+    
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
 } elseif(array_key_exists('rs',$_REQUEST)) {
     // this one handles the xmlhttprequest call from the above javascript
     sajax_handle_client_request();
     exit();
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 ?>

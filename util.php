@@ -565,7 +565,7 @@ function itemsList($title,$items, $options = IL_NONE){
 			 $isUrl = (substr($iurl, 0,4) == "http");
 			 echo "\t<li class=\"$cls\">\n";
 	
-			 if (getConfig('rss.output.usepermalinks')) {
+			if (getConfig('rss.output.usepermalinks')) {
 			$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
 			list($ply,$plm,$pld) = explode(":",date("Y:m:d",$ts));
 			$ptitle = PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
@@ -579,7 +579,12 @@ function itemsList($title,$items, $options = IL_NONE){
 			echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\"/>\n"
 			  ."\t\t</a>\n";
 			 }
-	
+
+            /*
+           if (! hidePrivate()) {
+            echo "\t\t<a id=\"sa$iid\" href=\"#\" onclick=\"_es(".$iid.",".$iunread."); return false;\">E</a>\n";
+           }
+              */
 			 echo "\t\t<h4>";
 			 if ($ititle == "") {
 			$ititle = "[nt]";
@@ -591,7 +596,12 @@ function itemsList($title,$items, $options = IL_NONE){
 			 }
 	
 			 echo "</h4>\n";
-	
+			 
+			/*
+            if (! hidePrivate()) {
+                echo "\t\t<div id=\"sad$iid\" style=\"display:none\" ></div>";
+            }
+            */
 			 if ($ts != "") {
 			$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
 	
