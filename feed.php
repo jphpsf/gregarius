@@ -373,7 +373,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		 $prevId = -1;
 		 while ($added <= $limit && list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid_, $tag_) =  rss_fetch_row($res)) {
 			
-			$hasUnreadItems |= $iunread;
+			$hasUnreadItems |= ($iunread & FEED_MODE_UNREAD_STATE);
 			
 			$added++;
 			if($prevId != $iid_) {
@@ -410,7 +410,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 	 $severalFeeds = count($cids) > 1;
     if ($hasUnreadItems && $iid == "") {
-		 echo "<div id=\"feedaction\" class=\"withmargin\">";
+		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
 
     	 showViewForm($show_what);
     	 
@@ -418,7 +418,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		 	markReadForm($cid);
 		 }
 		 
-		 echo "</div>\n";
+		 echo "\n</div>\n";
 	 }
 	 
 	 
@@ -703,7 +703,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 
 function markReadForm($cid) {
 	
-  	echo "<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
+  	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
   	  ."</form>";
