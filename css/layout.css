@@ -193,13 +193,15 @@ form#channeledit input[type="text"] {
 }
 
 div#feedaction {
-   float:right;
+
    padding:0;
    margin:0;
    text-align:right;
    display:block;
 }
 
+/** this rule is hidden from IE6 and below as it messes the rendering */
+div>div#feedaction {float:right;}
 
 div#feedaction form, div#feedaction form p { 
  text-align:right;
@@ -207,13 +209,13 @@ div#feedaction form, div#feedaction form p {
  padding:0;
 }
 
+
 div#feedaction.withmargin {
-   margin-bottom: 0.8em;
+ margin-bottom: 0.8em;
 }
 
 
 form#frmShow { margin-bottom: 0.4em !important; }
-  
 
 #items h2 { margin-bottom: 10px; }
 
