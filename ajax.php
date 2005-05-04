@@ -261,6 +261,7 @@ function _et(id) {
 document.states = new Array();
 document.prevState = new Array();
 
+
 function setState(id,state) {
     x___exp__setState(id,state,setState_cb);
 }
@@ -310,6 +311,10 @@ function _ces(id) {
 		div.className = '';
 		div.style.display='none';
 	}
+	if (sa = document.getElementById('sa' + id)) {
+        sa.focus();
+    }
+
 }
 
 function _ses(id) {
@@ -329,6 +334,7 @@ function _ses(id) {
     if (document.prevState[id] != s) {
         if (btn=document.getElementById('ess'+id+'ok')) {
             btn.innerHTML = '...';
+            btn.disabled = true;
         }
         document.prevState[id] = null;
         setState(id,s);
