@@ -279,7 +279,7 @@ function items() {
       . "<input type=\"checkbox\" id=\"prune_include_sticky\" name=\"prune_include_sticky\" value=\"1\"/></p>\n"
       . "<p><label for=\"prune_exclude_tags\">".ADMIN_PRUNE_EXCLUDE_TAGS."</label>\n"
       . "<input type=\"text\" id=\"prune_exclude_tags\" name=\"prune_exclude_tags\" value=\"\"/></p>\n"
-      . "<p><input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\"/></p>\n"
+      . "<p class=\"cntr\"><input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\"/></p>\n"
       . "</fieldset>\n"
       . "</form>\n"
       . "</div>\n"

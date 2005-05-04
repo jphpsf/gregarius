@@ -168,7 +168,7 @@ table#channeltable,table#foldertable,table#updatetable,table#configtable,.conten
  font-size: small;
 }
 
-table .cntr { text-align:center}
+
 
 table tr:hover td { background-color: #f8f8ff }
   
@@ -271,6 +271,8 @@ fieldset {
   border:1px solid #ddd;
   -moz-border-radius: 5px;                                                                                                
 }
+fieldset.prune p{ text-align:left }
+.cntr { text-align:center !important}
 
 optgroup { margin: 1em 0 0.2em 0;} 
 legend { font-size:small}
