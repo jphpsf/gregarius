@@ -1,5 +1,8 @@
 Gregarius 0.4.1
  
+ 04.05.2005 Item state editor: toggle read/unread, private/public,
+            sticky/unsticky states inline, via AJAX
+ 
  03.05.2005 Item pruning: exclude deletion of items tagged with a given tag-list
  
  29.04.2005 Toggle to show only unread items on the front page
