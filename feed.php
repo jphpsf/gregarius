@@ -514,7 +514,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 					$sql_succ .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		      }
 			  
-			  $sql_succ = " group by y_,m_"
+			  $sql_succ .= " group by y_,m_"
 			  .(($currentView == 'day')?",d_ ":"")
 			  ." order by ts_ asc limit 4";
 			
