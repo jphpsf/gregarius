@@ -88,6 +88,13 @@ function __exp__getFromDelicious($id) {
     return "$id," .implode(" ",$ret);
 }
 
+function __exp__setState($id,$state) {
+    rss_query('update '.getTable('item') . " set unread=$state where id=$id");
+    $rs = rss_query('select unread from '.getTable('item') . " where id=$id");
+    list($unread) = rss_fetch_row($rs);
+    return "$id|$unread";
+}
+
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . basename(__FILE__);
@@ -96,6 +103,9 @@ $sajax_remote_uri = getPath() . basename(__FILE__);
 $sajax_export_list = array("__exp__submitTag");
 if (getConfig('rss.input.tags.delicious')) {
     $sajax_export_list[] = "__exp__getFromDelicious";
+}
+if (!hidePrivate()) {
+    $sajax_export_list[] = "__exp__setState";
 }
 
 sajax_init();
@@ -248,28 +258,50 @@ function _et(id) {
 
 <? if (! hidePrivate()) { ?>
 
-function _es(id, status) {
+document.states = new Array();
+document.prevState = new Array();
+
+function setState(id,state) {
+    x___exp__setState(id,state,setState_cb);
+}
+
+function setState_cb(ret) {
+    data=ret.replace(/[^0-9\|]/gi,"").split('|');
+    id=data[0];
+    s=data[1];
+    document.states[id]=s;
+    _ces(id);
+}
+
+function _es(id, state) {
+    if (document.states[id]) {
+        tmpState =document.states[id];
+    }else {
+        tmpState =state;
+    }
+    document.prevState[id] = tmpState;
 	if (div = document.getElementById('sad'+id)) {
    	div.innerHTML = ''
    		+ '<form class="sf" id="sf"'+id+'" action="#" method="post">'
    		+ '<p><input type="checkbox" id="sf' + id + 'u" value="1"'
-   		+ (status & <?= FEED_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?= FEED_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-			+ '<label for="sf' + id + 'u"><?= STATE_UNREAD ?></label></p>'
+		+ '<label for="sf' + id + 'u"><?= STATE_UNREAD ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 's" value="1"'
-   		+ (status & <?= FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?= FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-			+ '<label for="sf' + id + 's"><?= STATE_STICKY ?></label></p>'
+		+ '<label for="sf' + id + 's"><?= STATE_STICKY ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 'p" value="1"'
-   		+ (status & <?= FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?= FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-			+ '<label for="sf' + id + 'p"><?= STATE_PRIVATE ?></label></p>'
-			+ '<p class="sbm">'
-			+ '<a href="#" onclick="_ses('+id+'); return false;"><?= ADMIN_OK ?></a>'
-			+ '<a href="#" onclick="_ces('+id+'); return false;"><?= ADMIN_CANCEL ?></a></p>'
+		+ '<label for="sf' + id + 'p"><?= STATE_PRIVATE ?></label></p>'
+		+ '<p class="sbm">'
+		+ '<a id="ess'+id+'ok" href="#" onclick="_ses('+id+'); return false;"><?= ADMIN_OK ?></a>'
+		+ '<a href="#" onclick="_ces('+id+'); return false;"><?= ADMIN_CANCEL ?></a></p>'
    		+ '</form>';
-   	div.className = 'ief';
-      div.style.display = "block";
+
+    div.className = 'ief';
+    div.style.display = "block";
    }
 }
 
@@ -281,7 +313,29 @@ function _ces(id) {
 }
 
 function _ses(id) {
-	
+    s = 0;
+    if ((sfu = document.getElementById('sf'+id+'u')) && sfu.checked) {
+      s += <?= FEED_MODE_UNREAD_STATE ?>;
+    }
+    if ((sfs = document.getElementById('sf'+id+'s')) && sfs.checked) {
+      s += <?= FEED_MODE_STICKY_STATE ?>;
+    }
+    if ((sfp = document.getElementById('sf'+id+'p')) && sfp.checked) {
+      s += <?= FEED_MODE_PRIVATE_STATE ?>;
+    }
+    
+
+    
+    if (document.prevState[id] != s) {
+        if (btn=document.getElementById('ess'+id+'ok')) {
+            btn.innerHTML = '...';
+        }
+        document.prevState[id] = null;
+        setState(id,s);
+    } else {
+      // state didn't change!
+      _ces(id);
+    }
 }
 <? }
 
