@@ -276,7 +276,7 @@ function setState_cb(ret) {
 
 function _es(id, state) {
 	 
-	 if (document.prevState[id]) {
+	 if (document.prevState[id] != null) {
 	 	// if we click the edit icon while editing cancel the edit
 	 	_ces(id);
 	 	document.prevState[id] = null;
@@ -319,6 +319,7 @@ function _ces(id) {
 		div.className = '';
 		div.style.display='none';
 	}
+	
 	if (sa = document.getElementById('sa' + id)) {
         sa.focus();
     }
