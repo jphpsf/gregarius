@@ -317,6 +317,7 @@ function _es(id, state) {
 function _ces(id) {
 	if (div = document.getElementById('sad'+id)) {
 		div.className = '';
+		div.innerHTML = '';
 		div.style.display='none';
 	}
 	
