@@ -63,6 +63,11 @@ if (
 	) {
 		 $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
 		 $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
+
+		if (hidePrivate()) {
+			$sql .=" and !(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		}		 
+		 
 		 $res =  rss_query( $sql );
 		 //echo $sql;
 		if ( rss_num_rows ( $res ) == 1) {
@@ -71,10 +76,15 @@ if (
 			$cid = "";
 			
 			// is this a folder?
-			$res = rss_query("select c.id, c.parent from ". getTable('channels')." c, "
+			$sql = "select c.id, c.parent from ". getTable('channels')." c, "
 				. getTable('folders') . " f "
-				." where c.parent=f.id and f.name like '$sqlid' and f.id > 0");
+				." where c.parent=f.id and f.name like '$sqlid' and f.id > 0";
 				
+			if (hidePrivate()) {
+				$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+			}
+			
+			$res = rss_query( $sql );
 			if ( rss_num_rows ( $res ) > 0) {
 				$cids = array();
 				while (list ($cid__,$fid__) = rss_fetch_row($res)) {
@@ -114,8 +124,13 @@ if (
 					." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
 				 
 				 if ($d > 0) {
-				$sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+					$sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
 				 }
+				 
+			}
+			
+			if (hidePrivate()) {
+				$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 			}
 			
 			$sql .=" order by i.added desc, i.id asc";
@@ -128,25 +143,39 @@ if (
 		 }  
 	// no mod rewrite: ugly but effective
 	} elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQUEST)) {
-    $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
-    $iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
-    $fid= (array_key_exists('folder',$_REQUEST))?$_REQUEST['folder']:"";
-    if ($fid) {
-    		$res = rss_query("select c.id from ". getTable('channels')." c "
-				." where c.parent=$fid and c.parent > 0");
-				
-			if ( rss_num_rows ( $res ) > 0) {
-				$cids = array();
-				while (list ($cid__) = rss_fetch_row($res)) {
-					$cids[] = $cid__;
+		$cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
+		$iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
+		$fid= (array_key_exists('folder',$_REQUEST))?$_REQUEST['folder']:"";
+		
+		if ($fid) {		
+				$sql = "select c.id from ". getTable('channels')." c "
+					." where c.parent=$fid and c.parent > 0";
+					
+				if (hidePrivate()) {
+					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 				}
-			}	
-    }
+				$res = rss_query( $sql );
+				
+				if ( rss_num_rows ( $res ) > 0) {
+					$cids = array();
+					while (list ($cid__) = rss_fetch_row($res)) {
+						$cids[] = $cid__;
+					}
+				}	
+		} elseif ($cid) {			
+			if (hidePrivate()) {
+				$sql = "select id from ". getTable('channels')." where id=$cid ";
+				$sql .=" and !(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+				list ($cid) = rss_fetch_row(rss_query($sql));
+			}
+		}
+		
 }
 
 // If we have no channel-id somethign went terribly wrong.
 // Redirect to index.php
-if (!isset($cid) && !(isset($cids) && is_array($cids) && count($cids))) {
+if ((!isset($cid) || $cid == "") && 
+	(!isset($cids) || !is_array($cids) || !count($cids))) {
     $red = "http://" . $_SERVER['HTTP_HOST'] . getPath();
     header("Location: $red");
 }
@@ -186,7 +215,10 @@ if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MA
     }
 }
 
-assert(is_numeric($cid) || (isset($fid) && isset($cids) && is_array($cids) && count($cids)));
+assert(
+	(isset($cid) && is_numeric($cid)) || 
+	(isset($fid) && isset($cids) && is_array($cids) && count($cids))
+);
 
 $itemFound = true;
 if ($iid != "" && !is_numeric($iid)) {
@@ -234,7 +266,7 @@ if ($iid == "") {
 		} else {
 			$dtitle ="";
 		}
-	} elseif($fid) {
+	} elseif(isset($fid) && $fid) {
 		list($title) = rss_fetch_row( rss_query("select name from " . getTable('folders') . " where id = $fid") );
 		$dtitle ="";
 	} else {
@@ -275,8 +307,8 @@ if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
 	if ($cid && !(isset($cids) && is_array($cids) && count($cids))) {
-   	$cids = array($cid); 
-   }
+   		$cids = array($cid); 
+   	}
 	items($cids,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
 }
 rss_footer();
