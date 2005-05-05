@@ -275,6 +275,14 @@ function setState_cb(ret) {
 }
 
 function _es(id, state) {
+	 
+	 if (document.prevState[id]) {
+	 	// if we click the edit icon while editing cancel the edit
+	 	_ces(id);
+	 	document.prevState[id] = null;
+	 	return;
+	 }
+	 
     if (document.states[id]) {
         tmpState =document.states[id];
     }else {
