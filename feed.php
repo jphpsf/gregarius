@@ -183,6 +183,13 @@ if ((!isset($cid) || $cid == "") &&
 if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
     
     $sql = "update " .getTable("item") ." set unread = unread & ".SET_MODE_READ_STATE." where cid=$cid";
+    
+    
+   if (hidePrivate()) {
+	  	$sql .= " and !(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+	 }
+	 
+    
     rss_query($sql);
     
     // redirect to the next unread, if any.

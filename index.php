@@ -49,8 +49,16 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 if (array_key_exists('action', $_POST)
     && $_POST['action'] != ""
     && trim($_POST['action']) == trim(MARK_READ)) {
-    rss_query( "update " .getTable("item") . " set unread=unread & "
-     .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE);
+    
+    $sql = "update " .getTable("item") . " set unread=unread & "
+     .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE;
+     
+   if (hidePrivate()) {
+	  	$sql .= " and !(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+	 }
+	 
+	 rss_query( $sql );
+	  
 }
 
 if (array_key_exists('update',$_REQUEST)) {
