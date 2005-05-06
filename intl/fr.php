@@ -145,7 +145,7 @@ define ('ADMIN_PRUNE_DAYS','jours');
 define ('ADMIN_PRUNE_MONTHS','mois');
 define ('ADMIN_PRUNE_YEARS','ans');
 define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
-define ('ADMIN_PRUNE_INCLUDE_STICKY','Effacer les &eacute;l&eacute;ments \'Sticky\' aussi: ');
+define ('ADMIN_PRUNE_INCLUDE_STICKY','Effacer les &eacute;l&eacute;ments Persistants aussi: ');
 define ('ADMIN_PRUNE_EXCLUDE_TAGS','Ne pas effacer les &eacute;l&eacute;ments tagg&eacute;s ...');
 define ('ADMIN_ABOUT_TO_DELETE','Attention: vous allez effacer %s  &eacute;l&eacute;ments (sur %s)');
 define ('ADMIN_PRUNING','Suppression');
@@ -163,7 +163,7 @@ define ('ADMIN_ERROR_NOT_AUTHORIZED',
 		."Merci.");
 
 define ('ADMIN_ERROR_PRUNING_PERIOD',"P&eacute; d'effacement non valide");
-define ('ADMIN_ERROR_NO_PERIOD',"P&eacute; non sp&eacute;cifi&eacute;e");
+define ('ADMIN_ERROR_NO_PERIOD',"Aucune p&eacute;riode sp&eacute;cifi&eacute;e!");
 define ('ADMIN_BAD_RSS_URL',"Je ne sais pas comment g&eacute;rer cette URL '%s'");
 define ('ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Vous ne pouvez pas effacer le r&eacute;pertoire " . HOME_FOLDER ."!");
 define ('ADMIN_CANT_RENAME',"Vous ne pouvez pas renommer cet &eacute;l&eacute;ment '%s' parce que un &eacute;l&eacute;ment du m&ecirc;me nom existe d&eacute;j&agrave;!");
@@ -188,8 +188,8 @@ define ('SHOW_UNREAD_ALL_SHOW','Afficher les &eacute;l&eacute;ments: ');
 define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Non lus uniquement');
 define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non lus');
 
-define ('STATE_UNREAD','Non lu (Sp&eacute;cifie l\\\'&eacute; lu/non lu de cet &eacute;l&eacute;ment)');
-define ('STATE_STICKY','Sticky (L\\\'&eacute;l&eacute;ment ne sera pas effac&eacute;)');
+define ('STATE_UNREAD','Non lu (Sp&eacute;cifie l\\\'&eacute;tat lu/non lu de cet &eacute;l&eacute;ment)');
+define ('STATE_STICKY','Persistant (L\\\'&eacute;l&eacute;ment ne sera pas effac&eacute;)');
 define ('STATE_PRIVATE','Priv&eacute; (Seulement les administrateurs peuvent voir les &eacute;l&eacute;ments priv&eacute;s)');
 
 ?>
