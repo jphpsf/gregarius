@@ -250,7 +250,7 @@ function makeTitle ($title) {
 /*** update the given feed(s) **/
 function update($id) {
     $kses_allowed = getConfig('rss.input.allowed'); //getAllowedTags();
-    $unreadCount = 0;
+    $updatedIds = array();
 
     $sql = "select id, url, title, mode from ". getTable("channels");
     if ($id != "" && is_numeric($id)) {
@@ -273,7 +273,7 @@ function update($id) {
 	error_reporting($old_level);
 
 	if (!$rss && $id != "" && is_numeric($id)) {
-	    return array(magpie_error(),0);
+	    return array(magpie_error(),array());
 	} elseif (!$rss) {
 	    continue;
 	}
@@ -309,8 +309,9 @@ function update($id) {
 		$description = urlfilter_filter($description);
 		//$description = newwindow_filter($description);
 	    }
-
-	    // link
+     
+     
+        // link
 	    if (array_key_exists('link',$item) && $item['link'] != "") {
 		$url = $item['link'];
 	    } elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
@@ -343,9 +344,9 @@ function update($id) {
 	    }
 
 	    // check wether we already have this item
-	    $sql = "select id from " .getTable("item") . " where cid=$cid and url='$url'";
+	    $sql = "select id,description from " .getTable("item") . " where cid=$cid and url='$url'";
 	    $subres = rss_query($sql);
-	    list($indb) = rss_fetch_row($subres);
+	    list($indb,$dbdesc) = rss_fetch_row($subres);
 
 	    if ($cDate > 0) {
 		$sec = "FROM_UNIXTIME($cDate)";
@@ -354,18 +355,30 @@ function update($id) {
 	    }
 
 	    if ($indb == "") {
-
-		$sql = "insert into " . getTable("item") . " (cid, added, title, url, "
-		  ." description, unread, pubdate) "
-		  . " values ("
-		  ."$cid, now(), '"
-		  .rss_real_escape_string($title) ."', "
-		  ." '$url', '"
-		  .rss_real_escape_string($description) ."', "
-		  ."$mode, $sec)";
-
-		rss_query($sql);
-		$unreadCount++;
+    
+            $sql = "insert into " . getTable("item") . " (cid, added, title, url, "
+              ." description, unread, pubdate) "
+              . " values ("
+              ."$cid, now(), '"
+              .rss_real_escape_string($title) ."', "
+              ." '$url', '"
+              .rss_real_escape_string($description)."', "
+              ."$mode, $sec)";
+    
+            rss_query($sql);
+            $updatedIds[]= rss_insert_id();
+            
+	    } elseif (strlen($description) > strlen($dbdesc)) {
+	    
+               
+            $sql = "update " . getTable("item") . " set "
+            ." description='"
+            .rss_real_escape_string($description)."', "
+            ." unread = unread | " . FEED_MODE_UNREAD_STATE
+            ." where cid=$cid and id=$indb";
+    
+            rss_query($sql);
+	        $updatedIds[]= $indb;
 	    }
 	}
     }
@@ -374,12 +387,12 @@ function update($id) {
 		if ($rss) {
 			// when everything went well, return the error code
 			// and numer of new items
-			return array($rss -> rss_origin,$unreadCount);
+			return array($rss -> rss_origin,$updatedIds);
 		} else {
-			 return array(-1,0);
+			 return array(-1,array());
 		}
 	} else {
-		return array(-1,$unreadCount);
+		return array(-1,$updatedIds);
    }
 }
 

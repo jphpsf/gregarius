@@ -46,11 +46,7 @@ $doPush = true
 
 
 
-if (getConfig ('rss.config.markreadonupdate')) {
-    $ts = time();
-    $newItems = 0;
-}
-
+$newIds = array();
 if ($doPush) {
     
     define('PUSH_BOUNDARY',"-------- =_aaaaaaaaaa0");
@@ -100,13 +96,15 @@ if ($doPush) {
 	$ret = update($cid);
 
 	
-	if (is_Array($ret)) {
-	    $error = $ret[0];
-	    $unread = $ret[1];
+	if (is_array($ret)) {
+	   list($error,$unreadIds) = $ret;
+	   $newIds = array_merge($newIds,$unreadIds);
 	} else {
 	    $error = 0;
-	    $unread = 0;
+	    $unreadIds = array();
 	}
+	$unread = count($unreadIds);
+	
 	if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
 	    if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
 		$label = UPDATE_NOT_MODIFIED;
@@ -142,7 +140,7 @@ if ($doPush) {
 	echo "</tr>\n";
 	flush();
 	
-	$newItems += $unread;
+
     }
     
     echo "</table>\n";
@@ -156,14 +154,16 @@ if ($doPush) {
 } else {    
     $ret = update("");
     if (is_array($ret)) {
-	$newItems = $ret[1];
+        $newIds = $ret[1];
     }
 }
 
-if ($newItems > 0 && getConfig ('rss.config.markreadonupdate') && $ts > 0) {
+if (count($newIds) > 0 && getConfig ('rss.config.markreadonupdate')) {
     rss_query("update " . getTable("item") 
     ." set unread = unread & ".SET_MODE_READ_STATE
-    ." where unread = 1 and unix_timestamp(added) < $ts");
+    ." where "
+    ." id not in (" . implode(",",$newIds) .")"
+    );
 }
 
 if ($doPush) {
