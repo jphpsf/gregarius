@@ -177,7 +177,7 @@ function channels() {
 	  ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
 	  ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
 	  ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"	  
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_PRIVATE."</th>\n";
+	  ."\t<th>". ADMIN_CHANNELS_HEADING_FLAGS."</th>\n";
 	  
 	if (getConfig('rss.config.absoluteordering')) {
 	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
@@ -210,7 +210,16 @@ function channels() {
 	$parentLabel = $parent == ''? HOME_FOLDER:$parent;
 
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
-
+	
+	$fmode = array();
+	if ($mode & FEED_MODE_PRIVATE_STATE) {
+		$fmode[] = "P";
+	}
+	if ($mode & FEED_MODE_DELETED_STATE) {
+		$fmode[] = "D";
+	}
+	$slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
+	
 	echo "<tr class=\"$class_\">\n"
 	  ."\t<td>"
 	  .((getConfig('rss.output.showfavicons') && $icon != "")?
@@ -218,7 +227,7 @@ function channels() {
 		."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
 	  ."\t<td>$descr</td>\n"
-	  ."\t<td class=\"cntr\">".(($mode & FEED_MODE_PRIVATE_STATE)?"P":"&nbsp;")."</td>\n";
+	  ."\t<td class=\"cntr\">$slabel</td>\n";
 
 	if (getConfig('rss.config.absoluteordering')) {
 		echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
@@ -598,6 +607,20 @@ function channel_admin() {
 		} else { 
 			$mode = "";
 		}
+		
+		$del = (array_key_exists('c_deleted',$_REQUEST) && $_REQUEST['c_deleted'] == '1');
+		$old_del = ($_REQUEST['old_del'] == '1');
+		if ($del != $old_del) {
+			if ($mode == "") {
+				$mode = ", mode = mode ";
+			} 
+			if ($del) {
+				$mode .=  " | " . FEED_MODE_DELETED_STATE;
+			} else {
+				$mode .= " & " . SET_MODE_AVAILABLE_STATE;
+			}
+		} 
+		
 	
 		if ($url == '' || substr($url,0,4) != "http") {
 			rss_error(sprintf(ADMIN_BAD_RSS_URL,$url));
@@ -686,7 +709,10 @@ function channel_edit_form($cid) {
 	  ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n";
 
 	folder_combo('c_parent',$parent);
+	echo "</p>\n";
 	
+	
+	// Items state
 	if ($mode & FEED_MODE_PRIVATE_STATE) {
 		$pchk = " checked=\"checked\" ";
 		$old_priv = "1";
@@ -694,14 +720,32 @@ function channel_edit_form($cid) {
 		$pchk = "";
 		$old_priv = "0";
 	}
-	echo "</p><p><label for=\"c_private\">". ADMIN_CHANNEL_PRIVATE ."</label>\n"
-		."<input style=\"display:inline\" type=\"checkbox\" id=\"c_private\" name=\"c_private\" "
-		."value=\"1\"$pchk />\n";
-		
-	echo "<input type=\"hidden\" name=\"old_priv\" value=\"$old_priv\" />\n";
+	
+	if ($mode & FEED_MODE_DELETED_STATE) {
+		$dchk = " checked=\"checked\" ";
+		$old_del = "1";
+	} else {
+		$dchk = "";
+		$old_del = "0";
+	}
+	
+	
+	echo "<p>\n"
+		."<input style=\"display:inline\" type=\"checkbox\" id=\"c_private\" "
+		." name=\"c_private\" value=\"1\"$pchk />\n"
+		."<label for=\"c_private\">". ADMIN_CHANNEL_PRIVATE ."</label>\n"
+		."<input type=\"hidden\" name=\"old_priv\" value=\"$old_priv\" />\n"
+		."</p>\n";
 
-	echo "</p>\n";
-
+	
+	echo "<p>\n"
+		."<input style=\"display:inline\" type=\"checkbox\" id=\"c_deleted\" "
+		." name=\"c_deleted\" value=\"1\"$dchk />\n"
+		."<label for=\"c_deleted\">". ADMIN_CHANNEL_DELETED ."</label>\n"
+		."<input type=\"hidden\" name=\"old_del\" value=\"$old_del\" />\n"
+		."</p>\n";
+	
+	
 	// Description
 	echo "<p><label for=\"c_descr\">". ADMIN_CHANNEL_DESCR ."</label>\n"
 	  ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";

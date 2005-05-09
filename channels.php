@@ -58,6 +58,8 @@ function sideChannels($activeId) {
 		$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";
 	}
 	
+	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE .") ";
+	
 	 $sql .= " and i.cid=c.id and c.parent=f.id "
 	  ." group by 1";
 	  
@@ -111,7 +113,10 @@ function sideChannels($activeId) {
       if (hidePrivate()) {
 			$sql .= " and !(c.mode & " . FEED_MODE_PRIVATE_STATE  .") ";
 		}
-		
+
+	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+
+	
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
     } else {
@@ -252,17 +257,23 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 }
 
 function stats() {
-	 $sql = "select count(*) from " .getTable("item") ." where unread & " . FEED_MODE_UNREAD_STATE ;
+	 $sql = "select count(*) from " .getTable("item") ."i, "
+	 	. getTable('channels') . "c "
+	 ." where i.unread & " . FEED_MODE_UNREAD_STATE ;
 	 if (hidePrivate()) {
-		 $sql .= " and !(unread & " .  FEED_MODE_PRIVATE_STATE .")";
+		 $sql .= " and !(i.unread & " .  FEED_MODE_PRIVATE_STATE .")";
 	 }
+ 	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") "
+ 		."  and i.cid=c.id ";
+
     $res = rss_query( $sql );
     list($unread)= rss_fetch_row($res);
 
     $res = rss_query( "select count(*) from " . getTable("item") );
     list($total)= rss_fetch_row($res);
 
-    $res = rss_query( "select count(*) from " .getTable("channels") );
+    $res = rss_query( "select count(*) from " .getTable("channels")
+    	." where !(mode & " .FEED_MODE_DELETED_STATE .")");
     list($channelcount)= rss_fetch_row($res);
 
     printf ("\n<p class=\"stats\">" . ITEMCOUNT_PF . "</p>\n"

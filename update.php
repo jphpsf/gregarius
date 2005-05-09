@@ -83,6 +83,8 @@ if ($doPush) {
 		$sql .=" where !(mode & " . FEED_MODE_PRIVATE_STATE .") ";			
 	}
 
+	$sql .=" where !(mode & " . FEED_MODE_DELETED_STATE .") ";			
+
 	 if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by parent, position"; 
 	 } else {

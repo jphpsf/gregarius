@@ -83,7 +83,8 @@ if (
 			if (hidePrivate()) {
 				$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 			}
-			
+			$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+	 
 			$res = rss_query( $sql );
 			if ( rss_num_rows ( $res ) > 0) {
 				$cids = array();
@@ -150,7 +151,8 @@ if (
 		if ($fid) {		
 				$sql = "select c.id from ". getTable('channels')." c "
 					." where c.parent=$fid and c.parent > 0";
-					
+				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+
 				if (hidePrivate()) {
 					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 				}

@@ -5,6 +5,7 @@
   SetEnvIf Request_URI "/img/" static
   SetEnvIf Request_URI "/admin/" static
   SetEnvIf Request_URI "/extlib/" static
+  SetEnvIf Request_URI "/test/" static
   # You can add other lines here to have static content 
   # under a gregarius installation.
   

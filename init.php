@@ -31,7 +31,7 @@ function rss_require($file) {
    if (!defined('GREGARIUS_HOME')) {
 	  define('GREGARIUS_HOME',dirname(__FILE__) . "/");
 	}
-    
+ 
    $required_file = GREGARIUS_HOME.  $file;
    //echo "<pre>requiring: $required_file";
    require_once($required_file);

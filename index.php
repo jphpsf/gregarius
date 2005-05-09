@@ -101,6 +101,9 @@ function unreadItems($show_what) {
       if (hidePrivate()) {
 			$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ") ";
 		}
+		
+		$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+
       
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
@@ -164,6 +167,10 @@ function readItems() {
       ." c.id, c.title, c.icon "
       ." from " .getTable("channels") . " c, " .getTable("folders") ." f "
       ." where c.parent = f.id ";
+      
+      		
+	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+
 
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
