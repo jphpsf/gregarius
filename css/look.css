@@ -75,11 +75,13 @@ div#channels li ul li {
 
 
 /* folder icon */
-.folder {
-  /* background-image: url(media/folder.gif); 
+div#opml li.folder {
+	background-image: url(media/folder.gif); 
   background-position: 0px 0.5em;
   background-repeat: no-repeat;
-  */
+}
+div#opml .folder span {
+ padding-left: 25px;  
 }
 
 /* folder labels */

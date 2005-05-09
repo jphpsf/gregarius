@@ -28,10 +28,6 @@
 		<body>
 			<div id="opml" class="frame">
 					<h1><xsl:value-of select="/opml/head/title" /></h1>			
-						<p>
-						   You can use this document within an 
-						   <a href="http://www.google.com/search?q=RSS+News+Aggregator">RSS News Aggregator</a>.
-						</p>
 						<ul>
 						<xsl:apply-templates select="outline">
 							<xsl:sort select="@title"/>
