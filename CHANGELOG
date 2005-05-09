@@ -1,4 +1,6 @@
 Gregarius 0.4.1
+
+ 09.05.2005 Deprecated feeds
  
  07.05.2005 Look for changes in past items, and if any are found, update
  	    the item and set it back to unread
