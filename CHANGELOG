@@ -1,5 +1,8 @@
 Gregarius 0.4.1
  
+ 07.05.2005 Look for changes in past items, and if any are found, update
+ 	    the item and set it back to unread
+ 
  04.05.2005 Item state editor: toggle read/unread, private/public,
             sticky/unsticky states inline, via AJAX
  

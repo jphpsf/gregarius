@@ -141,7 +141,7 @@ div#items li {
    margin-left: 1.2em;
 }
 
-.content li p{
+.content li *{
    margin:0; padding:0;
 }
 
