@@ -5,11 +5,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:output method="html" doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" doctype-public="-//W3C//DTD XHTML 1.1//EN"/>
 	
-	<!--
-	<xsl:param name="sort-by">
-		<xsl:value-of select="@title"/>
-	</xsl:param>
-	-->
+
 	<xsl:param name="sort-type" select="'text'"/>
 	<xsl:param name="sort-order" select="'ascending'"/>
 
@@ -17,13 +13,12 @@
 		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 			<head>
 				 <title><xsl:value-of select="/opml/head/title"/></title> 
-				<link rel="stylesheet" href="css/look.css" type="text/css" />
-				<link rel="stylesheet" href="css/layout.css" type="text/css" />
+				<link rel="stylesheet" href="css/default/look.css" type="text/css" />
+				<link rel="stylesheet" href="css/default/layout.css" type="text/css" />
 			</head>
 			<xsl:apply-templates/>
 		</html>
 	</xsl:template>
-	
 	<xsl:template match="opml/body">
 		<body>
 			<div id="opml" class="frame">

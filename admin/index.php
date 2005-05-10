@@ -1204,7 +1204,30 @@ function config_admin() {
 		  ."<p>\n";
 	
 		switch($key) {
-	
+
+         case 'rss.output.theme':
+            $d = dir('../css');
+            $themes = array();
+            while (false !== ($entry = $d->read())) {
+               if (
+                is_dir('../css/'.$entry) &&
+                $entry != "CVS" &&
+                substr($entry,0,1) != "."
+               ) {
+                    $themes[] = $entry;
+               }
+            }
+            $d->close();
+            echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." for $key:</label>\n";
+            echo "\n<select name=\"value\" id=\"c_value\">\n";
+            foreach ($themes as $theme) {
+                 echo "\t<option value=\"$theme\""
+                   .($value == $theme ? " selected=\"selected\"":"")
+       		       .">$theme</option>\n";
+            }
+        	echo "</select>\n";
+         break;
+         
 		 case 'rss.input.allowed':
 	
 			$arr = unserialize($value);

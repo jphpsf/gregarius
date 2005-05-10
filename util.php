@@ -72,8 +72,8 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
 	echo "\t<meta name=\"robots\" content=\"$meta\" />\n";
     }
 
-    echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/layout.css\" />\n"
-      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/look.css\" />\n"
+    echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getThemePath() ."layout.css\" />\n"
+      ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getThemePath() ."look.css\" />\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\" />\n";
 
     if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (40*MINUTE)) {
@@ -412,7 +412,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
 			 $cicon = $items[0][2];
 		} elseif (($options & IL_FOLDER_VIEW) && getConfig('rss.output.showfavicons')) {
-			 $cicon = getPath() . "css/media/folder.gif";		
+			 $cicon = getThemePath() . "media/folder.gif";
 		}
 		
 		echo "\n\n<h2$anchor>"
@@ -514,13 +514,13 @@ function itemsList($title,$items, $options = IL_NONE){
 				 if ($collapsed) {
 				$title = EXPAND . " '$ctitle'";
 				echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">\n"
-				  ."\t<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
+				  ."\t<img src=\"". getThemePath()."media/plus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;+&nbsp;"
 				  ."</a>\n";
 				 } else {
 				$title = COLLAPSE . " '$ctitle'";
 				echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">\n"
-				  ."\t<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
+				  ."\t<img src=\"". getThemePath()."media/minus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;-&nbsp;"
 				  ."</a>\n";
 				 }
@@ -589,14 +589,14 @@ function itemsList($title,$items, $options = IL_NONE){
 			} else {
 				 echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
 			}
-			echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\" />\n"
+			echo "\n\t\t\t<img src=\"".getThemePath() . "media/pl.gif\" alt=\"$ptitle\" />\n"
 			  ."\t\t</a>\n";
 			 }
 
             
            if (! hidePrivate()) {
             echo "\t\t<a id=\"sa$iid\" href=\"#\" onclick=\"_es(".$iid.",".$iunread."); return false;\">\n"
-            ."\t\t\t<img src=\"".getPath() . "css/media/edit.gif\" alt=\"".ADMIN_EDIT."\" />\n"
+            ."\t\t\t<img src=\"".getThemePath(). "media/edit.gif\" alt=\"".ADMIN_EDIT."\" />\n"
             ."\t\t</a>\n";
            }
            
@@ -1033,6 +1033,16 @@ function hidePrivate() {
 	}
 	
 	return $ret;
+}
+
+function getThemePath() {
+    $ret = getPath() . "css/";
+    if (($theme = getConfig('rss.output.theme'))!=null) {
+        $ret .= $theme . "/";
+    } else {
+        $ret .= "default/";
+    }
+    return $ret;
 }
 
 ?>
