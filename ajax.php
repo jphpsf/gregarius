@@ -120,7 +120,7 @@ if (array_key_exists('js',$_GET)) {
     $js = sajax_get_javascript();
     
     // The javascript output shall be cached
-    $etag = md5($js ."$Id:");
+    $etag = md5($js.'$Revision$');
     if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && $_SERVER['HTTP_IF_NONE_MATCH'] == $etag) {
 		  header("HTTP/1.1 304 Not Modified");
 		  flush();
