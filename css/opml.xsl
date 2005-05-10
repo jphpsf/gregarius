@@ -16,7 +16,7 @@
 				<link rel="stylesheet" href="css/default/look.css" type="text/css" />
 				<link rel="stylesheet" href="css/default/layout.css" type="text/css" />
 			</head>
-			<xsl:apply-templates/>
+            <xsl:apply-templates select="opml/body" />
 		</html>
 	</xsl:template>
 	<xsl:template match="opml/body">
