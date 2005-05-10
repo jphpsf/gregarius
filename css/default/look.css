@@ -105,6 +105,7 @@ div.frame {
 }
 
 div#nav {
+   background-image: url(../media/arrows.gif); 
    background-color: #fff;
    background-position: top right;
    background-repeat: no-repeat; 
