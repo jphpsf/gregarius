@@ -2,7 +2,7 @@ body {
   text-align: left;
   color:  #335;
   background-color: #eee; 
-  background-image: url(media/bg.gif);
+  background-image: url(../media/bg.gif);
 }
 
 a { text-decoration: none; }
@@ -76,7 +76,7 @@ div#channels li ul li {
 
 /* folder icon */
 div#opml li.folder {
-	background-image: url(media/folder.gif); 
+	background-image: url(../media/folder.gif); 
   background-position: 0px 0.5em;
   background-repeat: no-repeat;
 }
@@ -106,7 +106,6 @@ div.frame {
 
 div#nav {
    background-color: #fff;
-   background-image: url(media/arrows.gif); 
    background-position: top right;
    background-repeat: no-repeat; 
 }

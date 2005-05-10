@@ -144,7 +144,7 @@ function sideChannels($activeId) {
 	    $ucLabel = "";
 	    if (getConfig('rss.output.channelcollapse')) {
 		if ($iscollapsed) {
-		    $flabel = "<a href=\"".getPath()."index.php?".EXPAND_ACTION."=$cparent\"><img src=\"".getThemePath()."media/folder.gif\" alt=\"$fname\" /></a>";
+		    $flabel = "<a href=\"".getPath()."index.php?".EXPAND_ACTION."=$cparent\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
 
 		    if (array_key_exists($cparent,$collapsed_folders)) {
 			 $ucLabel .= " " . sprintf(UNREAD_PF,$collapsed_folders[$cparent]);
@@ -152,10 +152,10 @@ function sideChannels($activeId) {
 		    
 
 		} else {
-		    $flabel = "<a href=\"".getPath()."index.php?".COLLAPSE_ACTION."=$cparent\"><img src=\"".getThemePath()."media/folder.gif\" alt=\"$fname\" /></a>";
+		    $flabel = "<a href=\"".getPath()."index.php?".COLLAPSE_ACTION."=$cparent\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
 		}
 	    } else {
-		$flabel = "<img src=\"".getThemePath()."media/folder.gif\" alt=\"$fname\" />";
+		$flabel = "<img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" />";
 	    }
 
 	    if ( getConfig('rss.output.usemodrewrite')) {

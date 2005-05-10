@@ -1212,6 +1212,7 @@ function config_admin() {
                if (
                 is_dir('../css/'.$entry) &&
                 $entry != "CVS" &&
+                $entry != "media" &&
                 substr($entry,0,1) != "."
                ) {
                     $themes[] = $entry;

@@ -99,7 +99,7 @@ INSERT INTO `config` (`key_`,`value_`,`default_`,`type_`,`desc_`,`export_`) VALU
 insert into config (key_,value_,default_,type_,desc_,export_) values ('rss.output.showfeedmeta','false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.input.tags.delicious",'false','false','boolean','Look up tag suggestions on del.icio.us when editing tags.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.noreaditems",'false','false','boolean','Show unread items only on the frontpage',NULL);
-insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.theme",'default','default','string','The CSS theme to use. Themes are subdirectories of css/ which should contain at least the following elements:<ul><li>layout.css</li><li>look.css</li><li>media (subdirectory)</li><ul>',NULL);
+insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.theme",'default','default','string','The CSS theme to use. Themes are subdirectories of css/ which should contain at least the following elements:<ul><li>layout.css</li><li>look.css</li><ul>',NULL);
 
 CREATE TABLE tag (
  id bigint(16) NOT NULL auto_increment,
