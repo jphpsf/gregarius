@@ -77,14 +77,18 @@ if ($doPush) {
 		."<th class=\"mc\">".UPDATE_STATUS."</th>\n"
 		."<th class=\"rc\">".UPDATE_UNDREAD."</th>\n"
 		."</tr>";
-	 
+
+    // mbi/11.05.2005, patch by Alexandre ROSSI  <niol@sousmonlit.dyndns.org>
+    // fixes nasty double-where sql bug.
+
 	$sql = "select id, url, title from " .getTable("channels");
-	 
+    	$sql .=" where !(mode & " . FEED_MODE_DELETED_STATE .") ";
+    
 	if (hidePrivate()) {
-		$sql .=" where !(mode & " . FEED_MODE_PRIVATE_STATE .") ";			
+		$sql .=" and !(mode & " . FEED_MODE_PRIVATE_STATE .") ";			
 	}
 
-	$sql .=" where !(mode & " . FEED_MODE_DELETED_STATE .") ";			
+
 
 	 if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by parent, position"; 
