@@ -264,6 +264,12 @@ function setState(id,state) {
     x___exp__setState(id,state,setState_cb);
 }
 
+function setItemClass(id,cls) {
+    if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
+        li.className=cls;
+    }
+}
+
 function setState_cb(ret) {
     data=ret.replace(/[^0-9\|]/gi,"").split('|');
     id=data[0];
@@ -339,7 +345,14 @@ function _ses(id) {
     
 
     
-    if (document.prevState[id] != s) {
+    if ((p=document.prevState[id]) != s) {
+        if ((s & <?= FEED_MODE_UNREAD_STATE ?>) != (p & <?= FEED_MODE_UNREAD_STATE ?>)) {
+            if (s & <?= FEED_MODE_UNREAD_STATE ?>) {
+                setItemClass(id,'item unread');
+            } else {
+                setItemClass(id,'item even');
+            }
+        }
         if (btn=document.getElementById('ess'+id+'ok')) {
             btn.innerHTML = '...';
             btn.disabled = true;
