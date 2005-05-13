@@ -39,23 +39,22 @@
  * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
  * with a nicer <a href="http://www.test.com/a/b/c.html">[test.com]</a>
  */
-function urlfilter_filter($in) {
-
+function __urlfilter_filter($in) {
     $match = '|<a href="(.*)">\\1</a>|i';
-    return preg_replace_callback($match, 'filter_callback', $in);
+    return preg_replace_callback($match, '__filter_callback', $in);
 }
 
 /**
  * We need a callback because for some obscure reason the /ie modifier wouldnt work 
  * in preg_replace alone. This basically formats the output
  */
-function filter_callback($matches) {
+function __filter_callback($matches) {
     $ret = preg_match("/^(http:\/\/)?(w*\.)?([^\/]+)/i", $matches[1], $outmatches);
     return "<a href=\"". $matches[1]."\">[" . $outmatches[3] . "]</a>";
 } 
 
 
-rss_set_hook('rss.plugins.import.description','urlfilter_filter');
+rss_set_hook('rss.plugins.import.description','__urlfilter_filter');
 
 
 ?>
