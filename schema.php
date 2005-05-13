@@ -209,43 +209,55 @@ _SQL_
 		return 0;
 	}
 
-	// defaults for config	
-	$sql_default = str_replace('__config__',$cfg_table, <<< _SQL_
-  		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.cachedir","/tmp/magpierss","/tmp/magpierss","string","Where should magpie store its temporary files? (Apache needs write permissions on this dir.)","MAGPIE_CACHE_DIR");;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.encoding","UTF-8","UTF-8","string","Output encoding for the PHP XML parser.","MAGPIE_OUTPUT_ENCODING");;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.itemsinchannelview","10","10","num","Number of read items shown on for a single channel",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.showfavicons","true","true","boolean","Display the favicon for the channels that have one. Due to a IE bug, some icons do not render correctly on in the admin screen, or turn the favicon displaying offthis browser. You can either change the URL to the icon in the admin screen, or turn the favicon displaying off globally here.",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.usemodrewrite","true","true","boolean","Make use of apache\'s mod_rewrite module to return sexy urls. Turn this off if your host doesn\'t allow you to change this apache setting",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.dateformat","F jS, Y, g:ia T","F jS, Y, g:ia T","string","Format to use when displaying dates. See here for help on the format: http://ch.php.net/manual/en/function.date.php Note that direct access to a given feed\'s month and day archives more or less depends on the fact that this date format contains the  \"F\" (Month) and \"jS\" (day) elements in this form. So feel free to change the order of the elements, but better leave those two tokens in :)",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.showdevloglink","false","false","boolean","Show a link to the gregarius devlog. This is mainly useful on the actual live gregarius site (http://gregarius.net/).You can safely set this to \'false\' if you don\'t want to display a link back.",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.meta.debug","false","false","boolean"," When in debug mode some extra debug info is shown and the error reporting is a bit more verbose  ",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.compression","true","true","boolean","This variable turns output compression on and off. Output compression is handled by most browsers.",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.channelcollapse","true","true","boolean","Allow collpasing of channels on the main page. ",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.usepermalinks","true","true","boolean","Display a permalink icon and allow linking a given item directly",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.markreadonupdate","true","true","boolean","Mark all old unread feeds as read when updating, if new unread feeds are found ",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.output.lang","en,fr,0","en,fr,0","enum","Language pack to use. (As of today \'en\' and \'fr\' ar available)",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.absoluteordering","true","true","boolean","Allow ordering of channels in the admin. (Uses channel title instead)",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.robotsmeta","index,follow","index,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info)",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.serverpush","true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browser (Netscape, Mozilla, FireFox,...) and Opera. These brwosers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.config.refreshafter","45","45","num","If this option is set the feeds will be refreshed after x minutes of inactivity. Please respect the feed providers by not setting this value to anything lower than thirty minutes. Set this variable to 0 turn this option off",NULL);;
-		INSERT INTO __config__ (key_,value_,default_,type_,desc_,export_) VALUES ("rss.input.allowed",'a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}','a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}',"array","This variable controls input filtering. HTML tags and their attributes, which are not in this list, get filtered out when new RSS items are imported",NULL);;
-		insert into __config__ (key_,value_,default_,type_,desc_,export_) values ("rss.output.showfeedmeta",'false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column',NULL);;
-		insert into __config__ (key_,value_,default_,type_,desc_,export_) values ("rss.input.tags.delicious",'false','false','boolean','Look up tag suggestions on del.icio.us when editing tags.',NULL);;
-        insert into __config__ (key_,value_,default_,type_,desc_,export_) values ("rss.output.noreaditems",'false','false','boolean','Show unread items only on the frontpage',NULL);
-        insert into __config__ (key_,value_,default_,type_,desc_,export_) values ("rss.output.theme",'default','default','string','The CSS theme to use. Themes are subdirectories of css/ which should contain at least the following elements:<ul><li>layout.css</li><li>look.css</li><ul>',NULL);
-_SQL_
-);
+	
+	return (setDefaults(null)?1:0);
+}
 
-	foreach(explode(';;',$sql_default) as $tok) {
-		if ($tok) {
-			rss_query("$tok", false, true);
+
+function setDefaults($key) {
+  	rss_error('inserting some default config values...');
+
+	$defaults = array (
+		"rss.output.cachedir"		=>		array("/tmp/magpierss","/tmp/magpierss","string","Where should magpie store its temporary files? (Apache needs write permissions on this dir.)","MAGPIE_CACHE_DIR"),
+		"rss.output.encoding"		=>		array("UTF-8","UTF-8","string","Output encoding for the PHP XML parser.","MAGPIE_OUTPUT_ENCODING"),
+		"rss.output.itemsinchannelview"=>array("10","10","num","Number of read items shown on for a single channel",NULL),
+		"rss.output.showfavicons"	=>		array("true","true","boolean","Display the favicon for the channels that have one. Due to a IE bug, some icons do not render correctly on in the admin screen, or turn the favicon displaying offthis browser. You can either change the URL to the icon in the admin screen, or turn the favicon displaying off globally here.",NULL),
+		"rss.output.usemodrewrite"	=>		array("true","true","boolean","Make use of apache\'s mod_rewrite module to return sexy urls. Turn this off if your host doesn\'t allow you to change this apache setting",NULL),
+		"rss.config.dateformat"		=>		array("F jS, Y, g:ia T","F jS, Y, g:ia T","string","Format to use when displaying dates. See here for help on the format: http://ch.php.net/manual/en/function.date.php Note that direct access to a given feed\'s month and day archives more or less depends on the fact that this date format contains the  \"F\" (Month) and \"jS\" (day) elements in this form. So feel free to change the order of the elements, but better leave those two tokens in :)",NULL),
+		"rss.config.showdevloglink"=>		array("false","false","boolean","Show a link to the gregarius devlog. This is mainly useful on the actual live gregarius site (http://gregarius.net/).You can safely set this to \'false\' if you don\'t want to display a link back.",NULL),
+		"rss.meta.debug"				=>		array("false","false","boolean"," When in debug mode some extra debug info is shown and the error reporting is a bit more verbose  ",NULL),
+		"rss.output.compression"	=>		array("true","true","boolean","This variable turns output compression on and off. Output compression is handled by most browsers.",NULL),
+		"rss.output.channelcollapse"=>	array("true","true","boolean","Allow collpasing of channels on the main page. ",NULL),
+		"rss.output.usepermalinks"	=>		array("true","true","boolean","Display a permalink icon and allow linking a given item directly",NULL),
+		"rss.config.markreadonupdate"=>	array("true","true","boolean","Mark all old unread feeds as read when updating, if new unread feeds are found ",NULL),
+		"rss.output.lang"				=>		array("en,fr,0","en,fr,0","enum","Language pack to use. (As of today \'en\' and \'fr\' ar available)",NULL),
+		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow ordering of channels in the admin. (Uses channel title instead)",NULL),
+		"rss.config.robotsmeta"		=>		array("index,follow","index,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info)",NULL),
+		"rss.config.serverpush"		=>		array("true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browser (Netscape, Mozilla, FireFox,...) and Opera. These brwosers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL),
+		"rss.config.refreshafter"	=>		array("45","45","num","If this option is set the feeds will be refreshed after x minutes of inactivity. Please respect the feed providers by not setting this value to anything lower than thirty minutes. Set this variable to 0 turn this option off",NULL),
+		"rss.input.allowed"			=>		array('a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}','a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}',"array","This variable controls input filtering. HTML tags and their attributes, which are not in this list, get filtered out when new RSS items are imported",NULL),
+		"rss.output.showfeedmeta"	=>		array('false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column',NULL),
+		"rss.input.tags.delicious"	=>		array('false','false','boolean','Look up tag suggestions on del.icio.us when editing tags.',NULL),
+		"rss.output.noreaditems"	=>		array('false','false','boolean','Show unread items only on the frontpage',NULL),
+		"rss.output.theme"			=>		array('default','default','string','The CSS theme to use. Themes are subdirectories of css/ which should contain at least the following elements:<ul><li>layout.css</li><li>look.css</li><ul>',NULL),
+		"rss.output.cachecontrol"	=>		array('false','false','boolean','If true Gregarius will negotiate with the browser and check whether it should get a fresh document or not',NULL),
+		"rss.config.plugins"			=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL)
+	);
+	
+	
+	// just send in all config entry again, ignore duplicate row errors
+	$atLeastOneIn = false;
+	foreach($defaults as $k=>$vs) {
+		list($v,$d,$t,$ds,$e) = $vs;
+		rss_query('insert into '. getTable('config') 
+			. "(key_,value_,default_,type_,desc_,export_) VALUES ("
+			. "'$k','$v','$d','$t','$ds'," .($e?"'$e'":"null") .")",false,true);
+		if (rss_sql_error() == 0) {
+			$atLeastOneIn = true;
 		}
-		if (rss_sql_error() > 0) {
-			rss_error('The '  .getTable('config') .  'table was created successfully, but I couldn\'t insert the default values. Please do so manually!');
-			return 0;
-		}
+		
 	}
-	return 1;
+	return $atLeastOneIn;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

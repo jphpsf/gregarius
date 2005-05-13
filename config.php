@@ -30,8 +30,8 @@
 
 rss_require('util.php');
 
-function getConfig($key) {
-    static $config;
+function getConfig($key,$allowRecursion = true) {
+   static $config;
 	if ($config == null) {
 		$cfgQry = "select key_,value_,default_,type_,desc_,export_ "
 		  ." from " .getTable("config");
@@ -41,28 +41,7 @@ function getConfig($key) {
 		$config = array();
 		while (list($key_,$value_,$default_,$type_,$description_,$export_) = rss_fetch_row($res)) {
 			$value_ = real_strip_slashes($value_);
-			switch ($type_) {
-				case 'boolean':
-					$real_value = ($value_ == 'true');
-					break;
-				
-				 case 'array':
-					$real_value=unserialize($value_);
-					break;
-				
-				 case 'enum':
-					$tmp = explode(',',$value_);
-					$idx = array_pop($tmp);
-					$real_value = $tmp[$idx];		
-					break;
-				
-				 case 'num':
-				 case 'string':
-				 default:
-					$real_value = $value_;
-					break;		
-			}
-			
+			$real_value = configRealValue($value_,$type_);
 			$config[$key_] =
 			  array(
 				'value' => $real_value,
@@ -71,15 +50,46 @@ function getConfig($key) {
 				'description' => $description_
 				);
 			if ($export_ != '') {
-			define ($export_,(string)$real_value);
+				define ($export_,(string)$real_value);
 			}
 		}
 	}
     
     if (array_key_exists($key,$config)) {
-		return $config[$key]['value'];
+    	return $config[$key]['value'];
+    } elseif($allowRecursion) {
+    	rss_require('schema.php');
+    	$config = null;
+		setDefaults($key);
+		return getConfig($key,false);
     }
     
     return null;
+}
+
+function configRealValue($value_,$type_) {
+	$real_value = null;
+	switch ($type_) {
+		case 'boolean':
+			$real_value = ($value_ == 'true');
+			break;
+		
+		 case 'array':
+			$real_value=unserialize($value_);
+			break;
+		
+		 case 'enum':
+			$tmp = explode(',',$value_);
+			$idx = array_pop($tmp);
+			$real_value = $tmp[$idx];		
+			break;
+		
+		 case 'num':
+		 case 'string':
+		 default:
+			$real_value = $value_;
+			break;		
+	}
+	return $real_value;
 }
 ?>

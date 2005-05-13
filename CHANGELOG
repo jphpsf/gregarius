@@ -1,5 +1,11 @@
 Gregarius 0.4.1
 
+ 13.05.2005 Plugin engine
+ 
+ 13.05.2005 Config values auto-update
+ 
+ 10.05.2005 Theme switcher (config)
+
  09.05.2005 Deprecated feeds
  
  07.05.2005 Look for changes in past items, and if any are found, update
