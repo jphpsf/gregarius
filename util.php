@@ -75,7 +75,9 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
     echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getThemePath() ."layout.css\" />\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getThemePath() ."look.css\" />\n"
       ."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"". getPath() ."css/print.css\" media=\"print\" />\n";
-
+	 
+	 rss_plugin_hook('rss.plugins.stylesheets',null);
+	 
     if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (40*MINUTE)) {
 
 	$redirect = "http://"
@@ -107,6 +109,9 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
     }
 
     echo "\t<script type=\"text/javascript\" src=\"".getPath()."ajax.php?js\"></script>\n";
+	 
+	 rss_plugin_hook('rss.plugins.javascript',null);
+	 
     echo "</head>\n"
       ."<body";
     if ($onLoadAction != "" ) {
@@ -158,7 +163,7 @@ function rss_footer() {
 			 ."// -->\n"
 			 ."</script>\n";
 	 }
-	 
+	 rss_plugin_hook('rss.plugins.bodyend',null);
     echo "</body>\n"
       ."</html>\n";
 }
@@ -187,8 +192,9 @@ function nav($title, $active=0) {
       . "\t<li".($active == LOCATION_ADMIN	?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."admin/\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
 
     if (getConfig('rss.config.showdevloglink')) {
-	echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">". NAV_DEVLOG ."</a></li>\n";
+		  echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">". NAV_DEVLOG ."</a></li>\n";
     }
+	 rss_plugin_hook('rss.plugins.navelements',null);
     echo "</ul>\n</div>\n";
 
     echo "<div id=\"ctnr\">\n";
@@ -196,8 +202,8 @@ function nav($title, $active=0) {
 
 function rss_error($message, $returnonly=false) {
     if (!$returnonly) {
-	echo "\n<p class=\"error\">$message</p>\n";
-	return;
+		  echo "\n<p class=\"error\">$message</p>\n";
+		  return;
     }
     return $message;
 }
@@ -275,146 +281,149 @@ function update($id) {
 
     $sql = "select id, url, title, mode from ". getTable("channels");
     if ($id != "" && is_numeric($id)) {
-	$sql .= " where id=$id";
+		  $sql .= " where id=$id";
     }
 
     if (getConfig('rss.config.absoluteordering')) {
-	$sql .= " order by parent, position";
+		  $sql .= " order by parent, position";
     } else {
-	$sql .= " order by parent, title";
+		  $sql .= " order by parent, title";
     }
 
     $res = rss_query($sql);
     while (list($cid, $url, $title, $mode) = rss_fetch_row($res)) {
+		  
+		  // suppress warnings because Magpie is rather noisy
+		  $old_level = error_reporting(E_ERROR);
+		  $rss = fetch_rss( $url );
 
-	// suppress warnings because Magpie is rather noisy
-	$old_level = error_reporting(E_ERROR);
-	$rss = fetch_rss( $url );
-	//reset
-	error_reporting($old_level);
+		  //reset
+		  error_reporting($old_level);
+		  
+		  if (!$rss && $id != "" && is_numeric($id)) {
+				return array(magpie_error(),array());
+		  } elseif (!$rss) {
+				continue;
+		  }
+		  
+		  // base URL for items in this feed.
+		  if (array_key_exists('link', $rss->channel)) {
+				$baseUrl = $rss->channel['link'];
+		  }
+		  
 
-	if (!$rss && $id != "" && is_numeric($id)) {
-	    return array(magpie_error(),array());
-	} elseif (!$rss) {
-	    continue;
-	}
-
-	// base URL for items in this feed.
-	if (array_key_exists('link', $rss->channel)) {
-	    $baseUrl = $rss->channel['link'];
-	}
-
-	foreach ($rss->items as $item) {
-
-	    // item title: strip out html tags, shouldn't supposed
-	    // to have any, should it?
-	    //$title = strip_tags($item['title']);
-	    $title = array_key_exists('title',$item)?strip_tags($item['title']):"";
-
-	    // item content, if any
-	    if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
-		$description = kses($item['content']['encoded'], $kses_allowed);
-	    } elseif (array_key_exists ('description', $item)) {
-		$description = kses($item['description'], $kses_allowed);
-	    } else {
-		$description = "";
-	    }
-
-	    if ($description != "" && $baseUrl != "") {
-		$description = make_abs($description, $baseUrl);
-	    }
-
-	    if ($description != "") {
-		require_once ('plugins/urlfilter.php');
-		//require_once ('plugins/newwindow.php');
-		$description = urlfilter_filter($description);
-		//$description = newwindow_filter($description);
-	    }
-     
-     
-        // link
-	    if (array_key_exists('link',$item) && $item['link'] != "") {
-		$url = $item['link'];
-	    } elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
-		$url = $item['guid'];
-	    } else {
-		// fall back to something basic
-		$url = md5($title);
-	    }
-
-	    // make sure the url is properly escaped
-	    $url = htmlentities(str_replace("'","\\'",$url));
-
-	    // pubdate
-	    $cDate = -1;
-	    if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
-		// RSS 1.0
-		$cDate =  parse_w3cdtf($item['dc']['date']);
-	    } elseif (array_key_exists('pubdate',$item)) {
-		// RSS 2.0 (?)
-		$cDate = strtotime ($item['pubdate']);
-	    } elseif (array_key_exists('created',$item)) {
-		// atom
-		$cDate = parse_iso8601 ($item['created']);
-	    }
-
-	    // drop items with an url exceeding our column length: we couldn't provide a
-	    // valid link back anyway.
-	    if (strlen($url) >= 255) {
-		continue;
-	    }
-
-	    // check wether we already have this item
-	    $sql = "select id,description from " .getTable("item") . " where cid=$cid and url='$url'";
-	    $subres = rss_query($sql);
-	    list($indb,$dbdesc) = rss_fetch_row($subres);
-
-	    if ($cDate > 0) {
-		$sec = "FROM_UNIXTIME($cDate)";
-	    } else {
-		$sec = "null";
-	    }
-
-	    if ($indb == "") {
-    
-            $sql = "insert into " . getTable("item") . " (cid, added, title, url, "
-              ." description, unread, pubdate) "
-              . " values ("
-              ."$cid, now(), '"
-              .rss_real_escape_string($title) ."', "
-              ." '$url', '"
-              .rss_real_escape_string($description)."', "
-              ."$mode, $sec)";
-    
-            rss_query($sql);
-            $updatedIds[]= rss_insert_id();
-            
-	    } elseif (strlen($description) > strlen($dbdesc)) {
-	    
-               
-            $sql = "update " . getTable("item") . " set "
-            ." description='"
-            .rss_real_escape_string($description)."', "
-            ." unread = unread | " . FEED_MODE_UNREAD_STATE
-            ." where cid=$cid and id=$indb";
-    
-            rss_query($sql);
-	        $updatedIds[]= $indb;
-	    }
-	}
+		  
+		  foreach ($rss->items as $item) {
+				
+				$item = rss_plugin_hook('rss.plugins.rssitem', $item);
+				// item title: strip out html tags, shouldn't supposed
+				// to have any, should it?
+				//$title = strip_tags($item['title']);
+				$title = array_key_exists('title',$item)?strip_tags($item['title']):"";
+				
+				// item content, if any
+				if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
+					 $description = kses($item['content']['encoded'], $kses_allowed);
+				} elseif (array_key_exists ('description', $item)) {
+					 $description = kses($item['description'], $kses_allowed);
+				} else {
+					 $description = "";
+				}
+				
+				if ($description != "" && $baseUrl != "") {
+					 $description = make_abs($description, $baseUrl);
+				}
+				
+				if ($description != "") {
+					 //require_once ('plugins/urlfilter.php');
+					 //$description = urlfilter_filter($description);
+					 $description = rss_plugin_hook('rss.plugins.import.description',$description);
+				}
+				
+				
+				// link
+				if (array_key_exists('link',$item) && $item['link'] != "") {
+					 $url = $item['link'];
+				} elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
+					 $url = $item['guid'];
+				} else {
+					 // fall back to something basic
+					 $url = md5($title);
+				}
+				
+				// make sure the url is properly escaped
+				$url = htmlentities(str_replace("'","\\'",$url));
+				
+				// pubdate
+				$cDate = -1;
+				if (array_key_exists('dc',$item) && array_key_exists('date',$item['dc'])) {
+					 // RSS 1.0
+					 $cDate =  parse_w3cdtf($item['dc']['date']);
+				} elseif (array_key_exists('pubdate',$item)) {
+					 // RSS 2.0 (?)
+					 $cDate = strtotime ($item['pubdate']);
+				} elseif (array_key_exists('created',$item)) {
+					 // atom
+					 $cDate = parse_iso8601 ($item['created']);
+				}
+				
+				// drop items with an url exceeding our column length: we couldn't provide a
+				// valid link back anyway.
+				if (strlen($url) >= 255) {
+					 continue;
+				}
+				
+				// check wether we already have this item
+				$sql = "select id,description from " .getTable("item") . " where cid=$cid and url='$url'";
+				$subres = rss_query($sql);
+				list($indb,$dbdesc) = rss_fetch_row($subres);
+				
+				if ($cDate > 0) {
+					 $sec = "FROM_UNIXTIME($cDate)";
+				} else {
+					 $sec = "null";
+				}
+				
+				if ($indb == "") {
+					 
+					 $sql = "insert into " . getTable("item") . " (cid, added, title, url, "
+						." description, unread, pubdate) "
+						. " values ("
+						."$cid, now(), '"
+						.rss_real_escape_string($title) ."', "
+						." '$url', '"
+						.rss_real_escape_string($description)."', "
+						."$mode, $sec)";
+					 
+					 rss_query($sql);
+					 $updatedIds[]= rss_insert_id();
+					 
+				} elseif (strlen($description) > strlen($dbdesc)) {
+					 
+					 
+					 $sql = "update " . getTable("item") . " set "
+						." description='"
+						.rss_real_escape_string($description)."', "
+						." unread = unread | " . FEED_MODE_UNREAD_STATE
+						." where cid=$cid and id=$indb";
+					 
+					 rss_query($sql);
+					 $updatedIds[]= $indb;
+				}
+		  }
     }
-
-	if ($id != "" && is_numeric($id)) {
-		if ($rss) {
-			// when everything went well, return the error code
-			// and numer of new items
-			return array($rss -> rss_origin,$updatedIds);
-		} else {
-			 return array(-1,array());
-		}
-	} else {
-		return array(-1,$updatedIds);
-   }
+	 
+	 if ($id != "" && is_numeric($id)) {
+		  if ($rss) {
+				// when everything went well, return the error code
+				// and numer of new items
+				return array($rss -> rss_origin,$updatedIds);
+		  } else {
+				return array(-1,array());
+		  }
+	 } else {
+		  return array(-1,$updatedIds);
+	 }
 }
 
 /**

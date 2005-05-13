@@ -29,11 +29,18 @@
 ###############################################################################
 
 
+
+/// Name: Url filter
+/// Author: Marco Bonetti
+/// Description: This plugin will try to make ugly URL links look better
+/// Version: 1.0
+
 /**
  * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
  * with a nicer <a href="http://www.test.com/a/b/c.html">[test.com]</a>
  */
 function urlfilter_filter($in) {
+
     $match = '|<a href="(.*)">\\1</a>|i';
     return preg_replace_callback($match, 'filter_callback', $in);
 }
@@ -46,5 +53,9 @@ function filter_callback($matches) {
     $ret = preg_match("/^(http:\/\/)?(w*\.)?([^\/]+)/i", $matches[1], $outmatches);
     return "<a href=\"". $matches[1]."\">[" . $outmatches[3] . "]</a>";
 } 
+
+
+rss_set_hook('rss.plugins.import.description','urlfilter_filter');
+
 
 ?>
