@@ -29,31 +29,33 @@
 ###############################################################################
 
 require_once('init.php');
-$__rss_hooks = array();
 
-function loadActivePlugins() {
-	 foreach(getConfig('rss.config.plugins') as $pf) {
-		  if (file_exists('plugins/'.$pf)) {
-				require_once("plugins/$pf");
-		  }
-	 }	 	 
+
+function & getHooksArray() {
+	static $__rss_hooks;
+	if ($__rss_hooks == null) {
+		$__rss_hooks = array();
+	}
+	return ($__rss_hooks);
 }
 
 
+
+
 function rss_set_hook($hook,$fnct) {
-	 global $__rss_hooks;
-	 if (array_key_exists($hook, $__rss_hooks)) {
-		  $__rss_hooks[$hook][] = $fnct;
+	 $hooks =& getHooksArray();
+	 if (array_key_exists($hook, $hooks)) {
+		  $hooks[$hook][] = $fnct;
 	 } else {
-		  $__rss_hooks[$hook]=array($fnct);
+		  $hooks[$hook]=array($fnct);
 	 }
 }
 
 
 function rss_plugin_hook($hook, $data) {
-	 global $__rss_hooks;
-	 if (array_key_exists($hook, $__rss_hooks)) {
-		  foreach($__rss_hooks[$hook] as $fnct) {
+	$hooks =& getHooksArray();
+	if (array_key_exists($hook, $hooks)) {
+		  foreach($hooks[$hook] as $fnct) {
 				if (function_exists($fnct)) {
 					 $data = call_user_func($fnct,$data);
 				}
@@ -61,5 +63,14 @@ function rss_plugin_hook($hook, $data) {
 	 }
 	 return $data;
 }
-loadActivePlugins();
+
+
+foreach(getConfig('rss.config.plugins') as $pf) {
+  if (file_exists('plugins/'.$pf)) {
+		require_once("plugins/$pf");
+  }
+}	 	 
+
+
+
 ?>
