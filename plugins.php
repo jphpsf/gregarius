@@ -30,8 +30,12 @@
 
 require_once('init.php');
 
-
-function & getHooksArray() {
+/**
+ * (private) 
+ * Returns a reference to the hooks array, which holds
+ * references of installed plugin's callback functions
+ */
+function & __getHooksArray() {
 	static $__rss_hooks;
 	if ($__rss_hooks == null) {
 		$__rss_hooks = array();
@@ -39,11 +43,12 @@ function & getHooksArray() {
 	return ($__rss_hooks);
 }
 
-
-
-
+/**
+ * Allows a plugin to register itself for the 
+ * given hook
+ */
 function rss_set_hook($hook,$fnct) {
-	 $hooks =& getHooksArray();
+	 $hooks =& __getHooksArray();
 	 if (array_key_exists($hook, $hooks)) {
 		  $hooks[$hook][] = $fnct;
 	 } else {
@@ -51,9 +56,12 @@ function rss_set_hook($hook,$fnct) {
 	 }
 }
 
-
+/**
+ * Performs callbacks for the given hook,
+ * based on the plugins registered functions
+ */
 function rss_plugin_hook($hook, $data) {
-	$hooks =& getHooksArray();
+	$hooks =& __getHooksArray();
 	if (array_key_exists($hook, $hooks)) {
 		  foreach($hooks[$hook] as $fnct) {
 				if (function_exists($fnct)) {
@@ -64,13 +72,14 @@ function rss_plugin_hook($hook, $data) {
 	 return $data;
 }
 
-
+/**
+ * loads the active plugins from the config, instantiates
+ * them
+ */
 foreach(getConfig('rss.config.plugins') as $pf) {
   if (file_exists('plugins/'.$pf)) {
 		require_once("plugins/$pf");
   }
-}	 	 
-
-
+}
 
 ?>
