@@ -56,7 +56,7 @@ ul, li {
  list-style-type:none; 
 }
 
-.content li, content.ul {
+table#configtable li, .content li, content.ul {
    list-style-type:circle; 
 }
 

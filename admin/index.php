@@ -1079,23 +1079,32 @@ function config() {
 			echo admin_kses_to_html($arr);
 	
 			break;
+		 case 'rss.config.plugins':
+		 	$arr = unserialize($value);
+		 	echo admin_plugins_mgmnt($arr);
+		 	break;
 		 default:
 	
 			// generic handling per type:
 			switch ($row['type_']) {
-			 case 'string':
-			 case 'num':
-			 case 'boolean':
-			 default:
-			echo $value;
-			break;
-			 case 'enum':
-			$arr = explode(',',$value);
+				case 'string':
+			 	case 'num':
+			 	case 'boolean':
+			 	default:
+					echo $value;
+					break;
+			 	case 'enum':
+					$arr = explode(',',$value);
+					echo admin_enum_to_html($arr);
 	
-			echo admin_enum_to_html($arr);
-	
-			break;
-	
+					break;
+				case 'array':
+					$arr = unserialize($value);
+					echo "<ul>\n";
+					foreach($arr as $av) {
+						echo "\t<li>$av</li>\n";
+					}
+					echo "</ul>\n";
 			}
 			break;
 		}
@@ -1461,6 +1470,59 @@ function admin_kses_to_html($arr) {
 	$ret .= "&gt;\n";
 	}
 	return $ret;
+}
+
+function admin_plugins_mgmnt($arr) {
+	$ret = "<ul>\n";
+	foreach($arr as $plugin) {
+		$info = getPluginInfo($plugin);
+		if (count($info)) {
+			$ret .= "\t<li>";
+			if (array_key_exists('name',$info)) {
+				$ret .= $info['name'];
+			}
+			if (array_key_exists('version',$info)) {
+				$ret .= " v".$info['version'];
+			}
+			$ret .="</li>\n";
+		}
+	}
+	$ret .= "</ul>\n";
+	return $ret;
+}
+
+
+/**
+ * fetches information for the given plugin,
+ * which should contain:
+ *
+ *	/// Name: Url filter
+ *	/// Author: Marco Bonetti
+ *	/// Description: This plugin will try to make ugly URL links look better
+ *	/// Version: 1.0
+ *
+ */
+function getPluginInfo($file) {
+	$info = array();
+	$path = "../plugins/$file";
+	if (file_exists($path)) {
+		$f = @fopen($path,'r');
+		$contents = "";
+		if ($f) {
+  			$contents .= fread($f, filesize($path));
+			@fclose($f);
+		} else {
+			$contents = "";
+		}
+
+		if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
+			foreach($matches as $match) {
+				$info[trim(strtolower($match[1]))] = $match[2];
+			}
+		}
+	} 
+	
+	return $info;
 }
 
 function admin_enum_to_html($arr) {

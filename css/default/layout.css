@@ -136,7 +136,7 @@ div#items li {
  clear:right;
 }
 
-.content li {
+table#configtable li,.content li {
    padding: 0.1em 0.2em !important;
    margin-left: 1.2em;
 }

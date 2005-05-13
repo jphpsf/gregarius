@@ -72,6 +72,8 @@ function rss_plugin_hook($hook, $data) {
 	 return $data;
 }
 
+
+
 /**
  * loads the active plugins from the config, instantiates
  * them
@@ -81,5 +83,7 @@ foreach(getConfig('rss.config.plugins') as $pf) {
 		require_once("plugins/$pf");
   }
 }
+
+
 
 ?>
