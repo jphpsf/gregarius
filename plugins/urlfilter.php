@@ -33,7 +33,7 @@
 /// Name: Url filter
 /// Author: Marco Bonetti
 /// Description: This plugin will try to make ugly URL links look better
-/// Version: 1.0
+/// Version: $Revision$
 
 /**
  * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
