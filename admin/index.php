@@ -1243,9 +1243,11 @@ function config_admin() {
                				.($active?" active":"")
                				."\">\n";               		
                			echo "<td class=\"cntr\">" 
-          					."<input type=\"checkbox\" name=\"_gregarius_plugin_$entry\" value=\"1\" ".($active?"checked=\"checked\"":"")." />\n"
+          					."<input type=\"checkbox\" name=\"_gregarius_plugin_$entry\" "
+          					." id=\"_gregarius_plugin_$entry\" value=\"1\" "
+          					.($active?"checked=\"checked\"":"")." />\n"
           					."</td>\n";  
-               			echo "<td>"	.(array_key_exists('name',$info)?$info['name']:"&nbsp"). "</td>\n";
+               			echo "<td><label for=\"_gregarius_plugin_$entry\">".(array_key_exists('name',$info)?$info['name']:"&nbsp"). "</label></td>\n";
                			echo "<td class=\"cntr\">"	.(array_key_exists('version',$info)?$info['version']:"&nbsp"). "</td>\n";
                			echo "<td>"	.(array_key_exists('author',$info)?$info['author']:"&nbsp"). "</td>\n";
                			echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp"). "</td>\n";
