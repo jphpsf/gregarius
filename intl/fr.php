@@ -123,6 +123,13 @@ define ('ADMIN_OPML_EXPORT','Exporter OPML:');
 define ('ADMIN_OPML_IMPORT','Importer OPML:');
 define ('ADMIN_CONFIG_VALUE','Valeur');
 
+define ('ADMIN_PLUGINS_HEADING_NAME','Nom');
+define ('ADMIN_PLUGINS_HEADING_AUTHOR','Auteur');
+define ('ADMIN_PLUGINS_HEADING_VERSION','Version');
+define ('ADMIN_PLUGINS_HEADING_DESCRIPTION','Description');
+define ('ADMIN_PLUGINS_HEADING_ACTION','Actif');
+
+
 define ('ADMIN_CHANNEL_EDIT_CHANNEL','Editer le canal ');
 define ('ADMIN_CHANNEL_NAME','Titre:');
 define ('ADMIN_CHANNEL_RSS_URL','URL RSS:');
@@ -185,6 +192,7 @@ define ('TAG_RELATED','Tags similaires: ');
 
 define ('MARK_READ', "Tous marquer comme lus");
 define ('MARK_CHANNEL_READ', "Marquer ce canal comme lu");
+define ('MARK_FOLDER_READ', "Marquer ce r&eacute;pertoire comme lu");
 define ('SHOW_UNREAD_ALL_SHOW','Afficher les &eacute;l&eacute;ments: ');
 define ('SHOW_UNREAD_ALL_UNREAD_ONLY','Non lus uniquement');
 define ('SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non lus');

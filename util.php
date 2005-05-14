@@ -144,25 +144,7 @@ function rss_footer() {
 
     echo "</div>\n\n";
 	 
-	 // open external links in new window. Not tested enough, but 
-	 // seems to work.
-	 if (false) {
-		  echo "<script type=\"text/javascript\">\n"
-			 ."// <!--\n"
-			 ."if (document.getElementsByTagName) {\n"
-			 ."var anchors = document.getElementsByTagName('a');\n"
-			 ."for (var i=0; i<anchors.length; i++) {\n"
-			 ."var anchor = anchors[i];\n"
-			 ."if (anchor.href &&\n"
-			 ."(anchor.href.indexOf('".$_SERVER['HTTP_HOST']."') < 0)\n"
-			 .") {\n"
-			 ."anchor.target = '_blank';\n"
-			 ."}\n"
-			 ."}\n"
-			 ."}\n"
-			 ."// -->\n"
-			 ."</script>\n";
-	 }
+
 	 rss_plugin_hook('rss.plugins.bodyend',null);
     echo "</body>\n"
       ."</html>\n";

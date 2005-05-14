@@ -1123,7 +1123,7 @@ function config() {
 		  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_EDIT
 		  ."</a>";
 	
-		if ($row['value_'] != $row['default_']) {
+		if ($row['value_'] != $row['default_'] && $row['key_'] != 'rss.config.plugins') {
 			echo "|"
 	
 			  ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
@@ -1214,6 +1214,51 @@ function config_admin() {
 	
 		switch($key) {
 
+
+         case 'rss.config.plugins':
+         	echo "<input type=\"hidden\" name=\"value\" value=\"\" />\n";
+         	echo "</p>\n<table id=\"plugintable\">\n<tr>\n"
+					."<th>".ADMIN_PLUGINS_HEADING_ACTION."</th>\n"
+         		."<th>".ADMIN_PLUGINS_HEADING_NAME."</th>\n"
+					."<th>".ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
+					."<th>".ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
+					."<th>".ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
+         		."</tr>\n";
+         		
+         	$active_plugins= getConfig('rss.config.plugins');
+         	$cntr = 0;
+            $d = dir('../plugins');
+            $files = array();
+            while (false !== ($entry = $d->read())) {
+               if (
+                $entry != "CVS" &&              
+                substr($entry,0,1) != "."                
+               ) {
+               		$info = getPluginInfo($entry);
+               		$active= in_array($entry,$active_plugins);
+
+               		if (count($info)) {
+               			echo "<tr class=\""
+               				.(($cntr++ % 2 == 0)?"even":"odd")
+               				.($active?" active":"")
+               				."\">\n";               		
+               			echo "<td class=\"cntr\">" 
+          					."<input type=\"checkbox\" name=\"_gregarius_plugin_$entry\" value=\"1\" ".($active?"checked=\"checked\"":"")." />\n"
+          					."</td>\n";  
+               			echo "<td>"	.(array_key_exists('name',$info)?$info['name']:"&nbsp"). "</td>\n";
+               			echo "<td class=\"cntr\">"	.(array_key_exists('version',$info)?$info['version']:"&nbsp"). "</td>\n";
+               			echo "<td>"	.(array_key_exists('author',$info)?$info['author']:"&nbsp"). "</td>\n";
+               			echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp"). "</td>\n";
+     			
+               			echo "</tr>\n";
+               		}
+               }
+            }
+            $d->close();
+            echo "</table>\n<p>";        
+            
+         break;
+         
          case 'rss.output.theme':
             $d = dir('../css');
             $themes = array();
@@ -1359,6 +1404,21 @@ function config_admin() {
 		."' where key_='$key'";
 
 		break;
+		
+	 case 'rss.config.plugins':
+	 	$active=array();
+	 	foreach($_REQUEST as $rkey=>$rentry) {
+	 		if (preg_match('/_gregarius_plugin.([a-zA-Z0-9_]+).php/',$rkey,$matches)) {
+	 			$active[] = ($matches[1] .".php");
+	 		}
+	 	}
+	 	$value = serialize($active);
+	 	$sql = "update " . getTable('config') . " set value_='$value' where key_='$key'";
+	 	
+	 	break;
+	 	
+	 	
+	 	
 	 default:
 		switch($type) {
 			case 'string':
@@ -1407,6 +1467,7 @@ function config_admin() {
 		break;
 		 default:
 		rss_error('Ooops, unknown config type: ' . $type);
+		var_dump($_REQUEST);
 		break;
 		}
 	}
@@ -1517,7 +1578,13 @@ function getPluginInfo($file) {
 
 		if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
 			foreach($matches as $match) {
-				$info[trim(strtolower($match[1]))] = $match[2];
+				$key = trim(strtolower($match[1]));
+				$val = trim($match[2]);
+				if ($key == 'version') {
+					$val=preg_replace('/[^0-9\.]+/','',$val);
+				}
+				
+				$info[$key] = $val;
 			}
 		}
 	} 

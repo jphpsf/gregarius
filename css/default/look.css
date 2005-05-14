@@ -124,6 +124,8 @@ h1 {
 
 li.item.even, tr.even,div#alltags { background-color: #f9f9f9; }
 li.item.odd, tr.odd { background-color: #f4f4f4; }
+tr.active td { font-weight:900; background-color:#f8f8ff; }
+
 
 h3.collapsed {
  border: 1px solid #ddd;
@@ -165,7 +167,7 @@ th {
  font-weight: bold; 
 }
 
-table#channeltable,table#foldertable,table#updatetable,table#configtable,.content table {
+table#plugintable,table#channeltable,table#foldertable,table#updatetable,table#configtable,.content table {
  border: 1px solid #ddd;
  font-size: small;
 }
