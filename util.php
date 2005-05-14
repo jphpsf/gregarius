@@ -309,7 +309,7 @@ function update($id) {
 		  // base URL for items in this feed.
 		  if (array_key_exists('link', $rss->channel)) {
 				$baseUrl = $rss->channel['link'];
-		  }
+		  } 
 		  
 
 		  
@@ -331,7 +331,8 @@ function update($id) {
 				}
 				
 				if ($description != "" && $baseUrl != "") {
-					 $description = make_abs($description, $baseUrl);
+					 //$description = make_abs($description, $baseUrl);
+					$description = relative_to_absolute($description, $baseUrl);
 				}
 				
 				if ($description != "") {
@@ -365,6 +366,9 @@ function update($id) {
 				} elseif (array_key_exists('created',$item)) {
 					 // atom
 					 $cDate = parse_iso8601 ($item['created']);
+				} elseif (array_key_exists('issued',$item)) {
+					//Atom, alternative
+					$cDate = parse_iso8601 ($item['issued']);
 				}
 				
 				// drop items with an url exceeding our column length: we couldn't provide a
@@ -793,55 +797,21 @@ function add_channel($url, $folderid=0) {
 }
 
 /**
- * renders links in $in absolute, based on $base.
- * The regexp probably needs tuning.
+ * Replaces relative urls with absolute ones for anchors and images
+ * Credits: Julien Mudry <julien.mudry@gmail.com>
  */
-function make_abs($in, $base) {
-    return preg_replace(',<a([^>]+)href="([^>"\s]+)",ie',
-			'"<a\1href=\"" . _absolute("\2", $base) . "\""',
-			$in);
-}
+function relative_to_absolute($content,$feed_url) {
+  preg_match('/(http|https|ftp):\/\//', $feed_url, $protocol);
+  $server_url = preg_replace("/(http|https|ftp|news):\/\//","", $feed_url);
+  $server_url = preg_replace("/\/.*/", "", $server_url);
 
-/**
- * A better make_abs method.
- * Props: http://www.php-faq.de/q/q-regexp-links-absolut.html
- */
-function _absolute ($relative, $absolute) {
+  if ($server_url == '') {
+    return $content;
+  }
 
-    // Link ist schon absolut
-    if (preg_match(',^(https?://|ftp://|mailto:|news:),i', $relative))
-      return $relative;
-
-    // parse_url() nimmt die URL auseinander
-    $url = parse_url($absolute);
-
-    // dirname() erkennt auf / endende URLs nicht
-    if (array_key_exists('path', $url)) {
-	if ($url['path']{strlen($url['path']) - 1} == '/')
-	  $dir = substr($url['path'], 0, strlen($url['path']) - 1);
-	else
-	  $dir = dirname($url['path']);
-    } else {
-	$dir ="";
-    }
-    // absoluter Link auf dem gleichen Server
-    if ($relative{0} == '/') {
-	$relative = substr($relative, 1);
-	$dir = '';
-    }
-
-    // Link fängt mit ./ an
-    elseif (substr($relative, 0, 2) == './')
-      $relative = substr($relative, 2);
-
-    // Referenzen auf höher liegende Verzeichnisse auflösen
-    else while (substr($relative, 0, 3) == '../') {
-	$relative = substr($relative, 3);
-	$dir = substr($dir, 0, strrpos($dir, '/'));
-    }
-
-    // volle URL zurückgeben
-    return sprintf('%s://%s%s/%s', $url['scheme'], $url['host'], $dir, $relative);
+  $new_content = preg_replace('/href="\//', 'href="'.$protocol[0].$server_url.'/', $content);
+  $new_content = preg_replace('/src="\//', 'src="'.$protocol[0].$server_url.'/', $new_content);
+  return $new_content;
 }
 
 /**
