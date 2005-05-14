@@ -780,7 +780,7 @@ function add_channel($url, $folderid=0) {
 
 /**
  * Replaces relative urls with absolute ones for anchors and images
- * Credits: Julien Mudry <julien.mudry@gmail.com>
+ * Credits: Julien Mudry
  */
 function relative_to_absolute($content,$feed_url) {
   preg_match('/(http|https|ftp):\/\//', $feed_url, $protocol);
