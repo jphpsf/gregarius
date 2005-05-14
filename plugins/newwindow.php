@@ -29,9 +29,33 @@
 ###############################################################################
 
 
-function newwindow_filter($in) {
-    $match = '|<a href="(.*)">(.*)</a>|i';
-    $repl  = "<a href=\"\$1\" target=\"blank_\">\$2</a>";
-    return preg_replace($match, $repl, $in);
+/// Name: New window
+/// Author: Marco Bonetti
+/// Description: When active, this plugin will open off-site links in a new window
+/// Version: $Revision$
+
+
+function __new_window_js($dummy) {
+
+  echo "<script type=\"text/javascript\">\n"
+	 ."// <!--\n"
+	 ."if (document.getElementsByTagName) {\n"
+	 ."var anchors = document.getElementsByTagName('a');\n"
+	 ."for (var i=0; i<anchors.length; i++) {\n"
+	 ."var anchor = anchors[i];\n"
+	 ."if (anchor.href &&\n"
+	 ."(anchor.href.indexOf('".$_SERVER['HTTP_HOST']."') < 0)\n"
+	 .") {\n"
+	 ."anchor.target = '_blank';\n"
+	 ."}\n"
+	 ."}\n"
+	 ."}\n"
+	 ."// -->\n"
+	 ."</script>\n";
+			 
+	 return null;
 }
+
+rss_set_hook('rss.plugins.bodyend','__new_window_js');
+
 ?>
