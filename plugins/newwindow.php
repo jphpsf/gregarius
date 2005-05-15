@@ -40,7 +40,7 @@ function __new_window_js($dummy) {
   echo "<script type=\"text/javascript\">\n"
 	 ."// <!--\n"
 	 ."if (document.getElementsByTagName) {\n"
-	 ."var anchors = document.getElementsByTagName('a');\n"
+	 ."var anchors = document.getElementById('items').getElementsByTagName('a');\n"
 	 ."for (var i=0; i<anchors.length; i++) {\n"
 	 ."var anchor = anchors[i];\n"
 	 ."if (anchor.href &&\n"
