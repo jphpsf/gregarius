@@ -50,6 +50,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
 	}
     }
 
+	rss_plugin_hook('rss.plugins.bodystart',null);
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
@@ -80,17 +81,19 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
 	 
     if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (40*MINUTE)) {
 
-	$redirect = "http://"
-	  . $_SERVER['HTTP_HOST']
-	  . dirname($_SERVER['PHP_SELF']);
-	if (substr($redirect,-1) != "/") {
-	    $redirect .= "/";
-	}
-	$redirect .= "update.php";
-
-	echo "\t<meta http-equiv=\"refresh\" "
-	  ." content=\"" . MINUTE * getConfig('rss.config.refreshafter')
-	    . ";url=$redirect\" />\n";
+		$redirect = "http://"
+		  . $_SERVER['HTTP_HOST']
+		  . dirname($_SERVER['PHP_SELF']);
+		
+		if (substr($redirect,-1) != "/") {
+			 $redirect .= "/";
+		}
+		
+		$redirect .= "update.php";
+	
+		echo "\t<meta http-equiv=\"refresh\" "
+		 ." content=\"" . MINUTE * getConfig('rss.config.refreshafter')
+		 . ";url=$redirect\" />\n";
     }
 
     echo "\t<link rel=\"start\" title=\"Home\" href=\"".getPath()."\" />\n";
@@ -371,6 +374,10 @@ function update($id) {
 				}
 				
 				if ($indb == "") {
+				
+					list($cid,$title,$url,$description) =
+					rss_plugin_hook('rss.plugins.items.new',
+						array($cid,$title,$url,$description));
 					 
 					 $sql = "insert into " . getTable("item") . " (cid, added, title, url, "
 						." description, unread, pubdate) "
@@ -385,7 +392,10 @@ function update($id) {
 					 $updatedIds[]= rss_insert_id();
 					 
 				} elseif (strlen($description) > strlen($dbdesc)) {
-					 
+					
+					list($cid,$indb,$description)=
+					rss_plugin_hook('rss.plugins.items.updated',
+						array($cid,$indb,$description));
 					 
 					 $sql = "update " . getTable("item") . " set "
 						." description='"
@@ -970,6 +980,8 @@ function _pf($comment, $commentOnly=false) {
       echo timer($comment);
     echo  "   -->\n\n\n";
 }
+
+//////////////////////////////////////////////////////////
 
 function showViewForm($curValue) {
 
