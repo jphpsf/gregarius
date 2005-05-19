@@ -32,7 +32,7 @@
 
 /// Name: HTML filter
 /// Author: Marco Bonetti
-/// Description: This plugin will try filter the new items' content and turn it into valid xhtml
+/// Description: This plugin fixes some common xhtml markup errors
 /// Version: $Revision$
 
 function __endslash($in) {
