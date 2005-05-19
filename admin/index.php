@@ -253,14 +253,25 @@ function opml() {
 	echo "<h2 class=\"trigger\">". ADMIN_OPML ."</h2>\n";
 	echo "<div id=\"admin_opml\">\n";
 
+	echo "<fieldset id=\"opmlimport\">\n"
+		."<legend>" . ADMIN_OPML_IMPORT . "</legend>";
+		
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 	echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
-	echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT ."</label>\n";
+	echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT_FROM_URL ."</label>\n";
 	echo "<input type=\"text\"	name=\"opml\" id=\"opml\" value=\"http://\" onfocus=\"this.select()\"/>\n";
 	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_IMPORT ."\"/></p>\n";
 
 	echo "</form>\n";
 
+	echo '<form enctype="multipart/form-data" method="post" action="' . $_SERVER['PHP_SELF'] . "\">\n";
+	echo '<p><input type="hidden" name="' . ADMIN_DOMAIN . '" value="' . ADMIN_DOMAIN_CHANNEL . "\" />\n";
+	echo '<input type="hidden" name="MAX_FILE_SIZE" value="150000" />' . "\n";
+	echo '<label for="opmlfile">' . ADMIN_OPML_IMPORT_FROM_FILE . "</label>\n";
+	echo '<input name="opmlfile" type="file" id="opmlfile" />' . "\n";
+	echo '<input type="submit" name="action" value="' . ADMIN_FILE_IMPORT . "\" /></p>\n";
+	echo "</form>\n";
+	echo "</fieldset>\n";
 	opml_export_form();
 	echo "</div>\n";
 }
@@ -544,8 +555,17 @@ function channel_admin() {
 		}
 		break;
 
+	 case ADMIN_FILE_IMPORT:
+		if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
+			$url = $_FILES['opmlfile']['tmp_name'];
+		} else {
+			$url = '';
+		}
+
 	 case ADMIN_IMPORT:
-		$url = $_REQUEST['opml'];
+		if ($url == '') {
+			$url = $_REQUEST['opml'];
+		}
 		$opml=getOpml($url);
 
 		if (sizeof($opml) > 0) {
@@ -1031,10 +1051,11 @@ function opml_export_form() {
 		$method ="get";
 		$action = getPath() ."opml.php";
 	}
-
+	echo "<fieldset style=\"vertical-align:top\">\n<legend>".ADMIN_OPML_EXPORT."</legend>\n";
 	echo "<form method=\"$method\" action=\"$action\">\n"
 	  ."<p><label for=\"action\">". ADMIN_OPML_EXPORT. "</label>\n"
-	  ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"". ADMIN_EXPORT ."\"/></p>\n</form>\n";
+	  ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"". ADMIN_EXPORT ."\"/></p>\n</form>\n"
+	  ."</fieldset>\n";
 }
 
 /*************** Config management ************/

@@ -104,6 +104,8 @@ define ('ADMIN_ITEM','Items:');
 define ('ADMIN_CONFIG','Configuration:');
 define ('ADMIN_OK','OK');
 define ('ADMIN_CANCEL','Cancel');
+define ('OPML_IMPORT','Import');
+define ('OPML_EXPORT','Export');
 
 define ('ADMIN_IN_FOLDER','to folder:');
 define ('ADMIN_SUBMIT_CHANGES', 'Submit Changes');
@@ -121,8 +123,15 @@ define ('ADMIN_FOLDERS_ADD','Add a folder:');
 define ('ADMIN_CHANNEL_ICON','Shown favicon:');
 define ('CLEAR_FOR_NONE','(Leave blank for no icon)');
 define ('ADMIN_OPML_EXPORT','Export OPML:');
+
 define ('ADMIN_OPML_IMPORT','Import OPML:');
+define ('ADMIN_OPML_IMPORT_FROM_URL','... from URL:');
+define ('ADMIN_OPML_IMPORT_FROM_FILE','... from File:');
+
 define ('ADMIN_CONFIG_VALUE','Value');
+
+define ('ADMIN_OPML_FILE_IMPORT','Import local OPML file:');
+define ('ADMIN_FILE_IMPORT','Import file');
 
 define ('ADMIN_PLUGINS_HEADING_NAME','Name');
 define ('ADMIN_PLUGINS_HEADING_AUTHOR','Author');

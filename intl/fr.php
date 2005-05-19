@@ -118,10 +118,15 @@ define ('ADMIN_CHANNELS_ADD','Ajouter un canal:');
 define ('ADMIN_CHANNELS_HEADING_VALUE','Valeur');  
 define ('ADMIN_FOLDERS_ADD','Ajouter un r&eacute;pertoire:');
 define ('ADMIN_CHANNEL_ICON','Icone affich&eacute;e:');
-define ('CLEAR_FOR_NONE','(Laisser vide pour ne pas afficher d\icone)');
+define ('CLEAR_FOR_NONE','(Laisser vide pour ne pas afficher d\'ic&ocirc;ne)');
 define ('ADMIN_OPML_EXPORT','Exporter OPML:');
 define ('ADMIN_OPML_IMPORT','Importer OPML:');
+define ('ADMIN_OPML_IMPORT_FROM_URL','... depuis une URL:');
+define ('ADMIN_OPML_IMPORT_FROM_FILE','... depuis un fichier:');
 define ('ADMIN_CONFIG_VALUE','Valeur');
+
+define ('ADMIN_OPML_FILE_IMPORT','Importer un fichier OPML local:');
+define ('ADMIN_FILE_IMPORT','Importer le fichier');
 
 define ('ADMIN_PLUGINS_HEADING_NAME','Nom');
 define ('ADMIN_PLUGINS_HEADING_AUTHOR','Auteur');

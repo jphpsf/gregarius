@@ -57,6 +57,10 @@ div#channels li, div#opml li {
   margin:0;
 }
 
+#opmlimport {
+	display:inline;
+}
+
 /* folder items */
 
 div#channels li ul li {
