@@ -160,6 +160,7 @@ define ('ADMIN_PRUNE_YEARS','ans');
 define ('PRUNE_KEEP','Ne garder que ce nombre d\'&eacute;l&eacute;ments: ');
 define ('ADMIN_PRUNE_INCLUDE_STICKY','Effacer les &eacute;l&eacute;ments Persistants aussi: ');
 define ('ADMIN_PRUNE_EXCLUDE_TAGS','Ne pas effacer les &eacute;l&eacute;ments tagg&eacute;s ...');
+define ('ADMIN_ALLTAGS_EXPL','(Entrez <strong>*</strong> pour garder tous les &eacute;l&eacute;ments tagg&eacute;s)');
 define ('ADMIN_ABOUT_TO_DELETE','Attention: vous allez effacer %s  &eacute;l&eacute;ments (sur %s)');
 define ('ADMIN_PRUNING','Suppression');
 define ('ADMIN_DOMAIN_FOLDER_LBL','r&eacute;pertoires');

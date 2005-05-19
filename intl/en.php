@@ -168,6 +168,7 @@ define ('ADMIN_PRUNE_YEARS','years');
 define ('PRUNE_KEEP','Keep the most recent items: ');
 define ('ADMIN_PRUNE_INCLUDE_STICKY','Delete Sticky items too: ');
 define ('ADMIN_PRUNE_EXCLUDE_TAGS','Do not delete items tagged... ');
+define ('ADMIN_ALLTAGS_EXPL','(Enter <strong>*</strong> to keep all tagged items)');
 
 define ('ADMIN_ABOUT_TO_DELETE','Warning: you are about to delete %s items (of %s)');
 define ('ADMIN_PRUNING','Pruning');

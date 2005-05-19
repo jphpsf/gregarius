@@ -299,6 +299,7 @@ function items() {
       . "<input type=\"checkbox\" id=\"prune_include_sticky\" name=\"prune_include_sticky\" value=\"1\"/></p>\n"
       . "<p><label for=\"prune_exclude_tags\">".ADMIN_PRUNE_EXCLUDE_TAGS."</label>\n"
       . "<input type=\"text\" id=\"prune_exclude_tags\" name=\"prune_exclude_tags\" value=\"\"/></p>\n"
+		. "<p style=\"font-size:small; padding:0;margin:0\">".ADMIN_ALLTAGS_EXPL."</p>\n"
       . "<p class=\"cntr\"><input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\"/></p>\n"
       . "</fieldset>\n"
       . "</form>\n"
@@ -349,19 +350,23 @@ function item_admin() {
             if (array_key_exists('prune_exclude_tags', $_REQUEST)
                 && trim($_REQUEST['prune_exclude_tags'])) {
 
-               $exclude_tags = explode(" ",$_REQUEST['prune_exclude_tags']);
-               $trimmed_exclude_tags = array();
-               foreach($exclude_tags as $etag) {
-                   if ($tetag = rss_real_escape_string(trim($etag))) {
-                            $trimmed_exclude_tags[]=$tetag;
-                   }
+					if ( trim($_REQUEST['prune_exclude_tags']) == '*') {
+						$tsql = " select distinct fid from ". getTable('metatag');
+					} else {
+						$exclude_tags = explode(" ",$_REQUEST['prune_exclude_tags']);
+						
+						$trimmed_exclude_tags = array();
+						foreach($exclude_tags as $etag) {
+							 if ($tetag = rss_real_escape_string(trim($etag))) {
+										 $trimmed_exclude_tags[]=$tetag;
+							 }
+						}
+						
+						$tsql = " select distinct fid from ". getTable('metatag') . " m, "
+						 . getTable('tag') . " t"
+						 ." where m.tid=t.id and t.tag in ('"
+						 . implode("', '", $trimmed_exclude_tags) ."')";
                }
-               
-               $tsql = " select distinct fid from ". getTable('metatag') . " m, "
-                . getTable('tag') . " t"
-                ." where m.tid=t.id and t.tag in ('"
-                . implode("', '", $trimmed_exclude_tags) ."')";
-                
                $tres = rss_query($tsql);
                $fids = array();
                while(list($fid) = rss_fetch_row($tres)) {
