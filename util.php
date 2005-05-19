@@ -305,7 +305,7 @@ function update($id) {
 				// to have any, should it?
 				//$title = strip_tags($item['title']);
 				$title = array_key_exists('title',$item)?strip_tags($item['title']):"";
-				
+				$title = str_replace('& ','&amp; ',$title);
 				// item content, if any
 				if (array_key_exists('content',$item) && array_key_exists('encoded', $item['content'])) {
 					 $description = kses($item['content']['encoded'], $kses_allowed);
@@ -538,13 +538,13 @@ function itemsList($title,$items, $options = IL_NONE){
 				 && !($iunread & FEED_MODE_UNREAD_STATE)
 				 ) {
 				 if ($collapsed) {
-				$title = EXPAND . " '$ctitle'";
+				$title = EXPAND . " '".htmlentities($ctitle)."'";
 				echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">\n"
 				  ."\t<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;+&nbsp;"
 				  ."</a>\n";
 				 } else {
-				$title = COLLAPSE . " '$ctitle'";
+				$title = COLLAPSE . " '".htmlentities($ctitle)."'";
 				echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">\n"
 				  ."\t<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;-&nbsp;"
