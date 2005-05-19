@@ -205,7 +205,7 @@ if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MA
     }
     	
     $res = rss_query($sql);
-	$next_ok=false;
+	 $next_ok=false;
     while(list ($unread_id) = rss_fetch_row($res)) {
     	if ($first_unread_id == '' && $unread_id != $cid) {
     		$first_unread_id = $unread_id;

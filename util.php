@@ -112,7 +112,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
     }
 
     echo "\t<script type=\"text/javascript\" src=\"".getPath()."ajax.php?js\"></script>\n";
-	 
+
 	 rss_plugin_hook('rss.plugins.javascript',null);
 	 
     echo "</head>\n"
@@ -435,7 +435,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 	
 	if ($title) {
-		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons')) {
+		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons') && isset($items[0])) {
 			 $cicon = $items[0][2];
 		} elseif (($options & IL_FOLDER_VIEW) && getConfig('rss.output.showfavicons')) {
 			 $cicon = getPath() . "css/media/folder.gif";
