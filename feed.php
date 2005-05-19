@@ -184,6 +184,48 @@ if ((!isset($cid) || $cid == "") &&
 
 if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
     
+    $first_unread_id=$next_unread_id='';
+    
+    // redirect to the next unread, if any.
+    $sql = "select c.id from " . getTable("item") . " i,"
+    . getTable("channels") . " c,"
+    . getTable("folders") . " f "
+    	." where i.unread & ".FEED_MODE_UNREAD_STATE;
+    	
+    	
+	if (hidePrivate()) {
+		$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+	}
+    	
+    $sql .= " and i.cid=c.id and c.parent=f.id";
+   	if (getConfig('rss.config.absoluteordering')) {
+		$sql .= " order by f.position asc, c.position asc";
+    } else {
+		$sql .=" order by c.parent asc, c.title asc";
+    }
+    	
+    $res = rss_query($sql);
+	$next_ok=false;
+    while(list ($unread_id) = rss_fetch_row($res)) {
+    	if ($first_unread_id == '' && $unread_id != $cid) {
+    		$first_unread_id = $unread_id;
+    	}
+    	
+    	if ($unread_id != $cid && $next_ok) {
+    		$next_unread_id=$unread_id;
+    		break;
+    	}
+    	
+    	if ($unread_id == $cid) {
+    		$next_ok=true;
+    	}
+    }
+    if ($next_unread_id == '' && $first_unread_id != '') {
+    	$next_unread_id = $first_unread_id; 
+    }
+    
+    
+    
     $sql = "update " .getTable("item") ." set unread = unread & ".SET_MODE_READ_STATE." where cid=$cid";
     
     
@@ -194,20 +236,8 @@ if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MA
     
     rss_query($sql);
     
-    // redirect to the next unread, if any.
-    $sql = "select cid,title from " . getTable("item") 
-    	." where unread & ".FEED_MODE_UNREAD_STATE;
-    	
-    	
-		if (hidePrivate()) {
-				$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
-		}
-    	
-    	$sql .=" order by added desc limit 1";
-    	
-    $res = rss_query($sql);
-    list ($next_unread_id, $next_unread_title) = rss_fetch_row($res);
     
+    //redirect
     if ($next_unread_id == '') {	
 		$redirect = "http://"
 		  . $_SERVER['HTTP_HOST']     
