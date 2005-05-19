@@ -391,7 +391,7 @@ function update($id) {
 					 rss_query($sql);
 					 $updatedIds[]= rss_insert_id();
 					 
-				} elseif (strlen($description) > strlen($dbdesc)) {
+				} elseif (getConfig('rss.input.allowupdates') && strlen($description) > strlen($dbdesc)) {
 					
 					list($cid,$indb,$description)=
 					rss_plugin_hook('rss.plugins.items.updated',

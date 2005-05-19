@@ -224,13 +224,13 @@ function setDefaults($key) {
 		"rss.output.showfavicons"	=>		array("true","true","boolean","Display the favicon for the channels that have one. Due to a IE bug, some icons do not render correctly on in the admin screen, or turn the favicon displaying offthis browser. You can either change the URL to the icon in the admin screen, or turn the favicon displaying off globally here.",NULL),
 		"rss.output.usemodrewrite"	=>		array("true","true","boolean","Make use of apache\'s mod_rewrite module to return sexy urls. Turn this off if your host doesn\'t allow you to change this apache setting",NULL),
 		"rss.config.dateformat"		=>		array("F jS, Y, g:ia T","F jS, Y, g:ia T","string","Format to use when displaying dates. See here for help on the format: http://ch.php.net/manual/en/function.date.php Note that direct access to a given feed\'s month and day archives more or less depends on the fact that this date format contains the  \"F\" (Month) and \"jS\" (day) elements in this form. So feel free to change the order of the elements, but better leave those two tokens in :)",NULL),
-		"rss.config.showdevloglink"=>		array("false","false","boolean","Show a link to the gregarius devlog. This is mainly useful on the actual live gregarius site (http://gregarius.net/).You can safely set this to \'false\' if you don\'t want to display a link back.",NULL),
-		"rss.meta.debug"				=>		array("false","false","boolean"," When in debug mode some extra debug info is shown and the error reporting is a bit more verbose  ",NULL),
+		"rss.config.showdevloglink"	=>		array("false","false","boolean","Show a link to the gregarius devlog. This is mainly useful on the actual live gregarius site (http://gregarius.net/).You can safely set this to \'false\' if you don\'t want to display a link back.",NULL),
+		"rss.meta.debug"			=>		array("false","false","boolean"," When in debug mode some extra debug info is shown and the error reporting is a bit more verbose  ",NULL),
 		"rss.output.compression"	=>		array("true","true","boolean","This variable turns output compression on and off. Output compression is handled by most browsers.",NULL),
 		"rss.output.channelcollapse"=>	array("true","true","boolean","Allow collpasing of channels on the main page. ",NULL),
 		"rss.output.usepermalinks"	=>		array("true","true","boolean","Display a permalink icon and allow linking a given item directly",NULL),
 		"rss.config.markreadonupdate"=>	array("true","true","boolean","Mark all old unread feeds as read when updating, if new unread feeds are found ",NULL),
-		"rss.output.lang"				=>		array("en,fr,0","en,fr,0","enum","Language pack to use. (As of today \'en\' and \'fr\' ar available)",NULL),
+		"rss.output.lang"			=>		array("en,fr,0","en,fr,0","enum","Language pack to use. (As of today \'en\' and \'fr\' ar available)",NULL),
 		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow ordering of channels in the admin. (Uses channel title instead)",NULL),
 		"rss.config.robotsmeta"		=>		array("index,follow","index,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info)",NULL),
 		"rss.config.serverpush"		=>		array("true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browser (Netscape, Mozilla, FireFox,...) and Opera. These brwosers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL),
@@ -241,7 +241,8 @@ function setDefaults($key) {
 		"rss.output.noreaditems"	=>		array('false','false','boolean','Show unread items only on the frontpage',NULL),
 		"rss.output.theme"			=>		array('default','default','string','The CSS theme to use. Themes are subdirectories of css/ which should contain at least the following elements:<ul><li>layout.css</li><li>look.css</li><ul>',NULL),
 		"rss.output.cachecontrol"	=>		array('false','false','boolean','If true Gregarius will negotiate with the browser and check whether it should get a fresh document or not',NULL),
-		"rss.config.plugins"			=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL)
+		"rss.config.plugins"		=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL),
+		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow gregarius to look for updates in existing items.',NULL)
 	);
 	
 	
