@@ -27,6 +27,13 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
+# $Log$
+# Revision 1.12  2005/05/20 07:42:21  mbonetti
+# CVS Log messages in the file header
+#
+#
+###############################################################################
+
 
 /**
  * Checks the db schema for the for all required tables, adds those which are missing.

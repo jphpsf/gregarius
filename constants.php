@@ -27,6 +27,12 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
+# $Log$
+# Revision 1.39  2005/05/20 07:42:21  mbonetti
+# CVS Log messages in the file header
+#
+#
+###############################################################################
 
 // Application title
 define ('_TITLE_', "Gregarius");

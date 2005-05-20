@@ -24,6 +24,12 @@
 # Web page:	http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
+# $Log$
+# Revision 1.49  2005/05/20 07:42:21  mbonetti
+# CVS Log messages in the file header
+#
+#
+###############################################################################
 
 define ('COLLAPSED_FOLDERS_COOKIE','collapsedfolders');
 define ('COLLAPSE_ACTION','fcollapse');

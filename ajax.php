@@ -25,6 +25,11 @@
 ###############################################################################
 # E-mail:      mbonetti at users dot sourceforge dot net
 # Web page:    http://sourceforge.net/projects/gregarius
+###############################################################################
+# $Log$
+# Revision 1.13  2005/05/20 07:42:21  mbonetti
+# CVS Log messages in the file header
+#
 #
 ###############################################################################
 
