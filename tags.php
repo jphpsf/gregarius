@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.28  2005/05/20 09:35:11  mbonetti
+# 0.4.2
+#
 # Revision 1.27  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -45,7 +48,7 @@ define ('MAX_TAGS_PER_ITEM',5);
 define ('ALLOWED_TAGS_REGEXP', '/[^a-zA-Z0-9\ _\.]/');
 
 // these are the fontsizes on the weighted list at /tag/
-define ('SMALLEST',10);
+define ('SMALLEST',9);
 define ('LARGEST',45);
 define ('UNIT','px');
 

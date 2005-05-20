@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.40  2005/05/20 09:35:11  mbonetti
+# 0.4.2
+#
 # Revision 1.39  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -39,7 +42,7 @@ define ('_TITLE_', "Gregarius");
 
 
 // Application version
-define ('_VERSION_', "0.4.1");
+define ('_VERSION_', "0.4.2");
 define ('MINUTE',60);
 
 define ('COOKIE_LIFESPAN',60*60*24*999);
