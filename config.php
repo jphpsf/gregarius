@@ -27,6 +27,11 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
+# $Log$
+# Revision 1.53  2005/05/20 07:33:17  mbonetti
+# Do not redefine exported variables when recursing on config reading
+#
+###############################################################################
 
 rss_require('util.php');
 
@@ -49,7 +54,7 @@ function getConfig($key,$allowRecursion = true) {
 				'type' => $type_,
 				'description' => $description_
 				);
-			if ($export_ != '') {
+			if ($export_ != '' && !defined($export_)) {
 				define ($export_,(string)$real_value);
 			}
 		}
