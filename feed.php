@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.80  2005/05/23 08:05:04  mbonetti
+# new plugin hook after feed items
+#
 # Revision 1.79  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -485,7 +488,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	 }
 
 
-	 $severalFeeds = count($cids) > 1;
+	$severalFeeds = count($cids) > 1;
     if ($hasUnreadItems && $iid == "") {
 		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
 
@@ -498,10 +501,13 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		 echo "\n</div>\n";
 	 }
 	 
-	 
-    $shown = itemsList($title, $items, ($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
+    $ilRet = itemsList($title, $items, ($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
+    $ilRet[] = $iid;
+    $ilRet[] = $cid;
+	rss_plugin_hook('rss.plugins.items.afteritems', $ilRet);
+    
 
-
+	
     if ($nv != null) {
 		list($prev,$succ,$up) = $nv;
 		$readMoreNav = "";

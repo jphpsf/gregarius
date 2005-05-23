@@ -427,6 +427,9 @@ function update($id) {
  */
 function itemsList($title,$items, $options = IL_NONE){
 
+    $retChannels = $retUnread = $retRead = 0;
+    
+
     $anchor = "";	
     if (!defined('FEEDCONTENT_ANCHOR_SET')) {
 	$anchor = " id=\"feedcontent\"";
@@ -514,6 +517,9 @@ function itemsList($title,$items, $options = IL_NONE){
 		$ctitle = rss_htmlspecialchars($ctitle);
 	
 		if ($prev_cid != $cid) {
+
+             $retChannels++;
+             
 			 $prev_cid = $cid;
 			 if ($cntr++ > 0) {
 			if (($options & IL_DO_NAV) && $lastAnchor != "") {
@@ -597,8 +603,11 @@ function itemsList($title,$items, $options = IL_NONE){
 			 }
 	
 			 if	($iunread & FEED_MODE_UNREAD_STATE) {
-			$cls = "item unread";
-			 }
+			    $cls = "item unread";
+			    $retUnread++;
+			 } else {
+                $retRead++;
+             }
 	
 			 // some url fields are juste guid's which aren't actual links
 			 $isUrl = (substr($iurl, 0,4) == "http");
@@ -711,7 +720,7 @@ function itemsList($title,$items, $options = IL_NONE){
 			 echo "</ul>\n";
 	}
 
-	return $ret;
+	return array($retChannels,$retUnread,$retRead);
 }
 
 function add_channel($url, $folderid=0) {
