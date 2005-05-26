@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.30  2005/05/26 05:26:20  mbonetti
+# alltags: there was an unescaped talbe in a query
+#
 # Revision 1.29  2005/05/26 05:10:47  mbonetti
 # fix: warningn when there are no tags
 #
@@ -253,7 +256,7 @@ if(array_key_exists('tag',$_GET)) {
 
     // the all tags weighted list
     $sql = "select tag,count(*) as cnt from "
-      . getTable('metatag') . " left join item i on (fid=i.id),"
+      . getTable('metatag') . " left join " .getTable('item'). " i on (fid=i.id),"
       . getTable('tag') ." t "
       ." where tid=t.id ";
       
@@ -263,7 +266,7 @@ if(array_key_exists('tag',$_GET)) {
 		
       $sql .= "group by tid order by 1";
 
-	 
+	 echo $sql;
     $res = rss_query($sql);
     $tags = array();
     $max = 0;
