@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.29  2005/05/26 05:10:47  mbonetti
+# fix: warningn when there are no tags
+#
 # Revision 1.28  2005/05/20 09:35:11  mbonetti
 # 0.4.2
 #
@@ -273,18 +276,22 @@ if(array_key_exists('tag',$_GET)) {
 
     // Credits: Matt, http://www.hitormiss.org/about/
     // http://dev.wp-plugins.org/file/weighted-category-list/weighted_categories.php?format=txt
-    $spread = max($tags) - min($tags);
-    if ($spread <= 0) { $spread = 1; };
-    $fontspread = LARGEST - SMALLEST;
-    $fontstep = $spread / $fontspread;
-    if ($fontspread <= 0) { $fontspread = 1; }
-    $ret = "";
-    foreach ($tags as $tag => $cnt) {
-	$taglink = getPath() .
-	  (getConfig('rss.output.usemodrewrite')?"tag/$tag":"tags.php?tag=$tag");
-	$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
-	  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
-	  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
+    if (count($tags)) {
+		$spread = max($tags) - min($tags);
+		if ($spread <= 0) { $spread = 1; };
+		$fontspread = LARGEST - SMALLEST;
+		$fontstep = $spread / $fontspread;
+		if ($fontspread <= 0) { $fontspread = 1; }
+		$ret = "";
+		foreach ($tags as $tag => $cnt) {
+		$taglink = getPath() .
+		  (getConfig('rss.output.usemodrewrite')?"tag/$tag":"tags.php?tag=$tag");
+		$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
+		  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
+		  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
+		}
+    } else {
+    	$ret ="";
     }
 
     // done! Render some stuff
