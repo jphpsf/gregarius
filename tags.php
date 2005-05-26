@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.31  2005/05/26 05:29:28  mbonetti
+# d'uh, debug message, bummer me
+#
 # Revision 1.30  2005/05/26 05:26:20  mbonetti
 # alltags: there was an unescaped talbe in a query
 #
@@ -266,7 +269,6 @@ if(array_key_exists('tag',$_GET)) {
 		
       $sql .= "group by tid order by 1";
 
-	 echo $sql;
     $res = rss_query($sql);
     $tags = array();
     $max = 0;
