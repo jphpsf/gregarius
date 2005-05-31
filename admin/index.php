@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.42  2005/05/31 17:04:18  mbonetti
+# allow pruning of 0-day old items (all items)
+#
 # Revision 1.41  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -322,9 +325,12 @@ function item_admin() {
 	 case ADMIN_DELETE2:
 		$req = rss_query('select count(*) as cnt from ' .getTable('item'));
 		list($cnt) = rss_fetch_row($req);
+		
 		$prune_older = (int) $_REQUEST['prune_older'];
 		//$prune_keep = (int) $_REQUEST['prune_keep'];
-		if ($prune_older) {
+		if (array_key_exists('prune_older',$_REQUEST) && 
+			 strlen($_REQUEST['prune_older']) && 
+			 is_numeric($_REQUEST['prune_older'])) 	{
 			switch ($_REQUEST['prune_period']) {
 		 		case ADMIN_PRUNE_DAYS:
 					$period = 'day';
