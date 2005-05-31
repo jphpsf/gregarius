@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.41  2005/05/31 17:47:41  mbonetti
+# 0.4.3
+#
 # Revision 1.40  2005/05/20 09:35:11  mbonetti
 # 0.4.2
 #
@@ -42,7 +45,7 @@ define ('_TITLE_', "Gregarius");
 
 
 // Application version
-define ('_VERSION_', "0.4.2");
+define ('_VERSION_', "0.4.3");
 define ('MINUTE',60);
 
 define ('COOKIE_LIFESPAN',60*60*24*999);
