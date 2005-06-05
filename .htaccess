@@ -10,6 +10,7 @@
   # under a gregarius installation.
   
   #admin section
+  RewriteRule   ^admin\/sub\/(.+)$ 	admin/index.php?domain=feeds&add_channel_to_folder=0&action=Add&new_channel=$1 [L]
   RewriteRule 	^admin\/([a-z]+)$	admin/index.php?view=$1 [L]
   
   #opml
@@ -26,4 +27,5 @@
   #feed view
   RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2 [L]
+
 </IfModule>
