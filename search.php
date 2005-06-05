@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.39  2005/06/05 06:27:27  mbonetti
+# option: display unread count (feed,folder,total) in the document title
+#
 # Revision 1.38  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -53,11 +56,11 @@ define ('QUERY_MATCH_EXACT','exact');
 require_once("init.php");
 
 if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
-    rss_header("Search",LOCATION_SEARCH);
+    rss_header("Search",LOCATION_SEARCH,null);
     sideChannels(false);
     search();
 } else {
-    rss_header(TITLE_SEARCH,LOCATION_SEARCH,"document.getElementById('query').focus()");
+    rss_header(TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('query').focus()");
     sideChannels(false);
     list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")));
     searchForm(sprintf(H2_SEARCH, $cnt));

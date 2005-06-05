@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.81  2005/06/05 06:27:27  mbonetti
+# option: display unread count (feed,folder,total) in the document title
+#
 # Revision 1.80  2005/05/23 08:05:04  mbonetti
 # new plugin hook after feed items
 #
@@ -303,6 +306,7 @@ if ($cid && ($nv = makeNav($cid,$iid,$y,$m,$d)) != null) {
 
 
 if ($iid == "") {
+	$cidfid = array();
 	// "channel / folder mode"
 	if ($cid) {
 		$res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
@@ -314,12 +318,19 @@ if ($iid == "") {
 		} else {
 			$dtitle ="";
 		}
+		$cidfid ['cid']=$cid;
+		$cidfid ['fid']=null;
 	} elseif(isset($fid) && $fid) {
+	
 		list($title) = rss_fetch_row( rss_query("select name from " . getTable('folders') . " where id = $fid") );
 		$dtitle ="";
+		$cidfid ['cid']=null;
+		$cidfid ['fid']=$fid;
 	} else {
 		$dtitle ="";
 		$title = "";
+		$cidfid ['cid']=null;
+		$cidfid ['fid']=null;
 	}
 	
 	
@@ -332,7 +343,7 @@ if ($iid == "") {
 			}
 		}
 	}
-   rss_header( rss_htmlspecialchars( $title ) . $dtitle,0,"", HDR_NONE, $links);
+   rss_header( rss_htmlspecialchars( $title ) . $dtitle,0,$cidfid,"", HDR_NONE, $links);
    
 } else {
     // "item mode"
@@ -344,7 +355,7 @@ if ($iid == "") {
 		 rss_htmlspecialchars($title) 
 		 . " " . TITLE_SEP ." " 
 		 .  rss_htmlspecialchars($ititle),
-		 0,"", HDR_NONE, $links
+		 0,null,"", HDR_NONE, $links
 		 );
 }
 

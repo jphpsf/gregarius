@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.61  2005/06/05 06:27:29  mbonetti
+# option: display unread count (feed,folder,total) in the document title
+#
 # Revision 1.60  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -54,6 +57,7 @@ define ('H2_CHANNELS','Feeds');
 define ('H5_READ_UNREAD_STATS','%d items, %d unread');
 define ('ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds');
 define ('UNREAD_PF', '(<strong>%d unread</strong>)');
+define ('UNREAD','unread');
 
 define ('FTR_POWERED_BY', ", powered by ");
 define ('ALL','All');

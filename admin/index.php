@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.43  2005/06/05 06:27:29  mbonetti
+# option: display unread count (feed,folder,total) in the document title
+#
 # Revision 1.42  2005/05/31 17:04:18  mbonetti
 # allow pruning of 0-day old items (all items)
 #
@@ -78,7 +81,7 @@ if ($auth) {
 	setAdminCookie();
 }
 
-rss_header(TITLE_ADMIN,LOCATION_ADMIN,'', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
+rss_header(TITLE_ADMIN,LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
 
 admin_main($auth);
 rss_footer();
@@ -909,7 +912,7 @@ function folder_edit($fid) {
 
 function folder_combo($name, $selected = -1) {
 	echo "\n<select name=\"$name\" id=\"$name\">\n";
-	$res = rss_query("select id, name from " .getTable("folders") ." order by id asc");
+	$res = rss_query("select id, name from " .getTable("folders") ." order by position asc");
 	while (list($id, $name) = rss_fetch_row($res)) {
 	echo "\t<option value=\"$id\""
 	  .($selected > -1 && $selected == $id ? " selected=\"selected\"":"")

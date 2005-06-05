@@ -25,6 +25,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.50  2005/06/05 06:27:27  mbonetti
+# option: display unread count (feed,folder,total) in the document title
+#
 # Revision 1.49  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -263,17 +266,8 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
 }
 
 function stats() {
-	 $sql = "select count(*) from " .getTable("item") ."i, "
-	 	. getTable('channels') . "c "
-	 ." where i.unread & " . FEED_MODE_UNREAD_STATE ;
-	 if (hidePrivate()) {
-		 $sql .= " and !(i.unread & " .  FEED_MODE_PRIVATE_STATE .")";
-	 }
- 	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") "
- 		."  and i.cid=c.id ";
 
-    $res = rss_query( $sql );
-    list($unread)= rss_fetch_row($res);
+    $unread = getUnreadCount(null,null);
 
     $res = rss_query( "select count(*) from " . getTable("item") );
     list($total)= rss_fetch_row($res);

@@ -65,8 +65,9 @@ if (array_key_exists('update',$_REQUEST)) {
     update("");
 }
 
+$title = "";
 
-rss_header("",LOCATION_HOME);
+rss_header($title,LOCATION_HOME,array('cid'=>null,'fid'=>null));
 
 sideChannels(false);
 echo "\n\n<div id=\"items\" class=\"frame\">";

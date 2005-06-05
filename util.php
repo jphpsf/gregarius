@@ -28,27 +28,35 @@
 #
 ###############################################################################
 
-function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE, $links = NULL) {
+function rss_header($title="", $active=0, $cidfid=null, $onLoadAction="", $options = HDR_NONE, $links = NULL) {
     if (!($options & HDR_NO_CACHECONTROL) && getConfig('rss.output.cachecontrol')) {
         $etag = getETag();
-	$hdrs =  getallheaders();
-	if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
-	    header("HTTP/1.1 304 Not Modified");
-	    flush();
-	    exit();
-	} else {
-	    header('Last-Modified: '.gmstrftime("%a, %d %b %Y %T %Z",getLastModif()));
-	    header("ETag: $etag");
-	}
+		$hdrs =  getallheaders();
+		if (array_key_exists('If-None-Match',$hdrs) && $hdrs['If-None-Match'] == $etag) {
+			header("HTTP/1.1 304 Not Modified");
+			flush();
+			exit();
+		} else {
+			header('Last-Modified: '.gmstrftime("%a, %d %b %Y %T %Z",getLastModif()));
+			header("ETag: $etag");
+		}
     }
 
     if (!($options & HDR_NO_OUPUTBUFFERING)) {
-	if (getConfig('rss.output.compression')) {
-	    ob_start('ob_gzhandler');
-	} else {
-	    ob_start();
-	}
+		if (getConfig('rss.output.compression')) {
+			ob_start('ob_gzhandler');
+		} else {
+			ob_start();
+		}
     }
+
+	$docTitle = "";
+	if (getConfig("rss.output.titleunreadcnt") &&
+		is_array($cidfid) && 
+		($uc = getUnreadCount($cidfid['cid'],$cidfid['fid']))) {
+ 		$docTitle .= " ($uc " . UNREAD. ")";
+	}
+
 
 	rss_plugin_hook('rss.plugins.bodystart',null);
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
@@ -59,7 +67,7 @@ function rss_header($title="", $active=0, $onLoadAction="", $options = HDR_NONE,
       ."charset="
       . (getConfig('rss.output.encoding')?getConfig('rss.output.encoding'):DEFAULT_OUTPUT_ENCODING) .""
       ."\" />\n"
-      ."\t<title>".makeTitle($title)."</title>\n";
+      ."\t<title>".makeTitle($title) . $docTitle."</title>\n";
 
     if (getConfig('rss.config.robotsmeta')) {
 	$meta = (
@@ -1048,4 +1056,27 @@ function getThemePath() {
     return $ret;
 }
 
+
+function getUnreadCount($cid,$fid) {
+	 $sql = "select count(*) from " .getTable("item") ."i, "
+	 	. getTable('channels') . "c "
+	 ." where i.unread & " . FEED_MODE_UNREAD_STATE 
+	 ."  and i.cid=c.id "
+	 . " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+	 
+	 if (hidePrivate()) {
+		 $sql .= " and !(i.unread & " .  FEED_MODE_PRIVATE_STATE .")";
+	}
+	
+    if ($cid) {
+    	$sql .= " and c.id=$cid ";    
+    } elseif ($fid) {
+    	$sql .= " and c.parent=$fid ";
+    }
+            
+    
+    $res = rss_query( $sql );
+    list($unread)= rss_fetch_row($res);
+    return $unread;
+}
 ?>

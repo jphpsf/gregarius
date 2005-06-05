@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.13  2005/06/05 06:27:27  mbonetti
+# option: display unread count (feed,folder,total) in the document title
+#
 # Revision 1.12  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -249,7 +252,9 @@ function setDefaults($key) {
 		"rss.output.theme"			=>		array('default','default','string','The CSS theme to use. Themes are subdirectories of css/ which should contain at least the following elements:<ul><li>layout.css</li><li>look.css</li><ul>',NULL),
 		"rss.output.cachecontrol"	=>		array('false','false','boolean','If true Gregarius will negotiate with the browser and check whether it should get a fresh document or not',NULL),
 		"rss.config.plugins"		=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL),
-		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow gregarius to look for updates in existing items.',NULL)
+		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow gregarius to look for updates in existing items.',NULL),
+		"rss.output.titleunreadcnt"	=>		array('false','false','boolean','Display unread count in the document title.',NULL),
+		
 	);
 	
 	
