@@ -27,6 +27,9 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 ###############################################################################
 # $Log$
+# Revision 1.14  2005/06/07 17:54:11  mbonetti
+# cleaned up feed discovery a little
+#
 # Revision 1.13  2005/05/20 07:42:21  mbonetti
 # CVS Log messages in the file header
 #
@@ -76,19 +79,16 @@ function __exp__getFromDelicious($id) {
     list($url)= rss_fetch_row(
                   rss_query('select url from '  . getTable('item')  ." where id=$id"));
     $ret = array();
-    if($url) {
-    $fp = @fopen("http://del.icio.us/url/" . md5($url),"r");
-    if ($fp) {
-        $bfr = fread($fp,2000);
-        @fclose($fp);
-    }
-    define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
-    if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
-        $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
-        foreach($hits as $hit) {
-        $ret[] = $hit[1];
-        }
-    }
+    $durl = "http://del.icio.us/url/" . md5($url);
+    $bfr = getUrl($durl,2000);
+    if ($bfr) {
+		 define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
+		 if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
+			  $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
+			  foreach($hits as $hit) {
+			  $ret[] = $hit[1];
+			  }
+		 }
     }
     return "$id," .implode(" ",$ret);
 }

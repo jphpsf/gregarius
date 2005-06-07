@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.44  2005/06/07 17:54:17  mbonetti
+# cleaned up feed discovery a little
+#
 # Revision 1.43  2005/06/05 06:27:29  mbonetti
 # option: display unread count (feed,folder,total) in the document title
 #
@@ -454,71 +457,71 @@ function channel_admin() {
 	$fid = trim($_REQUEST['add_channel_to_folder']);
 	if ($label != 'http://' &&	substr($label, 0,4) == "http") {
 		$ret = add_channel($label,$fid);
-		if (is_array($ret) && $ret[0] > -1) {
-		update($ret[0]);
-		$ret__ = ADMIN_DOMAIN_CHANNEL;
-	} else {
-		// okay, something went wrong, maybe thats a html url after all?
-		// let's try and see if we can extract some feeds
-		$feeds = extractFeeds($label);
-		if (!is_array($feeds) || sizeof($feeds) == 0) {
-			rss_error($ret[1]);
+			if (is_array($ret) && $ret[0] > -1) {
+			update($ret[0]);
 			$ret__ = ADMIN_DOMAIN_CHANNEL;
 		} else {
-			//one single feed in the html doc, add that
-			if (is_array($feeds) && sizeof($feeds) == 1 && array_key_exists('href',$feeds[0])) {
-				$ret = add_channel($feeds[0]['href'],$fid);
-				if (is_array($ret) && $ret[0] > -1) {
-					update($ret[0]);
-					$ret__ = ADMIN_DOMAIN_CHANNEL;
-				} else {
-					// failure
-					rss_error($ret[1]);
-					$ret__ = ADMIN_DOMAIN_CHANNEL;
-				}
+			// okay, something went wrong, maybe thats a html url after all?
+			// let's try and see if we can extract some feeds
+			$feeds = extractFeeds($label);
+			if (!is_array($feeds) || sizeof($feeds) == 0) {
+				rss_error($ret[1]);
+				$ret__ = ADMIN_DOMAIN_CHANNEL;
 			} else {
-				// multiple feeds in the channel
-				echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-				  ."<p>".sprintf(ADMIN_FEEDS,$label,$label)."</p>\n";
-				$cnt = 0;
-				while(list($id,$feedarr) = each($feeds)) {
-					// we need an URL
-					if (!array_key_exists('href',$feedarr)) {
-						continue;
+				//one single feed in the html doc, add that
+				if (is_array($feeds) && sizeof($feeds) == 1 && array_key_exists('href',$feeds[0])) {
+					$ret = add_channel($feeds[0]['href'],$fid);
+					if (is_array($ret) && $ret[0] > -1) {
+						update($ret[0]);
+						$ret__ = ADMIN_DOMAIN_CHANNEL;
 					} else {
-						$href = $feedarr['href'];
+						// failure
+						rss_error($ret[1]);
+						$ret__ = ADMIN_DOMAIN_CHANNEL;
 					}
-
-					if (array_key_exists('type',$feedarr)) {
-						$typeLbl = " [<a href=\"$href\">" . $feedarr['type'] 
-						. "</a>]";
-					}
-
-				$cnt++;
-
-				if (array_key_exists('title',$feedarr)) {
-					$lbl = $feedarr['title'];
-				} elseif (array_key_exists('type',$feedarr)) {
-					$lbl = $feedarr['type'];
-					$typeLbl = "";
-				} elseif (array_key_exists('href',$feedarr)) {
-					$lbl = $feedarr['href'];
 				} else {
-					$lbl = "Resource $cnt";
+					// multiple feeds in the channel
+					echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+					  ."<p>".sprintf(ADMIN_FEEDS,$label,$label)."</p>\n";
+					$cnt = 0;
+					while(list($id,$feedarr) = each($feeds)) {
+						// we need an URL
+						if (!array_key_exists('href',$feedarr)) {
+							continue;
+						} else {
+							$href = $feedarr['href'];
+						}
+	
+						if (array_key_exists('type',$feedarr)) {
+							$typeLbl = " [<a href=\"$href\">" . $feedarr['type'] 
+							. "</a>]";
+						}
+	
+					$cnt++;
+	
+					if (array_key_exists('title',$feedarr)) {
+						$lbl = $feedarr['title'];
+					} elseif (array_key_exists('type',$feedarr)) {
+						$lbl = $feedarr['type'];
+						$typeLbl = "";
+					} elseif (array_key_exists('href',$feedarr)) {
+						$lbl = $feedarr['href'];
+					} else {
+						$lbl = "Resource $cnt";
+					}
+	
+					echo "<p>\n\t<input class=\"indent\" type=\"radio\" id=\"fd_$cnt\" name=\"new_channel\" "
+					  ." value=\"$href\"/>\n"
+					  ."\t<label for=\"fd_$cnt\">$lbl $typeLbl</label>\n"
+					  ."</p>\n";
 				}
-
-				echo "<p>\n\t<input class=\"indent\" type=\"radio\" id=\"fd_$cnt\" name=\"new_channel\" "
-				  ." value=\"$href\"/>\n"
-				  ."\t<label for=\"fd_$cnt\">$lbl $typeLbl</label>\n"
-				  ."</p>\n";
+	
+				echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
+				  ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
+				  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
+				  ."</p>\n</form>\n\n";
+				}
 			}
-
-			echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
-			  ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
-			  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
-			  ."</p>\n</form>\n\n";
-			}
-		}
 		}
 	} else {
 		rss_error(sprintf(ADMIN_BAD_RSS_URL,$label));
