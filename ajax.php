@@ -27,6 +27,9 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 ###############################################################################
 # $Log$
+# Revision 1.15  2005/06/08 10:33:11  mbonetti
+# experimental: alsways use Snoopy instead of fopen to fetch remote URLs
+#
 # Revision 1.14  2005/06/07 17:54:11  mbonetti
 # cleaned up feed discovery a little
 #
@@ -77,18 +80,18 @@ function __priv__updateTags($fid,$tags) {
 
 function __exp__getFromDelicious($id) {
     list($url)= rss_fetch_row(
-                  rss_query('select url from '  . getTable('item')  ." where id=$id"));
+       rss_query('select url from '  . getTable('item')  ." where id=$id"));
     $ret = array();
     $durl = "http://del.icio.us/url/" . md5($url);
     $bfr = getUrl($durl,2000);
     if ($bfr) {
-		 define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
-		 if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
-			  $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
-			  foreach($hits as $hit) {
-			  $ret[] = $hit[1];
-			  }
-		 }
+	define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
+	if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
+	    $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
+	    foreach($hits as $hit) {
+		$ret[] = $hit[1];
+	    }
+	}
     }
     return "$id," .implode(" ",$ret);
 }

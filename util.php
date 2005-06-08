@@ -203,8 +203,11 @@ function rss_error($message, $returnonly=false) {
 
 /** this functions checks whether a URI exists */
 function getHttpResponseCode($forUri) {
+    return getUrl($forUri,255);
+    /*
     $fp = @fopen($forUri, "rb");
     return (($fp)?true:false);
+     */
 }
 
 function getContentType( $link,&$contentType ) {
@@ -909,21 +912,17 @@ function makeArchiveUrl($ts,$channel,$cid,$dayView ) {
  * Fetches a remote URL and returns the content
  */
 function getUrl($url, $maxlen = 0) {
-    $handle = @fopen($url, "rb");
-    if (!$handle) {
-		return "";
+    
+    rss_require('extlib/Snoopy.class.inc');
+    $client = new Snoopy();
+    $client->agent = MAGPIE_USER_AGENT;
+    $client->use_gzip = getConfig('rss.output.compression');
+    
+    if ($maxlen) {
+	$client -> maxlength = $maxlen;
     }
-    $contents = "";
-    $datasz=($maxlen > 0?$maxlen:8192);
-    do {
-		$data = @fread($handle, $datasz);
-		if (strlen($data) == 0 || ($maxlen > 0 && strlen($contents) >= $maxlen)) {
-	    	break;
-		}
-		$contents .= $data;
-    } while (true);
-    @fclose($handle);
-    return $contents;
+    @$client->fetch($url);
+    return $client -> results;       
 }
 
 /**
@@ -935,25 +934,25 @@ function extractFeeds($url) {
     $ret = array();
     //find all link tags
     if (preg_match_all('|<link \w*="[^"]+"+[^>]*>|Ui',$cnt,$res)) {
-		while(list($id,$match)=each($res[0])) {
-			 // we only want '<link alternate=...'
-			 if (stripos($match,'alternate') && !stripos($match,'stylesheet') &&
-			// extract the attributes
-			preg_match_all('|([a-zA-Z]*)="([^"]*)|',$match,$res2,PREG_SET_ORDER)) {
-				$tmp = array();
-				//populate the return array: attr_name => attr_value
-				while(list($id2,$match2) = each($res2)) {
-					 $attr = strtolower(trim($match2[1]));
-					 $val	 = trim($match2[2]);
-					 // make sure we have absolute URI's
-					 if (($attr == "href") && strcasecmp(substr($val,0,4),"http") != 0) {
-						$val =	($url . $val);
-					 }
-					 $tmp[$attr] = $val;
-				}
-				$ret[] = $tmp;
-			 }
+	while(list($id,$match)=each($res[0])) {
+	    // we only want '<link alternate=...'
+	    if (strpos(strtolower($match),'alternate') && !strpos(strtolower($match),'stylesheet') &&
+		// extract the attributes
+		preg_match_all('|([a-zA-Z]*)="([^"]*)|',$match,$res2,PREG_SET_ORDER)) {
+		$tmp = array();
+		//populate the return array: attr_name => attr_value
+		while(list($id2,$match2) = each($res2)) {
+		    $attr = strtolower(trim($match2[1]));
+		    $val	 = trim($match2[2]);
+		    // make sure we have absolute URI's
+		    if (($attr == "href") && strcasecmp(substr($val,0,4),"http") != 0) {
+			$val =	($url . $val);
+		    }
+		    $tmp[$attr] = $val;
 		}
+		$ret[] = $tmp;
+	    }
+	}
     }
     return $ret;
 }
