@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.82  2005/06/09 15:23:43  mbonetti
+# check agains metaactions instead of actions when marking as read
+#
 # Revision 1.81  2005/06/05 06:27:27  mbonetti
 # option: display unread count (feed,folder,total) in the document title
 #
@@ -194,7 +197,7 @@ if ((!isset($cid) || $cid == "") &&
     header("Location: $red");
 }
 
-if (isset($cid) && array_key_exists ('action', $_POST) && $_POST['action'] == MARK_CHANNEL_READ) {
+if (isset($cid) && array_key_exists ('metaaction', $_POST) && $_POST['metaaction'] == 'MARK_CHANNEL_READ') {
     
     $first_unread_id=$next_unread_id='';
     
@@ -799,6 +802,7 @@ function markReadForm($cid) {
 	
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
+  	  ."\t<p><input type=\"hidden\" name=\"metaaction\" value=\"MARK_CHANNEL_READ\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
   	  ."</form>";
 }

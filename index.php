@@ -46,9 +46,9 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 }
 
 
-if (array_key_exists('action', $_POST)
-    && $_POST['action'] != ""
-    && trim($_POST['action']) == trim(MARK_READ)) {
+if (array_key_exists('metaaction', $_POST)
+    && $_POST['metaaction'] != ""
+    && trim($_POST['metaaction']) == trim('MARK_READ')) {
     
     $sql = "update " .getTable("item") . " set unread=unread & "
      .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE;
@@ -261,6 +261,7 @@ function readItems() {
 function markAllReadForm() {
     echo "<form action=\"". getPath() ."\" method=\"post\">"
       ."<p><input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/></p>"
+      ."<p><input type=\"hidden\" name=\"metaaction\" value=\"MARK_READ\"/></p>"
       ."</form>\n";
 }
 
