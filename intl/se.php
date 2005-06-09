@@ -30,15 +30,15 @@
 ###############################################################################
 # 
 # $Log$
-# Revision 1.1  2005/06/09 11:45:01  mbonetti
-# Swedish and Spanish language packs
+# Revision 1.2  2005/06/09 11:46:51  mbonetti
+# That'd be Svenska!
 #
 # 
 #
 #
 ###############################################################################
 
-/// Language: Swenska
+/// Language: Svenska
 
 define ('ITEM','inl&auml;gg');
 define ('ITEMS','inl&auml;gg');
