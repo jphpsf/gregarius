@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.57  2005/06/09 11:45:01  mbonetti
+# Swedish and Spanish language packs
+#
 # Revision 1.56  2005/06/05 06:27:29  mbonetti
 # option: display unread count (feed,folder,total) in the document title
 #
@@ -36,6 +39,9 @@
 #
 #
 ###############################################################################
+
+
+/// Language: Fran&ccedil;ais
 
 define ('ITEM','&eacute;l&eacute;ment');
 define ('ITEMS','&eacute;l&eacute;ments');

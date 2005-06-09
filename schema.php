@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.14  2005/06/09 11:45:08  mbonetti
+# Swedish and Spanish language packs
+#
 # Revision 1.13  2005/06/05 06:27:27  mbonetti
 # option: display unread count (feed,folder,total) in the document title
 #
@@ -240,7 +243,7 @@ function setDefaults($key) {
 		"rss.output.channelcollapse"=>	array("true","true","boolean","Allow collpasing of channels on the main page. ",NULL),
 		"rss.output.usepermalinks"	=>		array("true","true","boolean","Display a permalink icon and allow linking a given item directly",NULL),
 		"rss.config.markreadonupdate"=>	array("true","true","boolean","Mark all old unread feeds as read when updating, if new unread feeds are found ",NULL),
-		"rss.output.lang"			=>		array("en,fr,0","en,fr,0","enum","Language pack to use. (As of today \'en\' and \'fr\' ar available)",NULL),
+		"rss.output.lang"			=>		array("en,es,fr,se,0","en,fr,es,fr,0","enum","Language pack to use.",NULL),
 		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow ordering of channels in the admin. (Uses channel title instead)",NULL),
 		"rss.config.robotsmeta"		=>		array("index,follow","index,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info)",NULL),
 		"rss.config.serverpush"		=>		array("true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browser (Netscape, Mozilla, FireFox,...) and Opera. These brwosers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL),
@@ -254,7 +257,6 @@ function setDefaults($key) {
 		"rss.config.plugins"		=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL),
 		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow gregarius to look for updates in existing items.',NULL),
 		"rss.output.titleunreadcnt"	=>		array('false','false','boolean','Display unread count in the document title.',NULL),
-		
 	);
 	
 	

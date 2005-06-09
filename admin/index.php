@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.45  2005/06/09 11:45:08  mbonetti
+# Swedish and Spanish language packs
+#
 # Revision 1.44  2005/06/07 17:54:17  mbonetti
 # cleaned up feed discovery a little
 #
@@ -1128,7 +1131,13 @@ function config() {
 		 	echo admin_plugins_mgmnt($arr);
 		 	break;
 		 default:
-	
+
+		 case 'rss.output.lang':
+		 	$arr = getLanguages();
+            echo $arr[getConfig('rss.output.lang')];
+		 	break;
+		 default:
+		 
 			// generic handling per type:
 			switch ($row['type_']) {
 				case 'string':
@@ -1364,6 +1373,27 @@ function config_admin() {
 			echo "</script>\n";
 	
 			break;
+			
+			
+        case 'rss.output.lang':
+         	$active_lang = getConfig('rss.output.lang');
+         	
+         	
+            echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." $key:</label>\n"
+    		  ."\t\t<select name=\"value\" id=\"c_value\">\n";
+         	$cntr = 0;
+         	$value = "";
+         	$langs = getLanguages();
+         	foreach ($langs as $code => $name) {
+       			echo "<option value=\"$code\"";
+    			if ($code == $active_lang)   {
+    			  echo " selected=\"selected\"";
+                }
+    			echo ">".$langs[$code]."</option>\n";
+            }
+    		echo "</select>\n";
+		break;
+         
 	 default:
 
 		// generic handling per type:
@@ -1463,7 +1493,21 @@ function config_admin() {
 	 	
 	 	break;
 	 	
-	 	
+    case 'rss.output.lang':
+      	$langs = getLanguages();
+        $codes = array_keys($langs);
+        $out_val = implode(',',$codes);
+        $cntr = 0;
+        $idx = "0";
+        foreach($codes as $code) {
+          if ($code == $value) {
+            $idx = $cntr;
+          }
+          $cntr++;
+        }
+        $out_val .= ",$idx";
+        $sql = "update " . getTable('config') . " set value_='$out_val' where key_='$key'";
+        break;
 	 	
 	 default:
 		switch($type) {
@@ -1489,10 +1533,12 @@ function config_admin() {
 		 case 'enum':
 		$res  = rss_query( "select value_ from " . getTable('config') . " where key_='$key'" );
 		list($oldvalue) = rss_fetch_row($res);
+
 		if (strstr($oldvalue,$value) === FALSE) {
 			rss_error("Oops, invalid value '$value' for this config key");
 			break;
 		}
+
 		$arr = explode(',',$oldvalue);
 		$idx = array_pop($arr);
 		$newkey = -1;
@@ -1635,6 +1681,58 @@ function getPluginInfo($file) {
 		}
 	} 
 	
+	return $info;
+}
+
+
+function getLanguages() {
+  	$cntr = 0;
+    $d = dir('../intl');
+    $files = array();
+    $ret = array();
+    $cntr = 0;
+    $activeIdx = "0";
+    while (false !== ($entry = $d->read())) {
+       if (
+        $entry != "CVS" &&
+        substr($entry,0,1) != "."
+       ) {
+       		$info = getLanguageInfo($entry);
+             if (count($info) && array_key_exists('language',$info)) {
+                $shortL=  preg_replace('|\.php.*$|','',$entry);
+                $ret[$shortL] = $info['language'];
+             }
+       }
+    }
+    $d->close();
+    return $ret;
+}
+function getLanguageInfo($file) {
+	$info = array();
+	$path = "../intl/$file";
+	if (file_exists($path)) {
+		$f = @fopen($path,'r');
+		$contents = "";
+		if ($f) {
+  			$contents .= fread($f, filesize($path));
+			@fclose($f);
+		} else {
+			$contents = "";
+		}
+
+		if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
+			foreach($matches as $match) {
+				$key = trim(strtolower($match[1]));
+				$val = trim($match[2]);
+				if ($key == 'version') {
+					$val=preg_replace('/[^0-9\.]+/','',$val);
+				}
+
+				$info[$key] = $val;
+			}
+		}
+	}
+
 	return $info;
 }
 
