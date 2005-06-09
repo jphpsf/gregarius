@@ -14,7 +14,7 @@
   RewriteRule 	^admin\/([a-z]+)$	admin/index.php?view=$1 [L]
   
   #opml
-  RewriteRule 	^opml.*$		opml.php?action=Export [L]
+  RewriteRule 	^opml.*$		opml.php?act=export [L]
 
   #tag view
   RewriteRule	^tags?\/?$			tags.php?alltags [L]

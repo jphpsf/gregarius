@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.46  2005/06/09 19:27:15  mbonetti
+# fixed: opml export under some wicked circumstances
+#
 # Revision 1.45  2005/06/09 11:45:08  mbonetti
 # Swedish and Spanish language packs
 #
@@ -1080,7 +1083,8 @@ function opml_export_form() {
 	echo "<fieldset style=\"vertical-align:top\">\n<legend>".ADMIN_OPML_EXPORT."</legend>\n";
 	echo "<form method=\"$method\" action=\"$action\">\n"
 	  ."<p><label for=\"action\">". ADMIN_OPML_EXPORT. "</label>\n"
-	  ."<input type=\"submit\" name=\"action\" id=\"action\" value=\"". ADMIN_EXPORT ."\"/></p>\n</form>\n"
+	  ."<input type=\"submit\" name=\"act\" id=\"action\" value=\"". ADMIN_EXPORT ."\" />"
+	  ."</p>\n</form>\n"
 	  ."</fieldset>\n";
 }
 

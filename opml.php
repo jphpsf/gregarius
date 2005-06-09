@@ -97,8 +97,7 @@ function _xml_endElement($xp, $element) {
 // recursive, but instead relies on the fact that we only have one level
 // of folders.
 // Output should be valid xml. (*fingers crossed*)
-if (isset($_REQUEST['action']) && $_REQUEST['action'] == ADMIN_EXPORT) {
-
+if (array_key_exists('act',$_REQUEST)) {
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.descr "
       ." from ". getTable("channels") . " c, " .getTable("folders") ." d "
