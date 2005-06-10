@@ -57,8 +57,12 @@ function rss_header($title="", $active=0, $cidfid=null, $onLoadAction="", $optio
  		$docTitle .= " ($uc " . UNREAD. ")";
 	}
 
-
-	rss_plugin_hook('rss.plugins.bodystart',null);
+    // force a content-type and a charset
+    header('Content-Type: text/html; charset='
+	   .(getConfig('rss.output.encoding')?
+	     getConfig('rss.output.encoding'):DEFAULT_OUTPUT_ENCODING));
+    
+    rss_plugin_hook('rss.plugins.bodystart',null);
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
       ."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
       ."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"
