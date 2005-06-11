@@ -51,7 +51,7 @@ function parse_weblogsDotCom($url) {
      */
 
     global $blogs,$folder;
-    $folder = HOME_FOLDER;
+    $folder = LBL_HOME_FOLDER;
     
     $opml = getUrl($url);
     $opml = str_replace("\r", '', $opml);

@@ -27,6 +27,9 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 ###############################################################################
 # $Log$
+# Revision 1.16  2005/06/11 16:59:09  mbonetti
+# prefixed all labels
+#
 # Revision 1.15  2005/06/08 10:33:11  mbonetti
 # experimental: alsways use Snoopy instead of fopen to fetch remote URLs
 #
@@ -158,7 +161,7 @@ function setTags(id,tagss) {
   fld.innerHTML = html;
 
   var aspan=document.getElementById("ta" + id);
-  aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?= TAG_EDIT ?></a>";
+  aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?= LBL_TAG_EDIT ?></a>";
 }
 
 function submit_tag_cb(ret) {
@@ -193,7 +196,7 @@ function getFromDelicious_cb(ret) {
   }
  }
  if (html == '') {
-  html = '<?= TAG_SUGGESTIONS_NONE ?>';
+  html = '<?= LBL_TAG_SUGGESTIONS_NONE ?>';
  }
  span.innerHTML = '(' + html + ')';
 }
@@ -208,21 +211,21 @@ function addToTags(id,tag) {
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
     var toggle = actionSpan.firstChild;
-    if (toggle.innerHTML == "<?= TAG_SUBMIT ?>") {
+    if (toggle.innerHTML == "<?= LBL_TAG_SUBMIT ?>") {
         var fld = document.getElementById("tfield" + id);
-      toggle.innerHTML="<?= TAG_SUBMITTING ?>";
+      toggle.innerHTML="<?= LBL_TAG_SUBMITTING ?>";
         submit_tag(id,fld.value);
-    } else if (toggle.innerHTML == "<?= TAG_EDIT ?>") {
+    } else if (toggle.innerHTML == "<?= LBL_TAG_EDIT ?>") {
        var isIE=document.all?true:false;
        // the tag container
        var tc=document.getElementById("t"+id);
         var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"").replace(<?=ALLOWED_TAGS_REGEXP ?>gi,"");
         // submit link
-        toggle.innerHTML="<?= TAG_SUBMIT ?>";
+        toggle.innerHTML="<?= LBL_TAG_SUBMIT ?>";
         // cancel link
         cancel = document.createElement("a");
         cancel.style.margin="0 0 0 0.5em";
-        cancel.innerHTML = "<?= TAG_CANCEL ?>";
+        cancel.innerHTML = "<?= LBL_TAG_CANCEL ?>";
         cancel.setAttribute("href","#");
         if (isIE) {
             // the IE sucky way
@@ -238,7 +241,7 @@ function _et(id) {
         newspan = document.createElement("span");
         newspan.setAttribute("id","dt" + id);
         newspan.style.margin="0 0 0 0.5em";
-        newspan.innerHTML = "<?= TAG_SUGGESTIONS ?>: (...) ]";
+        newspan.innerHTML = "<?= LBL_TAG_SUGGESTIONS ?>: (...) ]";
         actionSpan.appendChild(newspan);
         get_from_delicious(id);
         <? } ?>
@@ -307,18 +310,18 @@ function _es(id, state) {
    		+ '<p><input type="checkbox" id="sf' + id + 'u" value="1"'
    		+ (tmpState & <?= FEED_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 'u"><?= STATE_UNREAD ?></label></p>'
+		+ '<label for="sf' + id + 'u"><?= LBL_STATE_UNREAD ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 's" value="1"'
    		+ (tmpState & <?= FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 's"><?= STATE_STICKY ?></label></p>'
+		+ '<label for="sf' + id + 's"><?= LBL_STATE_STICKY ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 'p" value="1"'
    		+ (tmpState & <?= FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 'p"><?= STATE_PRIVATE ?></label></p>'
+		+ '<label for="sf' + id + 'p"><?= LBL_STATE_PRIVATE ?></label></p>'
 		+ '<p class="sbm">'
-		+ '<a id="ess'+id+'ok" href="#" onclick="_ses('+id+'); return false;"><?= ADMIN_OK ?></a>'
-		+ '<a href="#" onclick="_ces('+id+'); return false;"><?= ADMIN_CANCEL ?></a></p>'
+		+ '<a id="ess'+id+'ok" href="#" onclick="_ses('+id+'); return false;"><?= LBL_ADMIN_OK ?></a>'
+		+ '<a href="#" onclick="_ces('+id+'); return false;"><?= LBL_ADMIN_CANCEL ?></a></p>'
    		+ '</form>';
 
     div.className = 'ief';

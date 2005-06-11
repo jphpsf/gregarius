@@ -25,6 +25,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.51  2005/06/11 16:59:09  mbonetti
+# prefixed all labels
+#
 # Revision 1.50  2005/06/05 06:27:27  mbonetti
 # option: display unread count (feed,folder,total) in the document title
 #
@@ -41,7 +44,7 @@ define ('EXPAND_ACTION','fexpand');
 /** displays the channel list **/
 function sideChannels($activeId) {
     echo "\n\n<div id=\"channels\" class=\"frame\">\n";
-    echo "<h2>".H2_CHANNELS."</h2>";
+    echo "<h2>".LBL_H2_CHANNELS."</h2>";
 
     stats();
 
@@ -156,7 +159,7 @@ function sideChannels($activeId) {
 		    $flabel = "<a href=\"".getPath()."index.php?".EXPAND_ACTION."=$cparent\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
 
 		    if (array_key_exists($cparent,$collapsed_folders)) {
-			 $ucLabel .= " " . sprintf(UNREAD_PF,$collapsed_folders[$cparent]);
+			 $ucLabel .= " " . sprintf(LBL_UNREAD_PF,$collapsed_folders[$cparent]);
 		    }
 		    
 
@@ -217,7 +220,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
     $res = rss_query ("select count(*) from " .getTable("item") ." where cid=$cid and unread & "  . FEED_MODE_UNREAD_STATE);
     list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
-	$rdLbl= sprintf(UNREAD_PF, $cnt);
+	$rdLbl= sprintf(LBL_UNREAD_PF, $cnt);
 	$class_= " class=\"feed title unread\"";
     } else {
 	$rdLbl= "";
@@ -276,7 +279,7 @@ function stats() {
     	." where !(mode & " .FEED_MODE_DELETED_STATE .")");
     list($channelcount)= rss_fetch_row($res);
 
-    printf ("\n<p class=\"stats\">" . ITEMCOUNT_PF . "</p>\n"
+    printf ("\n<p class=\"stats\">" . LBL_ITEMCOUNT_PF . "</p>\n"
 	    ,$total, $unread, $channelcount);
 
 }

@@ -54,7 +54,7 @@ function rss_header($title="", $active=0, $cidfid=null, $onLoadAction="", $optio
 	if (getConfig("rss.output.titleunreadcnt") &&
 		is_array($cidfid) && 
 		($uc = getUnreadCount($cidfid['cid'],$cidfid['fid']))) {
- 		$docTitle .= " ($uc " . UNREAD. ")";
+ 		$docTitle .= " ($uc " . LBL_UNREAD. ")";
 	}
 
     // force a content-type and a charset
@@ -142,7 +142,7 @@ function rss_footer() {
     echo "\n<div id=\"footer\" class=\"frame\">\n";
     echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
 
-    echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">Gregarius</a> " ._VERSION_ . " " . FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
+    echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">Gregarius</a> " ._VERSION_ . " " . LBL_FTR_POWERED_BY . "<a href=\"http://php.net\">PHP</a>, \n"
       ."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
       ."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"
       ."</span>\n";
@@ -183,13 +183,13 @@ function nav($title, $active=0) {
       ."\n<a class=\"hidden\" href=\"#feedcontent\">skip to content</a>\n"
       ."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
       ."<ul class=\"navlist\">\n"
-      . "\t<li".($active == LOCATION_HOME	?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."\">".NAV_HOME."</a></li>\n"
-      . "\t<li".($active == LOCATION_UPDATE ?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . NAV_UPDATE. "</a></li>\n"
-      . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".NAV_SEARCH."</a></li>\n"
-      . "\t<li".($active == LOCATION_ADMIN	?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."admin/\">".NAV_CHANNEL_ADMIN ."</a></li>\n";
+      . "\t<li".($active == LOCATION_HOME	?" class=\"active\"":"")."><a accesskey=\"h\" href=\"". getPath() ."\">".LBL_NAV_HOME."</a></li>\n"
+      . "\t<li".($active == LOCATION_UPDATE ?" class=\"active\"":"")."><a accesskey=\"u\" href=\"". getPath() ."update.php\">" . LBL_NAV_UPDATE. "</a></li>\n"
+      . "\t<li".($active == LOCATION_SEARCH ?" class=\"active\"":"")."><a accesskey=\"s\" href=\"". getPath() ."search.php\">".LBL_NAV_SEARCH."</a></li>\n"
+      . "\t<li".($active == LOCATION_ADMIN	?" class=\"active\"":"")."><a accesskey=\"d\" href=\"". getPath() ."admin/\">".LBL_NAV_CHANNEL_ADMIN ."</a></li>\n";
 
     if (getConfig('rss.config.showdevloglink')) {
-		  echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">". NAV_DEVLOG ."</a></li>\n";
+		  echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">". LBL_NAV_DEVLOG ."</a></li>\n";
     }
 	 rss_plugin_hook('rss.plugins.navelements',null);
     echo "</ul>\n</div>\n";
@@ -559,13 +559,13 @@ function itemsList($title,$items, $options = IL_NONE){
 				 && !($iunread & FEED_MODE_UNREAD_STATE)
 				 ) {
 				 if ($collapsed) {
-				$title = EXPAND . " '".htmlentities($ctitle)."'";
+				$title = LBL_EXPAND . " '".htmlentities($ctitle)."'";
 				echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">\n"
 				  ."\t<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;+&nbsp;"
 				  ."</a>\n";
 				 } else {
-				$title = COLLAPSE . " '".htmlentities($ctitle)."'";
+				$title = LBL_COLLAPSE . " '".htmlentities($ctitle)."'";
 				echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">\n"
 				  ."\t<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;-&nbsp;"
@@ -592,7 +592,7 @@ function itemsList($title,$items, $options = IL_NONE){
 				 $s_unread = (int)( array_key_exists("1", $stats[$cid])?$stats[$cid][1]:0);
 				 $s_total  = (int)$stats[$cid][0] + $s_unread;
 				 echo "<span>"
-					.sprintf(H5_READ_UNREAD_STATS,
+					.sprintf(LBL_H5_READ_UNREAD_STATS,
 						 $s_total, $s_unread
 						 )
 				."</span>\n";
@@ -631,7 +631,7 @@ function itemsList($title,$items, $options = IL_NONE){
 			if (getConfig('rss.output.usepermalinks')) {
 			$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
 			list($ply,$plm,$pld) = explode(":",date("Y:m:d",$ts));
-			$ptitle = PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
+			$ptitle = LBL_PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
 			echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
 	
 			if ($escaped_ititle != "" && getConfig('rss.output.usemodrewrite')) {
@@ -646,7 +646,7 @@ function itemsList($title,$items, $options = IL_NONE){
             
            if (! hidePrivate()) {
             echo "\t\t<a id=\"sa$iid\" href=\"#\" onclick=\"_es(".$iid.",".$iunread."); return false;\">\n"
-            ."\t\t\t<img src=\"".getPath(). "css/media/edit.gif\" alt=\"".ADMIN_EDIT."\" />\n"
+            ."\t\t\t<img src=\"".getPath(). "css/media/edit.gif\" alt=\"".LBL_ADMIN_EDIT."\" />\n"
             ."\t\t</a>\n";
            }
            
@@ -692,9 +692,9 @@ function itemsList($title,$items, $options = IL_NONE){
 			}
 	
 			if ($ispubdate) {
-				 echo "\t\t<h5>". POSTED . "$date_lbl</h5>\n";
+				 echo "\t\t<h5>". LBL_POSTED . "$date_lbl</h5>\n";
 			} else {
-				 echo "\t\t<h5>". FETCHED . "$date_lbl</h5>\n";
+				 echo "\t\t<h5>". LBL_FETCHED . "$date_lbl</h5>\n";
 			}
 			 }
 	
@@ -706,7 +706,7 @@ function itemsList($title,$items, $options = IL_NONE){
 			 } else {
 			echo "<a href=\"".getPath()."tags.php?alltags\">";
 			 }
-			 echo TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
+			 echo LBL_TAG_TAGS ."</a>:&nbsp;<span id=\"t$iid\">";
 			 foreach($tags as $tag_) {
 			$tag_ = trim($tag_);
 			if (getConfig('rss.output.usemodrewrite')) {
@@ -718,7 +718,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 			 echo "</span>&nbsp;[<span id=\"ta$iid\">"
 				. "<a href=\"#\" onclick=\"_et($iid); return false;\">"
-				.TAG_EDIT."</a>"
+				.LBL_TAG_EDIT."</a>"
 				."</span>]</h5>\n\n";
 	
 			 /// /tags
@@ -1017,13 +1017,13 @@ function showViewForm($curValue) {
    
    // post back to self, we should be able to handle the request, shouldn't we.
    echo "\n<form action=\"". $_SERVER['REQUEST_URI'] . "\" method=\"post\" id=\"frmShow\">\n"
-      ."<p><label for=\"".SHOW_WHAT."\">".SHOW_UNREAD_ALL_SHOW."</label>\n"
+      ."<p><label for=\"".SHOW_WHAT."\">".LBL_SHOW_UNREAD_ALL_SHOW."</label>\n"
 		."<select name=\"".SHOW_WHAT."\" id=\"".SHOW_WHAT."\" "
 		   ." onchange=\"document.getElementById('frmShow').submit();\">\n"
 		."\t<option value=\"".SHOW_UNREAD_ONLY."\"$unreadOnlySelected>"
-		   . SHOW_UNREAD_ALL_UNREAD_ONLY . "</option>\n"
+		   . LBL_SHOW_UNREAD_ALL_UNREAD_ONLY . "</option>\n"
       ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"$readAndUndredaSelected>"
-         . SHOW_UNREAD_ALL_READ_AND_UNREAD . "</option>\n"
+         . LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD . "</option>\n"
       ."</select></p>\n</form>\n";
 }
 

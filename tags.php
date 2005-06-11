@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.32  2005/06/11 16:59:09  mbonetti
+# prefixed all labels
+#
 # Revision 1.31  2005/05/26 05:29:28  mbonetti
 # d'uh, debug message, bummer me
 #
@@ -216,8 +219,8 @@ if(array_key_exists('tag',$_GET)) {
 	if ($relPlus) {
 	    $relLbl .= "&nbsp;[<a "
 	      ."title=\"$cnt " 
-	      . ($cnt > 1 ? ITEMS:ITEM) ." "
-	      . ($cnt > 1 || $cnt == 0? TAG_TAGGEDP:TAG_TAGGED) ." '"
+	      . ($cnt > 1 ? LBL_ITEMS:LBL_ITEM) ." "
+	      . ($cnt > 1 || $cnt == 0? LBL_TAG_TAGGEDP:LBL_TAG_TAGGED) ." '"
 	      . $hrTag ." " .LBL_AND .  " $rtag'\" "
 	      . "href=\""
 	      . getPath() .""
@@ -237,19 +240,19 @@ if(array_key_exists('tag',$_GET)) {
 
     if ($gotsome) {
 
-	echo "<h2>" . count($items) . " " . (count($items) > 1 ? ITEMS:ITEM)
+	echo "<h2>" . count($items) . " " . (count($items) > 1 ? LBL_ITEMS:LBL_ITEM)
 	  ." "
-	  . (count($items) > 1 || count($items) == 0? TAG_TAGGEDP:TAG_TAGGED) .""
+	  . (count($items) > 1 || count($items) == 0? LBL_TAG_TAGGEDP:LBL_TAG_TAGGED) .""
 	  . " \"" . $hrTag . "\"</h2>\n";
 
 	if (count($related)) {
-	    echo "\n<p>" . TAG_RELATED ."\n". implode(", \n", $related) ."\n</p>\n";
+	    echo "\n<p>" . LBL_TAG_RELATED ."\n". implode(", \n", $related) ."\n</p>\n";
 	}
 
 	itemsList ( "",  $items, IL_NO_COLLAPSE );
     } else {
 	echo "<p style=\"height: 10em; text-align:center\">";
-	printf(TAG_ERROR_NO_TAG,$hrTag);
+	printf(LBL_TAG_ERROR_NO_TAG,$hrTag);
 	echo "</p>";
     }
     echo "</div>\n";
@@ -292,7 +295,7 @@ if(array_key_exists('tag',$_GET)) {
 		$taglink = getPath() .
 		  (getConfig('rss.output.usemodrewrite')?"tag/$tag":"tags.php?tag=$tag");
 		$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
-		  .($cnt > 1 || $cnt == 0 ? ITEMS:ITEM)."\" style=\"font-size: ".
+		  .($cnt > 1 || $cnt == 0 ? LBL_ITEMS:LBL_ITEM)."\" style=\"font-size: ".
 		  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
 		}
     } else {
@@ -300,10 +303,10 @@ if(array_key_exists('tag',$_GET)) {
     }
 
     // done! Render some stuff
-    rss_header("Tags " . TITLE_SEP . " " . TAG_ALL_TAGS);
+    rss_header("Tags " . TITLE_SEP . " " . LBL_TAG_ALL_TAGS);
     sideChannels(false);
     echo "\n\n<div id=\"items\" class=\"frame\">\n"
-      //."<h2>$cntr " . TAG_TAGS . "</h2>\n"
+      //."<h2>$cntr " . LBL_TAG_TAGS . "</h2>\n"
       ."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
       ."\n\n</div>\n";
     rss_footer();

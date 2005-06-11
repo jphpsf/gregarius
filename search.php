@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.40  2005/06/11 16:59:09  mbonetti
+# prefixed all labels
+#
 # Revision 1.39  2005/06/05 06:27:27  mbonetti
 # option: display unread count (feed,folder,total) in the document title
 #
@@ -60,10 +63,10 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     sideChannels(false);
     search();
 } else {
-    rss_header(TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('query').focus()");
+    rss_header(LBL_TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('query').focus()");
     sideChannels(false);
     list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")));
-    searchForm(sprintf(H2_SEARCH, $cnt));
+    searchForm(sprintf(LBL_H2_SEARCH, $cnt));
 }
 
 rss_footer();
@@ -76,7 +79,7 @@ function searchForm($title) {
 
     echo
       "\n\t\t<form action=\"". getPath() ."search.php\" method=\"post\" id=\"srchfrm\">\n"
-      ."\n\t\t<p><label for=\"query\">". SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" "
+      ."\n\t\t<p><label for=\"query\">". LBL_SEARCH_SEARCH_QUERY ."</label><input type=\"text\" name=\"query\" "
       ." id=\"query\" value=\"". (array_key_exists(QUERY_PRM,$_REQUEST)?$_REQUEST[QUERY_PRM]:"")
 	."\"/></p>\n"
 
@@ -85,7 +88,7 @@ function searchForm($title) {
       .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) &&
 	 $_REQUEST[QUERY_MATCH_MODE] == QUERY_MATCH_OR)?" checked=\"checked\"":"")
 	."/>\n"
-      ."\t\t<label for=\"qry_match_or\">". SEARCH_MATCH_OR."</label>\n"
+      ."\t\t<label for=\"qry_match_or\">". LBL_SEARCH_MATCH_OR."</label>\n"
 
       ."\t\t<input type=\"radio\" id=\"qry_match_and\" name=\"". QUERY_MATCH_MODE
       ."\" value=\"". QUERY_MATCH_AND ."\""
@@ -93,21 +96,21 @@ function searchForm($title) {
 	 $_REQUEST[QUERY_MATCH_MODE] == QUERY_MATCH_AND ||
 	 !array_key_exists(QUERY_MATCH_MODE,$_REQUEST))?" checked=\"checked\"":"")
 	."/>\n"
-      ."\t\t<label for=\"qry_match_and\">". SEARCH_MATCH_AND."</label>\n"
+      ."\t\t<label for=\"qry_match_and\">". LBL_SEARCH_MATCH_AND."</label>\n"
 
       ."\t\t<input type=\"radio\" id=\"qry_match_exact\" name=\"". QUERY_MATCH_MODE
       ."\" value=\"". QUERY_MATCH_EXACT ."\""
       .((array_key_exists(QUERY_MATCH_MODE,$_REQUEST) &&
 	 $_REQUEST[QUERY_MATCH_MODE] == QUERY_MATCH_EXACT)?" checked=\"checked\"":"")
 	."/>\n"
-      ."\t\t<label for=\"qry_match_exact\">". SEARCH_MATCH_EXACT."</label></p>\n"
+      ."\t\t<label for=\"qry_match_exact\">". LBL_SEARCH_MATCH_EXACT."</label></p>\n"
 
-      ."\n\t\t<p><label for=\"". QUERY_CHANNEL ."\">". SEARCH_CHANNELS ."</label>\n"
+      ."\n\t\t<p><label for=\"". QUERY_CHANNEL ."\">". LBL_SEARCH_CHANNELS ."</label>\n"
       ."\t\t<select name=\"".QUERY_CHANNEL."\" id=\"".QUERY_CHANNEL."\">\n"
       ."\t\t\t<option value=\"". ALL_CHANNELS_ID ."\""
       .((!array_key_exists(QUERY_CHANNEL,$_REQUEST) ||
 	 $_REQUEST[QUERY_CHANNEL] == ALL_CHANNELS_ID)?" selected=\"selected\"":"")
-	.">" . ALL  . "</option>\n";
+	.">" . LBL_ALL  . "</option>\n";
 
 	$sql = "select "
 		      ." c.id, c.title, f.name, f.id  "
@@ -130,7 +133,7 @@ function searchForm($title) {
             if ($prev_parent > -1) {
                 echo "\t\t\t</optgroup>\n";
             }
-            if ($parent_ == "") { $parent_ = HOME_FOLDER; }
+            if ($parent_ == "") { $parent_ = LBL_HOME_FOLDER; }
             echo "\t\t\t<optgroup label=\"$parent_ /\">\n";
             $prev_parent = $parent_id_;
         }
@@ -156,15 +159,15 @@ function searchForm($title) {
 	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_DATE ||
 	 !array_key_exists(QUERY_ORDER_BY,$_REQUEST)?" checked=\"checked\"":""))
 	."/>\n"
-      ."\t\t<label for=\"qry_order_date\">". SEARCH_ORDER_DATE_CHANNEL ."</label>\n"
+      ."\t\t<label for=\"qry_order_date\">". LBL_SEARCH_ORDER_DATE_CHANNEL ."</label>\n"
       ."\t\t<input type=\"radio\" id=\"qry_order_channel\" name=\"". QUERY_ORDER_BY
       ."\" value=\"". QUERY_ORDER_BY_CHANNEL ."\""
       .((array_key_exists(QUERY_ORDER_BY,$_REQUEST) &&
 	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_CHANNEL)?" checked=\"checked\"":"")
 	."/>\n"
-      ."\t\t<label for=\"qry_order_channel\">". SEARCH_ORDER_CHANNEL_DATE ."</label></p>\n";
+      ."\t\t<label for=\"qry_order_channel\">". LBL_SEARCH_ORDER_CHANNEL_DATE ."</label></p>\n";
 
-    echo "\n\t\t<p><label for=\"". QUERY_RESULTS ."\">". SEARCH_RESULTS_PER_PAGE ."</label>\n"
+    echo "\n\t\t<p><label for=\"". QUERY_RESULTS ."\">". LBL_SEARCH_RESULTS_PER_PAGE ."</label>\n"
       ."\t\t<select name=\"".QUERY_RESULTS."\" id=\"".QUERY_RESULTS."\">\n"
 
       ."\t\t\t<option value=\"5\""
@@ -184,12 +187,12 @@ function searchForm($title) {
 
       ."\t\t\t<option value=\"".INFINE_RESULTS."\""
       .((array_key_exists(QUERY_RESULTS,$_REQUEST) && $_REQUEST[QUERY_RESULTS] == INFINE_RESULTS?" selected=\"selected\"":""))
-	.">".ALL."</option>\n"
+	.">".LBL_ALL."</option>\n"
 
       ."\t\t</select></p>\n"
 
       ."\n\t\t<p><input type=\"hidden\" name=\"".QUERY_CURRENT_PAGE."\" value=\"0\" />\n"
-      ."<input id=\"search_go\" type=\"submit\" value=\"". SEARCH_GO ."\"/></p>\n"
+      ."<input id=\"search_go\" type=\"submit\" value=\"". LBL_SEARCH_GO ."\"/></p>\n"
       ."\t\t</form>\n";
 
     echo "</div>\n";
@@ -349,7 +352,7 @@ function search() {
     $humanReadableQuery = implode(" ".strtoupper($logicSep)." ",$terms);
 
     $title = sprintf(
-		     (($cnt > 1 || $cnt == 0)?H2_SEARCH_RESULTS_FOR:H2_SEARCH_RESULT_FOR),
+		     (($cnt > 1 || $cnt == 0)?LBL_H2_SEARCH_RESULTS_FOR:LBL_H2_SEARCH_RESULT_FOR),
 		     $cnt, "'" .$humanReadableQuery."'");
 
     // If we got no hit, offer the search form.
@@ -359,7 +362,7 @@ function search() {
 	$nav = "";
 	if ($resultsPerPage != INFINE_RESULTS && $cnt > $resultsPerPage) {
 	    $nav .= "<div class=\"readmore\">";
-	    $nav .= SEARCH_RESULTS;
+	    $nav .= LBL_SEARCH_RESULTS;
 
 	    // first page
 	    $fp = 0;

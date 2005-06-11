@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
   RewriteEngine on
-
+  
   SetEnvIf Request_URI "/css/" static
   SetEnvIf Request_URI "/img/" static
   SetEnvIf Request_URI "/admin/" static

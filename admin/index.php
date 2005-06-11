@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.48  2005/06/11 16:59:12  mbonetti
+# prefixed all labels
+#
 # Revision 1.47  2005/06/11 14:44:20  mbonetti
 # renamed internal admin constants
 #
@@ -93,7 +96,7 @@ if ($auth) {
 	setAdminCookie();
 }
 
-rss_header(TITLE_ADMIN,LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
+rss_header(LBL_TITLE_ADMIN,LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
 
 admin_main($auth);
 rss_footer();
@@ -160,7 +163,7 @@ function admin_main($authorised) {
       echo "\n<div class=\"clearer\"></div>\n";
    
    } else {
-		rss_error(sprintf(ADMIN_ERROR_NOT_AUTHORIZED,getPath()));
+		rss_error(sprintf(LBL_ADMIN_ERROR_NOT_AUTHORIZED,getPath()));
 	}
 	echo "</div>\n";
 }
@@ -172,42 +175,42 @@ function admin_main($authorised) {
  * feeds table
  */
 function channels() {
-	echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
+	echo "<h2>". LBL_ADMIN_CHANNELS ."</h2>\n";
 	echo "<div id=\"admin_channels\">\n";
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 	echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n";
-	echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
+	echo "<label for=\"new_channel\">". LBL_ADMIN_CHANNELS_ADD ."</label>\n";
 	echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" onfocus=\"this.select()\"/>\n";
 
-	echo "<label for=\"add_channel_to_folder\">". ADMIN_IN_FOLDER . "</label>\n";
+	echo "<label for=\"add_channel_to_folder\">". LBL_ADMIN_IN_FOLDER . "</label>\n";
 	folder_combo('add_channel_to_folder');
 
-	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/></p>\n";
-	echo "<p style=\"font-size:small\">".ADMIN_ADD_CHANNEL_EXPL."</p>";
+	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/></p>\n";
+	echo "<p style=\"font-size:small\">".LBL_ADMIN_ADD_CHANNEL_EXPL."</p>";
 	echo "</form>\n\n";
 
 	// bookmarklet
 	$b_url = "http://" . $_SERVER["HTTP_HOST"] . getPath() . "admin/index.php";
-	$b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=".ADMIN_ADD."&amp;new_channel=";
+	$b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=".LBL_ADMIN_ADD."&amp;new_channel=";
 
 	$bookmarklet = "javascript:void(document.location = "
 	  ."('$b_url'.concat(document.location)))";
 
-	echo "<p class=\"bookmarklet\">" . ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
+	echo "<p class=\"bookmarklet\">" . LBL_ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".LBL_ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
 
 	// feeds
 	echo "<table id=\"channeltable\">\n"
 	  ."<tr>\n"
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
-	  ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"	  
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_FLAGS."</th>\n";
+	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
+	  ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
+	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"	  
+	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_FLAGS."</th>\n";
 	  
 	if (getConfig('rss.config.absoluteordering')) {
-	echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
+	echo "\t<th>".LBL_ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
 	}
 
-	echo "\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+	echo "\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
 	  ."</tr>\n";
 
 	$sql = "select "
@@ -231,7 +234,7 @@ function channels() {
 		$outUrl = getPath() . "feed.php?channel=$id";
 	}
 
-	$parentLabel = $parent == ''? HOME_FOLDER:$parent;
+	$parentLabel = $parent == ''? LBL_HOME_FOLDER:$parent;
 
 	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 	
@@ -255,14 +258,14 @@ function channels() {
 
 	if (getConfig('rss.config.absoluteordering')) {
 		echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-		  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". ADMIN_MOVE_UP
+		  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". LBL_ADMIN_MOVE_UP
 		  ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-		  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".ADMIN_MOVE_DOWN ."</a></td>\n";
+		  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".LBL_ADMIN_MOVE_DOWN ."</a></td>\n";
 	}
 	echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-	  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT
+	  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . LBL_ADMIN_EDIT
 	  ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-	  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
+	  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . LBL_ADMIN_DELETE ."</a></td>\n"
 	  ."</tr>\n";
 	}
 
@@ -274,26 +277,26 @@ function channels() {
  * renders the opml export form
  */
 function opml() {
-	echo "<h2 class=\"trigger\">". ADMIN_OPML ."</h2>\n";
+	echo "<h2 class=\"trigger\">". LBL_ADMIN_OPML ."</h2>\n";
 	echo "<div id=\"admin_opml\">\n";
 
 	echo "<fieldset id=\"opmlimport\">\n"
-		."<legend>" . ADMIN_OPML_IMPORT . "</legend>";
+		."<legend>" . LBL_ADMIN_OPML_IMPORT_OPML . "</legend>";
 		
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 	echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN ."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n";
-	echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT_FROM_URL ."</label>\n";
+	echo "<label for=\"opml\">" . LBL_ADMIN_OPML_IMPORT_FROM_URL ."</label>\n";
 	echo "<input type=\"text\"	name=\"opml\" id=\"opml\" value=\"http://\" onfocus=\"this.select()\"/>\n";
-	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_IMPORT ."\"/></p>\n";
+	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_OPML_IMPORT ."\"/></p>\n";
 
 	echo "</form>\n";
 
 	echo '<form enctype="multipart/form-data" method="post" action="' . $_SERVER['PHP_SELF'] . "\">\n";
 	echo '<p><input type="hidden" name="' . CST_ADMIN_DOMAIN . '" value="' . CST_ADMIN_DOMAIN_CHANNEL . "\" />\n";
 	echo '<input type="hidden" name="MAX_FILE_SIZE" value="150000" />' . "\n";
-	echo '<label for="opmlfile">' . ADMIN_OPML_IMPORT_FROM_FILE . "</label>\n";
+	echo '<label for="opmlfile">' . LBL_ADMIN_OPML_IMPORT_FROM_FILE . "</label>\n";
 	echo '<input name="opmlfile" type="file" id="opmlfile" />' . "\n";
-	echo '<input type="submit" name="action" value="' . ADMIN_FILE_IMPORT . "\" /></p>\n";
+	echo '<input type="submit" name="action" value="' . LBL_ADMIN_FILE_IMPORT . "\" /></p>\n";
 	echo "</form>\n";
 	echo "</fieldset>\n";
 	opml_export_form();
@@ -306,25 +309,25 @@ function opml() {
 function items() {
 
     echo  ""
-      . "<h2 class=\"trigger\">". ADMIN_ITEM ."</h2>\n"
+      . "<h2 class=\"trigger\">". LBL_ADMIN_ITEM ."</h2>\n"
       . "<div id=\"admin_items\">\n"
       . "<form method=\"get\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
       . "<fieldset class=\"prune\">\n"
-      . "<legend>".ADMIN_PRUNING."</legend>\n"
+      . "<legend>".LBL_ADMIN_PRUNING."</legend>\n"
       . "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN ."\" value=\"".CST_ADMIN_DOMAIN_ITEM."\"/>\n"
-      . "<label for=\"prune_older\">" . ADMIN_PRUNE_OLDER ."</label>\n"
+      . "<label for=\"prune_older\">" . LBL_ADMIN_PRUNE_OLDER ."</label>\n"
       . "<input type=\"text\" size=\"5\" name=\"prune_older\" id=\"prune_older\" value=\"\" />\n"
       . "<select name=\"prune_period\" id=\"prune_period\">\n"
-      . "<option>" . ADMIN_PRUNE_DAYS . "</option>\n"
-      . "<option>" . ADMIN_PRUNE_MONTHS . "</option>\n"
-      . "<option>" . ADMIN_PRUNE_YEARS . "</option>\n"
+      . "<option>" . LBL_ADMIN_PRUNE_DAYS . "</option>\n"
+      . "<option>" . LBL_ADMIN_PRUNE_MONTHS . "</option>\n"
+      . "<option>" . LBL_ADMIN_PRUNE_YEARS . "</option>\n"
       . "</select></p>\n"
-      . "<p><label for=\"prune_include_sticky\">".ADMIN_PRUNE_INCLUDE_STICKY."</label>\n"
+      . "<p><label for=\"prune_include_sticky\">".LBL_ADMIN_PRUNE_INCLUDE_STICKY."</label>\n"
       . "<input type=\"checkbox\" id=\"prune_include_sticky\" name=\"prune_include_sticky\" value=\"1\"/></p>\n"
-      . "<p><label for=\"prune_exclude_tags\">".ADMIN_PRUNE_EXCLUDE_TAGS."</label>\n"
+      . "<p><label for=\"prune_exclude_tags\">".LBL_ADMIN_PRUNE_EXCLUDE_TAGS."</label>\n"
       . "<input type=\"text\" id=\"prune_exclude_tags\" name=\"prune_exclude_tags\" value=\"\"/></p>\n"
-		. "<p style=\"font-size:small; padding:0;margin:0\">".ADMIN_ALLTAGS_EXPL."</p>\n"
-      . "<p class=\"cntr\"><input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\"/></p>\n"
+		. "<p style=\"font-size:small; padding:0;margin:0\">".LBL_ADMIN_ALLTAGS_EXPL."</p>\n"
+      . "<p class=\"cntr\"><input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_DELETE2 ."\"/></p>\n"
       . "</fieldset>\n"
       . "</form>\n"
       . "</div>\n"
@@ -337,7 +340,7 @@ function items() {
 function item_admin() {
 	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	switch ($_REQUEST['action']) {
-	 case ADMIN_DELETE2:
+	 case LBL_ADMIN_DELETE2:
 		$req = rss_query('select count(*) as cnt from ' .getTable('item'));
 		list($cnt) = rss_fetch_row($req);
 		
@@ -347,20 +350,20 @@ function item_admin() {
 			 strlen($_REQUEST['prune_older']) && 
 			 is_numeric($_REQUEST['prune_older'])) 	{
 			switch ($_REQUEST['prune_period']) {
-		 		case ADMIN_PRUNE_DAYS:
+		 		case LBL_ADMIN_PRUNE_DAYS:
 					$period = 'day';
 					break;
 
-				 case ADMIN_PRUNE_MONTHS:
+				 case LBL_ADMIN_PRUNE_MONTHS:
 					$period = 'month';
 					break;
 
-				 case ADMIN_PRUNE_YEARS:
+				 case LBL_ADMIN_PRUNE_YEARS:
 					$period = 'year';
 					break;
 
 				 default:
-				 	rss_error(ADMIN_ERROR_PRUNING_PERIOD);
+				 	rss_error(LBL_ADMIN_ERROR_PRUNING_PERIOD);
 					return CST_ADMIN_DOMAIN_ITEM;
 				break;
 			}
@@ -426,20 +429,20 @@ function item_admin() {
 				$ret__ = CST_ADMIN_DOMAIN_ITEM;
 			} else {
 				list($cnt_d) = rss_fetch_row(rss_query("select count(*) as cnt " . $sql));
-				rss_error(sprintf(ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt));
+				rss_error(sprintf(LBL_ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt));
 
 				echo "<form action=\"\" method=\"post\">\n"
 		  		."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_ITEM."\" />\n"
 		  		."<input type=\"hidden\" name=\"prune_older\" value=\"".$_REQUEST['prune_older']."\" />\n"
 			  	."<input type=\"hidden\" name=\"prune_period\" value=\"".$_REQUEST['prune_period']."\" />\n"
 				."<input type=\"hidden\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"1\" />\n"
-				."<input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\" />\n"
-				."<input type=\"submit\" name=\"action\" value=\"". ADMIN_CANCEL ."\"/>\n"
+				."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_DELETE2 ."\" />\n"
+				."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/>\n"
 		  		."</p>\n"
 				."</form>\n";
 			}
 	} else {
-		rss_error(ADMIN_ERROR_NO_PERIOD);
+		rss_error(LBL_ADMIN_ERROR_NO_PERIOD);
 		$ret__ = CST_ADMIN_DOMAIN_ITEM;
 	}
 
@@ -460,7 +463,7 @@ function channel_admin() {
 
 	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	switch ($_REQUEST['action']) {
-	 case ADMIN_ADD:
+	 case LBL_ADMIN_ADD:
 	 case 'Add':
 	$label = trim($_REQUEST['new_channel']);
 	$fid = trim($_REQUEST['add_channel_to_folder']);
@@ -491,7 +494,7 @@ function channel_admin() {
 				} else {
 					// multiple feeds in the channel
 					echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-					  ."<p>".sprintf(ADMIN_FEEDS,$label,$label)."</p>\n";
+					  ."<p>".sprintf(LBL_ADMIN_FEEDS,$label,$label)."</p>\n";
 					$cnt = 0;
 					while(list($id,$feedarr) = each($feeds)) {
 						// we need an URL
@@ -527,13 +530,13 @@ function channel_admin() {
 	
 				echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
 				  ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
-				  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
+				  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/>\n"
 				  ."</p>\n</form>\n\n";
 				}
 			}
 		}
 	} else {
-		rss_error(sprintf(ADMIN_BAD_RSS_URL,$label));
+		rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$label));
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 	}
 	break;
@@ -543,7 +546,7 @@ function channel_admin() {
 		channel_edit_form($id);
 	break;
 
-	 case ADMIN_CREATE:
+	 case LBL_ADMIN_CREATE:
 		$label=$_REQUEST['new_folder'];
 		assert(strlen($label) > 0);
 
@@ -554,7 +557,7 @@ function channel_admin() {
 
 	 case CST_ADMIN_DELETE_ACTION:
 		$id = $_REQUEST['cid'];
-		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_YES) {
+		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
 			$rs = rss_query("select distinct id from " .getTable("item") . " where cid=$id");
 			$ids = array();
 			while (list($did) = rss_fetch_row($rs)) {
@@ -571,15 +574,15 @@ function channel_admin() {
 			$sql = "delete from " . getTable("channels") ." where id=$id";
 			rss_query($sql);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
-		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_NO) {
+		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} else {
 			list($cname) = rss_fetch_row(rss_query("select title from " . getTable("channels") ." where id = $id"));
 
 			echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-			."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$cname); echo "</p>\n"
-			."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
-			."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
+			."<p class=\"error\">"; printf(LBL_ADMIN_ARE_YOU_SURE,$cname); echo "</p>\n"
+			."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
+			."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
 			."<input type=\"hidden\" name=\"cid\" value=\"$id\"/>\n"
 			."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
 			."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\"/>\n"
@@ -587,14 +590,14 @@ function channel_admin() {
 		}
 		break;
 
-	 case ADMIN_FILE_IMPORT:
+	 case LBL_ADMIN_FILE_IMPORT:
 		if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
 			$url = $_FILES['opmlfile']['tmp_name'];
 		} else {
 			$url = '';
 		}
 
-	 case ADMIN_IMPORT:
+	 case LBL_ADMIN_IMPORT:
 		if ($url == '') {
 			$url = $_REQUEST['opml'];
 		}
@@ -607,7 +610,7 @@ function channel_admin() {
 			rss_query("delete from " . getTable("item"));
 			rss_query("delete from " . getTable("folders") ." where id > 0");
 
-			$prev_folder = HOME_FOLDER;
+			$prev_folder = LBL_HOME_FOLDER;
 			$fid = 0;
 			while (list($folder,$items) = each ($opml)) {
 				if ($folder != $prev_folder) {
@@ -675,7 +678,7 @@ function channel_admin() {
 		
 	
 		if ($url == '' || substr($url,0,4) != "http") {
-			rss_error(sprintf(ADMIN_BAD_RSS_URL,$url));
+			rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$url));
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 			break;
 		}
@@ -737,28 +740,28 @@ function channel_edit_form($cid) {
 	list ($id, $title, $url, $siteurl, $parent, $descr, $icon,$mode) = rss_fetch_row($res);
 
 	echo "<div>\n";
-	echo "\n\n<h2>".ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
+	echo "\n\n<h2>".LBL_ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"channeledit\">\n"
 	  ."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
 	  ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_SUBMIT_EDIT ."\"/>\n"
 	  ."<input type=\"hidden\" name=\"cid\" value=\"$cid\"/>\n"
 
 	  // Item name
-	  ."<label for=\"c_name\">". ADMIN_CHANNEL_NAME ."</label>\n"
+	  ."<label for=\"c_name\">". LBL_ADMIN_CHANNEL_NAME ."</label>\n"
 	  ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\"/></p>"
 
 	  // RSS URL
-	  ."<p><label for=\"c_url\">". ADMIN_CHANNEL_RSS_URL ."</label>\n"
-	  ."<a href=\"$url\">" . VISIT . "</a>\n"
+	  ."<p><label for=\"c_url\">". LBL_ADMIN_CHANNEL_RSS_URL ."</label>\n"
+	  ."<a href=\"$url\">" . LBL_VISIT . "</a>\n"
 	  ."<input type=\"text\" id=\"c_url\" name=\"c_url\" value=\"$url\"/></p>"
 
 	  // Site URL
-	  ."<p><label for=\"c_siteurl\">". ADMIN_CHANNEL_SITE_URL ."</label>\n"
-	  ."<a href=\"$siteurl\">" . VISIT . "</a>\n"
+	  ."<p><label for=\"c_siteurl\">". LBL_ADMIN_CHANNEL_SITE_URL ."</label>\n"
+	  ."<a href=\"$siteurl\">" . LBL_VISIT . "</a>\n"
 	  ."<input type=\"text\" id=\"c_siteurl\" name=\"c_siteurl\" value=\"$siteurl\"/></p>"
 
 	  // Folder
-	  ."<p><label for=\"c_parent\">". ADMIN_CHANNEL_FOLDER ."</label>\n";
+	  ."<p><label for=\"c_parent\">". LBL_ADMIN_CHANNEL_FOLDER ."</label>\n";
 
 	folder_combo('c_parent',$parent);
 	echo "</p>\n";
@@ -785,7 +788,7 @@ function channel_edit_form($cid) {
 	echo "<p>\n"
 		."<input style=\"display:inline\" type=\"checkbox\" id=\"c_private\" "
 		." name=\"c_private\" value=\"1\"$pchk />\n"
-		."<label for=\"c_private\">". ADMIN_CHANNEL_PRIVATE ."</label>\n"
+		."<label for=\"c_private\">". LBL_ADMIN_CHANNEL_PRIVATE ."</label>\n"
 		."<input type=\"hidden\" name=\"old_priv\" value=\"$old_priv\" />\n"
 		."</p>\n";
 
@@ -793,22 +796,22 @@ function channel_edit_form($cid) {
 	echo "<p>\n"
 		."<input style=\"display:inline\" type=\"checkbox\" id=\"c_deleted\" "
 		." name=\"c_deleted\" value=\"1\"$dchk />\n"
-		."<label for=\"c_deleted\">". ADMIN_CHANNEL_DELETED ."</label>\n"
+		."<label for=\"c_deleted\">". LBL_ADMIN_CHANNEL_DELETED ."</label>\n"
 		."<input type=\"hidden\" name=\"old_del\" value=\"$old_del\" />\n"
 		."</p>\n";
 	
 	
 	// Description
-	echo "<p><label for=\"c_descr\">". ADMIN_CHANNEL_DESCR ."</label>\n"
+	echo "<p><label for=\"c_descr\">". LBL_ADMIN_CHANNEL_DESCR ."</label>\n"
 	  ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";
 
 	// Icon
 	if (getConfig('rss.output.showfavicons')) {
-		echo "<p><label for=\"c_icon\">" . ADMIN_CHANNEL_ICON ."</label>\n";
+		echo "<p><label for=\"c_icon\">" . LBL_ADMIN_CHANNEL_ICON ."</label>\n";
 	
 		if (trim($icon) != "") {
 			echo "<img src=\"$icon\" alt=\"$title\" class=\"favicon\" width=\"16\" height=\"16\" />\n";
-			echo "<span>" . CLEAR_FOR_NONE ."</span>";
+			echo "<span>" . LBL_CLEAR_FOR_NONE ."</span>";
 		}
 
 		echo "<input type=\"text\" id=\"c_icon\" name=\"c_icon\" value=\"$icon\"/></p>\n";
@@ -816,34 +819,34 @@ function channel_edit_form($cid) {
 		echo "<p><input type=\"hidden\" name=\"c_icon\" id=\"c_icon\" value=\"$icon\"/></p>\n";
 	}
 
-	echo "<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"/></p>"
+	echo "<p><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\"/></p>"
 	  ."</form></div>\n";
 }
 
 /*************** Folder management ************/
 
 function folders() {
-	echo "<h2 class=\"trigger\">".ADMIN_FOLDERS."</h2>\n"
+	echo "<h2 class=\"trigger\">".LBL_ADMIN_FOLDERS."</h2>\n"
 	  ."<div id=\"admin_folders\" class=\"trigger\">\n";
 
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 
 	echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_FOLDER."\"/>\n";
 
-	echo "<label for=\"new_folder\">".ADMIN_FOLDERS_ADD."</label>\n"
+	echo "<label for=\"new_folder\">".LBL_ADMIN_FOLDERS_ADD."</label>\n"
 	  ."<input type=\"text\" id=\"new_folder\" name=\"new_folder\" value=\"\" />"
-	  ."<input type=\"submit\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
+	  ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/>\n"
 	  ."</p></form>\n\n";
 
 	echo "<table id=\"foldertable\">\n"
 	  ."<tr>\n"
-	  ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_TITLE ."</th>\n";
+	  ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_TITLE ."</th>\n";
 
 	if (getConfig('rss.config.absoluteordering')) {
-		echo "\t<th>".ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
+		echo "\t<th>".LBL_ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
 	}
 
-	echo "\t<th>". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+	echo "\t<th>". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
 	  ."</tr>\n";
 
 	$sql = "select id,name from " .getTable("folders");
@@ -858,7 +861,7 @@ function folders() {
 	$cntr = 0;
 	while (list($id, $name) = rss_fetch_row($res)) {
 	
-		$name = $name == ''? HOME_FOLDER:$name;
+		$name = $name == ''? LBL_HOME_FOLDER:$name;
 	
 		$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 	
@@ -871,11 +874,11 @@ function folders() {
 			if ($id > 0) {
 			if ($cntr > 2) {
 				echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-				  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;fid=$id\">". ADMIN_MOVE_UP
+				  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;fid=$id\">". LBL_ADMIN_MOVE_UP
 				  ."</a>&nbsp;-&nbsp;";
 			}
 			echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-			  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;fid=$id\">".ADMIN_MOVE_DOWN ."</a>";
+			  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;fid=$id\">".LBL_ADMIN_MOVE_DOWN ."</a>";
 			} else {
 			echo "&nbsp;";
 			}
@@ -883,11 +886,11 @@ function folders() {
 			echo "</td>\n";
 		}
 		echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-		  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;fid=$id\">" . ADMIN_EDIT
+		  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;fid=$id\">" . LBL_ADMIN_EDIT
 		  ."</a>";
 		if ($id > 0) {
 			echo "|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-			  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;fid=$id\">" . ADMIN_DELETE ."</a>";
+			  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;fid=$id\">" . LBL_ADMIN_DELETE ."</a>";
 		}
 		echo "</td>\n"
 		  ."</tr>\n";
@@ -914,10 +917,10 @@ function folder_edit($fid) {
 	  ."<input type=\"hidden\" name=\"fid\" value=\"$id\"/>\n"
 
 	  // Item name
-	  ."<label for=\"f_name\">". ADMIN_FOLDER_NAME ."</label>\n"
+	  ."<label for=\"f_name\">". LBL_ADMIN_FOLDER_NAME ."</label>\n"
 	  ."<input type=\"text\" id=\"f_name\" name=\"f_name\" value=\"$name\"/></p>";
 
-	echo "<p><input type=\"submit\" name=\"action_\" value=\"". ADMIN_SUBMIT_CHANGES ."\"/></p>"
+	echo "<p><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\"/></p>"
 	  ."</form></div>\n";
 
 }
@@ -928,7 +931,7 @@ function folder_combo($name, $selected = -1) {
 	while (list($id, $name) = rss_fetch_row($res)) {
 	echo "\t<option value=\"$id\""
 	  .($selected > -1 && $selected == $id ? " selected=\"selected\"":"")
-		.">" .	(($name == "")?HOME_FOLDER:$name)  ."</option>\n";
+		.">" .	(($name == "")?LBL_HOME_FOLDER:$name)  ."</option>\n";
 	}
 	echo "</select>\n";
 }
@@ -949,24 +952,24 @@ function folder_admin() {
 			assert(is_numeric($id));
 	
 			if ($id == 0) {
-				rss_error(ADMIN_ERROR_CANT_DELETE_HOME_FOLDER);
+				rss_error(LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER);
 				break;
 			}
 		
-			if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_YES) {
+			if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
 				$sql = "delete from " . getTable("folders") ." where id=$id";
 				rss_query($sql);
 					$sql = "update " . getTable("channels") ." set parent=0 where parent=$id";
 				rss_query($sql);
-			} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_NO) {
+			} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
 				// nop;
 			} else {
 				list($fname) = rss_fetch_row(rss_query("select name from " .getTable("folders") ." where id = $id"));
 		
 				echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-				  ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$fname); echo "</p>\n"
-				  ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
-				  ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
+				  ."<p class=\"error\">"; printf(LBL_ADMIN_ARE_YOU_SURE,$fname); echo "</p>\n"
+				  ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
+				  ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
 				  ."<input type=\"hidden\" name=\"fid\" value=\"$id\"/>\n"
 				  ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_FOLDER."\"/>\n"
 				  ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\"/>\n"
@@ -984,14 +987,14 @@ function folder_admin() {
 				$res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
 				list($cnt) = rss_fetch_row($res);
 				if ($cnt > 0) {
-					rss_error(sprintf(ADMIN_CANT_RENAME,$new_label));
+					rss_error(sprintf(LBL_ADMIN_CANT_RENAME,$new_label));
 					break;
 				}
 				rss_query("update " .getTable("folders") ." set name='$new_label' where id=$id");
 			}
 			break;
 
-		case ADMIN_ADD:
+		case LBL_ADMIN_ADD:
 			$label=$_REQUEST['new_folder'];
 			assert(strlen($label) > 0);
 			create_folder($label);
@@ -1057,7 +1060,7 @@ function create_folder($label) {
 	list($exists) = rss_fetch_row($res);
 
 	if ($exists > 0) {
-		rss_error(sprintf(ADMIN_ERROR_CANT_CREATE, $label));
+		rss_error(sprintf(LBL_ADMIN_ERROR_CANT_CREATE, $label));
 		return;
 	}
 
@@ -1083,10 +1086,10 @@ function opml_export_form() {
 		$method ="get";
 		$action = getPath() ."opml.php";
 	}
-	echo "<fieldset style=\"vertical-align:top\">\n<legend>".ADMIN_OPML_EXPORT."</legend>\n";
+	echo "<fieldset style=\"vertical-align:top\">\n<legend>".LBL_ADMIN_OPML_EXPORT_OPML."</legend>\n";
 	echo "<form method=\"$method\" action=\"$action\">\n"
-	  ."<p><label for=\"action\">". ADMIN_OPML_EXPORT. "</label>\n"
-	  ."<input type=\"submit\" name=\"act\" id=\"action\" value=\"". ADMIN_EXPORT ."\" />"
+	  ."<p><label for=\"action\">". LBL_ADMIN_OPML_EXPORT_OPML. "</label>\n"
+	  ."<input type=\"submit\" name=\"act\" id=\"action\" value=\"". LBL_ADMIN_EXPORT ."\" />"
 	  ."</p>\n</form>\n"
 	  ."</fieldset>\n";
 }
@@ -1094,15 +1097,15 @@ function opml_export_form() {
 /*************** Config management ************/
 
 function config() {
-	echo "<h2 class=\"trigger\">".ADMIN_CONFIG."</h2>\n"
+	echo "<h2 class=\"trigger\">".LBL_ADMIN_CONFIG."</h2>\n"
 	  ."<div id=\"admin_config\" class=\"trigger\">\n";
 
 	echo "<table id=\"configtable\">\n"
 	  ."<tr>\n"
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_KEY ."</th>\n"
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_VALUE ."</th>\n"
-	  ."\t<th>". ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
-	  ."\t<th class=\"cntr\">". ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_KEY ."</th>\n"
+	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_VALUE ."</th>\n"
+	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
+	  ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
 	  ."</tr>\n";
 
 	$sql = "select * from " .getTable("config") ." order by key_ asc";
@@ -1180,14 +1183,14 @@ function config() {
 	
 		echo "\t<td class=\"cntr\">"
 		  ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CONFIG
-		  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_EDIT
+		  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . LBL_ADMIN_EDIT
 		  ."</a>";
 	
 		if ($row['value_'] != $row['default_'] && $row['key_'] != 'rss.config.plugins') {
 			echo "|"
 	
 			  ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CONFIG
-			  ."&amp;action=". CST_ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_DEFAULT
+			  ."&amp;action=". CST_ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . LBL_ADMIN_DEFAULT
 			  ."</a>";
 		}
 	
@@ -1233,16 +1236,16 @@ function config_admin() {
 			break;
 		}
 	
-		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_YES) {
+		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
 			rss_query("update " . getTable('config') ." set value_=default_ where key_='$key'" );
-		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_NO) {
+		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
 			//nop
 		} else {
 	
 			echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-			  ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE_DEFAULT,$key,$html_default); echo "</p>\n"
-			  ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
-			  ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
+			  ."<p class=\"error\">"; printf(LBL_ADMIN_ARE_YOU_SURE_DEFAULT,$key,$html_default); echo "</p>\n"
+			  ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
+			  ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
 			  ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
 			  ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
 			  ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DEFAULT_ACTION ."\"/>\n"
@@ -1278,11 +1281,11 @@ function config_admin() {
          case 'rss.config.plugins':
          	echo "<input type=\"hidden\" name=\"value\" value=\"\" />\n";
          	echo "</p>\n<table id=\"plugintable\">\n<tr>\n"
-					."<th>".ADMIN_PLUGINS_HEADING_ACTION."</th>\n"
-         		."<th>".ADMIN_PLUGINS_HEADING_NAME."</th>\n"
-					."<th>".ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
-					."<th>".ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
-					."<th>".ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_ACTION."</th>\n"
+         		."<th>".LBL_ADMIN_PLUGINS_HEADING_NAME."</th>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
          		."</tr>\n";
          		
          	$active_plugins= getConfig('rss.config.plugins');
@@ -1335,7 +1338,7 @@ function config_admin() {
                }
             }
             $d->close();
-            echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." for $key:</label>\n";
+            echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." for $key:</label>\n";
             echo "\n<select name=\"value\" id=\"c_value\">\n";
             foreach ($themes as $theme) {
                  echo "\t<option value=\"$theme\""
@@ -1386,7 +1389,7 @@ function config_admin() {
          	$active_lang = getConfig('rss.output.lang');
          	
          	
-            echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." $key:</label>\n"
+            echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
     		  ."\t\t<select name=\"value\" id=\"c_value\">\n";
          	$cntr = 0;
          	$value = "";
@@ -1407,25 +1410,25 @@ function config_admin() {
 		switch ($type) {
 		 case 'string':
 		 case 'num':
-		echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." for $key:</label>\n"
+		echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." for $key:</label>\n"
 		  ."<input type=\"text\" id=\"c_value\" name=\"value\" value=\"$value\"/>";
 		break;
 		 case 'boolean':
-		echo ADMIN_CONFIG_VALUE ." for $key:</p><p>";
+		echo LBL_ADMIN_CONFIG_VALUE ." for $key:</p><p>";
 		echo "<input type=\"radio\" id=\"c_value_true\" name=\"value\""
 		  .($value == 'true' ? " checked=\"checked\"":"") .""
-		  ." value=\"".ADMIN_TRUE."\" "
+		  ." value=\"".LBL_ADMIN_TRUE."\" "
 		  ."/>\n"
-		  ."<label for=\"c_value_true\">" . ADMIN_TRUE . "</label>\n";
+		  ."<label for=\"c_value_true\">" . LBL_ADMIN_TRUE . "</label>\n";
 
 		echo "<input type=\"radio\" id=\"c_value_false\" name=\"value\""
 		  .($value != 'true' ? " checked=\"checked\"":"") .""
-		  ." value=\"".ADMIN_FALSE."\" "
+		  ." value=\"".LBL_ADMIN_FALSE."\" "
 		  ."/>\n"
-		  ."<label for=\"c_value_false\">" . ADMIN_FALSE . "</label>\n";
+		  ."<label for=\"c_value_false\">" . LBL_ADMIN_FALSE . "</label>\n";
 		break;
 		 case 'enum':
-		echo "<label for=\"c_value\">". ADMIN_CONFIG_VALUE ." for $key:</label>\n"
+		echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." for $key:</label>\n"
 		  ."\t\t<select name=\"value\" id=\"c_value\">\n";
 		$arr = explode(',',$value);
 		$idx = array_pop($arr);
@@ -1441,24 +1444,24 @@ function config_admin() {
 	}
 
 	echo "</p><p>\n";
-	echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". ADMIN_PREVIEW_CHANGES ."\""
+	echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_PREVIEW_CHANGES ."\""
 		  .(isset($onclickaction)?" onclick=\"$onclickaction\"":"") ." />\n":"");
 
-	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_SUBMIT_CHANGES ."\""
+	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\""
 	  .(isset($onclickaction)?" onclick=\"$onclickaction\"":"")
 		." />\n";
 
-	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_CANCEL ."\"/>\n"
+	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/>\n"
 	  ."</p>\n"
 	  ."</form>\n\n</div>\n";
 
 	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	break;
 
-	case ADMIN_PREVIEW_CHANGES:
+	case LBL_ADMIN_PREVIEW_CHANGES:
 		rss_error('fixme: preview not yet implemented');
 		break;
-	case ADMIN_SUBMIT_CHANGES:
+	case LBL_ADMIN_SUBMIT_CHANGES:
 		$key = $_REQUEST['key'];
 		$type = $_REQUEST['type'];
 		$value = rss_real_escape_string($_REQUEST['value']);
@@ -1529,12 +1532,12 @@ function config_admin() {
 				$sql = "update " . getTable('config') . " set value_='$value' where key_='$key'";
 				break;
 			case 'boolean':
-				if ($value != ADMIN_TRUE && $value != ADMIN_FALSE) {
+				if ($value != LBL_ADMIN_TRUE && $value != LBL_ADMIN_FALSE) {
 				rss_error('Oops, invalid value for ' . $key .": " . $value);
 				break;
 		}
 		$sql = "update " . getTable('config') . " set value_='"
-		  .($value == ADMIN_TRUE ? 'true':'false') ."'"
+		  .($value == LBL_ADMIN_TRUE ? 'true':'false') ."'"
 		  ." where key_='$key'";
 		break;
 		 case 'enum':
@@ -1601,11 +1604,11 @@ function admin_menu() {
 	foreach(
 		 array (
 			/* url/id -- internationalized label, defined in intl/* */
-			  array(CST_ADMIN_DOMAIN_CHANNEL,ADMIN_DOMAIN_CHANNEL_LBL),
-			array(CST_ADMIN_DOMAIN_ITEM,ADMIN_DOMAIN_ITEM_LBL),
-			array(CST_ADMIN_DOMAIN_CONFIG,ADMIN_DOMAIN_CONFIG_LBL),
-			array(CST_ADMIN_DOMAIN_FOLDER,ADMIN_DOMAIN_FOLDER_LBL),
-			array(CST_ADMIN_DOMAIN_OPML,ADMIN_DOMAIN_OPML_LBL)
+			  array(CST_ADMIN_DOMAIN_CHANNEL,LBL_ADMIN_DOMAIN_CHANNEL_LBL),
+			array(CST_ADMIN_DOMAIN_ITEM,LBL_ADMIN_DOMAIN_ITEM_LBL),
+			array(CST_ADMIN_DOMAIN_CONFIG,LBL_ADMIN_DOMAIN_CONFIG_LBL),
+			array(CST_ADMIN_DOMAIN_FOLDER,LBL_ADMIN_DOMAIN_FOLDER_LBL),
+			array(CST_ADMIN_DOMAIN_OPML,LBL_ADMIN_DOMAIN_LBL_OPML_LBL)
 			) as $item) {
 
 	if ($use_mod_rewrite) {

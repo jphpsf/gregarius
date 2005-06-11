@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.83  2005/06/11 16:59:09  mbonetti
+# prefixed all labels
+#
 # Revision 1.82  2005/06/09 15:23:43  mbonetti
 # check agains metaactions instead of actions when marking as read
 #
@@ -48,8 +51,8 @@
 require_once('init.php');
 rss_require('extlib/rss_fetch.inc');
 
-define ('NAV_PREV_PREFIX','&larr;&nbsp;');
-define ('NAV_SUCC_POSTFIX','&nbsp;&rarr;');
+define ('LBL_NAV_PREV_PREFIX','&larr;&nbsp;');
+define ('LBL_NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
 
 
@@ -197,7 +200,7 @@ if ((!isset($cid) || $cid == "") &&
     header("Location: $red");
 }
 
-if (isset($cid) && array_key_exists ('metaaction', $_POST) && $_POST['metaaction'] == 'MARK_CHANNEL_READ') {
+if (isset($cid) && array_key_exists ('metaaction', $_POST) && $_POST['metaaction'] == 'LBL_MARK_CHANNEL_READ') {
     
     $first_unread_id=$next_unread_id='';
     
@@ -531,7 +534,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 				$lbl = substr($lbl,0,37) . "...";
 			}
 			//$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
-			$readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".NAV_PREV_PREFIX ."$lbl</a>\n";
+			$readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".LBL_NAV_PREV_PREFIX ."$lbl</a>\n";
 		}
 		if($succ != null) {
 			$lbl = $succ['lbl'];
@@ -539,7 +542,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 				$lbl = substr($lbl,0,37) . "...";
 			}
 			//$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
-			$readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">$lbl".NAV_SUCC_POSTFIX."</a>\n";
+			$readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">$lbl".LBL_NAV_SUCC_POSTFIX."</a>\n";
 		}
 		
 		if ($readMoreNav != "") {
@@ -651,7 +654,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 						  'cnt' => $row['cnt_'], 
 						  'ts' => $row['ts_'],
 						  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-						  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? ITEMS:ITEM) .")"
+						  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
 						  );
 				}
 				 } elseif($currentView == 'month') {		
@@ -662,7 +665,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 						  'cnt' => $row['cnt_'],
 						  'ts' => $row['ts_'],
 						  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-						  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? ITEMS:ITEM) .")"
+						  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:ITEM) .")"
 						  );
 				}
 				
@@ -680,7 +683,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 							  'cnt' => $row['cnt_'],
 							  'ts' => $row['ts_'],
 							  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-							  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? ITEMS:ITEM) .")"
+							  'lbl' => date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
 							  );
 					}
 				 } elseif($currentView == 'month') {
@@ -691,7 +694,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 							  'cnt' => $row['cnt_'],
 							  'ts' => $row['ts_'],
 							  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-							  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_']." ". ($row['cnt_'] > 1? ITEMS:ITEM) .")"
+							  'lbl' => date('F Y',$row['ts_']) . " (".$row['cnt_']." ". ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
 							  );
 					}				
 				 }
@@ -801,8 +804,8 @@ function makeNav($cid,$iid,$y,$m,$d) {
 function markReadForm($cid) {
 	
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
-  	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". MARK_CHANNEL_READ ."\"/>\n"
-  	  ."\t<p><input type=\"hidden\" name=\"metaaction\" value=\"MARK_CHANNEL_READ\"/>\n"
+  	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
+  	  ."\t<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
   	  ."</form>";
 }

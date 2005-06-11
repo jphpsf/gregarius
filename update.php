@@ -64,18 +64,18 @@ if ($doPush) {
 	echo "Content-Type: text/html\n\n";
 	 
 	 
-	rss_header($title=TITLE_UPDATING, LOCATION_UPDATE, null, "", (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
+	rss_header($title=LBL_TITLE_UPDATING, LOCATION_UPDATE, null, "", (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
 	$cnt = sideChannels(false);
 	 
 	 
 	echo "<div id=\"update\" class=\"frame\">\n"
-		."<h2>". sprintf(UPDATE_H2,$cnt) ."</h2>\n"
+		."<h2>". sprintf(LBL_UPDATE_H2,$cnt) ."</h2>\n"
 		
 		."<table id=\"updatetable\">\n"
 		."<tr>\n"
-		."<th class=\"lc\">".UPDATE_CHANNEL."</th>\n"
-		."<th class=\"mc\">".UPDATE_STATUS."</th>\n"
-		."<th class=\"rc\">".UPDATE_UNDREAD."</th>\n"
+		."<th class=\"lc\">".LBL_UPDATE_CHANNEL."</th>\n"
+		."<th class=\"mc\">".LBL_UPDATE_STATUS."</th>\n"
+		."<th class=\"rc\">".LBL_UPDATE_UNDREAD."</th>\n"
 		."</tr>";
 
     // mbi/11.05.2005, patch by Alexandre ROSSI  <niol@sousmonlit.dyndns.org>
@@ -114,27 +114,27 @@ if ($doPush) {
 		
 		if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
 			if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
-				$label = UPDATE_NOT_MODIFIED;
+				$label = LBL_UPDATE_NOT_MODIFIED;
 				$cls = ERROR_NOERROR;
 			} elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
-				$label = UPDATE_CACHE_TIMEOUT;
+				$label = LBL_UPDATE_CACHE_TIMEOUT;
 				$cls = ERROR_WARNING;
 			} elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
-				$label = UPDATE_STATUS_CACHED;
+				$label = LBL_UPDATE_STATUS_CACHED;
 				$cls = ERROR_NOERROR;
 			} elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
-				$label = UPDATE_NOT_FOUND;
+				$label = LBL_UPDATE_NOT_FOUND;
 				$cls = ERROR_ERROR;
 			} else {
 				$label =	 $error;
 				$cls = ERROR_ERROR;
 			}
 		} elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
-			$label = UPDATE_STATUS_OK;
+			$label = LBL_UPDATE_STATUS_OK;
 			$cls = ERROR_NOERROR;
 		} else {
 			if (is_numeric($error)) {
-				$label= UPDATE_STATUS_ERROR;
+				$label= LBL_UPDATE_STATUS_ERROR;
 				$cls	= ERROR_ERROR;
 			} else {
 			// shoud contain MagpieError at this point

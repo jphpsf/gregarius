@@ -48,7 +48,7 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 
 if (array_key_exists('metaaction', $_POST)
     && $_POST['metaaction'] != ""
-    && trim($_POST['metaaction']) == trim('MARK_READ')) {
+    && trim($_POST['metaaction']) == trim('LBL_MARK_READ')) {
     
     $sql = "update " .getTable("item") . " set unread=unread & "
      .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE;
@@ -76,7 +76,7 @@ $cntUnread = unreadItems($show_what);
 if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
    readItems();
 } elseif($cntUnread == 0) {
-   itemsList( sprintf(H2_UNREAD_ITEMS , count($items)), IL_TITLE_NO_ESCAPE);
+   itemsList( sprintf(LBL_H2_UNREAD_ITEMS , count($items)), IL_TITLE_NO_ESCAPE);
 }
 
 echo "</div>\n";
@@ -156,7 +156,7 @@ function unreadItems($show_what) {
 
 
         $ret = count($items); 
-        itemsList ( sprintf(H2_UNREAD_ITEMS , $ret),  $items, IL_TITLE_NO_ESCAPE );
+        itemsList ( sprintf(LBL_H2_UNREAD_ITEMS , $ret),  $items, IL_TITLE_NO_ESCAPE );
 
 
     }
@@ -253,15 +253,15 @@ function readItems() {
 	    $items[] = $litems[0];
 	}
     }
-    itemsList(H2_RECENT_ITEMS,$items, IL_TITLE_NO_ESCAPE);
+    itemsList(LBL_H2_RECENT_ITEMS,$items, IL_TITLE_NO_ESCAPE);
     
 
 }
 
 function markAllReadForm() {
     echo "<form action=\"". getPath() ."\" method=\"post\">"
-      ."<p><input type=\"submit\" name=\"action\" value=\"". MARK_READ ." \"/></p>"
-      ."<p><input type=\"hidden\" name=\"metaaction\" value=\"MARK_READ\"/></p>"
+      ."<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>"
+      ."<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_READ\"/></p>"
       ."</form>\n";
 }
 
