@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.47  2005/06/11 14:44:20  mbonetti
+# renamed internal admin constants
+#
 # Revision 1.46  2005/06/09 19:27:15  mbonetti
 # fixed: opml export under some wicked circumstances
 #
@@ -55,23 +58,23 @@ require_once('../init.php');
 require_once('../opml.php');
 require_once('ds.php');
 
-define ('ADMIN_DOMAIN','domain');
-define ('ADMIN_DOMAIN_NONE','none');
-define ('ADMIN_DELETE_ACTION','delete');
-define ('ADMIN_DEFAULT_ACTION','default');
-define ('ADMIN_EDIT_ACTION','edit');
-define ('ADMIN_MOVE_UP_ACTION','up');
-define ('ADMIN_MOVE_DOWN_ACTION','down');
-define ('ADMIN_SUBMIT_EDIT','submit_edit');
-define ('ADMIN_VIEW','view');
-define ('ADMIN_CONFIRMED','confirmed');
-define ('ADMIN_PRUNE','prune');
+define ('CST_ADMIN_DOMAIN','domain');
+define ('CST_ADMIN_DOMAIN_NONE','none');
+define ('CST_ADMIN_DELETE_ACTION','delete');
+define ('CST_ADMIN_DEFAULT_ACTION','default');
+define ('CST_ADMIN_EDIT_ACTION','edit');
+define ('CST_ADMIN_MOVE_UP_ACTION','up');
+define ('CST_ADMIN_MOVE_DOWN_ACTION','down');
+define ('CST_ADMIN_SUBMIT_EDIT','submit_edit');
+define ('CST_ADMIN_VIEW','view');
+define ('CST_ADMIN_CONFIRMED','confirmed');
+define ('CST_ADMIN_PRUNE','prune');
 
-define ('ADMIN_DOMAIN_FOLDER','folders');
-define ('ADMIN_DOMAIN_CHANNEL','feeds');
-define ('ADMIN_DOMAIN_ITEM','items');
-define ('ADMIN_DOMAIN_CONFIG','config');
-define ('ADMIN_DOMAIN_OPML','opml');
+define ('CST_ADMIN_DOMAIN_FOLDER','folders');
+define ('CST_ADMIN_DOMAIN_CHANNEL','feeds');
+define ('CST_ADMIN_DOMAIN_ITEM','items');
+define ('CST_ADMIN_DOMAIN_CONFIG','config');
+define ('CST_ADMIN_DOMAIN_OPML','opml');
 
 $auth = true;
 
@@ -107,18 +110,18 @@ function admin_main($authorised) {
 
     if ($authorised) {
       admin_menu();
-      if (array_key_exists(ADMIN_DOMAIN,$_REQUEST)) {
-         switch($_REQUEST[ADMIN_DOMAIN]) {
-          case ADMIN_DOMAIN_FOLDER:
+      if (array_key_exists(CST_ADMIN_DOMAIN,$_REQUEST)) {
+         switch($_REQUEST[CST_ADMIN_DOMAIN]) {
+          case CST_ADMIN_DOMAIN_FOLDER:
          $show = folder_admin();
          break;
-          case ADMIN_DOMAIN_CHANNEL:
+          case CST_ADMIN_DOMAIN_CHANNEL:
          $show = channel_admin();
          break;
-          case ADMIN_DOMAIN_CONFIG:
+          case CST_ADMIN_DOMAIN_CONFIG:
          $show = config_admin();
          break;
-          case ADMIN_DOMAIN_ITEM:
+          case CST_ADMIN_DOMAIN_ITEM:
          $show = item_admin();
          break;
           default:
@@ -126,26 +129,26 @@ function admin_main($authorised) {
          }
       }
    
-      if (array_key_exists(ADMIN_VIEW,$_REQUEST) || isset($show)) {
+      if (array_key_exists(CST_ADMIN_VIEW,$_REQUEST) || isset($show)) {
          if (!isset($show)) {
-         $show = $_REQUEST[ADMIN_VIEW];
+         $show = $_REQUEST[CST_ADMIN_VIEW];
          }
          switch ($show) {
-          case ADMIN_DOMAIN_CONFIG:
+          case CST_ADMIN_DOMAIN_CONFIG:
          config();
          break;
-          case ADMIN_DOMAIN_CHANNEL:
+          case CST_ADMIN_DOMAIN_CHANNEL:
          channels();
          break;
-          case ADMIN_DOMAIN_FOLDER:
+          case CST_ADMIN_DOMAIN_FOLDER:
          folders();
          break;
-          case ADMIN_DOMAIN_OPML:
+          case CST_ADMIN_DOMAIN_OPML:
          opml();
          break;
-          case ADMIN_DOMAIN_NONE:
+          case CST_ADMIN_DOMAIN_NONE:
          break;
-          case ADMIN_DOMAIN_ITEM:
+          case CST_ADMIN_DOMAIN_ITEM:
          items();
          break;
           default:
@@ -172,7 +175,7 @@ function channels() {
 	echo "<h2>". ADMIN_CHANNELS ."</h2>\n";
 	echo "<div id=\"admin_channels\">\n";
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-	echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
+	echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n";
 	echo "<label for=\"new_channel\">". ADMIN_CHANNELS_ADD ."</label>\n";
 	echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" onfocus=\"this.select()\"/>\n";
 
@@ -251,15 +254,15 @@ function channels() {
 	  ."\t<td class=\"cntr\">$slabel</td>\n";
 
 	if (getConfig('rss.config.absoluteordering')) {
-		echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
-		  ."&amp;action=". ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". ADMIN_MOVE_UP
-		  ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
-		  ."&amp;action=". ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".ADMIN_MOVE_DOWN ."</a></td>\n";
+		echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+		  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". ADMIN_MOVE_UP
+		  ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+		  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".ADMIN_MOVE_DOWN ."</a></td>\n";
 	}
-	echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
-	  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT
-	  ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CHANNEL
-	  ."&amp;action=". ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
+	echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+	  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . ADMIN_EDIT
+	  ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+	  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . ADMIN_DELETE ."</a></td>\n"
 	  ."</tr>\n";
 	}
 
@@ -278,7 +281,7 @@ function opml() {
 		."<legend>" . ADMIN_OPML_IMPORT . "</legend>";
 		
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-	echo "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n";
+	echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN ."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n";
 	echo "<label for=\"opml\">" . ADMIN_OPML_IMPORT_FROM_URL ."</label>\n";
 	echo "<input type=\"text\"	name=\"opml\" id=\"opml\" value=\"http://\" onfocus=\"this.select()\"/>\n";
 	echo "<input type=\"submit\" name=\"action\" value=\"". ADMIN_IMPORT ."\"/></p>\n";
@@ -286,7 +289,7 @@ function opml() {
 	echo "</form>\n";
 
 	echo '<form enctype="multipart/form-data" method="post" action="' . $_SERVER['PHP_SELF'] . "\">\n";
-	echo '<p><input type="hidden" name="' . ADMIN_DOMAIN . '" value="' . ADMIN_DOMAIN_CHANNEL . "\" />\n";
+	echo '<p><input type="hidden" name="' . CST_ADMIN_DOMAIN . '" value="' . CST_ADMIN_DOMAIN_CHANNEL . "\" />\n";
 	echo '<input type="hidden" name="MAX_FILE_SIZE" value="150000" />' . "\n";
 	echo '<label for="opmlfile">' . ADMIN_OPML_IMPORT_FROM_FILE . "</label>\n";
 	echo '<input name="opmlfile" type="file" id="opmlfile" />' . "\n";
@@ -308,7 +311,7 @@ function items() {
       . "<form method=\"get\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
       . "<fieldset class=\"prune\">\n"
       . "<legend>".ADMIN_PRUNING."</legend>\n"
-      . "<p><input type=\"hidden\" name=\"". ADMIN_DOMAIN ."\" value=\"".ADMIN_DOMAIN_ITEM."\"/>\n"
+      . "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN ."\" value=\"".CST_ADMIN_DOMAIN_ITEM."\"/>\n"
       . "<label for=\"prune_older\">" . ADMIN_PRUNE_OLDER ."</label>\n"
       . "<input type=\"text\" size=\"5\" name=\"prune_older\" id=\"prune_older\" value=\"\" />\n"
       . "<select name=\"prune_period\" id=\"prune_period\">\n"
@@ -332,7 +335,7 @@ function items() {
  * performs pruning action
  */
 function item_admin() {
-	$ret__ = ADMIN_DOMAIN_NONE;
+	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	switch ($_REQUEST['action']) {
 	 case ADMIN_DELETE2:
 		$req = rss_query('select count(*) as cnt from ' .getTable('item'));
@@ -358,7 +361,7 @@ function item_admin() {
 
 				 default:
 				 	rss_error(ADMIN_ERROR_PRUNING_PERIOD);
-					return ADMIN_DOMAIN_ITEM;
+					return CST_ADMIN_DOMAIN_ITEM;
 				break;
 			}
 
@@ -403,7 +406,7 @@ function item_admin() {
             }
             
             
-			if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST)) {
+			if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST)) {
 			
 				//delete the tags for these items
 				$sqlids = "select distinct id " . $sql;							
@@ -420,16 +423,16 @@ function item_admin() {
 				
 				// then delete the actual items
 				rss_query( 'delete ' . $sql);
-				$ret__ = ADMIN_DOMAIN_ITEM;
+				$ret__ = CST_ADMIN_DOMAIN_ITEM;
 			} else {
 				list($cnt_d) = rss_fetch_row(rss_query("select count(*) as cnt " . $sql));
 				rss_error(sprintf(ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt));
 
 				echo "<form action=\"\" method=\"post\">\n"
-		  		."<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_ITEM."\" />\n"
+		  		."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_ITEM."\" />\n"
 		  		."<input type=\"hidden\" name=\"prune_older\" value=\"".$_REQUEST['prune_older']."\" />\n"
 			  	."<input type=\"hidden\" name=\"prune_period\" value=\"".$_REQUEST['prune_period']."\" />\n"
-				."<input type=\"hidden\" name=\"".ADMIN_CONFIRMED."\" value=\"1\" />\n"
+				."<input type=\"hidden\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"1\" />\n"
 				."<input type=\"submit\" name=\"action\" value=\"". ADMIN_DELETE2 ."\" />\n"
 				."<input type=\"submit\" name=\"action\" value=\"". ADMIN_CANCEL ."\"/>\n"
 		  		."</p>\n"
@@ -437,12 +440,12 @@ function item_admin() {
 			}
 	} else {
 		rss_error(ADMIN_ERROR_NO_PERIOD);
-		$ret__ = ADMIN_DOMAIN_ITEM;
+		$ret__ = CST_ADMIN_DOMAIN_ITEM;
 	}
 
 	break;
 	default:
-		$ret__ = ADMIN_DOMAIN_ITEM;
+		$ret__ = CST_ADMIN_DOMAIN_ITEM;
 		break;
 	}
 
@@ -455,7 +458,7 @@ function item_admin() {
 
 function channel_admin() {
 
-	$ret__ = ADMIN_DOMAIN_NONE;
+	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	switch ($_REQUEST['action']) {
 	 case ADMIN_ADD:
 	 case 'Add':
@@ -465,25 +468,25 @@ function channel_admin() {
 		$ret = add_channel($label,$fid);
 			if (is_array($ret) && $ret[0] > -1) {
 			update($ret[0]);
-			$ret__ = ADMIN_DOMAIN_CHANNEL;
+			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} else {
 			// okay, something went wrong, maybe thats a html url after all?
 			// let's try and see if we can extract some feeds
 			$feeds = extractFeeds($label);
 			if (!is_array($feeds) || sizeof($feeds) == 0) {
 				rss_error($ret[1]);
-				$ret__ = ADMIN_DOMAIN_CHANNEL;
+				$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 			} else {
 				//one single feed in the html doc, add that
 				if (is_array($feeds) && sizeof($feeds) == 1 && array_key_exists('href',$feeds[0])) {
 					$ret = add_channel($feeds[0]['href'],$fid);
 					if (is_array($ret) && $ret[0] > -1) {
 						update($ret[0]);
-						$ret__ = ADMIN_DOMAIN_CHANNEL;
+						$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 					} else {
 						// failure
 						rss_error($ret[1]);
-						$ret__ = ADMIN_DOMAIN_CHANNEL;
+						$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 					}
 				} else {
 					// multiple feeds in the channel
@@ -523,7 +526,7 @@ function channel_admin() {
 				}
 	
 				echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
-				  ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
+				  ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
 				  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". ADMIN_ADD ."\"/>\n"
 				  ."</p>\n</form>\n\n";
 				}
@@ -531,11 +534,11 @@ function channel_admin() {
 		}
 	} else {
 		rss_error(sprintf(ADMIN_BAD_RSS_URL,$label));
-		$ret__ = ADMIN_DOMAIN_CHANNEL;
+		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 	}
 	break;
 
-	 case ADMIN_EDIT_ACTION:
+	 case CST_ADMIN_EDIT_ACTION:
 		$id = $_REQUEST['cid'];
 		channel_edit_form($id);
 	break;
@@ -546,12 +549,12 @@ function channel_admin() {
 
 		$sql = "insert into " . getTable("folders") ." (name) values ('" . rss_real_escape_string($label) ."')";
 		rss_query($sql);
-		$ret__ = ADMIN_DOMAIN_FOLDER;
+		$ret__ = CST_ADMIN_DOMAIN_FOLDER;
 		break;
 
-	 case ADMIN_DELETE_ACTION:
+	 case CST_ADMIN_DELETE_ACTION:
 		$id = $_REQUEST['cid'];
-		if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_YES) {
+		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_YES) {
 			$rs = rss_query("select distinct id from " .getTable("item") . " where cid=$id");
 			$ids = array();
 			while (list($did) = rss_fetch_row($rs)) {
@@ -567,19 +570,19 @@ function channel_admin() {
 			rss_query($sql);
 			$sql = "delete from " . getTable("channels") ." where id=$id";
 			rss_query($sql);
-			$ret__ = ADMIN_DOMAIN_CHANNEL;
-		} elseif (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_NO) {
-			$ret__ = ADMIN_DOMAIN_CHANNEL;
+			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
+		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_NO) {
+			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} else {
 			list($cname) = rss_fetch_row(rss_query("select title from " . getTable("channels") ." where id = $id"));
 
 			echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 			."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$cname); echo "</p>\n"
-			."<p><input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
-			."<input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
+			."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
+			."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
 			."<input type=\"hidden\" name=\"cid\" value=\"$id\"/>\n"
-			."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CHANNEL."\"/>\n"
-			."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE_ACTION ."\"/>\n"
+			."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
+			."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\"/>\n"
 			."</p>\n</form>\n";
 		}
 		break;
@@ -626,10 +629,10 @@ function channel_admin() {
 			rss_query( "update " . getTable("item") ." set unread=0" );
 
 		}
-		$ret__ = ADMIN_DOMAIN_CHANNEL;
+		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;
 
-	 case ADMIN_SUBMIT_EDIT:
+	 case CST_ADMIN_SUBMIT_EDIT:
 		$cid = $_REQUEST['cid'];
 		$title= rss_real_escape_string(real_strip_slashes($_REQUEST['c_name']));
 		$url= rss_real_escape_string($_REQUEST['c_url']);
@@ -673,7 +676,7 @@ function channel_admin() {
 	
 		if ($url == '' || substr($url,0,4) != "http") {
 			rss_error(sprintf(ADMIN_BAD_RSS_URL,$url));
-			$ret__ = ADMIN_DOMAIN_CHANNEL;
+			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 			break;
 		}
 	
@@ -683,11 +686,11 @@ function channel_admin() {
 		  ." $mode where id=$cid";
 	
 		rss_query($sql);
-		$ret__ = ADMIN_DOMAIN_CHANNEL;
+		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;
 
-	 case ADMIN_MOVE_UP_ACTION:
-	 case ADMIN_MOVE_DOWN_ACTION:
+	 case CST_ADMIN_MOVE_UP_ACTION:
+	 case CST_ADMIN_MOVE_DOWN_ACTION:
 		$id = $_REQUEST['cid'];
 		$res = rss_query("select parent,position from " . getTable("channels") ." where id=$id");
 		list($parent,$position) = rss_fetch_row($res);
@@ -705,10 +708,10 @@ function channel_admin() {
 			($switch_with_position == $position) &&
 			(
 			 // move up: we look for a lower position
-			 ($_REQUEST['action'] == ADMIN_MOVE_UP_ACTION && $oposition < $switch_with_position)
+			 ($_REQUEST['action'] == CST_ADMIN_MOVE_UP_ACTION && $oposition < $switch_with_position)
 			 ||
 			 // move up: we look for a higher position
-			 ($_REQUEST['action'] == ADMIN_MOVE_DOWN_ACTION && $oposition > $switch_with_position)
+			 ($_REQUEST['action'] == CST_ADMIN_MOVE_DOWN_ACTION && $oposition > $switch_with_position)
 			 )
 			){
 			$switch_with_position = $oposition;
@@ -720,7 +723,7 @@ function channel_admin() {
 			rss_query( "update " .getTable("channels") ." set position = $switch_with_position where id=$id" );
 			rss_query( "update " .getTable("channels") ." set position = $position where id=$switch_with_id" );
 		}
-		$ret__ = ADMIN_DOMAIN_CHANNEL;
+		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;
 
 	 default: break;
@@ -736,8 +739,8 @@ function channel_edit_form($cid) {
 	echo "<div>\n";
 	echo "\n\n<h2>".ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"channeledit\">\n"
-	  ."<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"". ADMIN_DOMAIN_CHANNEL."\"/>\n"
-	  ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_SUBMIT_EDIT ."\"/>\n"
+	  ."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
+	  ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_SUBMIT_EDIT ."\"/>\n"
 	  ."<input type=\"hidden\" name=\"cid\" value=\"$cid\"/>\n"
 
 	  // Item name
@@ -825,7 +828,7 @@ function folders() {
 
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 
-	echo "<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n";
+	echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_FOLDER."\"/>\n";
 
 	echo "<label for=\"new_folder\">".ADMIN_FOLDERS_ADD."</label>\n"
 	  ."<input type=\"text\" id=\"new_folder\" name=\"new_folder\" value=\"\" />"
@@ -867,24 +870,24 @@ function folders() {
 	
 			if ($id > 0) {
 			if ($cntr > 2) {
-				echo "<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_FOLDER
-				  ."&amp;action=". ADMIN_MOVE_UP_ACTION. "&amp;fid=$id\">". ADMIN_MOVE_UP
+				echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
+				  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;fid=$id\">". ADMIN_MOVE_UP
 				  ."</a>&nbsp;-&nbsp;";
 			}
-			echo "<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_FOLDER
-			  ."&amp;action=". ADMIN_MOVE_DOWN_ACTION ."&amp;fid=$id\">".ADMIN_MOVE_DOWN ."</a>";
+			echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
+			  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;fid=$id\">".ADMIN_MOVE_DOWN ."</a>";
 			} else {
 			echo "&nbsp;";
 			}
 	
 			echo "</td>\n";
 		}
-		echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_FOLDER
-		  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;fid=$id\">" . ADMIN_EDIT
+		echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
+		  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;fid=$id\">" . ADMIN_EDIT
 		  ."</a>";
 		if ($id > 0) {
-			echo "|<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_FOLDER
-			  ."&amp;action=". ADMIN_DELETE_ACTION ."&amp;fid=$id\">" . ADMIN_DELETE ."</a>";
+			echo "|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
+			  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;fid=$id\">" . ADMIN_DELETE ."</a>";
 		}
 		echo "</td>\n"
 		  ."</tr>\n";
@@ -906,8 +909,8 @@ function folder_edit($fid) {
 	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"folderedit\">\n"
 	
 	
-	  ."<p><input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"". ADMIN_DOMAIN_FOLDER."\"/>\n"
-	  ."<input type=\"hidden\" name=\"action\" value=\"".ADMIN_SUBMIT_EDIT."\"/>\n"
+	  ."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_FOLDER."\"/>\n"
+	  ."<input type=\"hidden\" name=\"action\" value=\"".CST_ADMIN_SUBMIT_EDIT."\"/>\n"
 	  ."<input type=\"hidden\" name=\"fid\" value=\"$id\"/>\n"
 
 	  // Item name
@@ -934,14 +937,14 @@ function folder_combo($name, $selected = -1) {
 
 function folder_admin() {
 
-	$ret__ = ADMIN_DOMAIN_FOLDER;
+	$ret__ = CST_ADMIN_DOMAIN_FOLDER;
 	switch ($_REQUEST['action']) {
-		case ADMIN_EDIT_ACTION:
+		case CST_ADMIN_EDIT_ACTION:
 			folder_edit($_REQUEST['fid']);
-			$ret__ = ADMIN_DOMAIN_NONE;
+			$ret__ = CST_ADMIN_DOMAIN_NONE;
 			break;
 
-		case ADMIN_DELETE_ACTION:
+		case CST_ADMIN_DELETE_ACTION:
 			$id = $_REQUEST['fid'];
 			assert(is_numeric($id));
 	
@@ -950,29 +953,29 @@ function folder_admin() {
 				break;
 			}
 		
-			if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_YES) {
+			if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_YES) {
 				$sql = "delete from " . getTable("folders") ." where id=$id";
 				rss_query($sql);
 					$sql = "update " . getTable("channels") ." set parent=0 where parent=$id";
 				rss_query($sql);
-			} elseif (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_NO) {
+			} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_NO) {
 				// nop;
 			} else {
 				list($fname) = rss_fetch_row(rss_query("select name from " .getTable("folders") ." where id = $id"));
 		
 				echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 				  ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE,$fname); echo "</p>\n"
-				  ."<p><input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
-				  ."<input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
+				  ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
+				  ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
 				  ."<input type=\"hidden\" name=\"fid\" value=\"$id\"/>\n"
-				  ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_FOLDER."\"/>\n"
-				  ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DELETE_ACTION ."\"/>\n"
+				  ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_FOLDER."\"/>\n"
+				  ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\"/>\n"
 				  ."</p>\n</form>\n";
-				$ret__ = ADMIN_DOMAIN_NONE;
+				$ret__ = CST_ADMIN_DOMAIN_NONE;
 			}
 			break;
 
-		case ADMIN_SUBMIT_EDIT:
+		case CST_ADMIN_SUBMIT_EDIT:
 			$id = $_REQUEST['fid'];
 	
 			$new_label = rss_real_escape_string($_REQUEST['f_name']);
@@ -994,8 +997,8 @@ function folder_admin() {
 			create_folder($label);
 			break;
 
-		case ADMIN_MOVE_UP_ACTION:
-		case ADMIN_MOVE_DOWN_ACTION:
+		case CST_ADMIN_MOVE_UP_ACTION:
+		case CST_ADMIN_MOVE_DOWN_ACTION:
 			$id = $_REQUEST['fid'];
 
 			if ($id == 0) {
@@ -1019,10 +1022,10 @@ function folder_admin() {
 					($switch_with_position == $position) &&
 					(
 					 // move up: we look for a lower position
-		 			($_REQUEST['action'] == ADMIN_MOVE_UP_ACTION && $oposition < $switch_with_position)
+		 			($_REQUEST['action'] == CST_ADMIN_MOVE_UP_ACTION && $oposition < $switch_with_position)
 		 			||
 				 // move up: we look for a higher position
-				 ($_REQUEST['action'] == ADMIN_MOVE_DOWN_ACTION && $oposition > $switch_with_position)
+				 ($_REQUEST['action'] == CST_ADMIN_MOVE_DOWN_ACTION && $oposition > $switch_with_position)
 					 )
 				){
 					$switch_with_position = $oposition;
@@ -1176,15 +1179,15 @@ function config() {
 			. "</td>\n";
 	
 		echo "\t<td class=\"cntr\">"
-		  ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
-		  ."&amp;action=". ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_EDIT
+		  ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CONFIG
+		  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_EDIT
 		  ."</a>";
 	
 		if ($row['value_'] != $row['default_'] && $row['key_'] != 'rss.config.plugins') {
 			echo "|"
 	
-			  ."<a href=\"".$_SERVER['PHP_SELF']. "?".ADMIN_DOMAIN."=". ADMIN_DOMAIN_CONFIG
-			  ."&amp;action=". ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_DEFAULT
+			  ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CONFIG
+			  ."&amp;action=". CST_ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . ADMIN_DEFAULT
 			  ."</a>";
 		}
 	
@@ -1198,11 +1201,11 @@ function config() {
 
 function config_admin() {
 
-	$ret__ = ADMIN_DOMAIN_CONFIG;
+	$ret__ = CST_ADMIN_DOMAIN_CONFIG;
 
 	switch ($_REQUEST['action']) {
 
-	 case ADMIN_DEFAULT_ACTION:
+	 case CST_ADMIN_DEFAULT_ACTION:
 		if (!array_key_exists('key',$_REQUEST)) {
 			rss_error('Invalid config key specified.');
 			break;
@@ -1230,26 +1233,26 @@ function config_admin() {
 			break;
 		}
 	
-		if (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_YES) {
+		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_YES) {
 			rss_query("update " . getTable('config') ." set value_=default_ where key_='$key'" );
-		} elseif (array_key_exists(ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[ADMIN_CONFIRMED] == ADMIN_NO) {
+		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == ADMIN_NO) {
 			//nop
 		} else {
 	
 			echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 			  ."<p class=\"error\">"; printf(ADMIN_ARE_YOU_SURE_DEFAULT,$key,$html_default); echo "</p>\n"
-			  ."<p><input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
-			  ."<input type=\"submit\" name=\"".ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
+			  ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_NO ."\"/>\n"
+			  ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". ADMIN_YES ."\"/>\n"
 			  ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
-			  ."<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"".ADMIN_DOMAIN_CONFIG."\"/>\n"
-			  ."<input type=\"hidden\" name=\"action\" value=\"". ADMIN_DEFAULT_ACTION ."\"/>\n"
+			  ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
+			  ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DEFAULT_ACTION ."\"/>\n"
 			  ."</p>\n</form>\n";
 	
-			$ret =	ADMIN_DOMAIN_NONE;
+			$ret =	CST_ADMIN_DOMAIN_NONE;
 		}
 		break;
 
-	 case ADMIN_EDIT_ACTION:
+	 case CST_ADMIN_EDIT_ACTION:
 		$key_ = $_REQUEST['key'];
 		$res = rss_query("select * from ". getTable('config') . " where key_ ='$key_'");
 		list($key,$value,$default,$type,$desc,$export) =  rss_fetch_row($res);
@@ -1258,7 +1261,7 @@ function config_admin() {
 		echo "<div>\n";
 		echo "\n\n<h2>Edit '$key'</h2>\n";
 		echo "<form id=\"cfg\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-		  ."<p>\n<input type=\"hidden\" name=\"".ADMIN_DOMAIN."\" value=\"". ADMIN_DOMAIN_CONFIG."\"/>\n"
+		  ."<p>\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
 		  ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
 		  ."<input type=\"hidden\" name=\"type\" value=\"$type\"/>\n"
 	
@@ -1449,7 +1452,7 @@ function config_admin() {
 	  ."</p>\n"
 	  ."</form>\n\n</div>\n";
 
-	$ret__ = ADMIN_DOMAIN_NONE;
+	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	break;
 
 	case ADMIN_PREVIEW_CHANGES:
@@ -1583,7 +1586,7 @@ function config_admin() {
  * Renders the admin sub-menu
  */
 function admin_menu() {
-	$active = array_key_exists(ADMIN_VIEW,$_REQUEST)?$_REQUEST[ADMIN_VIEW]:null;
+	$active = array_key_exists(CST_ADMIN_VIEW,$_REQUEST)?$_REQUEST[CST_ADMIN_VIEW]:null;
 
 	$use_mod_rewrite=
 	  getConfig('rss.output.usemodrewrite');
@@ -1598,11 +1601,11 @@ function admin_menu() {
 	foreach(
 		 array (
 			/* url/id -- internationalized label, defined in intl/* */
-			  array(ADMIN_DOMAIN_CHANNEL,ADMIN_DOMAIN_CHANNEL_LBL),
-			array(ADMIN_DOMAIN_ITEM,ADMIN_DOMAIN_ITEM_LBL),
-			array(ADMIN_DOMAIN_CONFIG,ADMIN_DOMAIN_CONFIG_LBL),
-			array(ADMIN_DOMAIN_FOLDER,ADMIN_DOMAIN_FOLDER_LBL),
-			array(ADMIN_DOMAIN_OPML,ADMIN_DOMAIN_OPML_LBL)
+			  array(CST_ADMIN_DOMAIN_CHANNEL,ADMIN_DOMAIN_CHANNEL_LBL),
+			array(CST_ADMIN_DOMAIN_ITEM,ADMIN_DOMAIN_ITEM_LBL),
+			array(CST_ADMIN_DOMAIN_CONFIG,ADMIN_DOMAIN_CONFIG_LBL),
+			array(CST_ADMIN_DOMAIN_FOLDER,ADMIN_DOMAIN_FOLDER_LBL),
+			array(CST_ADMIN_DOMAIN_OPML,ADMIN_DOMAIN_OPML_LBL)
 			) as $item) {
 
 	if ($use_mod_rewrite) {
