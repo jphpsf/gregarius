@@ -48,6 +48,11 @@ function rss_header($title="", $active=0, $cidfid=null, $onLoadAction="", $optio
 		} else {
 			ob_start();
 		}
+		// force a content-type and a charset
+    	header('Content-Type: text/html; charset='
+	   	.(getConfig('rss.output.encoding')?
+	     		getConfig('rss.output.encoding'):DEFAULT_OUTPUT_ENCODING));
+	     
     }
 
 	$docTitle = "";
@@ -57,10 +62,7 @@ function rss_header($title="", $active=0, $cidfid=null, $onLoadAction="", $optio
  		$docTitle .= " ($uc " . LBL_UNREAD. ")";
 	}
 
-    // force a content-type and a charset
-    header('Content-Type: text/html; charset='
-	   .(getConfig('rss.output.encoding')?
-	     getConfig('rss.output.encoding'):DEFAULT_OUTPUT_ENCODING));
+
     
     rss_plugin_hook('rss.plugins.bodystart',null);
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
