@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.15  2005/06/13 17:28:26  mbonetti
+# new config entry: specify server/client timezone offset
+#
 # Revision 1.14  2005/06/09 11:45:08  mbonetti
 # Swedish and Spanish language packs
 #
@@ -257,6 +260,7 @@ function setDefaults($key) {
 		"rss.config.plugins"		=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL),
 		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow gregarius to look for updates in existing items.',NULL),
 		"rss.output.titleunreadcnt"	=>		array('false','false','boolean','Display unread count in the document title.',NULL),
+		"rss.config.tzoffset"		=>		array('0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL)
 	);
 	
 	
@@ -357,6 +361,8 @@ _SQL_
 		return 1;
 	}
 }
+
+
 
 
 ?>

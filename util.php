@@ -156,7 +156,7 @@ function rss_footer() {
 
     $ts = getLastModif();
     echo "<span>\n\tLast update: "
-      .($ts?date(getConfig('rss.config.dateformat'),$ts):"never")
+      .($ts?rss_date(getConfig('rss.config.dateformat'),$ts):"never")
 	."\n</span>\n";
 
     echo "</div>\n\n";
@@ -632,7 +632,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 			if (getConfig('rss.output.usepermalinks')) {
 			$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
-			list($ply,$plm,$pld) = explode(":",date("Y:m:d",$ts));
+			list($ply,$plm,$pld) = explode(":",rss_date("Y:m:d",$ts));
 			$ptitle = LBL_PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
 			echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
 	
@@ -669,12 +669,12 @@ function itemsList($title,$items, $options = IL_NONE){
 				 echo "\t\t<div id=\"sad$iid\" style=\"display:none\" ></div>";
 			}
 		
-			 if ($ts != "") {
-			$date_lbl = date(getConfig('rss.config.dateformat'), $ts);
+			if ($ts != "") {
+			$date_lbl = rss_date(getConfig('rss.config.dateformat'), $ts);
 	
 			// make a permalink url for the date (month)
 			if (strpos(getConfig('rss.config.dateformat'),'F') !== FALSE) {
-				 $mlbl = date('F',$ts);
+				 $mlbl = rss_date('F',$ts);
 				 $murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
 	
 				 $date_lbl =
@@ -685,7 +685,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 			// make a permalink url for the date (day)
 			if (strpos(getConfig('rss.config.dateformat'),'jS') !== FALSE) {
-				 $dlbl = date('jS',$ts);
+				 $dlbl = rss_date('jS',$ts);
 				 $durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
 				 $date_lbl =
 					str_replace($dlbl,
@@ -903,14 +903,14 @@ function makeArchiveUrl($ts,$channel,$cid,$dayView ) {
     if (getConfig('rss.output.usemodrewrite')) {
 	return ( getPath()
 		 . "$channel/"
-		 .date(($dayView?'Y/m/d/':'Y/m/'),$ts));
+		 .rss_date(($dayView?'Y/m/d/':'Y/m/'),$ts));
     } else {
 	return
 	  (getPath() ."feed.php?channel=$cid&amp;y="
-	   .date('Y',$ts)
+	   .rss_date('Y',$ts)
 	   ."&amp;m="
-	   .date('m',$ts)
-	   .($dayView?("&amp;d=".date('d',$ts)):""));
+	   .rss_date('m',$ts)
+	   .($dayView?("&amp;d=".rss_date('d',$ts)):""));
     }
 }
 
@@ -1085,5 +1085,9 @@ function getUnreadCount($cid,$fid) {
     $res = rss_query( $sql );
     list($unread)= rss_fetch_row($res);
     return $unread;
+}
+
+function rss_date($fmt,$ts) {
+	return date($fmt,$ts+3600*getConfig('rss.config.tzoffset'));
 }
 ?>

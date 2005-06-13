@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.49  2005/06/13 17:28:34  mbonetti
+# new config entry: specify server/client timezone offset
+#
 # Revision 1.48  2005/06/11 16:59:12  mbonetti
 # prefixed all labels
 #
@@ -1146,6 +1149,12 @@ function config() {
 		 	$arr = getLanguages();
             echo $arr[getConfig('rss.output.lang')];
 		 	break;
+		 case 'rss.config.tzoffset':
+			echo $value
+			  . " (your local time: "
+			  . preg_replace('/ /','&nbsp;',date("g:i A",mktime()+$value*3600))
+			.")";
+			break;
 		 default:
 		 
 			// generic handling per type:
