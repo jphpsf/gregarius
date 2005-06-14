@@ -632,7 +632,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 			if (getConfig('rss.output.usepermalinks')) {
 			$escaped_ititle=preg_replace("/[^A-Za-z0-9\.]/","_","$ititle");
-			list($ply,$plm,$pld) = explode(":",rss_date("Y:m:d",$ts));
+			list($ply,$plm,$pld) = explode(":",rss_date("Y:m:d",$ts, false));
 			$ptitle = LBL_PL_FOR. "'$escaped_title/$ply/$plm/$pld/$escaped_ititle'";
 			echo "\t\t<a class=\"plink\" title=\"$ptitle\" ";
 	
@@ -674,7 +674,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 			// make a permalink url for the date (month)
 			if (strpos(getConfig('rss.config.dateformat'),'F') !== FALSE) {
-				 $mlbl = rss_date('F',$ts);
+				 $mlbl = rss_date('F',$ts,false);
 				 $murl = makeArchiveUrl($ts,$escaped_title,$cid,false);
 	
 				 $date_lbl =
@@ -685,7 +685,7 @@ function itemsList($title,$items, $options = IL_NONE){
 	
 			// make a permalink url for the date (day)
 			if (strpos(getConfig('rss.config.dateformat'),'jS') !== FALSE) {
-				 $dlbl = rss_date('jS',$ts);
+				 $dlbl = rss_date('jS',$ts,false);
 				 $durl = makeArchiveUrl($ts,$escaped_title,$cid,true);
 				 $date_lbl =
 					str_replace($dlbl,
@@ -903,14 +903,14 @@ function makeArchiveUrl($ts,$channel,$cid,$dayView ) {
     if (getConfig('rss.output.usemodrewrite')) {
 	return ( getPath()
 		 . "$channel/"
-		 .rss_date(($dayView?'Y/m/d/':'Y/m/'),$ts));
+		 .rss_date(($dayView?'Y/m/d/':'Y/m/'),$ts,false));
     } else {
 	return
 	  (getPath() ."feed.php?channel=$cid&amp;y="
-	   .rss_date('Y',$ts)
+	   .rss_date('Y',$ts,false)
 	   ."&amp;m="
-	   .rss_date('m',$ts)
-	   .($dayView?("&amp;d=".rss_date('d',$ts)):""));
+	   .rss_date('m',$ts,false)
+	   .($dayView?("&amp;d=".rss_date('d',$ts,false)):""));
     }
 }
 
@@ -1087,7 +1087,11 @@ function getUnreadCount($cid,$fid) {
     return $unread;
 }
 
-function rss_date($fmt,$ts) {
-	return date($fmt,$ts+3600*getConfig('rss.config.tzoffset'));
+function rss_date($fmt,$ts, $addTZOffset=true) {
+    if ($addTZOffset) {
+    	return date($fmt,$ts+3600*getConfig('rss.config.tzoffset'));
+    } else {
+        return date($fmt,$ts);
+    }
 }
 ?>
