@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.4  2005/06/14 08:48:01  mbonetti
+# extra "mark all as read" button on the front page as well
+#
 # Revision 1.3  2005/06/08 11:26:29  mbonetti
 # (oops)
 #
@@ -48,12 +51,16 @@
 
 function __extra_button_Button($in) {
     list($feedCount,$unreadCount,$readCount,$itemId,$channelId) = $in;
-    if ($unreadCount && $itemId == "" && $feedCount==1) {
+    if ($unreadCount && $itemId == "") {
         echo "<span style=\"text-align:right\">\n";
-				markReadForm($channelId);
-				echo "</span>\n";
-		}
-		return null;
+        if ($feedCount==1) {
+			markReadForm($channelId);
+        } elseif ($feedCount>1) {
+			markAllReadForm();
+        }
+        echo "</span>\n";
+    }
+	return null;
 }
 
 rss_set_hook('rss.plugins.items.afteritems','__extra_button_Button');

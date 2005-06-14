@@ -77,6 +77,7 @@ if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
    readItems();
 } elseif($cntUnread == 0) {
    itemsList( sprintf(LBL_H2_UNREAD_ITEMS , count($items)), IL_TITLE_NO_ESCAPE);
+
 }
 
 echo "</div>\n";
@@ -156,8 +157,11 @@ function unreadItems($show_what) {
 
 
         $ret = count($items); 
-        itemsList ( sprintf(LBL_H2_UNREAD_ITEMS , $ret),  $items, IL_TITLE_NO_ESCAPE );
-
+        $ilRet = itemsList ( sprintf(LBL_H2_UNREAD_ITEMS , $ret),  $items, IL_TITLE_NO_ESCAPE );
+        $ilRet[0] = 2; // several feeds
+        $ilRet[] = "";
+        $ilRet[] = "";
+        rss_plugin_hook('rss.plugins.items.afteritems', $ilRet);
 
     }
     return $ret;
@@ -253,7 +257,10 @@ function readItems() {
 	    $items[] = $litems[0];
 	}
     }
-    itemsList(LBL_H2_RECENT_ITEMS,$items, IL_TITLE_NO_ESCAPE);
+    
+    $ilRet = itemsList(LBL_H2_RECENT_ITEMS,$items, IL_TITLE_NO_ESCAPE);
+
+
     
 
 }
