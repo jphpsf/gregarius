@@ -168,7 +168,7 @@ define ('LBL_ADMIN_CHANNEL_SITE_URL','URL Site:');
 define ('LBL_ADMIN_CHANNEL_FOLDER','Dans le r&eacute;pertoire:');
 define ('LBL_ADMIN_CHANNEL_DESCR','Description:');
 define ('LBL_ADMIN_FOLDER_NAME','Nom du r&eacute;pertoire:');
-define ('LBL_ADMIN_CHANNEL_PRIVATE','Ce canal est <strong>priv&eacute</strong>, les administrateurs uniquement peuvent le voir');
+define ('LBL_ADMIN_CHANNEL_PRIVATE','Ce canal est <strong>priv&eacute</strong>, Seul l' administrateur peut le voir');
 define ('LBL_ADMIN_CHANNEL_DELETED','Ce canal est <strong>desactiv&eacute;</strong>, il ne sera plus mis &agrave; jour et n\'est pas visible dans la colonne des canaux.');
 define ('LBL_ADMIN_ARE_YOU_SURE', "Etes-vous sur de vouloir &eacute;ffacer '%s'?");
 define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT',"Etes-vous sur de vouloir remettre la valeur de la cl&eacute '%s' &agrave; sa valeur par d&eacute;faut '%s'?");
