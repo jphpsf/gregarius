@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.50  2005/06/14 07:24:24  mbonetti
+# strip hmtl tags from the feed description
+#
 # Revision 1.49  2005/06/13 17:28:34  mbonetti
 # new config entry: specify server/client timezone offset
 #
@@ -802,9 +805,10 @@ function channel_edit_form($cid) {
 		."<label for=\"c_deleted\">". LBL_ADMIN_CHANNEL_DELETED ."</label>\n"
 		."<input type=\"hidden\" name=\"old_del\" value=\"$old_del\" />\n"
 		."</p>\n";
-	
+
 	
 	// Description
+    $descr = strip_tags($descr);
 	echo "<p><label for=\"c_descr\">". LBL_ADMIN_CHANNEL_DESCR ."</label>\n"
 	  ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\"/></p>\n";
 

@@ -25,6 +25,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.52  2005/06/14 07:24:17  mbonetti
+# strip hmtl tags from the feed description
+#
 # Revision 1.51  2005/06/11 16:59:09  mbonetti
 # prefixed all labels
 #
@@ -239,6 +242,10 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
     } else {
 	$feedUrl = getPath() . "feed.php?channel=$cid";
     }
+
+    // remove html from description
+    $description = strip_tags($description);
+
 
     $ret .=
       "<a"
