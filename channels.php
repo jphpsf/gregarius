@@ -25,6 +25,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.53  2005/06/14 12:55:39  mbonetti
+# use javascript to collapse folders
+#
 # Revision 1.52  2005/06/14 07:24:17  mbonetti
 # strip hmtl tags from the feed description
 #
@@ -41,8 +44,6 @@
 ###############################################################################
 
 define ('COLLAPSED_FOLDERS_COOKIE','collapsedfolders');
-define ('COLLAPSE_ACTION','fcollapse');
-define ('EXPAND_ACTION','fexpand');
 
 /** displays the channel list **/
 function sideChannels($activeId) {
@@ -56,68 +57,36 @@ function sideChannels($activeId) {
 
     if (getConfig('rss.output.channelcollapse')) {
 
-	//read per-user stored collapsed folders
-	if (array_key_exists(COLLAPSED_FOLDERS_COOKIE, $_COOKIE)) {
-	    $collapsed_ids = explode(":",$_COOKIE[COLLAPSED_FOLDERS_COOKIE]);
-	}
+    	//read per-user stored collapsed folders
+    	if (array_key_exists(COLLAPSED_FOLDERS_COOKIE, $_COOKIE)) {
+    	    $collapsed_ids = explode(":",$_COOKIE[COLLAPSED_FOLDERS_COOKIE]);
+    	}
 
-	//get unread count per folder
-	$sql = "select f.id, f.name, count(*) as cnt "
-	  ." from " 
-	  .getTable('item') ." i, " 
-	  .getTable('channels') . " c, " 
-	  .getTable('folders') ." f "
-	  ." where i.unread & ". FEED_MODE_UNREAD_STATE;
-	
-	if (hidePrivate()) {
-		$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";
-	}
-	
-	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE .") ";
-	
-	 $sql .= " and i.cid=c.id and c.parent=f.id "
-	  ." group by 1";
-	  
-	$res  = rss_query($sql);
+    	//get unread count per folder
+    	$sql = "select f.id, f.name, count(*) as cnt "
+    	  ." from "
+    	  .getTable('item') ." i, "
+    	  .getTable('channels') . " c, "
+    	  .getTable('folders') ." f "
+    	  ." where i.unread & ". FEED_MODE_UNREAD_STATE;
 
-	while (list($cid,$cname,$cuc) = rss_fetch_row($res)) {
-	    $collapsed_folders[$cid]=$cuc;
-	}
+    	if (hidePrivate()) {
+    		$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";
+    	}
 
-	//collapse action?
-	$setcookie=false;
-	if (array_key_exists(COLLAPSE_ACTION, $_GET)) {
-	    $fid_to_collapse = (int)$_GET[COLLAPSE_ACTION];
-	    // expanded -> collapsed
+    	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE .") ";
 
-	    if (!in_array($fid_to_collapse, $collapsed_ids)) {
-		$setcookie = true;
-	    }
-	    $collapsed_ids[]=$fid_to_collapse;
+    	 $sql .= " and i.cid=c.id and c.parent=f.id "
+    	  ." group by 1";
 
-	} elseif (array_key_exists(EXPAND_ACTION, $_GET)) {
-	    $fid_to_expand= (int)$_GET[EXPAND_ACTION];
-	    //	collapsed -> expanded
-	    if (in_array($fid_to_expand, $collapsed_ids)) {
-		$key = array_search($fid_to_expand,$collapsed_ids);
-		unset($collapsed_ids[$key]);
-		$setcookie = true;
-	    }
-	}
+    	$res  = rss_query($sql);
 
-	sort($collapsed_ids);
-	if ($setcookie) {
-	    if (count($collapsed_ids) > 0) {
-		$cookie = implode(":",$collapsed_ids);
-		$period = time()+COOKIE_LIFESPAN;
-	    } else {
-		$cookie = FALSE;
-		$period = time() - 3600;
-	    }
+    	while (list($cid,$cname,$cuc) = rss_fetch_row($res)) {
+    	    $collapsed_folders[$cid]=$cuc;
+    	}
 
-	    setcookie(COLLAPSED_FOLDERS_COOKIE, $cookie, $period);
-	}
 
+    	sort($collapsed_ids);
     }
 
     $sql = "select "
@@ -146,63 +115,56 @@ function sideChannels($activeId) {
     while (list($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr)  = rss_fetch_row($res)) {
 	//echo "\n<!-- $title -->\n";
 
-	$iscollapsed = in_array($cparent,$collapsed_ids) && ($cparent > 0);
+    	$iscollapsed = in_array($cparent,$collapsed_ids) && ($cparent > 0);
 
-	if ($cparent != $prev_parent) {
+    	if ($cparent != $prev_parent) {
 
-	    if ($prev_parent > 0) {
-		if (!in_array($prev_parent,$collapsed_ids)) {
-		    echo tabs(2) ."</ul>\n";
-		}
-		echo tabs(1) ."</li>\n";
-	    }
-	    $ucLabel = "";
-	    if (getConfig('rss.output.channelcollapse')) {
-		if ($iscollapsed) {
-		    $flabel = "<a href=\"".getPath()."index.php?".EXPAND_ACTION."=$cparent\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
+    	    if ($prev_parent > 0) {
+                echo tabs(2) ."</ul>\n";
+        		echo tabs(1) ."</li>\n";
+    	    }
+    	    $ucLabel = "";
+    	    if (getConfig('rss.output.channelcollapse')) {
+                $flabel = "<a href=\"#\" onclick=\"_tgl($cparent); return false;\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
+                if (array_key_exists($cparent,$collapsed_folders)) {
+                    $sCls = ($iscollapsed?"display:inline":"display:none");
+                    $ucLabel .= " " . sprintf(LBL_UNREAD_PF, "fs$cparent", $sCls, $collapsed_folders[$cparent]);
+                }
 
-		    if (array_key_exists($cparent,$collapsed_folders)) {
-			 $ucLabel .= " " . sprintf(LBL_UNREAD_PF,$collapsed_folders[$cparent]);
-		    }
-		    
+    	    } else {
+                $flabel = "<img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" />";
+    	    }
 
-		} else {
-		    $flabel = "<a href=\"".getPath()."index.php?".COLLAPSE_ACTION."=$cparent\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
-		}
-	    } else {
-		$flabel = "<img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" />";
-	    }
+    	    if ( getConfig('rss.output.usemodrewrite')) {
+                $rlink =  preg_replace("/[^a-zA-Z0-9_]/","_",$fname) . "/";
+    	    } else {
+                $rlink = "feed.php?folder=$cparent";
+    	    }
 
-	    if ( getConfig('rss.output.usemodrewrite')) {
-		$rlink =  preg_replace("/[^a-zA-Z0-9_]/","_",$fname) . "/";
-	    } else {
-		$rlink = "feed.php?folder=$cparent";
-	    }
+    	    $flink = "<a href=\"" .getPath() . $rlink ."\">" .htmlentities($fname,ENT_COMPAT,'UTF-8') ."</a>";
 
-	    $flink = "<a href=\"" .getPath() . $rlink ."\">" .htmlentities($fname,ENT_COMPAT,'UTF-8') ."</a>";
+    	    echo tabs(1) . "<li class=\"folder ". ($iscollapsed?"collapsed":"expanded")."\">\n"
+    	      . tabs(2) . "<span>$flabel $flink $ucLabel</span>\n";
 
-	    echo tabs(1) . "<li class=\"folder ". ($iscollapsed?"collapsed":"expanded")."\">\n"
-	      . tabs(2) . "<span>$flabel $flink $ucLabel</span>\n";
 
-	    if (!$iscollapsed) {
-		echo tabs(2) . "<ul>\n";
-	    }
-	    $prev_parent=$cparent;
-	}
+            echo tabs(2) . "<ul "
+                ."id=\"fc$cparent\" "
+                .($iscollapsed?" class=\"fcollapsed\" style=\"display:none\"":" class=\"fexpanded\" style=\"display:block\"")
+                .">\n";
+    	    $prev_parent=$cparent;
+    	}
 
-	if (!$iscollapsed) {
+
 	    echo tabs( ($cparent > 0)?3:1	) . "<li" .	 (($cid == $activeId)?" class=\"active\"":"") . ">";
 	    echo feed($cid, $ctitle, $curl, $csiteurl, $cico, $cdescr);
 	    echo "</li>\n";
-	}
+
 
     }
 
     if ($prev_parent > 0) {
-	if (!$iscollapsed) {
-	    echo tabs(2) ."</ul>\n";
-	}
-	echo tabs(1) ."</li>\n";
+   	    echo tabs(2) ."</ul>\n";
+    	echo tabs(1) ."</li>\n";
     }
 
     echo "</ul>\n";
@@ -223,7 +185,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
     $res = rss_query ("select count(*) from " .getTable("item") ." where cid=$cid and unread & "  . FEED_MODE_UNREAD_STATE);
     list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
-	$rdLbl= sprintf(LBL_UNREAD_PF, $cnt);
+	$rdLbl= sprintf(LBL_UNREAD_PF, "","",$cnt);
 	$class_= " class=\"feed title unread\"";
     } else {
 	$rdLbl= "";

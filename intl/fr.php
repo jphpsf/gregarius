@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.59  2005/06/14 12:55:59  mbonetti
+# use javascript to collapse folders
+#
 # Revision 1.58  2005/06/11 16:59:12  mbonetti
 # prefixed all labels
 #
@@ -65,7 +68,7 @@ define ('LBL_H2_RECENT_ITEMS', "&Eacute;l&eacute;ments r&eacute;cents");
 define ('LBL_H2_CHANNELS','Canaux');
 define ('LBL_H5_READ_UNREAD_STATS','%d &eacute;l&eacute;ments , %d non lus');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments (<strong>%d</strong> non lus) dans <strong>%d</strong> canaux');
-define ('LBL_UNREAD_PF', '(<strong>%d non lus</strong>)');
+define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d non lus)</strong>');
 define ('LBL_UNREAD','non lus');
 
 define ('LBL_FTR_POWERED_BY', "est propuls&eacute; par ");

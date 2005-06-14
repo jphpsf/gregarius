@@ -28,6 +28,9 @@
 #
 ###############################################################################
 # $Log$
+# Revision 1.64  2005/06/14 12:55:53  mbonetti
+# use javascript to collapse folders
+#
 # Revision 1.63  2005/06/11 16:59:12  mbonetti
 # prefixed all labels
 #
@@ -64,7 +67,7 @@ define ('LBL_H2_RECENT_ITEMS', "Recent items");
 define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d items, %d unread');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds');
-define ('LBL_UNREAD_PF', '(<strong>%d unread</strong>)');
+define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d unread)</strong>');
 define ('LBL_UNREAD','unread');
 
 define ('LBL_FTR_POWERED_BY', ", powered by ");

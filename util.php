@@ -126,8 +126,11 @@ function rss_header($title="", $active=0, $cidfid=null, $onLoadAction="", $optio
     }
 
     echo "\t<script type=\"text/javascript\" src=\"".getPath()."ajax.php?js\"></script>\n";
-
-	 rss_plugin_hook('rss.plugins.javascript',null);
+    if (getConfig('rss.output.channelcollapse')) {
+        echo "\t<script type=\"text/javascript\" src=\"".getPath()."extlib/fcollapse.js\"></script>\n";
+    }
+    
+	rss_plugin_hook('rss.plugins.javascript',null);
 	 
     echo "</head>\n"
       ."<body";
