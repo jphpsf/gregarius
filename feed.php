@@ -384,6 +384,7 @@ rss_footer();
 
 function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
+	
 	$do_show=$show_what;
 	//should we honour unread-only?
 	if ($show_what == SHOW_UNREAD_ONLY) {
@@ -509,7 +510,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 
 	$severalFeeds = count($cids) > 1;
-    if ($hasUnreadItems && $iid == "") {
+   if ($hasUnreadItems && $iid == "") {
 		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
 
     	 showViewForm($show_what);
@@ -522,9 +523,11 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	 }
 	 
     $ilRet = itemsList($title, $items, ($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
-    $ilRet[] = $iid;
+    $ilRet[] = $severalFeeds;
     $ilRet[] = $cid;
-	rss_plugin_hook('rss.plugins.items.afteritems', $ilRet);
+    $ilRet[0] = count($cids);
+    //list($feedCount,$unreadCount,$readCount,$itemId,$channelId) = $ilRet;
+	 rss_plugin_hook('rss.plugins.items.afteritems', $ilRet);
     
 
 	
