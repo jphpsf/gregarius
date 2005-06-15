@@ -4,7 +4,7 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ############################################################################### 
-# File: $Id$ $Name$
+# File: $Id$ $Name:  $
 #
 ###############################################################################
 # This program is free software and open source software; you can redistribute
@@ -27,7 +27,7 @@
 # Web page:    http://godsea.dsland.org
 #
 ###############################################################################
-# $Log$
+# $Log: es.php,v $
 # Revision 1.3  2005/06/14 12:55:59  mbonetti
 # use javascript to collapse folders
 #

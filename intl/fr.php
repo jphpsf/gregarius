@@ -4,7 +4,7 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
+# File: $Id$ $Name:  $
 #
 ###############################################################################
 # This program is free software and open source software; you can redistribute
@@ -27,7 +27,7 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
+# $Log: fr.php,v $
 # Revision 1.59  2005/06/14 12:55:59  mbonetti
 # use javascript to collapse folders
 #
@@ -105,7 +105,7 @@ define ('LBL_UPDATE_STATUS_ERROR','ERREUR');
 define ('LBL_UPDATE_H2','Mise &agrave; jour de %d Canaux...');
 define ('LBL_UPDATE_CACHE_TIMEOUT','Cache (HTTP Timeout)');
 define ('LBL_UPDATE_NOT_MODIFIED','OK (304 Pas de modifications)'); 
-define ('LBL_UPDATE_NOT_FOUND','404 Pas Trouv&eacute; (Depuis cache)');
+define ('LBL_UPDATE_NOT_FOUND','404 Non Trouv&eacute; (Depuis cache)');
 // admin
 define ('LBL_ADMIN_EDIT', '&eacute;diter');
 define ('LBL_ADMIN_DELETE', 'effacer');
@@ -168,8 +168,8 @@ define ('LBL_ADMIN_CHANNEL_SITE_URL','URL Site:');
 define ('LBL_ADMIN_CHANNEL_FOLDER','Dans le r&eacute;pertoire:');
 define ('LBL_ADMIN_CHANNEL_DESCR','Description:');
 define ('LBL_ADMIN_FOLDER_NAME','Nom du r&eacute;pertoire:');
-define ('LBL_ADMIN_CHANNEL_PRIVATE','Ce canal est <strong>priv&eacute</strong>, Seul l' administrateur peut le voir');
-define ('LBL_ADMIN_CHANNEL_DELETED','Ce canal est <strong>desactiv&eacute;</strong>, il ne sera plus mis &agrave; jour et n\'est pas visible dans la colonne des canaux.');
+define ('LBL_ADMIN_CHANNEL_PRIVATE','Ce canal est <strong>priv&eacute;</strong>, Seul l\'administrateur peut le visionner');
+define ('LBL_ADMIN_CHANNEL_DELETED','Ce canal est <strong>d&eacute;sactiv&eacute;</strong>, il ne sera plus mis &agrave; jour et n\'est pas visible dans la colonne des canaux.');
 define ('LBL_ADMIN_ARE_YOU_SURE', "Etes-vous sur de vouloir &eacute;ffacer '%s'?");
 define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT',"Etes-vous sur de vouloir remettre la valeur de la cl&eacute '%s' &agrave; sa valeur par d&eacute;faut '%s'?");
 define ('LBL_ADMIN_TRUE','Oui');
@@ -177,7 +177,7 @@ define ('LBL_ADMIN_FALSE','Non');
 define ('LBL_ADMIN_MOVE_UP','&uarr;');
 define ('LBL_ADMIN_MOVE_DOWN','&darr;');
 define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Veuillez saisir l\'URL d\'un flux RSS ou d\'un site Internet)');
-define ('LBL_ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute;s dans <a href=\"%s\">%s</a>. Auquel d&eacute;sirez-vous souscrir?');
+define ('LBL_ADMIN_FEEDS','Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute;s dans <a href=\"%s\">%s</a>. Auquel d&eacute;sirez-vous souscrir ?');
 
 define ('LBL_ADMIN_PRUNE_OLDER','Effacer les &eacute;l&eacute;ments plus anciens que ');
 define ('LBL_ADMIN_PRUNE_DAYS','jours');
@@ -198,11 +198,11 @@ define ('LBL_ADMIN_BOOKMARKET_LABEL','Bookmarklet de souscription [<a href="http
 define ('LBL_ADMIN_BOOKMARKLET_TITLE','Ajouter &agrave; Gregarius!');
 
 define ('LBL_ADMIN_ERROR_NOT_AUTHORIZED', 
-		"<h1>Non autoris&eacute;</h1>\nVous n'&ecirc;tes pas autoris&eacute; &agrave; acc&eacute;der la section d'administration."
+		"<h1>Non autoris&eacute;</h1>\nVous n'&ecirc;tes pas autoris&eacute; &agrave; acc&eacute;der &agrave; la section d'administration."
 		."Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir &agrave; la page d'acceuil.\n"
 		."Merci.");
 
-define ('LBL_ADMIN_ERROR_PRUNING_PERIOD',"P&eacute; d'effacement non valide");
+define ('LBL_ADMIN_ERROR_PRUNING_PERIOD',"P&eacute;riode d'effacement non valide");
 define ('LBL_ADMIN_ERROR_NO_PERIOD',"Aucune p&eacute;riode sp&eacute;cifi&eacute;e!");
 define ('LBL_ADMIN_BAD_RSS_URL',"Je ne sais pas comment g&eacute;rer cette URL '%s'");
 define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Vous ne pouvez pas effacer le r&eacute;pertoire " . LBL_HOME_FOLDER ."!");
@@ -231,6 +231,6 @@ define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non lus');
 
 define ('LBL_STATE_UNREAD','Non lu (Sp&eacute;cifie l\\\'&eacute;tat lu/non lu de cet &eacute;l&eacute;ment)');
 define ('LBL_STATE_STICKY','Persistant (L\\\'&eacute;l&eacute;ment ne sera pas effac&eacute;)');
-define ('LBL_STATE_PRIVATE','Priv&eacute; (Seulement les administrateurs peuvent voir les &eacute;l&eacute;ments priv&eacute;s)');
+define ('LBL_STATE_PRIVATE','Priv&eacute; (Seuls les administrateurs peuvent voir les &eacute;l&eacute;ments priv&eacute;s)');
 
 ?>
