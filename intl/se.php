@@ -4,7 +4,7 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ############################################################################### 
-# File: $Id$ $Name$
+# File: $Id$ $Name:  $
 #
 ###############################################################################
 # This program is free software and open source software; you can redistribute
@@ -29,7 +29,7 @@
 #
 ###############################################################################
 # 
-# $Log$
+# $Log: se.php,v $
 # Revision 1.4  2005/06/14 12:55:59  mbonetti
 # use javascript to collapse folders
 #
@@ -52,16 +52,16 @@ define ('LBL_SEARCH_SEARCH_QUERY','S&ouml;kord:');
 define ('LBL_SEARCH_MATCH_OR', 'N&aring;got av orden (OR)');
 define ('LBL_SEARCH_MATCH_AND', 'Alla orden (AND)');                                                                 
 define ('LBL_SEARCH_MATCH_EXACT', 'Den exakta frasen');
-define ('LBL_SEARCH_CHANNELS', 'Feed:');
-define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Ordna efter datum, feed');
-define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Ordna efter feed, datum');
+define ('LBL_SEARCH_CHANNELS', 'Syndikeringsfl&ouml;de:');
+define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Ordna efter datum, syndikeringsfl&ouml;de');
+define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Ordna efter syndikeringsfl&ouml;de, datum');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','Resultat per sida:');
 define ('LBL_SEARCH_RESULTS','Resultat: ');
 define ('LBL_H2_UNREAD_ITEMS',"Ol&auml;sta inl&auml;gg (%d)");
 define ('LBL_H2_RECENT_ITEMS', "Senast l&auml;sta inl&auml;gg");
-define ('LBL_H2_CHANNELS','Feeds');
+define ('LBL_H2_CHANNELS','Syndikeringsfl&ouml;den');
 define ('LBL_H5_READ_UNREAD_STATS','%d inl&auml;gg, %d ol&auml;sta');
-define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> inl&auml;gg (<strong>%d</strong> ol&auml;sta) i <strong>%d</strong> feeds');
+define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> inl&auml;gg (<strong>%d</strong> ol&auml;sta) i <strong>%d</strong> syndikeringsfl&ouml;den');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d ol&auml;sta)</strong>');
 define ('LBL_UNREAD','ol&auml;sta');
 
@@ -90,14 +90,14 @@ define ('LBL_COLLAPSE','[-] Kollapsa');
 define ('LBL_EXPAND','[+] Expandera');
 define ('LBL_PL_FOR','Permalink till ');
 
-define ('LBL_UPDATE_CHANNEL','Feed');
+define ('LBL_UPDATE_CHANNEL','Syndikeringsfl&ouml;de');
 define ('LBL_UPDATE_STATUS','Status');
 define ('LBL_UPDATE_UNDREAD','New Items');
 
 define ('LBL_UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('LBL_UPDATE_STATUS_CACHED', 'OK (Lokal cache)');
 define ('LBL_UPDATE_STATUS_ERROR','ERROR');
-define ('LBL_UPDATE_H2','Uppdaterar %d feeds...');
+define ('LBL_UPDATE_H2','Uppdaterar %d syndikeringsfl&ouml;den...');
 define ('LBL_UPDATE_CACHE_TIMEOUT','HTTP Timeout (Local cache)');
 define ('LBL_UPDATE_NOT_MODIFIED','OK (304 Not modified)');
 define ('LBL_UPDATE_NOT_FOUND','404 Not Found (Lokal cache)');
@@ -114,7 +114,7 @@ define ('LBL_ADMIN_ADD','L&auml;gg till');
 define ('LBL_ADMIN_YES', 'Ja');
 define ('LBL_ADMIN_NO', 'Nej');
 define ('LBL_ADMIN_FOLDERS','Foldrar:');
-define ('LBL_ADMIN_CHANNELS','Feeds:');
+define ('LBL_ADMIN_CHANNELS','Syndikeringsfl&ouml;den:');
 define ('LBL_ADMIN_OPML','OPML:');  
 define ('LBL_ADMIN_ITEM','Inl&auml;gg:');
 define ('LBL_ADMIN_CONFIG','Konfiguration:');
@@ -141,7 +141,7 @@ define ('LBL_ADMIN_CHANNELS_HEADING_ACTION','');
 define ('LBL_ADMIN_CHANNELS_HEADING_FLAGS','Flaggor');
 define ('LBL_ADMIN_CHANNELS_HEADING_KEY','Key');
 define ('LBL_ADMIN_CHANNELS_HEADING_VALUE','Value');
-define ('LBL_ADMIN_CHANNELS_ADD','L&auml;gg till en feed:');
+define ('LBL_ADMIN_CHANNELS_ADD','L&auml;gg till ett syndikeringsfl&ouml;de:');
 define ('LBL_ADMIN_FOLDERS_ADD','Skapa en folder:');
 define ('LBL_ADMIN_CHANNEL_ICON','Visa favicon:');
 define ('LBL_CLEAR_FOR_NONE','(L&auml;mna tom f&ouml;r att inte visa n&aring;n ikon)');
@@ -161,15 +161,16 @@ define ('LBL_ADMIN_PLUGINS_HEADING_ACTION','Aktiv');
 
 
 
-define ('LBL_ADMIN_CHANNEL_EDIT_CHANNEL','Redigera feed ');
+define ('LBL_ADMIN_CHANNEL_EDIT_CHANNEL','Redigera syndikeringsfl&ouml;de ');
 define ('LBL_ADMIN_CHANNEL_NAME','Rubrik:');
 define ('LBL_ADMIN_CHANNEL_RSS_URL','RSS URL:');
 define ('LBL_ADMIN_CHANNEL_SITE_URL','Sidans URL:');
 define ('LBL_ADMIN_CHANNEL_FOLDER','I foldern:');
 define ('LBL_ADMIN_CHANNEL_DESCR','Beskrivning:');
 define ('LBL_ADMIN_FOLDER_NAME','Foldernamn:');
-define ('LBL_ADMIN_CHANNEL_PRIVATE','Denna feed &auml;r <strong>privat</strong> och kan endast ses av admin.');
-define ('LBL_ADMIN_CHANNEL_DELETED','Denna feed &auml;r <strong>ur bruk</strong>. Den kommer inte uppdateras, och visas inte l&auml;ngre i listan &ouml;ver feeds.');
+define ('LBL_ADMIN_CHANNEL_PRIVATE','Detta syndikeringsfl&ouml;de &auml;r <strong>privat</strong> och kan endast ses av admin.');
+define ('LBL_ADMIN_CHANNEL_DELETED','Detta syndikeringsfl&ouml;de &auml;r <strong>ur bruk</strong>. Den kommer inte 
+uppdateras, och visas inte l&auml;ngre i listan &ouml;ver syndikeringsfl&ouml;den.');
 
 define ('LBL_ADMIN_ARE_YOU_SURE', "&Auml;r du s&auml;ker p&aring; att du vill ta bort '%s'?");
 define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT','&Auml;r du s&auml;ker p&aring; att du vill &aring;terst&auml;lla %s till standardv&auml;rdet \'%s\'?');
@@ -177,8 +178,8 @@ define ('LBL_ADMIN_TRUE','Sant');
 define ('LBL_ADMIN_FALSE','Falskt');
 define ('LBL_ADMIN_MOVE_UP','&uarr;');
 define ('LBL_ADMIN_MOVE_DOWN','&darr;');
-define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Ange URL:en direkt till en RSS-feed eller till den webbsida du vill prenumerera p&aring;)');
-define ('LBL_ADMIN_FEEDS','F&ouml;ljande feeds hittades p&aring; <a href="%s">%s</a>, vilken vill du prenumerera p&aring;?');
+define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Ange URL:en direkt till ett RSS-fl&ouml;de eller till den webbsida du vill prenumerera p&aring;)');
+define ('LBL_ADMIN_FEEDS','F&ouml;ljande fl&ouml;den hittades p&aring; <a href="%s">%s</a>, vilken vill du prenumerera p&aring;?');
 
 define ('LBL_ADMIN_PRUNE_OLDER','Radera inl&auml;gg &auml;ldre &auml;n ');
 define ('LBL_ADMIN_PRUNE_DAYS','dagar');
@@ -192,7 +193,7 @@ define ('LBL_ADMIN_ALLTAGS_EXPL','(Ange <strong>*</strong> f&ouml;r att spara al
 define ('LBL_ADMIN_ABOUT_TO_DELETE','Warning: you are about to delete %s items (of %s)');
 define ('LBL_ADMIN_PRUNING','St&auml;da');
 define ('LBL_ADMIN_DOMAIN_FOLDER_LBL','foldrar');
-define ('LBL_ADMIN_DOMAIN_CHANNEL_LBL','feeds');
+define ('LBL_ADMIN_DOMAIN_CHANNEL_LBL','fl&ouml;den');
 define ('LBL_ADMIN_DOMAIN_ITEM_LBL','inl&auml;gg');
 define ('LBL_ADMIN_DOMAIN_CONFIG_LBL','konfiguration');
 define ('LBL_ADMIN_DOMAIN_LBL_OPML_LBL','opml');
@@ -226,7 +227,7 @@ define ('LBL_TAG_SUGGESTIONS_NONE','inga f&ouml;rslag');
 define ('LBL_TAG_RELATED','Relaterade taggar: ');
 
 define ('LBL_MARK_READ', "Markera alla inl&auml;gg som l&auml;sta");
-define ('LBL_MARK_CHANNEL_READ', "Markera denna feed som l&auml;st");
+define ('LBL_MARK_CHANNEL_READ', "Markera detta fl&ouml;de som l&auml;st");
 define ('LBL_MARK_FOLDER_READ',"Markera foldern som l&auml;st");
 define ('LBL_SHOW_UNREAD_ALL_SHOW','Visa: ');
 define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Ol&auml;sta');
