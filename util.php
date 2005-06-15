@@ -1097,4 +1097,6 @@ function rss_date($fmt,$ts, $addTZOffset=true) {
         return date($fmt,$ts);
     }
 }
+
+//test
 ?>
