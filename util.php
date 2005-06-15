@@ -461,7 +461,7 @@ function itemsList($title,$items, $options = IL_NONE){
 		if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons') && isset($items[0])) {
 			 $cicon = $items[0][2];
 		} elseif (($options & IL_FOLDER_VIEW) && getConfig('rss.output.showfavicons')) {
-			 $cicon = getPath() . "css/media/folder.gif";
+			 $cicon = getThemePath()."media/folder.gif";
 		}
 		
 		echo "\n\n<h2$anchor>"
@@ -566,13 +566,13 @@ function itemsList($title,$items, $options = IL_NONE){
 				 if ($collapsed) {
 				$title = LBL_EXPAND . " '".htmlentities($ctitle)."'";
 				echo "\t<a title=\"$title\" class=\"expand\" href=\"".$_SERVER['PHP_SELF'] ."?expand=$cid#$escaped_title\">\n"
-				  ."\t<img src=\"". getPath()."css/media/plus.gif\" alt=\"$title\"/>"
+				  ."\t<img src=\"". getThemePath()."media/plus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;+&nbsp;"
 				  ."</a>\n";
 				 } else {
 				$title = LBL_COLLAPSE . " '".htmlentities($ctitle)."'";
 				echo "\t<a title=\"$title\" class=\"collapse\" href=\"".$_SERVER['PHP_SELF'] ."?collapse=$cid#$escaped_title\">\n"
-				  ."\t<img src=\"". getPath()."css/media/minus.gif\" alt=\"$title\"/>"
+				  ."\t<img src=\"". getThemePath()."media/minus.gif\" alt=\"$title\"/>"
 				  //."&nbsp;-&nbsp;"
 				  ."</a>\n";
 				 }
@@ -644,14 +644,14 @@ function itemsList($title,$items, $options = IL_NONE){
 			} else {
 				 echo "href=\"". getPath() ."feed.php?channel=$cid&amp;iid=$iid&amp;y=$ply&amp;m=$plm&amp;d=$pld\">";
 			}
-			echo "\n\t\t\t<img src=\"".getPath() . "css/media/pl.gif\" alt=\"$ptitle\" />\n"
+			echo "\n\t\t\t<img src=\"".getThemePath() . "media/pl.gif\" alt=\"$ptitle\" />\n"
 			  ."\t\t</a>\n";
 			 }
 
             
            if (! hidePrivate()) {
             echo "\t\t<a id=\"sa$iid\" href=\"#\" onclick=\"_es(".$iid.",".$iunread."); return false;\">\n"
-            ."\t\t\t<img src=\"".getPath(). "css/media/edit.gif\" alt=\"".LBL_ADMIN_EDIT."\" />\n"
+            ."\t\t\t<img src=\"".getThemePath(). "media/edit.gif\" alt=\"".LBL_ADMIN_EDIT."\" />\n"
             ."\t\t</a>\n";
            }
            

@@ -125,14 +125,14 @@ function sideChannels($activeId) {
     	    }
     	    $ucLabel = "";
     	    if (getConfig('rss.output.channelcollapse')) {
-                $flabel = "<a href=\"#\" onclick=\"_tgl($cparent); return false;\"><img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" /></a>";
+                $flabel = "<a href=\"#\" onclick=\"_tgl($cparent); return false;\"><img src=\"".getThemePath()."media/folder.gif\" alt=\"$fname\" /></a>";
                 if (array_key_exists($cparent,$collapsed_folders)) {
                     $sCls = ($iscollapsed?"display:inline":"display:none");
                     $ucLabel .= " " . sprintf(LBL_UNREAD_PF, "fs$cparent", $sCls, $collapsed_folders[$cparent]);
                 }
 
     	    } else {
-                $flabel = "<img src=\"".getPath()."css/media/folder.gif\" alt=\"$fname\" />";
+                $flabel = "<img src=\"".getThemePath()."media/folder.gif\" alt=\"$fname\" />";
     	    }
 
     	    if ( getConfig('rss.output.usemodrewrite')) {
