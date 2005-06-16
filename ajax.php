@@ -367,8 +367,8 @@ function _ses(id) {
             if (s & <?= FEED_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
             } else {
-				if ((s = document.getElementById('<?= SHOW_WHAT ?>')) && 
-				    s.options[s.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
+				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
+				    sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
                         setItemHide(id);
 				} else{ 
 				        setItemClass(id, 'item even');				     
