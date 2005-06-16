@@ -798,7 +798,7 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
                 echo "\t<taxo:topics>\n"
                     ."\t\t<rdf:Bag>\n";
                 foreach($tags as $tag) {
-                    echo "\t\t\t<rdf:li resource=\"".$baselink.$tag."\" />\n";
+                    echo "\t\t\t<rdf:li rdf:resource=\"".$baselink.$tag."\" />\n";
                 }
                 echo "\t\t</rdf:Bag>\n"
                     ."\t</taxo:topics>\n";
