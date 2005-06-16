@@ -751,7 +751,6 @@ function itemsList($title,$items, $options = IL_NONE){
  * feeds, feed the infinite self-referential loop, and gaze in awe as the
  * Internet vanishes in a puff of logic!
  */
- 
 function itemsListRDF($items,$title,$baselink,$resource="") {
 
     // trash the output, just in case
@@ -770,7 +769,7 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
         .">\n\n";
 
     echo "<channel rdf:about=\"".$baselink.$resource."\">\n"
-        ."\t<title>$title</title>\n"
+        ."\t<title>".xmlentities($title)."</title>\n"
         ."\t<link>".$baselink.$resource."</link>\n"
         ."\t<description></description>\n"
         ."</channel>\n\n";
@@ -787,13 +786,13 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
         	$tags = array();
         }
 
-		
+		$xmlTitle = xmlentities($ititle);
 		echo "<item rdf:about=\"$iurl\">\n"
-            ."\t<title>$ititle</title>\n"
+            ."\t<title>$xmlTitle</title>\n"
             ."\t<link>$iurl</link>\n"
             // http://www.jschreiber.com/archives/2004/03/php_and_timesta_1.html
             ."\t<dc:date>".rss_date('Y-m-d\TH:i:sO',$ts)."</dc:date>\n"
-            ."\t<dc:subject>$ititle</dc:subject>\n";
+            ."\t<dc:subject>$xmlTitle</dc:subject>\n";
             
             if (count($tags)) {
                 echo "\t<taxo:topics>\n"
@@ -810,6 +809,24 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
     echo "</rdf:RDF>\n";
 }
 
+//http://ch2.php.net/manual/en/function.htmlentities.php
+function xmlentities($string, $quote_style=ENT_QUOTES) {
+    static $trans;
+    if (!isset($trans)) {
+        $trans = get_html_translation_table(HTML_ENTITIES, $quote_style);
+        foreach ($trans as $key => $value)
+          $trans[$key] = '&#'.ord($key).';';
+        // dont translate the '&' in case it is part of &xxx;
+        $trans[chr(38)] = '&';
+    }
+    // after the initial translation, _do_ map standalone '&' into '&#38;'
+    $ret = preg_replace("/&(?![A-Za-z]{0,4}\w{2,3};|#[0-9]{2,3};)/","&#38;" , strtr($string, $trans));
+
+         $ret=str_replace("&middot;","&#183;",$ret);
+         $ret=str_replace("&ouml;","&#246;",$ret);
+         $ret=str_replace(chr(146),"&#039;",$ret);
+         return $ret;
+}
 
 
 function add_channel($url, $folderid=0) {
