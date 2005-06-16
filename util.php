@@ -495,7 +495,7 @@ function itemsList($title,$items, $options = IL_NONE){
     }
 
 	while (list($row, $item) = each($items)) {
-	
+
 		list($cid, $ctitle, $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
 		if (array_key_exists('tags',$item)) {
 			 $tags = $item['tags'];
@@ -742,6 +742,75 @@ function itemsList($title,$items, $options = IL_NONE){
 
 	return array($retChannels,$retUnread,$retRead);
 }
+
+/**
+ * Renders any array of $items formatted for itemsList into
+ * a RDF feed.
+ *
+ * Now let's all cheer and have Gregarius subscribe to it's self-generated
+ * feeds, feed the infinite self-referential loop, and gaze in awe as the
+ * Internet vanishes in a puff of logic!
+ */
+ 
+function itemsListRDF($items,$title,$baselink,$resource="") {
+
+    // trash the output, just in case
+    @ob_end_clean();
+    ob_start();
+    header('Content-Type: text/xml');
+    
+    echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n"
+        ."<rdf:RDF\n"
+        ."\txmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+        ."\txmlns=\"http://purl.org/rss/1.0/\"\n"
+        ."\txmlns:taxo=\"http://purl.org/rss/1.0/modules/taxonomy/\"\n"
+        ."\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"
+        ."\txmlns:syn=\"http://purl.org/rss/1.0/modules/syndication/\"\n"
+        ."\txmlns:admin=\"http://webns.net/mvcb/\"\n"
+        .">\n\n";
+
+    echo "<channel rdf:about=\"".$baselink.$resource."\">\n"
+        ."\t<title>$title</title>\n"
+        ."\t<link>".$baselink.$resource."</link>\n"
+        ."\t<description></description>\n"
+        ."</channel>\n\n";
+
+   	while (list($row, $item) = each($items)) {
+		list($cid, $ctitle, $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
+		
+        if (array_key_exists('tags',$item)) {
+            $tags = $item['tags'];
+        	if (count($tags) && $tags[0] == NULL) {
+        	   $tags = array();
+       	    }
+        } else {
+        	$tags = array();
+        }
+
+		
+		echo "<item rdf:about=\"$iurl\">\n"
+            ."\t<title>$ititle</title>\n"
+            ."\t<link>$iurl</link>\n"
+            // http://www.jschreiber.com/archives/2004/03/php_and_timesta_1.html
+            ."\t<dc:date>".rss_date('Y-m-d\TH:i:sO',$ts)."</dc:date>\n"
+            ."\t<dc:subject>$ititle</dc:subject>\n";
+            
+            if (count($tags)) {
+                echo "\t<taxo:topics>\n"
+                    ."\t\t<rdf:Bag>\n";
+                foreach($tags as $tag) {
+                    echo "\t\t\t<rdf:li resource=\"".$baselink.$tag."\" />\n";
+                }
+                echo "\t\t</rdf:Bag>\n"
+                    ."\t</taxo:topics>\n";
+
+            }
+        echo "</item>\n\n";
+    }
+    echo "</rdf:RDF>\n";
+}
+
+
 
 function add_channel($url, $folderid=0) {
     assert("" != $url && strlen($url) > 7);
