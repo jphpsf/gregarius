@@ -769,7 +769,7 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
         .">\n\n";
 
     echo "<channel rdf:about=\"".$baselink.$resource."\">\n"
-        ."\t<title>".xmlentities($title)."</title>\n"
+        ."\t<title>".htmlentities($title, ENT_QUOTES, 'UTF-8')."</title>\n"
         ."\t<link>".$baselink.$resource."</link>\n"
         ."\t<description></description>\n"
         ."</channel>\n\n";
