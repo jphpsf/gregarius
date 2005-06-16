@@ -281,6 +281,12 @@ function setItemClass(id,cls) {
     }
 }
 
+function setItemHide(id){
+    if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
+        li.style.display = 'none';
+    }
+}
+
 function setState_cb(ret) {
     data=ret.replace(/[^0-9\|]/gi,"").split('|');
     id=data[0];
@@ -361,7 +367,9 @@ function _ses(id) {
             if (s & <?= FEED_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
             } else {
-                setItemClass(id,'item even');
+				drpdwnShow = document.getElementById('<?= SHOW_WHAT ?>');
+				h = drpdwnShow.selectedIndex;
+				if(h){ setItemClass(id, 'item even'); }else{ setItemHide(id); }
             }
         }
         if (btn=document.getElementById('ess'+id+'ok')) {
