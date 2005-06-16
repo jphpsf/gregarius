@@ -786,7 +786,8 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
         	$tags = array();
         }
 
-		$xmlTitle = xmlentities($ititle);
+
+		$xmlTitle = htmlentities ( $ititle, ENT_QUOTES, 'UTF-8');
 		echo "<item rdf:about=\"$iurl\">\n"
             ."\t<title>$xmlTitle</title>\n"
             ."\t<link>$iurl</link>\n"
@@ -808,26 +809,6 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
     }
     echo "</rdf:RDF>\n";
 }
-
-//http://ch2.php.net/manual/en/function.htmlentities.php
-function xmlentities($string, $quote_style=ENT_QUOTES) {
-    static $trans;
-    if (!isset($trans)) {
-        $trans = get_html_translation_table(HTML_ENTITIES, $quote_style);
-        foreach ($trans as $key => $value)
-          $trans[$key] = '&#'.ord($key).';';
-        // dont translate the '&' in case it is part of &xxx;
-        $trans[chr(38)] = '&';
-    }
-    // after the initial translation, _do_ map standalone '&' into '&#38;'
-    $ret = preg_replace("/&(?![A-Za-z]{0,4}\w{2,3};|#[0-9]{2,3};)/","&#38;" , strtr($string, $trans));
-
-         $ret=str_replace("&middot;","&#183;",$ret);
-         $ret=str_replace("&ouml;","&#246;",$ret);
-         $ret=str_replace(chr(146),"&#039;",$ret);
-         return $ret;
-}
-
 
 function add_channel($url, $folderid=0) {
     assert("" != $url && strlen($url) > 7);
