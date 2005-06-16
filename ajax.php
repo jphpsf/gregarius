@@ -367,9 +367,12 @@ function _ses(id) {
             if (s & <?= FEED_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
             } else {
-				drpdwnShow = document.getElementById('<?= SHOW_WHAT ?>');
-				h = drpdwnShow.selectedIndex;
-				if(h){ setItemClass(id, 'item even'); }else{ setItemHide(id); }
+				if ((s = document.getElementById('<?= SHOW_WHAT ?>')) && 
+				    s.options[s.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
+                        setItemHide(id);
+				} else{ 
+				        setItemClass(id, 'item even');				     
+				}
             }
         }
         if (btn=document.getElementById('ess'+id+'ok')) {
