@@ -27,39 +27,6 @@
 # Web page:	   http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.50  2005/06/14 07:24:24  mbonetti
-# strip hmtl tags from the feed description
-#
-# Revision 1.49  2005/06/13 17:28:34  mbonetti
-# new config entry: specify server/client timezone offset
-#
-# Revision 1.48  2005/06/11 16:59:12  mbonetti
-# prefixed all labels
-#
-# Revision 1.47  2005/06/11 14:44:20  mbonetti
-# renamed internal admin constants
-#
-# Revision 1.46  2005/06/09 19:27:15  mbonetti
-# fixed: opml export under some wicked circumstances
-#
-# Revision 1.45  2005/06/09 11:45:08  mbonetti
-# Swedish and Spanish language packs
-#
-# Revision 1.44  2005/06/07 17:54:17  mbonetti
-# cleaned up feed discovery a little
-#
-# Revision 1.43  2005/06/05 06:27:29  mbonetti
-# option: display unread count (feed,folder,total) in the document title
-#
-# Revision 1.42  2005/05/31 17:04:18  mbonetti
-# allow pruning of 0-day old items (all items)
-#
-# Revision 1.41  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
 
 define ('RSS_FILE_LOCATION','/admin');
 

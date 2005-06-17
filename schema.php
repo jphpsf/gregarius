@@ -27,21 +27,6 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.15  2005/06/13 17:28:26  mbonetti
-# new config entry: specify server/client timezone offset
-#
-# Revision 1.14  2005/06/09 11:45:08  mbonetti
-# Swedish and Spanish language packs
-#
-# Revision 1.13  2005/06/05 06:27:27  mbonetti
-# option: display unread count (feed,folder,total) in the document title
-#
-# Revision 1.12  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
 
 
 /**

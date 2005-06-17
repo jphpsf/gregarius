@@ -27,27 +27,6 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.84  2005/06/13 17:28:26  mbonetti
-# new config entry: specify server/client timezone offset
-#
-# Revision 1.83  2005/06/11 16:59:09  mbonetti
-# prefixed all labels
-#
-# Revision 1.82  2005/06/09 15:23:43  mbonetti
-# check agains metaactions instead of actions when marking as read
-#
-# Revision 1.81  2005/06/05 06:27:27  mbonetti
-# option: display unread count (feed,folder,total) in the document title
-#
-# Revision 1.80  2005/05/23 08:05:04  mbonetti
-# new plugin hook after feed items
-#
-# Revision 1.79  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
 
 
 

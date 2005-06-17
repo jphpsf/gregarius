@@ -27,27 +27,7 @@
 # Web page:	   http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.32  2005/06/11 16:59:09  mbonetti
-# prefixed all labels
-#
-# Revision 1.31  2005/05/26 05:29:28  mbonetti
-# d'uh, debug message, bummer me
-#
-# Revision 1.30  2005/05/26 05:26:20  mbonetti
-# alltags: there was an unescaped talbe in a query
-#
-# Revision 1.29  2005/05/26 05:10:47  mbonetti
-# fix: warningn when there are no tags
-#
-# Revision 1.28  2005/05/20 09:35:11  mbonetti
-# 0.4.2
-#
-# Revision 1.27  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
+
 
 require_once('init.php');
 

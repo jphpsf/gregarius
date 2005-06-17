@@ -27,12 +27,7 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.17  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
+
 
 rss_connect(DBSERVER,DBUNAME,DBPASS);
 rss_select_db(DBNAME);

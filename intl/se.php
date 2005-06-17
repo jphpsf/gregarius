@@ -28,18 +28,7 @@
 # Swedish translation by David Hardne - dh at tx dot se
 #
 ###############################################################################
-# 
-# $Log: se.php,v $
-# Revision 1.4  2005/06/14 12:55:59  mbonetti
-# use javascript to collapse folders
-#
-# Revision 1.3  2005/06/11 16:59:13  mbonetti
-# prefixed all labels
-#
-# Revision 1.2  2005/06/09 11:46:51  mbonetti
-# That'd be Svenska!
-#
-###############################################################################
+
 
 /// Language: Svenska
 

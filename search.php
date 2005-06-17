@@ -27,18 +27,7 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.40  2005/06/11 16:59:09  mbonetti
-# prefixed all labels
-#
-# Revision 1.39  2005/06/05 06:27:27  mbonetti
-# option: display unread count (feed,folder,total) in the document title
-#
-# Revision 1.38  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
+
 
 define ('QUERY_PRM','query');
 define ('QUERY_MATCH_MODE', 'query_match');

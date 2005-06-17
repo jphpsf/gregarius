@@ -24,24 +24,6 @@
 # Web page:	http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.53  2005/06/14 12:55:39  mbonetti
-# use javascript to collapse folders
-#
-# Revision 1.52  2005/06/14 07:24:17  mbonetti
-# strip hmtl tags from the feed description
-#
-# Revision 1.51  2005/06/11 16:59:09  mbonetti
-# prefixed all labels
-#
-# Revision 1.50  2005/06/05 06:27:27  mbonetti
-# option: display unread count (feed,folder,total) in the document title
-#
-# Revision 1.49  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
 
 define ('COLLAPSED_FOLDERS_COOKIE','collapsedfolders');
 

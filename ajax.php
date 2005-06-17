@@ -26,21 +26,7 @@
 # E-mail:      mbonetti at users dot sourceforge dot net
 # Web page:    http://sourceforge.net/projects/gregarius
 ###############################################################################
-# $Log$
-# Revision 1.16  2005/06/11 16:59:09  mbonetti
-# prefixed all labels
-#
-# Revision 1.15  2005/06/08 10:33:11  mbonetti
-# experimental: alsways use Snoopy instead of fopen to fetch remote URLs
-#
-# Revision 1.14  2005/06/07 17:54:11  mbonetti
-# cleaned up feed discovery a little
-#
-# Revision 1.13  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
+
 
 require_once('init.php');
 

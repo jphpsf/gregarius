@@ -27,21 +27,7 @@
 # Web page:    http://godsea.dsland.org
 #
 ###############################################################################
-# $Log: es.php,v $
-# Revision 1.3  2005/06/14 12:55:59  mbonetti
-# use javascript to collapse folders
-#
-# Revision 1.2  2005/06/11 16:59:12  mbonetti
-# prefixed all labels
-#
-# Revision 1.1  2005/06/09 11:45:00  mbonetti
-# Swedish and Spanish language packs
-#
-# Revision 0.9  2005/06/09 10:20:10  godsea
-# CVS Log messages in the file header
-#
-#
-###############################################################################
+
 
 /// Language: Espa&ntilde;ol
 

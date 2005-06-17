@@ -27,11 +27,6 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.53  2005/05/20 07:33:17  mbonetti
-# Do not redefine exported variables when recursing on config reading
-#
-###############################################################################
 
 rss_require('util.php');
 

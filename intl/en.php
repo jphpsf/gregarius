@@ -27,24 +27,6 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log: en.php,v $
-# Revision 1.64  2005/06/14 12:55:53  mbonetti
-# use javascript to collapse folders
-#
-# Revision 1.63  2005/06/11 16:59:12  mbonetti
-# prefixed all labels
-#
-# Revision 1.62  2005/06/09 11:45:00  mbonetti
-# Swedish and Spanish language packs
-#
-# Revision 1.61  2005/06/05 06:27:29  mbonetti
-# option: display unread count (feed,folder,total) in the document title
-#
-# Revision 1.60  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
 
 /// Language: English
 
