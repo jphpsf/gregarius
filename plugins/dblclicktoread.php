@@ -32,15 +32,14 @@
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
 /// Description: Marks an item as read when you doubleclick it
-/// Version: 1.0
+/// Version: 1.1
 
 function __dblclickToRead_js($in) {
 ?>
 <script type="text/javascript">
 // <!--
 	function __dblclickToRead_js_getId(o) {
-		if (html = o.innerHTML) {
-		//onclick="_es(25026,1);"
+		if (html = o.innerHTML) {            
 			if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*","gm").exec(html)) {
 				id=r1[1];
 				s =r1[2] & <?= SET_MODE_READ_STATE ?>;
@@ -54,11 +53,18 @@ function __dblclickToRead_js($in) {
 			} 
 		}
 	}
+	
+	var isIE=document.all?true:false;
 	var items = document.getElementsByTagName('li');
 	for (var i=0; i<items.length; i++) {
 		var item = items[i];
 		if (item.className == "item unread") {
-			item.setAttribute("ondblclick","__dblclickToRead_js_getId(this); return false;");
+            if (isIE) {
+                // the IE sucky way
+                item.ondblclick = function() { __dblclickToRead_js_getId(this); return false;}
+            } else {
+                item.setAttribute("ondblclick","__dblclickToRead_js_getId(this); return false;");
+            }
 		} 
 	}
 	
