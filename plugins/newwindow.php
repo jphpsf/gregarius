@@ -27,18 +27,12 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.4  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
 
 
 /// Name: New window
 /// Author: Marco Bonetti
 /// Description: When active, this plugin will open off-site links in a new window
-/// Version: $Revision$
+/// Version: 1.4
 
 
 function __new_window_js($dummy) {

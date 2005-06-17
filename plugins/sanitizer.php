@@ -27,19 +27,12 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.3  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
-
 
 
 /// Name: HTML filter
 /// Author: Marco Bonetti
 /// Description: This plugin fixes some common xhtml markup errors
-/// Version: $Revision$
+/// Version: 1.2
 
 function __endslash($in) {
 	$wrk = trim($in);

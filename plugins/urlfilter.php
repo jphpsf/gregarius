@@ -27,19 +27,13 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
-# $Log$
-# Revision 1.7  2005/05/20 07:42:21  mbonetti
-# CVS Log messages in the file header
-#
-#
-###############################################################################
 
 
 
 /// Name: Url filter
 /// Author: Marco Bonetti
 /// Description: This plugin will try to make ugly URL links look better
-/// Version: $Revision$
+/// Version: 1.4
 
 /**
  * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
