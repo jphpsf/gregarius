@@ -154,6 +154,8 @@ if (
 			if (hidePrivate()) {
 				$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 			}
+
+            $sql .=" and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
 			
 			$sql .=" order by i.added desc, i.id asc";
 			
@@ -211,8 +213,8 @@ if (isset($cid) && array_key_exists ('metaaction', $_POST) && $_POST['metaaction
     $sql = "select c.id from " . getTable("item") . " i,"
     . getTable("channels") . " c,"
     . getTable("folders") . " f "
-    	." where i.unread & ".FEED_MODE_UNREAD_STATE;
-    	
+        ." where i.unread & ".FEED_MODE_UNREAD_STATE
+    	." and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
     	
 	if (hidePrivate()) {
 		$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
@@ -357,7 +359,10 @@ if ($iid == "") {
 } else {
     // "item mode"
     $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, " 
-		     .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid");
+		     .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid"
+              ." and !(i.unread & " . FEED_MODE_DELETED_STATE  .") "
+             );
+             
     list($title,$icon,$ititle) = rss_fetch_row($res);
 
     rss_header(  
@@ -395,7 +400,9 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		} else {
 			// archives, folders, channels
 			$sql = "select count(*) from " . getTable('item') . " where"
-			." (unread & " . FEED_MODE_UNREAD_STATE .")";
+			." (unread & " . FEED_MODE_UNREAD_STATE .")"
+		    ." and !(unread & " . FEED_MODE_DELETED_STATE  .") ";
+			 
 			//archive?
 			if ($m > 0 && $y > 0) {
 				$sql .= " and if (pubdate is null, month(added)= $m , month(pubdate) = $m) "
@@ -433,7 +440,7 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			if (hidePrivate()) {
 				$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ") ";
 			}
-		 
+            $sql .= " and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
 		 if ($iid != "") {
 			$sql .= " and i.id=$iid";
 		 }

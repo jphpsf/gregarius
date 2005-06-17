@@ -105,7 +105,7 @@ function unreadItems($show_what) {
 		}
 		
 		$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
-
+        $sql .= " and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
       
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by f.position asc, c.position asc";
@@ -210,6 +210,8 @@ function readItems() {
 	  if (hidePrivate()) {
 	  	$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
 	  }
+
+      $sql .= " and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
 	  
 	  $sql .= " order by added desc, id asc, t.tag "
 	  ." limit 10";

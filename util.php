@@ -383,16 +383,16 @@ function update($id) {
 				}
 				
 				// check wether we already have this item
-				$sql = "select id,description from " .getTable("item") . " where cid=$cid and url='$url'";
+				$sql = "select id,description,unread from " .getTable("item") . " where cid=$cid and url='$url'";
 				$subres = rss_query($sql);
-				list($indb,$dbdesc) = rss_fetch_row($subres);
+				list($indb,$dbdesc,$state) = rss_fetch_row($subres);
 				
 				if ($cDate > 0) {
 					 $sec = "FROM_UNIXTIME($cDate)";
 				} else {
 					 $sec = "null";
 				}
-				
+
 				if ($indb == "") {
 				
 					list($cid,$title,$url,$description) =
@@ -411,8 +411,10 @@ function update($id) {
 					 rss_query($sql);
 					 $updatedIds[]= rss_insert_id();
 					 
-				} elseif (getConfig('rss.input.allowupdates') && strlen($description) > strlen($dbdesc)) {
-					
+				} elseif (!($state &  FEED_MODE_DELETED_STATE) &&
+                    getConfig('rss.input.allowupdates') &&
+                    strlen($description) > strlen($dbdesc)) {
+
 					list($cid,$indb,$description)=
 					rss_plugin_hook('rss.plugins.items.updated',
 						array($cid,$indb,$description));

@@ -347,7 +347,9 @@ function item_admin() {
 	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	switch ($_REQUEST['action']) {
 	 case LBL_ADMIN_DELETE2:
-		$req = rss_query('select count(*) as cnt from ' .getTable('item'));
+		$req = rss_query('select count(*) as cnt from ' .getTable('item')
+         ." where !(unread & " . FEED_MODE_DELETED_STATE  .")"
+        );
 		list($cnt) = rss_fetch_row($req);
 		
 		$prune_older = (int) $_REQUEST['prune_older'];
@@ -374,8 +376,12 @@ function item_admin() {
 				break;
 			}
 
-			$sql = " from ".getTable('item')
-			 ." where added <  date_sub(now(), interval $prune_older $period)";
+			$sql = " from ".getTable('item') ." i, " .getTable('channels') . " c "
+            ." where 1=1 ";
+            
+            if ($prune_older > 0) {
+                $sql .= " and added <  date_sub(now(), interval $prune_older $period) ";
+            }
 			 
             if (!array_key_exists('prune_include_sticky', $_REQUEST)
                 || $_REQUEST['prune_include_sticky'] != '1') {
@@ -410,31 +416,117 @@ function item_admin() {
                }
 
                if (count($fids)) {
-                 $sql .= " and id not in (" . implode(",",$fids) .") ";
+                 $sql .= " and i.id not in (" . implode(",",$fids) .") ";
                }
             }
             
-            
+
 			if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST)) {
-			
+                //echo "<pre>\n";
 				//delete the tags for these items
-				$sqlids = "select distinct id " . $sql;							
+				$sqlids = "select distinct i.id,i.cid,c.url,i.url " . $sql
+                    . " and i.cid=c.id order by 2, 1 desc";
+                    
+
 				$rs = rss_query($sqlids);
 				$ids = array();
-				while (list($id) = rss_fetch_row($rs)) {
-					$ids[] = $id;
+				//echo "to be deleted\n";
+				while (list($id,$cid,$curl,$iurl) = rss_fetch_row($rs)) {
+
+                    $curls[$cid] = $curl;
+                    $cids[$cid][]= array($id,$iurl);
+                    
+                    //echo "cid=$cid, $id, $iurl\n";
 				}
-				if (count($ids)) {
-					$sqldel = "delete from " .getTable('metatag') . " where fid in ("
-					. implode(",",$ids)	.")";
-					rss_query($sqldel);
-				}
-				
-				// then delete the actual items
-				rss_query( 'delete ' . $sql);
+                //echo "\n\n";
+                
+                if (count($cids)) {
+    				// Righto. Lets check which of these ids still is in cache:
+
+    				//$cache = new RSSCache(MAGPIE_CACHE_DIR, MAGPIE_CACHE_AGE);
+    				$cacheUrls = array();
+
+    				// extract all the urls for each cached item, keep them sorted
+    				// by feed
+    				foreach($curls as $cid => $curl) {
+                        //$rss = $cache->get($curl .  MAGPIE_OUTPUT_ENCODING);
+                	    // suppress warnings because Magpie is rather noisy
+                        $old_level = error_reporting(E_ERROR);
+            		    $rss = fetch_rss( $curl );
+            		    //reset
+            		    error_reporting($old_level);
+
+                        $cacheUrls[$cid]= array();
+                        //echo "Feed: $cid\n";
+                        if ($rss) {
+                          foreach($rss->items as $item) {
+                            // this comes from util.php:update()
+
+    				        if (array_key_exists('link',$item) && $item['link'] != "") {
+    					       $url = $item['link'];
+    				        } elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
+    					       $url = $item['guid'];
+                            } else {
+    					       // fall back to something basic
+    					       $url =  md5($item['title']);
+    				        }
+                            $cacheUrls[$cid][] = htmlentities($url);
+                            //echo "in cache: $url\n";
+                          }
+                        }
+                    }
+                    
+
+                   // now, sort the ids to be deleted into two lists: in chache / to trash
+                   $in_cache = array();
+                   $to_trash = array();
+                   //var_dump($cacheUrls);
+                   foreach ($cids as $cid => $ids) {
+                        foreach ($ids as $arr) {
+                            list($iid,$iurl) = $arr;
+                            //echo "examining: $iid (cid $cid) -> $iurl ->";
+                            if (array_search($iurl, $cacheUrls[$cid]) !== FALSE) {
+                                $in_cache[] = $iid;
+                                //echo " in cache!\n";
+                            } else {
+                                $to_trash[] = $iid;
+                                //echo " not in cache!\n";
+                            }
+                        }
+                   }
+                   
+                   // cheers, we're set. Now delete the metatag links for *all*
+                   // items to be deleted
+    				if (count($ids)) {
+    					$sqldel = "delete from " .getTable('metatag') . " where fid in ("
+    					. implode(",",array_merge($in_cache,$to_trash))	.")";
+
+    					rss_query($sqldel);
+    				}
+
+    				// finally, delete the actual items
+    				if (count($to_trash)) {
+        				rss_query( "delete from " . getTable('item') ." where id in ("
+                            . implode(", ", $to_trash)
+                            .")"
+                        );
+                    }
+                    if (count($in_cache)) {
+        				rss_query( "update " . getTable('item')
+                         ." set unread = unread | " . FEED_MODE_DELETED_STATE
+                         .", description='' "
+                        ." where id in ("
+                            . implode(", ", $in_cache)
+                            .")"
+                        );
+                    }
+                }
 				$ret__ = CST_ADMIN_DOMAIN_ITEM;
+				
 			} else {
-				list($cnt_d) = rss_fetch_row(rss_query("select count(*) as cnt " . $sql));
+				list($cnt_d) = rss_fetch_row(rss_query("select count(distinct(i.id)) as cnt " . $sql
+                 . " and !(i.unread & " . FEED_MODE_DELETED_STATE .")"
+                 ));
 				rss_error(sprintf(LBL_ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt));
 
 				echo "<form action=\"\" method=\"post\">\n"

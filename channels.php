@@ -68,7 +68,8 @@ function sideChannels($activeId) {
     	  .getTable('item') ." i, "
     	  .getTable('channels') . " c, "
     	  .getTable('folders') ." f "
-    	  ." where i.unread & ". FEED_MODE_UNREAD_STATE;
+    	  ." where i.unread & ". FEED_MODE_UNREAD_STATE
+    	  ." and !(i.unread & ". FEED_MODE_DELETED_STATE .")";
 
     	if (hidePrivate()) {
     		$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";
@@ -182,7 +183,10 @@ function tabs($count) {
 
 /** prints out a formatted channel item **/
 function feed($cid, $title, $url, $siteurl, $ico, $description) {
-    $res = rss_query ("select count(*) from " .getTable("item") ." where cid=$cid and unread & "  . FEED_MODE_UNREAD_STATE);
+    $res = rss_query ("select count(*) from " .getTable("item")
+        ." where cid=$cid and unread & "  . FEED_MODE_UNREAD_STATE
+        . " and !(unread & " . FEED_MODE_DELETED_STATE .")"
+        );
     list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
 	$rdLbl= sprintf(LBL_UNREAD_PF, "","",$cnt);
@@ -241,7 +245,9 @@ function stats() {
 
     $unread = getUnreadCount(null,null);
 
-    $res = rss_query( "select count(*) from " . getTable("item") );
+    $res = rss_query( "select count(*) from " . getTable("item")
+        ." where !(unread & " . FEED_MODE_DELETED_STATE  .") "
+    );
     list($total)= rss_fetch_row($res);
 
     $res = rss_query( "select count(*) from " .getTable("channels")

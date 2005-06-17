@@ -65,7 +65,10 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
 } else {
     rss_header(LBL_TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('query').focus()");
     sideChannels(false);
-    list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")));
+    list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")
+        . " where "
+        .   " !(unread & " . FEED_MODE_DELETED_STATE  .") "
+    ));
     searchForm(sprintf(LBL_H2_SEARCH, $cnt));
 }
 
@@ -259,7 +262,8 @@ function search() {
     if (hidePrivate()) {
 		$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 	 }
-
+    $sql .= " and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+    
     if ($orderBy == QUERY_ORDER_BY_DATE) {
 	$sql .= " order by 8 desc";
     } else {
