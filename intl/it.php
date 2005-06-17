@@ -30,6 +30,11 @@
 
 /// Language: Italiano
 
+// Nota: tradotto in cinque minuti, non riletto e mai testato :)
+// Se trovi degli errori o pensi di poter fare meglio, grazie di
+// mandare correzioni a mbonetti@gmail.com
+
+
 define ('LBL_ITEM','elemento');
 define ('LBL_ITEMS','elementi');
 define ('LBL_H2_SEARCH_RESULTS_FOR', "%d risultati per %s");
