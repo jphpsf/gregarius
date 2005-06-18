@@ -268,7 +268,11 @@ function readItems() {
 }
 
 function markAllReadForm() {
-    echo "<form action=\"". getPath() ."\" method=\"post\">"
+	if (!defined('MARK_READ_ALL_FORM')) {
+		define ('MARK_READ_ALL_FORM',null);
+	}	
+	
+   echo "<form action=\"". getPath() ."\" method=\"post\">"
       ."<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>"
       ."<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_READ\"/></p>"
       ."</form>\n";

@@ -35,13 +35,18 @@
 /// Version: $Revision: 1.6
 
 function __extra_button_Button($in) {
-    list($feedCount,$unreadCount,$readCount,$itemId,$channelId) = $in;
-    if ($unreadCount && $itemId == "") {
+	if (defined('MARK_READ_ALL_FORM') 		|| 
+		 defined ('MARK_READ_FEED_FORM') 	|| 
+		 defined ('MARK_READ_FOLDER_FORM')) {
+        
         echo "<span style=\"text-align:right\">\n";
-        if ($feedCount==1) {
-			markReadForm($channelId);
-        } elseif ($feedCount>1) {
-			markAllReadForm();
+        
+        if (defined('MARK_READ_ALL_FORM')) {
+        		markAllReadForm();
+        } elseif(defined('MARK_READ_FEED_FORM')) {
+        		markReadForm(MARK_READ_FEED_FORM);
+        } elseif(defined('MARK_READ_FOLDER_FORM')) {
+        		markFolderReadForm(MARK_READ_FOLDER_FORM);
         }
         echo "</span>\n";
     }

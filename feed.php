@@ -184,76 +184,146 @@ if ((!isset($cid) || $cid == "") &&
     header("Location: $red");
 }
 
-if (isset($cid) && array_key_exists ('metaaction', $_POST) && $_POST['metaaction'] == 'LBL_MARK_CHANNEL_READ') {
+if (array_key_exists ('metaaction', $_POST)) {
+
+    switch ($_POST['metaaction']) {
     
-    $first_unread_id=$next_unread_id='';
+		case  'LBL_MARK_CHANNEL_READ':
+		 
+			$first_unread_id=$next_unread_id='';
+		 
+		 // redirect to the next unread, if any.
+		 $sql = "select c.id, c.parent from " . getTable("item") . " i,"
+		 . getTable("channels") . " c,"
+		 . getTable("folders") . " f "
+			  ." where i.unread & ".FEED_MODE_UNREAD_STATE
+			." and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+			
+		if (hidePrivate()) {
+			$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		}
+			
+		 $sql .= " and i.cid=c.id and c.parent=f.id";
+			if (getConfig('rss.config.absoluteordering')) {
+			$sql .= " order by f.position asc, c.position asc";
+		 } else {
+			$sql .=" order by c.parent asc, c.title asc";
+		 }
+			
+		 $res = rss_query($sql);
+		 $next_ok=false;
+		 while(list ($unread_id,$fid) = rss_fetch_row($res)) {
+			if ($first_unread_id == '' && $unread_id != $cid) {
+				$first_unread_id = $unread_id;
+			}
+			
+			if ($unread_id != $cid && $next_ok) {
+				$next_unread_id=$unread_id;
+				break;
+			}
+			
+			if ($unread_id == $cid) {
+				$next_ok=true;
+			}
+		 }
+		 if ($next_unread_id == '' && $first_unread_id != '') {
+			$next_unread_id = $first_unread_id; 
+		 }
+		 
+		 $sql = "update " .getTable("item") ." set unread = unread & ".SET_MODE_READ_STATE." where cid=$cid";
+		 
+		 
+		if (hidePrivate()) {
+			$sql .= " and !(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+		 }
+		 
+		 
+		 rss_query($sql);
+		 
+		 //redirect
+		 if ($next_unread_id == '') {	
+			$redirect = "http://"
+			  . $_SERVER['HTTP_HOST']     
+			  . dirname($_SERVER['PHP_SELF']);   
+			
+			if (substr($redirect,-1) != "/") {
+				 $redirect .= "/";
+			} 
+			
+			header("Location: $redirect");
+			exit();
+		 } else {
+			$cid = $next_unread_id;
+		 }
     
-    // redirect to the next unread, if any.
-    $sql = "select c.id from " . getTable("item") . " i,"
-    . getTable("channels") . " c,"
-    . getTable("folders") . " f "
-        ." where i.unread & ".FEED_MODE_UNREAD_STATE
-    	." and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+    break;
+    
+	// folder    
+    case 'LBL_MARK_FOLDER_READ':
+		$fid = $_REQUEST['folder'];
+    	$sql = "update " .getTable('item') . " i, " . getTable('channels') . " c "
+    	. " set i.unread = i.unread & ".SET_MODE_READ_STATE
+    	. " where i.cid=c.id and c.parent=$fid";
+    	//die($sql);
+    	rss_query($sql);
+    	$next_fid = 0;
+    	$found = false;
+    	$res = rss_query( " select id from " .getTable('folders') ." f order by f.position desc" );
+    	while (list($fid__) = rss_fetch_row($res)) {
+    		if ($fid__ == $fid && $next_fid > 0) {
+				//echo "$fid = $fid__, next = $next_fid\n";
+    			$found = true;
+    			break;
+    		} elseif($fid__ == $fid) {
+				//echo "fid = fid, not found yet\n";
+    			$found = true;
+    		}
+    		$sql = "select count(*) from "
+    			.getTable('item') ." i, "
+    			.getTable('channels') ." c "
+    			." where i.unread & " .FEED_MODE_UNREAD_STATE ." and i.cid = c.id and c.parent = $fid__";
+    			if (hidePrivate()) {
+					$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+		 		}
+    			
+    		list($c) = rss_fetch_row(rss_query($sql));
+    		//echo "$fid__ -> $c\n";
     	
-	if (hidePrivate()) {
-		$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
-	}
-    	
-    $sql .= " and i.cid=c.id and c.parent=f.id";
-   	if (getConfig('rss.config.absoluteordering')) {
-		$sql .= " order by f.position asc, c.position asc";
-    } else {
-		$sql .=" order by c.parent asc, c.title asc";
-    }
-    	
-    $res = rss_query($sql);
-	 $next_ok=false;
-    while(list ($unread_id) = rss_fetch_row($res)) {
-    	if ($first_unread_id == '' && $unread_id != $cid) {
-    		$first_unread_id = $unread_id;
+    		if ($c > 0) {
+    			$next_fid = $fid__;
+    			//echo "next -> $fid__\n";
+    			if ($found) {
+    				//echo "can break\n";
+    				break;
+    			}
+    		}
     	}
     	
-    	if ($unread_id != $cid && $next_ok) {
-    		$next_unread_id=$unread_id;
-    		break;
+    	if ( $next_fid  && $found) {
+    		$fid = $next_fid;
+    		$sql = "select id from " . getTable('channels') ." where parent=$fid";
+    		$res = rss_query($sql);
+    		$cids = array();
+    		while ( list($cid__) = rss_fetch_row($res)) {
+    			$cids[] = $cid__;
+    		}
+    		
+    	} else {
+    		$redirect = "http://"
+			  . $_SERVER['HTTP_HOST']     
+			  . dirname($_SERVER['PHP_SELF']);   
+			
+			if (substr($redirect,-1) != "/") {
+				 $redirect .= "/";
+			} 
+			
+			header("Location: $redirect");
+			exit();
     	}
-    	
-    	if ($unread_id == $cid) {
-    		$next_ok=true;
-    	}
+			
+    break;
     }
-    if ($next_unread_id == '' && $first_unread_id != '') {
-    	$next_unread_id = $first_unread_id; 
-    }
-    
-    
-    
-    $sql = "update " .getTable("item") ." set unread = unread & ".SET_MODE_READ_STATE." where cid=$cid";
-    
-    
-   if (hidePrivate()) {
-	  	$sql .= " and !(unread & " . FEED_MODE_PRIVATE_STATE . ")";
-	 }
-	 
-    
-    rss_query($sql);
-    
-    
-    //redirect
-    if ($next_unread_id == '') {	
-		$redirect = "http://"
-		  . $_SERVER['HTTP_HOST']     
-		  . dirname($_SERVER['PHP_SELF']);   
-		
-		if (substr($redirect,-1) != "/") {
-			 $redirect .= "/";
-		} 
-		
-		header("Location: $redirect");
-		exit();
-    } else {
-		$cid = $next_unread_id;
-    }
+
 }
 
 assert(
@@ -399,9 +469,11 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		}
 	}
 
-
+	
    echo "\n\n<div id=\"items\" class=\"frame\">";    
 	$items = array();
+
+	$ur = false;
 	foreach ($cids as $cid) {
 		 $sitems = array();
 		 $sql = " select i.title, i.url, i.description, i.unread, "
@@ -484,8 +556,8 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 				$added--;
 			 }
 		 }
-		 
-		
+
+		$ur = $ur || $hasUnreadItems;
 
 	
 		 $sitems = array_slice($sitems,0,$limit);
@@ -496,13 +568,16 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 
 	$severalFeeds = count($cids) > 1;
-   if ($hasUnreadItems && $iid == "") {
+   if ($ur && $iid == "") {
 		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
 
     	 showViewForm($show_what);
     	 
     	 if (!$severalFeeds) {
 		 	markReadForm($cid);
+		 } else {
+		 	list($fid) = rss_fetch_row(rss_query('select parent from ' .getTable('channels') . 'where id = ' .$cids[0]));
+		 	markFolderReadForm($fid);
 		 }
 		 
 		 echo "\n</div>\n";
@@ -794,7 +869,9 @@ function makeNav($cid,$iid,$y,$m,$d) {
 }
 
 function markReadForm($cid) {
-	
+	if (!defined('MARK_READ_FEED_FORM')) {
+		define ('MARK_READ_FEED_FORM',$cid);
+	}
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
   	  ."\t<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
@@ -802,6 +879,17 @@ function markReadForm($cid) {
   	  ."</form>";
 }
 
+function markFolderReadForm($fid) {
+	if (!defined('MARK_READ_FOLDER_FORM')) {
+		define ('MARK_READ_FOLDER_FORM',$fid);
+	}	
+  	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
+  	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
+  	  ."\t<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_FOLDER_READ\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/></p>\n"
+  	  ."</form>";
+  	  
+}
 
 function debugFeed($cid) {
     echo "<div id=\"items\" class=\"frame\">\n";
