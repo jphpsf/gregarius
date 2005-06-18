@@ -1,0 +1,336 @@
+html, body, td, p, th, a  { padding: 0; }
+
+body {
+  text-align: left;
+  margin:0;
+  padding: 20px;
+}
+
+h2 {  margin: 0; }
+
+h3 {
+ padding: 0 5px;
+ margin: 20px 0 0 0;
+}
+  
+h3 img,h3 img { vertical-align: 10% }  
+  
+h4 {
+  margin:0; 
+  display: inline; 
+  padding: 0 0.2em;
+}
+
+h5 {
+ margin:0 0 0.3em 0;
+ padding:0;
+ display: block; 
+}
+
+h5.il { display: inline !important }
+
+input { 
+ margin: 3px;
+ vertical-align: middle;
+}
+
+
+div#channels {
+ clear:left;
+ width: 280px;
+ float: left;
+ 
+ /* Notorious box model hack for IE5, thanks a bunch */
+ voice-family: "\"}\""; 
+ voice-family:inherit;
+ width:250px;
+}
+
+ul, li { 
+ margin: 0;
+ padding: 0; 
+}
+
+div#channels li, div#opml li {
+  display: block;
+  padding: 0em 2px; 
+  margin:0;
+}
+
+#opmlimport {
+	display:inline;
+}
+
+/* folder items */
+
+div#channels li ul li {
+ padding-left: 10px; 
+}
+
+/* folder icon */
+.folder {
+  padding:0;
+}
+
+/* folder labels */
+.folder span {
+ /* padding-left: 25px; */
+  margin:0;
+}
+
+.folder span img {   vertical-align: middle; margin-right: 0.5em;}
+
+div#channels > ul {
+ margin-top: 20px;
+}
+
+div#items,div#searchfrm, div#update {
+ margin-left: 290px;
+}
+
+/** the main divs (nav, side, content, footer, ...) inherit this class */
+div.frame {
+ padding: 15px;
+}
+
+
+div#nav a { 
+ padding: 0 5px; 
+}
+ 
+div#nav {
+  margin-bottom: 5px;   
+}
+
+div#footer, div#nav {
+ clear: both;
+ padding: 10px;
+}
+
+div#footer span { 
+ padding:0 5px; 
+ margin:0; 
+}
+
+h1 { 
+ margin: 5px;
+ padding:0;
+}
+
+h3.collapsed {
+ padding-bottom: 0.2em;
+}
+
+li.item {
+ padding:  5px;
+ margin: 0 0 10px 0;
+}
+
+div#items ul{
+ padding:0;
+ margin:0 0 30px 0;
+}
+
+h3.collapsed {
+  margin:0 0 20px 0;
+}
+
+div#items li { 
+ padding: 10px 15px;
+ clear:right;
+}
+
+table#configtable li,.content li {
+   padding: 0.1em 0.2em !important;
+   margin-left: 1.2em;
+}
+
+.content li *{
+   margin:0; padding:0;
+}
+
+.content table td { padding: 0.1em; margin: 0 }
+
+div#items li.upnav {
+ padding: 0;
+ clear:right;
+ margin:0; 
+}
+
+div#items li.upnav a {
+ padding: 0 10px;
+}
+
+div.content {margin-top: 1em; }
+
+/* images inside posts */
+div.content img { display: block; }
+div#items img.favicon { display: inline; }
+
+.content,h4 { 
+ height: auto;
+ width: 99%;
+
+ overflow: hidden;
+ /* IE doesn't get overflow:visible right. */
+ voice-family: "\"}\"";
+ voice-family:inherit;    
+ overflow: visible;
+}
+
+td,th { padding: 5px; }
+
+table#channeltable,table#foldertable,table#updatetable,table#configtable {
+ margin: 20px 0 5px 0;
+ width: 99.2%;
+}
+
+table#foldertable { width: auto }
+
+td>input[type="text"] { width: 100%; }
+
+form#channeledit input { display:block; }
+
+form#channeledit input[type="text"] {
+  display:block;
+  width: 50%;
+}
+
+div#feedaction {
+
+   padding:0;
+   margin:0;
+   text-align:right;
+   display:block;
+}
+
+/** this rule is hidden from IE6 and below as it messes the rendering */
+div>div#feedaction {float:right;}
+
+div#feedaction form, div#feedaction form p { 
+ text-align:right;
+ margin:0;
+ padding:0;
+}
+
+
+div#feedaction.withmargin {
+ margin-bottom: 0.8em;
+}
+
+
+form#frmShow { margin-bottom: 0.4em !important; }
+
+#items h2 { margin-bottom: 10px; }
+
+p.error {
+ color: red;
+ font-weight:bold;
+ text-align:center;
+}
+
+div.readmore {
+ display: block;
+ height: 1em;
+}
+
+
+
+/** from http://css.maxdesign.com.au/listamatic/horizontal11.htm **/
+
+ul.navlist {
+ padding-bottom: 25px; 
+ margin: 0;
+}
+ 
+div#channel_admin ul.navlist {
+ margin-bottom: 1em;
+}
+
+ul.navlist li {
+ float: left;
+}
+
+
+ul.navlist li {
+ height: 1.3em;
+ margin: 2px 2px 0 5px;
+ padding: 0.05em 0.2em;
+}
+
+/* doubling because IE chokes on the submit selector */
+input[type="submit"] {
+  height: 23px; 
+  margin: 2px 2px 0 2px; 
+  padding: 0.05em 0.1em;
+}
+
+.navlist li a {
+ float: left;
+ display: block;
+ vertical-align:middle;
+}
+ 
+img.favicon {
+ width:16px;
+ height:16px;
+ border:none;
+ margin-right: 0.5em;
+ display: inline;
+}
+
+p.stats {
+ margin: 0;
+ padding: 0;
+}
+
+input#search_go { margin-left: 100px; }
+
+div#channel_admin h2 { margin-top: 1em; }
+
+span.updateres { 
+  position: absolute;
+  left: 60%;
+}
+
+.clearer { clear: both; height: 0;  }
+.clearer.hidden {  display: none; }
+.indent { margin-left: 2em !important; }
+
+/* margin to footer */
+div#channels, div#items, div#searchfrm, div#channel_admin, div#about, div#update {
+ margin-bottom: 5px;
+}
+
+
+table#updatetable .lc { width: 60% }
+table#updatetable .mc { width: 30% }
+table#updatetable .rc { width: 10%; text-align:center }
+
+.hidden { display: none; }
+
+.fl { display: inline; float:left; }
+.fr { display: inline; float:right; }
+
+
+fieldset {  
+  text-align: center; 
+  display: inline;
+  padding: 10px;
+  margin: 0 10px 0 0;
+}
+
+fieldset.tags {  
+  width: 120px;
+}
+ 
+ 
+fieldset.tags input, fieldset.tags select { 
+ display: block;width: 110px;
+ margin: 5px 0; 
+}
+
+div#alltags {
+ margin: 30px;
+ padding: 20px;
+}
