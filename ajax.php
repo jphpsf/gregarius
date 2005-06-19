@@ -269,7 +269,18 @@ function setItemClass(id,cls) {
 
 function setItemHide(id){
     if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
-        li.style.display = 'none';
+       // li.style.display = 'none';
+       ul = li.parentNode;
+       trash = ul.removeChild(li); 
+       /*
+       if (ul.getElementsByTagName('li').length == 0) {
+       	pn = ul.parentNode;
+       	trash = pn.removeChild(ul);
+       	heading = pn.previousSibling;
+       	alert(heading.innerHTML);
+       	heading.parentElement.removeChild(heading);
+       }
+       */
     }
 }
 
