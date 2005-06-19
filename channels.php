@@ -171,7 +171,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
         );
     list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
-	$rdLbl= sprintf(LBL_UNREAD_PF, "","",$cnt);
+	$rdLbl= sprintf(LBL_UNREAD_PF, "cid$cid","",$cnt);
 	$class_= " class=\"feed title unread\"";
     } else {
 	$rdLbl= "";
@@ -198,7 +198,7 @@ function feed($cid, $title, $url, $siteurl, $ico, $description) {
     $ret .=
       "<a"
       .$class_
-      . ($description!=""?" title=\"$description\"":"")
+      . ($description!=""?" title=\"".htmlentities($description)."\"":"")
 	." href=\"$feedUrl\">" . htmlspecialchars($title) ."</a> $rdLbl";
 
     // Display meta-information about the feed: w3 url, xml url, if active
