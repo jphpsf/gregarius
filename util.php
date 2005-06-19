@@ -813,80 +813,84 @@ function itemsListRDF($items,$title,$baselink,$resource="") {
 }
 
 function add_channel($url, $folderid=0) {
-    assert("" != $url && strlen($url) > 7);
-    assert(is_numeric($folderid));
-
-    $urlDB = htmlentities($url);
-
-    $res = rss_query("select count(*) as channel_exists from " .getTable("channels") ." where url='$urlDB'");
-    list ($channel_exists) = rss_fetch_row($res);
-    if ($channel_exists > 0) {
-	return array(-1,"Looks like you are already subscribed to this channel");
-    }
-
-    $res = rss_query("select 1+max(position) as np from " .getTable("channels"));
-    list($np) = rss_fetch_row($res);
-
-    if (!$np) {
-	$np = "0";
-    }
-
-    // Here we go!
-    $old_level = error_reporting(E_ERROR);
-    $rss = fetch_rss( $url );
-    error_reporting($old_level);
-    
-    if ( $rss ) {
-
-	if (is_object($rss) && array_key_exists('title',$rss->channel)) {
-	    $title= rss_real_escape_string ( $rss->channel['title'] );
-	} else {
-	    $title = "";
+	assert("" != $url && strlen($url) > 7);
+	assert(is_numeric($folderid));
+	
+	$urlDB = htmlentities($url);
+	
+	$res = rss_query("select count(*) as channel_exists from " .getTable("channels") ." where url='$urlDB'");
+	list ($channel_exists) = rss_fetch_row($res);
+	if ($channel_exists > 0) {
+		return array(-1,"Looks like you are already subscribed to this channel");
 	}
-
-	if (is_object($rss) && array_key_exists('link',$rss->channel)) {
-	    $siteurl= rss_real_escape_string (htmlentities($rss->channel['link'] ));
-	} else {
-	    $siteurl = "";
+	
+	$res = rss_query("select 1+max(position) as np from " .getTable("channels"));
+	list($np) = rss_fetch_row($res);
+	
+	if (!$np) {
+		$np = "0";
 	}
+	
+	// Here we go!
+	$old_level = error_reporting(E_ERROR);
+	$rss = fetch_rss ( $url );
+	error_reporting($old_level);
 
-	if (is_object($rss) && array_key_exists('description',$rss->channel)) {
-	    $descr =  rss_real_escape_string ($rss->channel['description']);
-	} else {
-	    $descr = "";
-	}
-
-	//lets see if this server has a favicon
-	$icon = "";
-	if (getConfig('rss.output.showfavicons')) {
-	    // if we got nothing so far, lets try to fall back to
-	    // favicons
-	    if ($icon == "" && $siteurl	 != "") {
-		$match = get_host($siteurl, $host);
-		$uri = "http://" . $host . "favicon.ico";
-		//if ($match && (getHttpResponseCode($uri)))  {
-		if ($match && getContentType($uri, $contentType)) {
-		    if (preg_match("/image\/x-icon/", $contentType)) {
-			$icon = $uri;
-		    }
+	if ( $rss ) {
+		
+		if (is_object($rss) && array_key_exists('title',$rss->channel)) {
+			$title= rss_real_escape_string ( $rss->channel['title'] );
+		} else {
+			$title = "";
 		}
-	    }
-	}
-
-	if ($title != "") {
-	    $sql = "insert into " .getTable("channels") ." (title, url, siteurl, parent, descr, dateadded, icon, position)"
-	      ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
-
-	    rss_query($sql);
-	    $newid = rss_insert_id();
-	    return array($newid,"");
-
+		
+		if (is_object($rss) && array_key_exists('link',$rss->channel)) {
+			$siteurl= rss_real_escape_string (htmlentities($rss->channel['link'] ));
+		} else {
+			$siteurl = "";
+		}
+		
+		if (is_object($rss) && array_key_exists('description',$rss->channel)) {
+			$descr =  rss_real_escape_string ($rss->channel['description']);
+		} else {
+			$descr = "";
+		}
+		
+		//lets see if this server has a favicon
+		$icon = "";
+		if (getConfig('rss.output.showfavicons')) {
+			// if we got nothing so far, lets try to fall back to
+			// favicons
+			if ($icon == "" && $siteurl	 != "") {
+				$match = get_host($siteurl, $host);
+				$uri = "http://" . $host . "favicon.ico";
+				if ($match && getContentType($uri, $contentType)) {
+					if (preg_match("/image\/x-icon/", $contentType)) {
+						$icon = $uri;
+					}
+				}
+			}
+		}
+		
+		if ($title != "") {
+			 $sql = "insert into " .getTable("channels") ." (title, url, siteurl, parent, descr, dateadded, icon, position)"
+				." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
+		
+			 rss_query($sql);
+			 $newid = rss_insert_id();
+			 return array($newid,"");
+		
+		} else {
+			return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");
+		}
 	} else {
-	    return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");
+		global $MAGPIE_ERROR;
+		$retError = "I'm sorry, I couldn't retrieve <a href=\"$url\">$url</a>.";
+		if ($MAGPIE_ERROR) {
+			$retError .= "\n<br />$MAGPIE_ERROR\n";
+		}
+		return array( -1, $retError);
 	}
-    } else {
-	return array( -1, "I'm sorry, I couldn't retrieve <a href=\"$url\">$url</a>.");
-    }
 }
 
 /**
