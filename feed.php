@@ -874,7 +874,7 @@ function markReadForm($cid) {
 	}
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
-  	  ."\t<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
   	  ."</form>";
 }
@@ -885,7 +885,7 @@ function markFolderReadForm($fid) {
 	}	
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
-  	  ."\t<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_FOLDER_READ\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_FOLDER_READ\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/></p>\n"
   	  ."</form>";
   	  
