@@ -38,6 +38,7 @@ function __dblclickToRead_js($in) {
 ?>
 <script type="text/javascript">
 // <!--
+    var isIE=document.all?true:false;
 	function __dblclickToRead_js_getId(o) {
 		if (html = o.innerHTML) {            
 			if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*","gm").exec(html)) {
@@ -49,6 +50,9 @@ function __dblclickToRead_js($in) {
 				} else{ 
 				    setItemClass(id, 'item even');				     
 				}
+				if (!isIE) {
+                    unreadCnt(-1);
+                }
 				setState(id,s);
 			} 
 		}

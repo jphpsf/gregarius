@@ -269,18 +269,23 @@ function setItemClass(id,cls) {
 
 function setItemHide(id){
     if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
-       // li.style.display = 'none';
        ul = li.parentNode;
        trash = ul.removeChild(li); 
-       /*
+       // remove parent elements (heading, ul) if all the children are gone
        if (ul.getElementsByTagName('li').length == 0) {
        	pn = ul.parentNode;
+       	
+       	var ps = ul.previousSibling;
+       	while ( ps = ps.previousSibling ) {
+            if ("H3" == ps.nodeName.toUpperCase()) {
+                trash=ps.parentNode.removeChild(ps);
+                break;
+            }
+        }
+        
        	trash = pn.removeChild(ul);
-       	heading = pn.previousSibling;
-       	alert(heading.innerHTML);
-       	heading.parentElement.removeChild(heading);
        }
-       */
+
     }
 }
 
@@ -358,12 +363,14 @@ function _ses(id) {
     }
     
 
-    
+
     if ((p=document.prevState[id]) != s) {
         if ((s & <?= FEED_MODE_UNREAD_STATE ?>) != (p & <?= FEED_MODE_UNREAD_STATE ?>)) {
             if (s & <?= FEED_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
+                unreadCnt(1);
             } else {
+                unreadCnt(-1);
 				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
 				    sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
                         setItemHide(id);
@@ -382,6 +389,17 @@ function _ses(id) {
       // state didn't change!
       _ces(id);
     }
+}
+
+function unreadCnt(d) {
+    if (h2 = document.getElementById('feedcontent')) {
+        if (c = h2.innerHTML.replace(/[^0-9]+/g,"")) {
+            c = d+eval(c);
+            h2.innerHTML = h2.innerHTML.replace(/[0-9]+/g,c);
+        }
+        return c;
+    }
+    return null;
 }
 <? }
 
