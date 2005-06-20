@@ -450,9 +450,8 @@ function update($id) {
 function itemsList($title,$items, $options = IL_NONE){
 
     $retChannels = $retUnread = $retRead = 0;
-    
 
-    $anchor = "";	
+    $anchor = "";
     if (!defined('FEEDCONTENT_ANCHOR_SET')) {
 	$anchor = " id=\"feedcontent\"";
 	define ('FEEDCONTENT_ANCHOR_SET',true);
@@ -816,7 +815,7 @@ function add_channel($url, $folderid=0) {
 	assert("" != $url && strlen($url) > 7);
 	assert(is_numeric($folderid));
 	
-	$urlDB = htmlentities($url);
+	$urlDB = $url;//htmlentities($url);
 	
 	$res = rss_query("select count(*) as channel_exists from " .getTable("channels") ." where url='$urlDB'");
 	list ($channel_exists) = rss_fetch_row($res);
