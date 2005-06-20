@@ -49,11 +49,13 @@ function __tidy_Tidy($in) {
 				  'show-body-only' => true,
 				  
 	);
-	
+
 	if (function_exists('tidy_parse_string')) {
-		$tidy = tidy_parse_string($in, $config, 'utf8');
-		tidy_clean_repair($tidy); 
-		return $tidy;
+        if (phpversion('tidy') > 1.0) {
+    		$tidy = tidy_parse_string($in, $config, 'utf8');
+    		tidy_clean_repair($tidy);
+    		return $tidy;
+		}
 	} elseif (class_exists('tidy')) {
 		$tidy = new tidy();
 		$tidy -> cleanRepair($in, $config, 'utf8');
