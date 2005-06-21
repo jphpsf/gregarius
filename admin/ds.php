@@ -23,7 +23,7 @@ function PHParrayToJSArray($data) {
 function jsCode($data) {
 ?>
     var store = new Array();
-	<? PHParrayToJSArray($data); ?>
+	<?php PHParrayToJSArray($data); ?>
 	var debug_ = false;	
 	store.sort();
 	function getForm() {
@@ -126,4 +126,4 @@ function jsCode($data) {
     
     
     populate1();
-<?  } ?>
+<?php  } ?>

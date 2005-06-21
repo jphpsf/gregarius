@@ -1,4 +1,4 @@
-<?
+<?php
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
@@ -161,7 +161,7 @@ function submit_tag(id,tags) {
     x___exp__submitTag(id, tags, submit_tag_cb);
 }
 
-<? if (getConfig('rss.input.tags.delicious')) { ?>
+<?php if (getConfig('rss.input.tags.delicious')) { ?>
 
 function get_from_delicious(id) {
  x___exp__getFromDelicious(id,getFromDelicious_cb);
@@ -192,7 +192,7 @@ function addToTags(id,tag) {
  fld.value=fld.value+ " " + tag;
 }
 
-<? } ?>
+<?php } ?>
 
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
@@ -222,7 +222,7 @@ function _et(id) {
        }
         actionSpan.appendChild(cancel);
 
-        <? if (getConfig('rss.input.tags.delicious')) { ?>
+        <?php if (getConfig('rss.input.tags.delicious')) { ?>
         // get tag suggestions from del.icio.us
         newspan = document.createElement("span");
         newspan.setAttribute("id","dt" + id);
@@ -230,7 +230,7 @@ function _et(id) {
         newspan.innerHTML = "<?= LBL_TAG_SUGGESTIONS ?>: (...) ]";
         actionSpan.appendChild(newspan);
         get_from_delicious(id);
-        <? } ?>
+        <?php } ?>
         tc.innerHTML = "<input class=\"tagedit\" id=\"tfield"
          +id+"\" type=\"text\" value=\"" + tags + "\" />";
 
@@ -251,7 +251,7 @@ function _et(id) {
 }
 
 
-<? if (! hidePrivate()) { ?>
+<?php if (! hidePrivate()) { ?>
 
 document.states = new Array();
 document.prevState = new Array();
@@ -401,7 +401,7 @@ function unreadCnt(d) {
     }
     return null;
 }
-<? }
+<?php }
 
 flush();
 exit();

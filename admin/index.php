@@ -1,4 +1,4 @@
-<?
+<?php
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
@@ -530,7 +530,8 @@ function channel_admin() {
 	switch ($_REQUEST['action']) {
 	 case LBL_ADMIN_ADD:
 	 case 'Add':
-	$label = trim($_REQUEST['new_channel']);
+
+    $label = trim($_REQUEST['new_channel']);
 	$fid = trim($_REQUEST['add_channel_to_folder']);
 	if ($label != 'http://' &&	substr($label, 0,4) == "http") {
 		$ret = add_channel($label,$fid);
