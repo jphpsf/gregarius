@@ -271,11 +271,9 @@ if (array_key_exists ('metaaction', $_POST)) {
     	$res = rss_query( " select id from " .getTable('folders') ." f order by f.position desc" );
     	while (list($fid__) = rss_fetch_row($res)) {
     		if ($fid__ == $fid && $next_fid > 0) {
-				//echo "$fid = $fid__, next = $next_fid\n";
     			$found = true;
     			break;
-    		} elseif($fid__ == $fid) {
-				//echo "fid = fid, not found yet\n";
+    		} elseif($fid__ == $fid) {			
     			$found = true;
     		}
     		$sql = "select count(*) from "
@@ -431,15 +429,14 @@ if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
 	if ($cid && !(isset($cids) && is_array($cids) && count($cids))) {
    		$cids = array($cid); 
    	}
-	items($cids,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
+	doItems($cids,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
 }
 rss_footer();
 
 
-function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
+function doItems($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
-	
-	$do_show=$show_what;
+		$do_show=$show_what;
 	//should we honour unread-only?
 	if ($show_what == SHOW_UNREAD_ONLY) {
 	
@@ -471,104 +468,41 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 	
    echo "\n\n<div id=\"items\" class=\"frame\">";    
-	$items = array();
+	$items = new ItemList();
 
 	$ur = false;
+
 	foreach ($cids as $cid) {
-		 $sitems = array();
-		 $sql = " select i.title, i.url, i.description, i.unread, "
-			." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
-			." pubdate is not null as ispubdate, "
-			." c.icon, c.title, i.id, t.tag "
-			." from " .getTable("item") . " i " 
-			
-			." left join ".getTable('metatag') ." m on (i.id=m.fid) "
-			." left join ".getTable('tag')." t on (m.tid=t.id) "
-			  
-			. ", " . getTable("channels") ." c "
-			." where i.cid = $cid and c.id = $cid ";
-			
-			if (hidePrivate()) {
-				$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ") ";
-			}
-            $sql .= " and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
-		 if ($iid != "") {
-			$sql .= " and i.id=$iid";
-		 }
-		 
-	
-		 
-		 if  ($do_show == SHOW_UNREAD_ONLY) {
-			$sql .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
-		 }
-		 
-		 if ($m > 0 && $y > 0) {
-			$sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
+		$sqlWhere = "i.cid = $cid";
+		if  ($do_show == SHOW_UNREAD_ONLY) {
+			$sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+		}		 
+		if ($iid != "") {
+			$sqlWhere .= " and i.id=$iid";
+		}
+		if ($m > 0 && $y > 0) {
+			$sqlWhere .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
 			  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
 		
 			if ($d > 0) {
-				 $sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+				 $sqlWhere .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
 			}
 		 }
-		 
-		 $sql .=" order by i.unread & ".FEED_MODE_UNREAD_STATE." desc, i.added desc, i.id asc";
-	
-		 //echo $sql;
-	
-		 if ( $m==0 && $y==0 ) {
-			//$sql .= " limit " . getConfig('rss.output.itemsinchannelview');
-			$limit = getConfig('rss.output.itemsinchannelview');
-		 } else {
-			$limit = 9999;
-		 }
-	
-		 
-	
-		 $res = rss_query($sql);
-		 
-		 $iconAdded = false;
-		 $hasUnreadItems = false;  
-		 $added = 0;
-		 $prevId = -1;
-		 while ($added <= $limit && list($ititle, $iurl, $idescription, $iunread, $its, $iispubdate, $cicon, $ctitle, $iid_, $tag_) =  rss_fetch_row($res)) {
-			
-			$hasUnreadItems |= ($iunread & FEED_MODE_UNREAD_STATE);
-			
-			$added++;
-			if($prevId != $iid_) {
-				 $sitems[] = array(
-						$cid,
-						$ctitle,
-						$cicon,
-						$ititle,
-						$iunread,
-						$iurl,
-						$idescription,
-						$its,
-						$iispubdate,
-						$iid_,
-						'tags' => array($tag_)
-				 );
-				 $prevId = $iid_;
-			 } else {
-				end($sitems);
-				$sitems[key($sitems)]['tags'][]=$tag_;
-				$added--;
-			 }
-		 }
+		
+		if ( $m==0 && $y==0 ) {		
+			$sqlLimit = getConfig('rss.output.itemsinchannelview');
+		} else {
+			$sqlLimit = 9999;
+		}
+				  
+		$sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc, i.added desc, i.id asc";
+		
+		
+		$items -> populate($sqlWhere,$sqlOrder,$sqlLimit);
+	}
 
-		$ur = $ur || $hasUnreadItems;
-
-	
-		 $sitems = array_slice($sitems,0,$limit);
-		 foreach($sitems as $sitem) {
-			$items[] = $sitem;
-		 }
-	 }
-
-
-	$severalFeeds = count($cids) > 1;
-   if ($ur && $iid == "") {
+	$severalFeeds = count($items -> feeds) > 1;
+   if ($items -> unreadCount && $iid == "") {
 		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
 
     	 showViewForm($show_what);
@@ -583,12 +517,8 @@ function items($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		 echo "\n</div>\n";
 	 }
 	 
-    $ilRet = itemsList($title, $items, ($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
-    $ilRet[] = $severalFeeds;
-    $ilRet[] = $cid;
-    $ilRet[0] = count($cids);
-    //list($feedCount,$unreadCount,$readCount,$itemId,$channelId) = $ilRet;
-	 rss_plugin_hook('rss.plugins.items.afteritems', $ilRet);
+	 $items -> render($title, ($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
+	 rss_plugin_hook('rss.plugins.items.afteritems', null);
     
 
 	

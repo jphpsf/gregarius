@@ -44,7 +44,7 @@ rss_require('util.php');
 rss_require('dbinit.php');
 rss_require('db.php');
 rss_require('config.php');
-
+rss_require('cls/items.php');
 
 if (getConfig('rss.meta.debug')) {
     error_reporting(E_ALL);
