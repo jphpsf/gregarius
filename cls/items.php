@@ -30,9 +30,13 @@
 ###############################################################################
 
 
-
+/**
+ * The Item class holds a single RSS item, mostly mimicking the 
+ * structure of the item databse table
+ */
 class Item {
 
+	
 	var $flags;
 	var $title;
 	var $url;
@@ -49,6 +53,9 @@ class Item {
 	
 	var $escapedTitle;
 	
+	/**
+	 * ctor
+	 */
 	function Item($id, $title, $url, $parent, $description, $date, $isPubDate, $unread) {
 		$this->id = $id;
 		$this->flags = $unread;
@@ -67,6 +74,9 @@ class Item {
 	
 	}
 
+	/**
+	 * Renders a single RSS item
+	 */
 	function render($cntr, &$parent) {
 		
 		// tags:
@@ -171,7 +181,7 @@ class Item {
 	}
 }
 
-class Channel {
+class Feed {
 
 	var $items = array ();
 	var $tags = array ();
@@ -181,7 +191,7 @@ class Channel {
 	
 	var $hasUnreadItems = false;
 
-	function Channel($title, $cid, $icon) {
+	function Feed($title, $cid, $icon) {
 		$this->title = $title;
 		$this->cid = $cid;
 		$this->iconUrl = $icon;
@@ -205,7 +215,7 @@ class Channel {
 	function render($options) {
 		
 		
-		// Channel collapsion //
+		// Feed collapsion //
 		$collapsed_ids = array ();
 		if (getConfig('rss.output.channelcollapse')) {
 			if (array_key_exists('collapsed', $_COOKIE)) {
@@ -346,7 +356,7 @@ class ItemList {
 		$res = rss_query($sql);
 		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = rss_fetch_row($res)) {
 			if (!array_key_exists($cid_, $this->feeds)) {
-				$this->feeds[$cid_] = new Channel($ctitle_, $cid_, $cicon_);
+				$this->feeds[$cid_] = new Feed($ctitle_, $cid_, $cicon_);
 			}
 			$iids[] = $iid_;
 			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $idescr_, $its_, $iispubdate_, $iunread_);
@@ -389,7 +399,8 @@ class ItemList {
 
 		if ($title) {
 			if (($options & IL_CHANNEL_VIEW) && getConfig('rss.output.showfavicons') && count($this -> feeds)) {
-				$cicon = $this -> feeds -> iconUrl;
+				$key = array_keys($this->feeds);
+				$cicon = $this -> feeds[$key[0]] -> iconUrl;
 			}
 			elseif (($options & IL_FOLDER_VIEW) && getConfig('rss.output.showfavicons')) {
 				$cicon = getThemePath()."media/folder.gif";
