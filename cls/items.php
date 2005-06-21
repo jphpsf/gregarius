@@ -256,7 +256,7 @@ class Feed {
 		// Channel collapsion //		
 		$this -> title = rss_htmlspecialchars($this -> title);
 		
-		echo "<ul>\n";
+		
 		
 		if ($this -> title != "" && !($options & IL_CHANNEL_VIEW)) {
 			echo "\n<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->\n";
@@ -287,7 +287,7 @@ class Feed {
 			}	
 			echo "</h3>\n";
 		}
-		
+		echo "<ul>\n";
 		$cntr = 0;
 		if (!$collapsed) {
 			foreach ($this -> items as $item) {
