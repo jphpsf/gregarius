@@ -501,7 +501,8 @@ function doItems($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		$items -> populate($sqlWhere,$sqlOrder,$sqlLimit);
 	}
 
-	$severalFeeds = count($items -> feeds) > 1;
+	//$severalFeeds = count($items -> feeds) > 1;
+	 $severalFeeds = count($cids) > 1;  
    if ($items -> unreadCount && $iid == "") {
 		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
 
