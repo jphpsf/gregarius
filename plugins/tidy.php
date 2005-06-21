@@ -35,19 +35,16 @@
 /// Description: Cleans content using the tidy php extension (required!)
 /// Version: 1.4
 
-/**
- * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
- * with a nicer <a href="http://www.test.com/a/b/c.html">[test.com]</a>
- */
+
 function __tidy_Tidy($in) {
 	// Specify configuration
 	$config = array(
-				  'indent'        => false,
+				  'indent'        => true,
 				  'output-xhtml'  => true,
 				  'alt-text' => "-",
 				  'doctype' => 'omit',
 				  'show-body-only' => true,
-				  
+				  'wrap' => 0
 	);
 
 	if (function_exists('tidy_parse_string')) {
@@ -55,7 +52,7 @@ function __tidy_Tidy($in) {
     		$tidy = tidy_parse_string($in, $config, 'utf8');
     		tidy_clean_repair($tidy);
     		return $tidy;
-		}
+		} 
 	} elseif (class_exists('tidy')) {
 		$tidy = new tidy();
 		$tidy -> cleanRepair($in, $config, 'utf8');
