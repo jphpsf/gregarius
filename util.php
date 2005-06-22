@@ -125,14 +125,22 @@ function rss_header($title = "", $active = 0, $cidfid = null, $onLoadAction = ""
 	nav($title, $active);
 }
 
+
 function rss_footer() {
+
 	echo "\n</div>\n";
 
 	echo "\n<div id=\"footer\" class=\"frame\">\n";
 	echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
 
-	echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">Gregarius</a> "._VERSION_." ".LBL_FTR_POWERED_BY."<a href=\"http://php.net\">PHP</a>, \n"."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"."</span>\n";
-	echo "<span>\n\tTentatively valid <a title=\"Tentatively valid XHTML: the layout"." validates, but the actual content coming from the feeds I can't do very much.\" "." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
+	echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">Gregarius</a> "._VERSION_. '<!-- $Revision$ -->'
+		.LBL_FTR_POWERED_BY."<a href=\"http://php.net\">PHP</a>, \n"
+		."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
+		."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"."</span>\n";
+	echo "<span>\n\tTentatively valid <a title=\"Tentatively valid XHTML: the layout"
+	." validates, but the actual content coming from the feeds I can't do very much.\" "
+	." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
+	."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
 
 	$ts = getLastModif();
 	echo "<span>\n\tLast update: ". ($ts ? rss_date(getConfig('rss.config.dateformat'), $ts) : "never")."\n</span>\n";
@@ -413,66 +421,6 @@ function update($id) {
 }
 
 
-/**
- * Renders any array of $items formatted for itemsList into
- * a RDF feed.
- *
- * Now let's all cheer and have Gregarius subscribe to it's self-generated
- * feeds, feed the infinite self-referential loop, and gaze in awe as the
- * Internet vanishes in a puff of logic!
- */
-function itemsListRDF($items, $title, $baselink, $resource = "") {
-
-		// trash the output, just in case
-			@ ob_end_clean();
-	ob_start();
-	header('Content-Type: text/xml');
-
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n"
-	."<rdf:RDF\n"."\txmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
-	."\txmlns=\"http://purl.org/rss/1.0/\"\n"
-	."\txmlns:taxo=\"http://purl.org/rss/1.0/modules/taxonomy/\"\n"
-	."\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n"
-	."\txmlns:syn=\"http://purl.org/rss/1.0/modules/syndication/\"\n"
-	."\txmlns:admin=\"http://webns.net/mvcb/\"\n"
-	.">\n\n";
-
-	echo "<channel rdf:about=\"".$baselink.$resource."\">\n"
-	."\t<title>".htmlentities($title, ENT_QUOTES, 'UTF-8')
-	."</title>\n"."\t<link>".$baselink.$resource."</link>\n"
-	."\t<description></description>\n"
-	."</channel>\n\n";
-
-	while (list ($row, $item) = each($items)) {
-		list ($cid, $ctitle, $cicon, $ititle, $iunread, $iurl, $idescr, $ts, $ispubdate, $iid) = $item;
-
-		if (array_key_exists('tags', $item)) {
-			$tags = $item['tags'];
-			if (count($tags) && $tags[0] == NULL) {
-				$tags = array ();
-			}
-		} else {
-			$tags = array ();
-		}
-
-		$xmlTitle = htmlentities($ititle, ENT_QUOTES, 'UTF-8');
-		echo "<item rdf:about=\"$iurl\">\n"."\t<title>$xmlTitle</title>\n"."\t<link>$iurl</link>\n"
-		// http://www.jschreiber.com/archives/2004/03/php_and_timesta_1.html
-		."\t<dc:date>".rss_date('Y-m-d\TH:i:sO', $ts)."</dc:date>\n"
-		."\t<dc:subject>$xmlTitle</dc:subject>\n";
-
-		if (count($tags)) {
-			echo "\t<taxo:topics>\n"."\t\t<rdf:Bag>\n";
-			foreach ($tags as $tag) {
-				echo "\t\t\t<rdf:li rdf:resource=\"".$baselink.$tag."\" />\n";
-			}
-			echo "\t\t</rdf:Bag>\n"."\t</taxo:topics>\n";
-
-		}
-		echo "</item>\n\n";
-	}
-	echo "</rdf:RDF>\n";
-}
 
 function add_channel($url, $folderid = 0) {
 	assert("" != $url && strlen($url) > 7);
