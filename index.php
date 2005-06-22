@@ -78,10 +78,8 @@ $cntUnread = unreadItems($show_what);
 
 if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
    readItems();
-} elseif($cntUnread == 0) {
-   itemsList( sprintf(LBL_H2_UNREAD_ITEMS , count($items)), IL_TITLE_NO_ESCAPE);
+} 
 
-}
 
 echo "</div>\n";    
 rss_footer();
@@ -127,7 +125,7 @@ function readItems() {
 
 	$readItems = new ItemList();
    while (list($cid) = rss_fetch_row($res1)) {
-	 	 $readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 2);
+	 	 $readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
    }
 	$readItems ->render(LBL_H2_RECENT_ITEMS,IL_TITLE_NO_ESCAPE);
 	

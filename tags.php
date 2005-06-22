@@ -97,157 +97,98 @@ function relatedTags($tags) {
 
 
 if(array_key_exists('tag',$_GET)) {
-    // while this one displays a list of items for the requested tag(s)
-    $tag = $_GET['tag'];
-    $twhere = "";
-    $tarr = explode (" ",$tag);
-    $hrTag = implode (" " . LBL_AND ." ",$tarr);
-    $urlTag = implode("+",$tarr);
-    
-    foreach ($tarr as $ttkn) {
-	$twhere .= " t.tag='" 
-	  .trim(rss_real_escape_string($ttkn)) ."' or";
-    }
-    $twhere .= " 1=0";
-
-    $sql = "select fid, count(*) as cnt from "
-      .getTable('metatag')." m, ".getTable('tag')." t "
-      ." where m.tid=t.id and ($twhere)  "
-      ." group by fid order by 2 desc";
-    
-    $res = rss_query($sql);
-    $ids = array();
-    while ((list($id,$cnt) = rss_fetch_row($res)) && $cnt >= count($tarr)) {
-	$ids[] = $id;
-    }
-
-    $gotsome = count($ids) > 0;
-    if ($gotsome) {
-	// ok now look up the fields for those items
-	$sql = ""
-
-	  // standard fields
-	  ."select i.title,  c.title, c.id, i.unread, "
-	  ." i.url, i.description, c.icon, "
-	  ." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
-	  ." i.pubdate is not null as ispubdate, "
-	  ." i.id, t.tag  "
-
-	  // standard left-joins and normal joins
-	  ." from ".getTable("item") ." i "
-	  ." left join ".getTable('metatag') ." m on (i.id=m.fid) "
-	  ." left join ".getTable('tag')." t on (m.tid=t.id) "
-	  . ", " .getTable("channels") ." c, " .getTable("folders") ." f "
-
-	  ." where "
-	  ." i.id in (".implode(",",$ids).") "
-	  ." and i.cid = c.id  and f.id=c.parent ";
-	  
-		if (hidePrivate()) {
-			$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
-		}
-		// order by unread first
-	  $sql .= " order by (i.unread & " .FEED_MODE_UNREAD_STATE." ) desc, "
-
-	  ."f.position asc, c.position asc, i.added desc, i.id asc, t.tag";
-	$res = rss_query($sql);
-
-	$items = array();
-	$allTags =array();
-
-	if (rss_num_rows($res) > 0) {
-	    $prevId = -1;
-	    while (list($title_,$ctitle_, $cid_, $unread_, $url_, $descr_,  $icon_, $ts_, $iispubdate_, $iid_, $tag_) = rss_fetch_row($res)) {
-		if (array_key_exists($tag_,$allTags)) {
-		    $allTags[ $tag_ ]++;
-		} else {
-		    $allTags[ $tag_ ]=1;
-		}
-		if ($prevId != $iid_) {
-		    $items[] = array(
-				     $cid_,
-				     $ctitle_,
-				     $icon_ ,
-				     $title_ ,
-				     $unread_ ,
-				     $url_ ,
-				     $descr_,
-				     $ts_,
-				     $iispubdate_,
-				     $iid_,
-				     'tags' => array($tag_)
-				     );
-		    $prevId = $iid_;
-		} else {
-		    end($items);
-		    $items[key($items)]['tags'][]=$tag_;
-		}
-	    }
-
+	// while this one displays a list of items for the requested tag(s)
+	$tag = $_GET['tag'];
+	$twhere = "";
+	$tarr = explode (" ",$tag);
+	$hrTag = implode (" " . LBL_AND ." ",$tarr);
+	$urlTag = implode("+",$tarr);
+	
+	foreach ($tarr as $ttkn) {
+		$twhere .= " t.tag='" .trim(rss_real_escape_string($ttkn)) ."' or";
 	}
-    }
-
-    $rtags = relatedTags($tarr);
-    $related = array();
-    foreach($rtags as $rtag => $cnt) {
-    	$relLbl = "<a href=\""
-    	  .getPath() .""
-    	  .(getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag") .""
-    	  ."\">$rtag</a>";
-
-    	$relPlus=array_key_exists($rtag,$allTags);
-    	if ($relPlus) {
-    	    $relLbl .= "&nbsp;[<a "
-    	      ."title=\"$cnt "
-    	      . ($cnt > 1 ? LBL_ITEMS:LBL_ITEM) ." "
-    	      . ($cnt > 1 || $cnt == 0? LBL_TAG_TAGGEDP:LBL_TAG_TAGGED) ." '"
-    	      . $hrTag ." " .LBL_AND .  " $rtag'\" "
-    	      . "href=\""
-    	      . getPath() .""
-    	      . (getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag") .""
-    	      . "+".$urlTag
-    	      . "\">+</a>]";
-    	}
-    	$idx = ($relPlus?$allTags[$rtag]:0);
-    	$related["$idx" . "_" ."$rtag"] = $relLbl ."";
-    }
-    krsort($related);
+	$twhere .= " 1=0";
+	
+	$sql = "select fid, count(*) as cnt from "
+	.getTable('metatag')." m, ".getTable('tag')." t "
+	." where m.tid=t.id and ($twhere)  "
+	." group by fid order by 2 desc";
+	
+	$res = rss_query($sql);
+	$ids = array();
+	while ((list($id,$cnt) = rss_fetch_row($res)) && $cnt >= count($tarr)) {
+		$ids[] = $id;
+   }
+   
+	$gotsome = count($ids) > 0;
+   if ($gotsome) {
+   	
+   	$taggedItems = new ItemList();
+		$sqlWhere  = " i.id in (".implode(",",$ids).") ";
+		$taggedItems -> populate($sqlWhere);
     
-    // done! Render some stuff
-    if (array_key_exists('rss',$_REQUEST)) {
-        // RSS view
-        $title = _TITLE_ . " - " .LBL_TAG_TAGS . " - " .  $hrTag;
-        $baselink = "http://" . $_SERVER['HTTP_HOST'] . getPath()
-            .(getConfig('rss.output.usemodrewrite')?"tag/":"tags.php?tag=");
-        itemsListRDF($items,$title,$baselink,$urlTag);
-        exit();
-    } else {
-        // HTML view
-        rss_header("Tags " . TITLE_SEP . " " . $hrTag);
-        sideChannels(false);
-
-        echo "\n\n<div id=\"items\" class=\"frame\">\n";
-
-        if ($gotsome) {
-
-        	echo "<h2>" . count($items) . " " . (count($items) > 1 ? LBL_ITEMS:LBL_ITEM)
-        	  ." "
-        	  . (count($items) > 1 || count($items) == 0? LBL_TAG_TAGGEDP:LBL_TAG_TAGGED) .""
-        	  . " \"" . $hrTag . "\"</h2>\n";
-
-        	if (count($related)) {
-        	    echo "\n<p>" . LBL_TAG_RELATED ."\n". implode(", \n", $related) ."\n</p>\n";
-        	}
-
-        	itemsList ( "",  $items, IL_NO_COLLAPSE );
-        } else {
-        	echo "<p style=\"height: 10em; text-align:center\">";
-        	printf(LBL_TAG_ERROR_NO_TAG,$hrTag);
-        	echo "</p>";
-        }
-        echo "</div>\n";
-        rss_footer();
-    }
+		
+		$rtags = relatedTags($tarr);
+		$related = array();
+		foreach($rtags as $rtag => $cnt) {
+			$relLbl = "<a href=\""
+			  .getPath() .""
+			  .(getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag") .""
+			  ."\">$rtag</a>";
+			
+			$relPlus=array_key_exists($rtag,$taggedItems->allTags);
+			if ($relPlus) {
+				 $relLbl .= "&nbsp;[<a "
+					."title=\"$cnt "
+					. ($cnt > 1 ? LBL_ITEMS:LBL_ITEM) ." "
+					. ($cnt > 1 || $cnt == 0? LBL_TAG_TAGGEDP:LBL_TAG_TAGGED) ." '"
+					. $hrTag ." " .LBL_AND .  " $rtag'\" "
+					. "href=\""
+					. getPath() .""
+					. (getConfig('rss.output.usemodrewrite')?"tag/$rtag":"tags.php?tag=$rtag") .""
+					. "+".$urlTag
+					. "\">+</a>]";
+			}
+			$idx = ($relPlus?$taggedItems->allTags[$rtag]:0);
+			$related["$idx" . "_" ."$rtag"] = $relLbl ."";
+		}
+		krsort($related);
+	}
+    
+	// done! Render some stuff
+	if (array_key_exists('rss',$_REQUEST)) {
+		// RSS view
+		$title = _TITLE_ . " - " .LBL_TAG_TAGS . " - " .  $hrTag;
+		$baselink = "http://" . $_SERVER['HTTP_HOST'] . getPath()
+			.(getConfig('rss.output.usemodrewrite')?"tag/":"tags.php?tag=");
+		itemsListRDF($items,$title,$baselink,$urlTag);
+		exit();
+	} else {
+		// HTML view
+		rss_header("Tags " . TITLE_SEP . " " . $hrTag);
+		sideChannels(false);
+		
+		echo "\n\n<div id=\"items\" class=\"frame\">\n";
+		
+		if ($gotsome) {
+		
+			echo "<h2>" . $taggedItems->itemCount . " " . ($taggedItems->itemCount > 1 ? LBL_ITEMS:LBL_ITEM)
+			  ." "
+			  . ($taggedItems->itemCount > 1 || $taggedItems->itemCount == 0? LBL_TAG_TAGGEDP:LBL_TAG_TAGGED) .""
+			  . " \"" . $hrTag . "\"</h2>\n";
+			
+			if (count($related)) {
+				 echo "\n<p>" . LBL_TAG_RELATED ."\n". implode(", \n", $related) ."\n</p>\n";
+			}
+			$taggedItems->render("",IL_NO_COLLAPSE );
+		} else {
+			echo "<p style=\"height: 10em; text-align:center\">";
+			printf(LBL_TAG_ERROR_NO_TAG,$hrTag);
+			echo "</p>";
+		}
+		echo "</div>\n";
+		rss_footer();
+	}
 
 } elseif(array_key_exists('alltags',$_GET)) {
 

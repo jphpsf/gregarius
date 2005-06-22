@@ -181,6 +181,9 @@ class Item {
 	}
 }
 
+/**
+ * A feed mirrors the <code>channel</code> database table. It contains a list of Items
+ */
 class Feed {
 
 	var $items = array ();
@@ -191,6 +194,9 @@ class Feed {
 	
 	var $hasUnreadItems = false;
 
+	/**
+	 * Feed constructor
+	 */
 	function Feed($title, $cid, $icon) {
 		$this->title = $title;
 		$this->cid = $cid;
@@ -198,6 +204,9 @@ class Feed {
 		$this->escapedTitle = preg_replace("/[^A-Za-z0-9\.]/", "_", $title);
 	}
 
+	/**
+	 * Adds a single RSS item to this feed
+	 */
 	function addItem($item) {
 		$this->items[] = $item;
 		if ((!$this -> hasUnreadItems) && $item->flags & FEED_MODE_UNREAD_STATE) {
@@ -205,6 +214,9 @@ class Feed {
 		}
 	}
 
+	/**
+	 * Specifies a tag for the given item in the items collection
+	 */
 	function setTag($iid, $tag) {
 		if (!array_key_exists($iid, $this->tags)) {
 			$this->tags[$iid] = array ();
@@ -212,6 +224,9 @@ class Feed {
 		$this->tags[$iid][] = $tag;
 	}
 	
+	/**
+	 * Renders a single Feed
+	 */
 	function render($options) {
 		
 		
@@ -301,18 +316,45 @@ class Feed {
 
 }
 
+
+/**
+ * The ItemList is the main entry point for rendering items: one would:
+ * <ul>
+ * <li>Instantiate a new ItemList</li>
+ * <li>Invoke the <code>populate</code> method, giving specific 
+ * information on what should be fetched from the database via the sqlWhere parameter</li>
+ * </li>Render the list</li>
+ * </ul>
+ */
 class ItemList {
 
 	var $feeds = array ();
 	
+	var $__callbackFn = null;
+	var $__callbackParams = null;
+	
 	var $unreadCount = 0;
 	var $readCount = 0;
+	
+	var $itemCount = 0;
 
+	var $rowCount = 0;
+	
+	var $allTags = array();
 	
 	
 	function ItemList() {}
 
-	function populate($sqlWhere, $sqlOrder="", $sqlLimit=0) {
+	/**
+	 * Populates a an ItemList with items from the Database. Note that this methdo
+	 * can be invoked several times on the same ItemList object instance: upon each
+	 * call the new items will be aggregated to the existing ones.
+	 * 
+	 * @param sqlWhere specifies what should be fetched
+	 * @param sqlOrder (optional) specifies a different item ordering
+	 * @param sqlLimit (optional) specifies how many items should be fetched
+	 */
+	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1) {
 
 		$sql = "select i.title,  c.title, c.id, i.unread, "
 			."i.url, i.description, c.icon, "
@@ -347,28 +389,68 @@ class ItemList {
 			$sql .= " $sqlOrder ";	
 		}
 		
-		
-		/// Limit
-		if ($sqlLimit) {
-			$sql .= " limit $sqlLimit ";
+		if ($this -> __callbackFn == null && $itemCount > 0) {		
+			$sql .= " limit $startItem, $itemCount";
 		}
+		
+		//echo $sql;		
 		$iids = array();
 		$res = rss_query($sql);
+		$this -> rowCount = rss_num_rows($res);
+		$skipItems = 0;
 		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = rss_fetch_row($res)) {
+			
+
+			
+			// Built a new Item
+			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $idescr_, $its_, $iispubdate_, $iunread_);
+			
+			// If a filter was defined, test the item agains it
+			if ($this -> __callbackFn && function_exists($this -> __callbackFn)) {
+				$i= call_user_func($this -> __callbackFn, array($i), $this->__callbackParams);
+				if ($i == null) {
+					continue;
+				}
+			}
+			
+			// Skip the $startItem first items if we are filtering
+			if ($this -> __callbackFn) {
+				if ($skipItems++ < $startItem) {
+					continue;
+				}
+			}
+			
+			
+			
+			// See if we have a channel for it		
 			if (!array_key_exists($cid_, $this->feeds)) {
 				$this->feeds[$cid_] = new Feed($ctitle_, $cid_, $cicon_);
 			}
-			$iids[] = $iid_;
-			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $idescr_, $its_, $iispubdate_, $iunread_);
-			$this->feeds[$cid_]->addItem($i);
 			
+			// Add it to the channel
+			$iids[] = $iid_;
+			$this->feeds[$cid_]->addItem($i);			
+			
+			// Some stats...
+			$this -> itemCount++;			
 			if ($iunread_ & FEED_MODE_UNREAD_STATE) {
 				$this -> unreadCount++;	
 			} else {
 				$this -> readCount++;	
 			}
+			
+			// If we are filtering we can't use the (faster) sql limit: we have to
+			// count items ourselves and break when we're done!
+			if ($this -> __callbackFn) {
+				if ($this -> itemCount >= $itemCount) {
+					break;
+				}
+			}
+			
 		}
 
+		
+		// Tags!
 		if (count($iids)) {
 			// fetch the tags for the items;
 			$sql = "select t.tag,m.fid,i.cid "
@@ -381,6 +463,11 @@ class ItemList {
 			$res = rss_query($sql);
 			while (list ($tag_, $iid_, $cid_) = rss_fetch_row($res)) {
 				$this -> feeds[$cid_] -> setTag($iid_, $tag_);
+				if (array_key_exists($tag_,$this -> allTags)) {
+		    		$this -> allTags[ $tag_ ]++;
+				} else {
+		    		$this -> allTags[ $tag_ ]=1;
+				}
 			}
 		}
 	}
@@ -420,5 +507,9 @@ class ItemList {
 		}
 	}
 
+	function setItemFilterCallback($fname,$params) {
+		$this -> __callbackFn = $fname;
+		$this -> __callbackParams = $params;
+	}
 }
 ?>

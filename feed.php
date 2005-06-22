@@ -505,7 +505,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		$sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc, i.added desc, i.id asc";
 		
 		
-		$items -> populate($sqlWhere,$sqlOrder,$sqlLimit);
+		$items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit);
 	}
 
 	
