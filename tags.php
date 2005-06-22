@@ -157,11 +157,20 @@ if(array_key_exists('tag',$_GET)) {
     
 	// done! Render some stuff
 	if (array_key_exists('rss',$_REQUEST)) {
+		rss_require('cls/rdf.php');
 		// RSS view
 		$title = _TITLE_ . " - " .LBL_TAG_TAGS . " - " .  $hrTag;
 		$baselink = "http://" . $_SERVER['HTTP_HOST'] . getPath()
 			.(getConfig('rss.output.usemodrewrite')?"tag/":"tags.php?tag=");
-		itemsListRDF($items,$title,$baselink,$urlTag);
+		
+		if ($gotsome) {
+			$rdf = new RDFItemList ($taggedItems);
+		} else {
+			$rdf = new RDFItemList (null);
+		}
+		$rdf -> baselink = $baselink;
+		$rdf -> resource = $urlTag;
+		$rdf -> render($title);
 		exit();
 	} else {
 		// HTML view
