@@ -183,6 +183,7 @@ if ((!isset($cid) || $cid == "") &&
     $red = "http://" . $_SERVER['HTTP_HOST'] . getPath();
     header("Location: $red");
 }
+//echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 
 if (array_key_exists ('metaaction', $_POST)) {
 
@@ -193,7 +194,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 			$first_unread_id=$next_unread_id='';
 		 
 		 // redirect to the next unread, if any.
-		 $sql = "select c.id, c.parent from " . getTable("item") . " i,"
+		 $sql = "select c.id from " . getTable("item") . " i,"
 		 . getTable("channels") . " c,"
 		 . getTable("folders") . " f "
 			  ." where i.unread & ".FEED_MODE_UNREAD_STATE
@@ -212,7 +213,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 			
 		 $res = rss_query($sql);
 		 $next_ok=false;
-		 while(list ($unread_id,$fid) = rss_fetch_row($res)) {
+		 while(list ($unread_id) = rss_fetch_row($res)) {
 			if ($first_unread_id == '' && $unread_id != $cid) {
 				$first_unread_id = $unread_id;
 			}
@@ -327,7 +328,7 @@ if (array_key_exists ('metaaction', $_POST)) {
     }
 
 }
-
+//echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 assert(
 	(isset($cid) && is_numeric($cid)) || 
 	(isset($fid) && isset($cids) && is_array($cids) && count($cids))
