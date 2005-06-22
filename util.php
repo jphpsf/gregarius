@@ -372,8 +372,15 @@ function update($id) {
 				." '$url', '".rss_real_escape_string($description)."', "."$mode, $sec)";
 
 				rss_query($sql);
-				$updatedIds[] = rss_insert_id();
-
+				
+				
+				$newIid = rss_insert_id();
+				$updatedIds[] = $newIid;
+				/* 
+				 * Ticket #26: Add hook to modify the item just after it 
+				 * has been inserted into the database
+				 */
+				rss_plugin_hook('rss.plugins.items.newiid',array($newIid,$item));
 			}
 			elseif (!($state & FEED_MODE_DELETED_STATE) && 
 				getConfig('rss.input.allowupdates') && 
