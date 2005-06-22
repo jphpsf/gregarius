@@ -1662,37 +1662,33 @@ function config_admin() {
  * Renders the admin sub-menu
  */
 function admin_menu() {
-	$active = array_key_exists(CST_ADMIN_VIEW,$_REQUEST)?$_REQUEST[CST_ADMIN_VIEW]:null;
+	$active = array_key_exists(CST_ADMIN_VIEW, $_REQUEST) ? $_REQUEST[CST_ADMIN_VIEW] : null;
 
-	$use_mod_rewrite=
-	  getConfig('rss.output.usemodrewrite');
+	$use_mod_rewrite = getConfig('rss.output.usemodrewrite');
 
 	if (function_exists("apache_get_modules")) {
-	$use_mod_rewrite =
-	  $use_mod_rewrite &&
-	  in_array( 'mod_rewrite',apache_get_modules() );
+		$use_mod_rewrite = $use_mod_rewrite && in_array('mod_rewrite', apache_get_modules());
 	}
 
 	echo "\n<ul class=\"navlist\">\n";
-	foreach(
-		 array (
-			/* url/id -- internationalized label, defined in intl/* */
-			  array(CST_ADMIN_DOMAIN_CHANNEL,LBL_ADMIN_DOMAIN_CHANNEL_LBL),
-			array(CST_ADMIN_DOMAIN_ITEM,LBL_ADMIN_DOMAIN_ITEM_LBL),
-			array(CST_ADMIN_DOMAIN_CONFIG,LBL_ADMIN_DOMAIN_CONFIG_LBL),
-			array(CST_ADMIN_DOMAIN_FOLDER,LBL_ADMIN_DOMAIN_FOLDER_LBL),
-			array(CST_ADMIN_DOMAIN_OPML,LBL_ADMIN_DOMAIN_LBL_OPML_LBL)
-			) as $item) {
+	foreach (array (
+	/* url/id -- internationalized label, defined in intl/* */
+	array (CST_ADMIN_DOMAIN_CHANNEL, LBL_ADMIN_DOMAIN_CHANNEL_LBL), 
+	array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL), 
+	array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL), 
+	array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL), 
+	array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
 
-	if ($use_mod_rewrite) {
-		$link = $item[0];
-	} else {
-		$link = "index.php?view=".$item[0];
+		if ($use_mod_rewrite) {
+			$link = $item[0];
+		} else {
+			$link = "index.php?view=".$item[0];
+		}
+		$lbl = $item[1];
+		$cls = ($item[0] == $active ? " class=\"active\"" : "");
+		echo "\t<li$cls><a href=\"$link\">".ucfirst($lbl)."</a></li>\n";
 	}
-	$lbl = $item[1];
-	$cls = ($item[0]==$active?" class=\"active\"":"");
-	echo "\t<li$cls><a href=\"$link\">" .ucfirst($lbl) ."</a></li>\n";
-	}
+	echo "\t<li><a href=\"".getPath()."?logout\">".LBL_ADMIN_LOGOUT."</a></li>\n";
 	echo "</ul>\n";
 }
 
@@ -1836,4 +1832,5 @@ function admin_enum_to_html($arr) {
 function setAdminCookie() {
 	setcookie(PRIVATE_COOKIE, getPrivateCookieVal(), time()+COOKIE_LIFESPAN, getPath());
 }
+
 ?>
