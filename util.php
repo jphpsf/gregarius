@@ -1031,6 +1031,13 @@ function getPrivateCookieVal($prefix = DBUNAME) {
 	return md5($val);
 }
 
+function logoutPrivateCookie() {
+	if (array_key_exists(PRIVATE_COOKIE, $_COOKIE)) {
+		unset($_COOKIE[PRIVATE_COOKIE]);
+		setcookie(PRIVATE_COOKIE, "", -1, getPath());
+	}
+}
+
 function hidePrivate() {
 	static $ret;
 	if ($ret == null) {

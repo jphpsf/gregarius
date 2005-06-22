@@ -108,6 +108,8 @@ define ('LBL_ADMIN_ITEM','Temas:');
 define ('LBL_ADMIN_CONFIG','Configuracion:');
 define ('LBL_ADMIN_OK','Aceptar');
 define ('LBL_ADMIN_CANCEL','Cancelar');
+//FIXME:
+define ('LBL_ADMIN_LOGOUT','Logout');
 
 define ('LBL_ADMIN_OPML_IMPORT','Importar');
 define ('LBL_ADMIN_OPML_EXPORT','Exportar');

@@ -107,6 +107,7 @@ define ('LBL_ADMIN_ITEM','Items:');
 define ('LBL_ADMIN_CONFIG','Configuration:');
 define ('LBL_ADMIN_OK','OK');
 define ('LBL_ADMIN_CANCEL','Cancel');
+define ('LBL_ADMIN_LOGOUT','Logout');
 
 define ('LBL_ADMIN_OPML_IMPORT','Import');
 define ('LBL_ADMIN_OPML_EXPORT','Export');

@@ -109,6 +109,8 @@ define ('LBL_ADMIN_ITEM','Inl&auml;gg:');
 define ('LBL_ADMIN_CONFIG','Konfiguration:');
 define ('LBL_ADMIN_OK','OK');
 define ('LBL_ADMIN_CANCEL','Avbryt');
+//FIXME
+define ('LBL_ADMIN_LOGOUT','Log ud');
 
 
 define ('LBL_ADMIN_OPML_IMPORT','Importera');

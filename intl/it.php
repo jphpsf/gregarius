@@ -112,6 +112,7 @@ define ('LBL_ADMIN_ITEM','Elementi:');
 define ('LBL_ADMIN_CONFIG','Configurazione:');
 define ('LBL_ADMIN_OK','OK');
 define ('LBL_ADMIN_CANCEL','Cancella');
+define ('LBL_ADMIN_LOGOUT','Logout');
 
 define ('LBL_ADMIN_OPML_IMPORT','Importa');
 define ('LBL_ADMIN_OPML_EXPORT','Esporta');

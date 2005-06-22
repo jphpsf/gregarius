@@ -107,6 +107,7 @@ define ('LBL_ADMIN_ITEM','El&eacute;ments:');
 define ('LBL_ADMIN_CONFIG','Configuration:');
 define ('LBL_ADMIN_OK','OK');
 define ('LBL_ADMIN_CANCEL','Annuler');
+define ('LBL_ADMIN_LOGOUT','D&eacute;connexion');
 
 define ('LBL_ADMIN_IN_FOLDER','au r&eacute;pertoire:');
 define ('LBL_ADMIN_SUBMIT_CHANGES', 'Poster les modifications');

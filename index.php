@@ -63,6 +63,11 @@ if (array_key_exists('update',$_REQUEST)) {
     update("");
 }
 
+
+if (array_key_exists('logout',$_GET)) {
+	logoutPrivateCookie();
+}
+
 $title = "";
 
 rss_header($title,LOCATION_HOME,array('cid'=>null,'fid'=>null));
