@@ -268,7 +268,11 @@ if (array_key_exists ('metaaction', $_POST)) {
     	rss_query($sql);
     	$next_fid = 0;
     	$found = false;
-    	$res = rss_query( " select id from " .getTable('folders') ." f order by f.position desc" );
+    	$res = rss_query( " select id from " .getTable('folders') ." f order by "
+		
+			.(getConfig('rss.config.absoluteordering')?" f.position desc":"f.name desc")		
+		);
+		
     	while (list($fid__) = rss_fetch_row($res)) {
     		if ($fid__ == $fid && $next_fid > 0) {
     			$found = true;
@@ -334,6 +338,10 @@ if ($iid != "" && !is_numeric($iid)) {
     //item was deleted
     $itemFound = false;
     $iid = "";
+}
+
+if (!isset($fid)) {
+	$fid=null;
 }
 
 //precompute the navigation hints, which will be passed to the header as <link>s
@@ -420,8 +428,6 @@ if ($iid == "") {
 		 );
 }
 
-
-
 sideChannels($cid); 
 if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
@@ -429,12 +435,12 @@ if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
 	if ($cid && !(isset($cids) && is_array($cids) && count($cids))) {
    		$cids = array($cid); 
    	}
-	doItems($cids,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
+	doItems($cids,$fid,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
 }
 rss_footer();
 
 
-function doItems($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
+function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 		$do_show=$show_what;
 	//should we honour unread-only?
@@ -470,7 +476,7 @@ function doItems($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
    echo "\n\n<div id=\"items\" class=\"frame\">";    
 	$items = new ItemList();
 
-	$ur = false;
+	
 
 	foreach ($cids as $cid) {
 		$sqlWhere = "i.cid = $cid";
@@ -501,8 +507,8 @@ function doItems($cids,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		$items -> populate($sqlWhere,$sqlOrder,$sqlLimit);
 	}
 
-	//$severalFeeds = count($items -> feeds) > 1;
-	 $severalFeeds = count($cids) > 1;  
+	
+	$severalFeeds = ($fid != null);
    if ($items -> unreadCount && $iid == "") {
 		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
 

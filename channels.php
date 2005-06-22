@@ -84,11 +84,11 @@ function sideChannels($activeId) {
 	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
 
 	
-    if (getConfig('rss.config.absoluteordering')) {
-	$sql .= " order by f.position asc, c.position asc";
-    } else {
-	$sql .=" order by c.parent asc, c.title asc";
-    }
+	if (getConfig('rss.config.absoluteordering')) {
+		$sql .= " order by f.position asc, c.position asc";
+	} else {
+		$sql .= " order by f.name, c.title asc";
+	}
 
     $res = rss_query($sql);
     $channelCount = rss_num_rows ( $res );
