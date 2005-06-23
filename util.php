@@ -431,7 +431,8 @@ function add_channel($url, $folderid = 0) {
 	$res = rss_query("select count(*) as channel_exists from ".getTable("channels")." where url='$urlDB'");
 	list ($channel_exists) = rss_fetch_row($res);
 	if ($channel_exists > 0) {
-		return array (-1, "Looks like you are already subscribed to this channel");
+		// fatal
+		return array (-2, "Looks like you are already subscribed to this channel");
 	}
 
 	$res = rss_query("select 1+max(position) as np from ".getTable("channels"));
@@ -493,6 +494,7 @@ function add_channel($url, $folderid = 0) {
 			return array ($newid, "");
 
 		} else {
+			// non-fatal, will look further
 			return array (-1, "I'm sorry, I couldn't extract a valid RSS feed from <a href=\"$url\">$url</a>.");
 		}
 	} else {
@@ -501,6 +503,7 @@ function add_channel($url, $folderid = 0) {
 		if ($MAGPIE_ERROR) {
 			$retError .= "\n<br />$MAGPIE_ERROR\n";
 		}
+		// non-fatal, will look further
 		return array (-1, $retError);
 	}
 }
