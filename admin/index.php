@@ -539,10 +539,12 @@ function channel_admin() {
 	$fid = trim($_REQUEST['add_channel_to_folder']);
 	if ($label != 'http://' &&	substr($label, 0,4) == "http") {
 		$ret = add_channel($label,$fid);
-			if (is_array($ret) && $ret[0] > -1) {
+		
+		if (is_array($ret) && $ret[0] > -1) {
 			update($ret[0]);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} else {
+			rss_error("Error: " .$ret[1]);
 			// okay, something went wrong, maybe thats a html url after all?
 			// let's try and see if we can extract some feeds
 			$feeds = extractFeeds($label);
