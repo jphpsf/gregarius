@@ -1662,7 +1662,12 @@ function config_admin() {
 function sysinfo() {
 	echo "<pre>\n";
 	echo "PHP version: ".phpversion()."\n\n";
-	echo "Loaded extensions:\n";
+
+	if (function_exists("php_uname")) {
+		echo "System: "	. php_uname() ."\n\n";
+	}
+	
+	echo "Loaded PHP extensions:\n";
 	foreach (get_loaded_extensions() as $ext) {
 		echo " - $ext: (".phpversion($ext).")\n";
 	}
