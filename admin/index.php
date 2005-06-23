@@ -45,6 +45,7 @@ define ('CST_ADMIN_SUBMIT_EDIT','submit_edit');
 define ('CST_ADMIN_VIEW','view');
 define ('CST_ADMIN_CONFIRMED','confirmed');
 define ('CST_ADMIN_PRUNE','prune');
+define ('CST_ADMIN_DOMAIN_SYSINFO','sysinfo');
 
 define ('CST_ADMIN_DOMAIN_FOLDER','folders');
 define ('CST_ADMIN_DOMAIN_CHANNEL','feeds');
@@ -125,8 +126,11 @@ function admin_main($authorised) {
           case CST_ADMIN_DOMAIN_NONE:
          break;
           case CST_ADMIN_DOMAIN_ITEM:
-         items();
+         items();			
          break;
+			 case CST_ADMIN_DOMAIN_SYSINFO:
+			sysinfo();
+			 break;
           default:
          }
       } else {
@@ -1207,8 +1211,7 @@ function config() {
 		 	$arr = unserialize($value);
 		 	echo admin_plugins_mgmnt($arr);
 		 	break;
-		 default:
-
+		
 		 case 'rss.output.lang':
 		 	$arr = getLanguages();
             echo $arr[getConfig('rss.output.lang')];
@@ -1656,6 +1659,27 @@ function config_admin() {
 	return $ret__;
 }
 
+function sysinfo() {
+	echo "<pre>\n";
+	echo "PHP version: ".phpversion()."\n\n";
+	echo "Loaded extensions:\n";
+	foreach (get_loaded_extensions() as $ext) {
+		echo " - $ext: (".phpversion($ext).")\n";
+	}
+
+	echo "\nPHP Settings:\n";
+	foreach (ini_get_all() as $key => $val) {
+		echo " - $key:\n\tglobal:".$val['global_value']."\n\tlocal: ".$val['local_value']."\n\n";
+	}
+
+	if (function_exists("apache_get_modules")) {
+		echo "\nApache modules:\n";
+		foreach (apache_get_modules() as $mod) {
+			echo " - $mod \n";
+		}
+	}
+	echo "</pre>\n";
+}
 /////////
 
 /**
