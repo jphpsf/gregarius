@@ -419,14 +419,18 @@ class ItemList {
 					continue;
 				}
 			}
-			
-			
-			
-			// See if we have a channel for it		
-			if (!array_key_exists($cid_, $this->feeds)) {
+
+		    // no dupes, please
+		    if (in_array($iid_,$iids)) { 
+			continue;                                                                                                                                                   
+		    }
+		    
+		    // See if we have a channel for it		
+		    if (!array_key_exists($cid_, $this->feeds)) {
 				$this->feeds[$cid_] = new Feed($ctitle_, $cid_, $cicon_);
 			}
 			
+		    		    
 			// Add it to the channel
 			$iids[] = $iid_;
 			$this->feeds[$cid_]->addItem($i);			
