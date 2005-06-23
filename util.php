@@ -442,10 +442,10 @@ function add_channel($url, $folderid = 0) {
 	}
 
 	// Here we go!
-	error_reporting(E_ALL);
-	//$old_level = error_reporting(E_ERROR);
+	//error_reporting(E_ALL);
+	$old_level = error_reporting(E_ERROR);
 	$rss = fetch_rss($url);
-	//error_reporting($old_level);
+	error_reporting($old_level);
 
 	if ($rss) {
 

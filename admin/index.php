@@ -544,7 +544,7 @@ function channel_admin() {
 			update($ret[0]);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} else {
-			rss_error("Error: " .$ret[1]);
+			//rss_error("Error: " .$ret[1]);
 			// okay, something went wrong, maybe thats a html url after all?
 			// let's try and see if we can extract some feeds
 			$feeds = extractFeeds($label);
