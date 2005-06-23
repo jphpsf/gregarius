@@ -287,7 +287,7 @@ function search() {
 	$items = new ItemList();
 	$items -> setItemFilterCallback("searchItemFilterCB", array($terms,$matchMode,$regMatch));
 	$items ->populate($qWhere,$qOrder, $start__, $resultsPerPage);
-	$cnt = $items ->itemCount;
+	$cnt = $items ->actualCount;
 
 	
 	

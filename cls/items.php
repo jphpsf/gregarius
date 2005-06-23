@@ -339,7 +339,7 @@ class ItemList {
 	var $itemCount = 0;
 
 	var $rowCount = 0;
-	
+        var $actualCount = 0;
 	var $allTags = array();
 	
 	
@@ -396,7 +396,7 @@ class ItemList {
 		//echo $sql;		
 		$iids = array();
 		$res = rss_query($sql);
-		$this -> rowCount = rss_num_rows($res);
+		$this -> rowCount = $this -> actualCount =  rss_num_rows($res);
 		$skipItems = 0;
 		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = rss_fetch_row($res)) {
 			
@@ -407,9 +407,10 @@ class ItemList {
 			
 			// If a filter was defined, test the item agains it
 			if ($this -> __callbackFn && function_exists($this -> __callbackFn)) {
-				$i= call_user_func($this -> __callbackFn, array($i), $this->__callbackParams);
+			    $i=  call_user_func($this -> __callbackFn, array($i), $this->__callbackParams);
 				if ($i == null) {
-					continue;
+				    $this -> actualCount--;
+				    continue;
 				}
 			}
 			
@@ -421,7 +422,8 @@ class ItemList {
 			}
 
 		    // no dupes, please
-		    if (in_array($iid_,$iids)) { 
+		    if (in_array($iid_,$iids)) {
+			$this -> rowCount--;
 			continue;                                                                                                                                                   
 		    }
 		    
@@ -446,7 +448,7 @@ class ItemList {
 			// If we are filtering we can't use the (faster) sql limit: we have to
 			// count items ourselves and break when we're done!
 			if ($this -> __callbackFn) {
-				if ($this -> itemCount >= $itemCount) {
+			    if ($this -> itemCount > $itemCount) {
 					break;
 				}
 			}
