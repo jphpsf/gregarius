@@ -1723,7 +1723,7 @@ function admin_menu() {
 		}
 		$lbl = $item[1];
 		$cls = ($item[0] == $active ? " class=\"active\"" : "");
-		echo "\t<li$cls><a href=\"$link\">".ucfirst($lbl)."</a></li>\n";
+		echo "\t<li$cls><a href=\"".getPath()."admin/$link\">".ucfirst($lbl)."</a></li>\n";
 	}
 	echo "\t<li><a href=\"".getPath()."?logout\">".LBL_ADMIN_LOGOUT."</a></li>\n";
 	echo "</ul>\n";
