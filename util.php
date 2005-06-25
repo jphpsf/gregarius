@@ -484,7 +484,12 @@ function add_channel($url, $folderid = 0) {
 			}
 		}
 
+		
 		if ($title != "") {
+			list($title,$urlDB,$siteurl,$folderid,$descr,$icon) =
+				rss_plugin_hook('rss.plugins.feed.new', 
+					array ($title,$urlDB,$siteurl,$folderid,$descr,$icon));
+				
 			$sql = "insert into ".getTable("channels")
 				." (title, url, siteurl, parent, descr, dateadded, icon, position)"
 				." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
