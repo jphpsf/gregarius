@@ -137,7 +137,7 @@ function markAllReadForm() {
 	}	
 	
    echo "<form action=\"". getPath() ."\" method=\"post\">"
-      ."<p><input type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>"
+      ."<p><input accesskey=\"m\" type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>"
       ."<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_READ\"/></p>"
       ."</form>\n";
 }
