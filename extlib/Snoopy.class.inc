@@ -651,7 +651,10 @@ class Snoopy
 		$headerfile = uniqid(time());
 		
 		# accept self-signed certs
-		$cmdline_params .= " -k";
+		
+		// mbi: removed, as it breaks on older cURL's
+		//$cmdline_params .= " -k";
+		
 		exec($this->curl_path." -D \"/tmp/$headerfile\"".$cmdline_params." ".$URI,$results,$return);
 		
 		if($return)
