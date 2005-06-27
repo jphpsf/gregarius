@@ -159,12 +159,15 @@ function admin_main($authorised) {
 function admin_menu() {
 	$active = array_key_exists(CST_ADMIN_VIEW, $_REQUEST) ? $_REQUEST[CST_ADMIN_VIEW] : null;
 
+	/*
 	$use_mod_rewrite = getConfig('rss.output.usemodrewrite');
 
 	if (function_exists("apache_get_modules")) {
 		$use_mod_rewrite = $use_mod_rewrite && in_array('mod_rewrite', apache_get_modules());
 	}
-
+	*/
+	$use_mod_rewrite = false;
+	
 	echo "\n<ul class=\"navlist\">\n";
 	foreach (array (
 	/* url/id -- internationalized label, defined in intl/* */
