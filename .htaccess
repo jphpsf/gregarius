@@ -21,6 +21,9 @@
   RewriteRule	^tag\/([a-zA-Z0-9_\.\+]+)$  	tags.php?tag=$1 [L]
   RewriteRule	^tag\/([a-zA-Z0-9_\.\+]+)\/rss\/?$  tags.php?tag=$1&rss [L]
   
+  #sticky view
+  RewriteRule	^sticky?\/?$			sticky.php [L]
+
   #item view
   RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)\/([0-9][0-9][0-9][0-9])\/([0-9][0-9]?)\/?([0-9]?[0-9])?\/?(.*)?$	feed.php?channel=$1&y=$2&m=$3&d=$4&iid=$5 [L]
