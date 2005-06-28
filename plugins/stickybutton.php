@@ -32,10 +32,10 @@
 /// Name: Sticky Button
 /// Author: Martey Dodoo
 /// Description: Adds an "Sticky" button to the navigation links.
-/// Version: 1.0
+/// Version: 1.1
 
 function __stickybutton_add(){
-	echo '<li><a accesskey="s" href="' . getPath() . 'sticky/">Sticky</a></li>';
+	echo '<li><a accesskey="t" href="' . getPath() . 'sticky/">Sticky</a></li>';
 }
 
 rss_set_hook("rss.plugins.navelements", "__stickybutton_add");
