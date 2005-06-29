@@ -67,7 +67,9 @@ if (
 		if (hidePrivate()) {
 			$sql .=" and !(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		}		 
-		 
+		// hide deprecated
+		$sql .= " and !(mode & " . FEED_MODE_DELETED_STATE . ") ";
+
 		 $res =  rss_query( $sql );
 		 //echo $sql;
 		if ( rss_num_rows ( $res ) == 1) {
