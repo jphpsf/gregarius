@@ -1,3 +1,9 @@
+
+# Disable MultiViews: we want the real thing
+# http://httpd.apache.org/docs-2.0/mod/mod_negotiation.html#multiviews
+
+Options -MultiViews
+
 <IfModule mod_rewrite.c>
   RewriteEngine on
   
@@ -22,7 +28,7 @@
   RewriteRule	^tag\/([a-zA-Z0-9_\.\+]+)\/rss\/?$  tags.php?tag=$1&rss [L]
   
   #sticky view
-  RewriteRule	^sticky?\/?$			sticky.php [L]
+  RewriteRule ^sticky?/?$ sticky.php [L]
 
   #item view
   RewriteCond  %{env:static} ^$
