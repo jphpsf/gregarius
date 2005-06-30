@@ -590,7 +590,9 @@ function makeNav($cid,$iid,$y,$m,$d) {
 	 		$currentView = 'day';
 	 	}
 	} elseif ($y > 0 && $m > 0 && $d == 0) {
-   	$currentView = 'month';
+   	    $currentView = 'month';
+	} elseif ($cid) {
+	   $currentView = "feed";
 	}
     
 	if ($currentView) {
@@ -797,10 +799,46 @@ function makeNav($cid,$iid,$y,$m,$d) {
 			
 				
 			break;
+			
+			case 'feed':
+				$sql = "select id, title from " . getTable('channels');
+				if (getConfig('rss.config.absoluteordering')) {
+					$sql .= " order by position asc";
+		 		} else {
+					$sql .=" order by title asc";
+		 		}
+				
+				$res  = rss_query($sql);
+				$pcid = $ptitile = null;
+				$cidname=array();
+				$cids=array();
+				while (list ($cid_,$title_)=rss_fetch_row($res)) {
+					$cids[]=$cid_;
+					$cidname[]=array($cid_,$title_);
+				}
+				$key = array_search($cid,$cids);
+				if ($key !== NULL && $key !== FALSE) {
+					
+					if ($key < count($cids)) {
+						list($cid_,$title_) = $cidname[$key+1];
+						$succ = array(
+						   'url' => getPath(). 
+							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/",
+							'lbl' => htmlentities( $title_,ENT_COMPAT,"UTF-8" )
+						);
+					}
+					if ($key > 0) {
+						list($cid_,$title_) = $cidname[$key-1];
+						$prev = array(
+						   'url' => getPath(). 
+							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/",
+							'lbl' => htmlentities( $title_,ENT_COMPAT,"UTF-8" )						);
+					}
+					
+				}
+			
+			break;
 		}
-
-		
-	
 		return array($prev,$succ, $up);
 	}
 	
