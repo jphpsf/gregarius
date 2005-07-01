@@ -152,6 +152,10 @@ if (
 		$iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
 		$fid= (array_key_exists('folder',$_REQUEST))?$_REQUEST['folder']:"";
 		
+		$y= (array_key_exists('y',$_REQUEST))?$_REQUEST['y']:"0";
+		$m= (array_key_exists('m',$_REQUEST))?$_REQUEST['m']:"0";
+		$d= (array_key_exists('d',$_REQUEST))?$_REQUEST['d']:"0";
+		
 		if ($fid) {		
 				$sql = "select c.id from ". getTable('channels')." c "
 					." where c.parent=$fid and c.parent > 0";
@@ -531,7 +535,6 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	 rss_plugin_hook('rss.plugins.items.afteritems', null);
     
 
-	
     if ($nv != null) {
 		list($prev,$succ,$up) = $nv;
 		$readMoreNav = "";
@@ -578,6 +581,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
  */
 function makeNav($cid,$iid,$y,$m,$d) {
 
+	//echo "$cid,$iid,$y,$m,$d";
 	$currentView = null;
 	$prev = $succ = $up = null;
 	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);	
@@ -758,7 +762,9 @@ function makeNav($cid,$iid,$y,$m,$d) {
 								  'cnt' => 0,
 								  'ts' => $pts_,
 								  'url' =>  makeArchiveUrl($pts_,$escaped_title,$cid,true)
-									. preg_replace("/[^A-Za-z0-9\.]/","_",$ptitle_),
+									. (getConfig('rss.output.usemodrewrite') ? 
+									preg_replace("/[^A-Za-z0-9\.]/","_",$ptitle_):
+									"&amp;iid=$piid_"),
 								  'lbl' => htmlentities( $ptitle_,ENT_COMPAT,"UTF-8" )
 							);
 						}
@@ -774,7 +780,9 @@ function makeNav($cid,$iid,$y,$m,$d) {
 								  'cnt' => 0,
 								  'ts' => $ts_,
 								  'url' =>  makeArchiveUrl($ts_,$escaped_title,$cid,true)
-								  	. preg_replace("/[^A-Za-z0-9\.]/","_",$title_),
+								  	. (getConfig('rss.output.usemodrewrite') ? 
+								  	preg_replace("/[^A-Za-z0-9\.]/","_",$title_) :
+								  	"&amp;iid=$iid_"),
 								  'lbl' => htmlentities($title_,ENT_COMPAT,"UTF-8")
 							);	
 							$stop = true;
@@ -801,13 +809,27 @@ function makeNav($cid,$iid,$y,$m,$d) {
 			break;
 			
 			case 'feed':
-				$sql = "select id, title from " . getTable('channels');
+			
+				$sql = "select "
+				  ." c.id, c.title "
+				  ." from " 
+				  .getTable("channels") ." c, " 
+				  . getTable("folders") ." d "
+				  ." where d.id = c.parent ";
+		
+						
+				if (hidePrivate()) {
+					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+				}
+				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+	 
 				if (getConfig('rss.config.absoluteordering')) {
-					$sql .= " order by position asc";
-		 		} else {
-					$sql .=" order by title asc";
-		 		}
-				
+					$sql .=" order by d.position asc, c.position asc";
+				} else {
+					$sql .=" order by c.parent asc, c.title asc";
+				}
+
+
 				$res  = rss_query($sql);
 				$pcid = $ptitile = null;
 				$cidname=array();
@@ -821,18 +843,23 @@ function makeNav($cid,$iid,$y,$m,$d) {
 					
 					if ($key < count($cids)) {
 						list($cid_,$title_) = $cidname[$key+1];
-						$succ = array(
+						$prev = array(
 						   'url' => getPath(). 
-							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/",
+						   ( getConfig('rss.output.usemodrewrite') ?
+							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/"
+							:"feed.php?channel=$cid_") ,
 							'lbl' => htmlentities( $title_,ENT_COMPAT,"UTF-8" )
 						);
 					}
 					if ($key > 0) {
 						list($cid_,$title_) = $cidname[$key-1];
-						$prev = array(
+						$succ = array(
 						   'url' => getPath(). 
-							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/",
-							'lbl' => htmlentities( $title_,ENT_COMPAT,"UTF-8" )						);
+						   ( getConfig('rss.output.usemodrewrite') ?
+							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/"
+							:"feed.php?channel=$cid_") ,
+							'lbl' => htmlentities( $title_,ENT_COMPAT,"UTF-8" )						
+						);
 					}
 					
 				}
