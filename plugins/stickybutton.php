@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -35,7 +32,13 @@
 /// Version: 1.1
 
 function __stickybutton_add(){
-	echo '<li><a accesskey="t" href="' . getPath() . 'sticky/">Sticky</a></li>';
+	if (getConfig('rss.output.usemodrewrite')) {
+		$url = getPath() . "sticky/";
+	} else {
+		$url = getPath() . "sticky.php";
+	}
+	
+	echo '<li><a accesskey="t" href="' . $url .'">Sticky</a></li>';
 }
 
 rss_set_hook("rss.plugins.navelements", "__stickybutton_add");
