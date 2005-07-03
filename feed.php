@@ -840,8 +840,8 @@ function makeNav($cid,$iid,$y,$m,$d) {
 				}
 				$key = array_search($cid,$cids);
 				if ($key !== NULL && $key !== FALSE) {
-					
-					if ($key < count($cids)) {
+					//echo "$key " .count($cidname);
+					if ($key+1 < count($cidname)) {
 						list($cid_,$title_) = $cidname[$key+1];
 						$prev = array(
 						   'url' => getPath(). 
