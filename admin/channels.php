@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -34,6 +31,10 @@
  * renders the subscribe feed form, and the currently subscribed
  * feeds table
  */
+
+define ('CST_ADMIN_MULTIEDIT','multiedit');
+
+
 function channels() {
 	echo "<h2>". LBL_ADMIN_CHANNELS ."</h2>\n";
 	echo "<div id=\"admin_channels\">\n";
@@ -59,8 +60,23 @@ function channels() {
 	echo "<p class=\"bookmarklet\">" . LBL_ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".LBL_ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
 
 	// feeds
+	
+	echo "<script type=\"text/javascript\">\n"
+	."//<!--\n"
+	."function cbtoggle() {\n"
+	."var c=document.getElementById('mastercb').checked;\n"
+	."var cs=document.getElementById('channeltable').getElementsByTagName('input');\n"
+	."for(i=0;i<cs.length;i++) {\n"
+	."if (cs[i].type == 'checkbox') cs[i].checked = c;\n"
+	."}\n"
+	."}\n"
+	."// -->\n"
+	."</script>\n";
+	
+	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 	echo "<table id=\"channeltable\">\n"
 	  ."<tr>\n"
+	  ."\t<th><input type=\"checkbox\" id=\"mastercb\" onclick=\"cbtoggle();\" /></th>\n"
 	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
 	  ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
 	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"	  
@@ -108,6 +124,7 @@ function channels() {
 	$slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
 	
 	echo "<tr class=\"$class_\">\n"
+	  ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" /></td>\n"
 	  ."\t<td>"
 	  .((getConfig('rss.output.showfavicons') && $icon != "")?
 		"<img src=\"$icon\" class=\"favicon\" alt=\"$title\" width=\"16\" height=\"16\" />":"")
@@ -129,8 +146,48 @@ function channels() {
 	  ."</tr>\n";
 	}
 
-	echo "</table>\n</div>\n\n\n";
+	echo "</table>\n";
+	
+	echo "<fieldset>\n"
+	."<legend>Selected...</legend>\n"
+	."<p>\n"
+	."<label for=\"me_folder\">".LBL_ADMIN_CHANNEL_FOLDER."</label>\n";
+	folder_combo('me_folder',null);
+	
+	echo
+	 "<input type=\"submit\" id=\"me_move_to_folder\" name=\"me_move_to_folder\" value=\"".LBL_ADMIN_CHANNELS_HEADING_MOVE."\" />\n"
+	 
+	."<span class=\"vr\">&nbsp;</span>"
+	
+	."<label for=\"me_state\">".LBL_ADMIN_TOGGLE_STATE."</label>\n"
+	."<input type=\"checkbox\" name=\"me_deprecated\" id=\"me_deprecated\" value=\"".FEED_MODE_DELETED_STATE."\" />\n"
+    ."<label for=\"me_deprecated\">".LBL_DEPRECATED."</label>\n"
 
+	."<input type=\"checkbox\" name=\"me_private\" id=\"me_private\" value=\"".FEED_MODE_PRIVATE_STATE."\" />\n"
+	."<label for=\"me_private\">".LBL_PRIVATE."</label>\n"
+	
+	."<input type=\"submit\" id=\"me_state\" name=\"me_state\" value=\"".LBL_ADMIN_TOGGLE_SET."\" />\n"
+	
+	."<span class=\"vr\">&nbsp;</span>"
+	
+	."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".LBL_ADMIN_DELETE2."\" />\n"
+	."<input type=\"checkbox\" name=\"me_do_delete\" id=\"me_do_delete\" value=\"1\" />\n"
+	."<label for=\"me_do_delete\">".LBL_ADMIN_IM_SURE."</label>\n"
+	
+	
+	."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
+	."<input type=\"hidden\" name=\"action\" value=\"" .CST_ADMIN_MULTIEDIT ."\" />\n"
+	."</p>\n"
+	."</fieldset>\n";
+	
+	
+	
+	echo "</form></div>\n\n\n";
+	/*
+	echo "<pre>\n";
+	var_dump($_REQUEST);
+	echo "</pre>\n";
+    */
 }
 
 /**
@@ -416,6 +473,67 @@ function channel_admin() {
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;
 
+
+	case CST_ADMIN_MULTIEDIT:
+		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
+		$ids = array();
+		foreach($_REQUEST as $key => $val) {
+    		if (preg_match('/^fcb([0-9]+)$/',$key,$match)) {
+        		if (($id = (int) $_REQUEST[$key]) > 0) {
+        			$ids[] = $id;
+        		}
+			}
+		}
+		
+		// no feed selected?
+		if (count($ids) == 0) {
+			break;
+		} else {
+			$sqlids=" (" .implode(',',$ids) .")";
+		}
+		
+		// MOVE TO FOLDER
+		if (array_key_exists('me_move_to_folder',$_REQUEST)) {
+			$fid=$_REQUEST['me_folder'];
+			$sql = "update " .getTable('channels') . " set parent=$fid where id in $sqlids";
+			rss_query($sql);
+			
+		/// STATE
+		} elseif (array_key_exists('me_state',$_REQUEST)) {
+			$deprecated = array_key_exists('me_deprecated',$_REQUEST)?$_REQUEST['me_deprecated']:false;
+			$private = array_key_exists('me_private',$_REQUEST)?$_REQUEST['me_private']:false;
+			
+			if ($private) {
+				rss_query ('update ' . getTable('channels') 
+					." set mode = mode | " . FEED_MODE_PRIVATE_STATE 
+					." where id in $sqlids");
+			} else {
+				rss_query ('update ' . getTable('channels') 
+					." set mode = mode & " . SET_MODE_PUBLIC_STATE 
+					." where id in $sqlids");
+			}
+			
+			if ($deprecated) {
+				rss_query ('update ' . getTable('channels') 
+					." set mode = mode | " . FEED_MODE_DELETED_STATE 
+					." where id in $sqlids");
+			} else {
+				rss_query ('update ' . getTable('channels') 
+					." set mode = mode & " . SET_MODE_AVAILABLE_STATE 
+					." where id in $sqlids");
+			}
+
+		// DELETE
+		} elseif (array_key_exists('me_delete',$_REQUEST)) {
+			if ( array_key_exists('me_do_delete',$_REQUEST) && $_REQUES['me_do_delete'] == "1") {
+				$sql = "delete from " .  getTable('channels')  ." where id in $sqlids";
+				rss_query($sql);
+			}
+		} 
+    
+    break;
+    
+    
 	 default: break;
 	}
 	return $ret__;

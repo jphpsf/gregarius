@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name:  $
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -53,7 +50,7 @@ define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments (<strong
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d non lus)</strong>');
 define ('LBL_UNREAD','non lus');
 
-define ('LBL_FTR_POWERED_BY', "est propuls&eacute; par ");
+define ('LBL_FTR_POWERED_BY', " est propuls&eacute; par ");
 define ('LBL_ALL','Tous');
 define ('LBL_NAV_HOME','Accueil');
 define ('LBL_NAV_UPDATE', 'Mise &agrave; jour');
@@ -215,5 +212,10 @@ define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Lus et non lus');
 define ('LBL_STATE_UNREAD','Non lu (Sp&eacute;cifie l\\\'&eacute;tat lu/non lu de cet &eacute;l&eacute;ment)');
 define ('LBL_STATE_STICKY','Persistant (L\\\'&eacute;l&eacute;ment ne sera pas effac&eacute;)');
 define ('LBL_STATE_PRIVATE','Priv&eacute; (Seuls les administrateurs peuvent voir les &eacute;l&eacute;ments priv&eacute;s)');
-
+define ('LBL_STICKY','Persistant');
+define ('LBL_DEPRECATED','D&eacute;sactiv&eacute;');
+define ('LBL_PRIVATE','Priv&eacute');
+define ('LBL_ADMIN_TOGGLE_STATE','Basculer &eacute;tat:');
+define ('LBL_ADMIN_TOGGLE_SET','Basculer');
+define ('LBL_ADMIN_IM_SURE','Je suis sur!');
 ?>

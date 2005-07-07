@@ -3,9 +3,6 @@
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
-############################################################################### 
-# File: $Id$ $Name:  $
-#
 ###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
@@ -53,7 +50,7 @@ define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> temas (<strong>%d</strong> sin 
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d sin leer)</strong>');
 define ('LBL_UNREAD','sin leer');
 
-define ('LBL_FTR_POWERED_BY', ", desarrollado por ");
+define ('LBL_FTR_POWERED_BY', " desarrollado por ");
 define ('LBL_ALL','Todos');
 define ('LBL_NAV_HOME','Inicio');
 define ('LBL_NAV_UPDATE', 'Actualizar');
@@ -221,4 +218,10 @@ define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Sin leer y leidos');
 define ('LBL_STATE_UNREAD','Sin leer (Cambia el estado de lectura)');
 define ('LBL_STATE_STICKY','Destacados (No ser&aacute;n eliminados por las tareas de limpieza)');
 define ('LBL_STATE_PRIVATE','Privados (Solo los administradores pueden ver estos temas)');
+define ('LBL_STICKY','Destacados');
+define ('LBL_DEPRECATED','No aprovado');
+define ('LBL_PRIVATE','Privados');
+define ('LBL_ADMIN_TOGGLE_STATE','Estado:');
+define ('LBL_ADMIN_TOGGLE_SET','Cambia');
+define ('LBL_ADMIN_IM_SURE','Soy seguro!');
 ?>

@@ -3,9 +3,6 @@
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
-############################################################################### 
-# File: $Id: en.php 518 2005-06-15 18:42:07Z tsugliani $ $Name:  $
-#
 ###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
@@ -53,11 +50,11 @@ define ('LBL_H2_UNREAD_ITEMS',"%d elementi non letti");
 define ('LBL_H2_RECENT_ITEMS', "Elementi recenti");
 define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d elementi, %d non letti');
-define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> elemenit (<strong>%d</strong> non letti) in <strong>%d</strong> feed');
+define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> elementi (<strong>%d</strong> non letti) in <strong>%d</strong> feed');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d non letti)</strong>');
 define ('LBL_UNREAD','non letti');
 
-define ('LBL_FTR_POWERED_BY', ", powered by ");
+define ('LBL_FTR_POWERED_BY', " powered by ");
 define ('LBL_ALL','Tutti');
 define ('LBL_NAV_HOME','Home');
 define ('LBL_NAV_UPDATE', 'Aggiorna');
@@ -221,4 +218,10 @@ define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Letti e non letti');
 define ('LBL_STATE_UNREAD','Non letto (Definisce lo stato letto/non letto di questo elemento)');
 define ('LBL_STATE_STICKY','Sticky (Non sar&agrave; eliminato quando eliminerai degli elementi)');
 define ('LBL_STATE_PRIVATE','Privato (Unicamente gli amministratori vedono degli elementi privati)');
+define ('LBL_STICKY','Sticky');
+define ('LBL_DEPRECATED','In disuso');
+define ('LBL_PRIVATE','Privato');
+define ('LBL_ADMIN_TOGGLE_STATE','Stato:');
+define ('LBL_ADMIN_TOGGLE_SET','Cambia');
+define ('LBL_ADMIN_IM_SURE','Sono sicuro!');
 ?>

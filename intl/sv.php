@@ -3,9 +3,6 @@
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
-############################################################################### 
-# File: $Id$ $Name:  $
-#
 ###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
@@ -54,7 +51,7 @@ define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> inl&auml;gg (<strong>%d</strong
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d ol&auml;sta)</strong>');
 define ('LBL_UNREAD','ol&auml;sta');
 
-define ('LBL_FTR_POWERED_BY', ", drivs med hj&auml;lp av ");
+define ('LBL_FTR_POWERED_BY', " drivs med hj&auml;lp av ");
 define ('LBL_ALL','Alla');
 define ('LBL_NAV_HOME','Hem');
 define ('LBL_NAV_UPDATE', 'Uppdatera');
@@ -226,4 +223,11 @@ define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','L&auml;sta och ol&auml;sta');
 define ('LBL_STATE_UNREAD','Ol&auml;st (Markera inl&auml;gget som l&auml;st/ol&auml;st)');
 define ('LBL_STATE_STICKY','Sticky (Spara inl&auml;gget n&auml;r du st&auml;dar bland inl&auml;ggen)');
 define ('LBL_STATE_PRIVATE','Privat (Visa endast f&ouml;r admin)');
+define ('LBL_STICKY','Sticky');
+define ('LBL_DEPRECATED','Ur bruk');
+define ('LBL_PRIVATE','Privat');
+
+define ('LBL_ADMIN_TOGGLE_STATE','Toggle State:');
+define ('LBL_ADMIN_TOGGLE_SET','Markera');
+define ('LBL_ADMIN_IM_SURE','S&auml;ker!');
 ?>
