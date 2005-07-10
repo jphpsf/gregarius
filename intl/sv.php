@@ -53,11 +53,11 @@ define ('LBL_UNREAD','ol&auml;sta');
 
 define ('LBL_FTR_POWERED_BY', " drivs med hj&auml;lp av ");
 define ('LBL_ALL','Alla');
-define ('LBL_NAV_HOME','Hem');
-define ('LBL_NAV_UPDATE', 'Uppdatera');
-define ('LBL_NAV_CHANNEL_ADMIN', 'Admin');
-define ('LBL_NAV_SEARCH', "S&ouml;k");
-define ('LBL_NAV_DEVLOG', "Devlog");
+define ('LBL_NAV_HOME','<span>H</span>em');
+define ('LBL_NAV_UPDATE', '<span>U</span>ppdatera');
+define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>min');
+define ('LBL_NAV_SEARCH', "<span>S</span>&ouml;k");
+define ('LBL_NAV_DEVLOG', "Dev<span>l</span>og");
 define ('LBL_SEARCH_GO', 'S&ouml;k');
 
 define ('LBL_POSTED', 'Postad: ');

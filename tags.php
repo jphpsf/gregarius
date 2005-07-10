@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -39,10 +36,6 @@ define ('MAX_TAGS_PER_ITEM',5);
 // characters, plus a whitespace
 define ('ALLOWED_TAGS_REGEXP', '/[^a-zA-Z0-9\ _\.]/');
 
-// these are the fontsizes on the weighted list at /tag/
-define ('SMALLEST',9);
-define ('LARGEST',45);
-define ('UNIT','px');
 
 
 function relatedTags($tags) {
@@ -174,83 +167,54 @@ if(array_key_exists('tag',$_GET)) {
 		exit();
 	} else {
 		// HTML view
-		rss_header("Tags " . TITLE_SEP . " " . $hrTag);
-		sideChannels(false);
-		
-		echo "\n\n<div id=\"items\" class=\"frame\">\n";
+		//rss_header("Tags " . TITLE_SEP . " " . $hrTag);
+		//sideChannels(false);
+		$GLOBALS['rss'] -> header = new Header("Tags " . TITLE_SEP . " " . $hrTag);
+		$GLOBALS['rss'] -> feedList = new FeedList(false);
+	
+		//echo "\n\n<div id=\"items\" class=\"frame\">\n";
 		
 		if ($gotsome) {
 		
-			echo "<h2>" . $taggedItems->itemCount . " " . ($taggedItems->itemCount > 1 ? LBL_ITEMS:LBL_ITEM)
+			$title =  $taggedItems->itemCount . " " . ($taggedItems->itemCount > 1 ? LBL_ITEMS:LBL_ITEM)
 			  ." "
 			  . ($taggedItems->itemCount > 1 || $taggedItems->itemCount == 0? LBL_TAG_TAGGEDP:LBL_TAG_TAGGED) .""
-			  . " \"" . $hrTag . "\"</h2>\n";
+			  . " \"" . $hrTag ."\"";
 			
+			  
 			if (count($related)) {
-				 echo "\n<p>" . LBL_TAG_RELATED ."\n". implode(", \n", $related) ."\n</p>\n";
+				$taggedItems -> beforeList = "\n<p>" . LBL_TAG_RELATED ."\n". implode(", \n", $related) ."\n</p>\n";
 			}
-			$taggedItems->render("",IL_NO_COLLAPSE );
+			
+			$taggedItems -> setTitle($title);
+			$taggedItems -> setRenderOptions(IL_NO_COLLAPSE );
+			$GLOBALS['rss'] -> appendContentObject($taggedItems);
+	 
+			$GLOBALS['rss'] -> renderWithTemplate('index.php','items');
+		
+			
 		} else {
 			echo "<p style=\"height: 10em; text-align:center\">";
 			printf(LBL_TAG_ERROR_NO_TAG,$hrTag);
 			echo "</p>";
 		}
-		echo "</div>\n";
-		rss_footer();
+		//echo "</div>\n";
+		//rss_footer();
 	}
 
 } elseif(array_key_exists('alltags',$_GET)) {
 
-    // the all tags weighted list
-    $sql = "select tag,count(*) as cnt from "
-      . getTable('metatag') . " left join " .getTable('item'). " i on (fid=i.id),"
-      . getTable('tag') ." t "
-      ." where tid=t.id ";
-      
-      if (hidePrivate()) {
-			$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
-		}
-		
-      $sql .= "group by tid order by 1";
-
-    $res = rss_query($sql);
-    $tags = array();
-    $max = 0;
-    $min = 100000;
-    $cntr=0;
-    while(list($tag,$cnt) = rss_fetch_row($res)) {
-	$tags[$tag] = $cnt;
-	$cntr++;
-    }
-
+    
     // Credits: Matt, http://www.hitormiss.org/about/
     // http://dev.wp-plugins.org/file/weighted-category-list/weighted_categories.php?format=txt
-    if (count($tags)) {
-		$spread = max($tags) - min($tags);
-		if ($spread <= 0) { $spread = 1; };
-		$fontspread = LARGEST - SMALLEST;
-		$fontstep = $spread / $fontspread;
-		if ($fontspread <= 0) { $fontspread = 1; }
-		$ret = "";
-		foreach ($tags as $tag => $cnt) {
-		$taglink = getPath() .
-		  (getConfig('rss.output.usemodrewrite')?"tag/$tag":"tags.php?tag=$tag");
-		$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
-		  .($cnt > 1 || $cnt == 0 ? LBL_ITEMS:LBL_ITEM)."\" style=\"font-size: ".
-		  (SMALLEST + ($cnt/$fontstep)). UNIT.";\">$tag</a> \n";
-		}
-    } else {
-    	$ret ="";
-    }
 
-    // done! Render some stuff
-    rss_header("Tags " . TITLE_SEP . " " . LBL_TAG_ALL_TAGS);
-    sideChannels(false);
-    echo "\n\n<div id=\"items\" class=\"frame\">\n"
-      //."<h2>$cntr " . LBL_TAG_TAGS . "</h2>\n"
-      ."<div id=\"alltags\" class=\"frame\">$ret</div>\n"
-      ."\n\n</div>\n";
-    rss_footer();
+	rss_require('cls/alltags.php');
+	
+	$GLOBALS['rss'] -> header = new Header("Tags " . TITLE_SEP . " " . LBL_TAG_ALL_TAGS);
+	$GLOBALS['rss'] -> feedList = new FeedList(false);
+	$allTags = new Tags();
+	$GLOBALS['rss'] -> appendContentObject($allTags);
+	$GLOBALS['rss'] -> renderWithTemplate('index.php','items');
 }
 
 ?>

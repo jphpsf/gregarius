@@ -51,11 +51,11 @@ define ('LBL_UNREAD','unread');
 
 define ('LBL_FTR_POWERED_BY', " powered by ");
 define ('LBL_ALL','All');
-define ('LBL_NAV_HOME','Home');
-define ('LBL_NAV_UPDATE', 'Refresh');
-define ('LBL_NAV_CHANNEL_ADMIN', 'Admin');
-define ('LBL_NAV_SEARCH', "Search");
-define ('LBL_NAV_DEVLOG', "Devlog");
+define ('LBL_NAV_HOME','<span>H</span>ome');
+define ('LBL_NAV_UPDATE', '<span>R</span>efresh');
+define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>min');
+define ('LBL_NAV_SEARCH', "<span>S</span>earch");
+define ('LBL_NAV_DEVLOG', "Dev<span>l</span>og");
 define ('LBL_SEARCH_GO', 'Search');
 
 define ('LBL_POSTED', 'Posted: ');

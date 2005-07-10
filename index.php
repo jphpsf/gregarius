@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -68,42 +65,49 @@ if (array_key_exists('logout',$_GET)) {
 	logoutPrivateCookie();
 }
 
-$title = "";
 
-rss_header($title,LOCATION_HOME,array('cid'=>null,'fid'=>null));
-
-sideChannels(false);
-echo "\n\n<div id=\"items\" class=\"frame\">";
 $cntUnread = unreadItems($show_what);
-
 if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
-   readItems();
+		readItems();
 } 
 
 
-echo "</div>\n";    
-rss_footer();
+$GLOBALS['rss'] -> header = new Header("",LOCATION_HOME,array('cid'=>null,'fid'=>null));
+$GLOBALS['rss'] -> feedList = new FeedList(false);
+$GLOBALS['rss'] -> renderWithTemplate('index.php');
 
+
+
+function unreadCallback($show_what) {
+    showViewForm($show_what);
+	markAllReadForm();
+}
 
 function unreadItems($show_what) {
 
+    _pf('populate unread items');
 	$unreadItems = new ItemList();
 	$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE);
+    _pf('end populate unread items');
 	if ($unreadItems ->unreadCount) {
-		echo "\n<div id=\"feedaction\">\n";
-	   showViewForm($show_what);
-		markAllReadForm();
-		echo "</div>\n";
+		$unreadItems -> preRender[] = array("unreadCallback",$show_what);
 	}
+	
+	$ret = $unreadItems -> unreadCount;
 
-	 $ret = $unreadItems -> unreadCount;
-	 $unreadItems -> render(sprintf(LBL_H2_UNREAD_ITEMS , $ret),  IL_TITLE_NO_ESCAPE);
-	 rss_plugin_hook('rss.plugins.items.afteritems', null);
+	 
+	 $unreadItems -> setTitle(sprintf(LBL_H2_UNREAD_ITEMS , $ret));
+	 $unreadItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
+	 $GLOBALS['rss'] -> appendContentObject($unreadItems);	
+     _pf('appended unread items');
 	 
     return $ret;
 }
 
 function readItems() {
+    
+    _pf('read items');
+    
 	$sql = "select "
       ." c.id"
       ." from " 
@@ -124,16 +128,20 @@ function readItems() {
 
 
 	$readItems = new ItemList();
-   while (list($cid) = rss_fetch_row($res1)) {
-	 	 $readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
-   }
-	$readItems ->render(LBL_H2_RECENT_ITEMS,IL_TITLE_NO_ESCAPE);
+	while (list($cid) = rss_fetch_row($res1)) {
+		$readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
+	}
+	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
+	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 	
+	$GLOBALS['rss'] -> appendContentObject($readItems);	
+	_pf('end read items');
+
 }
 
 function markAllReadForm() {
 	if (!defined('MARK_READ_ALL_FORM')) {
-		define ('MARK_READ_ALL_FORM',null);
+		define ('MARK_READ_ALL_FORM',true);
 	}	
 	
    echo "<form action=\"". getPath() ."\" method=\"post\">"

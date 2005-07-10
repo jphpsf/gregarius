@@ -32,13 +32,15 @@
 /// Version: 1.1
 
 function __stickybutton_add(){
-	if (getConfig('rss.output.usemodrewrite')) {
-		$url = getPath() . "sticky/";
-	} else {
-		$url = getPath() . "sticky.php";
-	}
-	
-	echo '<li><a accesskey="t" href="' . $url .'">Sticky</a></li>';
+
+    if (getConfig('rss.output.usemodrewrite')) {
+	$url = getPath() . "sticky/";
+    } else {
+	$url = getPath() . "sticky.php";
+    }
+    
+    
+    $GLOBALS['rss']->nav->appendNavItem($url,'Stick<span>y</span>');
 }
 
 rss_set_hook("rss.plugins.navelements", "__stickybutton_add");

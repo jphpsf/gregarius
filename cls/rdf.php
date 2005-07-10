@@ -1,11 +1,7 @@
 <?php
-
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
-#
-###############################################################################
-# File: $Id: tags.php 560 2005-06-22 19:09:04Z mbonetti $ $Name$
 #
 ###############################################################################
 # This program is free software and open source software; you can redistribute
@@ -64,16 +60,15 @@ class RDFItemList  {
 		if ($this -> items) {
 			foreach ($this -> items -> feeds as $feed) {
 					foreach($feed->items as $item) {
-						$tags = $feed -> tags[$item -> id];
 						$xmlTitle = htmlentities($item->title, ENT_QUOTES, 'UTF-8');
 						echo "<item rdf:about=\"".$item->url."\">\n"."\t<title>$xmlTitle</title>\n"."\t<link>".$item->url."</link>\n"
 						// http://www.jschreiber.com/archives/2004/03/php_and_timesta_1.html
 						."\t<dc:date>".rss_date('Y-m-d\TH:i:sO', $item->date)."</dc:date>\n"
 						."\t<dc:subject>$xmlTitle</dc:subject>\n";
 				
-						if (count($tags)) {
+						if (count($item -> tags)) {
 							echo "\t<taxo:topics>\n"."\t\t<rdf:Bag>\n";
-							foreach ($tags as $tag) {
+							foreach ($item -> tags as $tag) {
 								echo "\t\t\t<rdf:li rdf:resource=\"".$this->baselink.$tag."\" />\n";
 							}
 							echo "\t\t</rdf:Bag>\n".

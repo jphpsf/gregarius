@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -75,11 +72,10 @@ if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
 if ($auth) {
 	setAdminCookie();
 }
-
-rss_header(LBL_TITLE_ADMIN,LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
-
+admin_header();
 admin_main($auth);
-rss_footer();
+admin_footer();
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -331,4 +327,30 @@ function setAdminCookie() {
 	setcookie(PRIVATE_COOKIE, getPrivateCookieVal(), time()+COOKIE_LIFESPAN, getPath());
 }
 
+
+function admin_header() {
+
+	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+	echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n";
+	echo "<head>";
+	
+	$header = new Header(LBL_TITLE_ADMIN, LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
+	$header -> render();
+
+	echo "</head>";
+	echo "<body>\n";
+	
+	echo ""
+    ."<div id=\"nav\" class=\"frame\">"
+    ."<h1 id=\"top\">" .rss_main_title() ."</h1>";    
+	$nav = new Navigation();
+	$nav->render();
+	echo "</div>";
+}
+
+function admin_footer() {
+	echo "<div id=\"footer\" class=\"frame\">\n";
+	rss_main_footer();
+	echo "</div>\n\n</body>\n</html>\n";
+}
 ?>

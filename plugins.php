@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -65,7 +62,9 @@ function rss_plugin_hook($hook, $data) {
 	if (array_key_exists($hook, $hooks)) {
 		  foreach($hooks[$hook] as $fnct) {
 				if (function_exists($fnct)) {
+				     _pf("calling plugin func for $hook ...");
 					 $data = call_user_func($fnct,$data);
+					 _pf("done");
 				}
 		  }
 	 }

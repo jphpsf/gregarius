@@ -1,10 +1,8 @@
 <?php
+
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
-#
-###############################################################################
-# File: $Id$ $Name$
 #
 ###############################################################################
 # This program is free software and open source software; you can redistribute
@@ -28,128 +26,7 @@
 #
 ###############################################################################
 
-function rss_header($title = "", $active = 0, $cidfid = null, $onLoadAction = "", $options = HDR_NONE, $links = NULL) {
-	if (!($options & HDR_NO_CACHECONTROL) && getConfig('rss.output.cachecontrol')) {
-		$etag = getETag();
-		$hdrs = getallheaders();
-		if (array_key_exists('If-None-Match', $hdrs) && $hdrs['If-None-Match'] == $etag) {
-			header("HTTP/1.1 304 Not Modified");
-			flush();
-			exit ();
-		} else {
-			header('Last-Modified: '.gmstrftime("%a, %d %b %Y %T %Z", getLastModif()));
-			header("ETag: $etag");
-		}
-	}
 
-	if (!($options & HDR_NO_OUPUTBUFFERING)) {
-		if (getConfig('rss.output.compression')) {
-			ob_start('ob_gzhandler');
-		} else {
-			ob_start();
-		}
-		// force a content-type and a charset
-		header('Content-Type: text/html; charset='
-			. (getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING));
-
-	}
-
-	$docTitle = "";
-	if (getConfig("rss.output.titleunreadcnt") && is_array($cidfid) && ($uc = getUnreadCount($cidfid['cid'], $cidfid['fid']))) {
-		$docTitle .= " ($uc ".LBL_UNREAD.")";
-	}
-
-	rss_plugin_hook('rss.plugins.bodystart', null);
-	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
-		."\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
-		."<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n"."<head>\n"
-		."\t<meta http-equiv=\"Content-Type\" content=\"text/html; "
-		."charset=". (getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING).""."\" />\n"
-		."\t<title>".makeTitle($title).$docTitle."</title>\n";
-
-	if (getConfig('rss.config.robotsmeta')) {
-		$meta = 	((array_key_exists('expand', $_REQUEST) || 
-					array_key_exists('collapse', $_REQUEST) || 
-					array_key_exists('fcollapse', $_REQUEST) || 
-					array_key_exists('fexpand', $_REQUEST) || 
-					array_key_exists('dbg', $_REQUEST)) ? 'noindex,follow' : getConfig('rss.config.robotsmeta'));
-		echo "\t<meta name=\"robots\" content=\"$meta\" />\n";
-	}
-
-	echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"".getThemePath()."layout.css\" />\n"
-	."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"".getThemePath()."look.css\" />\n"
-	."\t<link rel=\"stylesheet\" type=\"text/css\" href=\"".getPath()."css/print.css\" media=\"print\" />\n";
-
-	rss_plugin_hook('rss.plugins.stylesheets', null);
-
-	if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (40 * MINUTE)) {
-
-		$redirect = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
-
-		if (substr($redirect, -1) != "/") {
-			$redirect .= "/";
-		}
-
-		$redirect .= "update.php";
-
-		echo "\t<meta http-equiv=\"refresh\" "
-		." content=\"".MINUTE * getConfig('rss.config.refreshafter').";url=$redirect\" />\n";
-	}
-
-	echo "\t<link rel=\"start\" title=\"Home\" href=\"".getPath()."\" />\n";
-	echo "\t<link rel=\"search\" title=\"Search\" href=\"".getPath()."search.php\" />\n";
-	echo "\t<link rel=\"tags\" title=\"Tags\" href=\"".getPath(). (getConfig('rss.output.usemodrewrite') ? "tag/" : "tags.php?alltags")."\" />\n";
-
-	if ($links != NULL) {
-		foreach ($links as $rel => $link) {
-			echo "\t<link rel=\"$rel\" ";
-			foreach ($link as $attr => $val) {
-				echo "$attr=\"".$val."\" ";
-			}
-			echo "/>\n";
-		}
-	}
-
-	echo "\t<script type=\"text/javascript\" src=\"".getPath()."ajax.php?js\"></script>\n";
-	if (getConfig('rss.output.channelcollapse')) {
-		echo "\t<script type=\"text/javascript\" src=\"".getPath()."extlib/fcollapse.js\"></script>\n";
-	}
-
-	rss_plugin_hook('rss.plugins.javascript', null);
-
-	echo "</head>\n"."<body";
-	if ($onLoadAction != "") {
-		echo " onload=\"$onLoadAction\"";
-	}
-	echo ">\n";
-	nav($title, $active);
-}
-
-
-function rss_footer() {
-
-	echo "\n</div>\n";
-
-	echo "\n<div id=\"footer\" class=\"frame\">\n";
-	echo "<span>\n\t<a href=\"#top\">TOP</a>\n</span>\n";
-
-	echo "<span>\n\t<a href=\"http://devlog.gregarius.net/\">Gregarius</a> "._VERSION_. '<!-- $Revision$ -->'
-		.LBL_FTR_POWERED_BY."<a href=\"http://php.net\">PHP</a>, \n"
-		."\t<a href=\"http://magpierss.sourceforge.net/\">MagpieRSS</a>, \n"
-		."\t<a href=\"http://sourceforge.net/projects/kses\">kses</a>"."</span>\n";
-	echo "<span>\n\tTentatively valid <a title=\"Tentatively valid XHTML: the layout"
-	." validates, but the actual content coming from the feeds I can't do very much.\" "
-	." href=\"http://validator.w3.org/check/referer\">XHTML1.0</a>, \n"
-	."\t<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">CSS2.0</a>\n</span>\n";
-
-	$ts = getLastModif();
-	echo "<span>\n\tLast update: ". ($ts ? rss_date(getConfig('rss.config.dateformat'), $ts) : "never")."\n</span>\n";
-
-	echo "</div>\n\n";
-
-	rss_plugin_hook('rss.plugins.bodyend', null);
-	echo "</body>\n"."</html>\n";
-}
 
 function getLastModif() {
 	static $ret;
@@ -164,23 +41,6 @@ function getETag() {
 	return md5(getLastModif().$_SERVER['PHP_SELF']);
 }
 
-function nav($title, $active = 0) {
-	echo "<div id=\"nav\" class=\"frame\">"."\n<a class=\"hidden\" href=\"#feedcontent\">skip to content</a>\n"
-		."\n<h1 id=\"top\">".makeTitle($title)."</h1>\n"
-		."<ul class=\"navlist\">\n"
-		."\t<li". ($active == LOCATION_HOME ? " class=\"active\"" : "")."><a accesskey=\"h\" href=\"".getPath()."\">".LBL_NAV_HOME."</a></li>\n"
-		."\t<li". ($active == LOCATION_UPDATE ? " class=\"active\"" : "")."><a accesskey=\"u\" href=\"".getPath()."update.php\">".LBL_NAV_UPDATE."</a></li>\n"
-		."\t<li". ($active == LOCATION_SEARCH ? " class=\"active\"" : "")."><a accesskey=\"s\" href=\"".getPath()."search.php\">".LBL_NAV_SEARCH."</a></li>\n"
-		."\t<li". ($active == LOCATION_ADMIN ? " class=\"active\"" : "")."><a accesskey=\"d\" href=\"".getPath()."admin/\">".LBL_NAV_CHANNEL_ADMIN."</a></li>\n";
-
-	if (getConfig('rss.config.showdevloglink')) {
-		echo "\t<li><a accesskey=\"l\" href=\"http://devlog.gregarius.net/\">".LBL_NAV_DEVLOG."</a></li>\n";
-	}
-	rss_plugin_hook('rss.plugins.navelements', null);
-	echo "</ul>\n</div>\n";
-
-	echo "<div id=\"ctnr\">\n";
-}
 
 function rss_error($message, $returnonly = false) {
 	if (!$returnonly) {
@@ -671,34 +531,6 @@ function rss_htmlspecialchars($in) {
 	(getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING));
 }
 
-//// profiling ////
-$__init_timer = getmicrotime();
-$__prev_timer = 0;
-function getmicrotime() {
-	list ($usec, $sec) = explode(" ", microtime());
-	return ((float) $usec + (float) $sec);
-}
-
-function timer() {
-	global $__init_timer, $__prev_timer;
-	$current_timer = getmicrotime();
-	$ret = " t= "
-		. (1000 * ($current_timer - $__init_timer))
-		." ms, delta= "
-		. (1000 * ($current_timer - $__prev_timer))."ms ";
-	$__prev_timer = $current_timer;
-	return $ret;
-}
-
-function _pf($comment, $commentOnly = false) {
-	echo "\n\n\n<!-- ".$comment;
-	if (!$commentOnly)
-		echo timer();
-	echo "   -->\n\n\n";
-}
-
-//////////////////////////////////////////////////////////
-
 function showViewForm($curValue) {
 
 	//default: read and unread!
@@ -786,5 +618,11 @@ function rss_date($fmt, $ts, $addTZOffset = true) {
 	}
 	return date($fmt, $ts);
 
+}
+
+function _pf($msg) {
+    if (defined('PROFILING') && PROFILING) {
+        $GLOBALS['rss'] -> _pf($msg);
+    }
 }
 ?>

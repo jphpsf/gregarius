@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -416,8 +413,8 @@ if ($iid == "") {
 			}
 		}
 	}
-   rss_header( rss_htmlspecialchars( $title ) . $dtitle,0,$cidfid,"", HDR_NONE, $links);
-   
+   //rss_header( rss_htmlspecialchars( $title ) . $dtitle,0,$cidfid,"", HDR_NONE, $links);
+   $GLOBALS['rss'] -> header = new Header( rss_htmlspecialchars( $title ) . $dtitle,0,$cidfid,"", HDR_NONE, $links);
 } else {
     // "item mode"
     $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, " 
@@ -426,8 +423,8 @@ if ($iid == "") {
              );
              
     list($title,$icon,$ititle) = rss_fetch_row($res);
-
-    rss_header(  
+	
+    $GLOBALS['rss'] -> header = new Header(
 		 rss_htmlspecialchars($title) 
 		 . " " . TITLE_SEP ." " 
 		 .  rss_htmlspecialchars($ititle),
@@ -435,7 +432,9 @@ if ($iid == "") {
 		 );
 }
 
-sideChannels($cid); 
+
+$GLOBALS['rss'] -> feedList = new FeedList($cid);
+
 if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
     debugFeed($cid);
 } else {
@@ -444,8 +443,8 @@ if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
    	}
 	doItems($cids,$fid,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
 }
-rss_footer();
 
+$GLOBALS['rss'] -> renderWithTemplate('index.php','items');
 
 function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
@@ -478,10 +477,8 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		 	}
 		}
 	}
-
 	
-   echo "\n\n<div id=\"items\" class=\"frame\">";    
-	$items = new ItemList();
+   $items = new ItemList();
 
 	
 
@@ -515,52 +512,51 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	}
 
 	
-	$severalFeeds = ($fid != null);
+   $severalFeeds = ($fid != null);
    if ($items -> unreadCount && $iid == "") {
-		 echo "\n<div id=\"feedaction\" class=\"withmargin\">";
-
-    	 showViewForm($show_what);
-    	 
+    	 $items -> preRender[] = array("showViewForm",$show_what);
+		 
     	 if (!$severalFeeds) {
-		 	markReadForm($cid);
+			$items -> preRender[] = array("markReadForm",$cid);
 		 } else {
 		 	list($fid) = rss_fetch_row(rss_query('select parent from ' .getTable('channels') . 'where id = ' .$cids[0]));
-		 	markFolderReadForm($fid);
+			$items -> preRender[] = array("markFolderReadForm",$fid);
 		 }
-		 
-		 echo "\n</div>\n";
 	 }
 	 
-	 $items -> render($title, ($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
-	 rss_plugin_hook('rss.plugins.items.afteritems', null);
-    
+	 
+	
+	 $items -> setTitle($title);
+	 $items -> setRenderOptions(($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
+	 
 
     if ($nv != null) {
 		list($prev,$succ,$up) = $nv;
+		
 		$readMoreNav = "";
 		if($prev != null) {
 			$lbl = $prev['lbl'];
 			if (strlen($lbl) > 40) {
 				$lbl = substr($lbl,0,37) . "...";
 			}
-			//$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
 			$readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".LBL_NAV_PREV_PREFIX ."$lbl</a>\n";
 		}
+		
 		if($succ != null) {
 			$lbl = $succ['lbl'];
 			if (strlen($lbl) > 40) {
 				$lbl = substr($lbl,0,37) . "...";
 			}
-			//$lbl = htmlentities($lbl,ENT_COMPAT,"UTF-8");
 			$readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">$lbl".LBL_NAV_SUCC_POSTFIX."</a>\n";
 		}
 		
 		if ($readMoreNav != "") {
-			 echo "<div class=\"readmore\">$readMoreNav";
-			 echo "<hr class=\"clearer hidden\"/>\n</div>\n";
-		}
-   }        
-   echo "</div>\n";
+			 $items->afterList = "<div class=\"readmore\">$readMoreNav" 
+				. "<hr class=\"clearer hidden\"/>\n</div>\n";
+		}	
+	}   
+	$GLOBALS['rss'] -> appendContentObject(&$items);     
+  
 }
 
 /**

@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -264,11 +261,11 @@ function config_admin() {
          break;
          
          case 'rss.output.theme':
-            $d = dir('../css');
+            $d = dir('../themes');
             $themes = array();
             while (false !== ($entry = $d->read())) {
                if (
-                is_dir('../css/'.$entry) &&
+                is_dir('../themes/'.$entry) &&
                 $entry != "CVS" &&
                 $entry != "media" &&
                 substr($entry,0,1) != "."

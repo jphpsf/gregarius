@@ -52,11 +52,11 @@ define ('LBL_UNREAD','sin leer');
 
 define ('LBL_FTR_POWERED_BY', " desarrollado por ");
 define ('LBL_ALL','Todos');
-define ('LBL_NAV_HOME','Inicio');
-define ('LBL_NAV_UPDATE', 'Actualizar');
-define ('LBL_NAV_CHANNEL_ADMIN', 'Administrar');
-define ('LBL_NAV_SEARCH', "Buscador");
-define ('LBL_NAV_DEVLOG', "Blog desarrollo");
+define ('LBL_NAV_HOME','<span>I</span>nicio');
+define ('LBL_NAV_UPDATE', '<span>A</span>ctualizar');
+define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>ministrar');
+define ('LBL_NAV_SEARCH', "Bu<span>s</span>cador");
+define ('LBL_NAV_DEVLOG', "Blog desarro<span>l</span>lo");
 define ('LBL_SEARCH_GO', 'Buscar');
 
 define ('LBL_POSTED', 'Archivado: ');

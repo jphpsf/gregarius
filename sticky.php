@@ -4,9 +4,6 @@
 # Copyright (C) 2003 - 2005 Marco Bonetti
 #
 ###############################################################################
-# File: $Id$ $Name$
-#
-###############################################################################
 # This program is free software and open source software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the License,
@@ -31,13 +28,16 @@
 
 require_once('init.php');
 
-rss_header("Sticky Items"); // localize this?
-sideChannels(false);
-echo "\n\n<div id=\"items\" class=\"frame\">\n";
 $stickyItems = new ItemList();
-$stickyItems -> populate("i.unread & " . FEED_MODE_STICKY_STATE);
-$stickyItems -> render("Sticky Items");
-echo "\n\n</div>\n";
-rss_footer();
+$stickyItems -> setRenderOptions(IL_NO_COLLAPSE);
+$stickyItems -> populate(
+		"i.unread & " . FEED_MODE_STICKY_STATE,
+		$stickyItems -> ORDER_BY_UNREAD_FIRST
+	);
+
+$GLOBALS['rss'] -> header = new Header("Sticky Items");
+$GLOBALS['rss'] -> feedList = new FeedList(false);
+$GLOBALS['rss'] -> appendContentObject($stickyItems);
+$GLOBALS['rss'] -> renderWithTemplate('index.php');
 
 ?>
