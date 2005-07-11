@@ -555,7 +555,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 				. "<hr class=\"clearer hidden\"/>\n</div>\n";
 		}	
 	}   
-	$GLOBALS['rss'] -> appendContentObject(&$items);     
+	$GLOBALS['rss'] -> appendContentObject($items);
   
 }
 
