@@ -20,6 +20,7 @@ tar cvfz rss-$1.tar.gz \
  --exclude=about.php \
  --exclude=rss_extra.php \
  --exclude=*.\#* \
+  --exclude=*.svn* \
  --exclude=*.cvsignore \
  --exclude=*.*~ \
  rss
@@ -35,6 +36,7 @@ zip -r  rss-$1.zip rss \
  -x \*/about.php \
  -x \*/test.php \
  -x \*.\#\* \
+  -x \*.svn\* \
  -x \*.cvsignore \
  -x \*.\*~ \
  
