@@ -307,7 +307,7 @@ class browser {
 	}
 	
 	function supportsAJAX() {
-		return ($this->isMoz || $this->isOpera || $this->isSafari ||Ê($this -> isIE && $this -> Version > 5));
+		return ($this->isMoz || $this->isOpera || $this->isSafari || ($this -> isIE && $this -> Version > 5));
 	}
 }
 ?>
