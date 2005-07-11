@@ -42,7 +42,7 @@ define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Ordenar por fecha, tema');
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Ordenar por tema, fecha');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','Resultados por pagina:');
 define ('LBL_SEARCH_RESULTS','Resultados: ');
-define ('LBL_H2_UNREAD_ITEMS',"temas sin leer (%d)");
+define ('LBL_H2_UNREAD_ITEMS','temas sin leer (<span id="ucnt">%d</span>)');
 define ('LBL_H2_RECENT_ITEMS', "temas recientes");
 define ('LBL_H2_CHANNELS','Canales');
 define ('LBL_H5_READ_UNREAD_STATS','%d temas, %d sin leer');

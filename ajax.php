@@ -389,10 +389,10 @@ function _ses(id) {
 }
 
 function unreadCnt(d) {
-    if (h2 = document.getElementById('feedcontent')) {
-        if (c = h2.innerHTML.replace(/[^0-9]+/g,"")) {
+    if (span = document.getElementById('ucnt')) {
+        if (c = span.innerHTML.replace(/[^0-9]+/g,"")) {
             c = d+eval(c);
-            h2.innerHTML = h2.innerHTML.replace(/[0-9]+/g,c);
+            span.innerHTML = span.innerHTML.replace(/[0-9]+/g,c);
         }
         return c;
     }

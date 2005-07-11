@@ -46,7 +46,7 @@ define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Ordina per data, feed');
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Ordina per feed, data');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','Risultati per pagina:');
 define ('LBL_SEARCH_RESULTS','Risultati: ');
-define ('LBL_H2_UNREAD_ITEMS',"%d elementi non letti");
+define ('LBL_H2_UNREAD_ITEMS','<span id="ucnt">%d</span> elementi non letti');
 define ('LBL_H2_RECENT_ITEMS', "Elementi recenti");
 define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d elementi, %d non letti');

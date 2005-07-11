@@ -43,7 +43,7 @@ define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Ordna efter datum, fl&ouml;de');
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Ordna efter fl&ouml;de, datum');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','Resultat per sida:');
 define ('LBL_SEARCH_RESULTS','Resultat: ');
-define ('LBL_H2_UNREAD_ITEMS',"Ol&auml;sta inl&auml;gg (%d)");
+define ('LBL_H2_UNREAD_ITEMS','Ol&auml;sta inl&auml;gg (<span id="ucnt">%d</span>)');
 define ('LBL_H2_RECENT_ITEMS', "Senast l&auml;sta inl&auml;gg");
 define ('LBL_H2_CHANNELS','Fl&ouml;den');
 define ('LBL_H5_READ_UNREAD_STATS','%d inl&auml;gg, %d ol&auml;sta');

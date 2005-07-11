@@ -42,7 +42,7 @@ define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Trier par date, canal');
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Trier par canal, date');
 define ('LBL_SEARCH_RESULTS','R&eacute;sultats: ');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','R&eacute;sultats par page:'); 
-define ('LBL_H2_UNREAD_ITEMS',"&Eacute;l&eacute;ments non lus (%d)");
+define ('LBL_H2_UNREAD_ITEMS','&Eacute;l&eacute;ments non lus (<span id="ucnt">%d</span>)');
 define ('LBL_H2_RECENT_ITEMS', "&Eacute;l&eacute;ments r&eacute;cents");
 define ('LBL_H2_CHANNELS','Canaux');
 define ('LBL_H5_READ_UNREAD_STATS','%d &eacute;l&eacute;ments , %d non lus');
