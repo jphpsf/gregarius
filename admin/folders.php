@@ -161,7 +161,7 @@ function folder_admin() {
 			if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
 				$sql = "delete from " . getTable("folders") ." where id=$id";
 				rss_query($sql);
-					$sql = "update " . getTable("channels") ." set parent=0 where parent=$id";
+					$sql = "update " . getTable("channels") ." set parent=" . getRootFolder() . " where parent=$id";
 				rss_query($sql);
 			} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
 				// nop;

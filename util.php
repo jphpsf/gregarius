@@ -280,7 +280,11 @@ function update($id) {
 	}
 }
 
-
+function getRootFolder(){
+	$sql = "select id from ".getTable("folders")."where name = '' order by position asc limit 1";
+	$root = rss_fetch_row(rss_query($sql));
+	return $root[0];
+}
 
 function add_channel($url, $folderid = 0) {
 	assert("" != $url && strlen($url) > 7);
@@ -347,9 +351,7 @@ function add_channel($url, $folderid = 0) {
 		
 		if ($title != "") {
 			// add channel to root folder by default
-			$sql = "select id from ".getTable("folders")."where name = '' order by position asc limit 1";
-			$root = rss_fetch_row(rss_query($sql));
-			if(!$folderid){ $folderid = $root[0]; }
+			if(!$folderid){ $folderid = getRootFolder(); }
 
 			list($title,$urlDB,$siteurl,$folderid,$descr,$icon) =
 				rss_plugin_hook('rss.plugins.feed.new', 
