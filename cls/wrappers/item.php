@@ -143,4 +143,7 @@ function rss_item_tagslink() {
     }
 }
 
+function rss_item_permalink() {
+	return getConfig('rss.output.usepermalinks');
+}
 ?>
