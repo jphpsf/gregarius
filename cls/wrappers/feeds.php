@@ -72,7 +72,7 @@ function rss_feeds_folders_unread_count($label=LBL_UNREAD_PF) {
 		$sCls = ($GLOBALS['rss']->currentFeedsFolder->isCollapsed?"display:inline":"display:none");
 		return sprintf($label, "fs".$GLOBALS['rss']->currentFeedsFolder->id, 
 			$sCls, 
-			$GLOBALS['rss']->feedList->collapsed_folders);
+			$GLOBALS['rss']->feedList->collapsed_folders[$GLOBALS['rss']->currentFeedsFolder->id]);
 	}
 	return "";
 }
