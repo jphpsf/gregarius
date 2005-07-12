@@ -227,7 +227,7 @@ function setDefaults($key) {
 		"rss.output.compression"	=>		array("true","true","boolean","This variable turns output compression on and off. Output compression is handled by most browsers.",NULL),
 		"rss.output.channelcollapse"=>	array("true","true","boolean","Allow collapsing of channels on the main page. ",NULL),
 		"rss.output.usepermalinks"	=>		array("true","true","boolean","Display a permalink icon and allow linking a given item directly.",NULL),
-		"rss.config.markreadonupdate"=>	array("true","true","boolean","Mark all old unread feeds as read when updating if new unread feeds are found.",NULL),
+		"rss.config.markreadonupdate"=>	array("false","false","boolean","Mark all old unread feeds as read when updating if new unread feeds are found.",NULL),
 		"rss.output.lang"			=>		array("en,es,fr,se,0","en,fr,es,fr,0","enum","Language pack to use.",NULL),
 		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow ordering of channels in the admin section. If false, channels will be organized by title.",NULL),
 		"rss.config.robotsmeta"		=>		array("index,follow","index,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info).",NULL),
