@@ -87,14 +87,18 @@ function unreadItems($show_what) {
 
     _pf('populate unread items');
 	$unreadItems = new ItemList();
-	$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE);
+	$numItems = getConfig('rss.output.numitemsonpage');
+	if($numItems){
+		$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE, "", 0, $numItems);
+	}else{
+		$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE);
+	}
     _pf('end populate unread items');
 	if ($unreadItems ->unreadCount) {
 		$unreadItems -> preRender[] = array("unreadCallback",$show_what);
 	}
 	
 	$ret = $unreadItems -> unreadCount;
-
 	 
 	 $unreadItems -> setTitle(sprintf(LBL_H2_UNREAD_ITEMS , $ret));
 	 $unreadItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);

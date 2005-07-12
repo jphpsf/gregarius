@@ -231,7 +231,7 @@ function setDefaults($key) {
 		"rss.output.lang"			=>		array("en,es,fr,se,0","en,fr,es,fr,0","enum","Language pack to use.",NULL),
 		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow ordering of channels in the admin section. If false, channels will be organized by title.",NULL),
 		"rss.config.robotsmeta"		=>		array("index,follow","index,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info).",NULL),
-		"rss.config.serverpush"		=>		array("true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browsers (Netscape, Mozilla, FireFox,...) and Opera. These browsers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL),
+		"rss.config.serverpush"		=>		array("true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browsers (Netscape, Mozilla, Firefox,...) and Opera. These browsers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL),
 		"rss.config.refreshafter"	=>		array("45","45","num","If this option is set the feeds will be refreshed after x minutes of inactivity. Please respect the feed providers by not setting this value to anything lower than thirty minutes. Set this variable to 0 turn this option off.",NULL),
 		"rss.input.allowed"			=>		array('a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}','a:17:{s:1:"a";a:2:{s:4:"href";i:1;s:5:"title";i:1;}s:1:"b";a:0:{}s:10:"blockquote";a:0:{}s:2:"br";a:0:{}s:4:"code";a:0:{}s:1:"i";a:0:{}s:3:"img";a:2:{s:3:"src";i:1;s:3:"alt";i:1;}s:2:"li";a:0:{}s:2:"ol";a:0:{}s:1:"p";a:0:{}s:3:"pre";a:0:{}s:5:"table";a:0:{}s:2:"td";a:0:{}s:2:"th";a:0:{}s:2:"tr";a:0:{}s:2:"tt";a:0:{}s:2:"ul";a:0:{}}',"array","This variable controls input filtering. HTML tags and their attributes, which are not in this list, get filtered out when new RSS items are imported.",NULL),
 		"rss.output.showfeedmeta"	=>		array('false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column.',NULL),
@@ -242,7 +242,8 @@ function setDefaults($key) {
 		"rss.config.plugins"		=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL),
 		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow Gregarius to look for updates in existing items.',NULL),
 		"rss.output.titleunreadcnt"	=>		array('false','false','boolean','Display unread count in the document title.',NULL),
-		"rss.config.tzoffset"		=>		array('0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL)
+		"rss.config.tzoffset"		=>		array('0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL),
+		"rss.output.numitemsonpage"	=>		array("100","100","num","Maximum number of items displayed on the main page. Set this variable to 0 to turn this option off.",NULL)
 	);
 	
 	
