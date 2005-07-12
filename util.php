@@ -282,8 +282,13 @@ function update($id) {
 
 function getRootFolder(){
 	$sql = "select id from ".getTable("folders")."where name = '' order by position asc limit 1";
-	$root = rss_fetch_row(rss_query($sql));
-	return $root[0];
+	list($root) = rss_fetch_row(rss_query($sql));
+	
+	if (!$root) {
+		$root = 0;
+	}
+	
+	return $root;
 }
 
 function add_channel($url, $folderid = 0) {
