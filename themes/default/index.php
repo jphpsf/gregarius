@@ -12,6 +12,7 @@
     <ul class="navlist">
         <?= rss_nav_items() ?>
     </ul>
+    <?= rss_nav_afternav() ?>
 </div>
 
 <div id="ctnr">

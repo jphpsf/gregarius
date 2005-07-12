@@ -52,4 +52,7 @@ function rss_nav_item_href() {
     return $GLOBALS['rss'] -> currentNavItem -> href;
 }
 
+function rss_nav_afternav() {
+	return $GLOBALS['rss'] -> nav -> postRender;
+}
 ?>

@@ -55,6 +55,7 @@ class NavItem {
 class Navigation {
     
     var $items = array();
+    var $postRender = "";
     
     function Navigation() {
     
@@ -69,16 +70,20 @@ class Navigation {
         
         $GLOBALS['rss']->nav = $this;
         rss_plugin_hook('rss.plugins.navelements', null);
+        
+        if (($an = rss_plugin_hook('rss.plugins.afternav', null)) != null) {
+        	$this -> postRender .= $an;
+        }
     }
+        
         
     function appendNavItem($url,$label,$loc = null) {
         $this->items[] = new NavItem($url,$label,$loc);
     }
     
-	function render() {
-	   rss_require(RSS::getTemplateFile("nav.php"));
-		//require($GLOBALS['rss'] ->getTemplateFile("nav.php"));
-    }
+		function render() {
+			rss_require(RSS::getTemplateFile("nav.php"));
+  	}
 }
 
 ?>
