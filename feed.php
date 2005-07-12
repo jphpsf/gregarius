@@ -518,6 +518,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		 
     	 if (!$severalFeeds) {
 			$items -> preRender[] = array("markReadForm",$cid);
+			$title .= " " .strip_tags(sprintf(LBL_UNREAD_PF, "cid$cid","",$unreadCount));
 		 } else {
 		 	list($fid) = rss_fetch_row(rss_query('select parent from ' .getTable('channels') . 'where id = ' .$cids[0]));
 			$items -> preRender[] = array("markFolderReadForm",$fid);
@@ -527,7 +528,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	 
 	
 	 $items -> setTitle($title);
-	 $items -> setRenderOptions(($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):IL_CHANNEL_VIEW));
+	 $items -> setRenderOptions(($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):(IL_CHANNEL_VIEW)));
 	 
 
     if ($nv != null) {
