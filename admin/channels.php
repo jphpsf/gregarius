@@ -525,7 +525,7 @@ function channel_admin() {
 
 		// DELETE
 		} elseif (array_key_exists('me_delete',$_REQUEST)) {
-			if ( array_key_exists('me_do_delete',$_REQUEST) && $_REQUES['me_do_delete'] == "1") {
+			if ( array_key_exists('me_do_delete',$_REQUEST) && $_REQUEST['me_do_delete'] == "1") {
 				$sql = "delete from " .  getTable('channels')  ." where id in $sqlids";
 				rss_query($sql);
 			}
