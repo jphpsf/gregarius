@@ -121,6 +121,7 @@ if (array_key_exists('js',$_GET)) {
 		  exit();
     } else {
 		  header("ETag: $etag");
+		  ob_start('ob_gzhandler');
 	 }	 
     echo $js;
 
