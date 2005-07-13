@@ -67,13 +67,15 @@ class Navigation {
         if (getConfig('rss.config.showdevloglink')) {
             $this->appendNavItem('http://devlog.gregarius.net/',LBL_NAV_DEVLOG );
         }
+
+        if (($an = rss_plugin_hook('rss.plugins.afternav', null)) != null) {
+        	$this -> postRender .= $an;
+        }
         
         $GLOBALS['rss']->nav = $this;
         rss_plugin_hook('rss.plugins.navelements', null);
         
-        if (($an = rss_plugin_hook('rss.plugins.afternav', null)) != null) {
-        	$this -> postRender .= $an;
-        }
+
     }
         
         
@@ -81,8 +83,8 @@ class Navigation {
         $this->items[] = new NavItem($url,$label,$loc);
     }
     
-		function render() {
-			rss_require(RSS::getTemplateFile("nav.php"));
+	function render() {
+		rss_require(RSS::getTemplateFile("nav.php"));
   	}
 }
 
