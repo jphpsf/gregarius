@@ -3,7 +3,7 @@
 	<meta name="robots" content="<?= rss_header_robotmeta(); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= rss_theme_path() ?>/css/layout.css" />
 	<link rel="stylesheet" type="text/css" href="<?= rss_theme_path() ?>/css/look.css" />
-	<link rel="stylesheet" type="text/css" href="<?= rss_theme_path() ?>/css/print.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="<?= getPath() ?>css/print.css" media="print" />
 <?= rss_plugin_hook('rss.plugins.stylesheets', null); ?>
 <?php if(rss_header_autorefreshtime() > 0) { ?>
 	<meta http-equiv="refresh"  content="<?= rss_header_autorefreshtime() ?>;<?= rss_header_autorefreshurl() ?>" />
