@@ -29,7 +29,7 @@ if (!defined('DBTYPE')) {
 	define ('DBTYPE','mysql');
 }
 
-rss_require('cls/db.'.DBTYPE.'.php');
+rss_require('cls/db/db.'.DBTYPE.'.php');
 $dbcls = ucfirst(DBTYPE)."DB";
 $GLOBALS['rss']->db = new $dbcls;
 
