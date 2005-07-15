@@ -1,5 +1,5 @@
 <?php
-rss_require('cls/db.php');
+rss_require('cls/db/db.php');
 
 class MysqlDB extends DB {
 
