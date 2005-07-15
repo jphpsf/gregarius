@@ -51,10 +51,13 @@ class Item {
 	var $cntr;
 	var $parent;
 	var $tags;
+	
+	var $rss;
 	/**
 	 * ctor
 	 */
 	function Item($id, $title, $url, $parent, $description, $date, $isPubDate, $unread) {
+		$this->rss = &$GLOBALS['rss'];
 		$this->id = $id;
 		$this->flags = $unread;
 		$this->title = $title?$title:"[nt]";		
@@ -88,8 +91,8 @@ class Item {
 	 */
 	function render() {
 		
-		$GLOBALS['rss'] -> currentItem = $this;
-		require($GLOBALS['rss'] -> getTemplateFile("item.php"));
+		$this-> rss -> currentItem = $this;
+		require($this-> rss -> getTemplateFile("item.php"));
 	}
 }
 
@@ -111,6 +114,7 @@ class Feed {
 	 * Feed constructor
 	 */
 	function Feed($title, $cid, $icon) {
+		$this -> rss = &$GLOBALS['rss'];
 		$this->title = rss_htmlspecialchars($title);
 		$this->cid = $cid;
 		$this->iconUrl = $icon;
@@ -178,10 +182,10 @@ class Feed {
 	 */
 	function render() {
 		
-		$GLOBALS['rss'] -> currentFeed = &$this;
+		$this-> rss -> currentFeed = &$this;
 		//echo $GLOBALS['rss']->renderOptions;
-		$this -> setCollapseState($GLOBALS['rss']->renderOptions);
-		require($GLOBALS['rss'] ->getTemplateFile("feed.php"));
+		$this -> setCollapseState($this-> rss ->renderOptions);
+		require($this-> rss ->getTemplateFile("feed.php"));
 	}
 }
 
@@ -215,7 +219,12 @@ class ItemList {
 	
 	var $ORDER_BY_UNREAD_FIRST=null;
 	
+	var $rss;
+	
 	function ItemList() {
+	
+		$this -> rss = &$GLOBALS['rss'];
+		
 		// make sure we have  a default rendering options defined
 		$this -> setRenderOptions( IL_NONE );
 		
@@ -281,9 +290,9 @@ class ItemList {
 		
 		//echo $sql;		
 		$iids = array();
-		$res = rss_query($sql);
-		$this -> rowCount = rss_num_rows($res);
-		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = rss_fetch_row($res)) {
+		$res = $this->rss->db->rss_query($sql);
+		$this -> rowCount = $this->rss->db->rss_num_rows($res);
+		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = $this->rss->db->rss_fetch_row($res)) {
 			
 			// Built a new Item
 			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $idescr_, $its_, $iispubdate_, $iunread_);
@@ -325,8 +334,8 @@ class ItemList {
 			.getTable('item')." i "
 			." where m.tid = t.id and i.id=m.fid and m.fid in (".implode(",", $iids).")";
 			
-			$res = rss_query($sql);
-			while (list ($tag_, $iid_, $cid_) = rss_fetch_row($res)) {
+			$res = $this->rss->db->rss_query($sql);
+			while (list ($tag_, $iid_, $cid_) = $this->rss->db->rss_fetch_row($res)) {
 				
 				while (list($key, $item) = each($this ->feeds[$cid_] -> items)) { 
 					if ($item -> id == $iid_) {
@@ -363,7 +372,7 @@ class ItemList {
 	}
 	
 	function setRenderOptions($options) {
-		$GLOBALS['rss'] -> renderOptions = $options;
+		$this-> rss -> renderOptions = $options;
 		$this -> renderOptions = $options;
 	}
 	
@@ -375,8 +384,8 @@ class ItemList {
 			return;	
 		}
 		
-		$GLOBALS['rss'] -> currentItemList = $this;
-		require($GLOBALS['rss'] ->getTemplateFile("itemlist.php"));
+		$this-> rss -> currentItemList = $this;
+		require($this-> rss ->getTemplateFile("itemlist.php"));
 		
 		_pf("done: ItemList -> render()");
 		

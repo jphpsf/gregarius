@@ -44,7 +44,7 @@ class RSS {
 	var $nav;
 	var $currentNavItem;
 	var $profiler = null;
-
+	var $db = null;
 	
 	function RSS() {
 	   if (defined('PROFILING') && PROFILING) {
