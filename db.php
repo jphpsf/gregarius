@@ -50,7 +50,7 @@ function rss_num_rows($rs) {
 }
 
 function rss_sql_error() {
-	 return $GLOBALS['rss']->db->rss_sql_errno();
+	 return $GLOBALS['rss']->db->rss_sql_error();
 }
 
 function rss_sql_error_message () {
