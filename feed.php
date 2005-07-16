@@ -871,6 +871,10 @@ function makeNav($cid,$iid,$y,$m,$d) {
 }
 
 function markReadForm($cid) {
+	if (hidePrivate()) {
+		return;
+	}
+	
 	if (!defined('MARK_READ_FEED_FORM')) {
 		define ('MARK_READ_FEED_FORM',$cid);
 	}
@@ -882,6 +886,10 @@ function markReadForm($cid) {
 }
 
 function markFolderReadForm($fid) {
+	if (hidePrivate()) {
+		return;
+	}
+	
 	if (!defined('MARK_READ_FOLDER_FORM')) {
 		define ('MARK_READ_FOLDER_FORM',$fid);
 	}	

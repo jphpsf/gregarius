@@ -83,7 +83,9 @@ function __exp__getFromDelicious($id) {
 }
 
 function __exp__setState($id,$state) {
-    rss_query('update '.getTable('item') . " set unread=$state where id=$id");
+	if (!hidePrivate()) {
+		rss_query('update '.getTable('item') . " set unread=$state where id=$id");	
+	}
     $rs = rss_query('select unread from '.getTable('item') . " where id=$id");
     list($unread) = rss_fetch_row($rs);
     return "$id|$unread";

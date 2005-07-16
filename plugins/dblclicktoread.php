@@ -32,6 +32,9 @@
 /// Version: 1.2
 
 function __dblclickToRead_js($in) {
+	if (hidePrivate()) {
+		return;
+	}
 ?>
 <script type="text/javascript">
 // <!--

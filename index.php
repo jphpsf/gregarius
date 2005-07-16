@@ -43,7 +43,8 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 
 if (array_key_exists('metaaction', $_POST)
     && $_POST['metaaction'] != ""
-    && trim($_POST['metaaction']) == trim('LBL_MARK_READ')) {
+    && trim($_POST['metaaction']) == trim('LBL_MARK_READ') && 
+	!hidePrivate()) {
     
     $sql = "update " .getTable("item") . " set unread=unread & "
      .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE;
@@ -147,6 +148,10 @@ function readItems() {
 }
 
 function markAllReadForm() {
+	if (hidePrivate()) {
+		return;
+	}
+	
 	if (!defined('MARK_READ_ALL_FORM')) {
 		define ('MARK_READ_ALL_FORM',true);
 	}	

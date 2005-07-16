@@ -32,6 +32,10 @@
 /// Version: $Revision: 1.8
 
 function __extra_button_Button($in) {
+	if (hidePrivate()) {
+		return;
+	}
+	
 	if (defined('MARK_READ_ALL_FORM') 		|| 
 		 defined ('MARK_READ_FEED_FORM') 	|| 
 		 defined ('MARK_READ_FOLDER_FORM')) {
