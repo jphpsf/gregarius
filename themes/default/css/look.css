@@ -352,6 +352,6 @@ li.item.even div.ief p a { background-color: #e3e3e3; }
 
 div.ief form,div.ief form p { padding:0;margin:0}
 
-#opmlimport {Êtext-align: left !important; }
+#opmlimport{ text-align: left !important; }
 
 span.vr { border-left:2px solid #ccc;margin: 0 1em; }

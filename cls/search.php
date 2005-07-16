@@ -282,11 +282,7 @@ class SearchItemList extends ItemList {
 		$GLOBALS['rss'] -> searchFormTitle = $this->title;
 		$this->title="";
 		require($GLOBALS['rss'] ->getTemplateFile("searchform.php"));
-		/*
-		if (($this->readCount + $this->unreadCount) == 0 && $this->beforeList == "") {
-			return;	
-		}
-		*/
+		
 		$GLOBALS['rss'] -> currentItemList = $this;
 		require($GLOBALS['rss'] ->getTemplateFile("itemlist.php"));
 		rss_plugin_hook('rss.plugins.items.afteritems', null);
