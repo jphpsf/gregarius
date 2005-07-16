@@ -7,7 +7,7 @@
 <?php if ($title = rss_itemlist_title()) { ?>
 <h2<?= rss_itemlist_anchor(); ?>>
 <?php if ($icon = rss_itemlist_icon()) { ?>
-	<img src="<?= $icon ?>" class="favicon" alt="<?= rss_itemlist_title() ?>" />
+	<img src="<?= $icon ?>" class="favicon" alt="" />
 <?php } ?>
 	<?= $title ?> 
 </h2>
