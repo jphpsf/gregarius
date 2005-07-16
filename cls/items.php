@@ -294,6 +294,7 @@ class ItemList {
 		$res = $this->rss->db->rss_query($sql);
 		$this -> rowCount = $this->rss->db->rss_num_rows($res);
 		$prevCid = -1;
+		$f=null;
 		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = $this->rss->db->rss_fetch_row($res)) {
 			
 			// Built a new Item
@@ -312,12 +313,14 @@ class ItemList {
 				$this->feeds[] = $f;
 				$prevCid = $cid_;
 			}
-		    
-			$this -> iidInCid[$iid_] = count($this->feeds)-1;
+		   
+			$curIdx = count($this->feeds)-1;
+			$this -> iidInCid[$iid_] = $curIdx;
+			
 					    
 			// Add it to the channel
 			$iids[] = $iid_;
-			$f->addItem($i);
+			$this -> feeds[$curIdx] ->addItem($i);
 			
 			// Some stats...
 			$this -> itemCount++;			
