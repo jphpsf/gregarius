@@ -14,7 +14,7 @@
 <?php } ?>
 
 <?php if (!rss_feed_collapsed()) { ?>
-<ul id="f<?= rss_feed_id() ?>">
+<ul<?= rss_feed_id() ?>>
 <?php rss_feed_items() ?>
 </ul>
 <?php } ?>

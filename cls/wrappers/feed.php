@@ -91,7 +91,10 @@ function rss_feed_title() {
 
 
 function rss_feed_id() {	
-	return trim($GLOBALS['rss']->currentFeed->cid);
+	if (!$GLOBALS['rss']->currentFeed->hasUnreadItems) {
+		return " id=\"f".trim($GLOBALS['rss']->currentFeed->cid) ."\"";
+	}
+	return "";
 }
 
 function rss_feed_escaped_title () {
