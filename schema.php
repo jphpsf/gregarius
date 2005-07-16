@@ -243,7 +243,8 @@ function setDefaults($key) {
 		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow Gregarius to look for updates in existing items.',NULL),
 		"rss.output.titleunreadcnt"	=>		array('false','false','boolean','Display unread count in the document title.',NULL),
 		"rss.config.tzoffset"		=>		array('0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL),
-		"rss.output.numitemsonpage"	=>		array("100","100","num","Maximum number of items displayed on the main page. Set this variable to 0 to turn this option off.",NULL)
+		"rss.output.numitemsonpage"	=>		array("100","100","num","Maximum number of items displayed on the main page. Set this variable to 0 to turn this option off.",NULL),
+		"rss.config.feedgrouping"	=>		array('false','false','boolean',"When true, Gregarius groups unread items per feed and sorts the feeds according to the <code>rss.config.absoluteordering</code> configuration switch. When false, unread items are not grouped by feed, but are sorted by date instead",NULL)
 	);
 	
 	

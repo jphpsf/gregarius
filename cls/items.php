@@ -275,7 +275,9 @@ class ItemList {
 		/// Order by 
 		if ($sqlOrder == "") {
 			$sql .= " order by  ";
-			if (getConfig('rss.config.absoluteordering')) {
+			if (!getConfig('rss.config.feedgrouping')) {
+				$sql .= " 8 desc, f.position asc, c.position asc ";
+			} elseif (getConfig('rss.config.absoluteordering')) {
 				$sql .= " f.position asc, c.position asc";
 			} else {
 				$sql .= " c.parent asc, c.title asc";
@@ -294,6 +296,7 @@ class ItemList {
 		$res = $this->rss->db->rss_query($sql);
 		$this -> rowCount = $this->rss->db->rss_num_rows($res);
 		$prevCid = -1;
+		$curIdx = 0;
 		$f=null;
 		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = $this->rss->db->rss_fetch_row($res)) {
 			
@@ -311,10 +314,11 @@ class ItemList {
 		    if ($cid_ != $prevCid) {
 				$f = new Feed($ctitle_, $cid_, $cicon_);
 				$this->feeds[] = $f;
+				$curIdx = count($this->feeds)-1;
 				$prevCid = $cid_;
 			}
 		   
-			$curIdx = count($this->feeds)-1;
+			
 			$this -> iidInCid[$iid_] = $curIdx;
 			
 					    
