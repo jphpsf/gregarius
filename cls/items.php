@@ -309,6 +309,11 @@ class ItemList {
 				continue;                                                                                                                                                   
 		    }
 
+			// Allow for some item filtering before it is rendered
+			if (($i = rss_plugin_hook('rss.plugins.items.beforerender', &$i)) == null) {
+				$this -> rowCount--;
+				continue;
+			}
 					    
 		    // See if we have a channel for it		
 		    if ($cid_ != $prevCid) {
