@@ -88,6 +88,9 @@ function unreadItems($show_what) {
     _pf('populate unread items');
 	$unreadItems = new ItemList();
 	$numItems = getConfig('rss.output.numitemsonpage');
+	
+	
+	
 	if($numItems){
 		$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE, "", 0, $numItems);
 	}else{

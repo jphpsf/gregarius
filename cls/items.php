@@ -219,6 +219,7 @@ class ItemList {
 	
 	var $ORDER_BY_UNREAD_FIRST=null;
 	
+	var $iidInCid = array();
 	var $rss;
 	
 	function ItemList() {
@@ -292,6 +293,7 @@ class ItemList {
 		$iids = array();
 		$res = $this->rss->db->rss_query($sql);
 		$this -> rowCount = $this->rss->db->rss_num_rows($res);
+		$prevCid = -1;
 		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = $this->rss->db->rss_fetch_row($res)) {
 			
 			// Built a new Item
@@ -302,16 +304,20 @@ class ItemList {
 				$this -> rowCount--;
 				continue;                                                                                                                                                   
 		    }
-		    
+
+					    
 		    // See if we have a channel for it		
-		    if (!array_key_exists($cid_, $this->feeds)) {
+		    if ($cid_ != $prevCid) {
 				$f = new Feed($ctitle_, $cid_, $cicon_);
-				$this->feeds[$cid_] = $f;
+				$this->feeds[] = $f;
+				$prevCid = $cid_;
 			}
-		    		    
+		    
+			$this -> iidInCid[$iid_] = count($this->feeds)-1;
+					    
 			// Add it to the channel
 			$iids[] = $iid_;
-			$this->feeds[$cid_]->addItem($i);
+			$f->addItem($i);
 			
 			// Some stats...
 			$this -> itemCount++;			
@@ -337,16 +343,17 @@ class ItemList {
 			$res = $this->rss->db->rss_query($sql);
 			while (list ($tag_, $iid_, $cid_) = $this->rss->db->rss_fetch_row($res)) {
 				
-				while (list($key, $item) = each($this ->feeds[$cid_] -> items)) { 
-					if ($item -> id == $iid_) {
-						$this ->feeds[$cid_] -> items[$key] -> tags[] = $tag_;
-						break;
+				if (array_key_exists($iid_, $this -> iidInCid)) {
+					$idx = $this->iidInCid[$iid_];
+					while (list($key, $item) = each($this ->feeds[$idx] -> items)) {
+						if ($item -> id == $iid_) {
+							$this ->feeds[$idx] -> items[$key] -> tags[] = $tag_;
+							break;
+						}				
 					}
 				}
 				
-				reset($this -> feeds[$cid_] -> items);
 
-				//$this -> feeds[$cid_] -> setTag($iid_, $tag_);
 				if (array_key_exists($tag_,$this -> allTags)) {
 		    		$this -> allTags[ $tag_ ]++;
 				} else {
