@@ -68,8 +68,12 @@ class RSS {
 			return $templateCache[$file];
 		}
 		*/
+		$theme = getConfig('rss.output.theme');
+		if (defined('THEME_OVERRIDE')) {
+			$theme = THEME_OVERRIDE;
+		}
 		
-		$ret="themes/".getConfig('rss.output.theme')."/$file";
+		$ret="themes/$theme/$file";
 
 		if (!file_exists($ret)) {
 			$ret= "themes/default/$file";

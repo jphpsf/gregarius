@@ -26,6 +26,7 @@
 ###############################################################################
 
 define ('RSS_FILE_LOCATION','/admin');
+define ('THEME_OVERRIDE','default');
 
 require_once('../init.php');
 require_once('../opml.php');

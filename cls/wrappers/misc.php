@@ -28,7 +28,11 @@
 
 ///// MISC WRAPPERS /////
 function rss_theme_path() {
-	return getPath(). "themes/" .getConfig('rss.output.theme');
+	$theme = getConfig('rss.output.theme');
+	if (defined('THEME_OVERRIDE')) {
+		$theme = THEME_OVERRIDE;
+	}
+	return getPath(). "themes/$theme";
 }
 
 ?>
