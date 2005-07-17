@@ -72,9 +72,9 @@ function rss_item_url() {
 }
 
 function rss_item_title() {
-	
 	return $GLOBALS['rss'] -> currentItem -> title;	
 }
+
 
 function rss_item_id() {
 	
@@ -85,6 +85,7 @@ function rss_item_flags() {
 	
 	return $GLOBALS['rss'] -> currentItem -> flags;
 }
+
 
 function rss_item_date() {
 	
@@ -114,6 +115,15 @@ function rss_item_date() {
 		}
 		return (($GLOBALS['rss']->currentItem->isPubDate?LBL_POSTED:LBL_FETCHED). $date_lbl);			
 	}
+}
+
+function rss_item_date_ts() {
+	return $GLOBALS['rss']->currentItem->date;
+}
+
+
+function rss_item_date_with_format($fmt) {
+	return date($fmt,$GLOBALS['rss']->currentItem->date); 
 }
 
 function rss_item_tags() {
