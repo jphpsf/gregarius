@@ -310,7 +310,7 @@ class ItemList {
 		    }
 
 			// Allow for some item filtering before it is rendered
-			if (($i = rss_plugin_hook('rss.plugins.items.beforerender', &$i)) == null) {
+			if (($i = rss_plugin_hook('rss.plugins.items.beforerender', $i)) == null) {
 				$this -> rowCount--;
 				continue;
 			}
