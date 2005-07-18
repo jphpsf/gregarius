@@ -42,7 +42,7 @@ class FeedListItem {
 	var $root;
 	var $isActiveFeed;
 	
-	function FeedListItem($id, $title, $url, $siteurl, $name, $parent, $icon, $descr, $mode) {
+	function FeedListItem($id, $title, $url, $siteurl, $name, $parent, $icon, $descr, $mode, $unreadCount) {
 		$this->id = $id;
 		$this->title = $title;
 		$this->url = $url;
@@ -63,14 +63,9 @@ class FeedListItem {
 			$this->rlink = getPath()."feed.php?channel=$id";
 		}
 
-		$res = rss_query ("select count(*) from " .getTable("item")
-        ." where cid=$id and unread & "  . FEED_MODE_UNREAD_STATE
-        . " and !(unread & " . FEED_MODE_DELETED_STATE .")"
-        );
-    
-		list($cnt) = rss_fetch_row($res);
-		if ($cnt > 0) {
-			$this->rdLbl= sprintf(LBL_UNREAD_PF, "cid$id","",$cnt);
+
+		if ($unreadCount > 0) {
+			$this->rdLbl= sprintf(LBL_UNREAD_PF, "cid$id","",$unreadCount);
 			$this->class_= "feed title unread";
 		} else {
 			$this->rdLbl= "";
@@ -82,36 +77,7 @@ class FeedListItem {
 	
 	function render() {
 		$GLOBALS['rss']->currentFeedsFeed = $this;
-		require($GLOBALS['rss'] ->getTemplateFile("feedsfeed.php"));
-		/*
-		return;
-		
-		if ($this->icon) {
-			echo "<img src=\"".$this->icon."\" class=\"favicon\" alt=\"\" />";
-		}
-		echo "<a class=\"".$this->class_."\" "." title=\"".htmlentities($this->title)."\" "
-		." href=\"".$this->rlink."\">"
-		.htmlspecialchars($this->title)."</a>";
-
-		echo " " .$this -> rdLbl;
-
-		//echo "<strong id="cid72" style="">(2 unread)</strong>";
-
-		if (getConfig('rss.output.showfeedmeta') != NULL) {
-			echo " [<a href=\"".htmlentities($this->url)."\">xml</a>";
-
-			if ($this->siteurl != "" && substr($this->siteurl, 0, 4) == 'http') {
-				echo "|<a href=\"".htmlentities($this->siteurl)."\">www</a>";
-			}
-
-			if (getConfig('rss.meta.debug')) {
-				echo "|<a href=\"".getPath()."feed.php?channel=".$this->id."&amp;dbg\">dbg</a>";
-			}
-			echo "]";
-
-		}
-
-	*/
+		require($GLOBALS['rss'] ->getTemplateFile("feedsfeed.php"));	
 	}
 
 }
@@ -220,9 +186,21 @@ class FeedList {
 		}
 		$res = rss_query($sql);
 		$this -> feedCount = rss_num_rows($res);
-
+		
+		$ucres = rss_query ("select cid, count(*) from " .getTable("item")
+        ." where unread & "  . FEED_MODE_UNREAD_STATE
+        . " and !(unread & " . FEED_MODE_DELETED_STATE .") group by 1");
+		$uc = array();
+		while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {
+			$uc[$uccid]=$ucuc;
+		}
+		  
 		while (list ($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode) = rss_fetch_row($res)) {
-			$f = new FeedListItem($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode);
+			$ucc= 0;
+			if (array_key_exists($cid,$uc)) {
+				$ucc=$uc[$cid];
+			} 
+			$f = new FeedListItem($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode, $ucc);
 			$f -> isActiveFeed = ($this->activeId && $cid == $this->activeId ); 
 			if (!array_key_exists($cparent, $this->folders)) {
 				$this->folders[$cparent] = new FeedFolder($fname, $cparent,$this);
