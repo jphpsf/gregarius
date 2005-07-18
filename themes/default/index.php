@@ -17,6 +17,11 @@
 
 <div id="ctnr">
 
+<ul id="sidemenu">
+	<li class="active" id="sidemenufeeds"><a href="#" onclick="_side('feeds'); return false;"><?= LBL_H2_CHANNELS ?></a></li>
+	<li id="sidemenutags"><a href="#" onclick="_side('tags'); return false;"><?= LBL_TAG_TAGS ?></a></li>
+</ul>
+
 <div id="channels" class="frame">
 	<?php rss_main_feeds(); ?>
 </div>

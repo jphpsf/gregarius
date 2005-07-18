@@ -35,7 +35,7 @@ input {
 }
 
 
-div#channels {
+div#channels,ul#sidemenu {
  clear:left;
  width: 280px;
  float: left;
@@ -45,6 +45,25 @@ div#channels {
  voice-family:inherit;
  width:250px;
 }
+ul#sidemenu { margin: 0 0 0 0.3em; }
+div#channels { z-index: 1}
+
+#sidemenu li { 
+ position: relative;
+ display: inline; 
+ float:left;
+ background-color: white;
+ border: 1px solid #ccc;
+ border-bottom:none;
+ -moz-border-radius: 5px;
+ padding: 0.2em 0.7em;
+ margin: 0 0.08em;
+ margin-bottom: -0.15em;
+ z-index: 6;
+}
+
+#sidemenu li a { color: #aaa; }
+#sidemenu li.active a,#sidemenu li a:hover  { color: black }
 
 div#channels div { margin:0; padding:1em 0 0 0;}
 

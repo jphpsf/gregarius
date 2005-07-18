@@ -63,6 +63,10 @@ class Tags {
 			$cntr ++;
 		}
 	}
+	
+	function makeTagLink($tag) {
+		return getPath(). (getConfig('rss.output.usemodrewrite') ? "tag/$tag" : "tags.php?tag=$tag");
+	}
 
 	function render() {
 		if (count($this->allTags)) {
@@ -77,8 +81,7 @@ class Tags {
 			}
 			$ret = "";
 			foreach ($this->allTags as $tag => $cnt) {
-				$taglink = getPath(). (getConfig('rss.output.usemodrewrite') ? 
-					"tag/$tag" : "tags.php?tag=$tag");
+				$taglink = $this -> makeTagLink($tag);
 				$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
 					. ($cnt > 1 || $cnt == 0 ? LBL_ITEMS : LBL_ITEM)."\" style=\"font-size: "
 					. (SMALLEST + ($cnt / $fontstep)).UNIT.";\">$tag</a> \n";

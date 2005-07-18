@@ -47,7 +47,7 @@ function rss_feeds_folder_is_root() {
 
 function rss_feeds_folders() {
 	foreach ($GLOBALS['rss']->feedList->folders as $folder) {
-		$folder->render();	
+		$folder->render();
 	}
 }
 

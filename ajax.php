@@ -91,12 +91,31 @@ function __exp__setState($id,$state) {
     return "$id|$unread";
 }
 
+function __exp__getSideContent($what) {
+	ob_start();
+	switch ($what) {
+		case 'feeds':
+			$f = new FeedList(false);
+			$f -> render();
+			break;
+		
+		case 'tags':
+			rss_require('cls/taglist.php');
+			$t = new TagList(false);
+			$t -> render();
+			break;
+	}
+	$c = ob_get_contents();
+	ob_end_clean();
+	return $c;
+}
+
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . basename(__FILE__);
 
 // Non standard! One usually calls sajax_export() ...
-$sajax_export_list = array("__exp__submitTag");
+$sajax_export_list = array("__exp__submitTag","__exp__getSideContent");
 if (getConfig('rss.input.tags.delicious')) {
     $sajax_export_list[] = "__exp__getFromDelicious";
 }
@@ -401,6 +420,55 @@ function unreadCnt(d) {
     }
     return null;
 }
+
+document.currentSide = "feeds";
+document.currentSideExpected = "";
+document.currentSideCache = "";
+document.currentSideCacheType = "";
+
+function _side(what) {
+	if (document.currentSide == what) {
+		return;
+	} else if (what == document.currentSideCacheType) {
+		c = document.getElementById('channels').innerHTML;
+		document.getElementById('channels').innerHTML = document.currentSideCache;
+		document.currentSideCache = c;
+		if (what == 'feeds') {
+			document.currentSideCacheType = 'tags';
+			document.getElementById('sidemenufeeds').className = "active";
+			document.getElementById('sidemenutags').className = "";
+		} else { 
+			document.currentSideCacheType = 'feeds';
+			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenutags').className = "active";
+		}
+		document.currentSide = what;
+	} else {
+		document.currentSideExpected = what;
+		x___exp__getSideContent(what, _setSideContent_cb);	
+	}
+}
+
+function _setSideContent_cb(data) {
+	if (data) {
+		document.currentSideCache = document.getElementById('channels').innerHTML;
+		if (document.currentSideExpected == 'tags') {
+			document.currentSideCacheType = "feeds";			
+			document.currentSide = 'tags';
+			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenutags').className = "active";
+		} else {
+			document.getElementById('sidemenufeeds').className = "active";
+			document.getElementById('sidemenutags').className = "";
+			document.currentSideCacheType = "tags";
+			document.currentSide = 'feeds';
+		}
+		document.currentSide = document.currentSideExpected;
+		document.getElementById('channels').innerHTML = data;
+	} 
+	document.currentSideExpected = "";
+}
+
 <?php }
 
 flush();
