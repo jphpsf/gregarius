@@ -46,7 +46,6 @@ div#channels,ul#sidemenu {
  width:250px;
 }
 ul#sidemenu { margin: 0 0 0 0.3em; }
-div#channels { z-index: 1}
 
 #sidemenu li { 
  position: relative;
@@ -59,7 +58,9 @@ div#channels { z-index: 1}
  padding: 0.2em 0.7em;
  margin: 0 0.08em;
  margin-bottom: -0.15em;
- z-index: 6;
+ font-size: small;
+ font-weight: 900;
+ letter-spacing: 0.1em;
 }
 
 #sidemenu li a { color: #aaa; }
