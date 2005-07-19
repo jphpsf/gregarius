@@ -91,6 +91,9 @@ class Header {
 		$this -> javascriptFiles[] = getPath()."ajax.php?js";
 
 		
+		$GLOBALS['rss'] -> sideMenu = new SideMenu();
+		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_H2_CHANNELS,'feeds' , "_side('feeds')");
+		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_TAG_TAGS, 'tags', "_side('tags')");
 	}
 
 	function appendHeader($hdr) {

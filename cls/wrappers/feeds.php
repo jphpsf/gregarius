@@ -46,6 +46,9 @@ function rss_feeds_folder_is_root() {
 }
 
 function rss_feeds_folders() {
+	if (!isset($GLOBALS['rss']->feedList)) {
+		$GLOBALS['rss']->feedList = new FeedList(false);
+	}
 	foreach ($GLOBALS['rss']->feedList->folders as $folder) {
 		$folder->render();
 	}

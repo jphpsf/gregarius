@@ -44,6 +44,7 @@ class RSS {
 	var $currentFeedsFeed;
 	var $nav;
 	var $currentNavItem;
+	var $sideMenu;
 	var $profiler = null;
 	var $db = null;
 	

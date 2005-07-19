@@ -86,8 +86,29 @@ function rss_main_object() {
 }
 
 function rss_main_feeds() {
-	if ($GLOBALS['rss']-> feedList) {
-		$GLOBALS['rss']-> feedList-> render();
+	switch ($GLOBALS['rss']->sideMenu->activeElement) {
+		
+		case 'tags':
+			rss_require('cls/taglist.php');
+			$GLOBALS['rss']-> tagList = new TagList(false);
+			$GLOBALS['rss']-> tagList -> render();
+		break;
+		
+		case 'feeds':
+		default:
+		if ($GLOBALS['rss']-> feedList) {
+			$GLOBALS['rss']-> feedList-> render();
+		}
+		break;
+		
+	}
+	
+}
+
+function rss_main_sidemenu($cntr) {
+	if ($GLOBALS['rss']-> sideMenu) {
+		$GLOBALS['rss'] -> sideMenu -> setContainer($cntr);
+		$GLOBALS['rss']-> sideMenu -> render();
 	}
 }
 

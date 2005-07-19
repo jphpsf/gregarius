@@ -270,7 +270,11 @@ function _et(id) {
 }
 
 
-document.currentSide = "feeds";
+cs = getCookie('side');
+if (!cs) {
+	cs = 'feeds';
+}
+document.currentSide = cs;
 document.currentSideExpected = "";
 document.currentSideCache = "";
 document.currentSideCacheType = "";
