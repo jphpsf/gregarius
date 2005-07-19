@@ -4,13 +4,15 @@ var COOKIENAME = "collapsedfolders";
 document.cf = new Array();
 
 // src: http://www.javascripter.net/faq/settinga.htm
-function setCookie(cookieName,cookieValue) {
+function setCookie(cookieName,cookieValue,path) {
     //alert(cookieValue);
     var today = new Date();
     var expire = new Date();
     // 1 year
     expire.setTime(today.getTime() + 31536000000);
-    document.cookie = cookieName+"="+escape(cookieValue) + ";expires="+expire.toGMTString();
+    document.cookie = cookieName+"="+escape(cookieValue) 
+    	+ "; expires="+expire.toGMTString()
+    	+ "; path="+path;
 }
 
 function getCookie(cookieName) {
@@ -77,7 +79,7 @@ function _tgl(fid) {
             if (i < (document.cf.length - 1)) c=c+':'
         }
     }
-    setCookie(COOKIENAME,c);
+    setCookie(COOKIENAME,c,"/");
 
 }
 
