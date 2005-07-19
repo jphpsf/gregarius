@@ -391,7 +391,7 @@ class ItemList {
 	}
 	
 	function setRenderOptions($options) {
-		$this-> rss -> renderOptions = $options;
+		$this-> rss -> renderOptions |= $options;
 		$this -> renderOptions = $options;
 	}
 	

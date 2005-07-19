@@ -37,6 +37,7 @@ class RSS {
 	var $header;
 	var $footer;
 	var $mainObject = array();
+	var $renderOptions = IL_NONE;
 	var $mainDivId;
 	var $feedList;
 	var $currentFeedsFolder;
