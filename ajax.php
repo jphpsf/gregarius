@@ -291,6 +291,7 @@ function _side(what) {
 			document.getElementById('sidemenufeeds').className = "";
 			document.getElementById('sidemenutags').className = "active";
 		}
+		setCookie("side",what);
 		document.currentSide = what;
 	} else {
 		document.currentSideExpected = what;
@@ -312,6 +313,7 @@ function _setSideContent_cb(data) {
 			document.currentSideCacheType = "tags";
 			document.currentSide = 'feeds';
 		}
+		setCookie("side",document.currentSideExpected);
 		document.currentSide = document.currentSideExpected;
 		document.getElementById('channels').innerHTML = data;
 	}
