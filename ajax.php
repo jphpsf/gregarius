@@ -270,6 +270,55 @@ function _et(id) {
 }
 
 
+document.currentSide = "feeds";
+document.currentSideExpected = "";
+document.currentSideCache = "";
+document.currentSideCacheType = "";
+
+function _side(what) {
+	if (document.currentSide == what) {
+		return 0;
+	} else if (what == document.currentSideCacheType) {
+		c = document.getElementById('channels').innerHTML;
+		document.getElementById('channels').innerHTML = document.currentSideCache;
+		document.currentSideCache = c;
+		if (what == 'feeds') {
+			document.currentSideCacheType = 'tags';
+			document.getElementById('sidemenufeeds').className = "active";
+			document.getElementById('sidemenutags').className = "";
+		} else {
+			document.currentSideCacheType = 'feeds';
+			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenutags').className = "active";
+		}
+		document.currentSide = what;
+	} else {
+		document.currentSideExpected = what;
+		x___exp__getSideContent(what, _setSideContent_cb);
+	}
+}
+
+function _setSideContent_cb(data) {
+	if (data) {
+		document.currentSideCache = document.getElementById('channels').innerHTML;
+		if (document.currentSideExpected == 'tags') {
+			document.currentSideCacheType = "feeds";
+			document.currentSide = 'tags';
+			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenutags').className = "active";
+		} else {
+			document.getElementById('sidemenufeeds').className = "active";
+			document.getElementById('sidemenutags').className = "";
+			document.currentSideCacheType = "tags";
+			document.currentSide = 'feeds';
+		}
+		document.currentSide = document.currentSideExpected;
+		document.getElementById('channels').innerHTML = data;
+	}
+	document.currentSideExpected = "";
+}
+
+
 <?php if (! hidePrivate()) { ?>
 
 document.states = new Array();
@@ -419,54 +468,6 @@ function unreadCnt(d) {
         return c;
     }
     return null;
-}
-
-document.currentSide = "feeds";
-document.currentSideExpected = "";
-document.currentSideCache = "";
-document.currentSideCacheType = "";
-
-function _side(what) {
-	if (document.currentSide == what) {
-		return 0;
-	} else if (what == document.currentSideCacheType) {
-		c = document.getElementById('channels').innerHTML;
-		document.getElementById('channels').innerHTML = document.currentSideCache;
-		document.currentSideCache = c;
-		if (what == 'feeds') {
-			document.currentSideCacheType = 'tags';
-			document.getElementById('sidemenufeeds').className = "active";
-			document.getElementById('sidemenutags').className = "";
-		} else { 
-			document.currentSideCacheType = 'feeds';
-			document.getElementById('sidemenufeeds').className = "";
-			document.getElementById('sidemenutags').className = "active";
-		}
-		document.currentSide = what;
-	} else {
-		document.currentSideExpected = what;
-		x___exp__getSideContent(what, _setSideContent_cb);	
-	}
-}
-
-function _setSideContent_cb(data) {
-	if (data) {
-		document.currentSideCache = document.getElementById('channels').innerHTML;
-		if (document.currentSideExpected == 'tags') {
-			document.currentSideCacheType = "feeds";			
-			document.currentSide = 'tags';
-			document.getElementById('sidemenufeeds').className = "";
-			document.getElementById('sidemenutags').className = "active";
-		} else {
-			document.getElementById('sidemenufeeds').className = "active";
-			document.getElementById('sidemenutags').className = "";
-			document.currentSideCacheType = "tags";
-			document.currentSide = 'feeds';
-		}
-		document.currentSide = document.currentSideExpected;
-		document.getElementById('channels').innerHTML = data;
-	} 
-	document.currentSideExpected = "";
 }
 
 <?php }
