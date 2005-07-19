@@ -428,7 +428,7 @@ document.currentSideCacheType = "";
 
 function _side(what) {
 	if (document.currentSide == what) {
-		return;
+		return 0;
 	} else if (what == document.currentSideCacheType) {
 		c = document.getElementById('channels').innerHTML;
 		document.getElementById('channels').innerHTML = document.currentSideCache;
