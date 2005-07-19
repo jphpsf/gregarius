@@ -60,6 +60,7 @@ rss_require('cls/rss.php');
 _pf('parsing classes:');
 rss_require('cls/items.php');       _pf(' ... items.php');
 rss_require("cls/channels.php");    _pf(' ... channels.php');
+rss_require('cls/sidemenu.php');	  _pf(' ... sidemenu.php');
 rss_require("cls/header.php");      _pf(' ... header.php');
 rss_require("cls/nav.php");         _pf(' ... nav.php');
 
