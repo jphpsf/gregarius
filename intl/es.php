@@ -47,6 +47,7 @@ define ('LBL_H2_RECENT_ITEMS', "temas recientes");
 define ('LBL_H2_CHANNELS','Canales');
 define ('LBL_H5_READ_UNREAD_STATS','%d temas, %d sin leer');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> temas (<strong>%d</strong> sin leer) en <strong>%d</strong> canales');
+define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> temas con tag, <strong>%d</strong> tags');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d sin leer)</strong>');
 define ('LBL_UNREAD','sin leer');
 

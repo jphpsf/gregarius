@@ -47,6 +47,7 @@ define ('LBL_H2_RECENT_ITEMS', "&Eacute;l&eacute;ments r&eacute;cents");
 define ('LBL_H2_CHANNELS','Canaux');
 define ('LBL_H5_READ_UNREAD_STATS','%d &eacute;l&eacute;ments , %d non lus');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments (<strong>%d</strong> non lus) dans <strong>%d</strong> canaux');
+define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> &eacute;l&eacute;ments tagg&eacute;s, <strong>%d</strong> tags');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d non lus)</strong>');
 define ('LBL_UNREAD','non lus');
 

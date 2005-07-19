@@ -48,6 +48,7 @@ define ('LBL_H2_RECENT_ITEMS', "Senast l&auml;sta inl&auml;gg");
 define ('LBL_H2_CHANNELS','Fl&ouml;den');
 define ('LBL_H5_READ_UNREAD_STATS','%d inl&auml;gg, %d ol&auml;sta');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> inl&auml;gg (<strong>%d</strong> ol&auml;sta) i <strong>%d</strong> fl&ouml;den');
+define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> taggade inl&auml;gg, <strong>%d</strong> taggar');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d ol&auml;sta)</strong>');
 define ('LBL_UNREAD','ol&auml;sta');
 

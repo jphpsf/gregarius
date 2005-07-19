@@ -46,6 +46,7 @@ define ('LBL_H2_RECENT_ITEMS', "Recent items");
 define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d items, %d unread');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds');
+define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> tagged items, in <strong>%d</strong> tags');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d unread)</strong>');
 define ('LBL_UNREAD','unread');
 

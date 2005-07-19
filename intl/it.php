@@ -51,6 +51,7 @@ define ('LBL_H2_RECENT_ITEMS', "Elementi recenti");
 define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d elementi, %d non letti');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> elementi (<strong>%d</strong> non letti) in <strong>%d</strong> feed');
+define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> elementi taggati, <strong>%d</strong> tags');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d non letti)</strong>');
 define ('LBL_UNREAD','non letti');
 
