@@ -34,8 +34,11 @@ define ('UNIT','px');
 class Tags {
 
 	var $allTags = array ();
+	var $renderOptions;
+	var $rss;
 	
 	function Tags() {
+		$this -> rss = $GLOBALS['rss'];
 		$this -> populate();
 	}
 	
@@ -68,6 +71,10 @@ class Tags {
 		return getPath(). (getConfig('rss.output.usemodrewrite') ? "tag/$tag" : "tags.php?tag=$tag");
 	}
 
+	function setRenderOptions($options) {
+		$this-> rss -> renderOptions |= $options;
+	}
+	
 	function render() {
 		if (count($this->allTags)) {
 			$spread = max($this->allTags) - min($this->allTags);
