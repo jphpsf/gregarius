@@ -560,6 +560,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
   
 }
 
+
 /**
  * This function will return an array for the previous, next and up
  * navigation elements, based on the current location

@@ -19,7 +19,7 @@
 		[<span id="ta<?= rss_item_id(); ?>"><a href="#" onclick="_et(<?= rss_item_id(); ?>); return false;"><?= LBL_TAG_EDIT ?></a></span>]
 	</h5>
 
-	<div class="content">
+	<div class="content" id="c<?= rss_item_id(); ?>">
 		<?= rss_item_content(); ?>
 	</div>
 </li>
