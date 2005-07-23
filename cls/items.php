@@ -90,7 +90,6 @@ class Item {
 	 * Renders a single RSS item
 	 */
 	function render() {
-		
 		$this-> rss -> currentItem = $this;
 		require($this-> rss -> getTemplateFile("item.php"));
 	}
@@ -354,7 +353,6 @@ class ItemList {
 			
 			$res = $this->rss->db->rss_query($sql);
 			while (list ($tag_, $iid_, $cid_) = $this->rss->db->rss_fetch_row($res)) {
-				
 				if (array_key_exists($iid_, $this -> iidInCid)) {
 					$idx = $this->iidInCid[$iid_];
 					while (list($key, $item) = each($this ->feeds[$idx] -> items)) {
@@ -363,7 +361,8 @@ class ItemList {
 							break;
 						}				
 					}
-				}
+					reset($this ->feeds[$idx] -> items);
+				} 
 				
 
 				if (array_key_exists($tag_,$this -> allTags)) {
