@@ -74,7 +74,7 @@ class TagList extends Tags{
 		echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
 		echo "<ul>";
 		foreach ($this -> allTags as $tag => $cnt) {
-			echo "<li style=\"font-size:medium\">"
+			echo "<li>"
 			."<img src=\"".rss_theme_path() ."/media/noicon.png"."\" class=\"favicon\" alt=\"\" />"
 			."<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>";
 		}
