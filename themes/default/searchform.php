@@ -31,7 +31,7 @@
 
 	<p>
 		<label for="query_res_per_page"><?= LBL_SEARCH_RESULTS_PER_PAGE ?></label>
-		<?= rss_serach_results_per_page_combo('query_res_per_page') ?>
+		<?= rss_search_results_per_page_combo('query_res_per_page') ?>
 	</p>
 
 	<p>
