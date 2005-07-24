@@ -62,6 +62,7 @@ define ('LBL_SEARCH_GO', 'Rechercher');
 
 define ('LBL_POSTED', 'Publi&eacute;: ');
 define ('LBL_FETCHED', 'R&eacute;cup&eacute;r&eacute;: ');
+define ('LBL_BY', ' par ');
 
 define ('LBL_AND','et');
 

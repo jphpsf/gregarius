@@ -63,6 +63,7 @@ define ('LBL_SEARCH_GO', 'S&ouml;k');
 
 define ('LBL_POSTED', 'Postad: ');
 define ('LBL_FETCHED','H&auml;mtad: ');
+define ('LBL_BY', ' af ');
 
 define ('LBL_AND','och');
 

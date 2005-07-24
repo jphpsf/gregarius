@@ -126,6 +126,12 @@ function rss_item_date_with_format($fmt) {
 	return date($fmt,$GLOBALS['rss']->currentItem->date); 
 }
 
+function rss_item_author() {
+	if (($a = $GLOBALS['rss'] -> currentItem -> author) != null) {
+  	return LBL_BY . $a;
+  }
+}
+
 function rss_item_tags() {
 	
 	$ret = "";

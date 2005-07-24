@@ -57,6 +57,7 @@ CREATE TABLE `item` (
   `description` text,
   `unread` tinyint(4) default '1',
   `pubdate` datetime default NULL,
+  `author` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   KEY `url` (`url`),
   KEY `cid` (`cid`)

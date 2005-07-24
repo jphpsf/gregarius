@@ -196,6 +196,19 @@ function update($id) {
 			// make sure the url is properly escaped
 			$url = htmlentities(str_replace("'", "\\'", $url));
 
+			// author
+			if (array_key_exists('dc', $item) && array_key_exists('creator', $item['dc'])) {
+				// RSS 1.0
+				$author = $item['dc']['creator'];
+			} else if (array_key_exists('author_name', $item)) {
+				// Atom 0.3
+				$author = $item['author_name'];
+			} else {
+				$author = "";
+			}
+
+			$author = strip_tags($author);
+
 			// pubdate
 			$cDate = -1;
 			if (array_key_exists('dc', $item) && array_key_exists('date', $item['dc'])) {
@@ -235,9 +248,11 @@ function update($id) {
 					= rss_plugin_hook('rss.plugins.items.new', array ($cid, $title, $url, $description));
 
 				$sql = "insert into ".getTable("item")
-				." (cid, added, title, url, "." description, unread, pubdate) "
+				." (cid, added, title, url, "." description, author, unread, pubdate) "
 				." values ("."$cid, now(), '".rss_real_escape_string($title)."', "
-				." '$url', '".rss_real_escape_string($description)."', "."$mode, $sec)";
+				." '$url', '".rss_real_escape_string($description)."', '"
+				.rss_real_escape_string($author)."', "
+				."$mode, $sec)";
 
 				rss_query($sql);
 				

@@ -61,6 +61,7 @@ define ('LBL_SEARCH_GO', 'Search');
 
 define ('LBL_POSTED', 'Posted: ');
 define ('LBL_FETCHED','Fetched: ');
+define ('LBL_BY', ' by ');
 
 define ('LBL_AND','and');
 

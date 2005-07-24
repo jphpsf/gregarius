@@ -107,6 +107,18 @@ function checkSchemaColumns($column) {
 				);
 			}
 		break;
+		case 'i.author':
+		case 'author':
+			// item's author
+			rss_query('alter table ' . getTable('item') . ' add column author varchar(255) null');
+			if (rss_sql_error() == 0) {
+				$updated++;
+				rss_error('updated schema for table ' . getTable('item'));
+			} else {
+				rss_error('Failed updating schema for table ' . getTable('item') . ': '
+					. rss_sql_error_message());
+			}
+		break;
 	}
 	return $updated;
 }
@@ -279,6 +291,7 @@ function _init_item() {
 		  description text,
 		  unread tinyint(4) default '1',
 		  pubdate datetime default NULL,
+		  author varchar(255) default NULL,		  
 		  PRIMARY KEY  (id),
 		  KEY url (url),
 		  KEY cid (cid)
