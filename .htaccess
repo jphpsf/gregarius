@@ -32,6 +32,9 @@ Options -MultiViews
   #sticky view
   RewriteRule ^sticky?/?$ sticky.php [L]
 
+  #author view
+  RewriteRule ^author/(.+)$ author.php?author=$1 [L]
+  
   #item view
   RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)\/([0-9][0-9][0-9][0-9])\/([0-9][0-9]?)\/?([0-9]?[0-9])?\/?(.*)?$	feed.php?channel=$1&y=$2&m=$3&d=$4&iid=$5 [L]
