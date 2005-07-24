@@ -203,6 +203,12 @@ function channel_admin() {
 
     $label = trim($_REQUEST['new_channel']);
 	$fid = trim($_REQUEST['add_channel_to_folder']);
+	
+	// handle "feed:" urls
+	if (substr($label, 0,5) == 'feed:') {
+		$label = substr($label,5);
+	}
+	
 	if ($label != 'http://' &&	substr($label, 0,4) == "http") {
 		$ret = add_channel($label,$fid);
 		//var_dump($ret);
