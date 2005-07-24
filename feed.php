@@ -505,7 +505,12 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			$sqlLimit = 9999;
 		}
 				  
-		$sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc, i.added desc, i.id asc";
+		$sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc";
+		if(getConfig('rss.config.datedesc')){
+			$sql .= ", ts desc, i.id asc";
+		}else{
+			$sql .= ", ts desc, i.id asc";
+		}
 		
 		
 		$items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit);
@@ -741,7 +746,11 @@ function makeNav($cid,$iid,$y,$m,$d) {
 						$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 					}
 		      
-				  $sql .= " order by i.added desc, i.id asc";
+				if(getConfig('rss.config.datedesc')){
+					$sql .= " order by ts_ desc, i.id asc";
+				}else{
+					$sql .= " order by ts_ asc, i.id asc";
+				}
 				  
 				$rs = rss_query($sql);
 				$found = false;

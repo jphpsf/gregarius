@@ -276,9 +276,9 @@ class ItemList {
 			$sql .= " order by  ";
 			if (!getConfig('rss.config.feedgrouping')) {
 				if(getConfig('rss.config.datedesc')){
-					$sql .= " 8 desc, f.position asc, c.position asc ";
+					$sql .= " ts desc, f.position asc, c.position asc ";
 				}else{
-					$sql .= " 8 asc, f.position asc, c.position asc ";
+					$sql .= " ts asc, f.position asc, c.position asc ";
 				}
 			} elseif (getConfig('rss.config.absoluteordering')) {
 				$sql .= " f.position asc, c.position asc";
@@ -286,9 +286,9 @@ class ItemList {
 				$sql .= " c.parent asc, c.title asc";
 			}
 			if(getConfig('rss.config.datedesc')){
-				$sql .= ", i.added desc, i.id asc";
+				$sql .= ", ts desc, i.id asc";
 			}else{
-				$sql .= ", i.added asc, i.id asc";
+				$sql .= ", ts asc, i.id asc";
 			}
 		} else {
 			$sql .= " $sqlOrder ";	
