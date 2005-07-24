@@ -5,7 +5,7 @@
 Snoopy - the PHP net client
 Author: Monte Ohrt <monte@ispi.net>
 Copyright (c): 1999-2000 ispi, all rights reserved
-Version: 1.0
+Version: 1.0 (plus - see SJM comments below)
 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,6 +32,29 @@ Lincoln, NE 68510
 
 The latest version of Snoopy can be obtained from:
 http://snoopy.sourceforge.com
+
+
+
+SJM - alpha-grade changes based on the version of Snoopy released with MagpieRSS 0.7
+
+comments to steve@minutillo.com
+
+Two additions:
+
+1) If this is PHP 4.3 or greater, and 'openssl' is available,
+   use the PHP built in SSL support for "https" instead of calling curl externally.
+   Use of external curl can still be forced by setting $use_curl = true.
+   
+   ref:  http://us2.php.net/fsockopen
+   
+2) HTTP Digest Authentication.  If you set a username and password, basic auth
+   will be tried first.  If that fails, and the server sends back an
+   WWW-Authenticate: Digest header, the request will be retried with the appropriate
+   digest response.  Only qop=auth is supported, with MD5 as the algorithm.
+   I realize that sending basic auth first, and then following up with a digest
+   challenge-response kind of defeats the purpose in terms of security.
+   
+   ref:  http://www.faqs.org/rfcs/rfc2617.html
 
 *************************************************/
 
@@ -93,6 +116,10 @@ class Snoopy
 												// as these functions are not stable
 												// as of this Snoopy release.
 	
+	// SJM - always use curl for HTTPS requests?
+	var $use_curl		= false;	
+	
+
 	// send Accept-encoding: gzip?
 	var $use_gzip		= true;	
 	
@@ -100,6 +127,7 @@ class Snoopy
 	
 	var	$_maxlinelen	=	4096;				// max line length (headers)
 	
+	var $_scheme	=	"http";				// default scheme
 	var $_httpmethod	=	"GET";				// default http request method
 	var $_httpversion	=	"HTTP/1.0";			// default http request version
 	var $_submit_method	=	"POST";				// default submit method
@@ -107,6 +135,7 @@ class Snoopy
 	var $_mime_boundary	=   "";					// MIME boundary for multipart/form-data submit type
 	var $_redirectaddr	=	false;				// will be set if page fetched is a redirect
 	var $_redirectdepth	=	0;					// increments on an http redirect
+	var $_trieddigest	=	false;					// have we tried Digest auth yet?
 	var $_frameurls		= 	array();			// frame src urls
 	var $_framedepth	=	0;					// increments on frame depth
 	
@@ -131,69 +160,27 @@ class Snoopy
 			$this->user = $URI_PARTS["user"];
 		if (!empty($URI_PARTS["pass"]))
 			$this->pass = $URI_PARTS["pass"];
-				
+		
+		$this->_scheme = $URI_PARTS["scheme"];
+
 		switch($URI_PARTS["scheme"])
 		{
 			case "http":
-				$this->host = $URI_PARTS["host"];
-				if(!empty($URI_PARTS["port"]))
-					$this->port = $URI_PARTS["port"];
-				if($this->_connect($fp))
-				{
-					if($this->_isproxy)
-					{
-						// using proxy, send entire URI
-						$this->_httprequest($URI,$fp,$URI,$this->_httpmethod);
-					}
-					else
-					{
-						$path = $URI_PARTS["path"].(isset($URI_PARTS["query"]) ? "?".$URI_PARTS["query"] : "");
-						// no proxy, send only the path
-						$this->_httprequest($path, $fp, $URI, $this->_httpmethod);
-					}
-					
-					$this->_disconnect($fp);
-
-					if($this->_redirectaddr)
-					{
-						/* url was redirected, check if we've hit the max depth */
-						if($this->maxredirs > $this->_redirectdepth)
-						{
-							// only follow redirect if it's on this site, or offsiteok is true
-							if(preg_match("|^http://".preg_quote($this->host)."|i",$this->_redirectaddr) || $this->offsiteok)
-							{
-								/* follow the redirect */
-								$this->_redirectdepth++;
-								$this->lastredirectaddr=$this->_redirectaddr;
-								$this->fetch($this->_redirectaddr);
-							}
-						}
-					}
-
-					if($this->_framedepth < $this->maxframes && count($this->_frameurls) > 0)
-					{
-						$frameurls = $this->_frameurls;
-						$this->_frameurls = array();
-						
-						while(list(,$frameurl) = each($frameurls))
-						{
-							if($this->_framedepth < $this->maxframes)
-							{
-								$this->fetch($frameurl);
-								$this->_framedepth++;
-							}
-							else
-								break;
-						}
-					}					
-				}
-				else
-				{
-					return false;
-				}
-				return true;					
-				break;
 			case "https":
+				break;
+				
+			default:
+				// not a valid protocol
+				$this->error	=	'Invalid protocol "'.$URI_PARTS["scheme"].'"\n';
+				return false;
+		}
+		
+		if($URI_PARTS["scheme"] == "https")
+		{
+			// SJM - if they really want curl, or it isn't PHP 4.3 yet, or openssl extension isn't loaded
+			
+			if($use_curl || !function_exists('file_get_contents') || !extension_loaded('openssl'))
+			{
 				if(!$this->curl_path || (!is_executable($this->curl_path))) {
 					$this->error = "Bad curl ($this->curl_path), can't fetch HTTPS \n";
 					return false;
@@ -204,13 +191,13 @@ class Snoopy
 				if($this->_isproxy)
 				{
 					// using proxy, send entire URI
-					$this->_httpsrequest($URI,$URI,$this->_httpmethod);
+					$this->_curlrequest($URI,$URI,$this->_httpmethod);
 				}
 				else
 				{
 					$path = $URI_PARTS["path"].($URI_PARTS["query"] ? "?".$URI_PARTS["query"] : "");
 					// no proxy, send only the path
-					$this->_httpsrequest($path, $URI, $this->_httpmethod);
+					$this->_curlrequest($path, $URI, $this->_httpmethod);
 				}
 
 				if($this->_redirectaddr)
@@ -246,14 +233,78 @@ class Snoopy
 					}
 				}					
 				return true;					
-				break;
-			default:
-				// not a valid protocol
-				$this->error	=	'Invalid protocol "'.$URI_PARTS["scheme"].'"\n';
-				return false;
-				break;
-		}		
-		return true;
+			}
+		}
+
+		// SJM - else drop through and treat https as http
+		
+		$this->host = $URI_PARTS["host"];
+		if(!empty($URI_PARTS["port"]))
+			$this->port = $URI_PARTS["port"];
+		
+		// SJM - if it's https, default the port to 443
+		if($URI_PARTS["scheme"] == "https")
+		{
+			if(empty($URI_PARTS["port"]))
+			{
+				$this->port = 443;
+			}
+		}
+		
+		if($this->_connect($fp))
+		{
+			if($this->_isproxy)
+			{
+				// using proxy, send entire URI
+				$this->_httprequest($URI,$fp,$URI,$this->_httpmethod);
+			}
+			else
+			{
+				$path = $URI_PARTS["path"].(isset($URI_PARTS["query"]) ? "?".$URI_PARTS["query"] : "");
+				// no proxy, send only the path
+				$this->_httprequest($path, $fp, $URI, $this->_httpmethod);
+			}
+
+			$this->_disconnect($fp);
+
+			if($this->_redirectaddr)
+			{
+				/* url was redirected, check if we've hit the max depth */
+				if($this->maxredirs > $this->_redirectdepth)
+				{
+					// only follow redirect if it's on this site, or offsiteok is true
+					if(preg_match("|^http://".preg_quote($this->host)."|i",$this->_redirectaddr) || $this->offsiteok)
+					{
+						/* follow the redirect */
+						$this->_redirectdepth++;
+						$this->lastredirectaddr=$this->_redirectaddr;
+						$this->fetch($this->_redirectaddr);
+					}
+				}
+			}
+
+			if($this->_framedepth < $this->maxframes && count($this->_frameurls) > 0)
+			{
+				$frameurls = $this->_frameurls;
+				$this->_frameurls = array();
+
+				while(list(,$frameurl) = each($frameurls))
+				{
+					if($this->_framedepth < $this->maxframes)
+					{
+						$this->fetch($frameurl);
+						$this->_framedepth++;
+					}
+					else
+						break;
+				}
+			}					
+		}
+		else
+		{
+			return false;
+		}
+		return true;					
 	}
 
 
@@ -494,7 +545,50 @@ class Snoopy
 		//	if($currentHeader == "\r\n")
 			if(preg_match("/^\r?\n$/", $currentHeader) )
 			      break;
-						
+
+			if(!$this->_tried_digest && preg_match("/^WWW-Authenticate: Digest (.*)/", $currentHeader, $matches))
+			{
+				// SJM - we got a Digest challenge.  Try to respond...
+				
+				$digestheader = $matches[1];
+				
+				preg_match("/nonce=\"(.*?)\"/", $digestheader, $matches);
+				$nonce = $matches[1];
+
+				preg_match("/realm=\"(.*?)\"/", $digestheader, $matches);
+				$realm = $matches[1];
+
+				$cnonce = md5(microtime());
+
+				$a1 = $this->user . ":" . $realm . ":" . $this->pass;
+				$a2 = $http_method . ":" . $url;
+
+				$ha1 = md5($a1);
+				$ha2 = md5($a2);
+
+				$response = md5($ha1 . ":" . $nonce . ":00000001:" . $cnonce . ":auth:" . $ha2);
+
+				$auth  = 'Digest username="' . $this->user . '", ';
+				$auth .= 'realm="' . $realm . '", ';
+				$auth .= 'nonce="' . $nonce . '", ';
+				$auth .= 'uri="' . $url . '", ';
+				$auth .= 'response="' . $response . '", ';
+				$auth .= 'algorithm="MD5", ';
+				$auth .= 'cnonce="' . $cnonce . '", ';
+				$auth .= 'nc=00000001, ';
+				$auth .= 'qop="auth"';
+
+				// SJM - treat Digest challenge as a redirect.  set flag so we don't keep retrying.
+				
+				$this->_tried_digest = true;
+				
+				$this->rawheaders["Authorization"]=$auth;
+				$this->user = "";
+				$this->pass = "";
+				
+				$this->_redirectaddr = $URI_PARTS['scheme'] . '://' . $this->host . $url;
+			}
+
 			// if a header begins with Location: or URI:, set the redirect
 			if(preg_match("/^(Location:|URI:)/i",$currentHeader))
 			{
@@ -579,7 +673,7 @@ class Snoopy
 	}
 
 /*======================================================================*\
-	Function:	_httpsrequest
+	Function:	_curlrequest
 	Purpose:	go get the https data from the server using curl
 	Input:		$url		the url to fetch
 				$URI		the full URI
@@ -587,7 +681,7 @@ class Snoopy
 	Output:		
 \*======================================================================*/
 	
-	function _httpsrequest($url,$URI,$http_method,$content_type="",$body="")
+	function _curlrequest($url,$URI,$http_method,$content_type="",$body="")
 	{
 		if($this->passcookies && $this->_redirectaddr)
 			$this->setcookies();
@@ -785,6 +879,11 @@ class Snoopy
 		}
 	
 		$this->status = 0;
+		
+		if($this->_scheme == "https")
+		{
+			$host = "ssl://" . $host;
+		}
 		
 		if($fp = fsockopen(
 					$host,
