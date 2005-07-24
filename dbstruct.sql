@@ -106,6 +106,7 @@ insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.input
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.titleunreadcnt",'false','false','boolean','Display unread count in the document title.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.tzoffset",'0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.numitemsonpage","100","100","num","Maximum number of items displayed on the main page. Set this variable to 0 to turn this option off.",NULL);
+insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.datedesc",'true','true','boolean',"When true, Gregarius displays newer items first. If false, Gregarius will display older items first.",NULL);
 
 CREATE TABLE tag (
  id bigint(16) NOT NULL auto_increment,

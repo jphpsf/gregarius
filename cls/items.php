@@ -275,13 +275,21 @@ class ItemList {
 		if ($sqlOrder == "") {
 			$sql .= " order by  ";
 			if (!getConfig('rss.config.feedgrouping')) {
-				$sql .= " 8 desc, f.position asc, c.position asc ";
+				if(getConfig('rss.config.datedesc')){
+					$sql .= " 8 desc, f.position asc, c.position asc ";
+				}else{
+					$sql .= " 8 asc, f.position asc, c.position asc ";
+				}
 			} elseif (getConfig('rss.config.absoluteordering')) {
 				$sql .= " f.position asc, c.position asc";
 			} else {
 				$sql .= " c.parent asc, c.title asc";
 			}
-			$sql .= ", i.added desc, i.id asc";
+			if(getConfig('rss.config.datedesc')){
+				$sql .= ", i.added desc, i.id asc";
+			}else{
+				$sql .= ", i.added asc, i.id asc";
+			}
 		} else {
 			$sql .= " $sqlOrder ";	
 		}
