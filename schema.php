@@ -249,7 +249,7 @@ function setDefaults($key) {
 		"rss.output.showfeedmeta"	=>		array('false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column.',NULL),
 		"rss.input.tags.delicious"	=>		array('false','false','boolean','Look up tag suggestions on del.icio.us when editing tags.',NULL),
 		"rss.output.noreaditems"	=>		array('false','false','boolean','Show unread items only on the frontpage.',NULL),
-		"rss.output.theme"			=>		array('default','default','string','The CSS theme to use. Themes are subdirectories of css/ which should contain at least the following elements:<ul><li>layout.css</li><li>look.css</li><ul>',NULL),
+		"rss.output.theme"			=>		array('default','default','string','The theme to use. Themes are subdirectories of themes/ which should contain at least the following elements:<ul><li>css/layout.css</li><li>css/look.css</li><ul>',NULL),
 		"rss.output.cachecontrol"	=>		array('false','false','boolean','If true, Gregarius will negotiate with the browser and check whether it should get a fresh document or not',NULL),
 		"rss.config.plugins"		=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL),
 		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow Gregarius to look for updates in existing items.',NULL),
