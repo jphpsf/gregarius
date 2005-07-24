@@ -252,7 +252,7 @@ input[type="text"]:focus{
 
 img.favicon { border:none; }
 
-p.stats { font-size: small; }
+p.stats { font-size: small; margin-bottom:1em; }
 
 .searchhit { border-bottom: 1px solid; font-weight: 900 }
 
