@@ -133,7 +133,8 @@ class Header {
 			
 		$GLOBALS['rss'] -> header = &$this;
 		rss_require(RSS::getTemplateFile("header.php"));
-		
+		rss_plugin_hook('rss.plugins.javascript', null);
+
 		if ($this->extraHTML) {
 			echo $this -> extraHTML;
 		}

@@ -52,6 +52,7 @@ function rss_feeds_folders() {
 	foreach ($GLOBALS['rss']->feedList->folders as $folder) {
 		$folder->render();
 	}
+	rss_plugin_hook('rss.plugins.feeds.after', null);
 }
 
 function rss_feeds_folder_class() {

@@ -17,5 +17,4 @@
 	<script type="text/javascript" src="<?= $script ?>"></script>	
 <?php } ?> 
 
-<?php rss_plugin_hook('rss.plugins.javascript', null); ?>
 
