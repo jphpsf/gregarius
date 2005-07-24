@@ -40,17 +40,18 @@ if (!$ra) {
 		$redirect .= "/";
 	}
 	header("Location: $redirect");
+	exit;
 }
 
 $t = ucfirst(LBL_ITEMS) . " " . LBL_BY . " " . $ra;
 $GLOBALS['rss']->header = new Header($t);
 $GLOBALS['rss']->feedList = new FeedList(false);
-$taggedItems = new ItemList();
+$authorItems = new ItemList();
 $sqlWhere = " i.author like '%$a%' ";
-$taggedItems->populate($sqlWhere);
-$taggedItems->setTitle($t);
-$taggedItems->setRenderOptions(IL_NO_COLLAPSE|IL_TITLE_NO_ESCAPE);
-$GLOBALS['rss']->appendContentObject($taggedItems);
+$authorItems->populate($sqlWhere);
+$authorItems->setTitle($t);
+$authorItems->setRenderOptions(IL_NO_COLLAPSE|IL_TITLE_NO_ESCAPE);
+$GLOBALS['rss']->appendContentObject($authorItems);
 $GLOBALS['rss']->renderWithTemplate('index.php', 'items');
 
 ?>
