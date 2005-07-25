@@ -73,7 +73,7 @@ class Item {
 		$this->date = $date;
 		$this->isPubDate = $isPubDate;
 		$this -> tags=array();
-				
+		
 		$this ->isUnread 	= $unread & FEED_MODE_UNREAD_STATE;
 		$this ->isPrivate	= $unread & FEED_MODE_PRIVATE_STATE;
 		$this ->isDeleted	= $unread & FEED_MODE_DELETED_STATE;
@@ -306,10 +306,10 @@ class ItemList {
 		$prevCid = -1;
 		$curIdx = 0;
 		$f=null;
-		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $iauthor, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = $this->rss->db->rss_fetch_row($res)) {
+		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $iauthor_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = $this->rss->db->rss_fetch_row($res)) {
 			
 			// Built a new Item
-			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $iauthor, $idescr_, $its_, $iispubdate_, $iunread_);
+			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $iauthor_, $idescr_, $its_, $iispubdate_, $iunread_);
 			
 		    // no dupes, please
 		    if (in_array($iid_,$iids)) {
