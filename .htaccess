@@ -3,6 +3,7 @@
 # http://httpd.apache.org/docs-2.0/mod/mod_negotiation.html#multiviews
 
 Options -MultiViews
+AddDefaultCharset utf-8
 
 <IfModule mod_rewrite.c>
   RewriteEngine on
@@ -18,7 +19,7 @@ Options -MultiViews
   # under a gregarius installation.
   
   #admin section
-  RewriteRule   ^admin\/sub\/(.+)$ 	admin/index.php?domain=feeds&add_channel_to_folder=0&action=Add&new_channel=$1 [L]
+  RewriteRule   ^admin\/sub\/(.+)$ admin/index.php?domain=feeds&add_channel_to_folder=0&action=Add&new_channel=$1 [L,NE]
   RewriteRule 	^admin\/([a-z]+)$	admin/index.php?view=$1 [L]
   
   #opml
