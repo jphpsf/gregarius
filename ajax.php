@@ -341,7 +341,7 @@ function setItemClass(id,cls) {
     }
 }
 
-function setItemHide(id){
+function setItemHide(id, redirect){
     if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
        ul = li.parentNode;
        trash = ul.removeChild(li); 
@@ -356,10 +356,12 @@ function setItemHide(id){
                 break;
             }
         }
-        
        	trash = pn.removeChild(ul);
        }
-
+       
+       if (redirect) {
+        document.location = '<?= getPath() ?>';
+       }
     }
 }
 
@@ -442,12 +444,12 @@ function _ses(id) {
         if ((s & <?= FEED_MODE_UNREAD_STATE ?>) != (p & <?= FEED_MODE_UNREAD_STATE ?>)) {
             if (s & <?= FEED_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
-                unreadCnt(1);
+                c=unreadCnt(1);
             } else {
-                unreadCnt(-1);
+                c = unreadCnt(-1);
 				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
 				    sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
-                        setItemHide(id);
+                        setItemHide(id, (c==0));
 				} else{ 
 				        setItemClass(id, 'item even');				     
 				}

@@ -42,17 +42,20 @@ function __dblclickToRead_js($in) {
 	function __dblclickToRead_js_getId(o) {
 		if (html = o.innerHTML) {            
 			if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*","gm").exec(html)) {
+              	if (!isIE) {
+                    c = unreadCnt(-1);
+                } else {
+                    c = 1;
+                }
 				id=r1[1];
 				s =r1[2] & <?= SET_MODE_READ_STATE ?>;
 				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
 				    sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
-                    setItemHide(id);
+                    setItemHide(id, (c == 0));
 				} else{ 
 				    setItemClass(id, 'item even');				     
 				}
-				if (!isIE) {
-                    unreadCnt(-1);
-                }
+
 				setState(id,s);
 			} 
 		}
