@@ -69,8 +69,9 @@ if (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPu
 	$update = new AJAXUpdate();	
 	
 } else {
+    error_reporting(0);
 	$update = new SilentUpdate();
-	
+	exit();
 }
 
 $GLOBALS['rss'] -> appendContentObject($update);
