@@ -152,7 +152,9 @@ function update($id) {
 		// base URL for items in this feed.
 		if (array_key_exists('link', $rss->channel)) {
 			$baseUrl = $rss->channel['link'];
-		}
+		} else {
+            $baseUrl = "";
+        }
 
 		foreach ($rss->items as $item) {
 
@@ -191,6 +193,8 @@ function update($id) {
 				$url = $item['link'];
 			} elseif (array_key_exists('guid', $item) && $item['guid'] != "") {
 				$url = $item['guid'];
+			} elseif (array_key_exists('link_', $item) && $item['link_'] != "") {
+				$url = $item['link_'];
 			} else {
 				// fall back to something basic
 				$url = md5($title);
