@@ -7,4 +7,5 @@
 <?php if (($rdLbl = rss_feeds_feed_read_label()) != "") { ?>
 	<?= $rdLbl ?>
 <?php } ?>
+<?= rss_feeds_feed_meta() ?>
 </li>

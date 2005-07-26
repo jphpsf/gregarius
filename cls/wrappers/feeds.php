@@ -124,4 +124,22 @@ function rss_feeds_feed_link() {
 function rss_feeds_feed_read_label() {
 	return ($GLOBALS['rss']->currentFeedsFeed-> rdLbl);
 }
+
+function rss_feeds_feed_meta() {
+    if (getConfig('rss.output.showfeedmeta') != NULL) {
+    
+        $ret = " [<a href=\"". htmlentities($GLOBALS['rss']->currentFeedsFeed->url)."\">xml</a>";
+
+        if ($GLOBALS['rss']->currentFeedsFeed->siteurl != "" && substr($GLOBALS['rss']->currentFeedsFeed->siteurl,0,4) == 'http') {
+            $ret .= "|<a href=\"" . htmlentities($GLOBALS['rss']->currentFeedsFeed->siteurl) ."\">www</a>";
+        }
+
+        if (getConfig('rss.meta.debug')) {
+            $ret .= "|<a href=\"". getPath() ."feed.php?channel=".$GLOBALS['rss']->currentFeedsFeed->id."&amp;dbg\">dbg</a>";
+        }
+
+        $ret .= "]";
+		return $ret;
+    }
+}
 ?>
