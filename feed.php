@@ -436,7 +436,10 @@ if ($iid == "") {
 $GLOBALS['rss'] -> feedList = new FeedList($cid);
 
 if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
-    debugFeed($cid);
+   require_once('cls/debugfeed.php');
+	$dbg = new DebugFeed($cid);
+	$GLOBALS['rss'] -> appendContentObject($dbg);	
+
 } else {
 	if ($cid && !(isset($cids) && is_array($cids) && count($cids))) {
    		$cids = array($cid); 
@@ -912,17 +915,6 @@ function markFolderReadForm($fid) {
 }
 
 function debugFeed($cid) {
-    echo "<div id=\"items\" class=\"frame\">\n";
-    $res = rss_query("select url from " .getTable("channels") ." where id = $cid");
-    if (! defined('MAGPIE_DEBUG') || !MAGPIE_DEBUG) {
-    	define ('MAGPIE_DEBUG',true);
-    }
-    list($url) = rss_fetch_row($res);
-    $rss = fetch_rss($url);
-    echo "<pre>\n";
-    echo htmlentities(print_r($rss,1));
-    echo "</pre>\n";    
-    echo "</div>\n";
 }
 
 ?>
