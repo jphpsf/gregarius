@@ -49,9 +49,14 @@ class FeedListItem {
 		$this->siteurl = $siteurl;
 		$this->name = $name;
 		$this->parent = $parent;
-		$this->icon = $icon;
-		if (!$this -> icon) {
-			$this->icon = rss_theme_path() ."/media/noicon.png";
+
+		
+		if ( getConfig('rss.output.showfavicons') && $icon){
+            $this->icon = $icon;
+		} elseif (getConfig('rss.output.showfavicons')) {
+    		$this->icon = rss_theme_path() ."/media/noicon.png";
+		} else {
+            $this->icon = false;
 		}
 		
 		$this->descr = $descr;
