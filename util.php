@@ -165,10 +165,13 @@ function update($id) {
 			// item content, if any
 			if (array_key_exists('content', $item) && array_key_exists('encoded', $item['content'])) {
 				$description = kses($item['content']['encoded'], $kses_allowed);
-			}
-			elseif (array_key_exists('description', $item)) {
+			} elseif (array_key_exists('description', $item)) {
 				$description = kses($item['description'], $kses_allowed);
-			} else {
+			} elseif (array_key_exists('atom_content', $item)) {
+                $description = kses($item['atom_content'], $kses_allowed);
+			} elseif (array_key_exists('summary', $item)) {
+                $description = kses($item['summary'], $kses_allowed);
+            } else {
 				$description = "";
 			}
 
