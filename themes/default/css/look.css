@@ -79,13 +79,15 @@ div#channels li ul li {
 
 
 /* folder icon */
+/*
 div#opml li.folder {
-  background-image: url(./media/folder.gif); 
+  background-image: url(../../themes/default/media/folder.gif); 
   background-position: 0px 0.5em;
   background-repeat: no-repeat;
 }
+*/
 div#opml .folder span {
- padding-left: 25px;  
+ font-size: 150%;
 }
 
 /* folder labels */

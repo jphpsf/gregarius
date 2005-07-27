@@ -48,8 +48,7 @@
 				  </span>
 				[<a href="{@xmlUrl}">xml</a>
 				<xsl:choose>
-					<xsl:when test="starts-with(@htmlUrl,'http')">
-						| <a href="{@htmlUrl}">www</a>
+					<xsl:when test="starts-with(@htmlUrl,'http')">|<a href="{@htmlUrl}">www</a>
 					</xsl:when>
 				</xsl:choose>]
 				<xsl:choose>
