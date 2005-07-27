@@ -70,8 +70,7 @@ if (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPu
 	
 } else {
     error_reporting(0);
-	$update = new SilentUpdate();
-	exit();
+    $update = new SilentUpdate();
 }
 
 $GLOBALS['rss'] -> appendContentObject($update);
