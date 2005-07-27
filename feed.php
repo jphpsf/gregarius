@@ -529,6 +529,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			$title .= " " .strip_tags(sprintf(LBL_UNREAD_PF, "cid$cid","",$items -> unreadCount));
 		 } else {
 		 	list($fid) = rss_fetch_row(rss_query('select parent from ' .getTable('channels') . 'where id = ' .$cids[0]));
+		 	$title .= " " .strip_tags(sprintf(LBL_UNREAD_PF, "cid$fid","",$items -> unreadCount));
 			$items -> preRender[] = array("markFolderReadForm",$fid);
 		 }
 	 }
