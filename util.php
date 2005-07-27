@@ -610,7 +610,7 @@ function hidePrivate() {
 }
 
 function getThemePath() {
-	$ret = getPath()."css/";
+	$ret = getPath()."themes/";
 	if (($theme = getConfig('rss.output.theme')) != null) {
 		$ret .= $theme."/";
 	} else {
