@@ -33,6 +33,7 @@ class FeedListItem {
 	var $id;
 	var $title;
 	var $url;
+	var $publicUrl;
 	var $siteurl;
 	var $name;
 	var $parent;
@@ -46,6 +47,9 @@ class FeedListItem {
 		$this->id = $id;
 		$this->title = $title;
 		$this->url = $url;
+		$this->publicUrl = preg_replace(
+			'|(https?://)([^:]+:[^@]+@)(.+)$|','\1\3',$url
+		);
 		$this->siteurl = $siteurl;
 		$this->name = $name;
 		$this->parent = $parent;

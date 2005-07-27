@@ -128,7 +128,7 @@ function rss_feeds_feed_read_label() {
 function rss_feeds_feed_meta() {
     if (getConfig('rss.output.showfeedmeta') != NULL) {
     
-        $ret = " [<a href=\"". htmlentities($GLOBALS['rss']->currentFeedsFeed->url)."\">xml</a>";
+        $ret = " [<a href=\"". htmlentities($GLOBALS['rss']->currentFeedsFeed->publicUrl)."\">xml</a>";
 
         if ($GLOBALS['rss']->currentFeedsFeed->siteurl != "" && substr($GLOBALS['rss']->currentFeedsFeed->siteurl,0,4) == 'http') {
             $ret .= "|<a href=\"" . htmlentities($GLOBALS['rss']->currentFeedsFeed->siteurl) ."\">www</a>";
