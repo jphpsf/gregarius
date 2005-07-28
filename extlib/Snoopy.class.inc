@@ -141,7 +141,20 @@ class Snoopy
 	
 	var $_isproxy		=	false;				// set if using a proxy server
 	var $_fp_timeout	=	30;					// timeout for socket connection
+	var $tmpdir = "/tmp/";
 
+	function Snoopy() {
+			if (defined('CURL_PATH')) {
+					$this -> curl_path = CURL_PATH;
+			}
+			
+			if (($tmp = getConfig('rss.output.cachedir')) != null) {
+					if (substr($tmp, -1, 1) != "/") {
+						$tmp .= "/";
+					}
+					$this -> tmpdir = $tmp;
+			}
+	}
 /*======================================================================*\
 	Function:	fetch
 	Purpose:	fetch the contents of a web page
@@ -177,14 +190,17 @@ class Snoopy
 		
 		if($URI_PARTS["scheme"] == "https")
 		{
-			// SJM - if they really want curl, or it isn't PHP 4.3 yet, or openssl extension isn't loaded
 			
+			// SJM - if they really want curl, or it isn't PHP 4.3 yet, or openssl extension isn't loaded			
 			if($use_curl || !function_exists('file_get_contents') || !extension_loaded('openssl'))
 			{
-				if(!$this->curl_path || (!is_executable($this->curl_path))) {
-					$this->error = "Bad curl ($this->curl_path), can't fetch HTTPS \n";
+				
+				// MBI: is_executable would break on some installs
+				if(!$this->curl_path || (!file_exists($this->curl_path))) {					
+					$this->error = "Bad curl ($this->curl_path), can't fetch HTTPS \n";							
 					return false;
 				}
+			
 				$this->host = $URI_PARTS["host"];
 				if(!empty($URI_PARTS["port"]))
 					$this->port = $URI_PARTS["port"];
@@ -748,9 +764,10 @@ class Snoopy
 		
 		// mbi: removed, as it breaks on older cURL's
 		//$cmdline_params .= " -k";
+		$full_cmdline = $this->curl_path." -D \"".$this -> tmpdir."$headerfile\"".$cmdline_params." ".$URI;
 		
-		exec($this->curl_path." -D \"/tmp/$headerfile\"".$cmdline_params." ".$URI,$results,$return);
-		
+		exec($full_cmdline,$results,$return);
+				
 		if($return)
 		{
 			$this->error = "Error: cURL could not retrieve the document, error $return.";
@@ -760,7 +777,7 @@ class Snoopy
 			
 		$results = implode("\r\n",$results);
 		
-		$result_headers = file("/tmp/$headerfile");
+		$result_headers = file($this -> tmpdir . $headerfile);
 						
 		$this->_redirectaddr = false;
 		unset($this->headers);
@@ -820,7 +837,7 @@ class Snoopy
 		else
 			$this->results = $results;
 
-		unlink("/tmp/$headerfile");
+		unlink($this -> tmpdir . $headerfile);
 		
 		return true;
 	}
