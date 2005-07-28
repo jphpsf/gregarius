@@ -172,7 +172,9 @@ class HTTPServerPushUpdate extends Update {
 		// Sleep two seconds
 		sleep(2);
 
-		parent::cleanUp($newIds);
+        if (!hidePrivate()) {
+		  parent::cleanUp($newIds);
+        }
 	}
 }
 
@@ -230,8 +232,11 @@ class SilentUpdate extends Update {
 		if (is_array($ret)) {
 			$newIds = $ret[1];
 		}
-		
-		parent::cleanUp($newIds);
+
+        if (!hidePrivate()) {
+		  parent::cleanUp($newIds);
+        }
+
 		
 		if (!array_key_exists('silent', $_GET)) {
 			$redirect = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
