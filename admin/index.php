@@ -325,7 +325,12 @@ function admin_enum_to_html($arr) {
  * authentication, but only allows access to Private items
  */
 function setAdminCookie() {
-	setcookie(PRIVATE_COOKIE, getPrivateCookieVal(), time()+COOKIE_LIFESPAN, getPath());
+    if (getConfig('rss.config.autologout')) {
+        $t = 0;
+    } else {
+        $t =time()+COOKIE_LIFESPAN;
+    }
+    setcookie(PRIVATE_COOKIE, getPrivateCookieVal(), $t, getPath());
 }
 
 
