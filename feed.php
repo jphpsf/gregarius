@@ -382,9 +382,9 @@ if ($iid == "") {
 		$res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
 		list($title,$icon) = rss_fetch_row($res);
 		if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
-			$dtitle =  (" " . TITLE_SEP ." " . rss_date('F Y',mktime(0,0,0,$m,1,$y)));
+			$dtitle =  (" " . TITLE_SEP ." " . rss_date('F Y',mktime(0,0,0,$m,1,$y),false));
 		} elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
-			$dtitle =  (" " . TITLE_SEP ." " . rss_date('F jS, Y',mktime(0,0,0,$m,$d,$y)));
+			$dtitle =  (" " . TITLE_SEP ." " . rss_date('F jS, Y',mktime(0,0,0,$m,$d,$y),false));
 		} else {
 			$dtitle ="";
 		}
