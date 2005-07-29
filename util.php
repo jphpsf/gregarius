@@ -377,6 +377,9 @@ function add_channel($url, $folderid = 0) {
 
 		
 		if ($title != "") {
+            $title = strip_tags($title);
+            $descr = strip_tags($descr);
+
 			// add channel to root folder by default
 			if(!$folderid){ $folderid = getRootFolder(); }
 
