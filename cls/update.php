@@ -100,7 +100,8 @@ class HTTPServerPushUpdate extends Update {
 		$GLOBALS['rss']->header->appendHeader("Content-type: multipart/x-mixed-replace;boundary=\"".PUSH_BOUNDARY."\"");
 		$GLOBALS['rss']->header->options |= HDR_NO_OUPUTBUFFERING;
 		rss_set_hook('rss.plugins.bodystart', "pushHeaderCallBack");
-		rss_set_hook('rss.plugins.bodyend', "pushFooterCallBack");
+		if(!getConfig('rss.meta.debug'))
+			rss_set_hook('rss.plugins.bodyend', "pushFooterCallBack");
 	}
 
 	function render() {
@@ -167,7 +168,8 @@ class HTTPServerPushUpdate extends Update {
 		}
 
 		echo "</table>\n";
-		echo "<p><a href=\"".getPath()."\">Redirecting...</a></p>\n";
+		if(!getConfig('rss.meta.debug'))
+			echo "<p><a href=\"".getPath()."\">Redirecting...</a></p>\n";
 		flush();
 		// Sleep two seconds
 		sleep(2);
@@ -213,7 +215,9 @@ class AJAXUpdate extends Update {
 		}    
 		
 		echo "</table>\n";  
-		echo "<script type=\"text/javascript\">\ndoUpdate();\n</script>\n";
+		echo "<script type=\"text/javascript\">\ndontRedirect = 0";
+		if(getConfig('rss.meta.debug')) echo "1";
+		echo ";\ndoUpdate();\n</script>\n";
 	}
 }
 
@@ -238,7 +242,7 @@ class SilentUpdate extends Update {
         }
 
 		
-		if (!array_key_exists('silent', $_GET)) {
+		if (!array_key_exists('silent', $_GET) && !getConfig('rss.meta.debug')) {
 			$redirect = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
 			if (substr($redirect, -1) != "/") {
 				$redirect .= "/";
@@ -324,7 +328,7 @@ function ajaxUpdateCleanup($ids) {
 function ajaxUpdateJavacript () {
 	echo sajax_get_javascript();
 ?>
-/// End Sajax javscript
+/// End Sajax javascript
 /// From here on: Copyright (C) 2003 - 2005 Marco Bonetti, gregarius.net
 /// Released under GPL
 
@@ -427,7 +431,9 @@ function ajaxUpdate_cb(data) {
 			doUpdate();
 		} else {
 			ajaxUpdateCleanup();
-			window.setTimeout('redirect()', 3000);			
+			if(!dontRedirect){
+				window.setTimeout('redirect()', 3000);
+			}
 		}
 		
 }
@@ -466,7 +472,7 @@ function ajaxUpdateCleanup() {
 	}
 }
 
-<?
+<?php
 flush();
 }
 
