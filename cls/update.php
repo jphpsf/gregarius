@@ -106,7 +106,7 @@ class HTTPServerPushUpdate extends Update {
 	function render() {
 		$newIds = array ();
 
-		echo "<h2>".sprintf(LBL_UPDATE_H2, $GLOBALS['rss']->feedList->getFeedCount())."</h2>\n"."<table id=\"updatetable\">\n"."<tr>\n"."<th class=\"lc\">".LBL_UPDATE_CHANNEL."</th>\n"."<th class=\"mc\">".LBL_UPDATE_STATUS."</th>\n"."<th class=\"rc\">".LBL_UPDATE_UNDREAD."</th>\n"."</tr>";
+		echo "<h2>".sprintf(LBL_UPDATE_H2, $GLOBALS['rss']->feedList->getFeedCount())."</h2>\n"."<table id=\"updatetable\">\n"."<tr>\n"."<th class=\"lc\">".LBL_UPDATE_CHANNEL."</th>\n"."<th class=\"mc\">".LBL_UPDATE_STATUS."</th>\n"."<th class=\"rc\">".LBL_UPDATE_UNREAD."</th>\n"."</tr>";
 
 		foreach ($this->chans as $chan) {
 			list ($cid, $url, $title) = $chan;
@@ -199,7 +199,7 @@ class AJAXUpdate extends Update {
 		  ."<tr>\n"
 		  ."<th class=\"lc\">".LBL_UPDATE_CHANNEL."</th>\n"
 		  ."<th class=\"mc\">".LBL_UPDATE_STATUS."</th>\n"
-		  ."<th class=\"rc\">".LBL_UPDATE_UNDREAD."</th>\n"
+		  ."<th class=\"rc\">".LBL_UPDATE_UNREAD."</th>\n"
 		  ."</tr>\n";
 		  
 

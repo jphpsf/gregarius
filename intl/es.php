@@ -79,7 +79,7 @@ define ('LBL_PL_FOR','Enlace permanente para ');
 
 define ('LBL_UPDATE_CHANNEL','Canal');
 define ('LBL_UPDATE_STATUS','Estado');
-define ('LBL_UPDATE_UNDREAD','Nuevos temas');
+define ('LBL_UPDATE_UNREAD','Nuevos temas');
 
 define ('LBL_UPDATE_STATUS_OK','OK');
 define ('LBL_UPDATE_STATUS_CACHED', 'OK (Cache local)');

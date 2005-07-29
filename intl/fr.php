@@ -78,7 +78,7 @@ define ('LBL_PL_FOR','Lien pour ');
 
 define ('LBL_UPDATE_CHANNEL','Canal');
 define ('LBL_UPDATE_STATUS','Etat');
-define ('LBL_UPDATE_UNDREAD','Nouveaux &eacute;l&eacute;ments');
+define ('LBL_UPDATE_UNREAD','Nouveaux &eacute;l&eacute;ments');
 
 define ('LBL_UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('LBL_UPDATE_STATUS_CACHED', 'OK (Depuis cache)');

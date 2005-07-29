@@ -83,7 +83,7 @@ define ('LBL_PL_FOR','Permalink per ');
 
 define ('LBL_UPDATE_CHANNEL','Feed');
 define ('LBL_UPDATE_STATUS','Statuto');
-define ('LBL_UPDATE_UNDREAD','Nuovi elementi');
+define ('LBL_UPDATE_UNREAD','Nuovi elementi');
 
 define ('LBL_UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('LBL_UPDATE_STATUS_CACHED', 'OK (Cache locale)');
