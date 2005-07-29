@@ -123,7 +123,7 @@ function channels() {
 	}
 	$slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
 	
-	echo "<tr class=\"$class_\">\n"
+	echo "<tr class=\"$class_\" id=\"fa$id\">\n"
 	  ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" /></td>\n"
 	  ."\t<td>"
 	  .((getConfig('rss.output.showfavicons') && $icon != "")?
@@ -552,7 +552,7 @@ function channel_edit_form($cid) {
 
 	echo "<div>\n";
 	echo "\n\n<h2>".LBL_ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
-	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"channeledit\">\n"
+	echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."#fa$cid\" id=\"channeledit\">\n"
 	  ."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
 	  ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_SUBMIT_EDIT ."\"/>\n"
 	  ."<input type=\"hidden\" name=\"cid\" value=\"$cid\"/>\n"
