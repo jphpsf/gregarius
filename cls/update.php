@@ -100,8 +100,7 @@ class HTTPServerPushUpdate extends Update {
 		$GLOBALS['rss']->header->appendHeader("Content-type: multipart/x-mixed-replace;boundary=\"".PUSH_BOUNDARY."\"");
 		$GLOBALS['rss']->header->options |= HDR_NO_OUPUTBUFFERING;
 		rss_set_hook('rss.plugins.bodystart', "pushHeaderCallBack");
-		if(!getConfig('rss.meta.debug'))
-			rss_set_hook('rss.plugins.bodyend', "pushFooterCallBack");
+		rss_set_hook('rss.plugins.bodyend', "pushFooterCallBack");
 	}
 
 	function render() {
@@ -160,6 +159,10 @@ class HTTPServerPushUpdate extends Update {
 					$cls = ERROR_ERROR;
 				}
 			}
+			
+			if ($cls == ERROR_ERROR) {
+				define("UPDATE_ERROR", true);
+			}
 			echo "<td class=\"mc$cls\">$label</td>\n";
 			echo "<td class=\"rc\">". ($unread > 0 ? $unread : NO_NEW_ITEMS)."</td>\n";
 			echo "</tr>\n";
@@ -168,8 +171,7 @@ class HTTPServerPushUpdate extends Update {
 		}
 
 		echo "</table>\n";
-		if(!getConfig('rss.meta.debug'))
-			echo "<p><a href=\"".getPath()."\">Redirecting...</a></p>\n";
+		echo "<p><a href=\"".getPath()."\">Redirecting...</a></p>\n";
 		flush();
 		// Sleep two seconds
 		sleep(2);
@@ -215,9 +217,8 @@ class AJAXUpdate extends Update {
 		}    
 		
 		echo "</table>\n";  
-		echo "<script type=\"text/javascript\">\ndontRedirect = 0";
-		if(getConfig('rss.meta.debug')) echo "1";
-		echo ";\ndoUpdate();\n</script>\n";
+		echo "<script type=\"text/javascript\">\n";
+		echo "doUpdate();\n</script>\n";
 	}
 }
 
@@ -242,7 +243,7 @@ class SilentUpdate extends Update {
         }
 
 		
-		if (!array_key_exists('silent', $_GET) && !getConfig('rss.meta.debug')) {
+		if (!array_key_exists('silent', $_GET)) {
 			$redirect = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
 			if (substr($redirect, -1) != "/") {
 				$redirect .= "/";
@@ -259,8 +260,16 @@ function pushHeaderCallBack() {
 }
 
 function pushFooterCallBack() {
+	if (defined("UPDATE_ERROR") && UPDATE_ERROR)  {
+		sleep(10);
+	}
+	
 	echo "\n".PUSH_BOUNDARY."\n";
-	echo "Content-Type: text/html\n\n"."<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"."<html>\n"."<head>\n"."<title>Redirecting...</title>\n"."<meta http-equiv=\"refresh\" content=\"0;url=index.php\"/>\n"."</head>\n"."<body/>\n"."</html>";
+	echo "Content-Type: text/html\n\n"
+	."<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n"
+	."<html>\n"."<head>\n"."<title>Redirecting...</title>\n"
+	."<meta http-equiv=\"refresh\" content=\"0;url=index.php\"/>\n"
+	."</head>\n"."<body/>\n"."</html>";
 
 	echo "\n".PUSH_BOUNDARY."\n";
 	echo "WARNING: YOUR BROWSER DOESN'T SUPPORT THIS SERVER-PUSH TECHNOLOGY.\n";
