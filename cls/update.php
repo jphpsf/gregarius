@@ -160,7 +160,7 @@ class HTTPServerPushUpdate extends Update {
 				}
 			}
 			
-			if ($cls == ERROR_ERROR) {
+			if ($cls == ERROR_ERROR && !defined("UPDATE_ERROR")) {
 				define("UPDATE_ERROR", true);
 			}
 			echo "<td class=\"mc$cls\">$label</td>\n";
