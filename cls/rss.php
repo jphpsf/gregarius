@@ -126,7 +126,7 @@ $GLOBALS['rss'] = new RSS();
 _pf('Parsing class wrappers:');
 
 rss_require('cls/wrappers/feed.php');      _pf(" ...feed.php");
-rss_require('cls/wrappers/feeds.php');     _pf(" ...tfeeds.php");
+rss_require('cls/wrappers/feeds.php');     _pf(" ...feeds.php");
 rss_require('cls/wrappers/header.php');    _pf(" ...header.php");
 rss_require('cls/wrappers/nav.php');       _pf(" ...nav.php");
 rss_require('cls/wrappers/item.php');      _pf(" ...item.php");
