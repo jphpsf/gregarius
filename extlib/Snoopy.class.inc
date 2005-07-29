@@ -146,6 +146,7 @@ class Snoopy
 	function Snoopy() {
 			if (defined('CURL_PATH')) {
 					$this -> curl_path = CURL_PATH;
+					$this -> use_curl = true;
 			}
 			
 			if (($tmp = getConfig('rss.output.cachedir')) != null) {
@@ -761,11 +762,9 @@ class Snoopy
 		$headerfile = uniqid(time());
 		
 		# accept self-signed certs
-		
 		// mbi: removed, as it breaks on older cURL's
 		//$cmdline_params .= " -k";
 		$full_cmdline = $this->curl_path." -D \"".$this -> tmpdir."$headerfile\"".$cmdline_params." ".$URI;
-		
 		exec($full_cmdline,$results,$return);
 				
 		if($return)
