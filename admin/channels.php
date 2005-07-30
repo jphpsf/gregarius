@@ -353,7 +353,6 @@ function channel_admin() {
 		$opml=getOpml($url);
 
 		if (sizeof($opml) > 0) {
-		
 			rss_query("delete from " . getTable("metatag"));
 			rss_query("delete from " . getTable("channels"));
 			rss_query("delete from " . getTable("item"));
@@ -369,7 +368,9 @@ function channel_admin() {
 		
 				for ($i=0;$i<sizeof($opml[$folder]);$i++){
 					$url_ = trim($opml[$folder][$i]['XMLURL']);
-					add_channel($url_, $fid);
+					$title_ = trim($opml[$folder][$i]['TEXT']);
+					$descr_ = trim($opml[$folder][$i]['DESCRIPTION']);
+					add_channel($url_, $fid, $title_, $descr_);
 				}
 		
 			}

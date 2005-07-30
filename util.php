@@ -313,7 +313,7 @@ function getRootFolder(){
 	return $root;
 }
 
-function add_channel($url, $folderid = 0) {
+function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
 	assert("" != $url && strlen($url) > 7);
 	assert(is_numeric($folderid));
 
@@ -340,8 +340,9 @@ function add_channel($url, $folderid = 0) {
 	error_reporting($old_level);
 
 	if ($rss) {
-
-		if (is_object($rss) && array_key_exists('title', $rss->channel)) {
+		if (title_) {
+			$title = rss_real_escape_string($title_);
+		} elseif (is_object($rss) && array_key_exists('title', $rss->channel)) {
 			$title = rss_real_escape_string($rss->channel['title']);
 		} else {
 			$title = "";
@@ -353,7 +354,9 @@ function add_channel($url, $folderid = 0) {
 			$siteurl = "";
 		}
 
-		if (is_object($rss) && array_key_exists('description', $rss->channel)) {
+		if ($descr_) {
+			$descr = rss_real_escape_string($descr_);		
+		} elseif  (is_object($rss) && array_key_exists('description', $rss->channel)) {
 			$descr = rss_real_escape_string($rss->channel['description']);
 		} else {
 			$descr = "";
