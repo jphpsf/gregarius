@@ -137,8 +137,13 @@ if (array_key_exists('act',$_REQUEST)) {
     while (list($id, $title, $url, $siteurl, $name, $parent, $descr) = rss_fetch_row($res)) {
 	$descr_ = htmlspecialchars ($descr);
 	$title_ = htmlspecialchars($title);
-	$url_ = htmlspecialchars($url);
-	$siteurl_ = htmlspecialchars($siteurl);
+	
+	$url_ = preg_replace('|(https?://)([^:]+:[^@]+@)(.+)$|','\1\3',$url);
+	$url_ = htmlspecialchars($url_);
+	
+	$siteurl_ = preg_replace('|(https?://)([^:]+:[^@]+@)(.+)$|','\1\3',$siteurl);
+	$siteurl_ = htmlspecialchars($siteurl_);
+	
 	$name_ = htmlspecialchars($name);
 
 	if ($parent != $prev_parent) {
