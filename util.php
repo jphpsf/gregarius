@@ -646,7 +646,8 @@ function getThemePath() {
 function getUnreadCount($cid, $fid) {
 	$sql = "select count(*) from "
 	.getTable("item")	."i, ".getTable('channels')."c "
-	." where i.unread & ".FEED_MODE_UNREAD_STATE."  and i.cid=c.id "
+	." where i.unread & ".FEED_MODE_UNREAD_STATE. " and !(i.unread & " .
+	FEED_MODE_DELETED_STATE .") and i.cid=c.id "
 	." and !(c.mode & ".FEED_MODE_DELETED_STATE.") ";
 
 	if (hidePrivate()) {
