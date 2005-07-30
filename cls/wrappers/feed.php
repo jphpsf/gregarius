@@ -57,10 +57,15 @@ function rss_feed_collapsed() {
 }
 
 function rss_feed_expand_collapse_link() {
-	
+
 	return $_SERVER['PHP_SELF'] 
 		. "?" .(rss_feed_collapsed()?"expand=":"collapse=")
 		. $GLOBALS['rss'] -> currentFeed ->cid ."#".$GLOBALS['rss']->currentFeed->escapedTitle;
+
+}
+
+function rss_feed_expand_collapse_js() {
+	return "_ftgl(".$GLOBALS['rss'] -> currentFeed ->cid.");return false;";
 }
 
 function rss_feed_do_favicon() {
@@ -90,9 +95,9 @@ function rss_feed_title() {
 }
 
 
-function rss_feed_id() {	
+function rss_feed_id($pf="f") {	
 	if (!$GLOBALS['rss']->currentFeed->hasUnreadItems) {
-		return " id=\"f".trim($GLOBALS['rss']->currentFeed->cid) ."\"";
+		return " id=\"$pf".trim($GLOBALS['rss']->currentFeed->cid) ."\"";
 	}
 	return "";
 }

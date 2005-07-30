@@ -2,8 +2,8 @@
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 <h3<?= rss_feed_class(); ?>>
 <?php if(rss_feed_allow_collapsing()) { ?>
-<a class="<?= (rss_feed_collapsed()?"expand":"collapse") ?>" href="<?= rss_feed_expand_collapse_link() ?>">
-	<img src="<?= rss_theme_path() ?>/media/<?= (rss_feed_collapsed()?"plus":"minus") ?>.gif" alt="" />
+<a class="<?= (rss_feed_collapsed()?"expand":"collapse") ?>" href="#" onclick="<?= rss_feed_expand_collapse_js() ?>">
+	<img src="<?= rss_theme_path() ?>/media/<?= (rss_feed_collapsed()?"plus":"minus") ?>.gif" alt="" <?= rss_feed_id("cli") ?>/>
 </a>
 
 <?php } elseif (rss_feed_do_favicon()) { ?>
@@ -13,8 +13,7 @@
 </h3>
 <?php } ?>
 
-<?php if (!rss_feed_collapsed()) { ?>
 <ul<?= rss_feed_id() ?>>
-<?php rss_feed_items() ?>
-</ul>
-<?php } ?>
+<?php if (!rss_feed_collapsed()) {
+	rss_feed_items();
+} ?></ul>

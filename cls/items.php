@@ -126,8 +126,8 @@ class Feed {
 		// Feed collapsion //
 		$collapsed_ids = array ();
 		if (getConfig('rss.output.channelcollapse')) {
-			if (array_key_exists('collapsed', $_COOKIE)) {
-				$collapsed_ids = explode(":", $_COOKIE['collapsed']);
+			if (array_key_exists('collapsedfeeds', $_COOKIE)) {
+				$collapsed_ids = explode(":", $_COOKIE['collapsedfeeds']);
 			}
 		}
 		
@@ -142,7 +142,7 @@ class Feed {
 				if (!in_array($this -> cid, $collapsed_ids)) {
 					$collapsed_ids[] = $this -> cid;
 					$cookie = implode(":", $collapsed_ids);
-					setcookie('collapsed', $cookie, time() + COOKIE_LIFESPAN);
+					setcookie('collapsedfeeds', $cookie, time() + COOKIE_LIFESPAN);
 					//echo $this->cid . " -> collapsed";
 				}
 			}
@@ -153,7 +153,7 @@ class Feed {
 					$key = array_search($this -> cid, $collapsed_ids);
 					unset ($collapsed_ids[$key]);
 					$cookie = implode(":", $collapsed_ids);
-					setcookie('collapsed', $cookie, time() + COOKIE_LIFESPAN);
+					setcookie('collapsedfeeds', $cookie, time() + COOKIE_LIFESPAN);
 				}
 			}
 		

@@ -110,12 +110,34 @@ function __exp__getSideContent($what) {
 	return $c;
 }
 
+function __exp__getFeedContent($cid) {
+
+	
+	ob_start();
+	rss_require('cls/items.php');
+	
+	$readItems = new ItemList();
+
+	$readItems -> populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
+	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
+	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
+	foreach ($readItems -> feeds[0] -> items as $item) {
+		$item -> render();
+	}
+	$c = ob_get_contents();
+	
+	ob_end_clean();
+	return "$cid|@|$c";
+
+	
+}
+
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . basename(__FILE__);
 
 // Non standard! One usually calls sajax_export() ...
-$sajax_export_list = array("__exp__submitTag","__exp__getSideContent");
+$sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent");
 if (getConfig('rss.input.tags.delicious')) {
     $sajax_export_list[] = "__exp__getFromDelicious";
 }
@@ -476,6 +498,69 @@ function unreadCnt(d) {
         return c;
     }
     return null;
+}
+
+// feed collapsing
+function _ftgl(cid) {
+	cids = getCookie('collapsedfeeds');
+	if (cids) {
+		cidsArr = cids.split(":");
+	} else {
+		cidsArr = new Array();
+	}
+	
+	var ul = document.getElementById('f'+cid);
+	var img = document.getElementById('cli'+cid);
+	var collapsed  = (img.parentNode.className == 'expand');
+	
+	if (collapsed) {
+		img.src = img.src.replace(/plus/g,'minus');
+		img.parentNode.className = "collapse";
+		img.parentNode.parentNode.className="";
+		for(i=0;i<cidsArr.length;i++) {
+			if (cidsArr[i] == cid) {
+				cidsArr[i] = -1;
+			}
+		}
+		if (ul.style.display == "none") {
+			ul.style.display = "block";
+		} else {
+			ul.innerHTML = "...";
+			x___exp__getFeedContent(cid, get_feed_content_cb);
+		}
+	} else {
+		img.src = img.src.replace(/minus/g,'plus');
+		img.parentNode.className = "expand";
+		img.parentNode.parentNode.className="collapsed";
+		ul.style.display = "none";
+		cidsArr[cidsArr.length]=cid;
+	}
+	
+	cidsArr.sort();
+	cidsCookie = "";
+	for (i=0;i<cidsArr.length;i++) {
+		if (cidsArr[i] > 0) {
+			cidsCookie = cidsCookie + cidsArr[i];
+			if (i<cidsArr.length -1) {
+				cidsCookie += ":";
+			}
+		}
+	}
+	setCookie('collapsedfeeds',cidsCookie, "/");
+}
+
+
+function get_feed_content_cb(data) {
+	d=data.split('|@|');
+	cid=d[0];
+	html=d[1];
+	if (cid) {
+		ul = document.getElementById('f'+cid);
+		if (ul) {
+			ul.innerHTML = html;
+			ul.style.display = "block";
+		}
+	}
 }
 
 <?php }
