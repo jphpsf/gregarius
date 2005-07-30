@@ -127,7 +127,7 @@ function channels() {
 	  ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" /></td>\n"
 	  ."\t<td>"
 	  .((getConfig('rss.output.showfavicons') && $icon != "")?
-		"<img src=\"$icon\" class=\"favicon\" alt=\"$title\" width=\"16\" height=\"16\" />":"")
+		"<img src=\"$icon\" class=\"favicon\" alt=\"\" width=\"16\" height=\"16\" />":"")
 		."<a href=\"$outUrl\">$title</a></td>\n"
 	  ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
 	  ."\t<td>$descr</td>\n"
