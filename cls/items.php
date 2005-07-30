@@ -298,7 +298,6 @@ class ItemList {
 		if ($itemCount > 0) {		
 			$sql .= " limit $startItem, $itemCount";
 		}
-		
 		//echo $sql;		
 		$iids = array();
 		$res = $this->rss->db->rss_query($sql);

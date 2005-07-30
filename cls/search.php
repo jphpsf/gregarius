@@ -168,7 +168,7 @@ class SearchItemList extends ItemList {
 		$qWhere .= " and !(i.unread & ".FEED_MODE_DELETED_STATE.") ";
 	
 		if ($this->orderBy == QUERY_ORDER_BY_DATE) {
-			$qOrder = " order by 8 desc";
+			$qOrder = " order by ts desc";
 		} else {
 			if (getConfig('rss.config.absoluteordering')) {
 				$qOrder = " order by f.position asc, c.position asc";
