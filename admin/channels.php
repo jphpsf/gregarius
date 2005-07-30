@@ -346,7 +346,6 @@ function channel_admin() {
 		} else {
 			$url = '';
 		}
-
 	 case LBL_ADMIN_IMPORT:
 		if ($url == '') {
 			$url = $_REQUEST['opml'];

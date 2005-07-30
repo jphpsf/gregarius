@@ -506,6 +506,17 @@ function makeArchiveUrl($ts, $channel, $cid, $dayView) {
  * Fetches a remote URL and returns the content
  */
 function getUrl($url, $maxlen = 0) {
+	$urlParts = parse_url($url);
+	if (!isset($urlParts['scheme']) && !isset($urlParts['host'])) {
+		//local file!
+		$c = "";
+		$h = @fopen($url, "r");
+		while (!feof($h)) {
+  			$c .= @fread($h, 8192);
+		}		
+		@fclose($h);
+		return $c;
+	}
 
 	rss_require('extlib/Snoopy.class.inc');
 	$client = new Snoopy();
