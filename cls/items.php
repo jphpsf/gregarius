@@ -160,6 +160,10 @@ class Feed {
 		} else {
 			$this->collapsed = false;
 		}
+		if ($this->hasUnreadItems) {
+			$this->collapsed = false;
+		}
+
 		//echo $this-> collapsed?"Collapsed":"expanded";
 		return $this->collapsed;
 		

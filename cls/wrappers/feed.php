@@ -97,8 +97,14 @@ function rss_feed_id() {
 	return "";
 }
 
+function rss_feed_anchor_name () {
+	if (rss_feed_allow_collapsing()) {
+		return " name=\"".$GLOBALS['rss']->currentFeed->escapedTitle . "\"";
+	}
+}
+
+
 function rss_feed_escaped_title () {
-	
 	return $GLOBALS['rss']->currentFeed->escapedTitle;
 }
 

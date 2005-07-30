@@ -11,6 +11,7 @@ h2 {  margin: 0; }
 h3 {
  padding: 0 5px;
  margin: 20px 0 0 0;
+ clear:right;
 }
   
 h3 img,h3 img { vertical-align: 10% }  
