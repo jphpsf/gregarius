@@ -378,6 +378,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
 			}
 		}
 
+		$private = preg_match('|(https?://)([^:]+:[^@]+@)(.+)$|',$url);
 		
 		if ($title != "") {
             $title = strip_tags($title);
@@ -389,10 +390,15 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
 			list($title,$urlDB,$siteurl,$folderid,$descr,$icon) =
 				rss_plugin_hook('rss.plugins.feed.new', 
 					array ($title,$urlDB,$siteurl,$folderid,$descr,$icon));
-				
+
+			$mode = FEED_MODE_UNREAD_STATE;
+			if ($private) {
+				$mode |= FEED_MODE_PRIVATE_STATE;
+			}
+			
 			$sql = "insert into ".getTable("channels")
-				." (title, url, siteurl, parent, descr, dateadded, icon, position)"
-				." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np)";
+				." (title, url, siteurl, parent, descr, dateadded, icon, position, mode)"
+				." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np, $mode)";
 
 			rss_query($sql);
 			$newid = rss_insert_id();
