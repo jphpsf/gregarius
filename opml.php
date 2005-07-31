@@ -54,14 +54,20 @@ function parse_weblogsDotCom($url) {
     $opml = str_replace("\r", '', $opml);
     $opml = str_replace("\n", '', $opml);
     
-    $xp = xml_parser_create() or die("couldn't create parser");
+    $xp = xml_parser_create() or xml_error("couldn't create parser");
 
     xml_set_element_handler($xp, '_xml_startElement', '_xml_endElement') 
-      or die ("couldnt set XML handlers");
+      or xml_error("couldnt set XML handlers");
     
-    xml_parse($xp, $opml, true) or die ("failed parsing xml");
-    xml_parser_free($xp) or die("failed freeing the parser");
+    xml_parse($xp, $opml, true) or xml_error("failed parsing xml");
+    xml_parser_free($xp) or xml_error("failed freeing the parser");
     return $blogs;
+}
+
+function xml_error($error_msg){
+	rss_error($error_msg);
+	echo("\n</div>\n</body></html>\n");
+	die();
 }
 
 function _xml_startElement($xp, $element, $attr) {
