@@ -347,6 +347,72 @@ function _setSideContent_cb(data) {
 }
 
 
+
+// feed collapsing
+function _ftgl(cid) {
+	cids = getCookie('collapsedfeeds');
+	if (cids) {
+		cidsArr = cids.split(":");
+	} else {
+		cidsArr = new Array();
+	}
+	
+	var ul = document.getElementById('f'+cid);
+	var img = document.getElementById('cli'+cid);
+	var collapsed  = (img.parentNode.className == 'expand');
+	
+	if (collapsed) {
+		img.src = img.src.replace(/plus/g,'minus');
+		img.parentNode.className = "collapse";
+		img.parentNode.parentNode.className="";
+		for(i=0;i<cidsArr.length;i++) {
+			if (cidsArr[i] == cid) {
+				cidsArr[i] = -1;
+			}
+		}
+		if (ul.style.display == "none") {
+			ul.style.display = "block";
+		} else {
+			ul.innerHTML = "...";
+			x___exp__getFeedContent(cid, get_feed_content_cb);
+		}
+	} else {
+		img.src = img.src.replace(/minus/g,'plus');
+		img.parentNode.className = "expand";
+		img.parentNode.parentNode.className="collapsed";
+		ul.style.display = "none";
+		cidsArr[cidsArr.length]=cid;
+	}
+	
+	cidsArr.sort();
+	cidsCookie = "";
+	for (i=0;i<cidsArr.length;i++) {
+		if (cidsArr[i] > 0) {
+			cidsCookie = cidsCookie + cidsArr[i];
+			if (i<cidsArr.length -1) {
+				cidsCookie += ":";
+			}
+		}
+	}
+	setCookie('collapsedfeeds',cidsCookie, "/");
+}
+
+
+function get_feed_content_cb(data) {
+	d=data.split('|@|');
+	cid=d[0];
+	html=d[1];
+	if (cid) {
+		ul = document.getElementById('f'+cid);
+		if (ul) {
+			ul.innerHTML = html;
+			ul.style.display = "block";
+		}
+	}
+}
+
+
+
 <?php if (! hidePrivate()) { ?>
 
 document.states = new Array();
@@ -498,69 +564,6 @@ function unreadCnt(d) {
         return c;
     }
     return null;
-}
-
-// feed collapsing
-function _ftgl(cid) {
-	cids = getCookie('collapsedfeeds');
-	if (cids) {
-		cidsArr = cids.split(":");
-	} else {
-		cidsArr = new Array();
-	}
-	
-	var ul = document.getElementById('f'+cid);
-	var img = document.getElementById('cli'+cid);
-	var collapsed  = (img.parentNode.className == 'expand');
-	
-	if (collapsed) {
-		img.src = img.src.replace(/plus/g,'minus');
-		img.parentNode.className = "collapse";
-		img.parentNode.parentNode.className="";
-		for(i=0;i<cidsArr.length;i++) {
-			if (cidsArr[i] == cid) {
-				cidsArr[i] = -1;
-			}
-		}
-		if (ul.style.display == "none") {
-			ul.style.display = "block";
-		} else {
-			ul.innerHTML = "...";
-			x___exp__getFeedContent(cid, get_feed_content_cb);
-		}
-	} else {
-		img.src = img.src.replace(/minus/g,'plus');
-		img.parentNode.className = "expand";
-		img.parentNode.parentNode.className="collapsed";
-		ul.style.display = "none";
-		cidsArr[cidsArr.length]=cid;
-	}
-	
-	cidsArr.sort();
-	cidsCookie = "";
-	for (i=0;i<cidsArr.length;i++) {
-		if (cidsArr[i] > 0) {
-			cidsCookie = cidsCookie + cidsArr[i];
-			if (i<cidsArr.length -1) {
-				cidsCookie += ":";
-			}
-		}
-	}
-	setCookie('collapsedfeeds',cidsCookie, "/");
-}
-
-
-function get_feed_content_cb(data) {
-	d=data.split('|@|');
-	cid=d[0];
-	html=d[1];
-	if (cid) {
-		ul = document.getElementById('f'+cid);
-		if (ul) {
-			ul.innerHTML = html;
-			ul.style.display = "block";
-		}
-	}
 }
 
 <?php }
