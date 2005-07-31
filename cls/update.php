@@ -440,9 +440,7 @@ function ajaxUpdate_cb(data) {
 			doUpdate();
 		} else {
 			ajaxUpdateCleanup();
-			if(!dontRedirect){
-				window.setTimeout('redirect()', 3000);
-			}
+			window.setTimeout('redirect()', 3000);
 		}
 		
 }
