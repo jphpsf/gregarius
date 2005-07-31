@@ -58,7 +58,7 @@ if (
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])     
 	) {
-		 $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['channel']);
+		 $sqlid = rss_real_escape_string($_REQUEST['channel']);
 		 $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
 
 		if (hidePrivate()) {
