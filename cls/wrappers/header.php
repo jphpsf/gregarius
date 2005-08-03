@@ -125,4 +125,18 @@ function rss_footer_last_modif() {
 	$ts = getLastModif();
 	return ($ts ? rss_date(getConfig('rss.config.dateformat'), $ts) : "never");
 }
+
+function rss_header_logininfo() {
+	$ret = "<span id=\"loginfo\">\n";
+	if (!hidePrivate()) {
+		$ret .= sprintf(LBL_LOGGED_IN_AS,defined('ADMIN_USERNAME')?ADMIN_USERNAME:"admin")
+			."&nbsp;|&nbsp;<a href=\"".getPath()."?logout\">".LBL_LOG_OUT."</a>\n";
+	} else {
+		$ret .= LBL_NOT_LOGGED_IN
+			."&nbsp;|&nbsp;<a href=\"".getPath()."admin/?login\">".LBL_LOG_IN."</a>\n";
+	}
+	$ret .= "</span>\n";
+	return $ret;
+}
+
 ?>

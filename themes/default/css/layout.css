@@ -355,3 +355,8 @@ div#alltags {
  margin: 30px;
  padding: 20px;
 }
+
+#loginfo { 
+	float: right;  
+	padding: 0.2em 0.5em;
+}

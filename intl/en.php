@@ -221,4 +221,12 @@ define ('LBL_PRIVATE','Private');
 define ('LBL_ADMIN_TOGGLE_STATE','Toggle State:');
 define ('LBL_ADMIN_TOGGLE_SET','Set');
 define ('LBL_ADMIN_IM_SURE','I\'m sure!');
+
+
+// new in 0.5.1:
+define ('LBL_LOGGED_IN_AS','Logged in as <strong>%s</strong>');
+define ('LBL_NOT_LOGGED_IN','Not logged in');
+define ('LBL_LOG_OUT','Logout');
+define ('LBL_LOG_IN','Login');
+
 ?>

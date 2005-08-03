@@ -232,4 +232,13 @@ define ('LBL_PRIVATE','Privat');
 define ('LBL_ADMIN_TOGGLE_STATE','Toggle State:');
 define ('LBL_ADMIN_TOGGLE_SET','Markera');
 define ('LBL_ADMIN_IM_SURE','S&auml;ker!');
+
+// new in 0.5.1:
+
+// Requires translation!
+define ('LBL_LOGGED_IN_AS','Logged in as <strong>%s</strong>');
+define ('LBL_NOT_LOGGED_IN','Not logged in');
+define ('LBL_LOG_OUT','Logout');
+define ('LBL_LOG_IN','Login');
+
 ?>

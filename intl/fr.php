@@ -220,4 +220,12 @@ define ('LBL_PRIVATE','Priv&eacute');
 define ('LBL_ADMIN_TOGGLE_STATE','Basculer &eacute;tat:');
 define ('LBL_ADMIN_TOGGLE_SET','Basculer');
 define ('LBL_ADMIN_IM_SURE','Je suis sur!');
+
+// new in 0.5.1:
+
+// Requires translation!
+define ('LBL_LOGGED_IN_AS','Bonjour, <strong>%s</strong>');
+define ('LBL_NOT_LOGGED_IN','Pas loggu&eacute;');
+define ('LBL_LOG_OUT','Sortir');
+define ('LBL_LOG_IN','Se logguer');
 ?>

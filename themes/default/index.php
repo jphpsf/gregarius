@@ -7,6 +7,7 @@
 <body<?= rss_header_onLoadAction() ?>>
 
 <div id="nav" class="frame">
+    <?= rss_header_logininfo() ?>
     <a class="hidden" href="#feedcontent">skip to content</a>
     <h1 id="top"><?= rss_main_title() ?></h1>
     <ul class="navlist">

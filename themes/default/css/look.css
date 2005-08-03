@@ -357,3 +357,12 @@ div.ief form,div.ief form p { padding:0;margin:0}
 #opmlimport{ text-align: left !important; }
 
 span.vr { border-left:2px solid #ccc;margin: 0 1em; }
+
+#loginfo { 
+	font-size: small; 
+	background-color: white;
+	border: 1px solid #ccc;	
+	-moz-border-radius: 5px;
+	opacity: .7;
+	filter: alpha(opacity=70);
+}
