@@ -102,7 +102,7 @@ insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.input
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.noreaditems",'false','false','boolean','Show unread items only on the frontpage.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.theme",'default','default','string','The theme to use. Themes are subdirectories of themes/ which should contain at least the following elements:<ul><li>css/layout.css</li><li>css/look.css</li><ul>',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.cachecontrol",'false','false','boolean','If true, Gregarius will negotiate with the browser and check whether it should get a fresh document or not',NULL);
-insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.plugins",'a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array',NULL);
+insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.plugins",'a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array','Plugins are third-party scripts that offer extended functionalities',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.input.allowupdates",'true','true','boolean','Allow Gregarius to look for updates in existing items.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.titleunreadcnt",'false','false','boolean','Display unread count in the document title.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.tzoffset",'0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL);
@@ -126,36 +126,5 @@ CREATE TABLE metatag (
  KEY tid (tid),
  KEY ttype (ttype)
 ) type=MyISAM;                                 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
