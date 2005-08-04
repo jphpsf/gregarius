@@ -183,8 +183,8 @@ if (
 // Redirect to index.php
 if ((!isset($cid) || $cid == "") && 
 	(!isset($cids) || !is_array($cids) || !count($cids))) {
-    $red = "http://" . $_SERVER['HTTP_HOST'] . getPath();
-    header("Location: $red");
+
+    rss_redirect();
 }
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 
@@ -246,16 +246,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 		 
 		 //redirect
 		 if ($next_unread_id == '') {	
-			$redirect = "http://"
-			  . $_SERVER['HTTP_HOST']     
-			  . dirname($_SERVER['PHP_SELF']);   
-			
-			if (substr($redirect,-1) != "/") {
-				 $redirect .= "/";
-			} 
-			
-			header("Location: $redirect");
-			exit();
+            rss_redirect();
 		 } else {
 			$cid = $next_unread_id;
 		 }
@@ -315,16 +306,7 @@ if (array_key_exists ('metaaction', $_POST)) {
     		}
     		
     	} else {
-    		$redirect = "http://"
-			  . $_SERVER['HTTP_HOST']     
-			  . dirname($_SERVER['PHP_SELF']);   
-			
-			if (substr($redirect,-1) != "/") {
-				 $redirect .= "/";
-			} 
-			
-			header("Location: $redirect");
-			exit();
+            rss_redirect();
     	}
 			
     break;

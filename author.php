@@ -35,12 +35,7 @@ list ($ra) = rss_fetch_row(rss_query(
 ));
 
 if (!$ra) {
-	$redirect = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
-	if (substr($redirect, -1) != "/") {
-		$redirect .= "/";
-	}
-	header("Location: $redirect");
-	exit;
+    rss_redirect();
 }
 
 $t = ucfirst(LBL_ITEMS) . " " . LBL_BY . " " . $ra;

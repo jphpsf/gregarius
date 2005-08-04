@@ -51,7 +51,7 @@ function channels() {
 	echo "</form>\n\n";
 
 	// bookmarklet
-	$b_url = "http://" . $_SERVER["HTTP_HOST"] . getPath() . "admin/index.php";
+	$b_url = guessTransportProto() . $_SERVER["HTTP_HOST"] . getPath() . "admin/index.php";
 	$b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=".LBL_ADMIN_ADD."&amp;new_channel=";
 
 	$bookmarklet = "javascript:void(document.location = "

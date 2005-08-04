@@ -74,8 +74,7 @@ if ($auth) {
 	setAdminCookie();
 	
 	if (array_key_exists('login',$_GET)) {
-		$red = "http://" . $_SERVER['HTTP_HOST'] . getPath();
-    	header("Location: $red");
+        rss_redirect();
 	}
 }
 admin_header();

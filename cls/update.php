@@ -57,7 +57,7 @@ class Update {
 	function Update() {
 
 		set_time_limit(0);
-		ini_set('max_execution_time', 300);
+		@ini_set('max_execution_time', 300);
 		$this->populate();
 	}
 
@@ -244,11 +244,7 @@ class SilentUpdate extends Update {
 
 		
 		if (!array_key_exists('silent', $_GET)) {
-			$redirect = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
-			if (substr($redirect, -1) != "/") {
-				$redirect .= "/";
-			}
-			header("Location: $redirect");
+            rss_redirect();
 		}
 	}
 }

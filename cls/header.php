@@ -64,7 +64,7 @@ class Header {
 		
 
 		if ($active == 1 && (MINUTE * getConfig('rss.config.refreshafter')) >= (40 * MINUTE)) {
-			$this->redirectUrl = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+			$this->redirectUrl = guessTransportProto().$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
 			if (substr($this->redirectUrl, -1) != "/") {
 				$this->redirectUrl .= "/";
 			}

@@ -679,4 +679,30 @@ function _pf($msg) {
         $GLOBALS['rss'] -> _pf($msg);
     }
 }
+
+
+function guessTransportProto() {
+
+    if (defined ('RSS_SERVER_PROTO')) {
+        return RSS_SERVER_PROTO;
+    }
+
+    if (array_key_exists("SERVER_PORT",$_SERVER)) {
+        if ($_SERVER["SERVER_PORT"] == 443) {
+            $proto = "https://";
+        } else {
+            $proto = "http://";
+        }
+    } else {
+        // best effort
+        $proto = "http://";
+    }
+    return $proto;
+}
+
+function rss_redirect($url = "") {
+    header("Location: " .
+        (guessTransportProto() . $_SERVER['HTTP_HOST'] . getPath() . $url));
+}
+
 ?>
