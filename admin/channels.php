@@ -347,9 +347,13 @@ function channel_admin() {
 			$url = '';
 		}
 	 case LBL_ADMIN_IMPORT:
-		if ($url == '') {
+		if (!isset($url) || $url == '') {
 			$url = $_REQUEST['opml'];
 		}
+
+        set_time_limit(0);
+		@ini_set('max_execution_time', 300);
+		
 		$opml=getOpml($url);
 
 		if (sizeof($opml) > 0) {
