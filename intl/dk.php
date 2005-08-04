@@ -47,7 +47,7 @@ define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d items, %d ul&aelig;ste');
 define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> items (<strong>%d</strong> unread) i <strong>%d</strong> feeds');
 define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> tagged items, i <strong>%d</strong> tags');
-define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d ul&aelig;ste)</strong>');
+define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d ul&aelig;st)</strong>');
 define ('LBL_UNREAD','ul&aelig;st');
 
 define ('LBL_FTR_POWERED_BY', " powered by ");
@@ -83,10 +83,10 @@ define ('LBL_UPDATE_UNREAD','Nye items');
 define ('LBL_UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('LBL_UPDATE_STATUS_CACHED', 'OK (Local cache)');
 define ('LBL_UPDATE_STATUS_ERROR','FEJL');
-define ('LBL_UPDATE_H2','Updating %d Feeds...');
+define ('LBL_UPDATE_H2','Updaterer %d Feeds...');
 define ('LBL_UPDATE_CACHE_TIMEOUT','HTTP Timeout (Local cache)');
 define ('LBL_UPDATE_NOT_MODIFIED','OK (304 Not modified)');
-define ('LBL_UPDATE_NOT_FOUND','404 Not Found (Local cache)');
+define ('LBL_UPDATE_NOT_FOUND','404 Ikke fundet (Lokal cache)');
 // admin
 define ('LBL_ADMIN_EDIT', 'ret');
 define ('LBL_ADMIN_DELETE', 'slet');
@@ -181,10 +181,10 @@ define ('LBL_ADMIN_BOOKMARKLET_TITLE','Tilmeld i Gregarius!');
 
 
 define ('LBL_ADMIN_ERROR_NOT_AUTHORIZED', 
-	"<h1>Ikke Autoriseret!</h1>\nDu er ikke autoriseret til at bes&oslash;ge administration brugerflade.\n"
-	."F&oslash;lg venligst <a href=\"%s\">dette link</a> tilbage til forsiden.\n"
-	."Hav en fortsat god dag!");
-
+ 		"<h1>Ikke Autoriseret!</h1>\nDu er ikke autoriseret til at bes&oslash;ge administration brugerflade.\n"
+		."F&oslash;lg venligst <a href=\"%s\">dette link</a> tilbage til forsiden.\n"
+		."Hav en fortsat god dag!");
+		
 define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Invalid prunings periode');
 define ('LBL_ADMIN_ERROR_NO_PERIOD','oops, ingen periode er specificeret');
 define ('LBL_ADMIN_BAD_RSS_URL',"Unskyld, jeg tror ikke at jeg kan h&aring;ndtere denne URL: '%s'");
@@ -206,10 +206,10 @@ define ('LBL_TAG_SUGGESTIONS_NONE','ingen forslag');
 define ('LBL_TAG_RELATED','Relateret tags: ');
 
 define ('LBL_MARK_READ', "Marker alle items som l&aelig;st");
-define ('LBL_MARK_CHANNEL_READ', "Marker denne feed som l&aelig;st");
+define ('LBL_MARK_CHANNEL_READ', "Marker dette feed som l&aelig;st");
 define ('LBL_MARK_FOLDER_READ',"Marker denne mappe som l&aelig;st");
 define ('LBL_SHOW_UNREAD_ALL_SHOW','Vis items: ');
-define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Kun ul&aelig;st');
+define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Kun ul&aelig;ste');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','L&aelig;st og ul&aelig;st');
 
 define ('LBL_STATE_UNREAD','Ul&aelig;st (S&aelig;t dette items l&aelig;st/ul&aelig;st status)');
@@ -223,11 +223,9 @@ define ('LBL_ADMIN_TOGGLE_SET','S&aelig;t');
 define ('LBL_ADMIN_IM_SURE','Jeg er sikker!');
 
 // new in 0.5.1:
-
-// Requires translation!
-define ('LBL_LOGGED_IN_AS','Logged in as <strong>%s</strong>');
-define ('LBL_NOT_LOGGED_IN','Not logged in');
-define ('LBL_LOG_OUT','Logout');
-define ('LBL_LOG_IN','Login');
+define ('LBL_LOGGED_IN_AS','Logged ind som <strong>%s</strong>');
+define ('LBL_NOT_LOGGED_IN','Ikke logged ind');
+define ('LBL_LOG_OUT','Log ud');
+define ('LBL_LOG_IN','Log ind');
 
 ?>
