@@ -133,7 +133,7 @@ if (array_key_exists('tag', $_GET)) {
 		rss_require('cls/rdf.php');
 		// RSS view
 		$title = _TITLE_." - ".LBL_TAG_TAGS." - ".$hrTag;
-		$baselink = "http://".$_SERVER['HTTP_HOST'].getPath()
+		$baselink = guessTransportProto().$_SERVER['HTTP_HOST'].getPath()
 		. (getConfig('rss.output.usemodrewrite') ? "tag/" : "tags.php?tag=");
 
 		if ($gotsome) {
