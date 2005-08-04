@@ -518,9 +518,9 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	 
 	 
 	
-	 $items -> setTitle($title);
-	 $items -> setRenderOptions(($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):(IL_CHANNEL_VIEW)));
-	 
+    $items -> setTitle($title);
+    $items -> setRenderOptions(($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):(IL_CHANNEL_VIEW)));
+    $items -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 
     if ($nv != null) {
 		list($prev,$succ,$up) = $nv;
