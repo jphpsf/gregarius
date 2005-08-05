@@ -119,6 +119,20 @@ function checkSchemaColumns($column) {
 					. rss_sql_error_message());
 			}
 		break;
+		
+		case 'm.tdate':
+		case 'tdate':
+			// tag date
+			rss_query('alter table ' . getTable('metatag') . ' add column tdate datetime null');
+			if (rss_sql_error() == 0) {
+                rss_query('update ' . getTable('metatag') . ' set tdate=now()');
+				$updated++;
+				rss_error('updated schema for table ' . getTable('metatag'));
+			} else {
+				rss_error('Failed updating schema for table ' . getTable('metatag') . ': '
+					. rss_sql_error_message());
+			}
+		break;
 	}
 	return $updated;
 }

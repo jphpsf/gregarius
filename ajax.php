@@ -54,7 +54,7 @@ function __priv__updateTags($fid,$tags) {
         }
         if ($tid) {
             rss_query( "insert into ". getTable('metatag')
-                        . " (fid,tid) values ($fid,$tid)" );
+                        . " (fid,tid,tdate) values ($fid,$tid,now())" );
             if (rss_sql_error() == 0) {
               $ret[] = $ttag;
             }
@@ -432,7 +432,7 @@ function setItemClass(id,cls) {
 function setItemHide(id, redirect){
     if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
        ul = li.parentNode;
-       trash = ul.removeChild(li); 
+       trash = ul.removeChild(li);
        // remove parent elements (heading, ul) if all the children are gone
        if (ul.getElementsByTagName('li').length == 0) {
        	pn = ul.parentNode;

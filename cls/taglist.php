@@ -58,27 +58,15 @@ class TagList extends Tags{
 	}
 	
 	function render() {
-		/*
-		$spread = max($this->allTags) - min($this->allTags);
-		if ($spread <= 0) {
-			$spread = 1;
-		};
-		$fontspread = LARGEST - SMALLEST;
-		$fontstep = $spread / $fontspread;
-		if ($fontspread <= 0) {
-			$fontspread = 1;
-		}
-		$ret = "";
-		*/
 		echo "<h2>".LBL_TAG_TAGS."</h2>\n";
 		echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
-		echo "<ul>";
+		echo "<ul id=\"taglist\">\n";
 		foreach ($this -> allTags as $tag => $cnt) {
-			echo "<li>"
+			echo "\t<li>"
 			."<img src=\"".rss_theme_path() ."/media/noicon.png"."\" class=\"favicon\" alt=\"\" />"
-			."<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>";
+			."<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>\n";
 		}
-		echo "</ul>";
+		echo "</ul>\n";
 	}
 }
 ?>

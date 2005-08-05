@@ -127,6 +127,7 @@ CREATE TABLE metatag (
  fid bigint(16) NOT NULL default '0',                    
  tid bigint(16) NOT NULL default '0', 
  ttype enum('item','folder','channel') NOT NULL default 'item', 
+ tdate datetime NULL,
  KEY fid (fid), 
  KEY tid (tid),
  KEY ttype (ttype)

@@ -43,7 +43,7 @@ function relatedTags($tags) {
 	}
 	$twhere .= "1=0";
 
-	$sql = "select fid,tid from ".getTable('metatag')
+	$sql = "select fid,tid,m.tdate from ".getTable('metatag')
 	." m, ".getTable('tag')." t  where m.tid=t.id "." and ($twhere)";
 
 	//echo $sql;
