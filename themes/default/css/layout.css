@@ -218,7 +218,6 @@ form#channeledit input[type="text"] {
 }
 
 div#feedaction {
-
    padding:0;
    margin:0;
    text-align:right;
@@ -242,7 +241,7 @@ div#feedaction.withmargin {
 
 form#frmShow { margin-bottom: 0.4em !important; }
 
-#items h2 { margin-bottom: 10px; }
+#items h2 { margin-bottom: 10px; clear:right}
 
 p.error {
  color: red;
