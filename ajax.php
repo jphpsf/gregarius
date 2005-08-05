@@ -429,10 +429,29 @@ function setItemClass(id,cls) {
     }
 }
 
+function fade(id,amount) {
+    if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
+        li.style.opacity=amount;
+        li.style.height = amount*li.style.height;
+        if (amount <= 0) {
+            li.parentNode.removeChild(li);
+        }
+    }
+}
+
 function setItemHide(id, redirect){
     if ((a=document.getElementById('sa'+id)) && (li=a.parentNode)) {
        ul = li.parentNode;
-       trash = ul.removeChild(li);
+       
+       if (false) {
+        // do funky tuff
+        for (i=5;i>=0;i--) {
+            window.setTimeout('fade('+id+','+(2*i)/10+')', 100*(5-i));
+        }
+       } else {
+         trash = ul.removeChild(li);
+       }
+       
        // remove parent elements (heading, ul) if all the children are gone
        if (ul.getElementsByTagName('li').length == 0) {
        	pn = ul.parentNode;
