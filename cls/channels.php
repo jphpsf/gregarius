@@ -28,21 +28,37 @@
 
 define('COLLAPSED_FOLDERS_COOKIE', 'collapsedfolders');
 
-
+/**
+ * A FeedListItem object holds a single item in the feeds sidecolumn
+ */
 class FeedListItem {
+
+	/** Database id (e.g. item.cid, channels.id) for this feed */
 	var $id;
+	/** Feed title */
 	var $title;
+	/** URL of this feed */	
 	var $url;
+	/** URL of this feed, escaped from login/password information, if any */	
 	var $publicUrl;
+	/** URL of the website publishing this feed */	
 	var $siteurl;
+	/** Name of the folder holding this feed */	
 	var $name;
+	/** ID of the folder holding this feed (e.g. channels.parent) */	
 	var $parent;
+	/** URL of the icon for this feed, probably offsite */	
 	var $icon;
+	/** The "description" for this feed. (e.g. channel.description) */		
 	var $descr;
+	/** Feed "mode" (e.g. private, deprecated, ...)*/		
 	var $mode;
-	var $root;
+	/** True when the user is reading the current feed in "feed mode" */	
 	var $isActiveFeed;
 	
+	/**
+	 * Constructor. Fills in the instance variables, escapes urls accordingly 
+	 */
 	function FeedListItem($id, $title, $url, $siteurl, $name, $parent, $icon, $descr, $mode, $unreadCount) {
 		$this->id = $id;
 		$this->title = $title;
@@ -56,11 +72,11 @@ class FeedListItem {
 
 		
 		if ( getConfig('rss.output.showfavicons') && $icon){
-            $this->icon = $icon;
+			$this->icon = $icon;
 		} elseif (getConfig('rss.output.showfavicons')) {
-    		$this->icon = rss_theme_path() ."/media/noicon.png";
+    	$this->icon = rss_theme_path() ."/media/noicon.png";
 		} else {
-            $this->icon = false;
+      $this->icon = false;
 		}
 		
 		$this->descr = $descr;
@@ -83,7 +99,10 @@ class FeedListItem {
 	}
 
 
-	
+	/** 
+	 * Renders this FeedListItem: Moves the superglobal "current feed" pointer
+	 * to this, then includes the relevant template
+	 */
 	function render() {
 		$GLOBALS['rss']->currentFeedsFeed = $this;
 		require($GLOBALS['rss'] ->getTemplateFile("feedsfeed.php"));	

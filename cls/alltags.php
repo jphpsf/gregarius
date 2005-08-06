@@ -31,17 +31,35 @@ define ('SMALLEST',9);
 define ('LARGEST',45);
 define ('UNIT','px');
 
+/**
+ * This class handles the weighted list of all tags, 
+ * accessible at /tag/
+ */
 class Tags {
 
+	/** 
+	 * holds all the tags in the database.
+	 * Structure: $tag => $count_of_tagged_items
+	 */
 	var $allTags = array ();
-	var $renderOptions;
+	
+	/** Holds a reference to the superglobal RSS object */
 	var $rss;
 	
+	/**
+	 * Constructor. Gets a reference of the RSS superglobal and fills
+	 * the instance data
+	 */
 	function Tags() {
 		$this -> rss = $GLOBALS['rss'];
 		$this -> populate();
 	}
 	
+	
+	/**
+	 * Fills the instance data for this object: gets a hold 
+	 * of all tags defined in the system.
+	 */
 	function populate() {
 		// the all tags weighted list
 		$sql = "select tag,count(*) as cnt from "
@@ -49,10 +67,10 @@ class Tags {
 			." left join ".getTable('item')." i on (fid=i.id),"
 			.getTable('tag')." t "." where tid=t.id ";
 
+		// Don't count tags of private imtes
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
-
 		
 		$sql .= "group by tid order by 1";
 
@@ -67,14 +85,25 @@ class Tags {
 		}
 	}
 	
+	/**
+	 * Preformats a tag url, depending on whether mod_rewrite is enabled or not
+	 */
 	function makeTagLink($tag) {
 		return getPath(). (getConfig('rss.output.usemodrewrite') ? "tag/$tag" : "tags.php?tag=$tag");
 	}
 
+	/**
+	 * Gateway to the RSS superglobal rendering options
+	 */
 	function setRenderOptions($options) {
 		$this-> rss -> renderOptions |= $options;
 	}
 	
+	/**
+	 * Does the actual rendering. Since this is a rather simple
+	 * class we don't use a specific template. We'll have to the
+	 * day we start supporting non-screen themes. (read: RSS output)
+	 */
 	function render() {
 		if (count($this->allTags)) {
 			$spread = max($this->allTags) - min($this->allTags);
@@ -96,7 +125,7 @@ class Tags {
 		} else {
 			$ret = "";
 		}
-		
+		// Spit out the markup
 		echo "<div id=\"alltags\" class=\"frame\">$ret</div>\n";
 	}
 
