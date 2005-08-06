@@ -517,10 +517,17 @@ function channel_admin() {
 				rss_query ('update ' . getTable('channels') 
 					." set mode = mode | " . FEED_MODE_PRIVATE_STATE 
 					." where id in $sqlids");
+				rss_query ('update ' . getTable('item') 
+				." set unread = unread | " . FEED_MODE_PRIVATE_STATE 
+				." where cid in $sqlids");
+
 			} else {
 				rss_query ('update ' . getTable('channels') 
 					." set mode = mode & " . SET_MODE_PUBLIC_STATE 
 					." where id in $sqlids");
+				rss_query ('update ' . getTable('item') 
+				." set unread = unread & " . SET_MODE_PUBLIC_STATE 
+				." where cid in $sqlids");
 			}
 			
 			if ($deprecated) {
