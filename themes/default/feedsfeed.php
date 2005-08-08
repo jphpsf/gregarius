@@ -3,7 +3,7 @@
 <?php if($icon = rss_feeds_feed_icon()) { ?>
 	<img src="<?= $icon ?>" class="favicon" alt="" />
 <?php } ?>
-	<a class="<?= rss_feeds_feed_class() ?>" title="<?= rss_feeds_feed_title_entities() ?>" href="<?= rss_feeds_feed_link() ?>"><?= rss_feeds_feed_title() ?></a>
+	<a class="<?= rss_feeds_feed_class() ?>" title="<?= rss_feeds_feed_description_entities() ?>" href="<?= rss_feeds_feed_link() ?>"><?= rss_feeds_feed_title() ?></a>
 <?php if (($rdLbl = rss_feeds_feed_read_label()) != "") { ?>
 	<?= $rdLbl ?>
 <?php } ?>

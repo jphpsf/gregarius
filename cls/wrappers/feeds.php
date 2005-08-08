@@ -124,6 +124,13 @@ function rss_feeds_feed_title_entities() {
 	return htmlentities($GLOBALS['rss']->currentFeedsFeed-> title);
 }
 
+function rss_feeds_feed_description_entities() {
+    if ($GLOBALS['rss']->currentFeedsFeed-> descr) {
+	   return htmlentities($GLOBALS['rss']->currentFeedsFeed-> descr);
+  }
+  return rss_feeds_feed_title_entities();
+}
+
 function rss_feeds_feed_title() {
 	return htmlspecialchars($GLOBALS['rss']->currentFeedsFeed-> title);
 }

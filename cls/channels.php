@@ -50,7 +50,7 @@ class FeedListItem {
 	/** URL of the icon for this feed, probably offsite */	
 	var $icon;
 	/** The "description" for this feed. (e.g. channel.description) */		
-	var $descr;
+	var $descr = "";
 	/** Feed "mode" (e.g. private, deprecated, ...)*/		
 	var $mode;
 	/** True when the user is reading the current feed in "feed mode" */	
@@ -72,11 +72,11 @@ class FeedListItem {
 
 		
 		if ( getConfig('rss.output.showfavicons') && $icon){
-			$this->icon = $icon;
+            $this->icon = $icon;
 		} elseif (getConfig('rss.output.showfavicons')) {
-    	$this->icon = rss_theme_path() ."/media/noicon.png";
+            $this->icon = rss_theme_path() ."/media/noicon.png";
 		} else {
-      $this->icon = false;
+            $this->icon = false;
 		}
 		
 		$this->descr = $descr;
