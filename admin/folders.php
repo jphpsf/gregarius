@@ -56,7 +56,7 @@ function folders() {
 	if (getConfig('rss.config.absoluteordering')) {
 		$sql .=" order by position asc";
 	} else {
-		$sql .=" order by id";
+		$sql .=" order by name asc";
 	}
 
 	$res = rss_query($sql);

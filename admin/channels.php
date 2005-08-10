@@ -97,7 +97,7 @@ function channels() {
 	if (getConfig('rss.config.absoluteordering')) {
 	$sql .=" order by d.position asc, c.position asc";
 	} else {
-	$sql .=" order by c.parent asc, c.title asc";
+	$sql .=" order by d.name asc, c.title asc";
 	}
 
 	$res = rss_query($sql);

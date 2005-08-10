@@ -255,7 +255,7 @@ function setDefaults($key) {
 		"rss.output.usepermalinks"	=>		array("true","true","boolean","Display a permalink icon and allow linking a given item directly.",NULL),
 		"rss.config.markreadonupdate"=>	array("false","false","boolean","Mark all old unread feeds as read when updating if new unread feeds are found.",NULL),
 		"rss.output.lang"			=>		array("en,es,fr,se,0","en,fr,es,fr,0","enum","Language pack to use.",NULL),
-		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow ordering of channels in the admin section. If false, channels will be organized by title.",NULL),
+		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow ordering of channels and folders in the admin section. If false, channels and folders will be organized by their titles.",NULL),
 		"rss.config.robotsmeta"		=>		array("index,follow","index,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info).",NULL),
 		"rss.config.serverpush"		=>		array("true","true","boolean","Use server push on update.php for a more user-friendly experience. This is only supported by Mozilla browsers (Netscape, Mozilla, Firefox,...) and Opera. These browsers will be autodetected. If you\'re not using one of these (you should) you can as well turn this off.",NULL),
 		"rss.config.refreshafter"	=>		array("45","45","num","If this option is set the feeds will be refreshed after x minutes of inactivity. Please respect the feed providers by not setting this value to anything lower than thirty minutes. Set this variable to 0 turn this option off.",NULL),
