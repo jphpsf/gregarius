@@ -496,6 +496,12 @@ function _es(id, state) {
     }
     document.prevState[id] = tmpState;
 	if (div = document.getElementById('sad'+id)) {
+	extraCode = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg",null); ?>';
+	if (extraCode) {
+	   extraCode= '<p>' + extraCode + '</p>'
+	} else {
+	   extraCode = '';
+	}
    	div.innerHTML = ''
    		+ '<form class="sf" id="sf"'+id+'" action="#" method="post">'
    		+ '<p><input type="checkbox" id="sf' + id + 'u" value="1"'
@@ -510,6 +516,7 @@ function _es(id, state) {
    		+ (tmpState & <?= FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
    		+ ' />'
 		+ '<label for="sf' + id + 'p"><?= LBL_STATE_PRIVATE ?></label></p>'
+		+ extraCode
 		+ '<p class="sbm">'
 		+ '<a id="ess'+id+'ok" href="#" onclick="_ses('+id+'); return false;"><?= LBL_ADMIN_OK ?></a>'
 		+ '<a href="#" onclick="_ces('+id+'); return false;"><?= LBL_ADMIN_CANCEL ?></a></p>'
@@ -545,7 +552,7 @@ function _ses(id) {
       s += <?= FEED_MODE_PRIVATE_STATE ?>;
     }
     
-
+    
 
     if ((p=document.prevState[id]) != s) {
         if ((s & <?= FEED_MODE_UNREAD_STATE ?>) != (p & <?= FEED_MODE_UNREAD_STATE ?>)) {
