@@ -481,25 +481,33 @@ function setState_cb(ret) {
 }
 
 function _es(id, state) {
-	 
-	 if (document.prevState[id] != null) {
-	 	// if we click the edit icon while editing cancel the edit
-	 	_ces(id);
-	 	document.prevState[id] = null;
-	 	return;
-	 }
+	if (document.prevState[id] != null) {
+	   // if we click the edit icon while editing cancel the edit
+	   _ces(id);
+	   document.prevState[id] = null;
+	   return;
+	}
 	 
     if (document.states[id]) {
         tmpState =document.states[id];
-    }else {
+    } else {
         tmpState =state;
     }
     document.prevState[id] = tmpState;
 	if (div = document.getElementById('sad'+id)) {
-	extraCode = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg",null); ?>';
-	if (extraCode) {
-	   extraCode= '<p>' + extraCode + '</p>'
-	} else {
+
+
+	onOk = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg.onok",null); ?>'.replace(/_ID_/g,id);
+	onCancel = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg.oncancel",null); ?>'.replace(/_ID_/g,id);
+	extraCode = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg",null); ?>'.replace(/_ID_/g,id);
+	
+	if (!onOk) {
+        onOk = '_ses('+id+'); return false;';
+    }
+    if (!onCancel) {
+        onCancel = '_ces('+id+'); return false;';
+    }
+	if (!extraCode) {
 	   extraCode = '';
 	}
    	div.innerHTML = ''
@@ -518,8 +526,8 @@ function _es(id, state) {
 		+ '<label for="sf' + id + 'p"><?= LBL_STATE_PRIVATE ?></label></p>'
 		+ extraCode
 		+ '<p class="sbm">'
-		+ '<a id="ess'+id+'ok" href="#" onclick="_ses('+id+'); return false;"><?= LBL_ADMIN_OK ?></a>'
-		+ '<a href="#" onclick="_ces('+id+'); return false;"><?= LBL_ADMIN_CANCEL ?></a></p>'
+		+ '<a id="ess'+id+'ok" href="#" onclick="'+onOk+'"><?= LBL_ADMIN_OK ?></a>'
+		+ '<a href="#" onclick="'+onCancel+'"><?= LBL_ADMIN_CANCEL ?></a></p>'
    		+ '</form>';
 
     div.className = 'ief';
