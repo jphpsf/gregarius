@@ -52,7 +52,7 @@ function channels() {
 
 	// bookmarklet
 	$b_url = guessTransportProto() . $_SERVER["HTTP_HOST"] . getPath() . "admin/index.php";
-	$b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=".LBL_ADMIN_ADD."&amp;new_channel=";
+	$b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=Add&amp;new_channel=";
 
 	$bookmarklet = "javascript:void(document.location = "
 	  ."('$b_url'.concat(document.location)))";
@@ -201,7 +201,7 @@ function channel_admin() {
 	 case LBL_ADMIN_ADD:
 	 case 'Add':
 
-    $label = trim($_REQUEST['new_channel']);
+   $label = trim($_REQUEST['new_channel']);
 	$fid = trim($_REQUEST['add_channel_to_folder']);
 	
 	// handle "feed:" urls
