@@ -37,6 +37,7 @@ function folders() {
 
 	echo "<label for=\"new_folder\">".LBL_ADMIN_FOLDERS_ADD."</label>\n"
 	  ."<input type=\"text\" id=\"new_folder\" name=\"new_folder\" value=\"\" />"
+	  ."<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_ADD\"/>\n"
 	  ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/>\n"
 	  ."</p></form>\n\n";
 
@@ -142,8 +143,22 @@ function folder_combo($name, $selected = -1) {
 
 function folder_admin() {
 
+	// Fix for #16: Admin (et al.) should not rely on l10n labels for actions:
+	// Look for a meta-action first, which should be the (untranslated) *name* of
+	// the (translated) action constant.
+	
+	// Fixme: should replace 'action's with a constant
+	if (array_key_exists(CST_ADMIN_METAACTION,$_REQUEST)) {
+		$__action__ = $_REQUEST[CST_ADMIN_METAACTION];
+	} elseif (array_key_exists('action',$_REQUEST)) {
+		$__action__ = $_REQUEST['action'];
+	} else {
+		$__action__ = "";
+	}
+	
 	$ret__ = CST_ADMIN_DOMAIN_FOLDER;
-	switch ($_REQUEST['action']) {
+	switch ($__action__) {
+		
 		case CST_ADMIN_EDIT_ACTION:
 			folder_edit($_REQUEST['fid']);
 			$ret__ = CST_ADMIN_DOMAIN_NONE;
@@ -197,6 +212,7 @@ function folder_admin() {
 			break;
 
 		case LBL_ADMIN_ADD:
+		case 'LBL_ADMIN_ADD':
 			$label=$_REQUEST['new_folder'];
 			assert(strlen($label) > 0);
 			create_folder($label);

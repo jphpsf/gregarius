@@ -50,6 +50,7 @@ define ('CST_ADMIN_VIEW','view');
 define ('CST_ADMIN_CONFIRMED','confirmed');
 define ('CST_ADMIN_PRUNE','prune');
 define ('CST_ADMIN_DOMAIN_SYSINFO','sysinfo');
+define ('CST_ADMIN_METAACTION','metaaction');
 
 define ('CST_ADMIN_DOMAIN_FOLDER','folders');
 define ('CST_ADMIN_DOMAIN_CHANNEL','feeds');

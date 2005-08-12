@@ -39,7 +39,8 @@ function opml() {
 	echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN ."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n";
 	echo "<label for=\"opml\">" . LBL_ADMIN_OPML_IMPORT_FROM_URL ."</label>\n";
 	echo "<input type=\"text\"	name=\"opml\" id=\"opml\" value=\"http://\" onfocus=\"this.select()\"/>\n";
-	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_OPML_IMPORT ."\"/></p>\n";
+	echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_IMPORT\" />\n";
+	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_OPML_IMPORT ."\" /></p>\n";
 
 	echo "</form>\n";
 
@@ -48,6 +49,7 @@ function opml() {
 	echo '<input type="hidden" name="MAX_FILE_SIZE" value="150000" />' . "\n";
 	echo '<label for="opmlfile">' . LBL_ADMIN_OPML_IMPORT_FROM_FILE . "</label>\n";
 	echo '<input name="opmlfile" type="file" id="opmlfile" />' . "\n";
+	echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_FILE_IMPORT\" />\n";
 	echo '<input type="submit" name="action" value="' . LBL_ADMIN_FILE_IMPORT . "\" /></p>\n";
 	echo "</form>\n";
 	echo "</fieldset>\n";

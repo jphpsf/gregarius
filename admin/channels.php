@@ -45,7 +45,7 @@ function channels() {
 
 	echo "<label for=\"add_channel_to_folder\">". LBL_ADMIN_IN_FOLDER . "</label>\n";
 	folder_combo('add_channel_to_folder');
-
+	echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_ADD\"/>\n";
 	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/></p>\n";
 	echo "<p style=\"font-size:small\">".LBL_ADMIN_ADD_CHANNEL_EXPL."</p>";
 	echo "</form>\n\n";
@@ -196,9 +196,25 @@ function channels() {
 
 function channel_admin() {
 
+
+	// Fix for #16: Admin (et al.) should not rely on l10n labels for actions:
+	// Look for a meta-action first, which should be the (untranslated) *name* of
+	// the (translated) action constant.
+	
+	// Fixme: should replace 'action's with a constant
+	if (array_key_exists(CST_ADMIN_METAACTION,$_REQUEST)) {
+		$__action__ = $_REQUEST[CST_ADMIN_METAACTION];
+	} elseif (array_key_exists('action',$_REQUEST)) {
+		$__action__ = $_REQUEST['action'];
+	} else {
+		$__action__ = "";
+	}
+	
+	
 	$ret__ = CST_ADMIN_DOMAIN_NONE;
-	switch ($_REQUEST['action']) {
+	switch ($__action__) {
 	 case LBL_ADMIN_ADD:
+	 case 'LBL_ADMIN_ADD':
 	 case 'Add':
 
    $label = trim($_REQUEST['new_channel']);
@@ -274,6 +290,7 @@ function channel_admin() {
 	
 				echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\"/>\n"
 				  ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
+				  ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_ADD\"/>\n"
 				  ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/>\n"
 				  ."</p>\n</form>\n\n";
 				}
@@ -296,7 +313,12 @@ function channel_admin() {
 		channel_edit_form($id);
 	break;
 
+	/*
+	
+	// mbi/12.Aug.2005: Is this case actually used? Commenting out
+	
 	 case LBL_ADMIN_CREATE:
+	 case 'LBL_ADMIN_CREATE':
 		$label=$_REQUEST['new_folder'];
 		assert(strlen($label) > 0);
 
@@ -304,7 +326,8 @@ function channel_admin() {
 		rss_query($sql);
 		$ret__ = CST_ADMIN_DOMAIN_FOLDER;
 		break;
-
+	*/
+	
 	 case CST_ADMIN_DELETE_ACTION:
 		$id = $_REQUEST['cid'];
 		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
@@ -341,12 +364,21 @@ function channel_admin() {
 		break;
 
 	 case LBL_ADMIN_FILE_IMPORT:
-		if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
-			$url = $_FILES['opmlfile']['tmp_name'];
+	 case 'LBL_ADMIN_FILE_IMPORT':
+	 	
+	 	if (array_key_exists('opmlfile',$_FILES) && $_FILES['opmlfile']['tmp_name']) {
+   		if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
+   			$url = $_FILES['opmlfile']['tmp_name'];
+   		} else {
+   			$url = '';
+   		}
 		} else {
-			$url = '';
+			$ret__ = CST_ADMIN_DOMAIN_OPML;
+			break;
 		}
-	 case LBL_ADMIN_IMPORT:
+	
+	 case LBL_ADMIN_IMPORT:	
+	 case 'LBL_ADMIN_IMPORT':
 		if (!isset($url) || $url == '') {
 			$url = $_REQUEST['opml'];
 		}
