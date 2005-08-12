@@ -29,32 +29,30 @@
 /// Name: New window
 /// Author: Marco Bonetti
 /// Description: When active, this plugin will open off-site links in a new window
-/// Version: 1.5
+/// Version: 1.6
 
 
 function __new_window_js($dummy) {
-
-  echo "<script type=\"text/javascript\">\n"
-	 ."// <!--\n"
-	 ."if (document.getElementsByTagName) {\n"
-  	 ."if (items = document.getElementById('items')) { \n"
-	 ."var anchors = items.getElementsByTagName('a');\n"
-	 ."for (var i=0; i<anchors.length; i++) {\n"
-	 ."var anchor = anchors[i];\n"
-	 ."if (anchor.href &&\n"
-	 ."(anchor.href.indexOf('".$_SERVER['HTTP_HOST']."') < 0)\n"
-	 .") {\n"
-	 ."anchor.target = '_blank';\n"
-	 ."}\n"
-	 ."}\n"
-	 ."}\n"
- 	 ."}\n"
-	 ."// -->\n"
-	 ."</script>\n";
-			 
-	 return null;
+?>
+<script type="text/javascript">
+// <!--
+if (document.getElementsByTagName) {
+	var items = document.getElementById("items");
+  	if (items) {
+   	var anchors = items.getElementsByTagName("a");
+   	for (var i=0; i<anchors.length; i++) {
+   		var anchor = anchors[i];
+   		if (anchor.href && (anchor.href.indexOf('<?= $_SERVER['HTTP_HOST'] ?>') < 0)) {
+   			anchor.target = '_blank';
+   		}
+   	}
+	}
+}
+// -->
+</script>
+<?php			 
+	return null;
 }
 
 rss_set_hook('rss.plugins.bodyend','__new_window_js');
-
 ?>
