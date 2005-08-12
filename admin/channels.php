@@ -374,7 +374,9 @@ function channel_admin() {
 					$url_ = trim($opml[$folder][$i]['XMLURL']);
 					$title_ = trim($opml[$folder][$i]['TEXT']);
 					$descr_ = trim($opml[$folder][$i]['DESCRIPTION']);
-					add_channel($url_, $fid, $title_, $descr_);
+					if ($url_) {
+						add_channel($url_, $fid, $title_, $descr_);
+					}
 				}
 		
 			}
