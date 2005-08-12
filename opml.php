@@ -115,7 +115,7 @@ if (array_key_exists('act',$_REQUEST)) {
     if (getConfig('rss.config.absoluteordering')) {
 	$sql .= " order by d.position asc, c.position asc";
     } else {
-	$sql .=" order by c.parent asc, c.title asc";
+	$sql .=" order by d.name asc, c.title asc";
     }
     
     

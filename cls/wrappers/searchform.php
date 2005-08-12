@@ -79,8 +79,8 @@ function rss_search_channels_combo($id) {
 		$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 	}
 		      
-	$sql .= " order by c.parent asc,"
-	     .((getConfig('rss.config.absoluteordering'))?"c.position asc":"c.title asc");
+	$sql .= " order by "
+	     .((getConfig('rss.config.absoluteordering'))?"f.position asc, c.position asc":"f.name asc, c.title asc");
 
     $res = rss_query($sql);
     $prev_parent = -1;

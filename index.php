@@ -129,7 +129,7 @@ function readItems() {
    if (getConfig('rss.config.absoluteordering')) {
 		$sql .= " order by f.position asc, c.position asc";
    } else {
-		$sql .=" order by c.parent asc, c.title asc";
+		$sql .=" order by f.name asc, c.title asc";
    }
 
    $res1=rss_query($sql);

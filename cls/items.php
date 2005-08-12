@@ -238,7 +238,7 @@ class ItemList {
 		if (getConfig('rss.config.absoluteordering')) {
 			$this -> ORDER_BY_UNREAD_FIRST .= " f.position asc, c.position asc";
 		} else {
-			$this -> ORDER_BY_UNREAD_FIRST .= " c.parent asc, c.title asc";
+			$this -> ORDER_BY_UNREAD_FIRST .= " f.name asc, c.title asc";
 		}
 		$this -> ORDER_BY_UNREAD_FIRST .= ", i.added desc, i.id asc";
 
@@ -288,7 +288,7 @@ class ItemList {
 			} elseif (getConfig('rss.config.absoluteordering')) {
 				$sql .= " f.position asc, c.position asc";
 			} else {
-				$sql .= " c.parent asc, c.title asc";
+				$sql .= " f.name asc, c.title asc";
 			}
 			if(getConfig('rss.config.datedesc')){
 				$sql .= ", ts desc, i.id asc";

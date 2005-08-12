@@ -173,7 +173,7 @@ class SearchItemList extends ItemList {
 			if (getConfig('rss.config.absoluteordering')) {
 				$qOrder = " order by f.position asc, c.position asc";
 			} else {
-				$qOrder = " order by c.parent asc, c.title asc";
+				$qOrder = " order by f.name asc, c.title asc";
 			}
 		}
 	
