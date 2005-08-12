@@ -280,6 +280,8 @@ function setDefaults($key) {
 	$atLeastOneIn = false;
 	foreach($defaults as $k=>$vs) {
 		list($v,$d,$t,$ds,$e) = $vs;
+	    $ds=rss_real_escape_string($ds);
+	    $e=rss_real_escape_string($e);
 		rss_query('insert into '. getTable('config') 
 			. "(key_,value_,default_,type_,desc_,export_) VALUES ("
 			. "'$k','$v','$d','$t','$ds'," .($e?"'$e'":"null") .")",false,true);
