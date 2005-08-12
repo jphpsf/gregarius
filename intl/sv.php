@@ -203,7 +203,7 @@ define ('LBL_ADMIN_CANT_RENAME',"Du kan inte &auml;ndra folderns namn till '%s',
 define ('LBL_ADMIN_ERROR_CANT_CREATE',"Det finns redan en folder som heter '%s'!");
 
 define ('LBL_TAG_TAGS','Taggar');
-define ('LBL_TAG_EDIT','&auml;ndra');
+define ('LBL_TAG_EDIT','aendra');
 define ('LBL_TAG_SUBMIT','skicka');
 define ('LBL_TAG_CANCEL','avbryt');
 define ('LBL_TAG_SUBMITTING','...');
