@@ -25,6 +25,9 @@
 #
 ###############################################################################
 
+define ('RSS_SQL_ERROR_NO_ERROR',0x01);
+define ('RSS_SQL_ERROR_DUPLICATE_ROW',0x02);
+
 class DB {
 	function DB() {
 		$this -> DBConnect(DBSERVER,DBUNAME,DBPASS);

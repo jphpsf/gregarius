@@ -117,5 +117,18 @@ class MysqlDB extends DB {
 			  die( rss_error("Your PHP version doesn't meet Gregarius' minimal requirements, please consider upgrading!", true));
 		 }
 	}
+	
+	function rss_is_sql_error($kind) {
+		switch ($kind) {
+			case RSS_SQL_ERROR_NO_ERROR:
+				return (mysql_errno() == 0);
+				break;
+			case RSS_SQL_ERROR_DUPLICATE_ROW:
+				return (mysql_errno() == 1062);
+				break;
+			default:
+				return false;
+		}
+	}
 }
 ?>

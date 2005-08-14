@@ -46,7 +46,7 @@ function __priv__updateTags($fid,$tags) {
         rss_query( "insert into ". getTable('tag')
             . " (tag) values ('$ttag')", false );
         $tid = 0;
-        if(rss_sql_error() == 1062) {
+        if(rss_is_sql_error(RSS_SQL_ERROR_DUPLICATE_ROW)) {
             list($tid)=rss_fetch_row(rss_query("select id from "
                 .getTable('tag') . " where tag='$ttag'"));
         } else {
@@ -55,7 +55,7 @@ function __priv__updateTags($fid,$tags) {
         if ($tid) {
             rss_query( "insert into ". getTable('metatag')
                         . " (fid,tid,tdate) values ($fid,$tid,now())" );
-            if (rss_sql_error() == 0) {
+            if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
               $ret[] = $ttag;
             }
         }

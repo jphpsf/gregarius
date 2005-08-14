@@ -208,5 +208,19 @@ class SqliteDB extends DB {
 	function rss_real_escape_string($string) {
 		return sqlite_escape_string ($string);
 	}
+	
+	
+	function rss_is_sql_error($kind) {
+		switch ($kind) {
+			case RSS_SQL_ERROR_NO_ERROR:
+				return (sqlite_last_error($this->db) == 0);
+				break;
+			case RSS_SQL_ERROR_DUPLICATE_ROW:
+				return (sqlite_last_error($this->db) == 19);
+				break;
+			default:
+				return false;
+		}
+	}
 }
 ?>

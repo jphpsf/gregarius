@@ -69,4 +69,8 @@ function getTable($tableName) {
 	return $GLOBALS['rss']->db->getTable($tableName);
 }
 
+function rss_is_sql_error($kind) {
+    return $GLOBALS['rss']->db-> rss_is_sql_error($kind);
+}
+
 ?>
