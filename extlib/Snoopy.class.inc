@@ -149,7 +149,7 @@ class Snoopy
 					$this -> use_curl = true;
 			}
 			
-			if (($tmp = getConfig('rss.output.cachedir')) != null) {
+			if (function_exists('getConfig') && ($tmp = getConfig('rss.output.cachedir')) != null) {
 					if (substr($tmp, -1, 1) != "/") {
 						$tmp .= "/";
 					}
