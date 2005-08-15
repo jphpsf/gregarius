@@ -29,7 +29,9 @@
  * renders the opml export form
  */
 function opml() {
-	echo "<h2 class=\"trigger\">". LBL_ADMIN_OPML ."</h2>\n";
+	//disable file upload formfields when file_upload is false
+	$disableupload = ini_get('file_uploads') ? "":" disabled=\"disabled\" ";
+	echo "<h2>". LBL_ADMIN_OPML ."</h2>\n";
 	echo "<div id=\"admin_opml\">\n";
 
 	echo "<fieldset id=\"opmlimport\">\n"
@@ -48,9 +50,9 @@ function opml() {
 	echo '<p><input type="hidden" name="' . CST_ADMIN_DOMAIN . '" value="' . CST_ADMIN_DOMAIN_CHANNEL . "\" />\n";
 	echo '<input type="hidden" name="MAX_FILE_SIZE" value="150000" />' . "\n";
 	echo '<label for="opmlfile">' . LBL_ADMIN_OPML_IMPORT_FROM_FILE . "</label>\n";
-	echo '<input name="opmlfile" type="file" id="opmlfile" />' . "\n";
+	echo '<input name="opmlfile" type="file" id="opmlfile" '.$disableupload.'/>' . "\n";
 	echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_FILE_IMPORT\" />\n";
-	echo '<input type="submit" name="action" value="' . LBL_ADMIN_FILE_IMPORT . "\" /></p>\n";
+	echo '<input type="submit" name="action" value="' . LBL_ADMIN_FILE_IMPORT . "\" $disableupload /></p>\n";
 	echo "</form>\n";
 	echo "</fieldset>\n";
 	opml_export_form();
