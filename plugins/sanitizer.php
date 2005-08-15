@@ -54,8 +54,11 @@ function __sanitize($in) {
 	$output = preg_replace("/<img([^`|>]*)>/im", "<img alt=\"\"$1>", $output);
 	$output = preg_replace("/<img([^>]*)`alt=([^>]*)>/im", "<img$1alt=$2>", $output);
 	$output = preg_replace('/<img([^>]+)>/eim',"'<img '.__endslash('\\1').'>'",$output);
+
 	//lowercase tags
-	$output = preg_replace('/<([^\s]+)/eim',"'<'.strtolower('\\1')",$output);
+	// Removed: Fix for #111.
+	//$output = preg_replace('/<([^\s]+)/eim',"'<'.strtolower('\\1')",$output);
+	
 	//blockquotes
 	$output = str_replace('<blockquote><p>','<blockquote>',$output);
 	$output = str_replace('</p></blockquote>','</blockquote>',$output);
