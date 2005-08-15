@@ -25,7 +25,7 @@
 #
 ###############################################################################
 # SQLITE wrapper developped by Olivier Ruffin
-# E-mail: blog at ruffin dot info, web pag 
+# E-mail: blog at ruffin dot info
 # Web page: http://www.ruffin.info
 # 
 # to use this wrapper, you must edit dbinit.php and set the constant:
@@ -38,6 +38,10 @@
 # Exemple: 
 # define ('DBTYPE','sqlite');
 # define (DBSERVER, "/path/to/my/gregarius.db")
+#
+# history
+# v0.1: release
+# v0.2: fixed a parser bug that wrongly replaced some text values
 ###############################################################################
 
 
@@ -58,7 +62,7 @@ class SqliteDB extends DB {
 	//// in here.
 	
 	function DBConnect($dbpath, $dbuname, $dbpass) {
-		$this->db=sqlite_open($dbpath,0666,$msg_err);
+		$this->db=@sqlite_open($dbpath,0666,$msg_err);
 		if (!$this->db) {
 			  die( "<h1>Error connecting to the database!</h1>\n"
 					 ."<p>Have you edited dbinit.php and correctly defined "
@@ -74,6 +78,8 @@ class SqliteDB extends DB {
 	function mysql2sqlite($query) {
 	//converts mysql specific syntax to sqlite syntax
 	//order of replace is important to optimize stuff
+	
+	
 	$doReturn=false;
 	$query=preg_replace("/(\s+)/is"," ",$query);
 	//table struct query
@@ -86,16 +92,14 @@ class SqliteDB extends DB {
 		$doReturn=true;
 	}
 	else if ($this->useParsingClass || preg_match("/create\s+table/is",$query)) {
-		/* We are using a class extracted found into SQLLiteManager project!
+		/* We are using a class found into SQLLiteManager project!
 		We need to check the licence of SQLLiteManager and (include it?)
 		Otherwise, we must rebuild this function by ourself
 		*/
 		$this->useParsingClass=true; //to be sure that the rest of the schema will go through parsing
-		rss_require("cls/db/ParsingQuery.class.php");
+		include_once("ParsingQuery.class.php");
 		$parse=new ParsingQuery($query,2); //2=type mysql
 		$query=$parse->convertQuery();
-		if (is_array($query)) foreach ($query as $one_query) {
-		}
 		$doReturn=true;
 	}
 
@@ -103,9 +107,28 @@ class SqliteDB extends DB {
 	
 	//echo "<b>BEFORE</b>: $query<br><br>";
 	
+	/*
+	we must be carefull to not change text content but only SQL part
+	We do a really dirty hack here:
+	we replace all texts by an REFERENCES that will not interfere into the parsing
+	/REM: the best solution would be to be sure that SQL Request do not use syntax
+	specific to MySQL...
+	*/
+	$i=0;
+	$tabStrings=array();
+	if (preg_match_all("/('([^']|'')*')/is",$query,$matches,PREG_SET_ORDER)) {
+		foreach($matches as $onematch) {
+			$search=$onematch[1];
+			$replace="##GREGA#$i##";
+			$tabStrings["$replace"]=$search;
+			$query=str_replace($search,$replace,$query);
+			$i++;
+		}
+	}
+
 	$query=str_replace("!(","not(",$query);
 
-	//date_sub(now ... it seems to be the only kind of dat_sub used
+	//date_sub(now ... it seems to be the only kind of date_sub used so let's do it like this
 	if (preg_match("/(date_sub\s*\(\s*now\s*\(\s*\)\s*,\s*interval\s+([0-9+-]+)\s+([^\)]*)\))/is",$query,$matches)) {
 		$nb=-(int)$matches[2];
 		$interval=trim($matches[3]);
@@ -128,7 +151,7 @@ class SqliteDB extends DB {
 	//month
 	$query=preg_replace("/month\s*\(/is","strftime('%m',",$query);
 	//year
-	$query=preg_replace("/day\s*\(/is","strftime('%d',",$query);
+	$query=preg_replace("/day\s*\(/is","\$1strftime('%d',",$query);
 	//now()
 	$query=preg_replace("/(now\s*\(\s*\))/is","datetime('now')",$query);
 	//count(distinct)
@@ -138,22 +161,27 @@ class SqliteDB extends DB {
 		$query=preg_replace("/from\s/is","from (select distinct($field) from ",$query);
 		$query.=")";
 	}
-	//echo "<b>AFTER</b>: $query<br><br>";
-	
+
+	//we restore all the strings
+	if (is_array($tabStrings) && count($tabStrings)>0) {
+		foreach ($tabStrings as $search=>$replace) $query=str_replace($search,$replace,$query);
+	}
+	//echo "AFTER: $query<br>";
 	return $query;
 	}
 	
 	function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
 		//we use a wrapper to convert MySQL specific instruction to sqlite
 		$query=$this->mysql2sqlite($query);
+		
 		if (is_array($query)) {
-			//means that it's a creation
+			//means that it's a SCHEMA creation so we process each query
 			foreach ($query as $sql_query) {
-				$result =  sqlite_query($this->db,$sql_query);
+				$result =  @sqlite_query($this->db,$sql_query);
 			 	if ($error = $this -> rss_sql_error()) break;
 			}
 		}
-		else $result =  sqlite_query($this->db,$query);
+		else $result =  @sqlite_query($this->db,$query);
 		
 		 if ($error = $this -> rss_sql_error()) {
 			  $errorString = $this -> rss_sql_error_message();
@@ -194,7 +222,8 @@ class SqliteDB extends DB {
 	}
 	
 	function rss_sql_error() {
-		 return sqlite_last_error($this->db);
+		$err_code=sqlite_last_error($this->db);
+		return $err_code;
 	}
 	
 	function rss_sql_error_message () {
@@ -209,7 +238,6 @@ class SqliteDB extends DB {
 		return sqlite_escape_string ($string);
 	}
 	
-	
 	function rss_is_sql_error($kind) {
 		switch ($kind) {
 			case RSS_SQL_ERROR_NO_ERROR:
@@ -222,5 +250,6 @@ class SqliteDB extends DB {
 				return false;
 		}
 	}
+	
 }
 ?>
