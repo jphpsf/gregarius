@@ -403,9 +403,12 @@ function channel_admin() {
 				}
 		
 				for ($i=0;$i<sizeof($opml[$folder]);$i++){
-					$url_ = trim($opml[$folder][$i]['XMLURL']);
-					$title_ = trim($opml[$folder][$i]['TEXT']);
-					$descr_ = trim($opml[$folder][$i]['DESCRIPTION']);
+					$url_ = isset($opml[$folder][$i]['XMLURL'])?
+						trim($opml[$folder][$i]['XMLURL']):null;
+					$title_ = isset($opml[$folder][$i]['TEXT'])?
+						trim($opml[$folder][$i]['TEXT']):null;
+					$descr_ = isset($opml[$folder][$i]['DESCRIPTION'])?
+						trim($opml[$folder][$i]['DESCRIPTION']):null;
 					if ($url_) {
 						add_channel($url_, $fid, $title_, $descr_);
 					}
