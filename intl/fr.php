@@ -228,4 +228,12 @@ define ('LBL_LOGGED_IN_AS','Bonjour, <strong>%s</strong>');
 define ('LBL_NOT_LOGGED_IN','Pas loggu&eacute;');
 define ('LBL_LOG_OUT','Sortir');
 define ('LBL_LOG_IN','Se logguer');
+
+
+
+define ('LBL_ADMIN_OPML_IMPORT_AND','Importer les nouveaux flux et:');
+define ('LBL_ADMIN_OPML_IMPORT_WIPE','... effacer les flux et les &eacute;l&eacute;ments courants.');
+define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... les ajouter au r&eacute;pertoire:');
+define ('LBL_ADMIN_OPML_IMPORT_MERGE','... les m&eacute;langer aux &eacute;l&eacute;ments courants.');
+
 ?>

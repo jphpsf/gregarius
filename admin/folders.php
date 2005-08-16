@@ -275,26 +275,26 @@ function folder_admin() {
  * Creates a folder with the given name. Does some sanity check,
  * creates the folder, then returns the 
  */
-function create_folder($label) {
+function create_folder($label, $complainonerror=true) {
 	$res = rss_query ("select count(*) from " 
 		.getTable("folders") ." where name='"
 		.rss_real_escape_string($label). "'");
 	
 	list($exists) = rss_fetch_row($res);
 
-	if ($exists > 0) {
+	if ($exists > 0 && $complainonerror) {
 		rss_error(sprintf(LBL_ADMIN_ERROR_CANT_CREATE, $label));
 		return;
+	} elseif (!$exists) {
+		$res = rss_query("select 1+max(position) as np from " . getTable("folders"));
+		list($np) = rss_fetch_row($res);
+
+		if (!$np) {
+			$np = "0";
+		}
+		rss_query("insert into " .getTable("folders") ." (name,position) values ('" . rss_real_escape_string($label) ."', $np)");
 	}
 
-	$res = rss_query("select 1+max(position) as np from " . getTable("folders"));
-	list($np) = rss_fetch_row($res);
-
-	if (!$np) {
-		$np = "0";
-	}
-
-	rss_query("insert into " .getTable("folders") ." (name,position) values ('" . rss_real_escape_string($label) ."', $np)");
 	list($fid) = rss_fetch_row( rss_query("select id from " .getTable("folders") ." where name='". rss_real_escape_string($label) ."'"));
 	return $fid;
 }

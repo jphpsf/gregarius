@@ -313,21 +313,7 @@ function channel_admin() {
 		channel_edit_form($id);
 	break;
 
-	/*
-	
-	// mbi/12.Aug.2005: Is this case actually used? Commenting out
-	
-	 case LBL_ADMIN_CREATE:
-	 case 'LBL_ADMIN_CREATE':
-		$label=$_REQUEST['new_folder'];
-		assert(strlen($label) > 0);
 
-		$sql = "insert into " . getTable("folders") ." (name) values ('" . rss_real_escape_string($label) ."')";
-		rss_query($sql);
-		$ret__ = CST_ADMIN_DOMAIN_FOLDER;
-		break;
-	*/
-	
 	 case CST_ADMIN_DELETE_ACTION:
 		$id = $_REQUEST['cid'];
 		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
@@ -363,42 +349,74 @@ function channel_admin() {
 		}
 		break;
 
-	 case LBL_ADMIN_FILE_IMPORT:
-	 case 'LBL_ADMIN_FILE_IMPORT':
-	 	
-	 	if (array_key_exists('opmlfile',$_FILES) && $_FILES['opmlfile']['tmp_name']) {
-   		if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
-   			$url = $_FILES['opmlfile']['tmp_name'];
-   		} else {
-   			$url = '';
-   		}
+
+
+     case LBL_ADMIN_IMPORT:
+	 case 'LBL_ADMIN_IMPORT':
+
+
+		if (array_key_exists('opml',$_REQUEST) && strlen(trim($_REQUEST['opml'])) > 7) {
+			$url = trim( $_REQUEST['opml'] );
+		} elseif (array_key_exists('opmlfile',$_FILES) && $_FILES['opmlfile']['tmp_name']) {
+	   		if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
+	   			$url = $_FILES['opmlfile']['tmp_name'];
+	   		} else {
+	   			$url = '';
+	   		}
 		} else {
-			$ret__ = CST_ADMIN_DOMAIN_OPML;
+			$url = '';
+		}
+
+		if (!$url) {
+	        $ret__ = CST_ADMIN_DOMAIN_OPML;
 			break;
 		}
-	
-	 case LBL_ADMIN_IMPORT:	
-	 case 'LBL_ADMIN_IMPORT':
-		if (!isset($url) || $url == '') {
-			$url = $_REQUEST['opml'];
+
+
+        if (array_key_exists('opml_import_option',$_REQUEST)) {
+            $import_opt = $_REQUEST['opml_import_option'];
+		} else {
+            $import_opt = CST_ADMIN_OPML_IMPORT_MERGE;
+		}
+		
+		if ($import_opt == CST_ADMIN_OPML_IMPORT_FOLDER) {
+			$opmlfid = rss_real_escape_string($_REQUEST['opml_import_to_folder']);
+		} else {
+            $opmlfid = getRootFolder();
 		}
 
         set_time_limit(0);
 		@ini_set('max_execution_time', 300);
 		
+		// Parse into and OPML object
 		$opml=getOpml($url);
 
 		if (sizeof($opml) > 0) {
-			rss_query("delete from " . getTable("metatag"));
-			rss_query("delete from " . getTable("channels"));
-			rss_query("delete from " . getTable("item"));
-			rss_query("delete from " . getTable("folders") ." where id > 0");
 
-			$prev_folder = LBL_HOME_FOLDER;
-			$fid = 0;
+			if ($import_opt == CST_ADMIN_OPML_IMPORT_WIPE) {
+				rss_query("delete from " . getTable("metatag"));
+				rss_query("delete from " . getTable("channels"));
+				rss_query("delete from " . getTable("item"));
+				rss_query("delete from " . getTable("folders") ." where id > 0");
+			}
+
+			if ($import_opt == CST_ADMIN_OPML_IMPORT_FOLDER) {
+				$fid = $opmlfid;
+				
+				$prev_folder = rss_fetch_row(rss_query(
+					"select name from " .getTable('folders')
+					." where id= $opmlfid "));
+
+			} else {
+				$prev_folder = LBL_HOME_FOLDER;
+				$fid = 0;
+			}
+			
+			
+
 			while (list($folder,$items) = each ($opml)) {
-				if ($folder != $prev_folder) {
-					$fid = create_folder($folder);
+				if ($folder != $prev_folder && $import_opt != CST_ADMIN_OPML_IMPORT_FOLDER) {
+					$fid = create_folder($folder, false);
 					$prev_folder = $folder;
 				}
 		
@@ -413,15 +431,12 @@ function channel_admin() {
 						add_channel($url_, $fid, $title_, $descr_);
 					}
 				}
-		
+
 			}
 	
 			//update all the feeds
 			update("");
-	
-			// mark all items as read
-			rss_query( "update " . getTable("item") ." set unread=0" );
-
+			
 		}
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;

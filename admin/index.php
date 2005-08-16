@@ -58,6 +58,12 @@ define ('CST_ADMIN_DOMAIN_ITEM','items');
 define ('CST_ADMIN_DOMAIN_CONFIG','config');
 define ('CST_ADMIN_DOMAIN_OPML','opml');
 
+// OPML import target
+define ('CST_ADMIN_OPML_IMPORT_WIPE',1);
+define ('CST_ADMIN_OPML_IMPORT_FOLDER',2);
+define ('CST_ADMIN_OPML_IMPORT_MERGE',3);
+
+
 $auth = true;
 
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
