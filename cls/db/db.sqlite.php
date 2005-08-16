@@ -1,4 +1,5 @@
 <?php
+
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2005 Marco Bonetti
@@ -42,6 +43,8 @@
 # history
 # v0.1: release
 # v0.2: fixed a parser bug that wrongly replaced some text values
+# v0.3: fixed a parser trim bug which lead to items behing marked unread after
+#       each refresh of a feed
 ###############################################################################
 
 
@@ -51,6 +54,8 @@ class SqliteDB extends DB {
 
   var $db=false;
 	var $useParsingClass=false;
+	var $dbpath="";
+	var $debug=false;
 	
 	function  SQLite() {
 		parent::DB();
@@ -62,6 +67,7 @@ class SqliteDB extends DB {
 	//// in here.
 	
 	function DBConnect($dbpath, $dbuname, $dbpass) {
+		$this->dbpath=$dbpath;
 		$this->db=@sqlite_open($dbpath,0666,$msg_err);
 		if (!$this->db) {
 			  die( "<h1>Error connecting to the database!</h1>\n"
@@ -78,16 +84,15 @@ class SqliteDB extends DB {
 	function mysql2sqlite($query) {
 	//converts mysql specific syntax to sqlite syntax
 	//order of replace is important to optimize stuff
-	
-	
 	$doReturn=false;
-	$query=preg_replace("/(\s+)/is"," ",$query);
+
 	//table struct query
 	if (preg_match("/show\s+tables/is",$query)) {
 		$query="SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
 		$doReturn=true;
 	}
 	else if (preg_match("/drop\s+table\s+(if\s+exists)/is",$query,$matches)) {
+		$query=preg_replace("/(\s+)/is"," ",$query); // no risk to trim data here
 		$query=str_replace($matches[1],"",$query);
 		$doReturn=true;
 	}
@@ -98,6 +103,7 @@ class SqliteDB extends DB {
 		*/
 		$this->useParsingClass=true; //to be sure that the rest of the schema will go through parsing
 		include_once("ParsingQuery.class.php");
+		$query=preg_replace("/(\s+)/is"," ",$query); // no risk to trim data here
 		$parse=new ParsingQuery($query,2); //2=type mysql
 		$query=$parse->convertQuery();
 		$doReturn=true;
@@ -127,6 +133,7 @@ class SqliteDB extends DB {
 	}
 
 	$query=str_replace("!(","not(",$query);
+	$query=preg_replace("/(\s+)/is"," ",$query); // we can now trim data, but not before to prevent a change in values
 
 	//date_sub(now ... it seems to be the only kind of date_sub used so let's do it like this
 	if (preg_match("/(date_sub\s*\(\s*now\s*\(\s*\)\s*,\s*interval\s+([0-9+-]+)\s+([^\)]*)\))/is",$query,$matches)) {
@@ -172,7 +179,9 @@ class SqliteDB extends DB {
 	
 	function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
 		//we use a wrapper to convert MySQL specific instruction to sqlite
+		$this->debugLog("SQL BEFORE: $query");
 		$query=$this->mysql2sqlite($query);
+		$this->debugLog("SQL AFTER: $query");
 		
 		if (is_array($query)) {
 			//means that it's a SCHEMA creation so we process each query
@@ -186,6 +195,7 @@ class SqliteDB extends DB {
 		 if ($error = $this -> rss_sql_error()) {
 			  $errorString = $this -> rss_sql_error_message();
 		 }
+		
 		 if ($error==1 && preg_match("/DROP TABLE/is",$query)) $error=0; //means that table does not exists so it's OK;)
 	
 		 // if we got a missing table error, look for missing tables in the schema
@@ -223,6 +233,10 @@ class SqliteDB extends DB {
 	
 	function rss_sql_error() {
 		$err_code=sqlite_last_error($this->db);
+		/* //we change a few sqlite err codes to the similar mysql err code because
+		//some part of Gregarius rely on specific error codes: maybe there should be a wrapper? ;) 
+		if ("$err_code"=="19") $err_code=1062; //record not unique
+		*/
 		return $err_code;
 	}
 	
@@ -237,6 +251,19 @@ class SqliteDB extends DB {
 	function rss_real_escape_string($string) {
 		return sqlite_escape_string ($string);
 	}
+	
+	function debugLog($str) {
+	if ($this->debug===true) {
+		$file=@dirname($this->dbpath);
+		if ($file) {
+			$file.="/debug.log";;
+			$fp=@fopen($file,"a");
+			@fputs($fp,trim($str)."\n");
+			@fclose($fp);
+		}
+	}
+	}//end function
+
 	
 	function rss_is_sql_error($kind) {
 		switch ($kind) {
