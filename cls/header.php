@@ -106,7 +106,7 @@ class Header {
 		
 		if (!($this->options & HDR_NO_CACHECONTROL) && getConfig('rss.output.cachecontrol')) {
 			$etag = getETag();
-			$hdrs = getallheaders();
+			$hdrs = rss_getallheaders();
 			if (array_key_exists('If-None-Match', $hdrs) && $hdrs['If-None-Match'] == $etag) {
 				header("HTTP/1.1 304 Not Modified");
 				flush();

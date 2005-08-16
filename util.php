@@ -707,4 +707,18 @@ function rss_redirect($url = "") {
         (guessTransportProto() . $_SERVER['HTTP_HOST'] . getPath() . $url));
 }
 
+/* 
+fixes #117.
+http://www.php.net/manual/en/function.getallheaders.php
+*/
+function rss_getallheaders() {
+	$headers = array();
+	foreach($_SERVER as $h=>$v) {
+       if(ereg('HTTP_(.+)',$h,$hp)) {
+           $headers[$hp[1]]=$v;
+       }
+   }
+   return $headers;
+}
+
 ?>
