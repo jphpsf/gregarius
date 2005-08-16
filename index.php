@@ -69,7 +69,7 @@ if (array_key_exists('logout',$_GET)) {
 
 $cntUnread = unreadItems($show_what);
 if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
-		readItems();
+	readItems($cntUnread);
 } 
 
 
@@ -112,33 +112,48 @@ function unreadItems($show_what) {
     return $ret;
 }
 
-function readItems() {
+function readItems($cntUnread) {
     
     _pf('read items');
+    $readItems = new ItemList();
+
+	if (true || getConfig('rss.config.feedgrouping')) {
+		$sql = "select "
+          ." c.id"
+          ." from " 
+            .getTable("channels") . " c, " 
+            .getTable("folders") ." f "
+          ." where c.parent = f.id ";
     
-	$sql = "select "
-      ." c.id"
-      ." from " 
-		.getTable("channels") . " c, " 
-		.getTable("folders") ." f "
-      ." where c.parent = f.id ";
-
-	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
-
-
-   if (getConfig('rss.config.absoluteordering')) {
-		$sql .= " order by f.position asc, c.position asc";
-   } else {
-		$sql .=" order by f.name asc, c.title asc";
-   }
-
-   $res1=rss_query($sql);
-
-
-	$readItems = new ItemList();
-	while (list($cid) = rss_fetch_row($res1)) {
-		$readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
+        $sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+        
+        if (getConfig('rss.config.absoluteordering')) {
+        	$sql .= " order by f.position asc, c.position asc";
+        } else {
+        	$sql .=" order by f.name asc, c.title asc";
+        }
+    
+    	$res1=rss_query($sql);
+    	while (list($cid) = rss_fetch_row($res1)) {
+			$readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
+		}  
+	} else {
+		///// BUGGY! //////
+		$itemsOnPage = getConfig('rss.output.numitemsonpage');
+		if (!$itemsOnPage) {
+			// quite arbitrary: display 50 read items at most
+			$limit = 50;
+		} else {
+			$limit =  $itemsOnPage - $cntUnread;
+		}
+		 
+		if ($limit <= 0) {
+			return;
+		}
+		$readItems -> populate("!(i.unread & " . FEED_MODE_UNREAD_STATE .")", "", 0, $limit);
 	}
+
+	
 	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 	
