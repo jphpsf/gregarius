@@ -413,14 +413,14 @@ function channel_admin() {
 			}
 			
 			
-
+			echo "<div class=\"frame\" style=\"background-color:#eee;font-size:small\"><ul>\n";
 			while (list($folder,$items) = each ($opml)) {
 				if ($folder != $prev_folder && $import_opt != CST_ADMIN_OPML_IMPORT_FOLDER) {
 					$fid = create_folder($folder, false);
 					$prev_folder = $folder;
 				}
-		
-				for ($i=0;$i<sizeof($opml[$folder]);$i++){
+				
+    			for ($i=0;$i<sizeof($opml[$folder]);$i++){
 					$url_ = isset($opml[$folder][$i]['XMLURL'])?
 						trim($opml[$folder][$i]['XMLURL']):null;
 					$title_ = isset($opml[$folder][$i]['TEXT'])?
@@ -428,14 +428,22 @@ function channel_admin() {
 					$descr_ = isset($opml[$folder][$i]['DESCRIPTION'])?
 						trim($opml[$folder][$i]['DESCRIPTION']):null;
 					if ($url_) {
-						add_channel($url_, $fid, $title_, $descr_);
+	                    echo "<li><p>" . sprintf(LBL_ADMIN_OPML_IMPORT_FEED_INFO,$title_,$prev_folder);
+	                    flush();
+						list($retcde, $retmsg) = add_channel($url_, $fid, $title_, $descr_);
+						echo ($retcde<0 ?$retmsg:" OK")."</p></li>\n";
+						flush();
 					}
 				}
-
 			}
-	
+
+			echo "</ul>\n<p><b>".LBL_TITLE_UPDATING ."...</b></p>\n";
+            echo "</div>\n";
+            flush();
+            
 			//update all the feeds
 			update("");
+			
 			
 		}
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;

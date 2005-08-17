@@ -281,11 +281,11 @@ function create_folder($label, $complainonerror=true) {
 		.rss_real_escape_string($label). "'");
 	
 	list($exists) = rss_fetch_row($res);
-
+	
 	if ($exists > 0 && $complainonerror) {
 		rss_error(sprintf(LBL_ADMIN_ERROR_CANT_CREATE, $label));
 		return;
-	} elseif (!$exists) {
+	} elseif ($exists == 0) {
 		$res = rss_query("select 1+max(position) as np from " . getTable("folders"));
 		list($np) = rss_fetch_row($res);
 
