@@ -181,8 +181,30 @@ if (
 
 // If we have no channel-id somethign went terribly wrong.
 // Redirect to index.php
-if ((!isset($cid) || $cid == "") && 
-	(!isset($cids) || !is_array($cids) || !count($cids))) {
+if (
+		// channel id:
+		(
+			// not set
+			!isset($cid) 	|| 
+			// ...or empty
+			$cid == "" 		|| 
+			// or not numeric while mod_rewrite is off
+			(
+				!getConfig('rss.output.usemodrewrite') && !is_numeric($cid)
+			)
+		)	
+		
+		&& 
+		// folder id
+		(
+			// not set
+			!isset($cids) || 
+			// not an array of ids
+			!is_array($cids) || 
+			// zero elements
+			!count($cids))
+	) 
+{
 
     rss_redirect();
 }
