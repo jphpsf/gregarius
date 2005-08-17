@@ -45,6 +45,7 @@
 # v0.2: fixed a parser bug that wrongly replaced some text values
 # v0.3: fixed a parser trim bug which lead to items behing marked unread after
 #       each refresh of a feed
+# v0.4: added alter table and fixed processing of columns update schema
 ###############################################################################
 
 
@@ -53,7 +54,6 @@ rss_require('cls/db/db.php');
 class SqliteDB extends DB {
 
   var $db=false;
-	var $useParsingClass=false;
 	var $dbpath="";
 	var $debug=false;
 	
@@ -79,8 +79,141 @@ class SqliteDB extends DB {
 	function DBSelectDB($dbname) {
 		return true; //sqlite only contain one DB so no need of this
 	}
+
+	function alter_table($table,$alterdefs){
+	/* function written by jon jenseng and realeased as Opensource
+	on his web site: http://code.jenseng.com/db/
+	SQlite does not fully support ALTER TABLE, and it support it only
+	in SQLite 3.2 +
+	So we use this function to execute alter table query
+	*/
+	if($alterdefs != ''){
+		$result = @sqlite_query($this->db,"SELECT sql,name,type FROM sqlite_master WHERE tbl_name = '".$table."' ORDER BY type DESC");
+		if(@sqlite_num_rows($result)>0){
+			$row = @sqlite_fetch_array($result); //table sql
+			$tmpname = 't'.time();
+			$origsql = trim(preg_replace("/[\s]+/"," ",str_replace(",",", ",preg_replace("/[\(]/","( ",$row['sql'],1))));
+			$createtemptableSQL = 'CREATE TEMPORARY '.substr(trim(preg_replace("'".$table."'",$tmpname,$origsql,1)),6);
+			$createindexsql = array();
+			$i = 0;
+			$defs = preg_split("/[,]+/",$alterdefs,-1,PREG_SPLIT_NO_EMPTY);
+			$prevword = $table;
+			$oldcols = preg_split("/[,]+/",substr(trim($createtemptableSQL),strpos(trim($createtemptableSQL),'(')+1),-1,PREG_SPLIT_NO_EMPTY);
+			$newcols = array();
+			for($i=0;$i<sizeof($oldcols);$i++){
+				$colparts = preg_split("/[\s]+/",$oldcols[$i],-1,PREG_SPLIT_NO_EMPTY);
+				$oldcols[$i] = $colparts[0];
+				$newcols[$colparts[0]] = $colparts[0];
+			}
+			$newcolumns = '';
+			$oldcolumns = '';
+			reset($newcols);
+			while(list($key,$val) = each($newcols)){
+				$newcolumns .= ($newcolumns?', ':'').$val;
+				$oldcolumns .= ($oldcolumns?', ':'').$key;
+			}
+			$copytotempsql = 'INSERT INTO '.$tmpname.'('.$newcolumns.') SELECT '.$oldcolumns.' FROM '.$table;
+			$dropoldsql = 'DROP TABLE '.$table;
+			$createtesttableSQL = $createtemptableSQL;
+			foreach($defs as $def){
+				$defparts = preg_split("/[\s]+/",$def,-1,PREG_SPLIT_NO_EMPTY);
+				$action = strtolower($defparts[0]);
+				switch($action){
+					case 'add':
+						if(sizeof($defparts) <= 2){
+							trigger_error('near "'.$defparts[0].($defparts[1]?' '.$defparts[1]:'').'": syntax error',E_USER_WARNING);
+							return false;
+						}
+  	        $createtesttableSQL = substr($createtesttableSQL,0,strlen($createtesttableSQL)-1).',';
+            for($i=1;$i<sizeof($defparts);$i++) $createtesttableSQL.=' '.$defparts[$i];
+            $createtesttableSQL.=')';
+            break;
+          case 'change':
+            if(sizeof($defparts) <= 3){
+              trigger_error('near "'.$defparts[0].($defparts[1]?' '.$defparts[1]:'').($defparts[2]?' '.$defparts[2]:'').'": syntax error',E_USER_WARNING);
+              return false;
+            }
+            if($severpos = strpos($createtesttableSQL,' '.$defparts[1].' ')){
+              if($newcols[$defparts[1]] != $defparts[1]){
+                trigger_error('unknown column "'.$defparts[1].'" in "'.$table.'"',E_USER_WARNING);
+                return false;
+              }
+              $newcols[$defparts[1]] = $defparts[2];
+              $nextcommapos = strpos($createtesttableSQL,',',$severpos);
+              $insertval = '';
+              for($i=2;$i<sizeof($defparts);$i++)
+                $insertval.=' '.$defparts[$i];
+              if($nextcommapos)
+                $createtesttableSQL = substr($createtesttableSQL,0,$severpos).$insertval.substr($createtesttableSQL,$nextcommapos);
+              else
+                $createtesttableSQL = substr($createtesttableSQL,0,$severpos-(strpos($createtesttableSQL,',')?0:1)).$insertval.')';
+            }
+            else{
+              trigger_error('unknown column "'.$defparts[1].'" in "'.$table.'"',E_USER_WARNING);
+              return false;
+            }
+            break;
+          case 'drop':
+            if(sizeof($defparts) < 2){
+              trigger_error('near "'.$defparts[0].($defparts[1]?' '.$defparts[1]:'').'": syntax error',E_USER_WARNING);
+              return false;
+            }
+            if($severpos = strpos($createtesttableSQL,' '.$defparts[1].' ')){
+              $nextcommapos = strpos($createtesttableSQL,',',$severpos);
+              if($nextcommapos)
+                $createtesttableSQL = substr($createtesttableSQL,0,$severpos).substr($createtesttableSQL,$nextcommapos + 1);
+              else
+                $createtesttableSQL = substr($createtesttableSQL,0,$severpos-(strpos($createtesttableSQL,',')?0:1) - 1).')';
+              unset($newcols[$defparts[1]]);
+            }
+            else{
+              trigger_error('unknown column "'.$defparts[1].'" in "'.$table.'"',E_USER_WARNING);
+              return false;
+            }
+            break;
+          default:
+            trigger_error('near "'.$prevword.'": syntax error',E_USER_WARNING);
+            return false;
+          }
+          $prevword = $defparts[sizeof($defparts)-1];
+        }
+        
+          
+        //this block of code generates a test table simply to verify that the columns specifed are valid in an sql statement
+        //this ensures that no reserved words are used as columns, for example
+        @sqlite_query($this->db,$createtesttableSQL);
+	      if ($this->rss_sql_error()) return false;
 	
-		
+  	    $droptempsql = 'DROP TABLE '.$tmpname;
+        @sqlite_query($this->db,$droptempsql);
+        //end block
+
+        $createnewtableSQL = 'CREATE '.substr(trim(preg_replace("'".$tmpname."'",$table,$createtesttableSQL,1)),17);
+        $newcolumns = '';
+        $oldcolumns = '';
+        reset($newcols);
+        while(list($key,$val) = each($newcols)){
+          $newcolumns .= ($newcolumns?', ':'').$val;
+          $oldcolumns .= ($oldcolumns?', ':'').$key;
+        }
+        $copytonewsql = 'INSERT INTO '.$table.'('.$newcolumns.') SELECT '.$oldcolumns.' FROM '.$tmpname;
+         
+        @sqlite_query($this->db,$createtemptableSQL); //create temp table
+        @sqlite_query($this->db,$copytotempsql); //copy to table
+        @sqlite_query($this->db,$dropoldsql); //drop old table
+
+        @sqlite_query($this->db,$createnewtableSQL); //recreate original table
+        @sqlite_query($this->db,$copytonewsql); //copy back to original table
+        @sqlite_query($this->db,$droptempsql); //drop temp table
+      }
+      else{
+        trigger_error('no such table: '.$table,E_USER_WARNING);
+        return false;
+      }
+      return true;
+    }
+  }
+
 	function mysql2sqlite($query) {
 	//converts mysql specific syntax to sqlite syntax
 	//order of replace is important to optimize stuff
@@ -92,16 +225,20 @@ class SqliteDB extends DB {
 		$doReturn=true;
 	}
 	else if (preg_match("/drop\s+table\s+(if\s+exists)/is",$query,$matches)) {
-		$query=preg_replace("/(\s+)/is"," ",$query); // no risk to trim data here
 		$query=str_replace($matches[1],"",$query);
+		$query=preg_replace("/(\s+)/is"," ",$query); // no risk to trim data here
 		$doReturn=true;
 	}
-	else if ($this->useParsingClass || preg_match("/create\s+table/is",$query)) {
+	else if (preg_match("/alter\s+table/is",$query,$matches)) {
+		$query=preg_replace("/(COLUMN)/is","",$query);
+		$query=preg_replace("/(\s+)/is"," ",$query); // no risk to trim data here
+		$doReturn=true;
+	}
+	else if (preg_match("/create\s+table/is",$query)) {
 		/* We are using a class found into SQLLiteManager project!
 		We need to check the licence of SQLLiteManager and (include it?)
 		Otherwise, we must rebuild this function by ourself
 		*/
-		$this->useParsingClass=true; //to be sure that the rest of the schema will go through parsing
 		include_once("ParsingQuery.class.php");
 		$query=preg_replace("/(\s+)/is"," ",$query); // no risk to trim data here
 		$parse=new ParsingQuery($query,2); //2=type mysql
@@ -111,15 +248,11 @@ class SqliteDB extends DB {
 
 	if ($doReturn) return $query;
 	
-	//echo "<b>BEFORE</b>: $query<br><br>";
-	
 	/*
 	we must be carefull to not change text content but only SQL part
 	We do a really dirty hack here:
 	we replace all texts by an REFERENCES that will not interfere into the parsing
-	/REM: the best solution would be to be sure that SQL Request do not use syntax
-	specific to MySQL...
-	*/
+  */
 	$i=0;
 	$tabStrings=array();
 	if (preg_match_all("/('([^']|'')*')/is",$query,$matches,PREG_SET_ORDER)) {
@@ -169,87 +302,119 @@ class SqliteDB extends DB {
 		$query.=")";
 	}
 
-	//we restore all the strings
+	//we restore all the strings values
 	if (is_array($tabStrings) && count($tabStrings)>0) {
 		foreach ($tabStrings as $search=>$replace) $query=str_replace($search,$replace,$query);
 	}
-	//echo "AFTER: $query<br>";
 	return $query;
 	}
 	
 	function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
 		//we use a wrapper to convert MySQL specific instruction to sqlite
+		$GLOBALS["sqlite_extented_error"]="";
+		
 		$this->debugLog("SQL BEFORE: $query");
 		$query=$this->mysql2sqlite($query);
 		$this->debugLog("SQL AFTER: $query");
-		
-		if (is_array($query)) {
-			//means that it's a SCHEMA creation so we process each query
-			foreach ($query as $sql_query) {
-				$result =  @sqlite_query($this->db,$sql_query);
-			 	if ($error = $this -> rss_sql_error()) break;
+
+		if (is_string($query) && preg_match("/alter table/is",$query)) {
+			$queryparts = preg_split("/[\s]+/",$query,4,PREG_SPLIT_NO_EMPTY);
+			$tablename = $queryparts[2];
+			$alterdefs = $queryparts[3];
+			if (strtolower($queryparts[1]) != 'table' || $queryparts[2] == '') {
+				$error=1;
+				$errorString = 'near "'.$queryparts[0] . '": syntax error';
+			}
+			else{
+				set_error_handler(array(&$this, 'rss_catch_error_handler'));
+				$result = $this->alter_table($tablename,$alterdefs);
+				restore_error_handler();
 			}
 		}
-		else $result =  @sqlite_query($this->db,$query);
+		else {
+  		set_error_handler(array(&$this, 'rss_catch_error_handler'));
+  		if (is_array($query)) {
+  			//means that it's a SCHEMA creation so we process each query
+  			foreach ($query as $sql_query) {
+  				$result =  @sqlite_query($this->db,$sql_query);
+  			 	if ($error = $this -> rss_sql_error()) {
+  					if ($error==1 && preg_match("/DROP TABLE/is",$sql_query)) {
+  						//not a real error to drop a table which do not exists
+  						$error=0;
+  						continue;
+  					}
+  					break;
+  				}
+  			}
+  		}
+  		else $result =  @sqlite_query($this->db,$query);
+  		restore_error_handler();
+			
+  		if ($error = $this -> rss_sql_error()) {
+  			if ($error==1 && is_string($query) && preg_match("/DROP TABLE/is",$query)) {
+  				//not a real error to drop a table which do not exists
+  				$error=0;
+  			}
+  			else $errorString = $this -> rss_sql_error_message();
+  		}
+		}
+				
+		$this->debugLog("SQL ERR: $error - $errorString");
 		
-		 if ($error = $this -> rss_sql_error()) {
-			  $errorString = $this -> rss_sql_error_message();
-		 }
-		
-		 if ($error==1 && preg_match("/DROP TABLE/is",$query)) $error=0; //means that table does not exists so it's OK;)
-	
-		 // if we got a missing table error, look for missing tables in the schema
-		 // and try to create them
-		 if ($error == 1 && !$preventRecursion && $dieOnError) {
-			  rss_require('schema.php');
-			  checkSchema();
-			  return $this -> rss_query ($query, $dieOnError, true);
-		 } elseif ($error == 1054 && !$preventRecursion && $dieOnError) {
-			  if (preg_match("/^[^']+'([^']+)'.*$/",$errorString,$matches)) {
-					rss_require('schema.php');
-					checkSchemaColumns($matches[1]);
-					return $this -> rss_query ($query, $dieOnError, true);
-			  }
-		 }
+		if ($error == 1 && $dieOnError && !$preventRecursion) {
+			if (preg_match("/no\s+such\s+table/is",$errorString)) {
+				ob_start();
+				rss_require('schema.php');
+		  	checkSchema();
+				ob_clean();
+		  	return $this -> rss_query ($query, $dieOnError, true);
+			}
+			else if (preg_match("/no\s+column\s+named\s+(.+)/is",$errorString,$matches)) {
+				ob_start();
+				rss_require('schema.php');
+				checkSchemaColumns(trim($matches[1]));
+				ob_clean();
+				return $this -> rss_query ($query, $dieOnError, true);
+		  }
+		}
 	
 		if ($error && $dieOnError) {
-			  die ("<p>Failed to execute the SQL query <pre>$query</pre> </p>"
+			  die("<p>Failed to execute the SQL query <pre>$query</pre> </p>"
 					 ."<p>Error $error: $errorString</p>");
-		 }
-		 return $result;
+		}
+		return $result;
 	}
 	
 	function rss_fetch_row(&$rs) {
-		return sqlite_fetch_array($rs,SQLITE_NUM);
+		return @sqlite_fetch_array($rs,SQLITE_NUM);
 	}
 	
 	function rss_fetch_assoc(&$rs) {
-		return sqlite_fetch_array($rs,SQLITE_ASSOC);
+		return @sqlite_fetch_array($rs,SQLITE_ASSOC);
 	}
 
 	function rss_num_rows(&$rs) {
-		return sqlite_num_rows($rs);
+		return @sqlite_num_rows($rs);
 	}
 	
 	function rss_sql_error() {
-		$err_code=sqlite_last_error($this->db);
-		/* //we change a few sqlite err codes to the similar mysql err code because
-		//some part of Gregarius rely on specific error codes: maybe there should be a wrapper? ;) 
-		if ("$err_code"=="19") $err_code=1062; //record not unique
-		*/
+		$err_code=@sqlite_last_error($this->db);
 		return $err_code;
 	}
 	
 	function rss_sql_error_message () {
-		 return sqlite_error_string(sqlite_last_error($this->db));
+		$errorString="";
+		$error=@sqlite_last_error($this->db);
+		if ($error) $errorString=@sqlite_error_string($error)." : ".$GLOBALS["sqlite_extented_error"];
+		return $errorString;
 	}
 	
 	function rss_insert_id() {
-		return sqlite_last_insert_rowid($this->db);
+		return @sqlite_last_insert_rowid($this->db);
 	}
 	
 	function rss_real_escape_string($string) {
-		return sqlite_escape_string ($string);
+		return @sqlite_escape_string ($string);
 	}
 	
 	function debugLog($str) {
@@ -277,6 +442,12 @@ class SqliteDB extends DB {
 				return false;
 		}
 	}
+
+	//error handler taken from sqlitemanager project
+	function rss_catch_error_handler($errno, $errstr, $errfile, $errline) {
+		if (preg_match("/:(.*)/", $errstr, $errorResult)) $GLOBALS["sqlite_extented_error"] = $errorResult[1];
+	}
 	
 }
+
 ?>
