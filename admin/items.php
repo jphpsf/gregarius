@@ -96,7 +96,7 @@ function item_admin() {
             ." where 1=1 ";
             
             if ($prune_older > 0) {
-                $sql .= " and added <  date_sub(now(), interval $prune_older $period) ";
+                $sql .= " and if (i.pubdate is null, i.added, i.pubdate) <  date_sub(now(), interval $prune_older $period) ";
             }
 			 
             if (!array_key_exists('prune_include_sticky', $_REQUEST)
