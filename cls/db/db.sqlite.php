@@ -309,7 +309,7 @@ class SqliteDB extends DB {
     function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
 	//we use a wrapper to convert MySQL specific instruction to sqlite
 	$GLOBALS["sqlite_extented_error"]="";
-	$errorString = "";
+	$errorString = " (none) ";
 	$this->debugLog("SQL BEFORE: $query");
 	$query=$this->mysql2sqlite($query);
 	$this->debugLog("SQL AFTER: $query");
@@ -420,7 +420,8 @@ class SqliteDB extends DB {
 	    if ($file) {
 		$file.="/debug.log";;
 		$fp=@fopen($file,"a");
-		@fputs($fp,trim($str)."\n");
+		@fputs($fp,"-== " . date('r') . " =======================================-\n");
+		@fputs($fp,trim($str)."\n\n");
 		@fclose($fp);
 	    }
 	}
