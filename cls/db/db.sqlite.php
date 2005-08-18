@@ -275,20 +275,24 @@ class SqliteDB extends DB {
 	    $query=str_replace($matches[0],"date('now','$nb $interval')",$query);
 	}
 
-	//if ( field is null, true, false)
-	$query=preg_replace("/if\s*\(\s*[^\s]+\s+is\s+null\s*,([^,]+),([^\)]+)\)/is","ifnull(\$1,\$2)",$query);
+	//if (field1 is null, op(field2) , op(field1))
+	$query=preg_replace("/if\s*\(\s*([^\s]+)\s+is\s+null\s*,([^,()]+\([^()]+\)[^,]*),([^()]+\([^()]*\\1[^()]*\)[^)]*)\)/is","ifnull(\$3,\$2)",$query);
+
+	//if (field1 is null, field2 , field1)
+	$query=preg_replace("/if\s*\(\s*([^\s]+)\s+is\s+null\s*,([^,()]+),([^()]*\\1[^()]*)\)/is","ifnull(\$3,\$2)",$query);
+	
 	//unix_timestamp
-	$query=preg_replace("/unix_timestamp\s*\(([^\)]+)\)/is","strftime('%s',\$1)",$query);
+	$query=preg_replace("/unix_timestamp\s*\(/is","strftime('%s',",$query);
 	//FROM_UNIXTIME
-	$query=preg_replace("/from_unixtime\s*\(([^\)]+)\)/is","datetime(\$1,'unixepoch')",$query);
+	$query=preg_replace("/from_unixtime\s*\(([^()]+)\)/is","datetime(\$1,'unixepoch')",$query);
 	//dayofmonth
 	$query=preg_replace("/dayofmonth\s*\(/is","strftime('%d',",$query);
 	//year
 	$query=preg_replace("/year\s*\(/is","strftime('%Y',",$query);
 	//month
 	$query=preg_replace("/month\s*\(/is","strftime('%m',",$query);
-	//year
-	$query=preg_replace("/day\s*\(/is","\$1strftime('%d',",$query);
+	//day
+	$query=preg_replace("/day\s*\(/is","strftime('%d',",$query);
 	//now()
 	$query=preg_replace("/(now\s*\(\s*\))/is","datetime('now')",$query);
 	//count(distinct)
