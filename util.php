@@ -314,8 +314,14 @@ function getRootFolder(){
 }
 
 function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
-	assert("" != $url && strlen($url) > 7);
-	assert(is_numeric($folderid));
+	if (!$url || strlen($url) <= 7) {
+		return array (-2, "Invalid URL $url");
+	}
+    if (!is_numeric($folderid)) {
+		return array (-2, "Invalid folderid $folderid");
+	}
+
+	$url = str_replace('&amp;','&',$url);
 
 	$urlDB = $url; //htmlentities($url);
 
@@ -548,12 +554,12 @@ function extractFeeds($url) {
 	$cnt = getUrl($url);
 	$ret = array ();
 	//find all link tags
-	if (preg_match_all('|<link \w*="[^"]+"+[^>]*>|Ui', $cnt, $res)) {
+	if (preg_match_all('|<link \w*=["\'][^"\']+["\']+[^>]*>|Ui', $cnt, $res)) {
 		while (list ($id, $match) = each($res[0])) {
 			// we only want '<link alternate=...'
 			if (strpos(strtolower($match), 'alternate') && 
 				!strpos(strtolower($match), 'stylesheet')  && // extract the attributes
-				preg_match_all('|([a-zA-Z]*)="([^"]*)|', $match, $res2, PREG_SET_ORDER)) {
+				preg_match_all('|([a-zA-Z]*)=["\']([^"\']*)|', $match, $res2, PREG_SET_ORDER)) {
 				$tmp = array ();
 				//populate the return array: attr_name => attr_value
 				while (list ($id2, $match2) = each($res2)) {
