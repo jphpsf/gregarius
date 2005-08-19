@@ -116,8 +116,9 @@ function readItems($cntUnread) {
     
     _pf('read items');
     $readItems = new ItemList();
+	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 
-	if (true || getConfig('rss.config.feedgrouping')) {
+	if (getConfig('rss.config.feedgrouping')) {
 		$sql = "select "
           ." c.id"
           ." from " 
@@ -137,6 +138,8 @@ function readItems($cntUnread) {
     	while (list($cid) = rss_fetch_row($res1)) {
 			$readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
 		}  
+		
+		
 	} else {
 		///// BUGGY! //////
 		$itemsOnPage = getConfig('rss.output.numitemsonpage');
@@ -151,11 +154,12 @@ function readItems($cntUnread) {
 			return;
 		}
 		$readItems -> populate("!(i.unread & " . FEED_MODE_UNREAD_STATE .")", "", 0, $limit);
+		$readItems -> setRenderOptions(IL_NO_COLLAPSE);
+
 	}
 
 	
 	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
-	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 	
 	$GLOBALS['rss'] -> appendContentObject($readItems);	
 	_pf('end read items');
