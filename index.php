@@ -154,7 +154,7 @@ function readItems($cntUnread) {
 			return;
 		}
 		$readItems -> populate("!(i.unread & " . FEED_MODE_UNREAD_STATE .")", "", 0, $limit);
-		$readItems -> setRenderOptions(IL_NO_COLLAPSE);
+		$readItems -> setRenderOptions(IL_NO_COLLAPSE | IL_TITLE_NO_ESCAPE);
 
 	}
 
