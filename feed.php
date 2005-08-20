@@ -883,7 +883,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 					//echo "$key " .count($cidname);
 					if ($key+1 < count($cidname)) {
 						list($cid_,$title_) = $cidname[$key+1];
-						$prev = array(
+						$succ = array(
 						   'url' => getPath(). 
 						   ( getConfig('rss.output.usemodrewrite') ?
 							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/"
@@ -893,7 +893,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 					}
 					if ($key > 0) {
 						list($cid_,$title_) = $cidname[$key-1];
-						$succ = array(
+						$prev = array(
 						   'url' => getPath(). 
 						   ( getConfig('rss.output.usemodrewrite') ?
 							preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/"
