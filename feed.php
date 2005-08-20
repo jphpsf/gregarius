@@ -486,45 +486,70 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	}
 	
    $items = new ItemList();
-
-	
-
-	foreach ($cids as $cid) {
-		$sqlWhere = "i.cid = $cid";
-		if  ($do_show == SHOW_UNREAD_ONLY) {
-			$sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
-		}		 
-		if ($iid != "") {
-			$sqlWhere .= " and i.id=$iid";
-		}
-		if ($m > 0 && $y > 0) {
-			$sqlWhere .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
-			  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
-		
-			if ($d > 0) {
-				 $sqlWhere .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
-			}
-		 }
-		
-		if ( $m==0 && $y==0 ) {		
-			$sqlLimit = getConfig('rss.output.itemsinchannelview');
-		} else {
-			$sqlLimit = 9999;
-		}
-				  
-		$sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc";
-		if(getConfig('rss.config.datedesc')){
-			$sqlOrder .= ", ts desc, i.id asc";
-		} else {
-			$sqlOrder .= ", ts asc, i.id asc";
-		}
-		
-		
-		$items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit);
-	}
-
-	
    $severalFeeds = ($fid != null);
+   
+   if ($severalFeeds && !getConfig('rss.config.feedgrouping')) {
+   	$sqlWhere = "(";
+		foreach ($cids as $cid) {
+			$sqlWhere .= " i.cid = $cid or ";			
+		}
+		$sqlWhere .= " 1=0) ";
+		if  ($do_show == SHOW_UNREAD_ONLY) {
+				$sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+		}	
+		
+		// how many items should we display in a folder view?
+		// default to numitemsonpage.
+		$cnt = getConfig('rss.output.numitemsonpage');
+		// if that is set to zero, use itemsinchannelview times the number of feeds in the folder
+		if ($cnt == 0) {
+			$cnt = count($cids) * getConfig('rss.output.itemsinchannelview');
+		}
+		// should that be zero too, go for a fixed value
+		if ($cnt == 0) { 
+			// arbitrary!
+			$cnt = 50;
+		}
+		$items -> populate($sqlWhere, "", 0, $cnt);
+   
+   } else {
+   
+		foreach ($cids as $cid) {
+			$sqlWhere = "i.cid = $cid";
+			if  ($do_show == SHOW_UNREAD_ONLY) {
+				$sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+			}		 
+			if ($iid != "") {
+				$sqlWhere .= " and i.id=$iid";
+			}
+			if ($m > 0 && $y > 0) {
+				$sqlWhere .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
+				  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+			
+				if ($d > 0) {
+					 $sqlWhere .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+				}
+			 }
+			
+			if ( $m==0 && $y==0 ) {		
+				$sqlLimit = getConfig('rss.output.itemsinchannelview');
+			} else {
+				$sqlLimit = 9999;
+			}
+					  
+			$sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc";
+			if(getConfig('rss.config.datedesc')){
+				$sqlOrder .= ", ts desc, i.id asc";
+			} else {
+				$sqlOrder .= ", ts asc, i.id asc";
+			}
+			
+			
+			$items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit);
+		}
+	}
+	
+  
    if ($items -> unreadCount && $iid == "") {
     	 $items -> preRender[] = array("showViewForm",$show_what);
 		 
