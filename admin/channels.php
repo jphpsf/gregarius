@@ -458,6 +458,7 @@ function channel_admin() {
 		$descr= rss_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
 		$icon = rss_real_escape_string($_REQUEST['c_icon']);
 		$priv = (array_key_exists('c_private',$_REQUEST) && $_REQUEST['c_private'] == '1');
+		$tags = rss_real_escape_string($_REQUEST['c_tags']);
 		$old_priv = ($_REQUEST['old_priv'] == '1');
 		if ($priv != $old_priv) {
 			$mode = ", mode = mode ";
@@ -503,6 +504,9 @@ function channel_admin() {
 		  ." $mode where id=$cid";
 	
 		rss_query($sql);
+
+		__exp__submitTag($cid,$tags,"'channel'");
+
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;
 
@@ -620,6 +624,14 @@ function channel_edit_form($cid) {
 	$sql = "select id, title, url, siteurl, parent, descr, icon, mode from " .getTable("channels") ." where id=$cid";
 	$res = rss_query($sql);
 	list ($id, $title, $url, $siteurl, $parent, $descr, $icon,$mode) = rss_fetch_row($res);
+	// get tags
+	$sql = "select t.tag from " . getTable('tag')." t, " . getTable('metatag') 
+	  . " m where t.id = m.tid and m.ttype = 'channel' and m.fid = $cid";
+	$res = rss_query($sql);
+	$tags = "";
+	while($r = rss_fetch_assoc($res)){
+		$tags .= $r['tag'] . " ";
+	}
 
 	echo "<div>\n";
 	echo "\n\n<h2>".LBL_ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
@@ -648,6 +660,9 @@ function channel_edit_form($cid) {
 	folder_combo('c_parent',$parent);
 	echo "</p>\n";
 	
+	// Tags
+	echo "<p><label for=\"c_tags\">". LBL_TAG_TAGS . ":</label>\n"
+	  ."<input type=\"text\" id=\"c_tags\" name=\"c_tags\" value=\"$tags\"/></p>";
 	
 	// Items state
 	if ($mode & FEED_MODE_PRIVATE_STATE) {

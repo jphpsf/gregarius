@@ -65,7 +65,8 @@ class Tags {
 		$sql = "select tag,count(*) as cnt from "
 			.getTable('metatag')
 			." left join ".getTable('item')." i on (fid=i.id),"
-			.getTable('tag')." t "." where tid=t.id ";
+			.getTable('tag')." t "." where tid=t.id "
+			." and ttype = 'item'";
 
 		// Don't count tags of private imtes
 		if (hidePrivate()) {

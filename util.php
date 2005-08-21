@@ -727,4 +727,60 @@ function rss_getallheaders() {
    return $headers;
 }
 
+// moved from ajax.php
+function __exp__submitTag($id,$tags,$type = "'item'") {
+    $ftags = preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags));
+    $tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
+    $ftags = implode(" ",__priv__updateTags($id,$tarr,$type));
+    return "$id,". $ftags;
+}
+
+function __priv__updateTags($fid,$tags,$type) {
+    rss_query("delete from " .getTable('metatag')
+        . " where fid=$fid and ttype=$type");
+    $ret = array();
+    foreach($tags as $tag) {
+        $ttag = trim($tag);
+        if ($ttag == "" || in_array($ttag,$ret)) {
+            continue;
+        }
+        rss_query( "insert into ". getTable('tag')
+            . " (tag) values ('$ttag')", false );
+        $tid = 0;
+        if(rss_is_sql_error(RSS_SQL_ERROR_DUPLICATE_ROW)) {
+            list($tid)=rss_fetch_row(rss_query("select id from "
+                .getTable('tag') . " where tag='$ttag'"));
+        } else {
+            $tid = rss_insert_id();
+        }
+        if ($tid) {
+            rss_query( "insert into ". getTable('metatag')
+                        . " (fid,tid,ttype,tdate) values ($fid,$tid,$type,now())" );
+            if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+              $ret[] = $ttag;
+            }
+        }
+    }
+    sort($ret);
+    return $ret;
+}
+
+function __exp__getFromDelicious($id) {
+    list($url)= rss_fetch_row(
+       rss_query('select url from '  . getTable('item')  ." where id=$id"));
+    $ret = array();
+    $durl = "http://del.icio.us/url/" . md5($url);
+    $bfr = getUrl($durl,2000);
+    if ($bfr) {
+	define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
+	if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
+	    $hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
+	    foreach($hits as $hit) {
+		$ret[] = $hit[1];
+	    }
+	}
+    }
+    return "$id," .implode(" ",$ret);
+}
+
 ?>

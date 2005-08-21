@@ -361,7 +361,7 @@ class ItemList {
 			.getTable('tag')." t, "
 			.getTable('metatag')." m, "
 			.getTable('item')." i "
-			." where m.tid = t.id and i.id=m.fid and m.fid in (".implode(",", $iids).")";
+			." where m.tid = t.id and i.id=m.fid and m.ttype = 'item' and m.fid in (".implode(",", $iids).")";
 			
 			$res = $this->rss->db->rss_query($sql);
 			while (list ($tag_, $iid_, $cid_) = $this->rss->db->rss_fetch_row($res)) {

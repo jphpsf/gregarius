@@ -44,7 +44,8 @@ function relatedTags($tags) {
 	$twhere .= "1=0";
 
 	$sql = "select fid,tid,m.tdate from ".getTable('metatag')
-	." m, ".getTable('tag')." t  where m.tid=t.id "." and ($twhere)";
+	." m, ".getTable('tag')." t  where m.tid=t.id and m.ttype = 'item'"
+	." and ($twhere)";
 
 	//echo $sql;
 	$res = rss_query($sql);
@@ -96,7 +97,8 @@ if (array_key_exists('tag', $_GET)) {
 	$sql = "select fid, count(*) as cnt from "
 	.getTable('metatag')." m, "
 	.getTable('tag')." t "
-	." where m.tid=t.id and ($twhere)  "
+	." where m.tid=t.id and ($twhere) "
+	." and m.ttype = 'item'"
 	." group by fid order by 2 desc";
 
 	$res = rss_query($sql);
