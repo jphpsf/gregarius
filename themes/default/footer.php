@@ -1,4 +1,5 @@
 	<span><a href="#top">TOP</a></span>
+	<?= rss_plugin_hook("rss.plugins.footer.span",null); ?>
 	<span>
 		<a href="http://devlog.gregarius.net/">Gregarius</a> <?= _VERSION_ ?><!-- $Revision: 577 $ -->
 		<?= LBL_FTR_POWERED_BY ?> <a href="http://php.net">PHP</a>, 
