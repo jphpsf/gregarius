@@ -73,6 +73,8 @@ class RSS {
 		$theme = getConfig('rss.output.theme');
 		if (defined('THEME_OVERRIDE')) {
 			$theme = THEME_OVERRIDE;
+		} elseif (isset($_REQUEST['theme'])) {
+		    $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
 		}
 		
 		$ret="themes/$theme/$file";

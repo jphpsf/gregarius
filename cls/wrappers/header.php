@@ -30,8 +30,8 @@ function rss_header_charset() {
  return (getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING);
 }
 
-function rss_header_title() {
-	return $GLOBALS['rss']->header->docTitle;
+function rss_header_title($escaped=true) {
+	return ($escaped?$GLOBALS['rss']->header->docTitle:$GLOBALS['rss']->header->rawTitle);
 }
 
 function rss_header_robotmeta() {
