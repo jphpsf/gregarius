@@ -59,7 +59,7 @@ function relatedTags($tags) {
 
 	$rtags = array ();
 	if (count($fids)) {
-		$sql = "select t.tag, count(*) from ".getTable('metatag')
+		$sql = "select t.tag, count(*) as cnt from ".getTable('metatag')
 		." m left join ".getTable('item')." i on (m.fid=i.id), "
 		.getTable('tag')." t "
 		." where m.tid=t.id and m.fid in (".implode(",", $fids).")"
@@ -69,7 +69,7 @@ function relatedTags($tags) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 
-		$sql .= " group by 1 order by 2 desc";
+		$sql .= " group by t.tag order by cnt desc";
 
 		//echo $sql;
 		$res = rss_query($sql);
