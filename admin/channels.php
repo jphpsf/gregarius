@@ -159,7 +159,7 @@ function channels() {
 	 
 	."<span class=\"vr\">&nbsp;</span>"
 	
-	."<label for=\"me_state\">".LBL_ADMIN_TOGGLE_STATE."</label>\n"
+	."<label>".LBL_ADMIN_TOGGLE_STATE."</label>\n"
 	."<input type=\"checkbox\" name=\"me_deprecated\" id=\"me_deprecated\" value=\"".FEED_MODE_DELETED_STATE."\" />\n"
     ."<label for=\"me_deprecated\">".LBL_DEPRECATED."</label>\n"
 
