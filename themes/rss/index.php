@@ -8,7 +8,7 @@
 
 <channel>
 	<title><?= rss_header_title() ?></title>
-	<link>http://<?= $_SERVER['HTTP_HOST'] . getPath() ?></link>
+	<link><?= guessTransportProto() . $_SERVER['HTTP_HOST'] . getPath() ?></link>
 	<description><?= rss_header_title() ?></description>
 	<generator>Gregarius <?= _VERSION_ ?></generator>
 	<language>en</language>
