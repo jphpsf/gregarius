@@ -62,18 +62,21 @@ class Update {
 	}
 
 	function populate() {
-		$sql = "select id, url, title from ".getTable("channels");
-		$sql .= " where !(mode & ".FEED_MODE_DELETED_STATE.") ";
-
+		$sql = "select c.id, c.url, c.title from ".getTable("channels") . " c, "
+		. getTable('folders') . " f ";
+		$sql .= " where !(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+		$sql .= " and c.parent = f.id ";
+		
 		if (hidePrivate()) {
 			$sql .= " and !(mode & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 
 		if (getConfig('rss.config.absoluteordering')) {
-			$sql .= " order by parent, position";
+			$sql .= " order by f.position asc, c.position asc";
 		} else {
-			$sql .= " order by parent, title";
+			$sql .= " order by f.name, c.title asc";
 		}
+		
 		$res = rss_query($sql);
 		while (list ($cid, $url, $title) = rss_fetch_row($res)) {
 			$this->chans[] = array ($cid, $url, $title);

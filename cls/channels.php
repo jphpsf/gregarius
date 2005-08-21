@@ -199,7 +199,8 @@ class FeedList {
 
 	function populate() {
 		_pf('FeedList->populate() ...');
-		$sql = "select "." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr, c.mode "." from ".getTable("channels")." c, ".getTable("folders")." f "." where f.id = c.parent";
+		$sql = "select "." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr, c.mode "." from ".getTable("channels")." c, "
+		.getTable("folders")." f "." where f.id = c.parent";
 
 		if (hidePrivate()) {
 			$sql .= " and !(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
