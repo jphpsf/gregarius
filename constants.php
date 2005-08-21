@@ -57,7 +57,7 @@ function my_assert_handler($file, $line, $code) {
 // Set up the callback
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');
 
-define ('TITLE_SEP', '&raquo;');
+define ('TITLE_SEP', '&#187;');
 
 define ('LOCATION_HOME',1);
 define ('LOCATION_UPDATE',2);
