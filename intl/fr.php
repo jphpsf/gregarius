@@ -238,5 +238,5 @@ define ('LBL_ADMIN_OPML_IMPORT_MERGE','... les m&eacute;langer aux &eacute;l&eac
 
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO',"J'ajoute %s &agrave; %s... ");
 
-define ('LBL_TAG_FOLDERS','VR&eacute;pertoires');
+define ('LBL_TAG_FOLDERS','Cat&eacute;gories');
 ?>
