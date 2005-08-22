@@ -80,6 +80,7 @@ function channels() {
 	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
 	  ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
 	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"	  
+	  ."\t<th>". LBL_TAG_FOLDERS."</th>\n"
 	  ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_FLAGS."</th>\n";
 	  
 	if (getConfig('rss.config.absoluteordering')) {
@@ -104,46 +105,62 @@ function channels() {
 	$cntr = 0;
 	while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon,$mode) = rss_fetch_row($res)) {
 
-	if (getConfig('rss.output.usemodrewrite')) {
-		$outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
-	} else {
-		$outUrl = getPath() . "feed.php?channel=$id";
-	}
+		if (getConfig('rss.output.usemodrewrite')) {
+			$outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
+		} else {
+			$outUrl = getPath() . "feed.php?channel=$id";
+		}
 
-	$parentLabel = $parent == ''? LBL_HOME_FOLDER:$parent;
+		$parentLabel = $parent == ''? LBL_HOME_FOLDER:$parent;
 
-	$class_ = (($cntr++ % 2 == 0)?"even":"odd");
-	
-	$fmode = array();
-	if ($mode & FEED_MODE_PRIVATE_STATE) {
-		$fmode[] = "P";
-	}
-	if ($mode & FEED_MODE_DELETED_STATE) {
-		$fmode[] = "D";
-	}
-	$slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
-	
-	echo "<tr class=\"$class_\" id=\"fa$id\">\n"
-	  ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" /></td>\n"
-	  ."\t<td>"
-	  .((getConfig('rss.output.showfavicons') && $icon != "")?
-		"<img src=\"$icon\" class=\"favicon\" alt=\"\" width=\"16\" height=\"16\" />":"")
-		."<a href=\"$outUrl\">$title</a></td>\n"
-	  ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
-	  ."\t<td>$descr</td>\n"
-	  ."\t<td class=\"cntr\">$slabel</td>\n";
+		$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
-	if (getConfig('rss.config.absoluteordering')) {
+		// get feed's tags
+		$tags = "";
+		$sql2 = "select t.id, t.tag from " . getTable('tag') . " t, "
+			. getTable('metatag') . " m where t.id = m.tid "
+			. "and m.ttype = 'channel' and m.fid = $id";
+		$res2 = rss_query($sql2);
+
+		while(list ($id_, $name_) = rss_fetch_row($res2)){
+			if (getConfig('rss.output.usemodrewrite')) {
+				$tags .= "<a href=\"".getPath()."$name_/\">$name_</a> ";
+			} else {
+				$tags .= "<a href=\"".getPath()."feed.php?vfolder=$id_\">$name_</a> ";
+			}
+		}
+		
+		$fmode = array();
+		if ($mode & FEED_MODE_PRIVATE_STATE) {
+			$fmode[] = "P";
+		}
+		if ($mode & FEED_MODE_DELETED_STATE) {
+			$fmode[] = "D";
+		}
+		$slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
+		
+		echo "<tr class=\"$class_\" id=\"fa$id\">\n"
+		  ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" /></td>\n"
+		  ."\t<td>"
+		  .((getConfig('rss.output.showfavicons') && $icon != "")?
+			"<img src=\"$icon\" class=\"favicon\" alt=\"\" width=\"16\" height=\"16\" />":"")
+			."<a href=\"$outUrl\">$title</a></td>\n"
+		  ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
+		  ."\t<td>$descr</td>\n"
+		  ."\t<td>$tags</td>\n"
+		  ."\t<td class=\"cntr\">$slabel</td>\n";
+
+		if (getConfig('rss.config.absoluteordering')) {
+			echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+			  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". LBL_ADMIN_MOVE_UP
+			  ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+			  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".LBL_ADMIN_MOVE_DOWN ."</a></td>\n";
+		}
 		echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-		  ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". LBL_ADMIN_MOVE_UP
-		  ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-		  ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".LBL_ADMIN_MOVE_DOWN ."</a></td>\n";
-	}
-	echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-	  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . LBL_ADMIN_EDIT
-	  ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-	  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . LBL_ADMIN_DELETE ."</a></td>\n"
-	  ."</tr>\n";
+		  ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . LBL_ADMIN_EDIT
+		  ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+		  ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . LBL_ADMIN_DELETE ."</a></td>\n"
+		  ."</tr>\n";
 	}
 
 	echo "</table>\n";
