@@ -33,16 +33,19 @@ class TagList extends Tags{
 	
 	var $countTaggedItems=0;
 	var $tagCount;
+	var $type;
 	
-	function TagList() {
-		parent::Tags();
+	function TagList($type = 'item') {
+		parent::Tags($type);
 		
 		$sql = "select count(*) as cnt from " 
-		. getTable('metatag') . "  left join " 
-		. getTable('item') ."  i on (fid=i.id) ";
-		
-		// we only want items here
-		$sql .= "where ttype = 'item' ";
+		. getTable('metatag') . " left join ";
+		if($this -> type == 'channel'){
+			$sql .= getTable('channels') . " c on (fid=c.id)"
+				. " where ttype = 'channel'";
+		}else{
+			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
+		}
 
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
@@ -50,11 +53,13 @@ class TagList extends Tags{
 		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
 		
 		$sql = "select  count(distinct(tid)) as cnt from "
-		 . getTable('metatag') . " left join " . getTable('item')
-		 ." i on (fid=i.id)";
-
-		// again, only items
-		$sql .= "where ttype = 'item' ";
+		 . getTable('metatag') . " left join ";
+		if($this -> type == 'channel'){
+			$sql .= getTable('channels') . " c on (fid=c.id)"
+				. " where ttype = 'channel'";
+		}else{
+			$sql .= getTable('item') ." i on (fid=i.id) where ttype = 'item'";
+		}
 
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
@@ -64,13 +69,23 @@ class TagList extends Tags{
 	}
 	
 	function render() {
-		echo "<h2>".LBL_TAG_TAGS."</h2>\n";
-		echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
+		if($this -> type == 'channel'){
+			echo "<h2>".LBL_TAG_FOLDERS."</h2>\n";
+			echo "<p class=\"stats\">" .sprintf(LBL_UNREAD_PF, "", "", $this->countTaggedItems) . "</p>\n";
+		}else{
+			echo "<h2>".LBL_TAG_TAGS."</h2>\n";
+			echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
+		}
 		echo "<ul id=\"taglist\">\n";
 		foreach ($this -> allTags as $tag => $cnt) {
-			echo "\t<li>"
-			."<img src=\"".rss_theme_path() ."/media/noicon.png"."\" class=\"favicon\" alt=\"\" />"
-			."<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>\n";
+			echo "\t<li><img src=\"".rss_theme_path();
+			if($this -> type == 'channel'){
+				echo "/media/folder.gif";
+			}else{
+				echo "/media/noicon.png";
+			}
+			echo "\" class=\"favicon\" alt=\"\" />"
+				. "<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>\n";
 		}
 		echo "</ul>\n";
 	}

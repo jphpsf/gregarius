@@ -191,23 +191,29 @@ if (
 					}
 				}	
 		} elseif ($vfid) {
-				$sql = "select c.id, m.tid from ". getTable('channels')." c, "
-					. getTable('metatag') . " m, " . getTable('tag') . " t "
-					. "where c.id = m.fid and m.ttype = 'channel' and m.tid = t.id "
-					. "and t.id = $vfid";
-				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+			$sql = "select c.id, m.tid from ". getTable('channels')." c, "
+				. getTable('metatag') . " m, " . getTable('tag') . " t "
+				. "where c.id = m.fid and m.ttype = 'channel' and m.tid = t.id ";
+			// $vfid can be numeric (t.id) or alphabetic (t.tag)
+			if(is_numeric($vfid)){
+				$sql .= "and t.id = $vfid";
+			}else{
+				$sql .= "and t.tag like '$vfid'";
+			}
+			$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
 
-				if (hidePrivate()) {
-					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+			if (hidePrivate()) {
+				$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+			}
+			$res = rss_query( $sql );
+			
+			if ( rss_num_rows ( $res ) > 0) {
+				$cids = array();
+				while (list ($cid__,$vfid__) = rss_fetch_row($res)) {
+					$cids[] = $cid__;
+					$vfid = $vfid__;
 				}
-				$res = rss_query( $sql );
-				
-				if ( rss_num_rows ( $res ) > 0) {
-					$cids = array();
-					while (list ($cid__) = rss_fetch_row($res)) {
-						$cids[] = $cid__;
-					}
-				}
+			}
 		} elseif ($cid) {			
 			if (hidePrivate()) {
 				$sql = "select id from ". getTable('channels')." where id=$cid ";

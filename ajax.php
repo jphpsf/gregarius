@@ -43,10 +43,16 @@ function __exp__getSideContent($what) {
 			$f = new FeedList(false);
 			$f -> render();
 			break;
-		
+
+		case 'vfolders':
+			rss_require('cls/taglist.php');
+			$v = new TagList('channel');
+			$v -> render();
+			break;
+
 		case 'tags':
 			rss_require('cls/taglist.php');
-			$t = new TagList(false);
+			$t = new TagList('item');
 			$t -> render();
 			break;
 	}
@@ -254,12 +260,19 @@ function _side(what) {
 		document.getElementById('channels').innerHTML = document.currentSideCache;
 		document.currentSideCache = c;
 		if (what == 'feeds') {
-			document.currentSideCacheType = 'tags';
+			document.currentSideCacheType = 'vfolders';
 			document.getElementById('sidemenufeeds').className = "active";
+			document.getElementById('sidemenuvfolders').className = "";
+			document.getElementById('sidemenutags').className = "";
+		} else if (what == 'vfolders') {
+			document.currentSideCacheType = 'tags';
+			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenuvfolders').className = "active";
 			document.getElementById('sidemenutags').className = "";
 		} else {
 			document.currentSideCacheType = 'feeds';
 			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenuvfolders').className = "";
 			document.getElementById('sidemenutags').className = "active";
 		}
 		setCookie("side",what, "<?= getPath() ?>");
@@ -277,9 +290,17 @@ function _setSideContent_cb(data) {
 			document.currentSideCacheType = "feeds";
 			document.currentSide = 'tags';
 			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenuvfolders').className = "";
 			document.getElementById('sidemenutags').className = "active";
+		} else if (document.currentSideExpected == 'vfolders') {
+			document.currentSideCacheType = "tags";
+			document.currentSide = 'vfolders';
+			document.getElementById('sidemenufeeds').className = "";
+			document.getElementById('sidemenuvfolders').className = "active";
+			document.getElementById('sidemenutags').className = "";
 		} else {
 			document.getElementById('sidemenufeeds').className = "active";
+			document.getElementById('sidemenuvfolders').className = "";
 			document.getElementById('sidemenutags').className = "";
 			document.currentSideCacheType = "tags";
 			document.currentSide = 'feeds';

@@ -241,4 +241,6 @@ define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... aggiungili alla cartella:');
 define ('LBL_ADMIN_OPML_IMPORT_MERGE','... aggiungili ai feeds esistenti');
 
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Importo %s in %s... ');
+
+define ('LBL_TAG_FOLDERS','VCartelle');
 ?>

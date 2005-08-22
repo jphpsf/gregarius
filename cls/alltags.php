@@ -46,12 +46,15 @@ class Tags {
 	/** Holds a reference to the superglobal RSS object */
 	var $rss;
 	
+	/** Objects that the tags point to */
+	var $type;
 	/**
 	 * Constructor. Gets a reference of the RSS superglobal and fills
 	 * the instance data
 	 */
-	function Tags() {
+	function Tags($type = 'item') {
 		$this -> rss = $GLOBALS['rss'];
+		$this -> type = $type;
 		$this -> populate();
 	}
 	
@@ -62,13 +65,20 @@ class Tags {
 	 */
 	function populate() {
 		// the all tags weighted list
-		$sql = "select tag,count(*) as cnt from "
-			.getTable('metatag')
-			." left join ".getTable('item')." i on (fid=i.id),"
-			.getTable('tag')." t "." where tid=t.id "
-			." and ttype = 'item'";
+		$sql = "select tag, count(*) as cnt from "
+			.getTable('metatag');
+		if($this -> type == 'channel'){
+			$sql .= " left join " . getTable('channels') . " c on (fid=c.id),"
+				.getTable('tag')." t "." where tid=t.id "
+				. " and ttype = 'channel'";
+		}else{
+			$sql .= " left join ".getTable('item')." i on (fid=i.id),"
+				.getTable('tag')." t "." where tid=t.id "
+				." and ttype = 'item'";
+		}
 
-		// Don't count tags of private imtes
+
+		// Don't count tags of private items
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
@@ -90,7 +100,11 @@ class Tags {
 	 * Preformats a tag url, depending on whether mod_rewrite is enabled or not
 	 */
 	function makeTagLink($tag) {
-		return getPath(). (getConfig('rss.output.usemodrewrite') ? "tag/$tag" : "tags.php?tag=$tag");
+		if($this -> type == 'channel'){
+			return getPath(). (getConfig('rss.output.usemodrewrite') ? "$tag/" : "feed.php?vfolder=$tag");
+		}else{
+			return getPath(). (getConfig('rss.output.usemodrewrite') ? "tag/$tag" : "tags.php?tag=$tag");
+		}
 	}
 
 	/**

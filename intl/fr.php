@@ -237,4 +237,6 @@ define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... les ajouter au r&eacute;pertoire:');
 define ('LBL_ADMIN_OPML_IMPORT_MERGE','... les m&eacute;langer aux &eacute;l&eacute;ments courants.');
 
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO',"J'ajoute %s &agrave; %s... ");
+
+define ('LBL_TAG_FOLDERS','VR&eacute;pertoires');
 ?>
