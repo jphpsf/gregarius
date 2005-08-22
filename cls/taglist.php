@@ -61,7 +61,7 @@ class TagList extends Tags{
 		}else{
 			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
 		}
-		$sql .= " and !(i.unread & ".FEED_MODE_UNREAD_STATE.") ";
+		$sql .= " and (i.unread & ".FEED_MODE_UNREAD_STATE.") ";
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
