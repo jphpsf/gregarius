@@ -32,6 +32,7 @@ require_once('cls/alltags.php');
 class TagList extends Tags{
 	
 	var $countTaggedItems=0;
+	var $countUnreadItems=0;
 	var $tagCount;
 	var $type;
 	
@@ -51,7 +52,21 @@ class TagList extends Tags{
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
-		
+
+		$sql = "select count(*) as cnt from " 
+		. getTable('metatag') . " left join ";
+		if($this -> type == 'channel'){
+			$sql .= getTable('item') . " i on (fid=i.cid)"
+				. " where ttype = 'channel'";
+		}else{
+			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
+		}
+		$sql .= " and !(i.unread & ".FEED_MODE_UNREAD_STATE.") ";
+		if (hidePrivate()) {
+			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+		}
+		list($this -> countUnreadItems) = rss_fetch_row(rss_query($sql));
+
 		$sql = "select  count(distinct(tid)) as cnt from "
 		 . getTable('metatag') . " left join ";
 		if($this -> type == 'channel'){
@@ -71,7 +86,7 @@ class TagList extends Tags{
 	function render() {
 		if($this -> type == 'channel'){
 			echo "<h2>".LBL_TAG_FOLDERS."</h2>\n";
-			echo "<p class=\"stats\">" .sprintf(LBL_UNREAD_PF, "", "", $this->countTaggedItems) . "</p>\n";
+			echo "<p class=\"stats\">" .sprintf(LBL_UNREAD_PF, "", "", $this->countUnreadItems) . "</p>\n";
 		}else{
 			echo "<h2>".LBL_TAG_TAGS."</h2>\n";
 			echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
@@ -84,8 +99,12 @@ class TagList extends Tags{
 			}else{
 				echo "/media/noicon.png";
 			}
-			echo "\" class=\"favicon\" alt=\"\" />"
-				. "<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>\n";
+			echo "\" class=\"favicon\" alt=\"\" />";
+			if($this -> type == 'channel'){
+				echo "<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt feeds)</li>\n";
+			}else{
+				echo "<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt items)</li>\n";
+			}
 		}
 		echo "</ul>\n";
 	}
