@@ -125,7 +125,7 @@ define ('LBL_ADMIN_PREVIEW_CHANGES','F&ouml;rhandsgranska');
 define ('LBL_ADMIN_CHANNELS_HEADING_TITLE','Rubrik');
 define ('LBL_ADMIN_CHANNELS_HEADING_FOLDER','Folder');
 define ('LBL_ADMIN_CHANNELS_HEADING_DESCR','Beskrivning');
-define ('LBL_ADMIN_CHANNELS_HEADING_MOVE','Ordning');
+define ('LBL_ADMIN_CHANNELS_HEADING_MOVE','Flytta');
 define ('LBL_ADMIN_CHANNELS_HEADING_ACTION','');
 define ('LBL_ADMIN_CHANNELS_HEADING_FLAGS','Flaggor');
 define ('LBL_ADMIN_CHANNELS_HEADING_KEY','Nyckel');
@@ -154,7 +154,7 @@ define ('LBL_ADMIN_CHANNEL_EDIT_CHANNEL','Redigera fl&ouml;de ');
 define ('LBL_ADMIN_CHANNEL_NAME','Rubrik:');
 define ('LBL_ADMIN_CHANNEL_RSS_URL','RSS URL:');
 define ('LBL_ADMIN_CHANNEL_SITE_URL','Sidans URL:');
-define ('LBL_ADMIN_CHANNEL_FOLDER','I foldern:');
+define ('LBL_ADMIN_CHANNEL_FOLDER','Till foldern:');
 define ('LBL_ADMIN_CHANNEL_DESCR','Beskrivning:');
 define ('LBL_ADMIN_FOLDER_NAME','Foldernamn:');
 define ('LBL_ADMIN_CHANNEL_PRIVATE','Detta fl&ouml;de &auml;r <strong>privat</strong> och kan endast ses av admin.');
@@ -229,9 +229,9 @@ define ('LBL_STICKY','Sticky');
 define ('LBL_DEPRECATED','Ur bruk');
 define ('LBL_PRIVATE','Privat');
 
-define ('LBL_ADMIN_TOGGLE_STATE','Toggle State:');
-define ('LBL_ADMIN_TOGGLE_SET','Markera');
-define ('LBL_ADMIN_IM_SURE','S&auml;ker!');
+define ('LBL_ADMIN_TOGGLE_STATE','V&auml;xla status:');
+define ('LBL_ADMIN_TOGGLE_SET','Utf&ouml;r');
+define ('LBL_ADMIN_IM_SURE','Bekr&auml;fta!');
 
 // new in 0.5.1:
 
@@ -241,12 +241,12 @@ define ('LBL_NOT_LOGGED_IN','Not logged in');
 define ('LBL_LOG_OUT','Logout');
 define ('LBL_LOG_IN','Login');
 
-define ('LBL_ADMIN_OPML_IMPORT_AND','Import new feeds and:');
-define ('LBL_ADMIN_OPML_IMPORT_WIPE','... replace all existing feeds and items.');
-define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... add them to the folder:');
-define ('LBL_ADMIN_OPML_IMPORT_MERGE','... merge them with the existing ones.');
+define ('LBL_ADMIN_OPML_IMPORT_AND','Importera nya fl&ouml;den och:');
+define ('LBL_ADMIN_OPML_IMPORT_WIPE','... ers&auml;tt alla nuvarande fl&ouml;den och inl&auml;gg.');
+define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... l&auml;gg i foldern:');
+define ('LBL_ADMIN_OPML_IMPORT_MERGE','... l&auml;gg till dem till de befintliga.');
 
-define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
+define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','L&auml;gger till %s till %s... ');
 
 define ('LBL_TAG_FOLDERS','VFoldrar');
 ?>
