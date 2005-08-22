@@ -88,13 +88,20 @@ function rss_main_object() {
 function rss_main_feeds() {
 	switch ($GLOBALS['rss']->sideMenu->activeElement) {
 		
-		case 'tags':
+		case '1':
 			rss_require('cls/taglist.php');
-			$GLOBALS['rss']-> tagList = new TagList(false);
+			$GLOBALS['rss']-> tagList = new TagList('channel');
 			$GLOBALS['rss']-> tagList -> render();
 		break;
 		
-		case 'feeds':
+		case '2':
+			rss_require('cls/taglist.php');
+			$GLOBALS['rss']-> tagList = new TagList('item');
+			$GLOBALS['rss']-> tagList -> render();
+		break;
+		
+		
+		case '0':
 		default:
 		if ($GLOBALS['rss']-> feedList) {
 			$GLOBALS['rss']-> feedList-> render();

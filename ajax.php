@@ -39,18 +39,18 @@ function __exp__setState($id,$state) {
 function __exp__getSideContent($what) {
 	ob_start();
 	switch ($what) {
-		case 'feeds':
+		case '0':
 			$f = new FeedList(false);
 			$f -> render();
 			break;
 
-		case 'vfolders':
+		case '1':
 			rss_require('cls/taglist.php');
 			$v = new TagList('channel');
 			$v -> render();
 			break;
 
-		case 'tags':
+		case '2':
 			rss_require('cls/taglist.php');
 			$t = new TagList('item');
 			$t -> render();
@@ -58,7 +58,7 @@ function __exp__getSideContent($what) {
 	}
 	$c = ob_get_contents();
 	ob_end_clean();
-	return $c;
+	return ($what . "#@#" .$c);
 }
 
 function __exp__getFeedContent($cid) {
@@ -245,71 +245,45 @@ function _et(id) {
 
 cs = getCookie('side');
 if (!cs) {
-	cs = 'feeds';
+	cs = '1';
 }
 document.currentSide = cs;
-document.currentSideExpected = "";
-document.currentSideCache = "";
-document.currentSideCacheType = "";
+document.currentSideCache = new Array();
+for (i=0;i<3;i++) {
+	document.currentSideCache[i] = null;
+}
+
 
 function _side(what) {
 	if (document.currentSide == what) {
 		return 0;
-	} else if (what == document.currentSideCacheType) {
-		c = document.getElementById('channels').innerHTML;
-		document.getElementById('channels').innerHTML = document.currentSideCache;
-		document.currentSideCache = c;
-		if (what == 'feeds') {
-			document.currentSideCacheType = 'vfolders';
-			document.getElementById('sidemenufeeds').className = "active";
-			document.getElementById('sidemenuvfolders').className = "";
-			document.getElementById('sidemenutags').className = "";
-		} else if (what == 'vfolders') {
-			document.currentSideCacheType = 'tags';
-			document.getElementById('sidemenufeeds').className = "";
-			document.getElementById('sidemenuvfolders').className = "active";
-			document.getElementById('sidemenutags').className = "";
-		} else {
-			document.currentSideCacheType = 'feeds';
-			document.getElementById('sidemenufeeds').className = "";
-			document.getElementById('sidemenuvfolders').className = "";
-			document.getElementById('sidemenutags').className = "active";
-		}
-		setCookie("side",what, "<?= getPath() ?>");
-		document.currentSide = what;
+	} 
+	
+	document.currentSideCache[document.currentSide] = document.getElementById('channels').innerHTML;
+	if ((content = document.currentSideCache[what]) != null) {	
+		_setSideContent_cb( what + "#@#" + content );
 	} else {
-		document.currentSideExpected = what;
 		x___exp__getSideContent(what, _setSideContent_cb);
 	}
 }
 
-function _setSideContent_cb(data) {
-	if (data) {
-		document.currentSideCache = document.getElementById('channels').innerHTML;
-		if (document.currentSideExpected == 'tags') {
-			document.currentSideCacheType = "feeds";
-			document.currentSide = 'tags';
-			document.getElementById('sidemenufeeds').className = "";
-			document.getElementById('sidemenuvfolders').className = "";
-			document.getElementById('sidemenutags').className = "active";
-		} else if (document.currentSideExpected == 'vfolders') {
-			document.currentSideCacheType = "tags";
-			document.currentSide = 'vfolders';
-			document.getElementById('sidemenufeeds').className = "";
-			document.getElementById('sidemenuvfolders').className = "active";
-			document.getElementById('sidemenutags').className = "";
+function _setSideContent_cb(ret) {
+ 	data=ret.split('#@#');
+ 	kind=data[0];
+ 	content=data[1];
+	c = document.getElementById('channels').innerHTML;
+	
+	for (i=0;i<3;i++) {
+		if (i == kind) {
+			document.getElementById('sidemenu'+i).className = "active";
 		} else {
-			document.getElementById('sidemenufeeds').className = "active";
-			document.getElementById('sidemenuvfolders').className = "";
-			document.getElementById('sidemenutags').className = "";
-			document.currentSideCacheType = "tags";
-			document.currentSide = 'feeds';
+			document.getElementById('sidemenu'+i).className = "";
 		}
-		setCookie("side",document.currentSideExpected, "<?= getPath() ?>");
-		document.currentSide = document.currentSideExpected;
-		document.getElementById('channels').innerHTML = data;
 	}
-	document.currentSideExpected = "";
+	document.currentSide = kind;
+	document.currentSideCache[kind] = content;
+	document.getElementById('channels').innerHTML = content;
+	setCookie("side",kind, "<?= getPath() ?>");
 }
 
 
