@@ -29,16 +29,17 @@
 /// Name: Extra Button
 /// Author: Marco Bonetti
 /// Description: Adds an extra "Mark Feed As Read" button at the bottom of each feed view
-/// Version: $Revision: 1.8
+/// Version: $Revision: 1.9
 
 function __extra_button_Button($in) {
 	if (hidePrivate()) {
 		return;
 	}
 	
-	if (defined('MARK_READ_ALL_FORM') 		|| 
-		 defined ('MARK_READ_FEED_FORM') 	|| 
-		 defined ('MARK_READ_FOLDER_FORM')) {
+	if (defined('MARK_READ_ALL_FORM') 				|| 
+		 defined ('MARK_READ_FEED_FORM') 			|| 
+		 defined ('MARK_READ_FOLDER_FORM') 		|| 
+		 defined ('MARK_READ_VFOLDER_FORM'))	{
         
         echo "<div style=\"text-align:right\">\n";
         
@@ -48,7 +49,9 @@ function __extra_button_Button($in) {
         		markReadForm(MARK_READ_FEED_FORM);
         } elseif(defined('MARK_READ_FOLDER_FORM')) {
         		markFolderReadForm(MARK_READ_FOLDER_FORM);
-        }
+        } elseif(defined('MARK_READ_VFOLDER_FORM')){
+				markVirtualFolderReadForm(MARK_READ_VFOLDER_FORM);
+		}
         echo "</div>\n";
     }
 	return null;

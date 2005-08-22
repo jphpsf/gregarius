@@ -91,8 +91,28 @@ if (
 					$cids[] = $cid__;
 					$fid = $fid__;
 				}
+			}else{
+				// maybe it's a virtual folder?
+				$sql = "select c.id, m.tid from ". getTable('channels')." c, "
+					. getTable('metatag') . " m, " . getTable('tag') . " t "
+					. "where c.id = m.fid and m.ttype = 'channel' and m.tid = t.id "
+					. "and t.tag like '$sqlid'";
+
+				if (hidePrivate()) {
+					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
+				}
+				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+		 
+				$res = rss_query( $sql );
+				if ( rss_num_rows ( $res ) > 0) {
+					$cids = array();
+					while (list ($cid__,$vfid__) = rss_fetch_row($res)) {
+						$cids[] = $cid__;
+						$vfid = $vfid__;
+					}
+				}
 			}
-		}       
+		}
 			  
 		// date ?
 		if ($cid != "" 
@@ -144,10 +164,11 @@ if (
 			}
 		 }  
 	// no mod rewrite: ugly but effective
-	} elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQUEST)) {
+	} elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQUEST) || array_key_exists('vfolder',$_REQUEST)) {
 		$cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
 		$iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
 		$fid= (array_key_exists('folder',$_REQUEST))?$_REQUEST['folder']:"";
+		$vfid= (array_key_exists('vfolder',$_REQUEST))?$_REQUEST['vfolder']:"";
 		
 		$y= (array_key_exists('y',$_REQUEST))?$_REQUEST['y']:"0";
 		$m= (array_key_exists('m',$_REQUEST))?$_REQUEST['m']:"0";
@@ -169,6 +190,24 @@ if (
 						$cids[] = $cid__;
 					}
 				}	
+		} elseif ($vfid) {
+				$sql = "select c.id, m.tid from ". getTable('channels')." c, "
+					. getTable('metatag') . " m, " . getTable('tag') . " t "
+					. "where c.id = m.fid and m.ttype = 'channel' and m.tid = t.id "
+					. "and t.id = $vfid";
+				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+
+				if (hidePrivate()) {
+					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+				}
+				$res = rss_query( $sql );
+				
+				if ( rss_num_rows ( $res ) > 0) {
+					$cids = array();
+					while (list ($cid__) = rss_fetch_row($res)) {
+						$cids[] = $cid__;
+					}
+				}
 		} elseif ($cid) {			
 			if (hidePrivate()) {
 				$sql = "select id from ". getTable('channels')." where id=$cid ";
@@ -179,7 +218,7 @@ if (
 		
 }
 
-// If we have no channel-id somethign went terribly wrong.
+// If we have no channel-id something went terribly wrong.
 // Redirect to index.php
 if (
 		// channel id:
@@ -202,10 +241,14 @@ if (
 			// not an array of ids
 			!is_array($cids) || 
 			// zero elements
-			!count($cids))
+			!count($cids)
+		)
+		
+		&& 
+		// virtual folder id
+		(!isset($vfid))
 	) 
 {
-
     rss_redirect();
 }
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
@@ -330,7 +373,16 @@ if (array_key_exists ('metaaction', $_POST)) {
     	} else {
             rss_redirect();
     	}
-			
+	
+	// virtual folder
+	case 'LBL_MARK_VFOLDER_READ':
+		$vfid = $_REQUEST['vfolder'];
+		$sql = "update " .getTable('item') . " i, " . getTable('metatag') . " m"
+			. " set i.unread = i.unread & ".SET_MODE_READ_STATE
+			. " where i.cid = m.fid and m.tid = $vfid and m.ttype = 'channel'";
+		rss_query($sql);
+		rss_redirect();
+
     break;
     }
 
@@ -338,7 +390,8 @@ if (array_key_exists ('metaaction', $_POST)) {
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 assert(
 	(isset($cid) && is_numeric($cid)) || 
-	(isset($fid) && isset($cids) && is_array($cids) && count($cids))
+	(isset($fid) && isset($cids) && is_array($cids) && count($cids)) || 
+	(isset($vfid) && isset($cids) && is_array($cids) && count($cids))
 );
 
 $itemFound = true;
@@ -400,6 +453,11 @@ if ($iid == "") {
 		$dtitle ="";
 		$cidfid ['cid']=null;
 		$cidfid ['fid']=$fid;
+	}elseif($vfid){
+		list($title) = rss_fetch_row(rss_query("select tag from " . getTable('tag') . " where id = $vfid"));
+		$dtitle = "";
+		$cidfid ['cid']=null;
+		$cidfid ['fid']=null;
 	} else {
 		$dtitle ="";
 		$title = "";
@@ -448,12 +506,13 @@ if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
 	if ($cid && !(isset($cids) && is_array($cids) && count($cids))) {
    		$cids = array($cid); 
    	}
-	doItems($cids,$fid,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
+	if(!isset($vfid)) $vfid = null;
+	doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
 }
 
 $GLOBALS['rss'] -> renderWithTemplate('index.php','items');
 
-function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
+function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 		$do_show=$show_what;
 	//should we honour unread-only?
@@ -486,7 +545,7 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 	}
 	
    $items = new ItemList();
-   $severalFeeds = ($fid != null);
+   $severalFeeds = (($fid != null) || ($vfid != null));
    
    if ($severalFeeds && !getConfig('rss.config.feedgrouping')) {
    	$sqlWhere = "(";
@@ -557,9 +616,15 @@ function doItems($cids,$fid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			$items -> preRender[] = array("markReadForm",$cid);
 			$title .= " " .strip_tags(sprintf(LBL_UNREAD_PF, "cid$cid","",$items -> unreadCount));
 		 } else {
-		 	list($fid) = rss_fetch_row(rss_query('select parent from ' .getTable('channels') . 'where id = ' .$cids[0]));
-		 	$title .= " " .strip_tags(sprintf(LBL_UNREAD_PF, "cid$fid","",$items -> unreadCount));
-			$items -> preRender[] = array("markFolderReadForm",$fid);
+			if(!$vfid){
+				list($fid) = rss_fetch_row(rss_query('select parent from ' .getTable('channels') . 'where id = ' .$cids[0]));
+				$title .= " " .strip_tags(sprintf(LBL_UNREAD_PF, "cid$fid","",$items -> unreadCount));
+				$items -> preRender[] = array("markFolderReadForm",$fid);
+			}else{
+				list($fid) = $vfid;
+				$title .= " " .strip_tags(sprintf(LBL_UNREAD_PF, "cid$fid","",$items -> unreadCount));
+				$items -> preRender[] = array("markVirtualFolderReadForm",$vfid);
+			}
 		 }
 	 }
 	 
@@ -942,6 +1007,21 @@ function markFolderReadForm($fid) {
   	  ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/></p>\n"
   	  ."</form>";
   	  
+}
+
+function markVirtualFolderReadForm($vfid){
+	if (hidePrivate()) {
+		return;
+	}
+	
+	if (!defined('MARK_READ_VFOLDER_FORM')) {
+		define ('MARK_READ_VFOLDER_FORM',$vfid);
+	}	
+  	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
+  	  ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_VFOLDER_READ\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/></p>\n"
+  	  ."</form>";
 }
 
 function debugFeed($cid) {
