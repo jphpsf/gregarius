@@ -238,4 +238,6 @@ define ('LBL_ADMIN_OPML_IMPORT_MERGE','... merge them with the existing ones.');
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
 
 define ('LBL_TAG_FOLDERS','Categories');
+define ('LBL_SIDE_ITEMS','(%d items)');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d unread in %d feeds)');
 ?>

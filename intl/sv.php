@@ -249,4 +249,6 @@ define ('LBL_ADMIN_OPML_IMPORT_MERGE','... l&auml;gg till dem till de befintliga
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','L&auml;gger till %s till %s... ');
 
 define ('LBL_TAG_FOLDERS','VFoldrar');
+define ('LBL_SIDE_ITEMS','(%d inl&auml;gg)');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d ol&auml;sta in %d fl&ouml;de)');
 ?>

@@ -239,4 +239,6 @@ define ('LBL_ADMIN_OPML_IMPORT_MERGE','... les m&eacute;langer aux &eacute;l&eac
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO',"J'ajoute %s &agrave; %s... ");
 
 define ('LBL_TAG_FOLDERS','Cat&eacute;gories');
+define ('LBL_SIDE_ITEMS','(%d &eacute;l&eacute;ments)');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d non lus in %d canaux)');
 ?>

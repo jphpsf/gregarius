@@ -101,9 +101,12 @@ class TagList extends Tags{
 			}
 			echo "\" class=\"favicon\" alt=\"\" />";
 			if($this -> type == 'channel'){
-				echo "<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt feeds)</li>\n";
+				$unread = $this->unreadItems[$tag];
+				echo " <a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> "
+					. sprintf(LBL_SIDE_UNREAD_FEEDS,$unread,$cnt) . "</li>\n";
 			}else{
-				echo "<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt items)</li>\n";
+				echo " <a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> " 
+					. sprintf(LBL_SIDE_ITEMS,$cnt) . "</li>\n";
 			}
 		}
 		echo "</ul>\n";

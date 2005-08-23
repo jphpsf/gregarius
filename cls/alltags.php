@@ -48,6 +48,13 @@ class Tags {
 	
 	/** Objects that the tags point to */
 	var $type;
+
+	/**
+	 * holds unread item count of tags
+	 * Structure: $tag => $unread_items
+	 */
+	 var $unreadItems = array();
+
 	/**
 	 * Constructor. Gets a reference of the RSS superglobal and fills
 	 * the instance data
@@ -65,7 +72,7 @@ class Tags {
 	 */
 	function populate() {
 		// the all tags weighted list
-		$sql = "select tag, count(*) as cnt from "
+		$sql = "select t.id, tag, count(*) as cnt from "
 			.getTable('metatag');
 		if($this -> type == 'channel'){
 			$sql .= " left join " . getTable('channels') . " c on (fid=c.id),"
@@ -90,10 +97,31 @@ class Tags {
 		$max = 0;
 		$min = 100000;
 		$cntr = 0;
-		while (list ($tag, $cnt) = rss_fetch_row($res)) {
+		while (list ($tid, $tag, $cnt) = rss_fetch_row($res)) {
 			$this->allTags[$tag] = $cnt;
+
+			// list of unread items
+			$cntUnread = 0;
+			$sql = "select fid from " . getTable('metatag') . " where tid = $tid";
+			$res2 = rss_query($sql);
+			while(list($fid) = rss_fetch_row($res2)){
+				if($this->type == 'channel'){
+					$cntUnread += getUnreadCount($fid,null);
+				}else{
+					$sql = "select unread from " . getTable('item') . " where id = $fid"
+						. " and (unread & ".FEED_MODE_UNREAD_STATE.") ";
+					if (hidePrivate()) {
+						$sql .= " and !(unread & ".FEED_MODE_PRIVATE_STATE.") ";
+					}
+					if(rss_num_rows(rss_query($sql))) $cntUnread++;
+				}
+			}
+			$this->unreadItems[$tag] = $cntUnread;
+
 			$cntr ++;
 		}
+
+
 	}
 	
 	/**

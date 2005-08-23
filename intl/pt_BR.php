@@ -239,4 +239,6 @@ define ('LBL_ADMIN_OPML_IMPORT_MERGE','... merge them with the existing ones.');
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
 
 define ('LBL_TAG_FOLDERS','VPastas');
+define ('LBL_SIDE_ITEMS','(%d &iacute;tens)');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d n&atilde;o lido in %d feeds)');
 ?>
