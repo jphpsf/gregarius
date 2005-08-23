@@ -58,8 +58,10 @@ class TagList extends Tags{
 		. getTable('metatag') . " left join ";
 		
 		if ($this -> type == 'channel') {
-			$sql .= getTable('item') . " i on (fid=i.cid)"
-				. " where ttype = 'channel'";
+			$sql .= getTable('item') . " i, "
+				. getTable('channels') . " c on (fid=i.cid)"
+				. " where ttype = 'channel' and (c.id = i.cid)"
+				. " and !(c.mode & ".FEED_MODE_DELETED_STATE.") ";
 		} else {
 			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
 		}
