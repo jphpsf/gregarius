@@ -51,20 +51,24 @@ class TagList extends Tags{
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
+	
 		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
 
-		$sql = "select count(*) as cnt from " 
+		$sql = "select count(distinct(fid)) as cnt from " 
 		. getTable('metatag') . " left join ";
-		if($this -> type == 'channel'){
+		
+		if ($this -> type == 'channel') {
 			$sql .= getTable('item') . " i on (fid=i.cid)"
 				. " where ttype = 'channel'";
-		}else{
+		} else {
 			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
 		}
+		
 		$sql .= " and (i.unread & ".FEED_MODE_UNREAD_STATE.") ";
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
+
 		list($this -> countUnreadItems) = rss_fetch_row(rss_query($sql));
 
 		$sql = "select  count(distinct(tid)) as cnt from "
