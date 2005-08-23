@@ -320,15 +320,13 @@ class SqliteDB extends DB {
 		//FROM_UNIXTIME
 		$query=preg_replace("/from_unixtime\s*\(([^()]+)\)/is","datetime(\$1,'unixepoch')",$query);
 		//dayofmonth
-		$query=preg_replace("/dayofmonth\s*\(/is","strftime('%d',",$query);
+		$query=preg_replace("/dayofmonth\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%d',\$1,'localtime')",$query);
 		//year
-		$query=preg_replace("/year\s*\(/is","strftime('%Y',",$query);
+		$query=preg_replace("/year\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%Y',\$1,'localtime')",$query);
 		//month
-		$query=preg_replace("/month\s*\(/is","strftime('%m',",$query);
+		$query=preg_replace("/month\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%m',\$1,'localtime')",$query);
 		//day
-		$query=preg_replace("/day\s*\(/is","strftime('%d',",$query);
-		//now()
-		$query=preg_replace("/(now\s*\(\s*\))/is","datetime('now')",$query);
+		$query=preg_replace("/day\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%d',\$1,'localtime')",$query);
 		//count(distinct)
 		if (preg_match("/(count\s*\(distinct\s*\(([^\)]+)\)\s*\))/is",$query,$matches)) {
 			$field=$matches[2];
