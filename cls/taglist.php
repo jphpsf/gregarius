@@ -42,7 +42,7 @@ class TagList extends Tags{
 		$sql = "select count(*) as cnt from " 
 		. getTable('metatag') . " left join ";
 		if($this -> type == 'channel'){
-			$sql .= getTable('channels') . " c on (fid=c.id)"
+			$sql .= getTable('channels') . " i on (fid=i.id)"
 				. " where ttype = 'channel'";
 		}else{
 			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
@@ -54,7 +54,7 @@ class TagList extends Tags{
 	
 		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
 
-		$sql = "select count(distinct(fid)) as cnt from " 
+		$sql = "select count(distinct(i.id)) as cnt from " 
 		. getTable('metatag') . " left join ";
 		
 		if ($this -> type == 'channel') {
@@ -64,7 +64,8 @@ class TagList extends Tags{
 			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
 		}
 		
-		$sql .= " and (i.unread & ".FEED_MODE_UNREAD_STATE.") ";
+		$sql .= " and (i.unread & ".FEED_MODE_UNREAD_STATE.") "
+			. "and !(i.unread & ".FEED_MODE_DELETED_STATE.")";
 		if (hidePrivate()) {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
@@ -74,7 +75,7 @@ class TagList extends Tags{
 		$sql = "select  count(distinct(tid)) as cnt from "
 		 . getTable('metatag') . " left join ";
 		if($this -> type == 'channel'){
-			$sql .= getTable('channels') . " c on (fid=c.id)"
+			$sql .= getTable('channels') . " i on (fid=i.id)"
 				. " where ttype = 'channel'";
 		}else{
 			$sql .= getTable('item') ." i on (fid=i.id) where ttype = 'item'";

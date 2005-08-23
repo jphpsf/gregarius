@@ -218,7 +218,7 @@ class FeedList {
 		
 		$ucres = rss_query ("select cid, count(*) from " .getTable("item")
         ." where unread & "  . FEED_MODE_UNREAD_STATE
-        . " and !(unread & " . FEED_MODE_DELETED_STATE .") group by 1");
+        . " and !(unread & " . FEED_MODE_DELETED_STATE .") group by cid");
 		$uc = array();
 		while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {
 			$uc[$uccid]=$ucuc;
