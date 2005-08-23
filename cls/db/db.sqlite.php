@@ -65,6 +65,7 @@ class SqliteDB extends DB {
 	//// in here.
 
 	function DBConnect($dbpath, $dbuname, $dbpass) {
+		if (defined("DBDEBUG")) $this->debug=constant("DBDEBUG");
 		$this->dbpath=$dbpath;
 		$this->db=@sqlite_open($dbpath,0666,$msg_err);
 		if (!$this->db) {
@@ -327,6 +328,8 @@ class SqliteDB extends DB {
 		$query=preg_replace("/month\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%m',\$1,'localtime')",$query);
 		//day
 		$query=preg_replace("/day\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%d',\$1,'localtime')",$query);
+		//now
+		$query=preg_replace("/(now\s*\(\s*\))/is","datetime('now')",$query);
 		//count(distinct)
 		if (preg_match("/(count\s*\(distinct\s*\(([^\)]+)\)\s*\))/is",$query,$matches)) {
 			$field=$matches[2];
