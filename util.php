@@ -159,6 +159,8 @@ function update($id) {
 		foreach ($rss->items as $item) {
 
 			$item = rss_plugin_hook('rss.plugins.rssitem', $item);
+			// a plugin might delete this item
+			if(!isset($item)) continue;
 			// item title: strip out html tags, shouldn't supposed
 			// to have any, should it?
 			//$title = strip_tags($item['title']);
