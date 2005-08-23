@@ -90,7 +90,7 @@ class Tags {
 			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 		
-		$sql .= "group by tid order by 1";
+		$sql .= "group by tid order by tag";
 
 		
 		$res = rss_query($sql);
