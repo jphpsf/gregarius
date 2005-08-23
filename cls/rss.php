@@ -78,8 +78,29 @@ class RSS {
 		}
 		
 		$ret="themes/$theme/$file";
+		
+		
+		/* 
+		
+		Patch submitted by rene ( at ) evo42 * net. 
+		
+				if you use an new theme and also set the THEME_OVERRIDE to 
+				this theme name you get an 'invisible error' in the getTemplateFile 
+				function (cls/rss.php) at the file_exists function...
 
-		if (!file_exists($ret)) {
+		
+		I haven't tested this  :)
+		
+		*/
+		$theme_check = "themes/$theme/$file";
+    if (ereg('admin', $_SERVER['PATH_TRANSLATED']))   {
+    	$theme_path = substr($_SERVER['PATH_TRANSLATED'], 
+    		0, strpos($_SERVER['PATH_TRANSLATED'], 'admin'));
+      $theme_check = $theme_path.$ret;
+    }
+               
+               
+		if (!file_exists($theme_check)) {
 			$ret= "themes/default/$file";
 		}
 		
