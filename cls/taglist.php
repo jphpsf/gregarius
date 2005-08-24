@@ -32,89 +32,39 @@ require_once('cls/alltags.php');
 class TagList extends Tags{
 	
 	var $countTaggedItems=0;
-	var $countUnreadItems=0;
 	var $tagCount;
-	var $type;
 	
-	function TagList($type = 'item') {
-		parent::Tags($type);
+	function TagList() {
+		parent::Tags();
 		
 		$sql = "select count(*) as cnt from " 
-		. getTable('metatag') . " left join ";
-		if($this -> type == 'channel'){
-			$sql .= getTable('channels') . " i on (fid=i.id)"
-				. " where ttype = 'channel'";
-		}else{
-			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
-		}
-
+		. getTable('metatag') . "  left join " 
+		. getTable('item') ."  i on (fid=i.id) ";
+		
 		if (hidePrivate()) {
-			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " where !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
-	
 		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
-
-		$sql = "select count(distinct(i.id)) as cnt from " 
-		. getTable('metatag') . " left join ";
 		
-		if ($this -> type == 'channel') {
-			$sql .= getTable('item') . " i, "
-				. getTable('channels') . " c on (fid=i.cid)"
-				. " where ttype = 'channel' and (c.id = i.cid)"
-				. " and !(c.mode & ".FEED_MODE_DELETED_STATE.") ";
-		} else {
-			$sql .= getTable('item') ."  i on (fid=i.id) where ttype = 'item' ";
-		}
-		
-		$sql .= " and (i.unread & ".FEED_MODE_UNREAD_STATE.") "
-			. "and !(i.unread & ".FEED_MODE_DELETED_STATE.")";
-		if (hidePrivate()) {
-			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
-		}
-
-		list($this -> countUnreadItems) = rss_fetch_row(rss_query($sql));
-
 		$sql = "select  count(distinct(tid)) as cnt from "
-		 . getTable('metatag') . " left join ";
-		if($this -> type == 'channel'){
-			$sql .= getTable('channels') . " i on (fid=i.id)"
-				. " where ttype = 'channel'";
-		}else{
-			$sql .= getTable('item') ." i on (fid=i.id) where ttype = 'item'";
-		}
-
+		 . getTable('metatag') . " left join " . getTable('item')
+		 ." i on (fid=i.id)";
+		
 		if (hidePrivate()) {
-			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " where !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 		 
 		list($this -> tagCount) = rss_fetch_row(rss_query($sql));
 	}
 	
 	function render() {
-		if($this -> type == 'channel'){
-			echo "<h2>".LBL_TAG_FOLDERS."</h2>\n";
-			echo "<p class=\"stats\">" .sprintf(LBL_UNREAD_PF, "", "", $this->countUnreadItems) . "</p>\n";
-		}else{
-			echo "<h2>".LBL_TAG_TAGS."</h2>\n";
-			echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
-		}
+		echo "<h2>".LBL_TAG_TAGS."</h2>\n";
+		echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
 		echo "<ul id=\"taglist\">\n";
 		foreach ($this -> allTags as $tag => $cnt) {
-			echo "\t<li><img src=\"".rss_theme_path();
-			if($this -> type == 'channel'){
-				echo "/media/folder.gif";
-			}else{
-				echo "/media/noicon.png";
-			}
-			echo "\" class=\"favicon\" alt=\"\" />";
-			if($this -> type == 'channel'){
-				$unread = $this->unreadItems[$tag];
-				echo " <a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> "
-					. sprintf(LBL_SIDE_UNREAD_FEEDS,$unread,$cnt) . "</li>\n";
-			}else{
-				echo " <a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> " 
-					. sprintf(LBL_SIDE_ITEMS,$cnt) . "</li>\n";
-			}
+			echo "\t<li>"
+			."<img src=\"".rss_theme_path() ."/media/noicon.png"."\" class=\"favicon\" alt=\"\" />"
+			."<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>\n";
 		}
 		echo "</ul>\n";
 	}

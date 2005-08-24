@@ -144,15 +144,39 @@ class FeedList {
 	var $folders = array ();
 	var $activeId;
 	var $feedCount = 0;
+	var $columnTitle = LBL_H2_CHANNELS;
+	var $stats;
 	
 	function FeedList($activeId) {
 		_pf('FeedList() ctor');
 		$this->activeId = $activeId;
 		$this->loadCollapsedState();
 		$this->populate();
-		
-		
 	}
+	
+	function getStats() {
+		$unread = getUnreadCount(null, null);
+		
+		
+		$res = rss_query("select count(*) from ".getTable("item")
+			." where !(unread & ".FEED_MODE_DELETED_STATE.") "
+			. (hidePrivate()? " and !(unread & ".FEED_MODE_PRIVATE_STATE.")":"")
+			
+			);
+			
+			
+		list ($total) = rss_fetch_row($res);
+	
+		$res = rss_query("select count(*) from "
+			.getTable("channels")." where !(mode & ".FEED_MODE_DELETED_STATE.")"
+			. (hidePrivate()? " and !(mode & ".FEED_MODE_PRIVATE_STATE.")":"")
+			);
+			
+		list ($channelcount) = rss_fetch_row($res);
+		$this ->stats = sprintf(LBL_ITEMCOUNT_PF, $total, $unread, $channelcount);
+		return $this -> stats;
+	}
+	
 	
 	function loadCollapsedState() {
 	    _pf('FeedList->loadCollapsedState()...');

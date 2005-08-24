@@ -242,7 +242,10 @@ define ('LBL_ADMIN_OPML_IMPORT_MERGE','... aggiungili ai feeds esistenti');
 
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Importo %s in %s... ');
 
-define ('LBL_TAG_FOLDERS','VCartelle');
+define ('LBL_TAG_FOLDERS','Categorie');
 define ('LBL_SIDE_ITEMS','(%d elementi)');
 define ('LBL_SIDE_UNREAD_FEEDS','(%d non letti in %d feeds)');
+define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categorie');
+
+
 ?>

@@ -239,4 +239,6 @@ define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
 define ('LBL_TAG_FOLDERS','VFoldere');
 define ('LBL_SIDE_ITEMS','(%d items)');
 define ('LBL_SIDE_UNREAD_FEEDS','(%d ul&aelig;st in %d feeds)');
+define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categories');
+
 ?>

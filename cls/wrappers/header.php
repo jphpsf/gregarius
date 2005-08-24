@@ -89,9 +89,14 @@ function rss_main_feeds() {
 	switch ($GLOBALS['rss']->sideMenu->activeElement) {
 		
 		case '1':
-			rss_require('cls/taglist.php');
+			/*rss_require('cls/taglist.php');
 			$GLOBALS['rss']-> tagList = new TagList('channel');
 			$GLOBALS['rss']-> tagList -> render();
+			*/
+			rss_require('cls/categories.php');
+			$v = new CatList();
+			$v -> render();
+			break;
 		break;
 		
 		case '2':

@@ -124,8 +124,8 @@ function rss_feed_items() {
 }
 
 function rss_feed_do_title() {
-	
 	return ($GLOBALS['rss']->currentFeed -> title != "" && !($GLOBALS['rss']->renderOptions & IL_CHANNEL_VIEW));
 }
+
 
 ?>

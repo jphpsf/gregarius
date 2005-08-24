@@ -45,8 +45,10 @@ function __exp__getSideContent($what) {
 			break;
 
 		case '1':
-			rss_require('cls/taglist.php');
-			$v = new TagList('channel');
+			//rss_require('cls/taglist.php');
+			//$v = new TagList('channel');
+			rss_require('cls/categories.php');
+			$v = new CatList();
 			$v -> render();
 			break;
 

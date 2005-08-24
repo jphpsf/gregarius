@@ -29,29 +29,6 @@
 
 ///// FEEDS COLUMN WRAPPERS /////
 
-function rss_feeds_stats() {
-	$unread = getUnreadCount(null, null);
-	
-	
-	$res = rss_query("select count(*) from ".getTable("item")
-		." where !(unread & ".FEED_MODE_DELETED_STATE.") "
-		. (hidePrivate()? " and !(unread & ".FEED_MODE_PRIVATE_STATE.")":"")
-		
-		);
-		
-		
-	list ($total) = rss_fetch_row($res);
-
-	$res = rss_query("select count(*) from "
-		.getTable("channels")." where !(mode & ".FEED_MODE_DELETED_STATE.")"
-		. (hidePrivate()? " and !(mode & ".FEED_MODE_PRIVATE_STATE.")":"")
-		);
-		
-	list ($channelcount) = rss_fetch_row($res);
-
-	return array($total, $unread, $channelcount);
-}
-
 function rss_feeds_folder_is_root() {
 	return $GLOBALS['rss']->currentFeedsFolder->isRootFolder;
 }
@@ -160,4 +137,21 @@ function rss_feeds_feed_meta() {
 		return $ret;
     }
 }
+
+function rss_feeds_column_title() {
+	if (!isset($GLOBALS['rss']->feedList)) {
+		$GLOBALS['rss']->feedList = new FeedList(false);
+	}
+	return $GLOBALS['rss']->feedList->columnTitle;
+}
+
+
+function rss_feeds_stats() {
+	if (!isset($GLOBALS['rss']->feedList)) {
+		$GLOBALS['rss']->feedList = new FeedList(false);
+	}
+	return $GLOBALS['rss']->feedList->getStats();
+}
+
+
 ?>

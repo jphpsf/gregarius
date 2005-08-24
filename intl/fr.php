@@ -241,4 +241,6 @@ define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO',"J'ajoute %s &agrave; %s... ");
 define ('LBL_TAG_FOLDERS','Cat&eacute;gories');
 define ('LBL_SIDE_ITEMS','(%d &eacute;l&eacute;ments)');
 define ('LBL_SIDE_UNREAD_FEEDS','(%d non lus in %d canaux)');
+define ('LBL_CATCNT_PF', '<strong>%d</strong> canaux en <strong>%d</strong> cat&eacute;gories');
+
 ?>
