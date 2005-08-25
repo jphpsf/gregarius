@@ -170,4 +170,16 @@ function rss_item_tagslink() {
 function rss_item_permalink() {
 	return getConfig('rss.output.usepermalinks');
 }
+
+function rss_item_display_tags() {
+	return (
+		!hidePrivate() ||
+		getConfig('rss.config.publictagging') || 
+		count($GLOBALS['rss']->currentItem->tags));
+}
+
+function rss_item_can_edit_tags() {
+	return (!hidePrivate() || getConfig('rss.config.publictagging'));
+}
+
 ?>

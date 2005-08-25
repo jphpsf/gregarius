@@ -10,15 +10,17 @@
 	</a>
 	<?php } ?>
 	<h4><a href="<?= rss_item_url(); ?>"><?= rss_item_title(); ?></a></h4>
-	<?php /* rss_plugin_hook('rss.plugins.items.beforetitle', rss_item_id()); */ ?>
 	<div id="sad<?= rss_item_id(); ?>" style="display:none"></div>
 	<h5><?= rss_item_date(); ?><?= rss_item_author(); ?></h5>
+	<?php	if (rss_item_display_tags()) { ?>
 	<h5>
 		<a href="<?= rss_item_tagslink(); ?>"><?= LBL_TAG_TAGS ?></a>:&nbsp;
 		<span id="t<?= rss_item_id(); ?>"><?= rss_item_tags(); ?></span>&nbsp;
+		<?php if (rss_item_can_edit_tags()) { ?>
 		[<span id="ta<?= rss_item_id(); ?>"><a href="#" onclick="_et(<?= rss_item_id(); ?>); return false;"><?= LBL_TAG_EDIT ?></a></span>]
+		<?php } ?>
 	</h5>
-
+	<?php } ?>
 	<div class="content" id="c<?= rss_item_id(); ?>">
 		<?= rss_item_content(); ?>
 	</div>

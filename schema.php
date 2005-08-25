@@ -272,7 +272,8 @@ function setDefaults($key) {
 		"rss.output.numitemsonpage"	=>		array("100","100","num","Maximum number of items displayed on the main page. Set this variable to 0 to turn this option off.",NULL),
 		"rss.config.feedgrouping"	=>		array('false','false','boolean',"When true, Gregarius groups unread items per feed and sorts the feeds according to the <code>rss.config.absoluteordering</code> configuration switch. When false, unread items are not grouped by feed, but are sorted by date instead.",NULL),
 		"rss.config.datedesc"		=>		array('true','true','boolean',"When true, Gregarius displays newer items first. If false, Gregarius will display older items first.",NULL),
-		"rss.config.autologout"		=>		array('false','false','boolean','When true, Gregarius will automatically remove the "admin cookie" when the browser window is closed, effectively logging you out.',NULL)
+		"rss.config.autologout"		=>		array('false','false','boolean','When true, Gregarius will automatically remove the "admin cookie" when the browser window is closed, effectively logging you out.',NULL),
+		"rss.config.publictagging"		=>		array('false','false','boolean','When true, every visitor to your Gregarius site will be allowed to tag items, when false only the Administrator (you) is allowed to tag.',NULL)
 	);
 	
 	
