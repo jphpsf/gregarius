@@ -678,7 +678,7 @@ function channel_edit_form($cid) {
 	echo "</p>\n";
 	
 	// Tags
-	echo "<p><label for=\"c_tags\">". LBL_TAG_TAGS . ":</label>\n"
+	echo "<p><label for=\"c_tags\">". LBL_TAG_FOLDERS . ":</label>\n"
 	  ."<input type=\"text\" id=\"c_tags\" name=\"c_tags\" value=\"$tags\"/></p>";
 	
 	// Items state
