@@ -1,13 +1,8 @@
 <?php
 
 class CatFolder extends FeedFolder{
-	var $feeds = array ();
-	var $name;
-	var $id;
-	var $isCollapsed = false;
-	var $rlink;
 	var $isRootFolder = false;
-	var $rootList;
+
 	function CatFolder($name, $id, &$rootList) {
 		$this->name = $name;
 		$this->id = $id;
