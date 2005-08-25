@@ -66,7 +66,6 @@ class SqliteDB extends DB {
 
 	function DBConnect($dbpath, $dbuname, $dbpass) {
 		if (defined("DBDEBUG")) $this->debug=constant("DBDEBUG");
-		$this->debug=true;
 		$this->dbpath=$dbpath;
 		$this->db=@sqlite_open($dbpath,0666,$msg_err);
 		if (!$this->db) {
@@ -84,6 +83,7 @@ class SqliteDB extends DB {
 		sqlite_create_function($this->db,"from_unixtime","__cb_sqlite_from_unixtime");
 		sqlite_create_function($this->db,"unix_timestamp","__cb_sqlite_unix_timestamp");
 		sqlite_create_function($this->db,"now","__cb_sqlite_now");
+		sqlite_create_function($this->db,"md5","__cb_sqlite_md5");
 	}
 
 	function DBSelectDB($dbname) {
@@ -397,10 +397,10 @@ class SqliteDB extends DB {
 				ob_clean();
 				return $this -> rss_query ($query, $dieOnError, true);
 			}
-			else if (preg_match("/no\s+column\s+named\s+(.+)/is",$errorString,$matches)) {
+			else if (preg_match("/(no\s+such\s+column\s*:\s*|no\s+column\s+named\s+)(.+)/is",$errorString,$matches)) {
 				ob_start();
 				rss_require('schema.php');
-				checkSchemaColumns(trim($matches[1]));
+				checkSchemaColumns(trim($matches[2]));
 				ob_clean();
 				return $this -> rss_query ($query, $dieOnError, true);
 			}
@@ -534,6 +534,10 @@ if (!defined("SQLITE_CALLBACK")) {
 		return date("Y-m-d H:i:s");
 	}
 	
+	function __cb_sqlite_md5($str) {
+		return md5($str);
+	}
+
 	function __cb_sqlite_debug($str) {
 		if (defined("DBDEBUG") && constant("DBDEBUG")==true) {
 			$file="/tmp/debug_cb.log";
