@@ -42,7 +42,7 @@ class TagList extends Tags{
 		. getTable('item') ."  i on (fid=i.id) ";
 		
 		if (hidePrivate()) {
-			$sql .= " where !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " where not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
 		
@@ -51,7 +51,7 @@ class TagList extends Tags{
 		 ." i on (fid=i.id)";
 		
 		if (hidePrivate()) {
-			$sql .= " where !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " where not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 		 
 		list($this -> tagCount) = rss_fetch_row(rss_query($sql));

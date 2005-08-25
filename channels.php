@@ -51,13 +51,13 @@ function sideChannels($activeId) {
     	  .getTable('channels') . " c, "
     	  .getTable('folders') ." f "
     	  ." where i.unread & ". FEED_MODE_UNREAD_STATE
-    	  ." and !(i.unread & ". FEED_MODE_DELETED_STATE .")";
+    	  ." and not(i.unread & ". FEED_MODE_DELETED_STATE .")";
 
     	if (hidePrivate()) {
-    		$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";
+    		$sql .=" and not(unread & " . FEED_MODE_PRIVATE_STATE .") ";
     	}
 
-    	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE .") ";
+    	$sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE .") ";
 
     	 $sql .= " and i.cid=c.id and c.parent=f.id "
     	  ." group by 1";
@@ -78,10 +78,10 @@ function sideChannels($activeId) {
       ." where f.id = c.parent";
       
       if (hidePrivate()) {
-			$sql .= " and !(c.mode & " . FEED_MODE_PRIVATE_STATE  .") ";
+			$sql .= " and not(c.mode & " . FEED_MODE_PRIVATE_STATE  .") ";
 		}
 
-	$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+	$sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
 
 	
 	if (getConfig('rss.config.absoluteordering')) {
@@ -167,7 +167,7 @@ function tabs($count) {
 function feed($cid, $title, $url, $siteurl, $ico, $description) {
     $res = rss_query ("select count(*) from " .getTable("item")
         ." where cid=$cid and unread & "  . FEED_MODE_UNREAD_STATE
-        . " and !(unread & " . FEED_MODE_DELETED_STATE .")"
+        . " and not(unread & " . FEED_MODE_DELETED_STATE .")"
         );
     list($cnt) = rss_fetch_row($res);
     if ($cnt > 0) {
@@ -228,12 +228,12 @@ function stats() {
     $unread = getUnreadCount(null,null);
 
     $res = rss_query( "select count(*) from " . getTable("item")
-        ." where !(unread & " . FEED_MODE_DELETED_STATE  .") "
+        ." where not(unread & " . FEED_MODE_DELETED_STATE  .") "
     );
     list($total)= rss_fetch_row($res);
 
     $res = rss_query( "select count(*) from " .getTable("channels")
-    	." where !(mode & " .FEED_MODE_DELETED_STATE .")");
+    	." where not(mode & " .FEED_MODE_DELETED_STATE .")");
     list($channelcount)= rss_fetch_row($res);
 
     printf ("\n<p class=\"stats\">" . LBL_ITEMCOUNT_PF . "</p>\n"

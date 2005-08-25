@@ -50,7 +50,7 @@ if (array_key_exists('metaaction', $_POST)
      .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE;
      
    if (hidePrivate()) {
-	  	$sql .= " and !(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+	  	$sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
 	 }
 	 
 	 rss_query( $sql );
@@ -126,7 +126,7 @@ function readItems($cntUnread) {
             .getTable("folders") ." f "
           ." where c.parent = f.id ";
     
-        $sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+        $sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
         
         if (getConfig('rss.config.absoluteordering')) {
         	$sql .= " order by f.position asc, c.position asc";
@@ -136,7 +136,7 @@ function readItems($cntUnread) {
     
     	$res1=rss_query($sql);
     	while (list($cid) = rss_fetch_row($res1)) {
-			$readItems->populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
+			$readItems->populate(" not(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
 		}  
 		
 		
@@ -153,7 +153,7 @@ function readItems($cntUnread) {
 		if ($limit <= 0) {
 			return;
 		}
-		$readItems -> populate("!(i.unread & " . FEED_MODE_UNREAD_STATE .")", "", 0, $limit);
+		$readItems -> populate("not(i.unread & " . FEED_MODE_UNREAD_STATE .")", "", 0, $limit);
 		$readItems -> setRenderOptions(IL_NO_COLLAPSE | IL_TITLE_NO_ESCAPE);
 
 	}

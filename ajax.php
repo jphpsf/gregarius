@@ -71,7 +71,7 @@ function __exp__getFeedContent($cid) {
 	
 	$readItems = new ItemList();
 
-	$readItems -> populate(" !(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
+	$readItems -> populate(" not(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2);
 	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 	foreach ($readItems -> feeds[0] -> items as $item) {

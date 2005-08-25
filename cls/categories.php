@@ -58,10 +58,10 @@ class CatList extends FeedList {
 
 
 		if (hidePrivate()) {
-			$sql .= " and !(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 
-		$sql .= " and !(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+		$sql .= " and not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
 
 		$sql .= " order by t.tag asc"; 
 		
@@ -72,7 +72,7 @@ class CatList extends FeedList {
 		// get # of unread items for each feed
 		$ucres = rss_query ("select cid, count(*) from " .getTable("item")
 		 ." where unread & "  . FEED_MODE_UNREAD_STATE
-		 . " and !(unread & " . FEED_MODE_DELETED_STATE
+		 . " and not(unread & " . FEED_MODE_DELETED_STATE
 		 . ") group by cid");
 		$uc = array();
 		while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {

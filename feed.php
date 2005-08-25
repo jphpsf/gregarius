@@ -62,10 +62,10 @@ if (
 		 $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
 
 		if (hidePrivate()) {
-			$sql .=" and !(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+			$sql .=" and not(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		}		 
 		// hide deprecated
-		$sql .= " and !(mode & " . FEED_MODE_DELETED_STATE . ") ";
+		$sql .= " and not(mode & " . FEED_MODE_DELETED_STATE . ") ";
 
 		 $res =  rss_query( $sql );
 		 //echo $sql;
@@ -80,9 +80,9 @@ if (
 				." where c.parent=f.id and f.name like '$sqlid' and f.id > 0";
 				
 			if (hidePrivate()) {
-				$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+				$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 			}
-			$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+			$sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
 	 
 			$res = rss_query( $sql );
 			if ( rss_num_rows ( $res ) > 0) {
@@ -99,9 +99,9 @@ if (
 					. "and t.tag like '$sqlid'";
 
 				if (hidePrivate()) {
-					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
+					$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
 				}
-				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+				$sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
 		 
 				$res = rss_query( $sql );
 				if ( rss_num_rows ( $res ) > 0) {
@@ -140,20 +140,20 @@ if (
 			$sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
 			$sql = "select id from " .getTable("item") ." i where i.title like '$sqlid' and i.cid=$cid";
 			if ($m > 0 && $y > 0) {
-				 $sql .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
-					." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+				 $sql .= " and month(ifnull(i.pubdate,i.added))= $m "
+					." and year(ifnull(i.pubdate, i.added))= $y ";
 				 
 				 if ($d > 0) {
-					$sql .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+					$sql .= " and dayofmonth(ifnull(i.pubdate,i.added))= $d ";
 				 }
 				 
 			}
 			
 			if (hidePrivate()) {
-				$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+				$sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 			}
 
-            $sql .=" and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+            $sql .=" and not(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
 			
 			$sql .=" order by i.added desc, i.id asc";
 			
@@ -177,10 +177,10 @@ if (
 		if ($fid) {		
 				$sql = "select c.id from ". getTable('channels')." c "
 					." where c.parent=$fid and c.parent > 0";
-				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+				$sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
 
 				if (hidePrivate()) {
-					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+					$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 				}
 				$res = rss_query( $sql );
 				
@@ -200,10 +200,10 @@ if (
 			}else{
 				$sql .= "and t.tag like '$vfid'";
 			}
-			$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+			$sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
 
 			if (hidePrivate()) {
-				$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+				$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 			}
 			$res = rss_query( $sql );
 			
@@ -217,7 +217,7 @@ if (
 		} elseif ($cid) {			
 			if (hidePrivate()) {
 				$sql = "select id from ". getTable('channels')." where id=$cid ";
-				$sql .=" and !(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+				$sql .=" and not(mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 				list ($cid) = rss_fetch_row(rss_query($sql));
 			}
 		}
@@ -272,10 +272,10 @@ if (array_key_exists ('metaaction', $_POST)) {
 		 . getTable("channels") . " c,"
 		 . getTable("folders") . " f "
 			  ." where i.unread & ".FEED_MODE_UNREAD_STATE
-			." and !(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+			." and not(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
 			
 		if (hidePrivate()) {
-			$sql .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+			$sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		}
 			
 		 $sql .= " and i.cid=c.id and c.parent=f.id";
@@ -309,7 +309,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 		 
 		 
 		if (hidePrivate()) {
-			$sql .= " and !(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+			$sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
 		 }
 		 
 		 
@@ -351,7 +351,7 @@ if (array_key_exists ('metaaction', $_POST)) {
     			.getTable('channels') ." c "
     			." where i.unread & " .FEED_MODE_UNREAD_STATE ." and i.cid = c.id and c.parent = $fid__";
     			if (hidePrivate()) {
-					$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+					$sql .= " and not(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
 		 		}
     			
     		list($c) = rss_fetch_row(rss_query($sql));
@@ -406,9 +406,9 @@ if (array_key_exists ('metaaction', $_POST)) {
 				.getTable('channels') ." c on (fid=i.cid) "
 				."where c.id = $tid__ and ttype = 'channel' and (c.id = i.cid)"
 				." and (i.unread & ".FEED_MODE_UNREAD_STATE.") "
-				."and !(i.unread & ".FEED_MODE_DELETED_STATE.")";
+				."and not(i.unread & ".FEED_MODE_DELETED_STATE.")";
 				if (hidePrivate()) {
-					$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+					$sql .= " and not(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
 		 		}
 			list($c) = rss_fetch_row(rss_query($sql));
 			if ($c > 0) {
@@ -530,7 +530,7 @@ if ($iid == "") {
     // "item mode"
     $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, " 
 		     .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid"
-              ." and !(i.unread & " . FEED_MODE_DELETED_STATE  .") "
+              ." and not(i.unread & " . FEED_MODE_DELETED_STATE  .") "
              );
              
     list($title,$icon,$ititle) = rss_fetch_row($res);
@@ -574,14 +574,14 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			// archives, folders, channels
 			$sql = "select count(*) from " . getTable('item') . " where"
 			." (unread & " . FEED_MODE_UNREAD_STATE .")"
-		    ." and !(unread & " . FEED_MODE_DELETED_STATE  .") ";
+		    ." and not(unread & " . FEED_MODE_DELETED_STATE  .") ";
 			 
 			//archive?
 			if ($m > 0 && $y > 0) {
-				$sql .= " and if (pubdate is null, month(added)= $m , month(pubdate) = $m) "
-			  		." and if (pubdate is null, year(added)= $y , year(pubdate) = $y) ";
+				$sql .= " and month(ifnull(pubdate,added))= $m "
+			  		." and year(ifnull(pubdate, added))= $y ";
 				if ($d > 0) {
-					$sql .= " and if (pubdate is null, dayofmonth(added)= $d , dayofmonth(pubdate) = $d) ";
+					$sql .= " and dayofmonth(ifnull(pubdate,added))= $d ";
 				}
 		 	}
 		 
@@ -631,11 +631,11 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 				$sqlWhere .= " and i.id=$iid";
 			}
 			if ($m > 0 && $y > 0) {
-				$sqlWhere .= " and if (i.pubdate is null, month(i.added)= $m , month(i.pubdate) = $m) "
-				  ." and if (i.pubdate is null, year(i.added)= $y , year(i.pubdate) = $y) ";
+				$sqlWhere .= " and month(ifnull(i.pubdate,i.added))= $m "
+				  ." and year(ifnull(i.pubdate, i.added))= $y ";
 			
 				if ($d > 0) {
-					 $sqlWhere .= " and if (i.pubdate is null, dayofmonth(i.added)= $d , dayofmonth(i.pubdate) = $d) ";
+					 $sqlWhere .= " and dayofmonth(ifnull(i.pubdate,i.added))= $d ";
 				}
 			 }
 			
@@ -764,17 +764,17 @@ function makeNav($cid,$iid,$y,$m,$d) {
 			}
 			
 			$sql_succ = " select "
-			  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
-			  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
-			  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
-			  .(($currentView == 'day')?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
+			  ." UNIX_TIMESTAMP( ifnull(i.pubdate, i.added)) as ts_, "
+			  ." year( ifnull(i.pubdate, i.added)) as y_, "
+			  ." month( ifnull(i.pubdate, i.added)) as m_, "
+			  .(($currentView == 'day')?" dayofmonth( ifnull(i.pubdate, i.added)) as d_, ":"")
 			  ." count(*) as cnt_ "
 			  ." from " . getTable("item") . "i  "
 			  ." where cid=$cid "
-			  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) > $ts_s ";
+			  ." and UNIX_TIMESTAMP(ifnull(i.pubdate, i.added)) > $ts_s ";
 			  
 			  	if (hidePrivate()) {
-					$sql_succ .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+					$sql_succ .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		      }
 			  
 			  $sql_succ .= " group by y_,m_"
@@ -782,18 +782,18 @@ function makeNav($cid,$iid,$y,$m,$d) {
 			  ." order by ts_ asc limit 4";
 			
 			$sql_prev = " select "
-			  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
-			  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
-			  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
-			  .(($currentView == 'day')?" dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_, ":"")
+			  ." UNIX_TIMESTAMP( ifnull(i.pubdate, i.added)) as ts_, "
+			  ." year( ifnull(i.pubdate, i.added)) as y_, "
+			  ." month( ifnull(i.pubdate, i.added)) as m_, "
+			  .(($currentView == 'day')?" dayofmonth( ifnull(i.pubdate, i.added)) as d_, ":"")
 			  ." count(*) as cnt_ "
 			  ." from " . getTable("item") ." i  "
 			  ." where cid=$cid "
-			  ." and UNIX_TIMESTAMP(if (i.pubdate is null, i.added, i.pubdate)) < $ts_p ";
+			  ." and UNIX_TIMESTAMP(ifnull(i.pubdate, i.added)) < $ts_p ";
 			  
 			  
 			  	if (hidePrivate()) {
-					$sql_prev .=" and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+					$sql_prev .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		      }
 		      
 			  $sql_prev .= " group by y_,m_"
@@ -882,15 +882,15 @@ function makeNav($cid,$iid,$y,$m,$d) {
 			case 'item':
 			
 				$sql = " select i.title, i.id, "
-				  ." UNIX_TIMESTAMP( if (i.pubdate is null, i.added, i.pubdate)) as ts_, "
-				  ." year( if (i.pubdate is null, i.added, i.pubdate)) as y_, "
-				  ." month( if (i.pubdate is null, i.added, i.pubdate)) as m_, "
-				  ." dayofmonth( if (i.pubdate is null, i.added, i.pubdate)) as d_ "
+				  ." UNIX_TIMESTAMP( ifnull(i.pubdate, i.added)) as ts_, "
+				  ." year( ifnull(i.pubdate, i.added)) as y_, "
+				  ." month( ifnull(i.pubdate, i.added)) as m_, "
+				  ." dayofmonth( ifnull(i.pubdate, i.added)) as d_ "
 				  ." from " .getTable("item") . " i " 
 				  ." where i.cid = $cid  ";
 				  
 					if (hidePrivate()) {
-						$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
+						$sql .= " and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 					}
 		      
 				if(getConfig('rss.config.datedesc')){
@@ -973,9 +973,9 @@ function makeNav($cid,$iid,$y,$m,$d) {
 		
 						
 				if (hidePrivate()) {
-					$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+					$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 				}
-				$sql .= " and !(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+				$sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
 	 
 				if (getConfig('rss.config.absoluteordering')) {
 					$sql .=" order by d.position asc, c.position asc";

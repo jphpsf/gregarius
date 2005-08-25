@@ -67,7 +67,7 @@ function relatedTags($tags) {
 		." and t.id not in (".implode(",", $tids).")";
 
 		if (hidePrivate()) {
-			$sql .= " and !(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 
 		$sql .= " group by t.tag order by cnt desc";

@@ -108,7 +108,7 @@ if (array_key_exists('act',$_REQUEST)) {
       
       
 		if (hidePrivate()) {
-			$sql .=" and !(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+			$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		}
 	
     

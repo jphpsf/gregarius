@@ -64,11 +64,11 @@ class Update {
 	function populate() {
 		$sql = "select c.id, c.url, c.title from ".getTable("channels") . " c, "
 		. getTable('folders') . " f ";
-		$sql .= " where !(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+		$sql .= " where not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
 		$sql .= " and c.parent = f.id ";
 		
 		if (hidePrivate()) {
-			$sql .= " and !(mode & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(mode & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 
 		if (getConfig('rss.config.absoluteordering')) {

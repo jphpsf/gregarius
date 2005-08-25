@@ -66,6 +66,7 @@ class SqliteDB extends DB {
 
 	function DBConnect($dbpath, $dbuname, $dbpass) {
 		if (defined("DBDEBUG")) $this->debug=constant("DBDEBUG");
+		$this->debug=true;
 		$this->dbpath=$dbpath;
 		$this->db=@sqlite_open($dbpath,0666,$msg_err);
 		if (!$this->db) {
@@ -74,6 +75,15 @@ class SqliteDB extends DB {
 			."the database path?</p>\n" );
 		}
 		sqlite_query($this->db,"PRAGMA synchronous = FULL");
+
+		//we emulate via callback some missing MySQL function
+		sqlite_create_function($this->db,"year","__cb_sqlite_year",1);
+		sqlite_create_function($this->db,"month","__cb_sqlite_month",1);
+		sqlite_create_function($this->db,"day","__cb_sqlite_dayofmonth",1);
+		sqlite_create_function($this->db,"dayofmonth","__cb_sqlite_dayofmonth",1);
+		sqlite_create_function($this->db,"from_unixtime","__cb_sqlite_from_unixtime");
+		sqlite_create_function($this->db,"unix_timestamp","__cb_sqlite_unix_timestamp");
+		sqlite_create_function($this->db,"now","__cb_sqlite_now");
 	}
 
 	function DBSelectDB($dbname) {
@@ -246,11 +256,19 @@ class SqliteDB extends DB {
 		}
   
 		if ($doReturn || !$query) return $query;
+
+		//count(distinct(x)) is not supported
+		if (preg_match("/select\s+(count\s*\(distinct\s*\(([^\)]+)\)\s*\))/is",$query,$matches)) {
+			$field=$matches[2];
+			$query=str_replace($matches[0],"count(*)",$query);
+			$query=preg_replace("/from\s/is","from (select distinct($field) from ",$query);
+			$query.=")";
+		}
+  
 		/*
 		we must be carefull to not change text content but only SQL part
 		We do a really dirty hack here:
 		we replace all texts by an REFERENCES that will not interfere into the parsing
-		*/
 		$i=0;
 		$tabStrings=array();
 		
@@ -298,46 +316,7 @@ class SqliteDB extends DB {
 		unset($query);
 
 		$query=preg_replace("/(\s+)/is"," ",$new_query); // we can now trim data, but not before to prevent a change in values
-		$query=str_replace("!(","not(",$query);
-  
-		//date_sub(now ... it seems to be the only kind of date_sub used so let's do it like this
-		if (preg_match("/(date_sub\s*\(\s*now\s*\(\s*\)\s*,\s*interval\s+([0-9+-]+)\s+([^\)]*)\))/is",$query,$matches)) {
-			$nb=-(int)$matches[2];
-			$interval=trim($matches[3]);
-			if ($interval=="day") $interval="days";
-			else if ($interval=="month") $interval="months";
-			else if ($interval=="year") $interval="years";
-			$query=str_replace($matches[0],"date('now','$nb $interval')",$query);
-		}
-  
-		//if (field1 is null, op(field2) , op(field1))
-		$query=preg_replace("/if\s*\(\s*([^\s]+)\s+is\s+null\s*,([^,()]+\([^()]+\)[^,]*),([^()]+\([^()]*\\1[^()]*\)[^)]*)\)/is","ifnull(\$3,\$2)",$query);
-  
-		//if (field1 is null, field2 , field1)
-		$query=preg_replace("/if\s*\(\s*([^\s]+)\s+is\s+null\s*,([^,()]+),([^()]*\\1[^()]*)\)/is","ifnull(\$3,\$2)",$query);
-  	
-		//unix_timestamp
-		$query=preg_replace("/unix_timestamp\s*\(/is","strftime('%s',",$query);
-		//FROM_UNIXTIME
-		$query=preg_replace("/from_unixtime\s*\(([^()]+)\)/is","datetime(\$1,'unixepoch')",$query);
-		//dayofmonth
-		$query=preg_replace("/dayofmonth\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%d',\$1,'localtime')",$query);
-		//year
-		$query=preg_replace("/year\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%Y',\$1,'localtime')",$query);
-		//month
-		$query=preg_replace("/month\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%m',\$1,'localtime')",$query);
-		//day
-		$query=preg_replace("/day\s*\(([^()]+(\(?[^()]+\)){0,1}[^()]*)\)/is","strftime('%d',\$1,'localtime')",$query);
-		//now
-		$query=preg_replace("/(now\s*\(\s*\))/is","datetime('now')",$query);
-		//count(distinct)
-		if (preg_match("/(count\s*\(distinct\s*\(([^\)]+)\)\s*\))/is",$query,$matches)) {
-			$field=$matches[2];
-			$query=str_replace($matches[0],"count(*)",$query);
-			$query=preg_replace("/from\s/is","from (select distinct($field) from ",$query);
-			$query.=")";
-		}
-  
+		
 		//we restore all the strings values
 		if (is_array($tabReplace) && count($tabReplace)>0) {
 			foreach ($tabReplace as $search=>$replace) {
@@ -346,6 +325,7 @@ class SqliteDB extends DB {
 			}
 			unset($tabReplace);
 		}
+		*/
 
 		return $query;
 	}
@@ -502,4 +482,67 @@ class SqliteDB extends DB {
 
 }
 
+//sqlite callbacks to emulate some MySQL func
+if (!defined("SQLITE_CALLBACK")) {
+	define("SQLITE_CALLBACK",true);
+	function __cb_sqlite_month($timestamp) {
+		$timestamp=trim($timestamp);
+		if (!preg_match("/^[0-9]+$/is",$timestamp)) $ret=strtotime($timestamp);
+		else $ret=$timestamp;
+		$ret=date("m",$ret);
+		__cb_sqlite_debug("MONTH ($timestamp) = $ret");
+		return $ret; 
+	}
+	
+	function __cb_sqlite_year($timestamp) {
+		$timestamp=trim($timestamp);
+		if (!preg_match("/^[0-9]+$/is",$timestamp)) $ret=strtotime($timestamp);
+		else $ret=$timestamp;
+		$ret=date("Y",$ret);
+		__cb_sqlite_debug("YEAR ($timestamp) =  $ret");
+		return $ret; 
+	}
+
+	function __cb_sqlite_dayofmonth($timestamp) {
+		$timestamp=trim($timestamp);
+		if (!preg_match("/^[0-9]+$/is",$timestamp)) $ret=strtotime($timestamp);
+		else $ret=$timestamp;
+		$ret=date("d",$ret);
+		__cb_sqlite_debug("DAYOFMONTH ($timestamp) = $ret");
+		return $ret;
+	}
+
+	function __cb_sqlite_from_unixtime($timestamp) {
+		$timestamp=trim($timestamp);
+		if (!preg_match("/^[0-9]+$/is",$timestamp)) $ret=strtotime($timestamp);
+		else $ret=$timestamp;
+		$ret=date("Y-m-d H:i:s",$ret);
+		__cb_sqlite_debug("FROM_UNIXTIME ($timestamp) = $ret");
+		return $ret;
+	}
+
+	function __cb_sqlite_unix_timestamp($timestamp="") {
+		$timestamp=trim($timestamp);
+		if (!$timestamp) $ret=time();
+		else if (!preg_match("/^[0-9]+$/is",$timestamp)) $ret=strtotime($timestamp);
+		else $ret=$timestamp;
+		__cb_sqlite_debug("UNIX_TIMESTAMP ($timestamp) = $ret");
+		return $ret;
+	}
+
+	function __cb_sqlite_now() {
+		return date("Y-m-d H:i:s");
+	}
+	
+	function __cb_sqlite_debug($str) {
+		if (defined("DBDEBUG") && constant("DBDEBUG")==true) {
+			$file="/tmp/debug_cb.log";
+			$fp=@fopen($file,"a");
+			@fputs($fp,"-== " . date('r') . " =======================================-\n");
+			@fputs($fp,trim($str)."\n\n");
+			@fclose($fp);
+		}
+	}	
+
+}
 ?>

@@ -45,7 +45,7 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
 } else {	
 	list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")
         . " where "
-        .   " !(unread & " . FEED_MODE_DELETED_STATE  .") "
+        .   " not(unread & " . FEED_MODE_DELETED_STATE  .") "
     ));
 	$items->setTitle(sprintf(LBL_H2_SEARCH, $cnt));
 	$GLOBALS['rss'] -> header = new Header(LBL_TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('query').focus()");

@@ -257,18 +257,18 @@ class ItemList {
 
 		$sql = "select i.title,  c.title, c.id, i.unread, "
 			."i.url, i.author, i.description, c.icon, "
-			." if (i.pubdate is null, unix_timestamp(i.added), unix_timestamp(i.pubdate)) as ts, "
+			." unix_timestamp(ifnull(i.pubdate,i.added)) as ts, "
 			." i.pubdate is not null as ispubdate, i.id  "
 			." from ".getTable("item") ." i, "
 			.getTable("channels")." c, "
 			.getTable("folders") ." f "
 			." where "
 			." i.cid = c.id and "
-			." f.id=c.parent and "." !(c.mode & ".FEED_MODE_DELETED_STATE.") and "
-			." !(i.unread & ".FEED_MODE_DELETED_STATE.") and ";
+			." f.id=c.parent and "." not(c.mode & ".FEED_MODE_DELETED_STATE.") and "
+			." not(i.unread & ".FEED_MODE_DELETED_STATE.") and ";
 
 		if (hidePrivate()) {
-			$sql .= " !(i.unread & ".FEED_MODE_PRIVATE_STATE.") and ";
+			$sql .= " not(i.unread & ".FEED_MODE_PRIVATE_STATE.") and ";
 		}
 
 		if ($sqlWhere) {

@@ -159,8 +159,8 @@ class FeedList {
 		
 		
 		$res = rss_query("select count(*) from ".getTable("item")
-			." where !(unread & ".FEED_MODE_DELETED_STATE.") "
-			. (hidePrivate()? " and !(unread & ".FEED_MODE_PRIVATE_STATE.")":"")
+			." where not(unread & ".FEED_MODE_DELETED_STATE.") "
+			. (hidePrivate()? " and not(unread & ".FEED_MODE_PRIVATE_STATE.")":"")
 			
 			);
 			
@@ -168,8 +168,8 @@ class FeedList {
 		list ($total) = rss_fetch_row($res);
 	
 		$res = rss_query("select count(*) from "
-			.getTable("channels")." where !(mode & ".FEED_MODE_DELETED_STATE.")"
-			. (hidePrivate()? " and !(mode & ".FEED_MODE_PRIVATE_STATE.")":"")
+			.getTable("channels")." where not(mode & ".FEED_MODE_DELETED_STATE.")"
+			. (hidePrivate()? " and not(mode & ".FEED_MODE_PRIVATE_STATE.")":"")
 			);
 			
 		list ($channelcount) = rss_fetch_row($res);
@@ -197,11 +197,11 @@ class FeedList {
 			.getTable('channels') . " c, "
 			.getTable('folders') ." f "
 			." where i.unread & ". FEED_MODE_UNREAD_STATE
-			." and !(i.unread & ". FEED_MODE_DELETED_STATE .")";
+			." and not(i.unread & ". FEED_MODE_DELETED_STATE .")";
 			if (hidePrivate()) {
-				$sql .=" and !(unread & " . FEED_MODE_PRIVATE_STATE .") ";
+				$sql .=" and not(unread & " . FEED_MODE_PRIVATE_STATE .") ";
 			}
-			$sql .= " and !(c.mode & " . FEED_MODE_DELETED_STATE .") ";
+			$sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE .") ";
 			$sql .= " and i.cid=c.id and c.parent=f.id "
 			." group by 1"; 
 	        _pf('query');
@@ -227,10 +227,10 @@ class FeedList {
 		.getTable("folders")." f "." where f.id = c.parent";
 
 		if (hidePrivate()) {
-			$sql .= " and !(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 
-		$sql .= " and !(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+		$sql .= " and not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
 
 		if (getConfig('rss.config.absoluteordering')) {
 			$sql .= " order by f.position asc, c.position asc";
@@ -242,7 +242,7 @@ class FeedList {
 		
 		$ucres = rss_query ("select cid, count(*) from " .getTable("item")
         ." where unread & "  . FEED_MODE_UNREAD_STATE
-        . " and !(unread & " . FEED_MODE_DELETED_STATE .") group by cid");
+        . " and not(unread & " . FEED_MODE_DELETED_STATE .") group by cid");
 		$uc = array();
 		while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {
 			$uc[$uccid]=$ucuc;
