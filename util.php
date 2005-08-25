@@ -167,7 +167,7 @@ function update($id) {
 			$title = array_key_exists('title', $item) ? strip_tags($item['title']) : "";
 			$title = str_replace('& ', '&amp; ', $title);
 			// item content, if any
-			if (array_key_exists('content', $item) && array_key_exists('encoded', $item['content'])) {
+			if (array_key_exists('content', $item) && is_array($item['content']) && array_key_exists('encoded', $item['content'])) {
 				$description = kses($item['content']['encoded'], $kses_allowed);
 			} elseif (array_key_exists('description', $item)) {
 				$description = kses($item['description'], $kses_allowed);
@@ -524,8 +524,12 @@ function makeArchiveUrl($ts, $channel, $cid, $dayView) {
  * Fetches a remote URL and returns the content
  */
 function getUrl($url, $maxlen = 0) {
+	//Bug: in windows, scheme returned by parse_url contains the drive letter 
+	//of the file so a test like !isset(scheme) does not work
+	//maybe it would be better to only use is_file() which only detect
+	//local files?
 	$urlParts = parse_url($url);
-	if (!isset($urlParts['scheme']) && !isset($urlParts['host'])) {
+	if (is_file($url) || (!isset($urlParts['scheme']) && !isset($urlParts['host'])) ) {
 		//local file!
 		$c = "";
 		$h = @fopen($url, "r");
