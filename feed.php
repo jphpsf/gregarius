@@ -380,15 +380,58 @@ if (array_key_exists ('metaaction', $_POST)) {
             rss_redirect();
     	}
 		break;
-	// virtual folder
+	// virtual folder - code extremely similar to LBL_MARK_FOLDER_READ
 	case 'LBL_MARK_VFOLDER_READ':
 		$vfid = $_REQUEST['vfolder'];
 		$sql = "update " .getTable('item') . " i, " . getTable('metatag') . " m"
 			. " set i.unread = i.unread & ".SET_MODE_READ_STATE
 			. " where i.cid = m.fid and m.tid = $vfid and m.ttype = 'channel'";
 		rss_query($sql);
-		rss_redirect();
 
+		// find next virtual folder to redirect to
+		$next_vfid = 0;
+		$found = false;
+		$res = rss_query("select distinct tid from " .getTable('metatag') ." m order by m.tid desc");
+		while (list($tid__) = rss_fetch_row($res)) {
+			if ($tid__ == $vfid && $next_vfid > 0) {
+				$found = true;
+				break;
+			} elseif($tid__ == $vfid) {
+				$found = true;
+			}
+			// check for unread items in next virtual folder
+			$sql = "select count(distinct(i.id)) as cnt from "
+				.getTable('metatag') ." left join "
+				.getTable('item') . "i, "
+				.getTable('channels') ." c on (fid=i.cid) "
+				."where c.id = $tid__ and ttype = 'channel' and (c.id = i.cid)"
+				." and (i.unread & ".FEED_MODE_UNREAD_STATE.") "
+				."and !(i.unread & ".FEED_MODE_DELETED_STATE.")";
+				if (hidePrivate()) {
+					$sql .= " and !(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+		 		}
+			list($c) = rss_fetch_row(rss_query($sql));
+			if ($c > 0) {
+				$next_vfid = $tid__;
+				//echo "next -> $vfid__\n";
+				if ($found) {
+					//echo "can break\n";
+					break;
+				}
+			}
+		}
+
+		if($next_vfid && $found){
+			$vfid = $next_vfid;
+			$sql = "select distinct(fid) from " . getTable('metatag') . " where tid = $vfid";
+			$res = rss_query($sql);
+			$cids = array();
+			while(list($cid__) = rss_fetch_row($res)){
+				$cids[] = $cid__;
+			}
+		}else{
+			rss_redirect();
+		}
     break;
     }
 
