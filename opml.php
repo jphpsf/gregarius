@@ -76,8 +76,9 @@ function _xml_startElement($xp, $element, $attr) {
 	return;
     }
     
-    if (!array_key_exists('XMLURL',$attr) && array_key_exists('TEXT',$attr)) {
-	$folder = $attr['TEXT'];
+    if (!array_key_exists('XMLURL',$attr) && (array_key_exists('TEXT',$attr)||array_key_exists('TITLE',$attr)) ) {
+	//some opml use title instead of text to define a folder (ex: newzcrawler)
+	$folder = $attr['TEXT']?$attr['TEXT']:$attr['TITLE'];
     } else {	
 	if ($folder != '') {
 	    $blogs[$folder][] = $attr;
