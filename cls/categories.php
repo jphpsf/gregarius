@@ -74,12 +74,23 @@ class CatList extends FeedList {
 		$res = rss_query($sql);
 		$this -> taggedFeedCnt = rss_num_rows($res);
 		
-		  
+		// get # of unread items for each feed
+		$ucres = rss_query ("select cid, count(*) from " .getTable("item")
+		 . ", " . getTable("metatag")
+		 ." where unread & "  . FEED_MODE_UNREAD_STATE
+		 . " and !(unread & " . FEED_MODE_DELETED_STATE
+		 . ") and fid=cid group by cid");
+		$uc = array();
+		while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {
+			$uc[$uccid]=$ucuc;
+		}
+		
 		while (list ($cid, $ctitle, $curl, $csiteurl, $fname, 
 								$cparent, $cico, $cdescr, $cmode, $tid) = rss_fetch_row($res)) {
-					
 			
-			$f = new FeedListItem($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode, 0);
+			$unread = 0;
+			if(isset($uc[$cid])) $unread = $uc[$cid];
+			$f = new FeedListItem($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode, $unread);
 			
 			if (!array_key_exists($tid, $this->folders)) {
 				$this->folders[$tid] = new CatFolder($fname, $tid,$this);
