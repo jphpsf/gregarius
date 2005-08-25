@@ -1,5 +1,30 @@
 <?php
 
+class CatFolder extends FeedFolder{
+	var $feeds = array ();
+	var $name;
+	var $id;
+	var $isCollapsed = false;
+	var $rlink;
+	var $isRootFolder = false;
+	var $rootList;
+	function CatFolder($name, $id, &$rootList) {
+		$this->name = $name;
+		$this->id = $id;
+		if (getConfig('rss.output.usemodrewrite')) {
+			$this->rlink = getPath().preg_replace("/[^a-zA-Z0-9_]/", "_", $name)."/";
+		} else {
+			$this->rlink = getPath()."feed.php?vfolder=$id";
+		}
+		$this->rootList = $rootList;
+	}
+	
+	function render() {		
+		$GLOBALS['rss']->currentFeedsFolder = $this;
+		require($GLOBALS['rss'] ->getTemplateFile("feedsfolder.php"));
+	}
+}
+
 class CatList extends FeedList {
 	
 	var $tagCnt = 0;
@@ -57,7 +82,7 @@ class CatList extends FeedList {
 			$f = new FeedListItem($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode, 0);
 			
 			if (!array_key_exists($tid, $this->folders)) {
-				$this->folders[$tid] = new FeedFolder($fname, $tid,$this);
+				$this->folders[$tid] = new CatFolder($fname, $tid,$this);
 				$this -> tagCnt++;
 			}
 			
