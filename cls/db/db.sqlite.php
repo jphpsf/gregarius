@@ -258,9 +258,9 @@ class SqliteDB extends DB {
 		if ($doReturn || !$query) return $query;
 
 		//count(distinct(x)) is not supported
-		if (preg_match("/select\s+(count\s*\(distinct\s*\(([^\)]+)\)\s*\))/is",$query,$matches)) {
+		if (preg_match("/^\s*select\s+(count\s*\(distinct\s*\(([^)]+)\)\s*\))/is",$query,$matches)) {
 			$field=$matches[2];
-			$query=str_replace($matches[0],"count(*)",$query);
+			$query=str_replace($matches[0],"select count(*)",$query);
 			$query=preg_replace("/from\s/is","from (select distinct($field) from ",$query);
 			$query.=")";
 		}
