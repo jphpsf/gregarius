@@ -91,6 +91,10 @@ $sajax_remote_uri = getPath() . basename(__FILE__);
 
 // Non standard! One usually calls sajax_export() ...
 $sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent");
+
+// Plugins shall export ajax functions as well
+$sajax_export_list = rss_plugin_hook("rss.plugins.ajax.exports",$sajax_export_list);
+
 if (getConfig('rss.input.tags.delicious')) {
     $sajax_export_list[] = "__exp__getFromDelicious";
 }
@@ -353,9 +357,11 @@ function get_feed_content_cb(data) {
 	}
 }
 
-
+<?php rss_plugin_hook("rss.plugins.ajax.extrajs.public",null); ?>
 
 <?php if (! hidePrivate()) { ?>
+
+<?php rss_plugin_hook("rss.plugins.ajax.extrajs.private",null); ?>
 
 document.states = new Array();
 document.prevState = new Array();
