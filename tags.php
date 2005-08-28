@@ -150,7 +150,6 @@ if (array_key_exists('tag', $_GET)) {
 	} else {
 		// HTML view
 		//rss_header("Tags " . TITLE_SEP . " " . $hrTag);
-		//sideChannels(false);
 		$GLOBALS['rss']->header = new Header("Tags ".TITLE_SEP." ".$hrTag);
 		$GLOBALS['rss']->feedList = new FeedList(false);
 
