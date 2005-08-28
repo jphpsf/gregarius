@@ -52,11 +52,11 @@ label, div#channel_admin span, p.bookmarklet {
  font-size:small;
 }
 
-ul, li { 
+ul { 
  list-style-type:none; 
 }
 
-table#configtable li, .content li, content.ul {
+table#configtable li, content.ul {
    list-style-type:circle; 
 }
 
