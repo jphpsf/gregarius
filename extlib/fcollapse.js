@@ -1,7 +1,9 @@
-// folder collpasing
+// folder/category collapsing
+var FOLDERCOOKIENAME = "collapsedfolders";
+var CATEGORYCOOKIENAME = "collapsedcategories";
 
-var COOKIENAME = "collapsedfolders";
-document.cf = new Array();
+document.folders = new Array();
+document.categories = new Array();
 
 // src: http://www.javascripter.net/faq/settinga.htm
 function setCookie(cookieName,cookieValue,path) {
@@ -25,35 +27,44 @@ function getCookie(cookieName) {
 }
 
 function _init() {
-    var c=getCookie(COOKIENAME);
-    //alert('loaded: ' + c);
-    if (document.cf.length == 0 && c) {
-        document.cf = c.split(':');
+    var foldercook=getCookie(FOLDERCOOKIENAME);
+    //alert('loaded: ' + foldercook);
+	var categorycook=getCookie(CATEGORYCOOKIENAME);
+    //alert('loaded: ' + categorycook);
+    if (document.folders.length == 0 && foldercook) {
+        document.folders = foldercook.split(':');
+    }
+    if (document.categories.length == 0 && categorycook) {
+        document.categories = categorycook.split(':');
     }
 }
 
-function _tgl(fid) {
+function _tgl(fid,ftype) {
     _init();
-
+	if(ftype == 'category'){
+		x = document.categories;
+	}else{
+		x = document.folders;
+	}
     if (ul = document.getElementById('fc'+fid)) {
         if (ul.className == 'fexpanded') {
-            // expanded -> collapsed
+            //alert("expanded -> collapsed");
             ul.className = 'fcollapsed';
             ul.style.display = 'none';
-            for (i=0;i<document.cf.length;i++) {
-                if (document.cf[i] == fid) return;
+            for (i=0;i<x.length;i++) {
+                if (x[i] == fid) return;
             }
-            document.cf.push(fid);
+            x.push(fid);
 
         } else {
-            // collapsed -> expanded
+            //alert("collapsed -> expanded");
             ul.className = 'fexpanded';
             ul.style.display = 'block';
-            for (i=0;i<document.cf.length;i++) {
-                if (document.cf[i] == fid) {
-                  document.cf[i] = 0;
-                  document.cf.sort();
-                  document.cf.shift();
+            for (i=0;i<x.length;i++) {
+                if (x[i] == fid) {
+                  x[i] = 0;
+                  x.sort();
+                  x.shift();
                 }
             }
         }
@@ -70,16 +81,19 @@ function _tgl(fid) {
         strong.style.display= d;
     }
 
-    document.cf.sort();
+    x.sort();
     c = "";
     // home-made join method to filter out zeroes
-    for (i=0;i<document.cf.length;i++) {
-        if (document.cf[i] > 0) {
-            c = c+ document.cf[i];
-            if (i < (document.cf.length - 1)) c=c+':'
+    for (i=0;i<x.length;i++) {
+        if (x[i] > 0) {
+            c = c+ x[i];
+            if (i < (x.length - 1)) c=c+':'
         }
     }
-    setCookie(COOKIENAME,c,"/");
-
+	if(ftype == 'category'){
+		setCookie(CATEGORYCOOKIENAME,c,"/");
+	}else{
+		setCookie(FOLDERCOOKIENAME,c,"/");
+	}
 }
 

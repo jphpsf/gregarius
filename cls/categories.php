@@ -1,5 +1,7 @@
 <?php
 
+define('COLLAPSED_CATEGORIES_COOKIE', 'collapsedcategories');
+
 class CatFolder extends FeedFolder{
 	var $isRootFolder = false;
 
@@ -16,7 +18,7 @@ class CatFolder extends FeedFolder{
 	
 	function render() {		
 		$GLOBALS['rss']->currentFeedsFolder = $this;
-		require($GLOBALS['rss'] ->getTemplateFile("feedsfolder.php"));
+		require($GLOBALS['rss'] ->getTemplateFile("catfolder.php"));
 	}
 }
 
@@ -27,8 +29,8 @@ class CatList extends FeedList {
 	
 	function CatList() {
 		//parent::FeedList(null);
-		$this -> populate();
 		$this->loadCollapsedState();
+		$this -> populate();
 
 		$GLOBALS['rss']-> feedList = $this;
 		$this -> 	columnTitle = LBL_TAG_FOLDERS;
@@ -40,7 +42,43 @@ class CatList extends FeedList {
 		return sprintf(LBL_CATCNT_PF, $this -> taggedFeedCnt, $this -> tagCnt, 0);
 	}
 	
-	
+	function loadCollapsedState() {
+		_pf('CatList->loadCollapsedState()...');
+		
+		if (getConfig('rss.output.channelcollapse')) {
+
+			//read per-user stored collapsed categories
+			if (array_key_exists(COLLAPSED_CATEGORIES_COOKIE, $_COOKIE)) {
+				$this->collapsed_ids = explode(":", $_COOKIE[COLLAPSED_CATEGORIES_COOKIE]);
+			}
+
+			//get unread count per folder
+			$sql = "select m.tid, t.tag, count(*) as cnt "
+			." from "
+			.getTable('item') ." i, "
+			.getTable('channels') . " c, "
+			.getTable('metatag') ." m, "
+			.getTable('tag') . " t"
+			." where i.unread & ". FEED_MODE_UNREAD_STATE
+			." and not(i.unread & ". FEED_MODE_DELETED_STATE .")";
+			if (hidePrivate()) {
+				$sql .=" and not(unread & " . FEED_MODE_PRIVATE_STATE .") ";
+			}
+			$sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE .") ";
+			$sql .= " and i.cid=c.id and c.id=m.fid and m.tid=t.id"
+			." group by m.tid";
+			_pf('query');
+			$res = rss_query($sql);
+			_pf('ok');	
+			while (list ($cid, $cname, $cuc) = rss_fetch_row($res)) {
+				$this->collapsed_folders[$cid] = $cuc;
+			}
+		   
+			sort($this->collapsed_ids);
+		}
+		_pf('done');
+	}
+
 	function populate() {
 
 		
@@ -93,7 +131,6 @@ class CatList extends FeedList {
 			
 			$this->folders[$tid]->feeds[] = $f;
 			$this->folders[$tid]->isCollapsed = in_array($tid, $this->collapsed_ids) && ($tid > 0);
-
 			
 		_pf('done');
 		}
