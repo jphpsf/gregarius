@@ -203,7 +203,7 @@ class FeedList {
 			}
 			$sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE .") ";
 			$sql .= " and i.cid=c.id and c.parent=f.id "
-			." group by 1"; 
+			." group by f.id"; 
 	        _pf('query');
 			$res = rss_query($sql);
 	        _pf('ok');	
