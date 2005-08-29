@@ -41,7 +41,7 @@ input {
 }
 
 
-span#feedaction form p input {
+span.feedaction form p input {
  font-size: small !important;
    font-weight:400 !important;
 }

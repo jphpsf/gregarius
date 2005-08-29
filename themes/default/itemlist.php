@@ -1,5 +1,5 @@
 <?php if (rss_itemlist_has_extractions()) { ?>
-<div id="feedaction" class="withmargin">
+<div class="feedaction withmargin">
 	<?php rss_itemlist_prerender_callback() ?>
 </div>
 <?php } ?>
