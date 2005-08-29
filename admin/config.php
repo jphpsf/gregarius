@@ -261,6 +261,7 @@ function config_admin() {
          break;
          
          case 'rss.output.theme':
+            /*
             $d = dir('../themes');
             $themes = array();
             while (false !== ($entry = $d->read())) {
@@ -282,6 +283,49 @@ function config_admin() {
        		       .">$theme</option>\n";
             }
         	echo "</select>\n";
+        	*/
+        	$themes = getThemes();
+        	echo "<input type=\"hidden\" name=\"value\" value=\"\" />\n";
+         	echo "</p>\n<table id=\"plugintable\">\n<tr>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_ACTION."</th>\n"
+         		."<th>".LBL_ADMIN_PLUGINS_HEADING_NAME."</th>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
+					."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
+         		."</tr>\n";
+
+         	$active_theme= getConfig('rss.output.theme');
+         	foreach ($themes as $entry => $theme) {
+
+				extract($theme);
+				if (!$name) {
+					$name = $entry;
+				}
+				if ($url) {
+					$author = "<a href=\"$url\">$author</a>";
+				}
+				$active = ($entry ==  $active_theme);
+       			echo "<tr class=\""
+       				.(($cntr++ % 2 == 0)?"even":"odd")
+       				.($active?" active":"")
+       				."\">\n";
+       			echo "<td class=\"cntr\">"
+  					."<input type=\"radio\" name=\"value\" "
+  					." id=\"_gregarius_theme_$entry\" value=\"$entry\" "
+  					.($active?" checked=\"checked\"":"")
+					.(!$htmltheme?" disabled=\"disabled\"":"")
+					  ." />\n"
+  					."</td>\n";
+       			echo "<td><label for=\"_gregarius_theme_$entry\">".($name?$name:"&nbsp"). "</label></td>\n";
+       			echo "<td class=\"cntr\">".($version?$version:"&nbsp"). "</td>\n";
+       			echo "<td>"	.($author?$author:"&nbsp") . "</td>\n";
+       			echo "<td>"	.($description?$description:"&nbsp"). "</td>\n";
+
+       			echo "</tr>\n";
+			}
+       	    echo "</table>\n<p>";
+
+
          break;
          
 		 case 'rss.input.allowed':
@@ -403,6 +447,7 @@ function config_admin() {
 		$value = rss_real_escape_string($_REQUEST['value']);
 
 		switch ($key) {
+
 
 	 case 'rss.input.allowed':
 		$ret = array();

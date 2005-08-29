@@ -1,0 +1,6 @@
+name: RSS Theme
+official: true
+description: This theme renders RSS feeds of the current view.<br />Note: this theme cannot be selected directly
+htmltheme: false
+author: Gregarius
+url: http://gregarius.net/

@@ -292,6 +292,67 @@ function getLanguages() {
     $d->close();
     return $ret;
 }
+
+
+function getThemes() {
+  	$cntr = 0;
+    $d = dir('../themes');
+    $files = array();
+    $ret = array();
+    $cntr = 0;
+    $activeIdx = "0";
+    while (false !== ($theme = $d->read())) {
+       if ($theme != "CVS" && substr($theme,0,1) != ".") {
+       		$ret[$theme]=getThemeInfo($theme);
+       }
+    }
+    $d->close();
+    return $ret;
+}
+
+function getThemeInfo($theme) {
+
+	$path = "../themes/$theme/.themeinfo";
+	$ret = array(
+		'name' => '',
+		'url' => '',
+		'official' => false,
+		'fsname' => $theme,
+		'description' => '',
+		'htmltheme' => true,
+		'version' => "1.0",
+		'author' => ''
+		);
+	if (file_exists($path)) {
+	  $f = @fopen($path,'r');
+	  $contents = "";
+	  if ($f) {
+	    $contents .= fread($f, filesize($path));
+		@fclose($f);
+	  } else {
+	    $contents = "";
+	  }
+
+	  if ($contents && preg_match_all("/^\s?([^:]+):(.*)$/m",$contents,$matches,PREG_SET_ORDER)) {
+		foreach($matches as $match) {
+			$key = trim(strtolower($match[1]));
+			$val = trim($match[2]);
+			if (array_key_exists($key,$ret)) {
+				if ($val == 'true') {
+					$ret[$key] = true;
+				} elseif ($val == 'false') {
+					$ret[$key] = false;
+				} else {
+				    $ret[$key] = $val;
+				}
+			}
+		}
+      }
+    }
+	return $ret;
+}
+
+
 function getLanguageInfo($file) {
 	$info = array();
 	$path = "../intl/$file";

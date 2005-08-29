@@ -44,6 +44,7 @@ function getETag() {
 
 function rss_error($message, $returnonly = false) {
 	if (!$returnonly) {
+		//$GLOBALS['rss'] -> errors[] = $message;
 		echo "\n<p class=\"error\">$message</p>\n";
 		return;
 	}
