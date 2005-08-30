@@ -52,11 +52,12 @@ class Item {
 	var $parent;
 	var $tags;
 	var $author;
+	var $rating;
 	var $rss;
 	/**
 	 * ctor
 	 */
-	function Item($id, $title, $url, $parent, $author, $description, $date, $isPubDate, $unread) {
+	function Item($id, $title, $url, $parent, $author, $description, $date, $isPubDate, $unread, $rating) {
 		$this->rss = &$GLOBALS['rss'];
 		$this->id = $id;
 		$this->flags = $unread;
@@ -73,7 +74,7 @@ class Item {
 		$this->date = $date;
 		$this->isPubDate = $isPubDate;
 		$this -> tags=array();
-		
+		$this -> rating = $rating;
 		$this ->isUnread 	= $unread & FEED_MODE_UNREAD_STATE;
 		$this ->isPrivate	= $unread & FEED_MODE_PRIVATE_STATE;
 		$this ->isDeleted	= $unread & FEED_MODE_DELETED_STATE;
@@ -258,10 +259,13 @@ class ItemList {
 		$sql = "select i.title,  c.title, c.id, i.unread, "
 			."i.url, i.author, i.description, c.icon, "
 			." unix_timestamp(ifnull(i.pubdate,i.added)) as ts, "
-			." i.pubdate is not null as ispubdate, i.id  "
-			." from ".getTable("item") ." i, "
+			." i.pubdate is not null as ispubdate, i.id, r.rating  "
+			." from ".getTable("item") ." i "
+			." left join "
+			. getTable("rating") ." r on (i.id = r.iid), "
 			.getTable("channels")." c, "
 			.getTable("folders") ." f "
+
 			." where "
 			." i.cid = c.id and "
 			." f.id=c.parent and "." not(c.mode & ".FEED_MODE_DELETED_STATE.") and "
@@ -309,10 +313,10 @@ class ItemList {
 		$prevCid = -1;
 		$curIdx = 0;
 		$f=null;
-		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $iauthor_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_) = $this->rss->db->rss_fetch_row($res)) {
+		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $iauthor_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_, $rrating_) = $this->rss->db->rss_fetch_row($res)) {
 			
 			// Built a new Item
-			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $iauthor_, $idescr_, $its_, $iispubdate_, $iunread_);
+			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $iauthor_, $idescr_, $its_, $iispubdate_, $iunread_, $rrating_);
 			
 		    // no dupes, please
 		    if (in_array($iid_,$iids)) {

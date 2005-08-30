@@ -81,9 +81,22 @@ function __exp__getFeedContent($cid) {
 	
 	ob_end_clean();
 	return "$cid|@|$c";
-
-	
 }
+
+function __exp__rateItem($iid, $rt) {
+	list($rrt) = rss_fetch_row(rss_query("select rating from "
+	    .getTable('rating') . " where iid = $iid"));
+
+	rss_query('delete from ' .getTable('rating') . ' where iid = ' . $iid);
+	if ($rt == $rrt) {
+		return ("$iid|0");
+	}
+	rss_query('insert into ' .getTable('rating') . "(iid,rating) values ($iid,$rt)");
+	if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+		return ("$iid|$rt");
+	}
+}
+
 
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
@@ -100,6 +113,7 @@ if (getConfig('rss.input.tags.delicious')) {
 }
 if (!hidePrivate()) {
     $sajax_export_list[] = "__exp__setState";
+    $sajax_export_list[] = "__exp__rateItem";
 }
 
 sajax_init();
@@ -546,6 +560,28 @@ function unreadCnt(d) {
         return c;
     }
     return null;
+}
+
+function _rt(id,rt) {
+	 x___exp__rateItem(id,rt,rateItem_cb);
+}
+
+function rateItem_cb(ret) {
+	data=ret.replace(/[^0-9\|]/gi,"").split('|');
+	id = data[0];
+	rt = data[1];
+	if (id && rt) {
+		ul = document.getElementById("rr" + id);
+		lis = ul.getElementsByTagName('li');
+		for (i=0;i<lis.length;i++) {
+			var li = lis[i];
+			if ((i+1) == rt) {
+				li.className = "current";
+			} else {
+                li.className = "";
+			}
+		}
+	}
 }
 
 <?php }

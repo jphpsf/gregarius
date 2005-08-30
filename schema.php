@@ -40,7 +40,8 @@ function checkSchema() {
 		"folders" => trim(getTable("folders")),
 		"item" => trim(getTable("item")),
 		"metatag" => trim(getTable("metatag")),
-		"tag" => trim(getTable("tag"))
+		"tag" => trim(getTable("tag")),
+		"rating" => trim(getTable("rating"))
 	);
 	
 	$rs = rss_query( "show tables", true, true );
@@ -273,7 +274,8 @@ function setDefaults($key) {
 		"rss.config.feedgrouping"	=>		array('false','false','boolean',"When true, Gregarius groups unread items per feed and sorts the feeds according to the <code>rss.config.absoluteordering</code> configuration switch. When false, unread items are not grouped by feed, but are sorted by date instead.",NULL),
 		"rss.config.datedesc"		=>		array('true','true','boolean',"When true, Gregarius displays newer items first. If false, Gregarius will display older items first.",NULL),
 		"rss.config.autologout"		=>		array('false','false','boolean','When true, Gregarius will automatically remove the "admin cookie" when the browser window is closed, effectively logging you out.',NULL),
-		"rss.config.publictagging"		=>		array('false','false','boolean','When true, every visitor to your Gregarius site will be allowed to tag items, when false only the Administrator (you) is allowed to tag.',NULL)
+		"rss.config.publictagging"	=>		array('false','false','boolean','When true, every visitor to your Gregarius site will be allowed to tag items, when false only the Administrator (you) is allowed to tag.',NULL),
+		"rss.config.rating"			=>		array('true','true','boolean','Enable the item tagging system',NULL)
 	);
 	
 	
@@ -366,6 +368,28 @@ function _init_metatag() {
 			KEY tid (tid),
 			KEY ttype (ttype)
 		) TYPE=MyISAM;    
+_SQL_
+);
+
+	rss_query($sql_create, false, true);
+	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		return 0;
+	} else {
+		return 1;
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+function _init_rating() {
+	$table = getTable('rating');
+	rss_query ('DROP TABLE IF EXISTS ' . $table, true, true);
+	$sql_create = str_replace('__table__',$table, <<< _SQL_
+		CREATE TABLE __table__ (
+			iid bigint(16)  NOT NULL,
+  			rating tinyint(4) default '0'
+		) TYPE=MyISAM;
 _SQL_
 );
 

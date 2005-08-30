@@ -12,6 +12,7 @@
 	<h4><a href="<?= rss_item_url(); ?>"><?= rss_item_title(); ?></a></h4>
 	<div id="sad<?= rss_item_id(); ?>" style="display:none"></div>
 	<h5><?= rss_item_date(); ?><?= rss_item_author(); ?></h5>
+	<?=  rss_item_rating()  ?>
 	<?php	if (rss_item_display_tags()) { ?>
 	<h5>
 		<a href="<?= rss_item_tagslink(); ?>"><?= LBL_TAG_TAGS ?></a>:&nbsp;

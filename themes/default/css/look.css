@@ -366,3 +366,60 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	opacity: .7;
 	filter: alpha(opacity=70);
 }
+
+/* styles for the star rater */
+div.rating { height: 25px; }
+div.rating h5 { display: inline !important; }
+ul.rr{
+	list-style:none;
+	margin: 3px;
+	padding:0px;
+	width: 100px;
+	height: 20px !important;
+	position: relative !important;
+	top: -1.2em;
+    left: 3em;
+	background: url(./media/sr.gif) top left repeat-x;
+}
+.rr li{
+	padding:0px !important;
+	margin:0px !important;
+	height: 21px;
+
+	float: left;
+
+}
+.rr li a{
+	display:block;
+	width:20px;
+	height: 20px;
+	text-decoration: none;
+	text-indent: -9000px;
+	z-index: 20;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	background-image:none;
+}
+
+.rr li a:hover,.rr li.current a{
+	background: url(./media/sr.gif) 0px -20px repeat-x;
+	z-index: 1;
+	left: 0px;
+}
+.rr a.r1{ left: 0px; }
+.rr a.r1:hover,.rr li.current a.r1{ width:20px; }
+
+.rr a.r2{ left:20px; }
+.rr a.r2:hover, .rr li.current a.r2{ width: 40px; }
+
+.rr a.r3{ left: 40px; }
+.rr a.r3:hover, .rr li.current a.r3 {width: 60px; }
+
+.rr a.r4{ left: 60px; }
+.rr a.r4:hover, .rr li.current a.r4 { width: 80px; }
+
+.rr a.r5{ left: 80px; }
+.rr a.r5:hover, .rr li.current a.r5 { width: 100px; }
+
+
