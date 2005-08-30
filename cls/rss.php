@@ -47,6 +47,8 @@ class RSS {
 	var $sideMenu;
 	var $profiler = null;
 	var $db = null;
+	var $errors = array();
+
 	
 	function RSS() {
 	   if (defined('PROFILING') && PROFILING) {
