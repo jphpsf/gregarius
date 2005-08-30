@@ -243,4 +243,5 @@ define ('LBL_SIDE_ITEMS','(%d &eacute;l&eacute;ments)');
 define ('LBL_SIDE_UNREAD_FEEDS','(%d non lus in %d canaux)');
 define ('LBL_CATCNT_PF', '<strong>%d</strong> canaux en <strong>%d</strong> cat&eacute;gories');
 
+define ('LBL_RATING','Rating:');
 ?>

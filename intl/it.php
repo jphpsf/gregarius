@@ -247,5 +247,5 @@ define ('LBL_SIDE_ITEMS','(%d elementi)');
 define ('LBL_SIDE_UNREAD_FEEDS','(%d non letti in %d feeds)');
 define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categorie');
 
-
+define ('LBL_RATING','Rating:');
 ?>

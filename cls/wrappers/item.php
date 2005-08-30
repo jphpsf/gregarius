@@ -182,21 +182,21 @@ function rss_item_can_edit_tags() {
 	return (!hidePrivate() || getConfig('rss.config.publictagging'));
 }
 
+function rss_item_do_rating() {
+ return getConfig('rss.config.rating');
+}
 
 function rss_item_rating() {
- if (!getConfig('rss.config.rating')) {
-	return "";
- }
  $iid = $GLOBALS['rss']->currentItem->id;
- $ret = "\n<div class=\"rating\"><h5>Rating:</h5><ul class=\"rr\" id=\"rr$iid\">\n";
+ $ret = "\n\t\t<ul class=\"rr\" id=\"rr$iid\">\n";
  for ($r = 1; $r <= 5; $r++) {
 
    $cls = ($GLOBALS['rss']->currentItem->rating == $r ? " class=\"current\" ":"");
    $act = (!hidePrivate() ? "_rt($iid,$r); return false;":"return false;");
 	$ret .=
-		"\t<li$cls><a href=\"#\" onclick=\"$act\" class=\"r$r\">$r</a></li>\n";
+		"\t\t\t<li$cls><a href=\"#\" onclick=\"$act\" class=\"r$r\">$r</a></li>\n";
 	}
-	$ret .= "</ul></div>\n";
+	$ret .= "\t\t</ul>\n";
 	return $ret;
 }
 
