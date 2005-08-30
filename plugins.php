@@ -83,6 +83,14 @@ foreach(getConfig('rss.config.plugins') as $pf) {
   }
 }
 
-
+/*
+ * autoload plugins specific to a theme without the
+ * need to add them to config
+ * all plugins def must be inside a unique file called plugins.php that
+ * do all the works
+ */
+	$mytheme = defined('THEME_OVERRIDE')?constant("THEME_OVERRIDE"):getConfig('rss.output.theme');
+	$mythemeplugin="themes/$mytheme/plugins.php";
+	if (file_exists($mythemeplugin)) require_once($mythemeplugin);
 
 ?>
