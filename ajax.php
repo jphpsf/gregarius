@@ -97,6 +97,14 @@ function __exp__rateItem($iid, $rt) {
 	}
 }
 
+/** 
+ * this exported AJAX method is only here so that the plugin callback
+ * hook is asynchronous 
+ */
+function __exp_itemRatedCB($iid,$rt) {
+	rss_plugin_hook("rss.plugins.rating.rated",array($iid,$rt));
+	return null;
+}
 
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
@@ -114,6 +122,7 @@ if (getConfig('rss.input.tags.delicious')) {
 if (!hidePrivate()) {
     $sajax_export_list[] = "__exp__setState";
     $sajax_export_list[] = "__exp__rateItem";
+    $sajax_export_list[] = "__exp_itemRatedCB";
 }
 
 sajax_init();
@@ -571,6 +580,7 @@ function rateItem_cb(ret) {
 	id = data[0];
 	rt = data[1];
 	if (id && rt) {
+		
 		ul = document.getElementById("rr" + id);
 		lis = ul.getElementsByTagName('li');
 		for (i=0;i<lis.length;i++) {
@@ -578,11 +588,13 @@ function rateItem_cb(ret) {
 			if ((i+1) == rt) {
 				li.className = "current";
 			} else {
-                li.className = "";
+             li.className = "";
 			}
 		}
+		x___exp_itemRatedCB(id,rt,itemRatedCB_cb);
 	}
 }
+function itemRatedCB_cb(data) {}
 
 <?php }
 
