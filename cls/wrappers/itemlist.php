@@ -62,7 +62,8 @@ function rss_itemlist_has_extractions() {
 
 
 function rss_itemlist_prerender_callback() {
-	if (count(isset($GLOBALS['rss'] -> currentItemList->preRender))) {
+	if (isset($GLOBALS['rss'] -> currentItemList->preRender) && 
+		  count($GLOBALS['rss'] -> currentItemList->preRender)) {
 		foreach($GLOBALS['rss'] -> currentItemList->preRender as $prAction) {
 			list($prAfnct,$prAargs)=$prAction;
 			call_user_func($prAfnct, $prAargs);
