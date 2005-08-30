@@ -32,7 +32,7 @@ define ('LBL_ITEM','tema');
 define ('LBL_ITEMS','temas');
 define ('LBL_H2_SEARCH_RESULTS_FOR', "%d encontrados de %s");
 define ('LBL_H2_SEARCH_RESULT_FOR',"%d encontrado de %s");
-define ('LBL_H2_SEARCH', 'Search %d temas');
+define ('LBL_H2_SEARCH', 'Buscar %d temas');
 define ('LBL_SEARCH_SEARCH_QUERY','Buscar palabras:');
 define ('LBL_SEARCH_MATCH_OR', 'Alguna palabra');
 define ('LBL_SEARCH_MATCH_AND', 'Todas las palabras');                                                                 
@@ -51,7 +51,7 @@ define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> temas con tag, <strong>%d</stron
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d sin leer)</strong>');
 define ('LBL_UNREAD','sin leer');
 
-define ('LBL_FTR_POWERED_BY', " desarrollado por ");
+define ('LBL_FTR_POWERED_BY', " desarrollado con ");
 define ('LBL_ALL','Todos');
 define ('LBL_NAV_HOME','<span>I</span>nicio');
 define ('LBL_NAV_UPDATE', '<span>A</span>ctualizar');
@@ -104,11 +104,11 @@ define ('LBL_ADMIN_FOLDERS','Carpetas:');
 define ('LBL_ADMIN_CHANNELS','Temas:');
 define ('LBL_ADMIN_OPML','OPML:');  
 define ('LBL_ADMIN_ITEM','Temas:');
-define ('LBL_ADMIN_CONFIG','Configuracion:');
+define ('LBL_ADMIN_CONFIG','Configuraci&oacute;n:');
 define ('LBL_ADMIN_OK','Aceptar');
 define ('LBL_ADMIN_CANCEL','Cancelar');
 //FIXME:
-define ('LBL_ADMIN_LOGOUT','Logout');
+define ('LBL_ADMIN_LOGOUT','Desconectar');
 
 define ('LBL_ADMIN_OPML_IMPORT','Importar');
 define ('LBL_ADMIN_OPML_EXPORT','Exportar');
@@ -166,7 +166,7 @@ define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Introduce la URL del canal RSS o web en l
 define ('LBL_ADMIN_FEEDS','Los canales siguientes fueron encontrados dentro de <a href="%s">%s</a>, quieres suscribirte a alguno?');
 
 define ('LBL_ADMIN_PRUNE_OLDER','Eliminar temas m&aacute;s viejos de ');
-define ('LBL_ADMIN_PRUNE_DAYS','dias');
+define ('LBL_ADMIN_PRUNE_DAYS','d&iacute;as');
 define ('LBL_ADMIN_PRUNE_MONTHS','meses');
 define ('LBL_ADMIN_PRUNE_YEARS','a 	&ntilde;os');
 define ('LBL_ADMIN_PRUNE_KEEP','Proteger temas m&aacute;s recientes: ');
@@ -218,14 +218,14 @@ define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Sin leer');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Sin leer y leidos');
 
 define ('LBL_STATE_UNREAD','Sin leer (Cambia el estado de lectura)');
-define ('LBL_STATE_STICKY','Destacados (No ser&aacute;n eliminados por las tareas de limpieza)');
-define ('LBL_STATE_PRIVATE','Privados (Solo los administradores pueden ver estos temas)');
-define ('LBL_STICKY','Destacados');
+define ('LBL_STATE_STICKY','Destacado (No ser&aacute;n eliminados por las tareas de limpieza)');
+define ('LBL_STATE_PRIVATE','Privado (Solo los administradores pueden ver estos temas)');
+define ('LBL_STICKY','Destacado');
 define ('LBL_DEPRECATED','No aprovado');
-define ('LBL_PRIVATE','Privados');
+define ('LBL_PRIVATE','Privado');
 define ('LBL_ADMIN_TOGGLE_STATE','Estado:');
 define ('LBL_ADMIN_TOGGLE_SET','Cambia');
-define ('LBL_ADMIN_IM_SURE','Soy seguro!');
+define ('LBL_ADMIN_IM_SURE','Estoy seguro!');
 
 // new in 0.5.1:
 // requires translation:
