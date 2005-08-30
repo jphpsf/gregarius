@@ -280,7 +280,8 @@ class ItemList {
 		}
 		$sql .= " 1=1 ";
 		
-		/// Order by 
+		/// Order by
+		$sqlOrder = rss_plugin_hook("rss.plugins.items.order",$sqlOrder);
 		if ($sqlOrder == "") {
 			$sql .= " order by  ";
 			if (!getConfig('rss.config.feedgrouping')) {
