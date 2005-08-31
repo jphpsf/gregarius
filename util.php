@@ -790,4 +790,39 @@ function __exp__getFromDelicious($id) {
     return "$id," .implode(" ",$ret);
 }
 
+/** 
+ * this was taken straight from WordPress
+ */
+function utf8_uri_encode( $utf8_string ) {
+  $unicode = '';        
+  $values = array();
+  $num_octets = 1;
+        
+  for ($i = 0; $i < strlen( $utf8_string ); $i++ ) {
+
+    $value = ord( $utf8_string[ $i ] );
+            
+    if ( $value < 128 ) {
+      $unicode .= chr($value);
+    } else {
+      if ( count( $values ) == 0 ) $num_octets = ( $value < 224 ) ? 2 : 3;
+                
+      $values[] = $value;
+      
+      if ( count( $values ) == $num_octets ) {
+	if ($num_octets == 3) {
+	  $unicode .= '%' . dechex($values[0]) . '%' . dechex($values[1]) . '%' . dechex($values[2]);
+	} else {
+	  $unicode .= '%' . dechex($values[0]) . '%' . dechex($values[1]);
+	}
+
+	$values = array();
+	$num_octets = 1;
+      }
+    }
+  }
+
+  return $unicode;    
+}
+
 ?>

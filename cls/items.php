@@ -62,7 +62,7 @@ class Item {
 		$this->id = $id;
 		$this->flags = $unread;
 		$this->title = $title?$title:"[nt]";		
-		$this->escapedTitle = preg_replace("/[^A-Za-z0-9\.]/", "_", $title);
+		$this->escapedTitle = preg_replace("/[^A-Za-z0-9%\.]/", "_", utf8_uri_encode($title));
 		$this->url = $url;
 		$this->feed = $parent;
 		$this->author = $author;
