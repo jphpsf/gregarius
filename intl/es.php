@@ -228,24 +228,23 @@ define ('LBL_ADMIN_TOGGLE_SET','Cambia');
 define ('LBL_ADMIN_IM_SURE','Estoy seguro!');
 
 // new in 0.5.1:
-// requires translation:
-define ('LBL_LOGGED_IN_AS','Logged in as <strong>%s</strong>');
-define ('LBL_NOT_LOGGED_IN','Not logged in');
-define ('LBL_LOG_OUT','Logout');
-define ('LBL_LOG_IN','Login');
+define ('LBL_LOGGED_IN_AS','Conectado como <strong>%s</strong>');
+define ('LBL_NOT_LOGGED_IN','No conectado');
+define ('LBL_LOG_OUT','Desconectar');
+define ('LBL_LOG_IN','Conectar');
 
+define ('LBL_ADMIN_OPML_IMPORT_AND','Importar nuevos canales y:');
+define ('LBL_ADMIN_OPML_IMPORT_WIPE','... remplazar existentes.');
+define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... incluirlos a la carpeta:');
+define ('LBL_ADMIN_OPML_IMPORT_MERGE','... unir con los existentes.');
 
-define ('LBL_ADMIN_OPML_IMPORT_AND','Import new feeds and:');
-define ('LBL_ADMIN_OPML_IMPORT_WIPE','... replace all existing feeds and items.');
-define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... add them to the folder:');
-define ('LBL_ADMIN_OPML_IMPORT_MERGE','... merge them with the existing ones.');
+define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Importando %s a %s... ');
 
-define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
-
-define ('LBL_TAG_FOLDERS','VCarpetas');
+define ('LBL_TAG_FOLDERS','Categorias');
 define ('LBL_SIDE_ITEMS','(%d temas)');
-define ('LBL_SIDE_UNREAD_FEEDS','(%d sin leer in %d canals)');
-define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categories');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d sin leer en %d feeds)');
+define ('LBL_CATCNT_PF', '<strong>%d</strong> canales en <strong>%d</strong> carpetas');
 
-define ('LBL_RATING','Rating:');
+define ('LBL_RATING','Valoraci&oacute;n:');
+
 ?>
