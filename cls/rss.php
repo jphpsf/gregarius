@@ -93,11 +93,14 @@ class RSS {
 		
 		I haven't tested this  :)
 		
+		PATH_TRANSLATED is not always populated (depends of PHP/Apache/OS version)
+		see remarks about this here: http://www.php.net/reserved.variables
+		We must use SCRIPT_FILENAME instead, because it always exists
 		*/
 		$theme_check = "themes/$theme/$file";
-    if (ereg('admin', $_SERVER['PATH_TRANSLATED']))   {
-    	$theme_path = substr($_SERVER['PATH_TRANSLATED'], 
-    		0, strpos($_SERVER['PATH_TRANSLATED'], 'admin'));
+    if (isset($_SERVER['SCRIPT_FILENAME']) && ereg('admin', $_SERVER['SCRIPT_FILENAME']))   {
+    	$theme_path = substr($_SERVER['SCRIPT_FILENAME'], 
+    		0, strpos($_SERVER['SCRIPT_FILENAME'], 'admin'));
       $theme_check = $theme_path.$ret;
     }
                
