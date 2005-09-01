@@ -275,7 +275,7 @@ function setDefaults($key) {
 		"rss.config.datedesc"		=>		array('true','true','boolean',"When true, Gregarius displays newer items first. If false, Gregarius will display older items first.",NULL),
 		"rss.config.autologout"		=>		array('false','false','boolean','When true, Gregarius will automatically remove the "admin cookie" when the browser window is closed, effectively logging you out.',NULL),
 		"rss.config.publictagging"	=>		array('false','false','boolean','When true, every visitor to your Gregarius site will be allowed to tag items, when false only the Administrator (you) is allowed to tag.',NULL),
-		"rss.config.rating"			=>		array('true','true','boolean','Enable the item tagging system',NULL)
+		"rss.config.rating"			=>		array('true','true','boolean','Enable the item rating system.',NULL)
 	);
 	
 	
