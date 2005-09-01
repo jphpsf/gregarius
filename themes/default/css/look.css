@@ -220,7 +220,6 @@ ul.navlist {
 ul.navlist li,a.bookmarklet {
  border: 1px solid #ddd;
  background-color: #f4f4f4;
- -moz-border-radius: 5px;
 }
 
 ul.navlist:hover li span { text-decoration:underline}
@@ -229,7 +228,6 @@ ul.navlist:hover li span { text-decoration:underline}
 input[type="submit"]{
   border: 1px solid #ddd;
   background-color: #f4f4f4;
-  -moz-border-radius: 5px;
 }  
 
 
@@ -262,7 +260,9 @@ label, input[type="submit"] { cursor: pointer; }
 
 
 /* bad bad bad */
-.frame,.item,h3.collapsed,table,div.content img { -moz-border-radius: 5px }
+.frame,.item,h3.collapsed,table,div.content img,#sidemenu li,
+ul.navlist li,a.bookmarklet, fieldset, div#pbholder, div.ief,
+div.ief p a, #loginfo, input[type="submit"] { -moz-border-radius: 5px }
 
 .box { 
  border: 1px solid #eef;
@@ -280,8 +280,7 @@ table#updatetable td.rc { font-weight: bold }
 
 fieldset {  
   text-align: center; 
-  border:1px solid #ddd;
-  -moz-border-radius: 5px;                                                                                                
+  border:1px solid #ddd;                                                                                             
 }
 fieldset.prune p{ text-align:left }
 .cntr { text-align:center !important}
@@ -305,7 +304,6 @@ div.content img {
 }
 
 div#pbholder {
-  -moz-border-radius: 3px; 
   border: 1px solid #ccc; 
   width:99.2%; 
   text-align:left; 
@@ -330,7 +328,6 @@ div.ief {
    border:1px solid #eee;
    margin: 0.5em 0;
    padding: 0.5em 1em;
-   -moz-border-radius: 4px;
 }
 div.ief p.sbm { margin-top: 1em }
 
@@ -338,7 +335,6 @@ div.ief p a {
    font-size:small;
    margin: 0 1em 0 0; 
    padding: 0.1em 0.8em;
-   -moz-border-radius: 4px;
 }
 
 div.ief p a:hover { background-color: #e8e8ff; }
@@ -362,7 +358,6 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	font-size: small; 
 	background-color: white;
 	border: 1px solid #ccc;	
-	-moz-border-radius: 5px;
 	opacity: .7;
 	filter: alpha(opacity=70);
 }
