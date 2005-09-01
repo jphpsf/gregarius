@@ -917,7 +917,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 								  'ts' => $pts_,
 								  'url' =>  makeArchiveUrl($pts_,$escaped_title,$cid,true)
 									. (getConfig('rss.output.usemodrewrite') ? 
-									preg_replace("/[^A-Za-z0-9\.]/","_",$ptitle_):
+									preg_replace("/[^A-Za-z0-9\.]/","_",utf8_uri_encode($ptitle_)):
 									"&amp;iid=$piid_"),
 								  'lbl' => htmlentities( $ptitle_,ENT_COMPAT,"UTF-8" )
 							);
@@ -935,7 +935,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 								  'ts' => $ts_,
 								  'url' =>  makeArchiveUrl($ts_,$escaped_title,$cid,true)
 								  	. (getConfig('rss.output.usemodrewrite') ? 
-								  	preg_replace("/[^A-Za-z0-9\.]/","_",$title_) :
+								  	preg_replace("/[^A-Za-z0-9\.]/","_",utf8_uri_encode($title_)) :
 								  	"&amp;iid=$iid_"),
 								  'lbl' => htmlentities($title_,ENT_COMPAT,"UTF-8")
 							);	
