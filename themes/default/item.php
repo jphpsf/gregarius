@@ -9,7 +9,7 @@
 		<img src="<?= rss_theme_path() ?>/media/edit.gif" alt="edit" />
 	</a>
 	<?php } ?>
-	<?= rss_plugin_hook("rss.plugins.items.beforetitle", rss_item_id()); ?>
+	<?php rss_plugin_hook("rss.plugins.items.beforetitle", rss_item_id()); ?>
 	<h4><a href="<?= rss_item_url(); ?>"><?= rss_item_title(); ?></a></h4>
 	<div id="sad<?= rss_item_id(); ?>" style="display:none"></div>
 	<h5><?= rss_item_date(); ?><?= rss_item_author(); ?></h5>
