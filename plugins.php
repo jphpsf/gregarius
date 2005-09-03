@@ -78,8 +78,8 @@ function rss_plugin_hook($hook, $data) {
  * them
  */
 foreach(getConfig('rss.config.plugins') as $pf) {
-  if (file_exists('plugins/'.$pf)) {
-		require_once("plugins/$pf");
+  if (file_exists(RSS_PLUGINS_DIR.'/'.$pf)) {
+		require_once(RSS_PLUGINS_DIR."/$pf");
   }
 }
 
@@ -90,7 +90,7 @@ foreach(getConfig('rss.config.plugins') as $pf) {
  * do all the works
  */
 	$mytheme = defined('THEME_OVERRIDE')?constant("THEME_OVERRIDE"):getConfig('rss.output.theme');
-	$mythemeplugin="themes/$mytheme/plugins.php";
+	$mythemeplugin=RSS_THEME_DIR."/$mytheme/plugins.php";
 	if (file_exists($mythemeplugin)) require_once($mythemeplugin);
 
 ?>

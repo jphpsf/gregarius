@@ -112,6 +112,8 @@ define ('SET_MODE_AVAILABLE_STATE',
    FEED_MODE_STICKY_STATE  | 
    FEED_MODE_PRIVATE_STATE);
    
-
+// Where do themes and plugins reside?
+define ('RSS_THEME_DIR','themes');
+define ('RSS_PLUGINS_DIR','plugins');
    
 ?>

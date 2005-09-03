@@ -261,29 +261,7 @@ function config_admin() {
          break;
          
          case 'rss.output.theme':
-            /*
-            $d = dir('../themes');
-            $themes = array();
-            while (false !== ($entry = $d->read())) {
-               if (
-                is_dir('../themes/'.$entry) &&
-                $entry != "CVS" &&
-                $entry != "media" &&
-                substr($entry,0,1) != "."
-               ) {
-                    $themes[] = $entry;
-               }
-            }
-            $d->close();
-            echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." for $key:</label>\n";
-            echo "\n<select name=\"value\" id=\"c_value\">\n";
-            foreach ($themes as $theme) {
-                 echo "\t<option value=\"$theme\""
-                   .($value == $theme ? " selected=\"selected\"":"")
-       		       .">$theme</option>\n";
-            }
-        	echo "</select>\n";
-        	*/
+
         	$themes = getThemes();
         	echo "<input type=\"hidden\" name=\"value\" value=\"\" />\n";
          	echo "</p>\n<table id=\"plugintable\">\n<tr>\n"
@@ -295,34 +273,35 @@ function config_admin() {
          		."</tr>\n";
 
          	$active_theme= getConfig('rss.output.theme');
+         	$cntr = 0;
          	foreach ($themes as $entry => $theme) {
 
-				extract($theme);
-				if (!$name) {
-					$name = $entry;
-				}
-				if ($url) {
-					$author = "<a href=\"$url\">$author</a>";
-				}
-				$active = ($entry ==  $active_theme);
-       			echo "<tr class=\""
-       				.(($cntr++ % 2 == 0)?"even":"odd")
-       				.($active?" active":"")
-       				."\">\n";
-       			echo "<td class=\"cntr\">"
-  					."<input type=\"radio\" name=\"value\" "
-  					." id=\"_gregarius_theme_$entry\" value=\"$entry\" "
-  					.($active?" checked=\"checked\"":"")
-					.(!$htmltheme?" disabled=\"disabled\"":"")
-					  ." />\n"
-  					."</td>\n";
-       			echo "<td><label for=\"_gregarius_theme_$entry\">".($name?$name:"&nbsp"). "</label></td>\n";
-       			echo "<td class=\"cntr\">".($version?$version:"&nbsp"). "</td>\n";
-       			echo "<td>"	.($author?$author:"&nbsp") . "</td>\n";
-       			echo "<td>"	.($description?$description:"&nbsp"). "</td>\n";
-
-       			echo "</tr>\n";
-			}
+							extract($theme);
+							if (!$name) {
+								$name = $entry;
+							}
+							if ($url) {
+								$author = "<a href=\"$url\">$author</a>";
+							}
+							$active = ($entry ==  $active_theme);
+									echo "<tr class=\""
+										.(($cntr++ % 2 == 0)?"even":"odd")
+										.($active?" active":"")
+										."\">\n";
+									echo "<td class=\"cntr\">"
+									."<input type=\"radio\" name=\"value\" "
+									." id=\"_gregarius_theme_$entry\" value=\"$entry\" "
+									.($active?" checked=\"checked\"":"")
+								.(!$htmltheme?" disabled=\"disabled\"":"")
+									." />\n"
+									."</td>\n";
+									echo "<td><label for=\"_gregarius_theme_$entry\">".($name?$name:"&nbsp"). "</label></td>\n";
+									echo "<td class=\"cntr\">".($version?$version:"&nbsp"). "</td>\n";
+									echo "<td>"	.($author?$author:"&nbsp") . "</td>\n";
+									echo "<td>"	.($description?$description:"&nbsp"). "</td>\n";
+			
+									echo "</tr>\n";
+						}
        	    echo "</table>\n<p>";
 
 

@@ -242,7 +242,7 @@ function admin_plugins_mgmnt($arr) {
  */
 function getPluginInfo($file) {
 	$info = array();
-	$path = "../plugins/$file";
+	$path = "../".RSS_PLUGINS_DIR."/$file";
 	if (file_exists($path)) {
 		$f = @fopen($path,'r');
 		$contents = "";
@@ -271,11 +271,10 @@ function getPluginInfo($file) {
 
 
 function getLanguages() {
-  	$cntr = 0;
+
     $d = dir('../intl');
     $files = array();
     $ret = array();
-    $cntr = 0;
     $activeIdx = "0";
     while (false !== ($entry = $d->read())) {
        if (
@@ -295,11 +294,10 @@ function getLanguages() {
 
 
 function getThemes() {
-  	$cntr = 0;
-    $d = dir('../themes');
+
+    $d = dir('../'. RSS_THEME_DIR);
     $files = array();
     $ret = array();
-    $cntr = 0;
     $activeIdx = "0";
     while (false !== ($theme = $d->read())) {
        if ($theme != "CVS" && substr($theme,0,1) != ".") {
@@ -312,7 +310,7 @@ function getThemes() {
 
 function getThemeInfo($theme) {
 
-	$path = "../themes/$theme/.themeinfo";
+	$path = "../".RSS_THEME_DIR."/$theme/.themeinfo";
 	$ret = array(
 		'name' => '',
 		'url' => '',

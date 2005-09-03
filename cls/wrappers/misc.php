@@ -32,7 +32,7 @@ function rss_theme_path() {
 	if (defined('THEME_OVERRIDE')) {
 		$theme = THEME_OVERRIDE;
 	}
-	return getPath(). "themes/$theme";
+	return getPath(). RSS_THEME_DIR."/$theme";
 }
 
 ?>

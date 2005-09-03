@@ -186,8 +186,6 @@ function update($id) {
 			}
 
 			if ($description != "") {
-				//require_once ('plugins/urlfilter.php');
-				//$description = urlfilter_filter($description);
 				$description = rss_plugin_hook('rss.plugins.import.description', $description);
 			}
 
@@ -654,7 +652,7 @@ function hidePrivate() {
 }
 
 function getThemePath() {
-	$ret = getPath()."themes/";
+	$ret = getPath().RSS_THEME_DIR."/";
 	if (($theme = getConfig('rss.output.theme')) != null) {
 		$ret .= $theme."/";
 	} else {

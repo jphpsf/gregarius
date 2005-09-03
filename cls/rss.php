@@ -79,7 +79,7 @@ class RSS {
 		    $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
 		}
 		
-		$ret="themes/$theme/$file";
+		$ret=RSS_THEME_DIR."/$theme/$file";
 		
 		
 		/* 
@@ -97,7 +97,7 @@ class RSS {
 		see remarks about this here: http://www.php.net/reserved.variables
 		We must use SCRIPT_FILENAME instead, because it always exists
 		*/
-		$theme_check = "themes/$theme/$file";
+		$theme_check = RSS_THEME_DIR."/$theme/$file";
     if (isset($_SERVER['SCRIPT_FILENAME']) && ereg('admin', $_SERVER['SCRIPT_FILENAME']))   {
     	$theme_path = substr($_SERVER['SCRIPT_FILENAME'], 
     		0, strpos($_SERVER['SCRIPT_FILENAME'], 'admin'));
@@ -106,7 +106,7 @@ class RSS {
                
                
 		if (!file_exists($theme_check)) {
-			$ret= "themes/default/$file";
+			$ret= RSS_THEME_DIR."/default/$file";
 		}
 		
 		//$templateCache[$file] = $ret;
