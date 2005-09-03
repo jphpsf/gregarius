@@ -141,11 +141,12 @@ function item_admin() {
                 //echo "<pre>\n";
 				//delete the tags for these items
 				$sqlids = "select distinct i.id,i.cid,c.url,i.url " . $sql
-                    . " and i.cid=c.id order by 2, 1 desc";
+                    . " and i.cid=c.id order by i.cid, i.id desc";
                     
 
 				$rs = rss_query($sqlids);
 				$ids = array();
+				$cids = array();
 				//echo "to be deleted\n";
 				while (list($id,$cid,$curl,$iurl) = rss_fetch_row($rs)) {
 
