@@ -26,6 +26,7 @@ class CatList extends FeedList {
 	
 	var $tagCnt = 0;
 	var $taggedFeedCnt = 0;
+	var $feedCnt = 0;
 	
 	function CatList() {
 		//parent::FeedList(null);
@@ -36,6 +37,26 @@ class CatList extends FeedList {
 		$this -> 	columnTitle = LBL_TAG_FOLDERS;
 	}
 	
+	function getFeedCount() {
+		// cached?
+		if ($this -> feedCnt > 0) {
+			return $this -> feedCnt;
+		}
+	
+		$sql = "select "
+				." count(*) as cnt "
+				." from ".getTable("channels")." c "
+				." where  not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+
+		if (hidePrivate()) {
+			$sql .= " and not(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
+		}
+
+
+		list($this -> feedCnt) = rss_fetch_row(rss_query($sql));
+
+		return $this -> feedCnt;
+	}
 	
 	
 	function getStats() {
