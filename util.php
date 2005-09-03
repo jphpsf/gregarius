@@ -574,7 +574,12 @@ function extractFeeds($url) {
 					$val = trim($match2[2]);
 					// make sure we have absolute URI's
 					if (($attr == "href") && strcasecmp(substr($val, 0, 4), "http") != 0) {
-						$val = ($url.$val);
+						// Check to see if the relative url starts with "//"
+						if(substr($val,0,2) == "//") {
+							$val = preg_replace('/\/\/.*/', $val, $url);
+						} else {
+							$val = ($url.$val);
+						}
 					}
 					$tmp[$attr] = $val;
 				}
