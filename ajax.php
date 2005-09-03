@@ -116,9 +116,7 @@ $sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__ge
 // Plugins shall export ajax functions as well
 $sajax_export_list = rss_plugin_hook("rss.plugins.ajax.exports",$sajax_export_list);
 
-if (getConfig('rss.input.tags.delicious')) {
-    $sajax_export_list[] = "__exp__getFromDelicious";
-}
+
 if (!hidePrivate()) {
     $sajax_export_list[] = "__exp__setState";
     $sajax_export_list[] = "__exp__rateItem";
@@ -182,39 +180,6 @@ function submit_tag(id,tags) {
     x___exp__submitTag(id, tags, submit_tag_cb);
 }
 
-<?php if (getConfig('rss.input.tags.delicious')) { ?>
-
-function get_from_delicious(id) {
- x___exp__getFromDelicious(id,getFromDelicious_cb);
-}
-
-function getFromDelicious_cb(ret) {
- data=ret.split(',');
- id=data[0];
- tags=data[1].split(' ');
- var span=document.getElementById('dt'+id);
- html = '';
- for(i=0;i<tags.length;i++) {
-  if (tags[i] != '') {
-    html += "<a href=\"#\" onclick=\"addToTags(" + id +",'"
-    +tags[i]
-    +"'); return false;\">"+tags[i]+"</a>"
-    if(i<tags.length -1) { html += "&nbsp;"; }
-  }
- }
- if (html == '') {
-  html = '<?= LBL_TAG_SUGGESTIONS_NONE ?>';
- }
- span.innerHTML = '(' + html + ')';
-}
-
-function addToTags(id,tag) {
- var fld = document.getElementById("tfield" + id);
- fld.value=fld.value+ " " + tag;
-}
-
-<?php } ?>
-
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
     var toggle = actionSpan.firstChild;
@@ -243,15 +208,8 @@ function _et(id) {
        }
         actionSpan.appendChild(cancel);
 
-        <?php if (getConfig('rss.input.tags.delicious')) { ?>
-        // get tag suggestions from del.icio.us
-        newspan = document.createElement("span");
-        newspan.setAttribute("id","dt" + id);
-        newspan.style.margin="0 0 0 0.5em";
-        newspan.innerHTML = "<?= LBL_TAG_SUGGESTIONS ?>: (...) ]";
-        actionSpan.appendChild(newspan);
-        get_from_delicious(id);
-        <?php } ?>
+		  <?php rss_plugin_hook("rss.plugins.ajax.extrajs.edittag",null); ?>
+		  
         tc.innerHTML = "<input class=\"tagedit\" id=\"tfield"
          +id+"\" type=\"text\" value=\"" + tags + "\" />";
 
