@@ -27,16 +27,16 @@
 
 define ('INFINE_RESULTS',-1);
 
-define ('QUERY_PRM','query');
-define ('QUERY_MATCH_MODE', 'query_match');
-define ('QUERY_CHANNEL', 'query_channel');
-define ('QUERY_RESULTS','query_res_per_page');
-define ('QUERY_CURRENT_PAGE','query_current_page');
+define ('QUERY_PRM','rss_query');
+define ('QUERY_MATCH_MODE', 'rss_query_match');
+define ('QUERY_CHANNEL', 'rss_query_channel');
+define ('QUERY_RESULTS','rss_query_res_per_page');
+define ('QUERY_CURRENT_PAGE','rss_query_current_page');
 define ('HIT_BEFORE',"<span class=\"searchhit\">");
 define ('HIT_AFTER',"</span>");
 define ('ALL_CHANNELS_ID', -1);
 
-define ('QUERY_ORDER_BY','order');
+define ('QUERY_ORDER_BY','rss_order');
 define ('QUERY_ORDER_BY_DATE','date');
 define ('QUERY_ORDER_BY_CHANNEL','channel');
 define ('QUERY_MATCH_OR','or');

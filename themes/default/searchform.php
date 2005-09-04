@@ -4,38 +4,38 @@
 	<fieldset style="display:block;text-align:left">
 	<legend><?= LBL_TITLE_SEARCH ?></legend>
 	<p>
-		<label for="query"><?= LBL_SEARCH_SEARCH_QUERY ?></label>
-	   	<input type="text" name="query"  id="query" value="<?= rss_search_query() ?>"/>
+		<label for="<?= QUERY_PRM ?>"><?= LBL_SEARCH_SEARCH_QUERY ?></label>
+	   	<input type="text" name="<?= QUERY_PRM ?>"  id="<?= QUERY_PRM ?>" value="<?= rss_search_query() ?>"/>
 	</p>
 	
 	<p>
-		<input type="radio" id="qry_match_or" name="query_match" value="or" <?= rss_search_or_checked() ?> />
+		<input type="radio" id="qry_match_or" name="<?= QUERY_MATCH_MODE ?>" value="<?= QUERY_MATCH_OR ?>" <?= rss_search_or_checked() ?> />
 		<label for="qry_match_or"><?= LBL_SEARCH_MATCH_OR ?></label>
-		<input type="radio" id="qry_match_and" name="query_match" value="and" <?= rss_search_and_checked() ?>/>
+		<input type="radio" id="qry_match_and" name="<?= QUERY_MATCH_MODE ?>" value="<?= QUERY_MATCH_AND ?>" <?= rss_search_and_checked() ?>/>
 		<label for="qry_match_and"><?= LBL_SEARCH_MATCH_AND ?></label>
-		<input type="radio" id="qry_match_exact" name="query_match" value="exact" <?= rss_search_exact_checked() ?>/>
+		<input type="radio" id="qry_match_exact" name="<?= QUERY_MATCH_MODE ?>" value="<?= QUERY_MATCH_EXACT ?>" <?= rss_search_exact_checked() ?>/>
 		<label for="qry_match_exact"><?= LBL_SEARCH_MATCH_EXACT ?></label>
 	</p>
 
 	<p>
-		<label for="query_channel"><?= LBL_SEARCH_CHANNELS ?></label>
-		<?= rss_search_channels_combo('query_channel'); ?>
+		<label for="<?= QUERY_CHANNEL ?>"><?= LBL_SEARCH_CHANNELS ?></label>
+		<?= rss_search_channels_combo(QUERY_CHANNEL); ?>
 	</p>
 
 	<p>
-		<input type="radio" id="qry_order_date" name="order" value="date" <?= rss_search_order_date_checked() ?> />
+		<input type="radio" id="qry_order_date" name="<?= QUERY_ORDER_BY ?>" value="<?= QUERY_ORDER_BY_DATE ?>" <?= rss_search_order_date_checked() ?> />
 		<label for="qry_order_date"><?= LBL_SEARCH_ORDER_DATE_CHANNEL ?></label>
-		<input type="radio" id="qry_order_channel" name="order" value="channel" <?= rss_search_order_channel_checked() ?> />
+		<input type="radio" id="qry_order_channel" name="<?= QUERY_ORDER_BY ?>" value="<?= QUERY_ORDER_BY_CHANNEL ?>" <?= rss_search_order_channel_checked() ?> />
 		<label for="qry_order_channel"><?= LBL_SEARCH_ORDER_CHANNEL_DATE ?></label>
 	</p>
 
 	<p>
 		<label for="query_res_per_page"><?= LBL_SEARCH_RESULTS_PER_PAGE ?></label>
-		<?= rss_search_results_per_page_combo('query_res_per_page') ?>
+		<?= rss_search_results_per_page_combo(QUERY_RESULTS) ?>
 	</p>
 
 	<p>
-		<input type="hidden" name="query_current_page" value="0" />
+		<input type="hidden" name="<?= QUERY_CURRENT_PAGE ?>" value="0" />
 		<input id="search_go" type="submit" value="<?= LBL_SEARCH_GO ?>"/>
 	</p>
 	</fieldset>
