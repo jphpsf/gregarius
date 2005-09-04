@@ -90,6 +90,13 @@ foreach(getConfig('rss.config.plugins') as $pf) {
  * do all the works
  */
 	$mytheme = defined('THEME_OVERRIDE')?constant("THEME_OVERRIDE"):getConfig('rss.output.theme');
+/*
+ * If theme is set in the request then let it overide everything. 
+ * Then it can have a plugins.php page. 
+ */
+	if (isset($_REQUEST['theme'])) {
+		    $mytheme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
+	}
 	$mythemeplugin=RSS_THEME_DIR."/$mytheme/plugins.php";
 	if (file_exists($mythemeplugin)) require_once($mythemeplugin);
 
