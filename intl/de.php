@@ -152,7 +152,6 @@ define ('LBL_ADMIN_CHANNEL_PRIVATE','Dieser Feed ist <strong>privat</strong>, nu
 define ('LBL_ADMIN_CHANNEL_DELETED','Dieser Feed ist <strong>veraltet</strong>, er wird nicht mehr aktualisiert und wird nicht mehr in der Feedspalte sichtbar sein.');
 
 define ('LBL_ADMIN_ARE_YOU_SURE', "Wollen sie den Ordner '%s' wirklich loeschen?");
-define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT','Are you sure you wish to reset the value for %s to its default \'%s\'?');
 define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT','Bist du sicher, dass du den Wert fuer %s auf den Standard zuruecksetzen willst \'%s\'?');
 define ('LBL_ADMIN_TRUE','Wahr');
 define ('LBL_ADMIN_FALSE','Falsch');
@@ -220,26 +219,25 @@ define ('LBL_STICKY','Sticky');
 define ('LBL_DEPRECATED','Veraltet');
 define ('LBL_PRIVATE','Privat');
 define ('LBL_ADMIN_TOGGLE_STATE','Status aendern:');
-define ('LBL_ADMIN_TOGGLE_SET','Set');
+define ('LBL_ADMIN_TOGGLE_SET','Aendern');
 define ('LBL_ADMIN_IM_SURE','Ich bin sicher!');
 // new in 0.5.1:
-define ('LBL_LOGGED_IN_AS','Logged in as <strong>%s</strong>');
-define ('LBL_NOT_LOGGED_IN','Not logged in');
-define ('LBL_LOG_OUT','Logout');
-define ('LBL_LOG_IN','Login');
+define ('LBL_LOGGED_IN_AS','Angemeldet als <strong>%s</strong>');
+define ('LBL_NOT_LOGGED_IN','Nicht angemeldet');
+define ('LBL_LOG_OUT','Abmelden');
+define ('LBL_LOG_IN','Anmelden');
 
+define ('LBL_ADMIN_OPML_IMPORT_AND','Import neuer Feeds und:');
+define ('LBL_ADMIN_OPML_IMPORT_WIPE','... ersetzen aller existierender Feeds und Begriffe.');
+define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... zum Ordner hinzufuegen:');
+define ('LBL_ADMIN_OPML_IMPORT_MERGE','... verbinde diese mit den existierenden Ordnern.');
 
-define ('LBL_ADMIN_OPML_IMPORT_AND','Import new feeds and:');
-define ('LBL_ADMIN_OPML_IMPORT_WIPE','... replace all existing feeds and items.');
-define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... add them to the folder:');
-define ('LBL_ADMIN_OPML_IMPORT_MERGE','... merge them with the existing ones.');
+define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Fuege %s zu %s... ');
 
-define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
+define ('LBL_TAG_FOLDERS','Kategorien');
+define ('LBL_SIDE_ITEMS','(%d Artikel)');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d ungelesene in %d Feeds)');
+define ('LBL_CATCNT_PF', '<strong>%d</strong> Feeds in <strong>%d</strong> Kategorien');
 
-define ('LBL_TAG_FOLDERS','Categories');
-define ('LBL_SIDE_ITEMS','(%d items)');
-define ('LBL_SIDE_UNREAD_FEEDS','(%d unread in %d feeds)');
-define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categories');
-
-define ('LBL_RATING','Rating:');
+define ('LBL_RATING','Bewertung:');
 ?>
