@@ -33,12 +33,13 @@ class Header {
 	var $onLoadAction;
 	var $options;
 	var $links;
-	var $javascriptFiles;
+	var $javascriptFiles = array();
 	var $docTitle;
 	var $redirectUrl="";
 	var $redirectTimeout=0;
 	var $rawTitle;
 	var $extraHTML = "";
+	
 	
 	function Header($title = "", $active = 0, $cidfid = null, $onLoadAction = "", $options = HDR_NONE, $links = NULL) {
 		
@@ -84,7 +85,7 @@ class Header {
 			}
 		}
 		
-		$this -> javascriptFiles = array();
+		
 		if (getConfig('rss.output.channelcollapse')) {
 			$this -> javascriptFiles[] = getPath()."extlib/fcollapse.js";
 		}
@@ -131,10 +132,11 @@ class Header {
 	}
 	
 	function render() {
-			
+		$this -> javascriptFiles 
+			= rss_plugin_hook('rss.plugins.javascript', $this -> javascriptFiles);	
 		$GLOBALS['rss'] -> header = &$this;
 		rss_require(RSS::getTemplateFile("header.php"));
-		rss_plugin_hook('rss.plugins.javascript', null);
+		
 
 		if ($this->extraHTML) {
 			echo $this -> extraHTML;

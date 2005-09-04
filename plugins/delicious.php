@@ -32,8 +32,9 @@
 /// Version: 0.2
 
 
-function __delicious_js_include($dummy) {
-	echo "\t<script type=\"text/javascript\" src=\"".getPath(). RSS_PLUGINS_DIR . "/delicious.php?deljs\"></script>\n";
+function __delicious_js_register($js) {
+	$js[] = getPath(). RSS_PLUGINS_DIR . "/delicious.php?deljs";
+	return $js;
 }
 
 if (isset($_REQUEST['deljs'])) {
@@ -111,7 +112,7 @@ function __delicious_edittag_js($dummy) {
 }
 
 
-rss_set_hook('rss.plugins.bodystart','__delicious_js_include');
+rss_set_hook('rss.plugins.javascript','__delicious_js_register');
 rss_set_hook('rss.plugins.ajax.exports','__delicious_appendAJAXfunction');
 rss_set_hook('rss.plugins.ajax.extrajs.edittag','__delicious_edittag_js');
 ?>
