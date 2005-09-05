@@ -261,6 +261,12 @@ if (
 
 if (array_key_exists ('metaaction', $_POST)) {
 
+	if (array_key_exists('markreadids',$_POST)) {
+		$IdsToMarkAsRead = explode(",",rss_real_escape_string($_POST['markreadids']));
+		//var_dump($IdsToMarkAsRead);
+	} else {
+		$IdsToMarkAsRead = array();
+	}
     switch ($_POST['metaaction']) {
     
 		case  'LBL_MARK_CHANNEL_READ':
@@ -278,12 +284,12 @@ if (array_key_exists ('metaaction', $_POST)) {
 			$sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 		}
 			
-		 $sql .= " and i.cid=c.id and c.parent=f.id";
-			if (getConfig('rss.config.absoluteordering')) {
+		$sql .= " and i.cid=c.id and c.parent=f.id";
+		if (getConfig('rss.config.absoluteordering')) {
 			$sql .= " order by f.position asc, c.position asc";
-		 } else {
+		} else {
 			$sql .=" order by f.name asc, c.title asc";
-		 }
+		}
 			
 		 $res = rss_query($sql);
 		 $next_ok=false;
@@ -310,8 +316,10 @@ if (array_key_exists ('metaaction', $_POST)) {
 		 
 		if (hidePrivate()) {
 			$sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
-		 }
-		 
+		}
+		if (count($IdsToMarkAsRead)) {
+			$sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
+		}
 		 
 		 rss_query($sql);
 		 
@@ -330,6 +338,11 @@ if (array_key_exists ('metaaction', $_POST)) {
     	$sql = "update " .getTable('item') . " i, " . getTable('channels') . " c "
     	. " set i.unread = i.unread & ".SET_MODE_READ_STATE
     	. " where i.cid=c.id and c.parent=$fid";
+    	
+    	if (count($IdsToMarkAsRead)) {
+			$sql .= " and i.id in (" . implode(',',$IdsToMarkAsRead) .")";
+		}
+		
     	//die($sql);
     	rss_query($sql);
     	$next_fid = 0;
@@ -386,6 +399,11 @@ if (array_key_exists ('metaaction', $_POST)) {
 		$sql = "update " .getTable('item') . " i, " . getTable('metatag') . " m"
 			. " set i.unread = i.unread & ".SET_MODE_READ_STATE
 			. " where i.cid = m.fid and m.tid = $vfid and m.ttype = 'channel'";
+			
+    	if (count($IdsToMarkAsRead)) {
+			$sql .= " and i.id in (" . implode(',',$IdsToMarkAsRead) .")";
+		}
+		
 		rss_query($sql);
 
 		// find next virtual folder to redirect to
@@ -1038,8 +1056,9 @@ function markReadForm($cid) {
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
-  	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/></p>\n"
-  	  ."</form>";
+  	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",getShownUnreadIds())."\" />\n"
+  	  ."</p>\n</form>";
 }
 
 function markFolderReadForm($fid) {
@@ -1053,8 +1072,9 @@ function markFolderReadForm($fid) {
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_FOLDER_READ\"/>\n"
-  	  ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/></p>\n"
-  	  ."</form>";
+  	  ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",getShownUnreadIds())."\" />\n"
+  	  ."</p></form>";
   	  
 }
 
@@ -1069,8 +1089,19 @@ function markVirtualFolderReadForm($vfid){
   	echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
   	  ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_VFOLDER_READ\"/>\n"
-  	  ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/></p>\n"
-  	  ."</form>";
+  	  ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/>\n"
+  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",getShownUnreadIds())."\" />\n"
+  	  ."</p>\n</form>";
+}
+
+function getShownUnreadIds() {
+	$ret = array();
+	foreach($GLOBALS['rss']->mainObject as $o) {
+		if (isset($o->unreadIids)) {
+			$ret = array_merge($ret,$o->unreadIids);
+		}
+	}
+	return $ret;
 }
 
 function debugFeed($cid) {

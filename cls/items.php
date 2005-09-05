@@ -120,7 +120,6 @@ class Feed {
 		$this->cid = $cid;
 		$this->iconUrl = $icon;
 		$this->escapedTitle = preg_replace("/[^A-Za-z0-9\.]/", "_", $title);
-		
 	} 
 	
 	function setCollapseState($options) {
@@ -225,6 +224,8 @@ class ItemList {
 	var $ORDER_BY_UNREAD_FIRST=null;
 	
 	var $iidInCid = array();
+	var $iids = array();
+	var $unreadIids = array();
 	var $rss;
 	
 	function ItemList() {
@@ -308,7 +309,7 @@ class ItemList {
 			$sql .= " limit $startItem, $itemCount";
 		}
 		//echo $sql;		
-		$iids = array();
+		$this -> iids = array();
 		$res = $this->rss->db->rss_query($sql);
 		$this -> rowCount = $this->rss->db->rss_num_rows($res);
 		$prevCid = -1;
@@ -320,7 +321,7 @@ class ItemList {
 			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $iauthor_, $idescr_, $its_, $iispubdate_, $iunread_, $rrating_);
 			
 		    // no dupes, please
-		    if (in_array($iid_,$iids)) {
+		    if (in_array($iid_,$this -> iids)) {
 				$this -> rowCount--;
 				continue;                                                                                                                                                   
 		    }
@@ -344,13 +345,14 @@ class ItemList {
 			
 					    
 			// Add it to the channel
-			$iids[] = $iid_;
+			$this -> iids[] = $iid_;
 			$this -> feeds[$curIdx] ->addItem($i);
 			
 			// Some stats...
 			$this -> itemCount++;			
 			if ($iunread_ & FEED_MODE_UNREAD_STATE) {
 				$this -> unreadCount++;	
+				$this -> unreadIids[] = $iid_;
 			} else {
 				$this -> readCount++;	
 			}
@@ -359,14 +361,14 @@ class ItemList {
 
 		
 		// Tags!
-		if (count($iids)) {
+		if (count($this -> iids)) {
 			// fetch the tags for the items;
 			$sql = "select t.tag,m.fid,i.cid "
 			." from "
 			.getTable('tag')." t, "
 			.getTable('metatag')." m, "
 			.getTable('item')." i "
-			." where m.tid = t.id and i.id=m.fid and m.ttype = 'item' and m.fid in (".implode(",", $iids).")";
+			." where m.tid = t.id and i.id=m.fid and m.ttype = 'item' and m.fid in (".implode(",", $this -> iids).")";
 			
 			$res = $this->rss->db->rss_query($sql);
 			while (list ($tag_, $iid_, $cid_) = $this->rss->db->rss_fetch_row($res)) {
