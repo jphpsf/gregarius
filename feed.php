@@ -271,7 +271,20 @@ if (array_key_exists ('metaaction', $_POST)) {
     
 		case  'LBL_MARK_CHANNEL_READ':
 		 
-			$first_unread_id=$next_unread_id='';
+		/** mark channel as read **/
+		$sql = "update " .getTable("item")
+			." set unread = unread & ".SET_MODE_READ_STATE." where cid=$cid";
+		if (hidePrivate()) {
+			$sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+		}
+		if (count($IdsToMarkAsRead)) {
+			$sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
+		}
+        rss_query($sql);
+
+
+		/** see where we should redirect **/
+		$first_unread_id=$next_unread_id='';
 		 
 		 // redirect to the next unread, if any.
 		 $sql = "select c.id from " . getTable("item") . " i,"
@@ -294,7 +307,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 		 $res = rss_query($sql);
 		 $next_ok=false;
 		 while(list ($unread_id) = rss_fetch_row($res)) {
-			if ($first_unread_id == '' && $unread_id != $cid) {
+			if ($first_unread_id == '') {
 				$first_unread_id = $unread_id;
 			}
 			
@@ -304,24 +317,15 @@ if (array_key_exists ('metaaction', $_POST)) {
 			}
 			
 			if ($unread_id == $cid) {
-				$next_ok=true;
+				$next_unread_id=$unread_id;
+				break;
 			}
 		 }
 		 if ($next_unread_id == '' && $first_unread_id != '') {
 			$next_unread_id = $first_unread_id; 
 		 }
 		 
-		 $sql = "update " .getTable("item") ." set unread = unread & ".SET_MODE_READ_STATE." where cid=$cid";
-		 
-		 
-		if (hidePrivate()) {
-			$sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
-		}
-		if (count($IdsToMarkAsRead)) {
-			$sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
-		}
-		 
-		 rss_query($sql);
+
 		 
 		 //redirect
 		 if ($next_unread_id == '') {	
