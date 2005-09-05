@@ -42,13 +42,17 @@ function getETag() {
 }
 
 
-function rss_error($message, $returnonly = false) {
-	if (!$returnonly) {
-		//$GLOBALS['rss'] -> errors[] = $message;
-		echo "\n<p class=\"error\">$message</p>\n";
+function rss_error($message, $severity = RSS_ERROR_ERROR, $render = false) {
+	if ($render) {
+		echo "<p class=\"error\">$message</p>\n";
 		return;
 	}
-	return $message;
+	
+	if (!isset($GLOBALS['rss'])) {
+		rss_require('cls/rss.php');
+	}
+
+	$GLOBALS['rss'] -> error($message, $severity);
 }
 
 /** this functions checks whether a URI exists */

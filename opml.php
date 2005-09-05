@@ -65,7 +65,7 @@ function parse_weblogsDotCom($url) {
 }
 
 function xml_error($error_msg){
-	rss_error($error_msg);
+	rss_error($error_msg, RSS_ERROR_ERROR,true);
 	echo("\n</div>\n</body></html>\n");
 	die();
 }

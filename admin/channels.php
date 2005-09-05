@@ -249,12 +249,11 @@ function channel_admin() {
 			update($ret[0]);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} elseif  (is_array($ret) && $ret[0] > -2) {
-			//rss_error("Error: " .$ret[1]);
 			// okay, something went wrong, maybe thats a html url after all?
 			// let's try and see if we can extract some feeds
 			$feeds = extractFeeds($label);
 			if (!is_array($feeds) || sizeof($feeds) == 0) {
-				rss_error($ret[1]);
+				rss_error($ret[1], RSS_ERROR_ERROR,true);
 				$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 			} else {
 				//one single feed in the html doc, add that
@@ -265,7 +264,7 @@ function channel_admin() {
 						$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 					} else {
 						// failure
-						rss_error($ret[1]);
+						rss_error($ret[1], RSS_ERROR_ERROR,true);
 						$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 					}
 				} else {
@@ -313,14 +312,14 @@ function channel_admin() {
 				}
 			}
 		} elseif (is_array($ret))  {
-			rss_error($ret[1]);
+			rss_error($ret[1], RSS_ERROR_ERROR,true);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} else {
-			rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$label));
+			rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$label), RSS_ERROR_ERROR,true);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		}
 	} else {
-		rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$label));
+		rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$label), RSS_ERROR_ERROR,true);
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 	}
 	break;
@@ -510,7 +509,7 @@ function channel_admin() {
 		
 	
 		if ($url == '' || substr($url,0,4) != "http") {
-			rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$url));
+			rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$url), RSS_ERROR_ERROR,true);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 			break;
 		}

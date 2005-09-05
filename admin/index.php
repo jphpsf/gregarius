@@ -154,7 +154,7 @@ function admin_main($authorised) {
       echo "\n<div class=\"clearer\"></div>\n";
    
    } else {
-		rss_error(sprintf(LBL_ADMIN_ERROR_NOT_AUTHORIZED,getPath()));
+		rss_error(sprintf(LBL_ADMIN_ERROR_NOT_AUTHORIZED,getPath()), RSS_ERROR_ERROR,true);
 	}
 	echo "</div>\n";
 }

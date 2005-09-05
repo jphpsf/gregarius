@@ -114,7 +114,7 @@ class MysqlDB extends DB {
 		 } elseif (function_exists('mysql_escape_string')) {
 			  return mysql_escape_string($string);
 		 } else {
-			  die( rss_error("Your PHP version doesn't meet Gregarius' minimal requirements, please consider upgrading!", true));
+			  die("<p class=\"error\">Your PHP version doesn't meet Gregarius' minimal requirements, please consider upgrading!</p>");
 		 }
 	}
 	

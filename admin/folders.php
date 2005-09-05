@@ -174,7 +174,7 @@ function folder_admin() {
 			assert(is_numeric($id));
 	
 			if ($id == 0) {
-				rss_error(LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER);
+				rss_error(LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER, RSS_ERROR_ERROR,true);
 				break;
 			}
 		
@@ -209,7 +209,7 @@ function folder_admin() {
 				$res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
 				list($cnt) = rss_fetch_row($res);
 				if ($cnt > 0) {
-					rss_error(sprintf(LBL_ADMIN_CANT_RENAME,$new_label));
+					rss_error(sprintf(LBL_ADMIN_CANT_RENAME,$new_label), RSS_ERROR_ERROR,true);
 					break;
 				}
 				rss_query("update " .getTable("folders") ." set name='$new_label' where id=$id");
@@ -283,7 +283,7 @@ function create_folder($label, $complainonerror=true) {
 	list($exists) = rss_fetch_row($res);
 	
 	if ($exists > 0 && $complainonerror) {
-		rss_error(sprintf(LBL_ADMIN_ERROR_CANT_CREATE, $label));
+		rss_error(sprintf(LBL_ADMIN_ERROR_CANT_CREATE, $label), RSS_ERROR_ERROR,true);
 		return;
 	} elseif ($exists == 0) {
 		$res = rss_query("select 1+max(position) as np from " . getTable("folders"));

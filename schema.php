@@ -62,7 +62,7 @@ function checkSchema() {
 			.' your database schema! This should be a one-time operation,'
 			.' if you see this message over and over again please import your database schema'
 			.' manually.';
-		rss_error($msg);
+		rss_error($msg, RSS_ERROR_WARNING);
 	
 		$pf = (defined('DB_TABLE_PREFIX') && "" != DB_TABLE_PREFIX ?
 			DB_TABLE_PREFIX:""
@@ -75,10 +75,11 @@ function checkSchema() {
 		}
 		
 		if ($updated == count($missing_tables)) {
-			rss_error("Successfully created $updated of $updated database tables!");
+			rss_error("Successfully created $updated of $updated database tables!", RSS_ERROR_NOTICE);
 		} else {
-			rss_error((count($missing_tables) - $updated) . " out of "
-			. count($missing_tables) ." tables could not be created!");
+			rss_error(
+				(count($missing_tables) - $updated) . " out of "
+			. count($missing_tables) ." tables could not be created!",RSS_ERROR_ERROR);
 		}
 	}
 	
@@ -101,10 +102,10 @@ function checkSchemaColumns($column) {
 			rss_query('alter table ' .getTable('channels') .' add column mode int(16) not null default 1');
 			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 				$updated++;
-				rss_error("updated schema for table " . getTable('channels'));
+				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
 			} else {
 				rss_error("Failed updating schema for table " . getTable('channels')
-				.": " . rss_sql_error_message()
+				.": " . rss_sql_error_message(), RSS_ERROR_ERROR
 				);
 			}
 		break;
@@ -114,10 +115,10 @@ function checkSchemaColumns($column) {
 			rss_query('alter table ' . getTable('item') . ' add column author varchar(255) null');
 			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 				$updated++;
-				rss_error('updated schema for table ' . getTable('item'));
+				rss_error('updated schema for table ' . getTable('item'), RSS_ERROR_NOTICE);
 			} else {
 				rss_error('Failed updating schema for table ' . getTable('item') . ': '
-					. rss_sql_error_message());
+					. rss_sql_error_message(), RSS_ERROR_ERROR);
 			}
 		break;
 		
@@ -128,10 +129,10 @@ function checkSchemaColumns($column) {
 			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
                 rss_query('update ' . getTable('metatag') . ' set tdate=now()');
 				$updated++;
-				rss_error('updated schema for table ' . getTable('metatag'));
+				rss_error('updated schema for table ' . getTable('metatag'), RSS_ERROR_NOTICE);
 			} else {
 				rss_error('Failed updating schema for table ' . getTable('metatag') . ': '
-					. rss_sql_error_message());
+					. rss_sql_error_message(), RSS_ERROR_ERROR);
 			}
 		break;
 	}
@@ -163,7 +164,7 @@ _SQL_
 
 	rss_query($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	} else {
 		return 1;
@@ -188,19 +189,19 @@ _SQL_
 
 	rss_query($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	}
 	
 	
 	rss_query ("INSERT INTO $table (id,name) VALUES (0,'')", false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!');
+		rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
 		return 0;
 	}
 	rss_query ("update $table set id=0 where id=1", false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!');
+		rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
 		return 0;
 	}
 
@@ -230,7 +231,7 @@ _SQL_
 
 	rss_query($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The ' .getTable('config') . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		rss_error('The ' .getTable('config') . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	}
 
@@ -240,7 +241,7 @@ _SQL_
 
 
 function setDefaults($key) {
-  	rss_error('inserting some default config values...');
+  	rss_error('inserting some default config values...', RSS_ERROR_NOTICE);
 
 	$defaults = array (
 		"rss.output.cachedir"		=>		array("/tmp/magpierss","/tmp/magpierss","string","Where should magpie store its temporary files? (Apache needs write permissions on this dir.)","MAGPIE_CACHE_DIR"),
@@ -321,7 +322,7 @@ _SQL_
 
 	rss_query($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	} else {
 		return 1;
@@ -346,7 +347,7 @@ _SQL_
 
 	rss_query($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	} else {
 		return 1;
@@ -373,7 +374,7 @@ _SQL_
 
 	rss_query($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	} else {
 		return 1;
@@ -395,7 +396,7 @@ _SQL_
 
 	rss_query($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.');
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	} else {
 		return 1;

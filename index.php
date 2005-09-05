@@ -158,7 +158,7 @@ function readItems($cntUnread) {
 
 	}
 
-	
+		
 	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
 	
 	$GLOBALS['rss'] -> appendContentObject($readItems);	

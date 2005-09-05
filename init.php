@@ -56,13 +56,17 @@ if (getConfig('rss.meta.debug')) {
     error_reporting(0);
 }   
 
-rss_require('cls/rss.php');
+if (!isset($GLOBALS['rss'])) {
+	rss_require('cls/rss.php');
+}
+
 _pf('parsing classes:');
-rss_require('cls/items.php');       _pf(' ... items.php');
-rss_require("cls/channels.php");    _pf(' ... channels.php');
-rss_require('cls/sidemenu.php');	  _pf(' ... sidemenu.php');
-rss_require("cls/header.php");      _pf(' ... header.php');
-rss_require("cls/nav.php");         _pf(' ... nav.php');
+rss_require('cls/errorhandler.php'); _pf(' ... errorhandler.php');
+rss_require('cls/items.php');        _pf(' ... items.php');
+rss_require("cls/channels.php");     _pf(' ... channels.php');
+rss_require('cls/sidemenu.php');	    _pf(' ... sidemenu.php');
+rss_require("cls/header.php");       _pf(' ... header.php');
+rss_require("cls/nav.php");          _pf(' ... nav.php');
 
 _pf('parsing remaining files...');
 rss_require('plugins.php');

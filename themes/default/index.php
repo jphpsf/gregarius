@@ -26,6 +26,7 @@
 	<?php rss_main_feeds(); ?>
 </div>
 
+<?php rss_errors_render() ?>
 <div <?= rss_main_div_id(); ?> class="frame">
  	<?php rss_main_object(); ?>
 </div>

@@ -105,9 +105,11 @@ div#channels li ul li, #channels ul.fexpanded li {
 .folder span img {   vertical-align: middle; margin-right: 0.5em;}
 
 
-div#items,div#searchfrm, div#update {
+div#items,div#searchfrm, div#update, div#errors {
  margin-left: 290px;
 }
+
+div#errors { margin-bottom: 5px }
 
 /** the main divs (nav, side, content, footer, ...) inherit this class */
 div.frame {

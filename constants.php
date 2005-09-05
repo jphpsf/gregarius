@@ -116,4 +116,9 @@ define ('SET_MODE_AVAILABLE_STATE',
 define ('RSS_THEME_DIR','themes');
 define ('RSS_PLUGINS_DIR','plugins');
    
+   
+// Error levels   
+define ('RSS_ERROR_ERROR',0);
+define ('RSS_ERROR_WARNING',1);
+define ('RSS_ERROR_NOTICE',2);   
 ?>

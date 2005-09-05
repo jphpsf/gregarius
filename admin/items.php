@@ -87,7 +87,7 @@ function item_admin() {
 					break;
 
 				 default:
-				 	rss_error(LBL_ADMIN_ERROR_PRUNING_PERIOD);
+				 	rss_error(LBL_ADMIN_ERROR_PRUNING_PERIOD, RSS_ERROR_ERROR,true);
 					return CST_ADMIN_DOMAIN_ITEM;
 				break;
 			}
@@ -244,7 +244,7 @@ function item_admin() {
 				list($cnt_d) = rss_fetch_row(rss_query("select count(distinct(i.id)) as cnt " . $sql
                  . " and not(i.unread & " . FEED_MODE_DELETED_STATE .")"
                  ));
-				rss_error(sprintf(LBL_ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt));
+				rss_error(sprintf(LBL_ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt), RSS_ERROR_ERROR,true);
 
 				echo "<form action=\"\" method=\"post\">\n"
 		  		."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_ITEM."\" />\n"
@@ -257,7 +257,7 @@ function item_admin() {
 				."</form>\n";
 			}
 	} else {
-		rss_error(LBL_ADMIN_ERROR_NO_PERIOD);
+		rss_error(LBL_ADMIN_ERROR_NO_PERIOD, RSS_ERROR_ERROR,true);
 		$ret__ = CST_ADMIN_DOMAIN_ITEM;
 	}
 

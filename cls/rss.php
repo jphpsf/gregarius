@@ -47,7 +47,7 @@ class RSS {
 	var $sideMenu;
 	var $profiler = null;
 	var $db = null;
-	var $errors = array();
+	var $error = null;
 
 	
 	function RSS() {
@@ -80,6 +80,7 @@ class RSS {
 		}
 		
 		$ret=RSS_THEME_DIR."/$theme/$file";
+		
 		
 		
 		/* 
@@ -147,12 +148,22 @@ class RSS {
 	function appendContentObject(&$o) {
 		$this -> mainObject[] = &$o;  
 	}
+	
+	function error($error, $severity) {
+		if ($this -> error == null) {
+			rss_require('cls/errorhandler.php');
+			$this -> error = new ErrorHandler();
+		}
+		$this -> error -> appendError($error, $severity);
+	}
+	
 }
 
 $GLOBALS['rss'] = new RSS();
 
-_pf('Parsing class wrappers:');
 
+_pf('Parsing class wrappers:');
+rss_require('cls/wrappers/errors.php');    _pf(" ...errors.php");
 rss_require('cls/wrappers/feed.php');      _pf(" ...feed.php");
 rss_require('cls/wrappers/feeds.php');     _pf(" ...feeds.php");
 rss_require('cls/wrappers/header.php');    _pf(" ...header.php");
