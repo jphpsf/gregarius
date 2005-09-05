@@ -281,6 +281,15 @@ if (array_key_exists ('metaaction', $_POST)) {
 			$sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
 		}
         rss_query($sql);
+        
+        $sql = "select count(*) from " .getTable("item") . " i "
+		." where i.unread & " .FEED_MODE_UNREAD_STATE
+		 ." and i.cid=$cid"
+  		 ." and not(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+		if (hidePrivate()) {
+			$sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
+		}
+		list($hasMoreUnreads) = rss_fetch_row(rss_query($sql));
 
 
 		/** see where we should redirect **/
@@ -317,8 +326,11 @@ if (array_key_exists ('metaaction', $_POST)) {
 			}
 			
 			if ($unread_id == $cid) {
-				$next_unread_id=$unread_id;
-				break;
+				$next_ok = true;
+				if ($hasMoreUnreads) {
+					$next_unread_id=$unread_id;
+					break;
+				}
 			}
 		 }
 		 if ($next_unread_id == '' && $first_unread_id != '') {
