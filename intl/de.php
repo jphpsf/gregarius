@@ -26,6 +26,8 @@
 ###############################################################################
 
 /// Language: German
+define ('LOCALE_WINDOWS','nld');
+define ('LOCALE_LINUX','de_DE');
 
 define ('LBL_ITEM','Artikel');
 define ('LBL_ITEMS','Artikel');

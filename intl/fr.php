@@ -27,6 +27,8 @@
 
 
 /// Language: Fran&ccedil;ais
+define('LOCALE_WINDOWS','fra');
+define('LOCALE_LINUX','fr_FR');
 
 define ('LBL_ITEM','&eacute;l&eacute;ment');
 define ('LBL_ITEMS','&eacute;l&eacute;ments');

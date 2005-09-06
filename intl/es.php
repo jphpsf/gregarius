@@ -27,6 +27,8 @@
 
 
 /// Language: Espa&ntilde;ol
+define ('LOCALE_WINDOWS','esp');
+define ('LOCALE_LINUX','es_ES');
 
 define ('LBL_ITEM','tema');
 define ('LBL_ITEMS','temas');

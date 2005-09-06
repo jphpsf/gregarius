@@ -26,6 +26,8 @@
 ###############################################################################
 
 /// Language: English
+define ('LOCALE_WINDOWS','english');
+define ('LOCALE_LINUX','en_EN');
 
 define ('LBL_ITEM','item');
 define ('LBL_ITEMS','items');

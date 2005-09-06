@@ -688,6 +688,23 @@ function getUnreadCount($cid, $fid) {
 	return $unread;
 }
 
+function rss_locale_date ($fmt, $ts, $addTZOffset = true) {
+	if (isset($_SERVER["WINDIR"]) && defined("LOCALE_WINDOWS")) setlocale(LC_TIME,constant("LOCALE_WINDOWS"));
+	else if (defined("LOCALE_LINUX")) setlocale(LC_TIME,constant("LOCALE_LINUX"));
+	else {
+		//last chance, we try to guess it
+		$mylocale=strtolower(getConfig('rss.output.lang'));
+		$mylocale.="_".strtoupper($mylocale);
+		setlocale(LC_TIME,$mylocale);
+	}
+	if (isset($_SERVER["WINDIR"])) $fmt=str_replace("%e","%#d",$fmt); //%e doesnt' exists under windows!
+
+	if ($addTZOffset) {
+		return utf8_encode(strftime($fmt, $ts +3600 * getConfig('rss.config.tzoffset')));
+	}
+	return utf8_encode(strftime($fmt, $ts));
+}
+
 function rss_date($fmt, $ts, $addTZOffset = true) {
 	if ($addTZOffset) {
 		return date($fmt, $ts +3600 * getConfig('rss.config.tzoffset'));

@@ -28,6 +28,8 @@
 
 
 /// Language: Svenska
+define ('LOCALE_WINDOWS','sve');
+define ('LOCALE_LINUX','sv_SV');
 
 define ('LBL_ITEM','inl&auml;gg');
 define ('LBL_ITEMS','inl&auml;gg');

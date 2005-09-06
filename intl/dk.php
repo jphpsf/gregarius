@@ -26,6 +26,8 @@
 ###############################################################################
 
 /// Language: Danish
+define ('LOCALE_WINDOWS','dan');
+define ('LOCALE_LINUX','dk_DK');
 
 define ('LBL_ITEM','item');
 define ('LBL_ITEMS','items');

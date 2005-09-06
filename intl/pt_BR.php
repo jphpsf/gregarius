@@ -26,6 +26,8 @@
 ###############################################################################
 
 /// Language: Portugu&ecirc;s
+define ('LOCALE_WINDOWS','ptb');
+define ('LOCALE_LINUX','pt_BR');
 
 define ('LBL_ITEM','&iacute;tem');
 define ('LBL_ITEMS','&iacute;tens');

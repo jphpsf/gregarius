@@ -522,9 +522,9 @@ if ($iid == "") {
 		$res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
 		list($title,$icon) = rss_fetch_row($res);
 		if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
-			$dtitle =  (" " . TITLE_SEP ." " . rss_date('F Y',mktime(0,0,0,$m,1,$y),false));
+			$dtitle =  (" " . TITLE_SEP ." " . rss_locale_date('%B %Y',mktime(0,0,0,$m,1,$y),false));
 		} elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
-			$dtitle =  (" " . TITLE_SEP ." " . rss_date('F jS, Y',mktime(0,0,0,$m,$d,$y),false));
+			$dtitle =  (" " . TITLE_SEP ." " . rss_locale_date('%B %e, %Y',mktime(0,0,0,$m,$d,$y),false));
 		} else {
 			$dtitle ="";
 		}
@@ -851,7 +851,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 						  'cnt' => $row['cnt_'], 
 						  'ts' => $row['ts_'],
 						  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-						  'lbl' => rss_date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
+						  'lbl' => rss_locale_date('%B %e',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
 						  );
 				}
 				 } elseif($currentView == 'month') {		
@@ -862,7 +862,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 						  'cnt' => $row['cnt_'],
 						  'ts' => $row['ts_'],
 						  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-						  'lbl' => rss_date('F Y',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:ITEM) .")"
+						  'lbl' => rss_locale_date('%B %Y',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:ITEM) .")"
 						  );
 				}
 				
@@ -880,7 +880,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 							  'cnt' => $row['cnt_'],
 							  'ts' => $row['ts_'],
 							  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-							  'lbl' => rss_date('F jS',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
+							  'lbl' => rss_locale_date('%B %e',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
 							  );
 					}
 				 } elseif($currentView == 'month') {
@@ -891,7 +891,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 							  'cnt' => $row['cnt_'],
 							  'ts' => $row['ts_'],
 							  'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-							  'lbl' => rss_date('F Y',$row['ts_']) . " (".$row['cnt_']." ". ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
+							  'lbl' => rss_locale_date('%B %Y',$row['ts_']) . " (".$row['cnt_']." ". ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
 							  );
 					}				
 				 }
@@ -903,7 +903,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 					'y' => $y,
 					'm' => $m,
 					'url' => makeArchiveUrl($ts,$escaped_title,$cid,false),
-					'lbl' => rss_date('F Y',$ts)
+					'lbl' => rss_locale_date('%B %Y',$ts)
 					);
 			} elseif ($currentView == 'month') {
 				 $up = array(
@@ -990,7 +990,7 @@ function makeNav($cid,$iid,$y,$m,$d) {
 					'm' => $m,
 					'd' => $d,
 					'url' => makeArchiveUrl($ts,$escaped_title,$cid,true),
-					'lbl' => rss_date('F jS',$ts)
+					'lbl' => rss_locale_date('%B %e',$ts)
 					);
 			
 				

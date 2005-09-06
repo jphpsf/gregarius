@@ -92,8 +92,79 @@ function rss_item_flags() {
 function rss_item_date() {
 	
 	if ($GLOBALS['rss']->currentItem->date) {
-		$date_lbl = rss_date(getConfig('rss.config.dateformat'), $GLOBALS['rss']->currentItem->date);
+		$date_fmt=getConfig('rss.config.dateformat');
 		
+		//define all string format that we will change
+		//key: date fmt, value=strftime fmt
+		
+		//month possible fmt
+		$tabMonthFmt=array();
+		$tabMonthFmt["F"]="%B";
+		$tabMonthFmt["m"]="%m";
+		$tabMonthFmt["M"]="%b";
+		$tabMonthFmt["n"]="%m";
+		
+		//day possible fmt,order is important
+		$tabDayFmt=array();
+		$tabDayFmt["d"]="%d";
+		$tabDayFmt["D"]="%a";
+		$tabDayFmt["l"]="%A";
+		$tabDayFmt["j"]="%e";
+		
+		/*
+		if (!eregi("^en",getConfig('rss.output.lang'))) {
+			$tabDayFmt["jS"]="%e";
+			$tabDayFmt["S"]=""; //we remove this
+		}
+		else $tabDayFmt["j"]="%e";
+		*/
+		
+		$tabFmt=$tabMonthFmt+$tabDayFmt;
+		$arrReplace=array();
+		$i=0;
+		foreach ($tabFmt as $old_fmt => $new_fmt) {
+			$isDay=isset($tabDayFmt["$old_fmt"]) && $tabDayFmt["$old_fmt"];
+			if ($isDay && $new_fmt && strpos($date_fmt, "${old_fmt}S")!==FALSE ) {
+				//we manage the S string format, to be sure to 
+				//link it properly
+				$i++;
+				$key="#{$i}";
+				$value=rss_locale_date($new_fmt, $GLOBALS['rss']->currentItem->date, false);
+				if (eregi("en",getConfig('rss.output.lang'))) {
+					//we add the english suffixe only for english language
+					$value.=rss_date('S',$GLOBALS['rss']->currentItem->date, false);
+				}
+				$arrReplace["$key"]=array("value"=>$value,"isDay"=>true);
+				$old_fmt.="S";
+				$date_fmt=str_replace($old_fmt,$key,$date_fmt);
+			}
+			else if (strpos($date_fmt, $old_fmt) !== FALSE) {
+				if ($new_fmt) {
+					$i++;
+					$key="#{$i}";
+					$value=rss_locale_date($new_fmt, $GLOBALS['rss']->currentItem->date, false);
+					$arrReplace["$key"]=array("value"=>$value,"isDay"=>$isDay);
+				}
+				else $key="";
+				$date_fmt=str_replace($old_fmt,$key,$date_fmt);
+			}
+		}
+
+		//now we do the replacement and make permalink urls
+		$date_lbl=rss_date($date_fmt,$GLOBALS['rss']->currentItem->date);
+		if (count($arrReplace)>0) foreach ($arrReplace as $search=>$data) {
+			$durl = makeArchiveUrl(
+				$GLOBALS['rss']->currentItem->date, 
+				$GLOBALS['rss']->currentItem->parent->escapedTitle, 
+				$GLOBALS['rss']->currentItem->parent->cid, 
+				$data["isDay"]);
+				
+			$replace="<a href=\"$durl\">$data[value]</a>";
+			$date_lbl = str_replace($search, $replace, $date_lbl);
+		}
+
+/*
+		$date_lbl = rss_date(getConfig('rss.config.dateformat'), $GLOBALS['rss']->currentItem->date);
 		// make a permalink url for the date (month)
 		if (strpos(getConfig('rss.config.dateformat'), 'F') !== FALSE) {
 			$mlbl = rss_date('F', $GLOBALS['rss']->currentItem->date, false);
@@ -104,17 +175,20 @@ function rss_item_date() {
 				false);
 			$date_lbl = str_replace($mlbl, "<a href=\"$murl\">$mlbl</a>", $date_lbl);
 		}
-		
+
+
 		// make a permalink url for the date (day)
 		if (strpos(getConfig('rss.config.dateformat'), 'jS') !== FALSE) {
 			$dlbl = rss_date('jS', $GLOBALS['rss']->currentItem->date, false);
+
 			$durl = makeArchiveUrl(
 				$GLOBALS['rss']->currentItem->date, 
 				$GLOBALS['rss']->currentItem->parent->escapedTitle, 
 				$GLOBALS['rss']->currentItem->parent->cid, 
 				true);
 			$date_lbl = str_replace($dlbl, "<a href=\"$durl\">$dlbl</a>", $date_lbl);
-		}
+		}		
+*/
 		return (($GLOBALS['rss']->currentItem->isPubDate?LBL_POSTED:LBL_FETCHED). $date_lbl);			
 	}
 }
