@@ -143,7 +143,7 @@ function rss_main_footer() {
 
 function rss_footer_last_modif() {
 	$ts = getLastModif();
-	return ($ts ? rss_date(getConfig('rss.config.dateformat'), $ts) : "never");
+	return ($ts ? rss_locale_date ("%c", $ts):"never");
 }
 
 function rss_header_logininfo() {

@@ -85,6 +85,21 @@ if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
     rss_require('intl/en.php');
 }
 
+// Load the right locale
+if (isset($_SERVER["WINDIR"]) && defined("LOCALE_WINDOWS")) {
+	setlocale(LC_TIME,constant("LOCALE_WINDOWS"));
+} elseif (defined("LOCALE_LINUX")) { 
+	setlocale(LC_TIME,constant("LOCALE_LINUX"));
+} else {
+	//last chance, we try to guess it
+	$mylocale=strtolower(getConfig('rss.output.lang'));
+	$mylocale.="_".strtoupper($mylocale);
+	if (!setlocale(LC_TIME,$mylocale)) {
+		// very last resort: try to load the system locale
+		setlocale(LC_TIME,"");
+	}
+}
+
 
 
 _pf('done');

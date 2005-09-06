@@ -26,6 +26,9 @@
 ###############################################################################
 
 /// Language: Русский
+define ('LOCALE_WINDOWS','rus'); // ?
+define ('LOCALE_LINUX','ru_RU');
+
 
 define ('LBL_ITEM','лента');
 define ('LBL_ITEMS','ленты');

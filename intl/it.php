@@ -31,6 +31,9 @@
 // Se trovi degli errori o pensi di poter fare meglio, grazie di
 // mandare correzioni a mbonetti@gmail.com
 
+define ('LOCALE_WINDOWS','ita'); //??
+define ('LOCALE_LINUX','it_IT');
+
 
 define ('LBL_ITEM','elemento');
 define ('LBL_ITEMS','elementi');
