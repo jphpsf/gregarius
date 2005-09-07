@@ -39,21 +39,21 @@ class TagList extends Tags{
 		
 		$sql = "select count(*) as cnt from " 
 		. getTable('metatag') . "  left join " 
-		. getTable('item') ."  i on (fid=i.id) ";
+		. getTable('item') ."  i on (fid=i.id)  where ttype = 'item'";
 		
 		if (hidePrivate()) {
-			$sql .= " where not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
 		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
 		
 		$sql = "select  count(distinct(tid)) as cnt from "
 		 . getTable('metatag') . " left join " . getTable('item')
-		 ." i on (fid=i.id)";
+		 ." i on (fid=i.id) where ttype='item' ";
 		
 		if (hidePrivate()) {
-			$sql .= " where not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
 		}
-		 
+
 		list($this -> tagCount) = rss_fetch_row(rss_query($sql));
 	}
 	
