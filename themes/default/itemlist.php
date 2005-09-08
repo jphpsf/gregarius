@@ -4,15 +4,15 @@
 </div>
 <?php } ?>
 <?php if ($title = rss_itemlist_title()) { ?>
-<h2<?= rss_itemlist_anchor(); ?>>
+<h2<?php echo  rss_itemlist_anchor(); ?>>
 <?php if ($icon = rss_itemlist_icon()) { ?>
-	<img src="<?= $icon ?>" class="favicon" alt="" />
+	<img src="<?php echo  $icon ?>" class="favicon" alt="" />
 <?php } ?>
-	<?= $title ?> 
+	<?php echo  $title ?> 
 </h2>
 <?php } else { ?>
-<a <?= rss_itemlist_anchor(); ?>></a>
+<a <?php echo  rss_itemlist_anchor(); ?>></a>
 <?php } ?>
-<?= rss_itemlist_before_list(); ?>
+<?php echo  rss_itemlist_before_list(); ?>
 <?php rss_itemlist_feeds(); ?>
-<?= rss_itemlist_after_list(); ?>
+<?php echo  rss_itemlist_after_list(); ?>

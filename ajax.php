@@ -152,14 +152,14 @@ function setTags(id,tagss) {
   var fld=document.getElementById("t" + id);
   var html = "";
   for (i=0;i<tags.length;i++) {
-     html = html + "<a href=\"<?= getPath()
+     html = html + "<a href=\"<?php echo  getPath()
      . (getConfig('rss.output.usemodrewrite')?'tag/':'tags.php?tag=')
      ?>" + tags[i] + "\">" + tags[i] + "</a> ";
   }
   fld.innerHTML = html;
 
   var aspan=document.getElementById("ta" + id);
-  aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?= LBL_TAG_EDIT ?></a>";
+  aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?php echo  LBL_TAG_EDIT ?></a>";
 }
 
 function submit_tag_cb(ret) {
@@ -176,21 +176,21 @@ function submit_tag(id,tags) {
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
     var toggle = actionSpan.firstChild;
-    if (toggle.innerHTML == "<?= LBL_TAG_SUBMIT ?>") {
+    if (toggle.innerHTML == "<?php echo  LBL_TAG_SUBMIT ?>") {
         var fld = document.getElementById("tfield" + id);
-      toggle.innerHTML="<?= LBL_TAG_SUBMITTING ?>";
+      toggle.innerHTML="<?php echo  LBL_TAG_SUBMITTING ?>";
         submit_tag(id,fld.value);
-    } else if (toggle.innerHTML == "<?= LBL_TAG_EDIT ?>") {
+    } else if (toggle.innerHTML == "<?php echo  LBL_TAG_EDIT ?>") {
        var isIE=document.all?true:false;
        // the tag container
        var tc=document.getElementById("t"+id);
-        var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"").replace(<?=ALLOWED_TAGS_REGEXP ?>gi,"");
+        var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"").replace(<?php echo ALLOWED_TAGS_REGEXP ?>gi,"");
         // submit link
-        toggle.innerHTML="<?= LBL_TAG_SUBMIT ?>";
+        toggle.innerHTML="<?php echo  LBL_TAG_SUBMIT ?>";
         // cancel link
         cancel = document.createElement("a");
         cancel.style.margin="0 0 0 0.5em";
-        cancel.innerHTML = "<?= LBL_TAG_CANCEL ?>";
+        cancel.innerHTML = "<?php echo  LBL_TAG_CANCEL ?>";
         cancel.setAttribute("href","#");
         if (isIE) {
             // the IE sucky way
@@ -263,7 +263,7 @@ function _setSideContent_cb(ret) {
 	document.currentSide = kind;
 	document.currentSideCache[kind] = content;
 	document.getElementById('channels').innerHTML = content;
-	setCookie("side",kind, "<?= getPath() ?>");
+	setCookie("side",kind, "<?php echo  getPath() ?>");
 }
 
 
@@ -389,7 +389,7 @@ function setItemHide(id, redirect){
        }
        
        if (redirect) {
-        document.location = '<?= getPath() ?>';
+        document.location = '<?php echo  getPath() ?>';
        }
     }
 }
@@ -419,9 +419,9 @@ function _es(id, state) {
 	if (div = document.getElementById('sad'+id)) {
 
 
-	onOk = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg.onok",null); ?>'.replace(/_ID_/g,id);
-	onCancel = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg.oncancel",null); ?>'.replace(/_ID_/g,id);
-	extraCode = '<?= rss_plugin_hook("rss.plugins.ajax.admindlg",null); ?>'.replace(/_ID_/g,id);
+	onOk = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.onok",null); ?>'.replace(/_ID_/g,id);
+	onCancel = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.oncancel",null); ?>'.replace(/_ID_/g,id);
+	extraCode = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg",null); ?>'.replace(/_ID_/g,id);
 	
 	if (!onOk) {
         onOk = '_ses('+id+'); return false;';
@@ -435,21 +435,21 @@ function _es(id, state) {
    	div.innerHTML = ''
    		+ '<form class="sf" id="sf"'+id+'" action="#" method="post">'
    		+ '<p><input type="checkbox" id="sf' + id + 'u" value="1"'
-   		+ (tmpState & <?= FEED_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?php echo  FEED_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 'u"><?= LBL_STATE_UNREAD ?></label></p>'
+		+ '<label for="sf' + id + 'u"><?php echo  LBL_STATE_UNREAD ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 's" value="1"'
-   		+ (tmpState & <?= FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?php echo  FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 's"><?= LBL_STATE_STICKY ?></label></p>'
+		+ '<label for="sf' + id + 's"><?php echo  LBL_STATE_STICKY ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 'p" value="1"'
-   		+ (tmpState & <?= FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?php echo  FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 'p"><?= LBL_STATE_PRIVATE ?></label></p>'
+		+ '<label for="sf' + id + 'p"><?php echo  LBL_STATE_PRIVATE ?></label></p>'
 		+ extraCode
 		+ '<p class="sbm">'
-		+ '<a id="ess'+id+'ok" href="#" onclick="'+onOk+'"><?= LBL_ADMIN_OK ?></a>'
-		+ '<a href="#" onclick="'+onCancel+'"><?= LBL_ADMIN_CANCEL ?></a></p>'
+		+ '<a id="ess'+id+'ok" href="#" onclick="'+onOk+'"><?php echo  LBL_ADMIN_OK ?></a>'
+		+ '<a href="#" onclick="'+onCancel+'"><?php echo  LBL_ADMIN_CANCEL ?></a></p>'
    		+ '</form>';
 
     div.className = 'ief';
@@ -473,26 +473,26 @@ function _ces(id) {
 function _ses(id) {
     s = 0;
     if ((sfu = document.getElementById('sf'+id+'u')) && sfu.checked) {
-      s += <?= FEED_MODE_UNREAD_STATE ?>;
+      s += <?php echo  FEED_MODE_UNREAD_STATE ?>;
     }
     if ((sfs = document.getElementById('sf'+id+'s')) && sfs.checked) {
-      s += <?= FEED_MODE_STICKY_STATE ?>;
+      s += <?php echo  FEED_MODE_STICKY_STATE ?>;
     }
     if ((sfp = document.getElementById('sf'+id+'p')) && sfp.checked) {
-      s += <?= FEED_MODE_PRIVATE_STATE ?>;
+      s += <?php echo  FEED_MODE_PRIVATE_STATE ?>;
     }
     
     
 
     if ((p=document.prevState[id]) != s) {
-        if ((s & <?= FEED_MODE_UNREAD_STATE ?>) != (p & <?= FEED_MODE_UNREAD_STATE ?>)) {
-            if (s & <?= FEED_MODE_UNREAD_STATE ?>) {
+        if ((s & <?php echo  FEED_MODE_UNREAD_STATE ?>) != (p & <?php echo  FEED_MODE_UNREAD_STATE ?>)) {
+            if (s & <?php echo  FEED_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
                 c=unreadCnt(1);
             } else {
                 c = unreadCnt(-1);
-				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
-				    sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
+				if ((sel = document.getElementById('<?php echo  SHOW_WHAT ?>')) &&
+				    sel.options[sel.selectedIndex].value == <?php echo  SHOW_UNREAD_ONLY ?>) {
                         setItemHide(id, (c==0));
 				} else{ 
 				        setItemClass(id, 'item even');				     

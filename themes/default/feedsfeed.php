@@ -1,11 +1,11 @@
 
-<li<?= rss_feeds_feed_li_class()?>>
+<li<?php echo  rss_feeds_feed_li_class()?>>
 <?php if($icon = rss_feeds_feed_icon()) { ?>
-	<img src="<?= $icon ?>" class="favicon" alt="" />
+	<img src="<?php echo  $icon ?>" class="favicon" alt="" />
 <?php } ?>
-	<a class="<?= rss_feeds_feed_class() ?>" title="<?= rss_feeds_feed_description_entities() ?>" href="<?= rss_feeds_feed_link() ?>"><?= rss_feeds_feed_title() ?></a>
+	<a class="<?php echo  rss_feeds_feed_class() ?>" title="<?php echo  rss_feeds_feed_description_entities() ?>" href="<?php echo  rss_feeds_feed_link() ?>"><?php echo  rss_feeds_feed_title() ?></a>
 <?php if (($rdLbl = rss_feeds_feed_read_label()) != "") { ?>
-	<?= $rdLbl ?>
+	<?php echo  $rdLbl ?>
 <?php } ?>
-<?= rss_feeds_feed_meta() ?>
+<?php echo  rss_feeds_feed_meta() ?>
 </li>

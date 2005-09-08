@@ -4,16 +4,16 @@
 <?php rss_main_header(); ?>
 </head>
 
-<body<?= rss_header_onLoadAction() ?>>
+<body<?php echo  rss_header_onLoadAction() ?>>
 
 <div id="nav" class="frame">
-    <?= rss_header_logininfo() ?>
+    <?php echo  rss_header_logininfo() ?>
     <a class="hidden" href="#feedcontent">skip to content</a>
-    <h1 id="top"><?= rss_main_title() ?></h1>
+    <h1 id="top"><?php echo  rss_main_title() ?></h1>
     <ul class="navlist">
-        <?= rss_nav_items() ?>
+        <?php echo  rss_nav_items() ?>
     </ul>
-    <?= rss_nav_afternav() ?>
+    <?php echo  rss_nav_afternav() ?>
 </div>
 
 <div id="ctnr">
@@ -27,7 +27,7 @@
 </div>
 
 <?php rss_errors_render() ?>
-<div <?= rss_main_div_id(); ?> class="frame">
+<div <?php echo  rss_main_div_id(); ?> class="frame">
  	<?php rss_main_object(); ?>
 </div>
 

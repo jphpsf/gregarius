@@ -385,10 +385,10 @@ function doUpdate() {
 	document.feedCount = added;
 	var batch = new Array();
 	var j=0;
-	for (j=0;(j+document.feedPointer) < document.feedCount && j < <?= AJAX_BATCH_SIZE ?>;j++) {
+	for (j=0;(j+document.feedPointer) < document.feedCount && j < <?php echo  AJAX_BATCH_SIZE ?>;j++) {
 			batch[j]=ids[j+document.feedPointer];
 			if (tdr = document.getElementById('u_r_' + batch[j])) {
-					tdr.innerHTML = '<?= UPDATING ?>';
+					tdr.innerHTML = '<?php echo  UPDATING ?>';
 			}
 	}
 	document.feedPointer += j;
@@ -404,16 +404,16 @@ function doUpdate() {
  */
 function ajaxUpdate_cb(data) {
 		//alert(data);
-		superdarr = data.replace(/[^0-9a-zA-Z\(\)\|\s\.,]/gi,'').split('<?= GROUP_SPLITTER ?>');
+		superdarr = data.replace(/[^0-9a-zA-Z\(\)\|\s\.,]/gi,'').split('<?php echo  GROUP_SPLITTER ?>');
 		var lastId = 0;
 		for (var i=0;i<superdarr.length;i++) {
-			darr = superdarr[i].replace(/[^0-9a-zA-Z\(\)\|\s,\.]/gi,'').split('<?= SUB_SPLITTER ?>');
+			darr = superdarr[i].replace(/[^0-9a-zA-Z\(\)\|\s,\.]/gi,'').split('<?php echo  SUB_SPLITTER ?>');
 			
 			// channel ID
 			id=darr[0];
 			lastId = id;
 			// unread count
-			if (darr[1] && (unread_ids = darr[1].split('<?= SUB_SUB_SPLITTER ?>'))) {
+			if (darr[1] && (unread_ids = darr[1].split('<?php echo  SUB_SUB_SPLITTER ?>'))) {
 				//alert('unread ids: ' + unread_ids);
 				document.new_ids=document.new_ids.concat(unread_ids);
 				//alert('document ids: ' + document.new_ids);
@@ -461,7 +461,7 @@ function ajaxUpdate(batch) {
 	for(var i=0;i<batch.length;i++) {
 		sBatch += batch[i];
 		if (i<batch.length-1) {
-			sBatch += '<?= GROUP_SPLITTER ?>';
+			sBatch += '<?php echo  GROUP_SPLITTER ?>';
 		}
 	}
 	x_ajaxUpdate(sBatch,ajaxUpdate_cb);
@@ -474,7 +474,7 @@ function ajaxUpdateCleanup() {
 		if (id > 0) {
 			ids += id ;			
 			if (i<document.new_ids.length-1) {
-				ids += '<?= GROUP_SPLITTER ?>';
+				ids += '<?php echo  GROUP_SPLITTER ?>';
 			}
 		}
 	}

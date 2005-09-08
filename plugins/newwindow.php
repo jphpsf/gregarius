@@ -42,7 +42,7 @@ if (document.getElementsByTagName) {
    	var anchors = items.getElementsByTagName("a");
    	for (var i=0; i<anchors.length; i++) {
    		var anchor = anchors[i];
-   		if (anchor.href && (anchor.href.indexOf('<?= $_SERVER['HTTP_HOST'] ?>') < 0)) {
+   		if (anchor.href && (anchor.href.indexOf('<?php echo  $_SERVER['HTTP_HOST'] ?>') < 0)) {
    			anchor.target = '_blank';
    		}
    	}

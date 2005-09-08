@@ -1,1 +1,1 @@
-	<li<?= rss_nav_item_class() ?>><a <?= rss_nav_item_accesskey() ?> href="<?= rss_nav_item_href() ?>"><?= rss_nav_item_label() ?></a></li>
+	<li<?php echo  rss_nav_item_class() ?>><a <?php echo  rss_nav_item_accesskey() ?> href="<?php echo  rss_nav_item_href() ?>"><?php echo  rss_nav_item_label() ?></a></li>
