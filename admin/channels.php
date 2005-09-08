@@ -235,8 +235,11 @@ function channel_admin() {
 	 case 'Add':
 
    $label = trim($_REQUEST['new_channel']);
-	$fid = trim($_REQUEST['add_channel_to_folder']);
-	
+   $fid = trim(rss_real_escape_string($_REQUEST['add_channel_to_folder']));
+
+	list($flabel) = rss_fetch_row(rss_query(
+	    "select name from " . getTable('folders') . " where id=$fid"));
+	    
 	// handle "feed:" urls
 	if (substr($label, 0,5) == 'feed:') {
 		$label = substr($label,5);
@@ -247,6 +250,18 @@ function channel_admin() {
 		//var_dump($ret);
 		if (is_array($ret) && $ret[0] > -1) {
 			update($ret[0]);
+			
+			// feedback
+   			$newCid = $ret[0];
+			rss_error(sprintf(
+				LBL_ADMIN_OPML_IMPORT_FEED_INFO,
+					$label,"/$flabel")
+					. LBL_ADMIN_OK
+					. "&nbsp;[<a href=\"index.php?domain=".CST_ADMIN_DOMAIN_CHANNEL
+						."&amp;action=edit&amp;cid=$newCid\">"
+					. LBL_ADMIN_EDIT
+					."</a>]",
+				RSS_ERROR_ERROR,true);
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		} elseif  (is_array($ret) && $ret[0] > -2) {
 			// okay, something went wrong, maybe thats a html url after all?
@@ -261,6 +276,20 @@ function channel_admin() {
 					$ret = add_channel($feeds[0]['href'],$fid);
 					if (is_array($ret) && $ret[0] > -1) {
 						update($ret[0]);
+						
+						// feedback
+			      		$newCid = $ret[0];
+						rss_error(sprintf(
+							LBL_ADMIN_OPML_IMPORT_FEED_INFO,
+								$label,"/$flabel")
+								. LBL_ADMIN_OK
+								. "&nbsp;[<a href=\"index.php?domain=".CST_ADMIN_DOMAIN_CHANNEL
+									."&amp;action=edit&amp;cid=$newCid\">"
+								. LBL_ADMIN_EDIT
+								."</a>]",
+							RSS_ERROR_ERROR,true);
+							
+							
 						$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 					} else {
 						// failure
