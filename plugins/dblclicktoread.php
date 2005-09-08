@@ -29,38 +29,76 @@
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
 /// Description: Marks an item as read when you doubleclick it
-/// Version: 1.2
+/// Version: 1.3
 
-function __dblclickToRead_js($in) {
+
+
+
+function __dblclicktoread_js_register($js) {
+	$js[] = getPath(). RSS_PLUGINS_DIR . "/dblclicktoread.php?dcljs";
+	return $js;
+}
+
+function __dblclickToRead_init_js($dummy) {
+	echo "\n<script type=\"text/javascript\">\n"
+	."<!--\n"
+	."__dbclickToRead_jsInit();\n"
+	."-->\n"
+	."</script>\n";
+	return $dummy;
+}
+
+if (isset($_REQUEST['dcljs'])) {
+	//required for DBUNAME
+	if (!defined('DBUNAME')) {
+  		require_once('../dbinit.php');
+	}
+	//required for ETagHandler and hidePrivate
+	if (!function_exists('ETagHandler')) {
+		require_once('../util.php');
+	}
+	//required for the feedstate constants
+	if (!defined('FEED_MODE_UNREAD_STATE')) {
+		require_once('../constants.php');
+	}
+	
+	
+	ETagHandler(md5("dblclicktoread".'$Revision: 845 $'));
 	if (hidePrivate()) {
 		return;
 	}
 ?>
-<script type="text/javascript">
-// <!--
-    var isIE=document.all?true:false;
-	function __dblclickToRead_js_getId(o) {
-		if (html = o.innerHTML) {            
-			if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*","gm").exec(html)) {
-              	if (!isIE) {
-                    c = unreadCnt(-1);
-                } else {
-                    c = 1;
-                }
-				id=r1[1];
-				s =r1[2] & <?= SET_MODE_READ_STATE ?>;
-				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
-				    sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
-                    setItemHide(id, (c == 0));
-				} else{ 
-				    setItemClass(id, 'item even');				     
-				}
 
-				setState(id,s);
-			} 
+
+
+var isIE=document.all?true:false;
+function __dblclickToRead_js_getId(o) {
+	if (html = o.innerHTML) {
+		if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*","gm").exec(html)) {
+          	if (!isIE) {
+                c = unreadCnt(-1);
+            } else {
+                c = 1;
+            }
+			id=r1[1];
+			s =r1[2] & <?= SET_MODE_READ_STATE ?>;
+			if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
+			    sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
+                setItemHide(id, (c == 0));
+			} else{
+			    setItemClass(id, 'item even');
+   				if (document.all) {
+            		o.ondblclick = function() {return false;}
+				} else {
+					o.setAttribute("ondblclick","return false;");
+				}
+			}
+
+			setState(id,s);
 		}
 	}
-	
+}
+function __dbclickToRead_jsInit() {
 	var isIE=document.all?true:false;
 	var items = document.getElementsByTagName('li');
 	for (var i=0; i<items.length; i++) {
@@ -71,14 +109,15 @@ function __dblclickToRead_js($in) {
             } else {
                 item.setAttribute("ondblclick","__dblclickToRead_js_getId(this); return false;");
             }
-		} 
+		}
 	}
-	
-// -->
-</script>
-<?php
-	return null;
 }
 
-rss_set_hook('rss.plugins.bodyend','__dblclickToRead_js');
+<?php
+	flush();
+	exit();
+}
+
+rss_set_hook('rss.plugins.javascript','__dblclicktoread_js_register');
+rss_set_hook('rss.plugins.bodyend','__dblclickToRead_init_js');
 ?>
