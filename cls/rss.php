@@ -157,6 +157,16 @@ class RSS {
 		$this -> error -> appendError($error, $severity);
 	}
 	
+	function getShownUnreadIds() {
+		$ret = array();
+		foreach($this->mainObject as $o) {
+			if (isset($o->unreadIids)) {
+				$ret = array_merge($ret,$o->unreadIids);
+			}
+		}
+		return $ret;
+	}
+	
 }
 
 $GLOBALS['rss'] = new RSS();

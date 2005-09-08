@@ -1073,7 +1073,7 @@ function markReadForm($cid) {
   	  ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/>\n"
-  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",getShownUnreadIds())."\" />\n"
+  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
   	  ."</p>\n</form>";
 }
 
@@ -1089,7 +1089,7 @@ function markFolderReadForm($fid) {
   	  ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_FOLDER_READ\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/>\n"
-  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",getShownUnreadIds())."\" />\n"
+  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
   	  ."</p></form>";
   	  
 }
@@ -1106,19 +1106,11 @@ function markVirtualFolderReadForm($vfid){
   	  ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_VFOLDER_READ\"/>\n"
   	  ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/>\n"
-  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",getShownUnreadIds())."\" />\n"
+  	  ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
   	  ."</p>\n</form>";
 }
 
-function getShownUnreadIds() {
-	$ret = array();
-	foreach($GLOBALS['rss']->mainObject as $o) {
-		if (isset($o->unreadIids)) {
-			$ret = array_merge($ret,$o->unreadIids);
-		}
-	}
-	return $ret;
-}
+
 
 function debugFeed($cid) {
 }

@@ -43,8 +43,8 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 
 if (array_key_exists('metaaction', $_POST)
     && $_POST['metaaction'] != ""
-    && trim($_POST['metaaction']) == trim('LBL_MARK_READ') && 
-	!hidePrivate()) {
+    && trim($_POST['metaaction']) == trim('LBL_MARK_READ') 
+    && !hidePrivate()) {
     
     $sql = "update " .getTable("item") . " set unread=unread & "
      .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE;
@@ -53,6 +53,9 @@ if (array_key_exists('metaaction', $_POST)
 	  	$sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
 	 }
 	 
+	if (array_key_exists('markreadids',$_POST)) {
+		$sql .= " and id in (" . rss_real_escape_string($_POST['markreadids']) .")";
+	}
 	 rss_query( $sql );
 	  
 }
@@ -175,10 +178,11 @@ function markAllReadForm() {
 		define ('MARK_READ_ALL_FORM',true);
 	}	
 	
-   echo "<form action=\"". getPath() ."\" method=\"post\">"
-      ."<p><input accesskey=\"m\" type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>"
-      ."<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_READ\"/></p>"
-      ."</form>\n";
+   echo "<form action=\"". getPath() ."\" method=\"post\">\n"
+      ."<p><input accesskey=\"m\" type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>\n"
+      ."<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_READ\"/>\n"
+      ."<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
+      ."</p></form>\n";
 }
 
 
