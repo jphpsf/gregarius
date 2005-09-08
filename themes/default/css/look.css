@@ -261,10 +261,7 @@ p.stats { font-size: small; margin-bottom:1em; }
 label, input[type="submit"] { cursor: pointer; }
 
 
-/* bad bad bad */
-.frame,.item,h3.collapsed,table,div.content img,#sidemenu li,
-ul.navlist li,a.bookmarklet, fieldset, div#pbholder, div.ief,
-div.ief p a, #loginfo, input[type="submit"] { -moz-border-radius: 5px }
+
 
 .box { 
  border: 1px solid #eef;

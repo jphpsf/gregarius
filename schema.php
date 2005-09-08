@@ -267,7 +267,7 @@ function setDefaults($key) {
 		"rss.output.noreaditems"	=>		array('false','false','boolean','Show unread items only on the frontpage.',NULL),
 		"rss.output.theme"			=>		array('default','default','string','The theme to use. Themes are subdirectories of themes/ which should contain at least the following elements:<ul><li>css/layout.css</li><li>css/look.css</li><ul>',NULL),
 		"rss.output.cachecontrol"	=>		array('false','false','boolean','If true, Gregarius will negotiate with the browser and check whether it should get a fresh document or not.',NULL),
-		"rss.config.plugins"		=>		array('a:1:{i:0;s:13:"urlfilter.php";}','a:1:{i:0;s:13:"urlfilter.php";}','array','Plugins are third-party scripts that offer extended functionalities. More plugins can be found at the <a href="http://plugins.gregarius.net/">Plugin Repository</a>.' , NULL),
+		"rss.config.plugins"		=>		array('a:2:{i:0;s:13:"urlfilter.php";i:1;s:18:"roundedcorners.php";}','a:2:{i:0;s:13:"urlfilter.php";i:1;s:18:"roundedcorners.php";}','array','Plugins are third-party scripts that offer extended functionalities. More plugins can be found at the <a href="http://plugins.gregarius.net/">Plugin Repository</a>.' , NULL),
 		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow Gregarius to look for updates in existing items.',NULL),
 		"rss.output.titleunreadcnt"	=>		array('false','false','boolean','Display unread count in the document title.',NULL),
 		"rss.config.tzoffset"		=>		array('0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL),
