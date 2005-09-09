@@ -365,14 +365,11 @@ if (array_key_exists ('metaaction', $_POST)) {
     	$found = false;
     	$res = rss_query( " select id from " .getTable('folders') ." f order by "
 		
-			.(getConfig('rss.config.absoluteordering')?" f.position desc":"f.name desc")		
+			.(getConfig('rss.config.absoluteordering')?" f.position asc":"f.name desc")
 		);
 		
     	while (list($fid__) = rss_fetch_row($res)) {
-    		if ($fid__ == $fid && $next_fid > 0) {
-    			$found = true;
-    			break;
-    		} elseif($fid__ == $fid) {			
+    		if($fid__ == $fid) {
     			$found = true;
     		}
     		$sql = "select count(*) from "
