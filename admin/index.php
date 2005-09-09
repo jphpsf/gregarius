@@ -300,7 +300,7 @@ function getThemes() {
     $ret = array();
     $activeIdx = "0";
     while (false !== ($theme = $d->read())) {
-       if ($theme != "CVS" && substr($theme,0,1) != ".") {
+       if ($theme != "CVS" && !is_file("../".RSS_THEME_DIR."/$theme") && substr($theme,0,1) != ".") {
        		$ret[$theme]=getThemeInfo($theme);
        }
     }
