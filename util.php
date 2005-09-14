@@ -129,6 +129,9 @@ function update($id) {
 	$sql = "select id, url, title, mode from ".getTable("channels");
 	if ($id != "" && is_numeric($id)) {
 		$sql .= " where id=$id";
+		$sql .= " and not(mode & ".FEED_MODE_DELETED_STATE.") ";
+	} else{
+	$sql .= " where not(mode & ".FEED_MODE_DELETED_STATE.") ";
 	}
 
 	if (getConfig('rss.config.absoluteordering')) {
