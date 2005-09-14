@@ -237,24 +237,18 @@ class SilentUpdate extends Update {
 	
 	function render() {
 		$newIds = array();
-		foreach ($this->chans as $chan) {
-			list ($cid, $url, $title) = $chan;
-			$ret = update($cid);
-
-			if (is_array($ret)) {
-				list ($error, $unreadIds) = $ret;
-				$newIds = array_merge($newIds, $unreadIds);
-			} 
-	
-			if (count($newIds) && !hidePrivate()) {
-				parent::cleanUp($newIds);
-			}
-	
-			
+ 	   	        $ret = update("");  
+	  	        if (is_array($ret)) {  
+	  	            $newIds = $ret[1];  
+	  	        }  
+	  	 
+	  	        if (!hidePrivate()) {  
+	  	          parent::cleanUp($newIds);  
+	  	        }  
 			if (!array_key_exists('silent', $_GET)) {
 				rss_redirect();
 			}
-		}
+
 	}
 }
 
