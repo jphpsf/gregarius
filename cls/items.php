@@ -228,6 +228,8 @@ class ItemList {
 	var $unreadIids = array();
 	var $rss;
 	
+
+	
 	function ItemList() {
 	
 		$this -> rss = &$GLOBALS['rss'];
@@ -255,7 +257,7 @@ class ItemList {
 	 * @param sqlOrder (optional) specifies a different item ordering
 	 * @param sqlLimit (optional) specifies how many items should be fetched
 	 */
-	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1) {
+	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED) {
 
 		$sql = "select i.title,  c.title, c.id, i.unread, "
 			."i.url, i.author, i.description, c.icon, "
@@ -284,9 +286,20 @@ class ItemList {
 		/// Order by
 		$sqlOrder = rss_plugin_hook("rss.plugins.items.order",$sqlOrder);
 		if ($sqlOrder == "") {
+			switch ($hint) {
+					case ITEM_SORT_HINT_READ:
+						$skey = 'read';
+					break;
+					
+					case ITEM_SORT_HINT_MIXED:
+					case ITEM_SORT_HINT_UNREAD:
+					default:
+						$skey = 'unread';
+					break;
+			}
 			$sql .= " order by  ";
 			if (!getConfig('rss.config.feedgrouping')) {
-				if(getConfig('rss.config.datedesc')){
+				if(getConfig("rss.config.datedesc.$skey")){
 					$sql .= " ts desc, f.position asc, c.position asc ";
 				}else{
 					$sql .= " ts asc, f.position asc, c.position asc ";
@@ -296,7 +309,7 @@ class ItemList {
 			} else {
 				$sql .= " f.name asc, c.title asc";
 			}
-			if(getConfig('rss.config.datedesc')){
+			if(getConfig("rss.config.datedesc.$skey")){
 				$sql .= ", ts desc, i.id asc";
 			}else{
 				$sql .= ", ts asc, i.id asc";

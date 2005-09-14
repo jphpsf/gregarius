@@ -643,8 +643,10 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			$sqlWhere .= " i.cid = $cid or ";			
 		}
 		$sqlWhere .= " 1=0) ";
+		$hint = ITEM_SORT_HINT_MIXED;
 		if  ($do_show == SHOW_UNREAD_ONLY) {
 				$sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+				$hint = ITEM_SORT_HINT_UNREAD;
 		}	
 		
 		// how many items should we display in a folder view?
@@ -659,14 +661,17 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			// arbitrary!
 			$cnt = 50;
 		}
-		$items -> populate($sqlWhere, "", 0, $cnt);
+		$items -> populate($sqlWhere, "", 0, $cnt, $hint);
    
    } else {
-   
+
 		foreach ($cids as $cid) {
+			$hint = ITEM_SORT_HINT_MIXED;
+			
 			$sqlWhere = "i.cid = $cid";
 			if  ($do_show == SHOW_UNREAD_ONLY) {
 				$sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+				$hint = ITEM_SORT_HINT_UNREAD;
 			}		 
 			if ($iid != "") {
 				$sqlWhere .= " and i.id=$iid";
@@ -685,16 +690,16 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 			} else {
 				$sqlLimit = 9999;
 			}
-					  
+			/*		  
 			$sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc";
-			if(getConfig('rss.config.datedesc')){
+			if(getConfig("rss.config.datedesc")){
 				$sqlOrder .= ", ts desc, i.id asc";
 			} else {
 				$sqlOrder .= ", ts asc, i.id asc";
 			}
-			
-			
-			$items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit);
+			*/
+			$sqlOrder = "";
+			$items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit, $hint);
 		}
 	}
 	
@@ -946,7 +951,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 						$sql .= " and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
 					}
 		      
-				if(getConfig('rss.config.datedesc')){
+				if(getConfig('rss.config.datedesc.unread')){
 					$sql .= " order by ts_ desc, i.id asc";
 				}else{
 					$sql .= " order by ts_ asc, i.id asc";
@@ -1079,6 +1084,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 				.getTable('tag') . "t "
 				." where  m.ttype = 'channel' and m.tid = t.id  "
 				." order by t.tag asc");
+				
 				$pp = null;
 				$nn = null;
 				$found = false;

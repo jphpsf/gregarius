@@ -242,7 +242,6 @@ _SQL_
 
 function setDefaults($key) {
   	rss_error('inserting some default config values...', RSS_ERROR_NOTICE);
-
 	$defaults = array (
 		"rss.output.cachedir"		=>		array("/tmp/magpierss","/tmp/magpierss","string","Where should magpie store its temporary files? (Apache needs write permissions on this dir.)","MAGPIE_CACHE_DIR"),
 		"rss.output.encoding"		=>		array("UTF-8","UTF-8","string","Output encoding for the PHP XML parser.","MAGPIE_OUTPUT_ENCODING"),
@@ -273,7 +272,8 @@ function setDefaults($key) {
 		"rss.config.tzoffset"		=>		array('0','0','num','Timezone offset, in hours, between your local time and server time. Valid range: "-12" through "12"',NULL),
 		"rss.output.numitemsonpage"	=>		array("100","100","num","Maximum number of items displayed on the main page. Set this variable to 0 to turn this option off.",NULL),
 		"rss.config.feedgrouping"	=>		array('false','false','boolean',"When true, Gregarius groups unread items per feed and sorts the feeds according to the <code>rss.config.absoluteordering</code> configuration switch. When false, unread items are not grouped by feed, but are sorted by date instead.",NULL),
-		"rss.config.datedesc"		=>		array('true','true','boolean',"When true, Gregarius displays newer items first. If false, Gregarius will display older items first.",NULL),
+		"rss.config.datedesc.unread"		=>		array('true','true','boolean',"When true, Gregarius displays newer <strong>unread</strong> items first. If false, Gregarius will display older unread items first.",NULL),
+		"rss.config.datedesc.read"		=>		array('true','true','boolean',"When true, Gregarius displays newer <strong>read</strong> items first. If false, Gregarius will display older read items first.",NULL),
 		"rss.config.autologout"		=>		array('false','false','boolean','When true, Gregarius will automatically remove the "admin cookie" when the browser window is closed, effectively logging you out.',NULL),
 		"rss.config.publictagging"	=>		array('false','false','boolean','When true, every visitor to your Gregarius site will be allowed to tag items, when false only the Administrator (you) is allowed to tag.',NULL),
 		"rss.config.rating"			=>		array('true','true','boolean','Enable the item rating system.',NULL)
@@ -290,6 +290,7 @@ function setDefaults($key) {
 			. "(key_,value_,default_,type_,desc_,export_) VALUES ("
 			. "'$k','$v','$d','$t','$ds'," .($e?"'$e'":"null") .")",false,true);
 		if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+
 			$atLeastOneIn = true;
 		}
 		

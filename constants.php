@@ -121,4 +121,9 @@ define ('RSS_PLUGINS_DIR','plugins');
 define ('RSS_ERROR_ERROR',0);
 define ('RSS_ERROR_WARNING',1);
 define ('RSS_ERROR_NOTICE',2);   
+
+
+define ('ITEM_SORT_HINT_UNREAD', 0x00);
+define ('ITEM_SORT_HINT_READ', 0x01);
+define ('ITEM_SORT_HINT_MIXED', 0x02);
 ?>

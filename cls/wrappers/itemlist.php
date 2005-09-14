@@ -29,7 +29,9 @@
 function rss_itemlist_title() {
 	
 	return ($GLOBALS['rss'] -> currentItemList -> renderOptions & IL_TITLE_NO_ESCAPE ? 
-		$GLOBALS['rss']->currentItemList ->title : rss_htmlspecialchars($GLOBALS['rss']->currentItemList ->title));
+			$GLOBALS['rss']->currentItemList ->title : 
+			rss_htmlspecialchars($GLOBALS['rss']->currentItemList ->title)
+	);
 }
 
 function rss_itemlist_anchor() {
@@ -48,7 +50,8 @@ function rss_itemlist_icon() {
 		count($GLOBALS['rss'] -> currentItemList -> feeds)) {
 			$key = array_keys($GLOBALS['rss'] -> currentItemList -> feeds);
 			return $GLOBALS['rss'] -> currentItemList -> feeds[$key[0]] -> iconUrl;
-	} elseif (($GLOBALS['rss']->renderOptions & IL_FOLDER_VIEW) && getConfig('rss.output.showfavicons')) {
+	} elseif (($GLOBALS['rss']->renderOptions & IL_FOLDER_VIEW) && 
+			getConfig('rss.output.showfavicons')) {
 		return getThemePath()."media/folder.gif";
 	}
 		
