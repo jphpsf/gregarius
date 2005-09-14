@@ -481,13 +481,19 @@ if ($iid != "" && !is_numeric($iid)) {
     $iid = "";
 }
 
+// make sure the variables passed to makeName are initialized
 if (!isset($fid)) {
 	$fid=null;
 }
-
+if (!isset($vfid)) {
+	$vfid=null;
+}
+if (!isset($cids)) {
+	$cids=null;
+}
 //precompute the navigation hints, which will be passed to the header as <link>s
 $links = NULL;
-if ($cid && ($nv = makeNav($cid,$iid,$y,$m,$d)) != null) {
+if (($cid || $fid || $vfid) && ($nv = makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids)) != null) {
     list($prev,$succ, $up) = $nv;
     $links =array();
     if ($prev != null) {
@@ -515,20 +521,22 @@ if ($cid && ($nv = makeNav($cid,$iid,$y,$m,$d)) != null) {
 if ($iid == "") {
 	$cidfid = array();
 	// "channel / folder mode"
+	$prepend = false;
 	if ($cid) {
-		$res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
+        $res = rss_query("select title,icon from " . getTable("channels") ." where id = $cid");
 		list($title,$icon) = rss_fetch_row($res);
 		if (isset($y) && $y > 0 && $m > 0 && $d == 0) {
 			$dtitle =  (" " . TITLE_SEP ." " . rss_locale_date('%B %Y',mktime(0,0,0,$m,1,$y),false));
+			$prepend=true;
 		} elseif (isset($y) && $y > 0 && $m > 0 && $d > 0) {
+          	$prepend=true;
 			$dtitle =  (" " . TITLE_SEP ." " . rss_locale_date('%B %e, %Y',mktime(0,0,0,$m,$d,$y),false));
 		} else {
 			$dtitle ="";
 		}
 		$cidfid ['cid']=$cid;
 		$cidfid ['fid']=null;
-	} elseif(isset($fid) && $fid) {
-	
+	} elseif($fid) {
 		list($title) = rss_fetch_row( rss_query("select name from " . getTable('folders') . " where id = $fid") );
 		$dtitle ="";
 		$cidfid ['cid']=null;
@@ -548,9 +556,11 @@ if ($iid == "") {
 	
 	if ($links) {
 		foreach ($links as $rel => $val) {
-			if (($lbl = $links[$rel]['title']) != "") {
+			if (($lbl = $links[$rel]['title']) != "" && $prepend) {
 				$links[$rel]['title'] = htmlentities( $title,ENT_COMPAT,"UTF-8" ) . " " . TITLE_SEP ." " . $lbl;
-			} else {
+			} elseif (($lbl = $links[$rel]['title']) != "" && !$prepend) {
+                $links[$rel]['title'] = htmlentities( $lbl, ENT_COMPAT,"UTF-8" );
+			} elseif ($title) {
 				$links[$rel]['title'] = htmlentities( $title,ENT_COMPAT,"UTF-8" );
 			}
 		}
@@ -760,13 +770,14 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
  	)
  )
  */
-function makeNav($cid,$iid,$y,$m,$d) {
+function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 
-	//echo "$cid,$iid,$y,$m,$d";
+	//echo "X-info: $cid,$iid,$y,$m,$d,$fid,$vfid,$cids";
 	$currentView = null;
 	$prev = $succ = $up = null;
-	$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);	
-
+	if (isset($_REQUEST['channel'])) {
+		$escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
+	}
 	// where are we anyway?
 	if ($y > 0 && $m > 0 && $d > 0) {
 		if ($iid != "") {
@@ -776,6 +787,12 @@ function makeNav($cid,$iid,$y,$m,$d) {
 	 	}
 	} elseif ($y > 0 && $m > 0 && $d == 0) {
    	    $currentView = 'month';
+	} elseif ($cids) {
+		if ($fid) {
+        	$currentView = "folder";
+		} elseif ($vfid) {
+	        $currentView = "cat";
+		}
 	} elseif ($cid) {
 	   $currentView = "feed";
 	}
@@ -904,7 +921,12 @@ function makeNav($cid,$iid,$y,$m,$d) {
 					);
 			} elseif ($currentView == 'month') {
 				 $up = array(
-					'url' => getPath() . $escaped_title ."/",
+
+					'url' => getPath().
+						   ( getConfig('rss.output.usemodrewrite') ?
+       						$escaped_title
+							:"feed.php?channel=$cid") ,
+							'lbl' => $escaped_title,
 					'lbl' => '');
 			}
 			
@@ -1050,6 +1072,119 @@ function makeNav($cid,$iid,$y,$m,$d) {
 				}
 			
 			break;
+			
+			case 'cat':
+				$res = rss_query(" select t.tag,t.id from  "
+				.getTable('metatag') ." m, "
+				.getTable('tag') . "t "
+				." where  m.ttype = 'channel' and m.tid = t.id  "
+				." order by t.tag asc");
+				$pp = null;
+				$nn = null;
+				$found = false;
+				$stop = false;
+				while (!$stop && list($tt_,$tid_) = rss_fetch_row($res)) {
+					if ($vfid == $tid_) {
+						$found = true;
+					}
+					if (!$found) {
+						$pp = array('id' => $tid_, 	'title' => $tt_);
+					} elseif ($vfid != $tid_) {
+						$nn = array('id' => $tid_ , 'title' => $tt_);
+						$stop = true;
+					}
+				}
+				if ($pp) {
+				  $vftitle_ = $pp['title'];
+				  $vfid_ = 	$pp['id'];
+                  $prev = array(
+						   'url' => getPath().
+						   ( getConfig('rss.output.usemodrewrite') ?
+							preg_replace("/[^A-Za-z0-9\.]/","_",$vftitle_) ."/"
+							:"feed.php?vfolder=$vfid_") ,
+							'lbl' => htmlentities( $vftitle_,ENT_COMPAT,"UTF-8" )
+					);
+				}
+
+				if ($nn) {
+				  $vftitle_ = $nn['title'];
+				  $vfid_ = 	$nn['id'];
+                  $succ = array(
+						   'url' => getPath().
+						   ( getConfig('rss.output.usemodrewrite') ?
+							preg_replace("/[^A-Za-z0-9\.]/","_",$vftitle_) ."/"
+							:"feed.php?vfolder=$vfid_") ,
+							'lbl' => htmlentities( $vftitle_,ENT_COMPAT,"UTF-8" )
+					);
+				}
+
+
+			    break;
+			    
+			case 'folder':
+				$sql = "select  f.id, f.name, count(*) from "
+				. getTable('channels') . " c, "
+				. getTable('folders') . " f "
+				." where c.parent=f.id and f.name != '' ";
+				
+				if (hidePrivate()) {
+					$sql .= " and not (c.mode & ".FEED_MODE_PRIVATE_STATE.")";
+				}
+
+				$sql .= " group by f.id ";
+               	if (getConfig('rss.config.absoluteordering')) {
+					$sql .= " order by f.position asc, c.position asc";
+				} else {
+					$sql .= " order by f.name, c.title asc";
+				}
+				$res = rss_query($sql);
+                $pp = null;
+				$nn = null;
+				$found = false;
+				$stop = false;
+
+				while (!$stop && list($fid_, $fn_,$fc_) = rss_fetch_row($res)) {
+					if ($fc_ == 0) {
+						continue;
+					}
+					if ($fid == $fid_) {
+						$found = true;
+					}
+					if (!$found) {
+						$pp = array('id' => $fid_, 	'title' => $fn_);
+					} elseif ($fid != $fid_) {
+						$nn = array('id' => $fid_ , 'title' => $fn_);
+						$stop = true;
+					}
+				}
+				if ($pp) {
+				  $ftitle__ = $pp['title'];
+				  $fid__ = 	$pp['id'];
+                  $prev = array(
+						   'url' => getPath().
+						   ( getConfig('rss.output.usemodrewrite') ?
+							preg_replace("/[^A-Za-z0-9\.]/","_",$ftitle__) ."/"
+							:"feed.php?folder=$fid__") ,
+							'lbl' => htmlentities( $ftitle__,ENT_COMPAT,"UTF-8" )
+					);
+				}
+
+				if ($nn) {
+				  $ftitle__ = $nn['title'];
+				  $fid__ = 	$nn['id'];
+                  $succ = array(
+						   'url' => getPath().
+						   ( getConfig('rss.output.usemodrewrite') ?
+							preg_replace("/[^A-Za-z0-9\.]/","_",$ftitle__) ."/"
+							:"feed.php?folder=$fid__") ,
+							'lbl' => htmlentities( $ftitle__,ENT_COMPAT,"UTF-8" )
+					);
+				}
+			    break;
+			
+			default:
+			    //echo "current view: $currentView";
+			    break;
 		}
 		return array($prev,$succ, $up);
 	}
