@@ -136,7 +136,7 @@ define ('LBL_ADMIN_OPML_IMPORT_FROM_FILE','... depuis un fichier:');
 define ('LBL_ADMIN_FILE_IMPORT','Importer le fichier');
 
 
-define ('LBL_ADMIN_CONFIG_VALUE','Valeur');
+define ('LBL_ADMIN_CONFIG_VALUE','Valeur de');
 
 define ('LBL_ADMIN_PLUGINS_HEADING_NAME','Nom');
 define ('LBL_ADMIN_PLUGINS_HEADING_AUTHOR','Auteur');

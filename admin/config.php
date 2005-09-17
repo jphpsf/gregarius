@@ -142,9 +142,16 @@ function config_admin() {
 
 	$ret__ = CST_ADMIN_DOMAIN_CONFIG;
 
-	switch ($_REQUEST['action']) {
+	if (isset($_REQUEST[CST_ADMIN_METAACTION])) {
+		$action = $_REQUEST[CST_ADMIN_METAACTION];
+	} else {
+		$action = $_REQUEST['action'];
+	}
+	
+	switch ($action) {
 
 	 case CST_ADMIN_DEFAULT_ACTION:
+	 case 'CST_ADMIN_DEFAULT_ACTION':
 		if (!array_key_exists('key',$_REQUEST)) {
 			rss_error('Invalid config key specified.', RSS_ERROR_ERROR,true);
 			break;
@@ -192,6 +199,7 @@ function config_admin() {
 		break;
 
 	 case CST_ADMIN_EDIT_ACTION:
+	 case 'CST_ADMIN_EDIT_ACTION':
 		$key_ = $_REQUEST['key'];
 		$res = rss_query("select * from ". getTable('config') . " where key_ ='$key_'");
 		list($key,$value,$default,$type,$desc,$export) =  rss_fetch_row($res);
@@ -199,7 +207,7 @@ function config_admin() {
 	
 		echo "<div>\n";
 		echo "\n\n<h2>Edit '$key'</h2>\n";
-		echo "<form id=\"cfg\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+		echo "<form style=\"display:inline\" id=\"cfg\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 		  ."<p>\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
 		  ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
 		  ."<input type=\"hidden\" name=\"type\" value=\"$type\"/>\n"
@@ -369,11 +377,11 @@ function config_admin() {
 		switch ($type) {
 		 case 'string':
 		 case 'num':
-		echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." for $key:</label>\n"
+		echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
 		  ."<input type=\"text\" id=\"c_value\" name=\"value\" value=\"$value\"/>";
 		break;
 		 case 'boolean':
-		echo LBL_ADMIN_CONFIG_VALUE ." for $key:</p><p>";
+		echo LBL_ADMIN_CONFIG_VALUE ." $key:</p><p>";
 		echo "<input type=\"radio\" id=\"c_value_true\" name=\"value\""
 		  .($value == 'true' ? " checked=\"checked\"":"") .""
 		  ." value=\"".LBL_ADMIN_TRUE."\" "
@@ -387,7 +395,7 @@ function config_admin() {
 		  ."<label for=\"c_value_false\">" . LBL_ADMIN_FALSE . "</label>\n";
 		break;
 		 case 'enum':
-		echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." for $key:</label>\n"
+		echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
 		  ."\t\t<select name=\"value\" id=\"c_value\">\n";
 		$arr = explode(',',$value);
 		$idx = array_pop($arr);
@@ -402,25 +410,32 @@ function config_admin() {
 		}
 	}
 
-	echo "</p><p>\n";
+	echo "</p><p style=\"display:inline\">\n";
 	echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_PREVIEW_CHANGES ."\""
 		  .(isset($onclickaction)?" onclick=\"$onclickaction\"":"") ." />\n":"");
-
+	echo "<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\" />";
+	  
 	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\""
 	  .(isset($onclickaction)?" onclick=\"$onclickaction\"":"")
-		." />\n";
-
-	echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/>\n"
-	  ."</p>\n"
-	  ."</form>\n\n</div>\n";
+		." /></p></form>\n";
+		
+		
+	echo "<form style=\"display:inline\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+		  ."<p style=\"display:inline\">\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
+		  ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CANCEL\" />"
+		  ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/></p></form>\n"
+	  ."\n\n</div>\n";
 
 	$ret__ = CST_ADMIN_DOMAIN_NONE;
 	break;
 
 	case LBL_ADMIN_PREVIEW_CHANGES:
+	case 'LBL_ADMIN_PREVIEW_CHANGES':
 		rss_error('fixme: preview not yet implemented', RSS_ERROR_ERROR,true);
 		break;
+		
 	case LBL_ADMIN_SUBMIT_CHANGES:
+	case 'LBL_ADMIN_SUBMIT_CHANGES':
 		$key = $_REQUEST['key'];
 		$type = $_REQUEST['type'];
 		$value = rss_real_escape_string($_REQUEST['value']);

@@ -137,7 +137,7 @@ define ('LBL_ADMIN_FOLDERS_ADD','Nueva carpeta:');
 define ('LBL_ADMIN_CHANNEL_ICON','Mostrar icono:');
 define ('LBL_CLEAR_FOR_NONE','(Dejar en blanco para anular el icono)');
 
-define ('LBL_ADMIN_CONFIG_VALUE','Valor');
+define ('LBL_ADMIN_CONFIG_VALUE','Valor para');
 
 define ('LBL_ADMIN_PLUGINS_HEADING_NAME','Nombre');
 define ('LBL_ADMIN_PLUGINS_HEADING_AUTHOR','Autor');

@@ -98,7 +98,7 @@ define ('LBL_ADMIN_CREATE', 'Erstellen');
 define ('LBL_ADMIN_IMPORT','Import');
 define ('LBL_ADMIN_EXPORT','Export');
 define ('LBL_ADMIN_DEFAULT','Standard');
-define ('LBL_ADMIN_ADD','Hinzufuegen');
+define ('LBL_ADMIN_ADD','Hinzuf&uuml;gen');
 define ('LBL_ADMIN_YES', 'Ja');
 define ('LBL_ADMIN_NO', 'Nein');
 define ('LBL_ADMIN_FOLDERS','Ordner:');
@@ -119,7 +119,8 @@ define ('LBL_ADMIN_OPML_IMPORT_FROM_FILE','... vom File:');
 define ('LBL_ADMIN_FILE_IMPORT','Import file');
 
 define ('LBL_ADMIN_IN_FOLDER','zu Ordner:');
-define ('LBL_ADMIN_SUBMIT_CHANGES', 'Aenderungen aktivieren');
+//define ('LBL_ADMIN_SUBMIT_CHANGES', 'Aenderungen aktivieren');
+define ('LBL_ADMIN_SUBMIT_CHANGES', '&Auml;nderungen aktivieren');
 define ('LBL_ADMIN_PREVIEW_CHANGES','Vorschau');
 define ('LBL_ADMIN_CHANNELS_HEADING_TITLE','Titel');
 define ('LBL_ADMIN_CHANNELS_HEADING_FOLDER','Ordner');
@@ -130,11 +131,11 @@ define ('LBL_ADMIN_CHANNELS_HEADING_FLAGS','Flags');
 define ('LBL_ADMIN_CHANNELS_HEADING_KEY','Schluessel');
 define ('LBL_ADMIN_CHANNELS_HEADING_VALUE','Wert');
 define ('LBL_ADMIN_CHANNELS_ADD','Feed:');
-define ('LBL_ADMIN_FOLDERS_ADD','Ordner hinzufuegen:');
+define ('LBL_ADMIN_FOLDERS_ADD','Ordner hinzuf&uuml;gen:');
 define ('LBL_ADMIN_CHANNEL_ICON','Gezeigte Favoriten-Zeichen:');
 define ('LBL_CLEAR_FOR_NONE','(Leer lassen fuer kein Icon)');
 
-define ('LBL_ADMIN_CONFIG_VALUE','Wert');
+define ('LBL_ADMIN_CONFIG_VALUE','Wert f&uuml;r');
 
 define ('LBL_ADMIN_PLUGINS_HEADING_NAME','Name');
 define ('LBL_ADMIN_PLUGINS_HEADING_AUTHOR','Autor');

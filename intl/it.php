@@ -140,7 +140,7 @@ define ('LBL_ADMIN_FOLDERS_ADD','Aggiungi una Cartella:');
 define ('LBL_ADMIN_CHANNEL_ICON','Favicon');
 define ('LBL_CLEAR_FOR_NONE','(Lascia vuoto per nessuna favicon)');
 
-define ('LBL_ADMIN_CONFIG_VALUE','Valore');
+define ('LBL_ADMIN_CONFIG_VALUE','Valore di');
 
 define ('LBL_ADMIN_PLUGINS_HEADING_NAME','Nome');
 define ('LBL_ADMIN_PLUGINS_HEADING_AUTHOR','Autore');

@@ -134,7 +134,7 @@ define ('LBL_ADMIN_FOLDERS_ADD','Add a folder:');
 define ('LBL_ADMIN_CHANNEL_ICON','Shown favicon:');
 define ('LBL_CLEAR_FOR_NONE','(Leave blank for no icon)');
 
-define ('LBL_ADMIN_CONFIG_VALUE','Value');
+define ('LBL_ADMIN_CONFIG_VALUE','Value for');
 
 define ('LBL_ADMIN_PLUGINS_HEADING_NAME','Name');
 define ('LBL_ADMIN_PLUGINS_HEADING_AUTHOR','Author');
