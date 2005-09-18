@@ -52,5 +52,5 @@ AddDefaultCharset utf-8
 
   #feed view - without the trailing slash
   RewriteCond  %{env:static} ^$
-  RewriteRule ^(.+)\/?$   feed.php?channel=$1&iid=$2 [L,QSA]
+  RewriteRule ^(.+)\/?$   feed.php?channel=$1 [L,QSA]
 </IfModule>
