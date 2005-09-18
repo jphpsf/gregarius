@@ -8,6 +8,12 @@ AddDefaultCharset utf-8
 <IfModule mod_rewrite.c>
   RewriteEngine on
   
+  # If we have a file or a directory match then lets set the 
+  # static variable
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^.*$ - [E=static:1]
+  
   SetEnvIf Request_URI "/css/" static
   SetEnvIf Request_URI "/img/" static
   SetEnvIf Request_URI "/admin/" static
@@ -44,4 +50,7 @@ AddDefaultCharset utf-8
   RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)\/(.*)?$   feed.php?channel=$1&iid=$2 [L,QSA]
 
+  #feed view - without the trailing slash
+  RewriteCond  %{env:static} ^$
+  RewriteRule ^(.+)\/?$   feed.php?channel=$1&iid=$2 [L,QSA]
 </IfModule>
