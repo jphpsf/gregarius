@@ -257,7 +257,7 @@ function rss_item_can_edit_tags() {
 }
 
 function rss_item_do_rating() {
- return getConfig('rss.config.rating');
+ return false; //getConfig('rss.config.rating');
 }
 
 function rss_item_rating() {

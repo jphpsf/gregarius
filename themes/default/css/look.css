@@ -362,26 +362,25 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 }
 
 /* styles for the star rater */
-div.rating { height: 25px; }
+/*
+div.rating { height: 25px; display: block !important;}
 div.rating h5 { display: inline !important; }
 ul.rr{
 	list-style:none;
-	margin: 3px;
+	margin: 3px 0 0 1em;
 	padding:0px;
 	width: 100px;
-	height: 20px !important;
-	position: relative !important;
-	top: -1.2em;
-    left: 3em;
+	height: 21px !important;
+	position: relative !important; 
+	top: -1.2em; 
 	background: url(./media/sr.gif) top left repeat-x;
+	display:inline !important;
 }
 .rr li{
 	padding:0px !important;
 	margin:0px !important;
 	height: 21px;
-
 	float: left;
-
 }
 .rr li a{
 	display:block;
@@ -416,4 +415,4 @@ ul.rr{
 .rr a.r5{ left: 80px; }
 .rr a.r5:hover, .rr li.current a.r5 { width: 100px; }
 
-
+*/
