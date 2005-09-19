@@ -280,68 +280,96 @@ if (array_key_exists ('metaaction', $_POST)) {
 		if (count($IdsToMarkAsRead)) {
 			$sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
 		}
-        rss_query($sql);
-        
-        $sql = "select count(*) from " .getTable("item") . " i "
-		." where i.unread & " .FEED_MODE_UNREAD_STATE
+      rss_query($sql);
+      
+
+      /* Redirect! If this feed has more unread items, self-redirect */
+      
+      $sql = "select count(*) from " .getTable("item") . " i "
+		 ." where i.unread & " .FEED_MODE_UNREAD_STATE
 		 ." and i.cid=$cid"
   		 ." and not(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
 		if (hidePrivate()) {
 			$sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
 		}
 		list($hasMoreUnreads) = rss_fetch_row(rss_query($sql));
-
-
-		/** see where we should redirect **/
-		$first_unread_id=$next_unread_id='';
-		 
-		 // redirect to the next unread, if any.
-		 $sql = "select c.id from " . getTable("item") . " i,"
-		 . getTable("channels") . " c,"
-		 . getTable("folders") . " f "
-			  ." where i.unread & ".FEED_MODE_UNREAD_STATE
-			." and not(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+		
+		
+		//more unread items in this feed?		
+		if ($hasMoreUnreads) {
+			$next_unread_id=$cid;
 			
-		if (hidePrivate()) {
-			$sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";	      
-		}
-			
-		$sql .= " and i.cid=c.id and c.parent=f.id";
-		if (getConfig('rss.config.absoluteordering')) {
-			$sql .= " order by f.position asc, c.position asc";
 		} else {
-			$sql .=" order by f.name asc, c.title asc";
-		}
-			
-		 $res = rss_query($sql);
-		 $next_ok=false;
-		 while(list ($unread_id) = rss_fetch_row($res)) {
-			if ($first_unread_id == '') {
-				$first_unread_id = $unread_id;
+		
+		   /* 
+		   	Find where we should redirect
+		   	 - The next feed in the list with unread items, or, failing that:
+		   	 - The first feed in the list with unread items, or, faling that:
+		   	 - The main page
+		   */
+		   
+			// 1: build a list of all feeds:
+			$feeds = array();
+			$sql = "select c.id from " 
+			. getTable('channels') . " c, "
+			. getTable('folders') . " f "
+			. "where c.parent=f.id and not (c.mode & " . FEED_MODE_DELETED_STATE .") ";
+			if (hidePrivate()) {
+				$sql .= " and not (c.mode & " . FEED_MODE_PRIVATE_STATE . ") ";
+			}
+			if (getConfig('rss.config.absoluteordering')) {
+				$sql .= " order by f.position asc, c.position asc";
+			} else {
+				$sql .=" order by f.name asc, c.title asc";
+			}
+			$res = rss_query($sql);
+			while (list($cid__) = rss_fetch_row($res)) {
+				$feeds[$cid__] = 0;
 			}
 			
-			if ($unread_id != $cid && $next_ok) {
-				$next_unread_id=$unread_id;
-				break;
+			// 2: Get the unread count for each feed:
+			$sql = "select cid, count(*) from " .getTable('item') 
+			." where (unread & ".FEED_MODE_UNREAD_STATE . ") "
+			." and not (unread & " .FEED_MODE_DELETED_STATE . ") ";
+			if (hidePrivate()) {
+				$sql .= " and not (i.unread & " . FEED_MODE_PRIVATE_STATE . ") ";
 			}
-			
-			if ($unread_id == $cid) {
-				$next_ok = true;
-				if ($hasMoreUnreads) {
-					$next_unread_id=$unread_id;
+			$sql .= " group by cid";
+			$res = rss_query($sql);
+			while (list($cid__,$uc__) = rss_fetch_row($res)) {
+				$feeds[$cid__] = $uc__;
+			}
+
+			// 3: iterate over the feeds and see where we should redirect.
+			$found = false;
+			$first_unread_id = $next_unread_id = 0;
+			foreach($feeds as $cid__ => $cnt) {
+				// reached the feed we're coming from?
+				if ($cid == $cid__) {
+					$found = true;
+				}
+				// if not yet, get a hold of the first in the list with unread items
+				if ($cnt && !$first_unread_id) {
+					$first_unread_id = $cid__;
+				} 
+				
+				// passed the previous feed? We got a winner!
+				if ($cnt && $found) {
+					$next_unread_id = $cid__;
 					break;
 				}
 			}
+			
+			// found none after the previous feed, but there is on on top
+			if (!$next_unread_id && $first_unread_id) {
+				$next_unread_id = $first_unread_id;	
+			}
+				 
 		 }
-		 if ($next_unread_id == '' && $first_unread_id != '') {
-			$next_unread_id = $first_unread_id; 
-		 }
-		 
-
 		 
 		 //redirect
-		 if ($next_unread_id == '') {	
-            rss_redirect();
+		 if (!$next_unread_id) {	
+       	rss_redirect();
 		 } else {
 			$cid = $next_unread_id;
 		 }
