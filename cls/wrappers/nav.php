@@ -26,9 +26,12 @@
 #
 ###############################################################################
 
+function rss_nav() {
+    $nav = new Navigation();
+    $nav -> render();
+}
 
 function rss_nav_items() {
-    $nav = new Navigation();
     foreach ($GLOBALS['rss']->nav->items as $item) {
         $item -> render();
     }

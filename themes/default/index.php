@@ -10,9 +10,7 @@
     <?php echo  rss_header_logininfo() ?>
     <a class="hidden" href="#feedcontent">skip to content</a>
     <h1 id="top"><?php echo  rss_main_title() ?></h1>
-    <ul class="navlist">
-        <?php echo  rss_nav_items() ?>
-    </ul>
+    <?php echo  rss_nav() ?>
     <?php echo  rss_nav_afternav() ?>
 </div>
 
