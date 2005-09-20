@@ -38,10 +38,17 @@ function rss_require($file,$once=true) {
    }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 // my-hacks support
+//
+
 if (file_exists(dirname(__FILE__) . '/rss_extra.php')) {
     rss_require('rss_extra.php');
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Base includes
+//
 
 rss_require('constants.php');
 rss_require('util.php');
@@ -49,6 +56,11 @@ rss_require('cls/rss.php');
 rss_require('dbinit.php');
 rss_require('db.php');
 rss_require('config.php');
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Error reporting
+//
 
 if (getConfig('rss.meta.debug')) {
     error_reporting(E_ALL);
@@ -60,11 +72,15 @@ if (!isset($GLOBALS['rss'])) {
 	rss_require('cls/rss.php');
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Classes
+//
+
 _pf('parsing classes:');
 rss_require('cls/errorhandler.php'); _pf(' ... errorhandler.php');
 rss_require('cls/items.php');        _pf(' ... items.php');
 rss_require("cls/channels.php");     _pf(' ... channels.php');
-rss_require('cls/sidemenu.php');	    _pf(' ... sidemenu.php');
+rss_require('cls/sidemenu.php');	 _pf(' ... sidemenu.php');
 rss_require("cls/header.php");       _pf(' ... header.php');
 rss_require("cls/nav.php");          _pf(' ... nav.php');
 
@@ -76,7 +92,9 @@ rss_require('extlib/kses.php');
 rss_require('extlib/Sajax.php');
 rss_require('tags.php');
 
-
+////////////////////////////////////////////////////////////////////////////////
+// Localization
+//
 $lang = getConfig('rss.output.lang');
 
 if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
@@ -84,6 +102,21 @@ if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
 } else {
     rss_require('intl/en.php');
 }
+
+// Theme  specific l10n handling
+$theme = defined('THEME_OVERRIDE')?
+	constant("THEME_OVERRIDE"):getConfig('rss.output.theme');
+if (isset($_REQUEST['theme'])) {
+	$theme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
+}
+
+if (file_exists(RSS_THEME_DIR."/$theme/intl/$lang.php")) {
+	rss_require(RSS_THEME_DIR."/$theme/intl/$lang.php");
+} elseif ($lang != "en" && file_exists(RSS_THEME_DIR."/$theme/intl/en.php")) {
+		  rss_require(RSS_THEME_DIR."/$theme/intl/en.php");
+}
+
+
 
 // Load the right locale
 if (isset($_SERVER["WINDIR"]) && defined("LOCALE_WINDOWS")) {
