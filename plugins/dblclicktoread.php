@@ -27,8 +27,14 @@
 
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
-/// Description: Marks an item as read when you doubleclick it
-/// Version: 1.4
+/// Description: Marks an item as read when you doubleclick its whitespace
+/// Version: 1.5
+
+/**
+ * Changelog:
+ *
+ * 1.5  Updated description
+ */
 
 function __dblclicktoread_js_register($js) {
     $js[] = getPath(). RSS_PLUGINS_DIR . "/dblclicktoread.php?dcljs";
@@ -46,7 +52,7 @@ function __dblclickToRead_init_js($dummy) {
 
 if (isset($_REQUEST['dcljs'])) {
 
-	 require_once('../init.php');
+	require_once('../init.php');
     ETagHandler(md5("dblclicktoread".'$Revision: 845 $'));
 
     if (hidePrivate()) {
