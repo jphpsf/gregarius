@@ -7,10 +7,10 @@
 	>
 
 <channel>
-	<title><?php echo  rss_header_title() ?></title>
-	<link><?php echo  guessTransportProto() . $_SERVER['HTTP_HOST'] . getPath() ?></link>
-	<description><?php echo  rss_header_title() ?></description>
-	<generator>Gregarius <?php echo  _VERSION_ ?></generator>
+	<title><?php echo rss_header_title() ?></title>
+	<link><?php echo guessTransportProto() . $_SERVER['HTTP_HOST'] . getPath() ?></link>
+	<description><?php echo rss_header_title() ?></description>
+	<generator>Gregarius <?php echo _VERSION_ ?></generator>
 	<language>en</language>
 	<?php rss_main_object(); ?>
 </channel>

@@ -1,1 +1,1 @@
-<?php rss_feed_items() ?>
+<?php rss_feed_items(); ?>
