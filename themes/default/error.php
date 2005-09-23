@@ -4,7 +4,7 @@
 			$errors = rss_errors_errors(); 
 			foreach($errors as $s => $es) {
 				foreach($es as $e) {
-					?><li class="error_l<?php echo  $s ?>"><?php echo  $e ?></li><?php
+					?><li class="error_l<?php echo $s; ?>"><?php echo $e; ?></li><?php
 				}
 			}
 		?>

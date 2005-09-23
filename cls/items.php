@@ -93,7 +93,7 @@ class Item {
 	 */
 	function render() {
 		$this-> rss -> currentItem = $this;
-		require($this-> rss -> getTemplateFile("item.php"));
+		eval($this-> rss -> getCachedTemplateFile("item.php"));
 	}
 }
 
@@ -189,7 +189,7 @@ class Feed {
 		$this-> rss -> currentFeed = &$this;
 		//echo $GLOBALS['rss']->renderOptions;
 		$this -> setCollapseState($this-> rss ->renderOptions);
-		require($this-> rss ->getTemplateFile("feed.php"));
+		eval($this-> rss ->getCachedTemplateFile("feed.php"));
 	}
 }
 

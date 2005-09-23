@@ -1,8 +1,8 @@
 	<span><a href="#top">TOP</a></span>
-	<?php echo  rss_plugin_hook("rss.plugins.footer.span",null); ?>
+	<?php echo rss_plugin_hook("rss.plugins.footer.span",null); ?>
 	<span>
-		<a href="http://devlog.gregarius.net/">Gregarius</a> <?php echo  _VERSION_ ?><!-- $Revision: 577 $ -->
-		<?php echo  LBL_FTR_POWERED_BY ?> <a href="http://php.net">PHP</a>, 
+		<a href="http://devlog.gregarius.net/">Gregarius</a> <?php echo _VERSION_ ?><!-- $Revision: 577 $ -->
+		<?php echo LBL_FTR_POWERED_BY ?> <a href="http://php.net">PHP</a>, 
 		<a href="http://magpierss.sourceforge.net/">MagpieRSS</a>, 
 		<a href="http://sourceforge.net/projects/kses">kses</a>,
 		<a href="http://www.modernmethod.com/sajax/">SAJAX</a></span>
@@ -11,5 +11,5 @@
 		<a href="http://jigsaw.w3.org/css-validator/check/referer">CSS2.0</a>
 	</span>
 	<span>
-		Last update: <?php echo  rss_footer_last_modif(); ?>
+		Last update: <?php echo rss_footer_last_modif(); ?>
 	</span>

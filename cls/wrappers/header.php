@@ -138,7 +138,7 @@ function rss_main_title() {
 
 function rss_main_footer() {
 	$f=$GLOBALS['rss']->getTemplateFile('footer.php');
-	rss_require($f);
+	require($f);
 }
 
 function rss_footer_last_modif() {

@@ -845,4 +845,17 @@ function ETagHandler($key) {
 	}
 }
 
+//these two eval_ functions taken from the comments at http://us3.php.net/eval
+
+function eval_mixed_helper($arr){
+  return ("echo stripslashes(\"".addslashes($arr[1])."\");");
+  }
+
+function eval_mixed($string){
+  $string = "<? ?>".$string."<? ?>";
+  $string = preg_replace("/<\?=\s+(.*?)\s+\?>/", "<? echo $1; ?>", $string);
+  $string = str_replace('?>', '', str_replace( array('<?php', '<?'), '', preg_replace_callback( "/\?>((.|\n)*?)<\?(php)?/","eval_mixed_helper",$string) ) );
+  return $string;
+  }
+
 ?>

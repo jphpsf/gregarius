@@ -64,14 +64,6 @@ class RSS {
 	}
 	
 	function getTemplateFile($file) {
-		/*
-		static $templateCache;
-		$templateCache=array();
-		
-		if (array_key_exists($file, $templateCache)) {
-			return $templateCache[$file];
-		}
-		*/
 		$theme = getConfig('rss.output.theme');
 		if (defined('THEME_OVERRIDE')) {
 			$theme = THEME_OVERRIDE;
@@ -110,10 +102,22 @@ class RSS {
 			$ret= RSS_THEME_DIR."/default/$file";
 		}
 		
-		//$templateCache[$file] = $ret;
 		return $ret;
 	}
 	
+	function getCachedTemplateFile($file) {
+		static $templateCache = array();
+		$filename = $this->getTemplateFile($file);	
+		if (array_key_exists($filename, $templateCache)) {
+			return $templateCache[$filename];
+		}
+		$fileContent = file_get_contents($filename);
+		$modifiedFileContent = eval_mixed($fileContent);
+		$templateCache[$filename] = $modifiedFileContent;
+
+		return $modifiedFileContent;
+
+	}
 	function renderWithTemplate($template,$mainDivId="items") {
 		$this->_pf('start rendering');
 		
