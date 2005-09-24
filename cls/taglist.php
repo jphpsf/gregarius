@@ -28,45 +28,68 @@
 
 
 require_once('cls/alltags.php');
+require_once('cls/channels.php');
 
-class TagList extends Tags{
-	
-	var $countTaggedItems=0;
-	var $tagCount;
-	
-	function TagList() {
-		parent::Tags();
-		
-		$sql = "select count(*) as cnt from " 
-		. getTable('metatag') . "  left join " 
-		. getTable('item') ."  i on (fid=i.id)  where ttype = 'item'";
-		
-		if (hidePrivate()) {
-			$sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
-		}
-		list($this -> countTaggedItems) = rss_fetch_row(rss_query($sql));
-		
-		$sql = "select  count(distinct(tid)) as cnt from "
-		 . getTable('metatag') . " left join " . getTable('item')
-		 ." i on (fid=i.id) where ttype='item' ";
-		
-		if (hidePrivate()) {
-			$sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
-		}
-
-		list($this -> tagCount) = rss_fetch_row(rss_query($sql));
+/**
+ * A TagListItem represents a single tag in the tags sidecolumn
+ */
+class TagListItem extends FeedListItem {
+	var $title;
+	var $cnt;
+	var $rlink;
+	var $rdLbl = "";
+	var $class_ = "";
+	var $icon;
+	function TagListItem($title,$cnt, $url) {
+		$this -> title = $title;
+		$this -> cnt = $cnt;
+		$this -> rlink = $url;
+		$this -> rdLbl = "($cnt)";
+		$this->icon = rss_theme_path() ."/media/noicon.png";
 	}
 	
 	function render() {
-		echo "<h2>".LBL_TAG_TAGS."</h2>\n";
-		echo "<p class=\"stats\">" .sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount) . "</p>\n";
-		echo "<ul id=\"taglist\">\n";
-		foreach ($this -> allTags as $tag => $cnt) {
-			echo "\t<li>"
-			."<img src=\"".rss_theme_path() ."/media/noicon.png"."\" class=\"favicon\" alt=\"\" />"
-			."<a href=\"".$this -> makeTagLink($tag) ."\">$tag</a> ($cnt)</li>\n";
+		$GLOBALS['rss']->currentFeedsFeed = $this;
+		eval($GLOBALS['rss'] ->getCachedTemplateFile("feedsfeed.php"));	
+	}
+}
+
+/**
+ * A TagList renders a list of all the tags
+ */
+class TagList extends FeedList{
+	
+	var $tags;
+	var $folders = array();
+	var $countTaggedItems = 0;
+	var $tagCount = 0;
+	
+	function TagList() {
+		$this -> populate();
+		$this -> 	columnTitle = LBL_TAG_TAGS;
+		$GLOBALS['rss']-> feedList = $this;
+	}
+	
+	function populate() {
+		$t = new Tags();
+		$this -> tags = $t -> allTags;
+		$this -> folders[0] = new FeedFolder(null , null ,$this);
+		foreach ($this -> tags as $tag => $count) {	
+			$this -> tagCount++;
+			$this -> countTaggedItems += $count;
+			$tt = new TagListItem($tag,$count, $t -> makeTagLink($tag) );
+			$this->folders[0]->feeds[] = $tt;
 		}
-		echo "</ul>\n";
+	}
+	
+	function getStats() {
+		return sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount);
+	}
+	
+	function render() {
+		_pf('TagList->render() ...');
+		eval($GLOBALS['rss'] ->getCachedTemplateFile("feeds.php"));
+		_pf('done');	
 	}
 }
 ?>
