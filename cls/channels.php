@@ -155,6 +155,7 @@ class FeedList {
 	}
 	
 	function getStats() {
+		_pf('getStats()');
 		$unread = getUnreadCount(null, null);
 		
 		
@@ -174,6 +175,7 @@ class FeedList {
 			
 		list ($channelcount) = rss_fetch_row($res);
 		$this ->stats = sprintf(LBL_ITEMCOUNT_PF, $total, $unread, $channelcount);
+		_pf('done: getStats()');
 		return $this -> stats;
 	}
 	
