@@ -156,9 +156,12 @@ class FeedList {
 	
 	function getStats() {
 		_pf('getStats()');
+		_pf(' ... unreadCount');
+
 		$unread = getUnreadCount(null, null);
-		
-		
+		_pf(' ... done: unreadCount');		
+
+		_pf(' ... totalCount');		
 		$res = rss_query("select count(*) from ".getTable("item")
 			." where not(unread & ".FEED_MODE_DELETED_STATE.") "
 			. (hidePrivate()? " and not(unread & ".FEED_MODE_PRIVATE_STATE.")":"")
@@ -167,13 +170,18 @@ class FeedList {
 			
 			
 		list ($total) = rss_fetch_row($res);
-	
+		_pf(' ... done: totalCount');		
+		
+
+		_pf(' ... feedsCount');				
 		$res = rss_query("select count(*) from "
 			.getTable("channels")." where not(mode & ".FEED_MODE_DELETED_STATE.")"
 			. (hidePrivate()? " and not(mode & ".FEED_MODE_PRIVATE_STATE.")":"")
 			);
 			
 		list ($channelcount) = rss_fetch_row($res);
+		_pf(' ... done: feedsCount');				
+		
 		$this ->stats = sprintf(LBL_ITEMCOUNT_PF, $total, $unread, $channelcount);
 		_pf('done: getStats()');
 		return $this -> stats;

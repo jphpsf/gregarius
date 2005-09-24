@@ -669,26 +669,46 @@ function getThemePath() {
 }
 
 function getUnreadCount($cid, $fid) {
-	$sql = "select count(*) from "
-	.getTable("item")	."i, ".getTable('channels')."c "
-	." where i.unread & ".FEED_MODE_UNREAD_STATE. " and not(i.unread & " .
-	FEED_MODE_DELETED_STATE .") and i.cid=c.id "
-	." and not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+	static $_uccache = array();
+	$key_ = "key $cid $fid key";
+	if (isset($_uccache[$key_])) {
+		return $_uccache[$key_];
+	}
+	
 
+	$sql = "select count(*) from "
+	.getTable("item")	."i";
+	
+	if ($cid || $fid) {	
+		$sql .= ", " .getTable('channels') ."c ";
+	}
+	
+	$sql .= " where i.unread & ".FEED_MODE_UNREAD_STATE. " and not(i.unread & " .
+	FEED_MODE_DELETED_STATE .")";
+	
+	
+	if ($cid || $fid) {	
+		$sql .= " and i.cid=c.id "
+		." and not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+	} 
+	
+	
 	if (hidePrivate()) {
 		$sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.")";
 	}
-
-	if ($cid) {
-		$sql .= " and c.id=$cid ";
-	}
-	elseif ($fid) {
-		$sql .= " and c.parent=$fid ";
+	
+	if ($cid || $fid) {	
+		if ($cid) {
+			$sql .= " and c.id=$cid ";
+		}
+		elseif ($fid) {
+			$sql .= " and c.parent=$fid ";
+		}
 	}
 
 	$res = rss_query($sql);
-	list ($unread) = rss_fetch_row($res);
-	return $unread;
+	list ($_uccache[$key_]) = rss_fetch_row($res);
+	return $_uccache[$key_];
 }
 
 function rss_locale_date ($fmt, $ts, $addTZOffset = true) {
