@@ -241,16 +241,19 @@ define ('LBL_LOGGED_IN_AS','Inloggad som <strong>%s</strong>');
 define ('LBL_NOT_LOGGED_IN','Du &auml;r inte inloggad');
 define ('LBL_LOG_OUT','Logga ut');
 define ('LBL_LOG_IN','Logga in');
+
 define ('LBL_ADMIN_OPML_IMPORT_AND','Importera nya fl&ouml;den och:');
 define ('LBL_ADMIN_OPML_IMPORT_WIPE','... ers&auml;tt alla nuvarande fl&ouml;den.');
-define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... add them to the folder:');
 define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... l&auml;gg dem i mappen:');
 define ('LBL_ADMIN_OPML_IMPORT_MERGE','... f&ouml;rena dem med nuvarande.');
+
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','L&auml;gger %s till %s... ');
+
 define ('LBL_TAG_FOLDERS','Kategorier');
 define ('LBL_SIDE_ITEMS','(%d items)');
 define ('LBL_SIDE_UNREAD_FEEDS','(%d olästa i %d fl&ouml;den)');
 define ('LBL_CATCNT_PF', '<strong>%d</strong> fl&ouml;den i <strong>%d</strong> kategorier');
+
 define ('LBL_RATING','V&auml;rdering:');
 
 ?>
