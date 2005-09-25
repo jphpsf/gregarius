@@ -230,18 +230,17 @@ define ('LBL_NOT_LOGGED_IN','Ikke logged ind');
 define ('LBL_LOG_OUT','Log ud');
 define ('LBL_LOG_IN','Log ind');
 
+define ('LBL_ADMIN_OPML_IMPORT_AND','Importer nye feeds og:');
+define ('LBL_ADMIN_OPML_IMPORT_WIPE','... udskift alle eksisterende feeds og items.');
+define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... tilf&oslash;j dem til folderen:');
+define ('LBL_ADMIN_OPML_IMPORT_MERGE','... splejs dem sammen med de eksisterende.');
 
-define ('LBL_ADMIN_OPML_IMPORT_AND','Import new feeds and:');
-define ('LBL_ADMIN_OPML_IMPORT_WIPE','... replace all existing feeds and items.');
-define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... add them to the folder:');
-define ('LBL_ADMIN_OPML_IMPORT_MERGE','... merge them with the existing ones.');
+define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Tlf&oslash;jer %s til %s... ');
 
-define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
-
-define ('LBL_TAG_FOLDERS','VFoldere');
+define ('LBL_TAG_FOLDERS','Kategorier');
 define ('LBL_SIDE_ITEMS','(%d items)');
-define ('LBL_SIDE_UNREAD_FEEDS','(%d ul&aelig;st in %d feeds)');
-define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categories');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d ul&aelig;ste i %d feeds)');
+define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds i <strong>%d</strong> kategorier');
 
-define ('LBL_RATING','Rating:');
+define ('LBL_RATING','Bed&oslash;mmelse:');
 ?>
