@@ -331,6 +331,28 @@ function get_feed_content_cb(data) {
 	}
 }
 
+
+// src: http://www.javascripter.net/faq/settinga.htm
+function setCookie(cookieName,cookieValue,path) {
+    //alert(cookieValue);
+    var today = new Date();
+    var expire = new Date();
+    // 1 year
+    expire.setTime(today.getTime() + 31536000000);
+    document.cookie = cookieName+"="+escape(cookieValue) 
+    	+ "; expires="+expire.toGMTString()
+    	+ "; path="+path;
+}
+
+function getCookie(cookieName) {
+    var theCookie=""+document.cookie;
+    var ind=theCookie.indexOf(cookieName);
+    if (ind==-1 || cookieName=="") return "";
+    var ind1=theCookie.indexOf(';',ind);
+    if (ind1==-1) ind1=theCookie.length;
+    return unescape(theCookie.substring(ind+cookieName.length+1,ind1));
+}
+
 <?php rss_plugin_hook("rss.plugins.ajax.extrajs.public",null); ?>
 
 <?php if (! hidePrivate()) { ?>

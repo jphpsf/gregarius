@@ -153,5 +153,17 @@ function rss_feeds_stats() {
 	return $GLOBALS['rss']->feedList->getStats();
 }
 
+function rss_feeds_onlickaction($what=null) {
+	if (!getConfig('rss.output.channelcollapse')) {
+		return "";
+	}
+	
+	if ($what) {
+		return "_tgl(". rss_feeds_folder_id() .",'$what'); return false;";
+	} else {
+		return "_tgl(". rss_feeds_folder_id() ."); return false;";
+	}
+	
+}
 
 ?>

@@ -5,26 +5,7 @@ var CATEGORYCOOKIENAME = "collapsedcategories";
 document.folders = new Array();
 document.categories = new Array();
 
-// src: http://www.javascripter.net/faq/settinga.htm
-function setCookie(cookieName,cookieValue,path) {
-    //alert(cookieValue);
-    var today = new Date();
-    var expire = new Date();
-    // 1 year
-    expire.setTime(today.getTime() + 31536000000);
-    document.cookie = cookieName+"="+escape(cookieValue) 
-    	+ "; expires="+expire.toGMTString()
-    	+ "; path="+path;
-}
 
-function getCookie(cookieName) {
-    var theCookie=""+document.cookie;
-    var ind=theCookie.indexOf(cookieName);
-    if (ind==-1 || cookieName=="") return "";
-    var ind1=theCookie.indexOf(';',ind);
-    if (ind1==-1) ind1=theCookie.length;
-    return unescape(theCookie.substring(ind+cookieName.length+1,ind1));
-}
 
 function _init() {
     var foldercook=getCookie(FOLDERCOOKIENAME);

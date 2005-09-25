@@ -85,11 +85,10 @@ class Header {
 			}
 		}
 		
-		
+		$this -> javascriptFiles[] = getPath()."ajax.php?js";		
 		if (getConfig('rss.output.channelcollapse')) {
 			$this -> javascriptFiles[] = getPath()."extlib/fcollapse.js";
 		}
-		$this -> javascriptFiles[] = getPath()."ajax.php?js";
 
 		
 		$GLOBALS['rss'] -> sideMenu = new SideMenu();
