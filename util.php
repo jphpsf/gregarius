@@ -447,8 +447,12 @@ function relative_to_absolute($content, $feed_url) {
 		return $content;
 	}
 
-	$new_content = preg_replace('/href="\//', 'href="'.$protocol[0].$server_url.'/', $content);
-	$new_content = preg_replace('/src="\//', 'src="'.$protocol[0].$server_url.'/', $new_content);
+	if (isset($protocol[0])) {
+		$new_content = preg_replace('/href="\//', 'href="'.$protocol[0].$server_url.'/', $content);
+		$new_content = preg_replace('/src="\//', 'src="'.$protocol[0].$server_url.'/', $new_content);
+	} else {
+		$new_content = $content;
+	}
 	return $new_content;
 }
 
