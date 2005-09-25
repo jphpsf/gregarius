@@ -231,7 +231,6 @@ define ('LBL_NOT_LOGGED_IN','Not logged in');
 define ('LBL_LOG_OUT','Logout');
 define ('LBL_LOG_IN','Login');
 
-
 define ('LBL_ADMIN_OPML_IMPORT_AND','Import new feeds and:');
 define ('LBL_ADMIN_OPML_IMPORT_WIPE','... replace all existing feeds and items.');
 define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... add them to the folder:');
