@@ -1,6 +1,6 @@
 <?php if(!rss_feeds_folder_is_root()) { ?>
 <div>
-	<a href="#"  onclick="<?php echo rss_feeds_onlickaction('category'); ?>">
+	<a href="#"  onclick="<?php echo rss_feeds_onclickaction('category'); ?>">
 		<img src="<?php echo rss_theme_path(); ?>/media/folder.gif" alt="<?php echo rss_feeds_folder_name(); ?>" />
 	</a>
 	<a href="<?php echo rss_feeds_folder_link(); ?>"><?php echo rss_feeds_folder_name(); ?></a>

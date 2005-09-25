@@ -153,7 +153,7 @@ function rss_feeds_stats() {
 	return $GLOBALS['rss']->feedList->getStats();
 }
 
-function rss_feeds_onlickaction($what=null) {
+function rss_feeds_onclickaction($what=null) {
 	if (!getConfig('rss.output.channelcollapse')) {
 		return "";
 	}
