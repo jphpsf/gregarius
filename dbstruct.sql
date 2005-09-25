@@ -8,7 +8,7 @@
 
 DROP TABLE IF EXISTS `channels`;
 
-CREATE TABLE channels (
+CREATE TABLE `channels` (
   id bigint(11) NOT NULL auto_increment,
   title varchar(255) NOT NULL default '',
   url varchar(255) NOT NULL default '',
@@ -114,8 +114,8 @@ insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.confi
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.rating", 'true','true','boolean','Enable the item rating system.',NULL);
 
 
-DROP TABLE IF EXISTS 'tag';
-CREATE TABLE tag (
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag` (
  id bigint(16) NOT NULL auto_increment,
  tag varchar(63) NOT NULL default '',                    
  PRIMARY KEY  (id),
@@ -123,8 +123,8 @@ CREATE TABLE tag (
  KEY id (id)
 ) type=MyISAM;                      
 
-DROP TABLE IF EXISTS 'metatag';
-CREATE TABLE metatag (
+DROP TABLE IF EXISTS `metatag`;
+CREATE TABLE `metatag` (
  fid bigint(16) NOT NULL default '0',                    
  tid bigint(16) NOT NULL default '0', 
  ttype enum('item','folder','channel') NOT NULL default 'item', 
@@ -134,8 +134,8 @@ CREATE TABLE metatag (
  KEY ttype (ttype)
 ) type=MyISAM;                                 
 
-DROP TABLE IF EXISTS 'rating';
-CREATE TABLE rating (
+DROP TABLE IF EXISTS `rating`;
+CREATE TABLE `rating` (
 	iid bigint(16)  NOT NULL,
 	rating tinyint(4) default '0'
 ) TYPE=MyISAM;
