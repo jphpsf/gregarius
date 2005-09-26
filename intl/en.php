@@ -24,6 +24,11 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 #
 ###############################################################################
+#
+# 	Planning to translate this into your own language? Please read this:
+#	http://wiki.gregarius.net/index.php/Internationalization
+#
+###############################################################################
 
 /// Language: English
 define ('LOCALE_WINDOWS','english');
