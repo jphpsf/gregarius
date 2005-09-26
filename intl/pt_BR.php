@@ -225,24 +225,23 @@ define ('LBL_ADMIN_TOGGLE_SET','Mudar');
 define ('LBL_ADMIN_IM_SURE','Eu tenho certeza!');
 
 // new in 0.5.1:
-
-// Requires translation!
-define ('LBL_LOGGED_IN_AS','Logged in as <strong>%s</strong>');
-define ('LBL_NOT_LOGGED_IN','Not logged in');
-define ('LBL_LOG_OUT','Logout');
-define ('LBL_LOG_IN','Login');
+define ('LBL_LOGGED_IN_AS','Logado como <strong>%s</strong>');
+define ('LBL_NOT_LOGGED_IN','N&atilde;o logado');
+define ('LBL_LOG_OUT','Sair');
+define ('LBL_LOG_IN','Entrar');
 
 
-define ('LBL_ADMIN_OPML_IMPORT_AND','Import new feeds and:');
-define ('LBL_ADMIN_OPML_IMPORT_WIPE','... replace all existing feeds and items.');
-define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... add them to the folder:');
-define ('LBL_ADMIN_OPML_IMPORT_MERGE','... merge them with the existing ones.');
+define ('LBL_ADMIN_OPML_IMPORT_AND','Importar novas not&iacute;cias e:');
+define ('LBL_ADMIN_OPML_IMPORT_WIPE','... substituir todas as not&iacute;cias e &iacute;tens.');
+define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... adicion&aacute;-las a pasta:');
+define ('LBL_ADMIN_OPML_IMPORT_MERGE','... mescl&aacute;-las com as existentes.');
 
-define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adding %s to %s... ');
+define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Adicionando %s para %s... ');
 
-define ('LBL_TAG_FOLDERS','VPastas');
+define ('LBL_TAG_FOLDERS','Categorias');
 define ('LBL_SIDE_ITEMS','(%d &iacute;tens)');
-define ('LBL_SIDE_UNREAD_FEEDS','(%d n&atilde;o lido in %d feeds)');
-define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categories');
-define ('LBL_RATING','Rating:');
+define ('LBL_SIDE_UNREAD_FEEDS','(%d n&atilde;o lidos em %d not&iacute;cias)');
+define ('LBL_CATCNT_PF', '<strong>%d</strong> not&iacute;cias em <strong>%d</strong> categorias');
+
+define ('LBL_RATING','Avalia&ccedil;&atilde;o:');
 ?>
