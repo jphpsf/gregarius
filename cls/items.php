@@ -273,6 +273,12 @@ class ItemList {
 			." i.cid = c.id and "
 			." f.id=c.parent and "." not(c.mode & ".FEED_MODE_DELETED_STATE.") and "
 			." not(i.unread & ".FEED_MODE_DELETED_STATE.") and ";
+			
+		// Fix for #169: refuse to display items in the future. This ain't good 
+		// yet because we should change unreadCount() as well. Leaving this commented
+		// out.
+		
+		//$sql .= " i.pubdate <= now() and ";
 
 		if (hidePrivate()) {
 			$sql .= " not(i.unread & ".FEED_MODE_PRIVATE_STATE.") and ";
