@@ -75,7 +75,14 @@ function rss_item_url() {
 }
 
 function rss_item_title() {
-	return $GLOBALS['rss'] -> currentItem -> title;	
+	$title = $GLOBALS['rss'] -> currentItem -> title;
+
+	// For some reason in function update() in util.php.
+	// & is replaced by &amp; in the title of items. 
+	// Lets take it out before we htmlize or rss-ize
+  	$title = str_replace ( '&amp;', '&', $title );
+
+	return (rss_htmlspecialchars($title));	
 }
 
 
