@@ -245,9 +245,9 @@ function update($id) {
 			if (strlen($url) >= 255) {
 				continue;
 			}
-
+			$dbtitle = rss_real_escape_string($title);
 			// check wether we already have this item
-			$sql = "select id,length(description),unread from ".getTable("item")." where cid=$cid and url='$url'";
+			$sql = "select id,length(description),unread from ".getTable("item")." where cid=$cid and url='$url' and title='$dbtitle'";
 			$subres = rss_query($sql);
 			list ($indb, $dbdesc_len, $state) = rss_fetch_row($subres);
 
@@ -259,12 +259,12 @@ function update($id) {
 
 			if ($indb == "") {
 
-				list ($cid, $title, $url, $description) 
-					= rss_plugin_hook('rss.plugins.items.new', array ($cid, $title, $url, $description));
+				list ($cid, $dbtitle, $url, $description)
+					= rss_plugin_hook('rss.plugins.items.new', array ($cid, $dbtitle, $url, $description));
 
 				$sql = "insert into ".getTable("item")
 				." (cid, added, title, url, "." description, author, unread, pubdate) "
-				." values ("."$cid, now(), '".rss_real_escape_string($title)."', "
+				." values ("."$cid, now(), '$dbtitle', "
 				." '$url', '".rss_real_escape_string($description)."', '"
 				.rss_real_escape_string($author)."', "
 				."$mode, $sec)";
