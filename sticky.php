@@ -30,10 +30,7 @@ require_once('init.php');
 
 $stickyItems = new ItemList();
 $stickyItems -> setRenderOptions(IL_NO_COLLAPSE);
-$stickyItems -> populate(
-		"i.unread & " . FEED_MODE_STICKY_STATE,
-		$stickyItems -> ORDER_BY_UNREAD_FIRST
-	);
+$stickyItems -> populate( "i.unread & " . FEED_MODE_STICKY_STATE	);
 
 $GLOBALS['rss'] -> header = new Header("Sticky Items");
 $GLOBALS['rss'] -> feedList = new FeedList(false);
