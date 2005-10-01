@@ -140,7 +140,10 @@ function readItems($cntUnread) {
     
     	$res1=rss_query($sql);
     	while (list($cid) = rss_fetch_row($res1)) {
-			$readItems->populate(" not(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2, ITEM_SORT_HINT_READ);
+    		$sqlWhere  = " not(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid";
+    		$sqlWhere .= " and i.pubdate <= now() ";
+    		
+			$readItems->populate($sqlWhere, "", 0, 2, ITEM_SORT_HINT_READ);
 		}  
 		
 		
@@ -157,7 +160,10 @@ function readItems($cntUnread) {
 		if ($limit <= 0) {
 			return;
 		}
-		$readItems -> populate("not(i.unread & " . FEED_MODE_UNREAD_STATE .")", "", 0, $limit, ITEM_SORT_HINT_READ);
+		$sqlWhere  = " not(i.unread & ". FEED_MODE_UNREAD_STATE  .")  ";
+    	$sqlWhere .= " and i.pubdate <= now() ";
+    	
+		$readItems -> populate($sqlWhere, "", 0, $limit, ITEM_SORT_HINT_READ);
 		$readItems -> setRenderOptions(IL_NO_COLLAPSE | IL_TITLE_NO_ESCAPE);
 
 	}
