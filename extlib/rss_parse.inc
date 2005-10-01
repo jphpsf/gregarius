@@ -530,7 +530,7 @@ class MagpieRSS {
         }
         
         if (!$in_enc) {
-            if (preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/m', $source, $m)) {
+            if (preg_match('/<?xml.*encoding=[\'"](.*?)[\'"].*?>/sm', $source, $m)) {
                 $in_enc = strtoupper($m[1]);
                 $this->source_encoding = $in_enc;
             }
