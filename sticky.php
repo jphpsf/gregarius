@@ -32,7 +32,7 @@ $stickyItems = new ItemList();
 $stickyItems -> setRenderOptions(IL_NO_COLLAPSE);
 $stickyItems -> populate( "i.unread & " . FEED_MODE_STICKY_STATE	);
 
-$GLOBALS['rss'] -> header = new Header("Sticky Items");
+$GLOBALS['rss'] -> header = new Header(LBL_STICKY. " " . LBL_ITEMS);
 $GLOBALS['rss'] -> feedList = new FeedList(false);
 $GLOBALS['rss'] -> appendContentObject($stickyItems);
 $GLOBALS['rss'] -> renderWithTemplate('index.php');
