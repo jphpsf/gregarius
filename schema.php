@@ -86,6 +86,13 @@ function checkSchema() {
 	return $updated;
 }
 
+function rss_query_wrapper($query, $dieOnError=true, $preventRecursion=false) {
+	if (defined('DUMP_SCHEMA')) {
+		echo $query . ";\n";
+	} else {
+		rss_query($query,$dieOnError,$preventRecursion);
+	}
+}
 
 /**
  * this function handles specific schema updates that occurred 
@@ -144,7 +151,7 @@ function checkSchemaColumns($column) {
 
 function _init_channels() {
 	$table = getTable('channels');
-	rss_query ('DROP TABLE IF EXISTS ' . $table, true, true);
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
 		CREATE TABLE __table__ (
 			id bigint(11) NOT NULL auto_increment,
@@ -162,7 +169,7 @@ function _init_channels() {
 _SQL_
 );
 
-	rss_query($sql_create, false, true);
+	rss_query_wrapper($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
@@ -175,7 +182,7 @@ _SQL_
 
 function _init_folders() {
 	$table = getTable('folders');
-	rss_query ('DROP TABLE IF EXISTS ' . $table, true, true);
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
 		CREATE TABLE __table__ (
 		  id tinyint(11) NOT NULL auto_increment,
@@ -187,19 +194,19 @@ function _init_folders() {
 _SQL_
 );
 
-	rss_query($sql_create, false, true);
+	rss_query_wrapper($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	}
 	
 	
-	rss_query ("INSERT INTO $table (id,name) VALUES (0,'')", false, true);
+	rss_query_wrapper ("INSERT INTO $table (id,name) VALUES (0,'')", false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
 		return 0;
 	}
-	rss_query ("update $table set id=0 where id=1", false, true);
+	rss_query_wrapper ("update $table set id=0 where id=1", false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
 		return 0;
@@ -214,7 +221,7 @@ _SQL_
 function _init_config() {
 	$cfg_table = getTable('config');
 	
-	rss_query ('DROP TABLE IF EXISTS ' . $cfg_table, true, true);
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $cfg_table, true, true);
 	
 	$sql_create = str_replace('__config__',$cfg_table, <<< _SQL_
 		CREATE TABLE __config__ (
@@ -229,7 +236,7 @@ function _init_config() {
 _SQL_
 );
 
-	rss_query($sql_create, false, true);
+	rss_query_wrapper($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The ' .getTable('config') . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
@@ -286,7 +293,7 @@ function setDefaults($key) {
 		list($v,$d,$t,$ds,$e) = $vs;
 	    $ds=rss_real_escape_string($ds);
 	    $e=rss_real_escape_string($e);
-		rss_query('insert into '. getTable('config') 
+		rss_query_wrapper('insert into '. getTable('config') 
 			. "(key_,value_,default_,type_,desc_,export_) VALUES ("
 			. "'$k','$v','$d','$t','$ds'," .($e?"'$e'":"null") .")",false,true);
 		if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
@@ -302,7 +309,7 @@ function setDefaults($key) {
 
 function _init_item() {
 	$table = getTable('item');
-	rss_query ('DROP TABLE IF EXISTS ' . $table, true, true);
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
 		CREATE TABLE __table__ (
 		  id bigint(16) NOT NULL auto_increment,
@@ -321,7 +328,7 @@ function _init_item() {
 _SQL_
 );
 
-	rss_query($sql_create, false, true);
+	rss_query_wrapper($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
@@ -334,7 +341,7 @@ _SQL_
 
 function _init_tag() {
 	$table = getTable('tag');
-	rss_query ('DROP TABLE IF EXISTS ' . $table, true, true);
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
 		CREATE TABLE __table__ (
 			id bigint(16) NOT NULL auto_increment,
@@ -346,7 +353,7 @@ function _init_tag() {
 _SQL_
 );
 
-	rss_query($sql_create, false, true);
+	rss_query_wrapper($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
@@ -360,7 +367,7 @@ _SQL_
 
 function _init_metatag() {
 	$table = getTable('metatag');
-	rss_query ('DROP TABLE IF EXISTS ' . $table, true, true);
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
 		CREATE TABLE __table__ (
 			fid bigint(16) NOT NULL default '0',                    
@@ -373,7 +380,7 @@ function _init_metatag() {
 _SQL_
 );
 
-	rss_query($sql_create, false, true);
+	rss_query_wrapper($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
@@ -386,7 +393,7 @@ _SQL_
 
 function _init_rating() {
 	$table = getTable('rating');
-	rss_query ('DROP TABLE IF EXISTS ' . $table, true, true);
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
 		CREATE TABLE __table__ (
 			iid bigint(16)  NOT NULL,
@@ -395,7 +402,7 @@ function _init_rating() {
 _SQL_
 );
 
-	rss_query($sql_create, false, true);
+	rss_query_wrapper($sql_create, false, true);
 	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
@@ -405,6 +412,20 @@ _SQL_
 }
 
 
-
+if (isset($argv) && in_array('--dump',$argv)) {
+	foreach ($argv as $idx => $arg) {
+		if (substr($arg,0,9) == '--prefix=') {
+			define ('DB_TABLE_PREFIX',substr($arg,9));
+		}
+	}
+	require_once('init.php');
+	define ('DUMP_SCHEMA', true);
+	
+	foreach (array("channels","config","folders","item","metatag","tag","rating") as $tbl) {
+	 	call_user_func("_init_$tbl"); 
+	}
+		
+		
+}
 
 ?>
