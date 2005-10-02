@@ -1,7 +1,15 @@
 <?php
 
 //
-// The name of your MySQL database
+// The type of database server you are using. By default
+// Gregarius will look for a MySQL database server. If you
+// would like to use an SQLite database, change accordingly
+//
+define ('DBTYPE','mysql');
+//define ('DBTYPE',"sqlite");
+
+//
+// The name of your database
 //
 define ('DBNAME','database_name');
 
@@ -18,8 +26,15 @@ define ('DBUNAME','database_username');
 define ('DBPASS', 'database_password');
 
 //
+// If you are using a MySQL database:
 // The hostname of your database server. Unless you know
 // different this should probably be 'localhost' or '127.0.0.1'
+//
+// If you are using a SQLite database:
+// This constant must contain the full path to your database file, 
+// for example: '/tmp/gregarius.db'
+// Note that the apache process must have write access privileges 
+// on the given directory!
 //
 define ('DBSERVER', 'localhost');
 
@@ -27,7 +42,7 @@ define ('DBSERVER', 'localhost');
 // The table name prefix to use. If you specify anything here,
 // say 'gregarius', your database table 'channels' will be referred to 
 // as 'gregarius_channels'. This is useful to avoid table collisions when 
-// your hosting provider only allows you one single database and several
+// your hosting provider only grants you one single database and several
 // applications rely on that db.
 //
 // If this is not the case you can safely ignore this option.
