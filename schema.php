@@ -265,7 +265,7 @@ function setDefaults($key) {
 		"rss.output.showfeedmeta"	=>		array('false','false','boolean','Display meta-information (like a web- and rss/rdf/xml url) about each feed in the feed side-column.',NULL),
 		//"rss.input.tags.delicious"	=>		array('false','false','boolean','Look up tag suggestions on del.icio.us when editing item tags.',NULL),
 		"rss.output.noreaditems"	=>		array('false','false','boolean','Show unread items only on the frontpage.',NULL),
-		"rss.output.theme"			=>		array('default','default','string','The theme to use. Themes are subdirectories of themes/ which should contain at least the following elements:<ul><li>css/layout.css</li><li>css/look.css</li><ul>',NULL),
+		"rss.output.theme"			=>		array('default','default','string','The theme to use. Download more themes from the <a href="http://themes.gregarius.net/">Gregarius Themes Repository</a>.',NULL),
 		"rss.output.cachecontrol"	=>		array('false','false','boolean','If true, Gregarius will negotiate with the browser and check whether it should get a fresh document or not.',NULL),
 		"rss.config.plugins"		=>		array('a:2:{i:0;s:13:"urlfilter.php";i:1;s:18:"roundedcorners.php";}','a:2:{i:0;s:13:"urlfilter.php";i:1;s:18:"roundedcorners.php";}','array','Plugins are third-party scripts that offer extended functionalities. More plugins can be found at the <a href="http://plugins.gregarius.net/">Plugin Repository</a>.' , NULL),
 		"rss.input.allowupdates"	=>		array('true','true','boolean','Allow Gregarius to look for updates in existing items.',NULL),
