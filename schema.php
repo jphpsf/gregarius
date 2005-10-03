@@ -63,15 +63,9 @@ function checkSchema() {
 			.' if you see this message over and over again please import your database schema'
 			.' manually.';
 		rss_error($msg, RSS_ERROR_WARNING);
-	
-		$pf = (defined('DB_TABLE_PREFIX') && "" != DB_TABLE_PREFIX ?
-			DB_TABLE_PREFIX:""
-		);
-		
-		
+
 		foreach($missing_tables as $table) {
-			$tbl = substr($table,$pf);
-			$updated += call_user_func("_init_$tbl"); 
+			$updated += call_user_func("_init_$table"); 
 		}
 		
 		if ($updated == count($missing_tables)) {
