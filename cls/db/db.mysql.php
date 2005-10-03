@@ -49,8 +49,9 @@ class MysqlDB extends DB {
 	
 	function DBSelectDB($dbname) {
 		if (!mysql_select_db($dbname)) {
-			  die( "<h1>Error connecting to the database!</h1>\n"
-					 ."<p>Have you edited dbinit.php and correctly defined "
+			  die( "<h1>Error selecting the database!</h1>\n"
+					 ."<p>Does your database exist?"
+					 . "Have you edited dbinit.php and correctly defined "
 					 ."the database username and password?</p>\n"
 					 ."<p>Refer to the <a href=\"INSTALL\">INSTALL</a> document "
 					 ."if in doubt</p>\n" );
