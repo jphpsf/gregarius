@@ -119,11 +119,23 @@ function unreadItems($show_what) {
 function readItems($cntUnread) {
     
     _pf('read items');
+
+   $itemsOnPage = getConfig('rss.output.numitemsonpage');
+   if (!$itemsOnPage) {
+	 // quite arbitrary: display 50 read items at most
+	 $limit = 50;
+   } else {
+	 $limit =  $itemsOnPage - $cntUnread;
+   }
+
     $readItems = new ItemList();
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 
 	if (getConfig('rss.config.feedgrouping')) {
-		$sql = "select "
+	 	if ($limit <= 0) {
+			return;
+		}
+  	$sql = "select "
           ." c.id"
           ." from " 
             .getTable("channels") . " c, " 
@@ -137,25 +149,17 @@ function readItems($cntUnread) {
         } else {
         	$sql .=" order by f.name asc, c.title asc";
         }
-    
     	$res1=rss_query($sql);
-    	while (list($cid) = rss_fetch_row($res1)) {
+    	while ($readItems->itemCount < $limit && (list($cid) = rss_fetch_row($res1))) {
     		$sqlWhere  = " not(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid";
     		$sqlWhere .= " and i.pubdate <= now() ";
     		
 			$readItems->populate($sqlWhere, "", 0, 2, ITEM_SORT_HINT_READ);
+			//what if we have less than 2 items. 
 		}  
 		
 		
 	} else {
-		///// BUGGY! //////
-		$itemsOnPage = getConfig('rss.output.numitemsonpage');
-		if (!$itemsOnPage) {
-			// quite arbitrary: display 50 read items at most
-			$limit = 50;
-		} else {
-			$limit =  $itemsOnPage - $cntUnread;
-		}
 		 
 		if ($limit <= 0) {
 			return;
