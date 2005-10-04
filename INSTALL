@@ -7,7 +7,7 @@ REQUIREMENTS
   Your PHP installation must support socket operations. See: 
   http://ch2.php.net/manual/en/function.fsockopen.php
 
-  Additionally you will need access to a MySQL database.
+  Additionally you will need access to a MySQL or a SQLite database.
 
 QUICK START
 
@@ -17,8 +17,9 @@ QUICK START
         
     2.  If you haven't already done so, download the latest release from the 
         sourceforge.net project site.
+	http://sourceforge.net/project/showfiles.php?group_id=98845
    
-    3.  Unpack the Gregarius package inside your web root:
+    3.  Unpack the Gregarius package inside your web directory:
         
         1.  If you are installing from a tar.gz archive:
 
@@ -42,14 +43,23 @@ QUICK START
             Make sure that the database user you define owns privileges to 
             create tables.
    
-   6.   Point your browser to the root directory of your installtion. You should 
+   6.   Point your browser to the root directory of your installation. You should 
         read a message informing you that the database schema has been generated.
+
+	If at this point, the browser returns a 500 internal server error, then 
+	remove (or disable) the .htaccess file in this directory and try again.
+
+	mv .htaccess .htaccess.tmp
+
+	See the FAQ http://wiki.gregarius.net/index.php/FAQ for more information.
 
         If the database user you defined lacks privileges to create database 
         tables you should import your schema manually: from the command-line 
         type (replacing database_user, database_host and database_name)
 
         mysql -u database_user -h database_host -p database_name < dbstruct.sql
+
+	
 	
    7.   Point your browser to the URL corresponding the install location and 
         click "Admin". You can start adding feeds by pasting URLs of RSS or 
@@ -57,7 +67,7 @@ QUICK START
         a whole structure of items using the OPML import feature.
    
    8.   You may wish to password-protect the administration section of your 
-        fresh gregarius installation, to prevent unathorized users from messing 
+        fresh gregarius installation, to prevent unauthorized users from messing 
         with your subscriptions and breaking stuff. 
         
         See http://wiki.gregarius.net/index.php/Password_Protection
