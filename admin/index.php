@@ -413,6 +413,7 @@ function admin_header() {
 	$header = new Header(LBL_TITLE_ADMIN, LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
 	$header -> render();
 
+	echo "\t<link rel=\"stylesheet\" type=\"text/css\" href=\"".getPath(). RSS_PLUGINS_DIR ."/roundedcorners.php?rc-css\" />\n";
 	echo "</head>";
 	echo "<body>\n";
 	
