@@ -78,9 +78,14 @@ function rss_plugin_hook($hook, $data) {
  * them
  */
 foreach(getConfig('rss.config.plugins') as $pf) {
-  if (file_exists(RSS_PLUGINS_DIR.'/'.$pf)) {
-		require_once(RSS_PLUGINS_DIR."/$pf");
-  }
+	if (defined('RSS_FILE_LOCATION')) {
+		$prefix = "../";
+	} else {
+		$prefix = "";
+	}
+  if (file_exists($prefix . RSS_PLUGINS_DIR.'/'.$pf)) {
+		require_once($prefix . RSS_PLUGINS_DIR."/$pf");
+  } 
 }
 
 /*
