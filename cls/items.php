@@ -289,11 +289,11 @@ class ItemList {
 		$sqlOrder = rss_plugin_hook("rss.plugins.items.order",$sqlOrder);
 		if ($sqlOrder == "") {
 			switch ($hint) {
+					case ITEM_SORT_HINT_MIXED:
 					case ITEM_SORT_HINT_READ:
 						$skey = 'read';
 					break;
 					
-					case ITEM_SORT_HINT_MIXED:
 					case ITEM_SORT_HINT_UNREAD:
 					default:
 						$skey = 'unread';
