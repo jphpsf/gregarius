@@ -611,6 +611,17 @@ function rss_htmlspecialchars($in) {
 	(getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING));
 }
 
+function firstNwords($text, $count=7) {
+	$new = "";
+	$expr = '/(.+?\s+){1,' . $count . '}/';
+	if ( preg_match($expr, $text, $matches) ) {
+		$result = $matches[0] . '...';
+		$new = preg_replace('/(\r\n|\r|\n)/', ' ', $result);
+		$new = strip_tags($new);
+	}
+	return $new;
+}
+
 function showViewForm($curValue) {
 
 	//default: read and unread!
