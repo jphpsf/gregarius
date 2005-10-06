@@ -162,13 +162,15 @@ class FeedList {
 		_pf(' ... done: unreadCount');		
 
 		_pf(' ... totalCount');		
-		$res = rss_query("select count(*) from ".getTable("item")
-			." where not(unread & ".FEED_MODE_DELETED_STATE.") "
-			. (hidePrivate()? " and not(unread & ".FEED_MODE_PRIVATE_STATE.")":"")
+		$sql = 
+		"select count(*) from ".getTable("item") . "i , " . getTable('channels') . " c "
 			
-			);
+			." where i.cid=c.id and not(i.unread & ".FEED_MODE_DELETED_STATE.") "
+			." and not (c.mode & " .FEED_MODE_DELETED_STATE.")"
+			. (hidePrivate()? " and not(unread & ".FEED_MODE_PRIVATE_STATE.")":"");
 			
-			
+			//echo $sql;
+			$res = rss_query($sql);
 		list ($total) = rss_fetch_row($res);
 		_pf(' ... done: totalCount');		
 		

@@ -157,7 +157,7 @@ function item_admin() {
 				}
                 //echo "\n\n";
                 
-                if (count($cids)) {
+				if (count($cids)) {
     				// Righto. Lets check which of these ids still is in cache:
 
     				//$cache = new RSSCache(MAGPIE_CACHE_DIR, MAGPIE_CACHE_AGE);
@@ -165,55 +165,53 @@ function item_admin() {
 
     				// extract all the urls for each cached item, keep them sorted
     				// by feed
-    				foreach($curls as $cid => $curl) {
-                        //$rss = $cache->get($curl .  MAGPIE_OUTPUT_ENCODING);
-                	    // suppress warnings because Magpie is rather noisy
-                        $old_level = error_reporting(E_ERROR);
-            		    $rss = fetch_rss( $curl );
-            		    //reset
-            		    error_reporting($old_level);
+						foreach($curls as $cid => $curl) {
+							// suppress warnings because Magpie is rather noisy
+              $old_level = error_reporting(E_ERROR);
+            	$rss = fetch_rss( $curl );
+            	//reset
+            	error_reporting($old_level);
 
-                        $cacheUrls[$cid]= array();
-                        //echo "Feed: $cid\n";
-                        if ($rss) {
-                          foreach($rss->items as $item) {
-                            // this comes from util.php:update()
-
-    				        if (array_key_exists('link',$item) && $item['link'] != "") {
-    					       $url = $item['link'];
-    				        } elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
-    					       $url = $item['guid'];
-                            } else {
-    					       // fall back to something basic
-    					       $url =  md5($item['title']);
-    				        }
-                            $cacheUrls[$cid][] = htmlentities($url);
-                            //echo "in cache: $url\n";
-                          }
-                        }
-                    }
+              $cacheUrls[$cid]= array();
+              //echo "Feed: $cid\n";
+              if ($rss) {
+              	foreach($rss->items as $item) {
+									// this comes from util.php:update()
+	
+									if (array_key_exists('link',$item) && $item['link'] != "") {
+										$url = $item['link'];
+									} elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
+										$url = $item['guid'];
+									} else {
+										// fall back to something basic
+										$url =  md5($item['title']);
+									}
+									$cacheUrls[$cid][] = htmlentities($url);
+								}
+              }
+						}
                     
 
-                   // now, sort the ids to be deleted into two lists: in chache / to trash
-                   $in_cache = array();
-                   $to_trash = array();
-                   //var_dump($cacheUrls);
-                   foreach ($cids as $cid => $ids) {
-                        foreach ($ids as $arr) {
-                            list($iid,$iurl) = $arr;
-                            //echo "examining: $iid (cid $cid) -> $iurl ->";
-                            if (array_search($iurl, $cacheUrls[$cid]) !== FALSE) {
-                                $in_cache[] = $iid;
-                                //echo " in cache!\n";
-                            } else {
-                                $to_trash[] = $iid;
-                                //echo " not in cache!\n";
-                            }
-                        }
-                   }
+					 // now, sort the ids to be deleted into two lists: in chache / to trash
+					 $in_cache = array();
+					 $to_trash = array();
+					 //var_dump($cacheUrls);
+					 foreach ($cids as $cid => $ids) {
+								foreach ($ids as $arr) {
+										list($iid,$iurl) = $arr;
+										//echo "examining: $iid (cid $cid) -> $iurl ->";
+										if (array_search($iurl, $cacheUrls[$cid]) !== FALSE) {
+												$in_cache[] = $iid;
+												//echo " in cache!\n";
+										} else {
+												$to_trash[] = $iid;
+												//echo " not in cache!\n";
+										}
+								}
+					 }
                    
-                   // cheers, we're set. Now delete the metatag links for *all*
-                   // items to be deleted
+					 // cheers, we're set. Now delete the metatag links for *all*
+					 // items to be deleted
     				if (count($ids)) {
     					$sqldel = "delete from " .getTable('metatag') . " where fid in ("
     					. implode(",",array_merge($in_cache,$to_trash))	.")";
@@ -228,7 +226,7 @@ function item_admin() {
                             .")"
                         );
                     }
-                    if (count($in_cache)) {
+            if (count($in_cache)) {
         				rss_query( "update " . getTable('item')
                          ." set unread = unread | " . FEED_MODE_DELETED_STATE
                          .", description='' "
@@ -237,7 +235,7 @@ function item_admin() {
                             .")"
                         );
                     }
-                }
+         }
 				$ret__ = CST_ADMIN_DOMAIN_ITEM;
 				
 			} else {
