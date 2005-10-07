@@ -625,7 +625,7 @@ if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
    		$cids = array($cid); 
    	}
 	if(!isset($vfid)) $vfid = null;
-	doItems($cids,$fid,$vfid,rss_htmlspecialchars($title),$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
+	doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
 }
 
 $GLOBALS['rss'] -> renderWithTemplate('index.php','items');
