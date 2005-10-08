@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo getPath() ?>css/print.css" media="print" />
 <?php echo rss_plugin_hook('rss.plugins.stylesheets', null); ?>
 <?php if(rss_header_autorefreshtime() > 0) { ?>
-	<meta http-equiv="refresh"  content="<?php echo rss_header_autorefreshtime() ?>;<?php echo rss_header_autorefreshurl() ?>" />
+	<meta http-equiv="refresh"  content="<?php echo rss_header_autorefreshtime(); ?>;<?php echo rss_header_autorefreshurl() ?>" />
 <?php } ?>
 <?php 
 	foreach(rss_header_links() as $link) { 
