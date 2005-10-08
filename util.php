@@ -173,7 +173,7 @@ function update($id) {
 			// to have any, should it?
 			//$title = strip_tags($item['title']);
 			$title = array_key_exists('title', $item) ? strip_tags($item['title']) : "";
-			$title = str_replace('& ', '&amp; ', $title);
+			//$title = str_replace('& ', '&amp; ', $title);
 			// item content, if any
 			if (array_key_exists('content', $item) && is_array($item['content']) && array_key_exists('encoded', $item['content'])) {
 				$description = kses($item['content']['encoded'], $kses_allowed);

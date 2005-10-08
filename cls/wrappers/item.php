@@ -78,6 +78,10 @@ function rss_item_title() {
 	return $GLOBALS['rss'] -> currentItem -> title;  
 }
 
+function rss_item_escaped_title() {
+	return $GLOBALS['rss'] -> currentItem -> escapedTitle;
+}
+
 
 function rss_item_id() {
 	return $GLOBALS['rss'] -> currentItem -> id;
