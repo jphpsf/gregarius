@@ -32,9 +32,8 @@ class CatList extends FeedList {
 		//parent::FeedList(null);
 		$this->loadCollapsedState();
 		$this -> populate();
-
-		$GLOBALS['rss']-> feedList = $this;
 		$this -> 	columnTitle = LBL_TAG_FOLDERS;
+		$GLOBALS['rss']-> feedList = $this;
 	}
 	
 	function getFeedCount() {
