@@ -47,9 +47,10 @@ function parse_weblogsDotCom($url) {
      WHEN        seconds since ping
      */
 
-    global $blogs,$folder;
+    global $blogs,$folder,$inOpmlfolder, $inOpmlItem;
     $folder = LBL_HOME_FOLDER;
     
+    $inOpmlfolder = $inOpmlItem = false;
     $opml = getUrl($url);
     $opml = str_replace("\r", '', $opml);
     $opml = str_replace("\n", '', $opml);
@@ -71,25 +72,42 @@ function xml_error($error_msg){
 }
 
 function _xml_startElement($xp, $element, $attr) {
-    global $blogs,$folder;
+    global $blogs,$folder,$inOpmlfolder, $inOpmlItem;
     if (strcasecmp('outline', $element)) {
 	return;
     }
-    
+    //$attr['__opml_folder__'] = $folder;
     if (!array_key_exists('XMLURL',$attr) && (array_key_exists('TEXT',$attr)||array_key_exists('TITLE',$attr)) ) {
-	//some opml use title instead of text to define a folder (ex: newzcrawler)
-	$folder = $attr['TEXT']?$attr['TEXT']:$attr['TITLE'];
+		//some opml use title instead of text to define a folder (ex: newzcrawler)
+		$folder = $attr['TEXT']?$attr['TEXT']:$attr['TITLE'];
+		$inOpmlfolder = true;
+		$inOpmlItem = false;
+		//echo "start of folder $folder\n";
     } else {	
-	if ($folder != '') {
-	    $blogs[$folder][] = $attr;
-	} else {
-	    $blogs[] = $attr;
-	}
+    	$inOpmlItem = true;
+    	//echo "start of item $folder/".$attr['TEXT']."\n";
+		if ($folder != '') {
+	    	$blogs[$folder][] = $attr;
+		} else {
+		    $blogs[] = $attr;
+		}
     }
 }
 
 function _xml_endElement($xp, $element) {
-    global $blogs,$folder;
+    global $blogs,$folder,$inOpmlfolder, $inOpmlItem;
+	if (strcasecmp( $element, "outline") === 0) {
+		if (!$inOpmlItem && $inOpmlfolder) {
+			//echo "end of folder $folder\n";
+			// end of folder element!
+			$inOpmlfolder = false;
+			$folder = LBL_HOME_FOLDER;
+		} else {
+			// end of item element
+			$inOpmlItem = false;
+			//echo "end of item\n";
+		}	
+	} 
     return;
 }
 
@@ -108,15 +126,16 @@ if (array_key_exists('act',$_REQUEST)) {
       ." where d.id = c.parent";
       
       
-		if (hidePrivate()) {
-			$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
-		}
+	if (hidePrivate()) {
+		$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+	}
 	
+	// note: should we export deprecated feeds?
     
     if (getConfig('rss.config.absoluteordering')) {
-	$sql .= " order by d.position asc, c.position asc";
+		$sql .= " order by d.position asc, c.position asc";
     } else {
-	$sql .=" order by d.name asc, c.title asc";
+		$sql .=" order by d.name asc, c.title asc";
     }
     
     
@@ -142,38 +161,41 @@ if (array_key_exists('act',$_REQUEST)) {
 
     $prev_parent=0;
     while (list($id, $title, $url, $siteurl, $name, $parent, $descr) = rss_fetch_row($res)) {
-	$descr_ = htmlspecialchars ($descr);
-	$title_ = htmlspecialchars($title);
+		$descr_ = htmlspecialchars ($descr);
+		$descr_ = trim(preg_replace('/(\r\n|\r|\n)/', ' ', $descr_));
+		
+		$title_ = htmlspecialchars($title);
+		
+		$url_ = preg_replace('|(https?://)([^:]+:[^@]+@)(.+)$|','\1\3',$url);
+		$url_ = htmlspecialchars($url_);
+		
+		$siteurl_ = preg_replace('|(https?://)([^:]+:[^@]+@)(.+)$|','\1\3',$siteurl);
+		$siteurl_ = htmlspecialchars($siteurl_);
+		
+		$name_ = htmlspecialchars($name);
 	
-	$url_ = preg_replace('|(https?://)([^:]+:[^@]+@)(.+)$|','\1\3',$url);
-	$url_ = htmlspecialchars($url_);
+		if ($parent != $prev_parent) {
+			if ($prev_parent != 0) {
+				echo "\t\t</outline>\n";
+			}
+			$prev_parent = $parent;
+			echo "\t\t<outline text=\"$name_\">\n";
+		}
 	
-	$siteurl_ = preg_replace('|(https?://)([^:]+:[^@]+@)(.+)$|','\1\3',$siteurl);
-	$siteurl_ = htmlspecialchars($siteurl_);
+		if ($parent > 0) {
+		  echo "\t";
+		}
+		
+		echo "\t\t<outline  text=\"$title_\" description=\"$descr_\" type=\"rss\"";
+		if ($siteurl != "") {
+			echo " htmlUrl=\"$siteurl_\"";
+		}
 	
-	$name_ = htmlspecialchars($name);
-
-	if ($parent != $prev_parent) {
-	    if ($prev_parent != 0) {
-		echo "\t\t</outline>\n";
-	    }
-	    $prev_parent = $parent;
-	    echo "\t\t<outline text=\"$name_\">\n";
-	}
-
-	if ($parent > 0)
-	  echo "\t";
-
-	echo "\t\t<outline  text=\"$title_\" description=\"$descr_\" type=\"rss\"";
-	if ($siteurl != "") {
-	    echo " htmlUrl=\"$siteurl_\"";
-	}
-
-	echo " xmlUrl=\"$url_\" />\n";
+		echo " xmlUrl=\"$url_\" />\n";
     }
 
     if ($prev_parent > 0) {
-	echo "\t</outline>\n";
+		echo "\t</outline>\n";
     }
 
     echo "\t</body>\n</opml>\n";
