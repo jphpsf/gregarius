@@ -267,6 +267,7 @@ class ItemList {
 	 */
 	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED) {
 
+        _pf('ItemList::populate()');
 		$sql = "select i.title,  c.title, c.id, i.unread, "
 			."i.url, i.author, i.description, c.icon, "
 			." unix_timestamp(ifnull(i.pubdate,i.added)) as ts, "
@@ -414,6 +415,7 @@ class ItemList {
 				}
 			}
 		}
+		_pf('done: ItemList::populate()');
 	}
 
 	function removeItem($feedId,$itemId,$uncount) {
