@@ -246,4 +246,8 @@ define ('LBL_SIDE_UNREAD_FEEDS','(%d non lus in %d canaux)');
 define ('LBL_CATCNT_PF', '<strong>%d</strong> canaux en <strong>%d</strong> cat&eacute;gories');
 
 define ('LBL_RATING','Rating:');
+// New in 0.5.3:
+define('LBL_ENCLOSURE', 'Cl&#212;ture:');
+define('LBL_DOWNLOAD', 't&eacute;l&eacute;charger');
+define('LBL_PLAY', 'jouer');
 ?>

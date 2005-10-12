@@ -36,6 +36,7 @@ class Item {
 	var $flags;
 	var $title;
 	var $url;
+	var $enclosure;
 	var $id;
 	var $feed;
 	var $description;
@@ -57,7 +58,7 @@ class Item {
 	/**
 	 * ctor
 	 */
-	function Item($id, $title, $url, $parent, $author, $description, $date, $isPubDate, $unread, $rating) {
+	function Item($id, $title, $url, $enclosure, $parent, $author, $description, $date, $isPubDate, $unread, $rating) {
 		$this->rss = &$GLOBALS['rss'];
 		$this->id = $id;
 		$this->flags = $unread;
@@ -72,6 +73,7 @@ class Item {
 		}
 		$this->escapedTitle = preg_replace("/[^A-Za-z0-9%\.]/", "_", utf8_uri_encode($title));
 		$this->url = $url;
+		$this->enclosure = $enclosure;
 		$this->feed = $parent;
 		$this->author = $author;
 		if ($description) {
@@ -269,7 +271,7 @@ class ItemList {
 
         _pf('ItemList::populate()');
 		$sql = "select i.title,  c.title, c.id, i.unread, "
-			."i.url, i.author, i.description, c.icon, "
+			."i.url, i.enclosure, i.author, i.description, c.icon, "
 			." unix_timestamp(ifnull(i.pubdate,i.added)) as ts, "
 			." i.pubdate is not null as ispubdate, i.id, r.rating  "
 			." from ".getTable("item") ." i "
@@ -339,10 +341,10 @@ class ItemList {
 		$prevCid = -1;
 		$curIdx = 0;
 		$f=null;
-		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $iauthor_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_, $rrating_) = $this->rss->db->rss_fetch_row($res)) {
+		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $ienclosure_, $iauthor_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_, $rrating_) = $this->rss->db->rss_fetch_row($res)) {
 			
 			// Built a new Item
-			$i = new Item($iid_, $ititle_, $iurl_, $cid_, $iauthor_, $idescr_, $its_, $iispubdate_, $iunread_, $rrating_);
+			$i = new Item($iid_, $ititle_, $iurl_, $ienclosure_, $cid_, $iauthor_, $idescr_, $its_, $iispubdate_, $iunread_, $rrating_);
 			
 		    // no dupes, please
 		    if (in_array($iid_,$this -> iids)) {

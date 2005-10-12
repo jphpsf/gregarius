@@ -240,6 +240,13 @@ function update($id) {
 				$cDate = parse_iso8601($item['issued']);
 			}
 
+         // enclosure
+			if (array_key_exists('enclosure', $item) ) {
+            $enclosure = $item['enclosure'];
+         } else {
+            $enclosure = "";
+         }
+
 			// drop items with an url exceeding our column length: we couldn't provide a
 			// valid link back anyway.
 			if (strlen($url) >= 255) {
@@ -263,9 +270,11 @@ function update($id) {
 					= rss_plugin_hook('rss.plugins.items.new', array ($cid, $dbtitle, $url, $description));
 
 				$sql = "insert into ".getTable("item")
-				." (cid, added, title, url, "." description, author, unread, pubdate) "
+				." (cid, added, title, url, enclosure,"
+            ." description, author, unread, pubdate) "
 				." values ("."$cid, now(), '$dbtitle', "
-				." '$url', '".rss_real_escape_string($description)."', '"
+				." '$url', '$enclosure', '"
+            .rss_real_escape_string($description)."', '"
 				.rss_real_escape_string($author)."', "
 				."$mode, $sec)";
 

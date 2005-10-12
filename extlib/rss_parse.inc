@@ -216,6 +216,14 @@ class MagpieRSS {
         {
             $this->inimage = true;
         }
+
+        elseif (
+            $this->feed_type == RSS and 
+            $this->current_namespace == '' and 
+            $el == 'enclosure' ) 
+        {
+            $this->current_item['enclosure'] = $attrs['url'];
+        }
         
         # handle atom content constructs
         elseif ( $this->feed_type == ATOM and in_array($el, $this->_CONTENT_CONSTRUCTS) )

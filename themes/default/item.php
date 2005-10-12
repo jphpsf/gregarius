@@ -20,6 +20,9 @@
 		<?php rss_item_rating(); ?>
 	</div>
 	<?php } ?>
+	<?php if (rss_item_has_enclosure()) { ?>
+      <h5><?php echo LBL_ENCLOSURE; ?>&nbsp;[<a href="<?php echo rss_item_enclosure(); ?>"><?php echo LBL_DOWNLOAD; ?></a><?php rss_plugin_hook("rss.plugins.items.enclosure", null); ?>]</h5>
+	<?php } ?>
 	<?php	if (rss_item_display_tags()) { ?>
 	<h5>
 		<a href="<?php echo rss_item_tagslink(); ?>"><?php echo LBL_TAG_TAGS; ?></a>:&nbsp;

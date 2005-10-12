@@ -54,6 +54,7 @@ CREATE TABLE `item` (
   `added` datetime NOT NULL default '0000-00-00 00:00:00',
   `title` varchar(255) default NULL,
   `url` varchar(255) default NULL,
+  `enclosure` varchar(255) default NULL,
   `description` text,
   `unread` tinyint(4) default '1',
   `pubdate` datetime default NULL,

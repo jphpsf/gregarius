@@ -246,5 +246,8 @@ define ('LBL_SIDE_UNREAD_FEEDS','(%d непрочтенных %d лентах)')
 define ('LBL_CATCNT_PF', '<strong>%d</strong> лент в <strong>%d</strong> рубриках');
 
 define ('LBL_RATING','Rating:');
-
+// New in 0.5.3:
+define('LBL_ENCLOSURE', 'Enclosure:');
+define('LBL_DOWNLOAD', 'download');
+define('LBL_PLAY', 'play');
 ?>

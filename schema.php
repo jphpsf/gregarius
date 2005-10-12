@@ -136,6 +136,18 @@ function checkSchemaColumns($column) {
 					. rss_sql_error_message(), RSS_ERROR_ERROR);
 			}
 		break;
+		case 'i.enclosure':
+		case 'enclosure':
+			// enclosure for an item
+			rss_query('alter table ' . getTable('item') . ' add column enclosure varchar(255) null');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error('updated schema for table ' . getTable('item'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error('Failed updating schema for table ' . getTable('item') . ': '
+					. rss_sql_error_message(), RSS_ERROR_ERROR);
+			}
+		break;
 	}
 	return $updated;
 }
@@ -311,6 +323,7 @@ function _init_item() {
 		  added datetime NOT NULL default '0000-00-00 00:00:00',
 		  title varchar(255) default NULL,
 		  url varchar(255) default NULL,
+		  enclosure varchar(255) default NULL,
 		  description text,
 		  unread tinyint(4) default '1',
 		  pubdate datetime default NULL,

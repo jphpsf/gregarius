@@ -243,4 +243,8 @@ define ('LBL_SIDE_UNREAD_FEEDS','(%d ul&aelig;ste i %d feeds)');
 define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds i <strong>%d</strong> kategorier');
 
 define ('LBL_RATING','Bed&oslash;mmelse:');
+// New in 0.5.3:
+define('LBL_ENCLOSURE', 'Enclosure:');
+define('LBL_DOWNLOAD', 'download');
+define('LBL_PLAY', 'play');
 ?>

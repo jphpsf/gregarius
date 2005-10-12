@@ -278,4 +278,15 @@ function rss_item_rating() {
 	return $ret;
 }
 
+function rss_item_has_enclosure() {
+   return ! empty($GLOBALS['rss']->currentItem->enclosure);
+}
+
+function rss_item_enclosure() {
+	if ( rss_item_has_enclosure() ) {
+		return $GLOBALS['rss']->currentItem->enclosure;
+  }
+}
+
+
 ?>
