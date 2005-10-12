@@ -119,7 +119,9 @@ if (file_exists(RSS_THEME_DIR."/$theme/intl/$lang.php")) {
 
 
 // Load the right locale
-if (isset($_SERVER["WINDIR"]) && defined("LOCALE_WINDOWS")) {
+if (defined('OVERRIDE_LOCALE')) {
+	setlocale(LC_TIME,constant("OVERRIDE_LOCALE"));
+} elseif (isset($_SERVER["WINDIR"]) && defined("LOCALE_WINDOWS")) {
 	setlocale(LC_TIME,constant("LOCALE_WINDOWS"));
 } elseif (defined("LOCALE_LINUX")) { 
 	setlocale(LC_TIME,constant("LOCALE_LINUX"));
