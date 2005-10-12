@@ -252,6 +252,7 @@ define ('LBL_CATCNT_PF', '<strong>%d</strong> feeds in <strong>%d</strong> categ
 
 define ('LBL_RATING','Rating:');
 // New in 0.5.3:
+// TRANSLATION NEEDED! Please join gregarius-i18n: http://sinless.org/mailman/listinfo/gregarius-i18n
 define('LBL_ENCLOSURE', 'Enclosure:');
 define('LBL_DOWNLOAD', 'scarica');
 define('LBL_PLAY', 'riproduci');

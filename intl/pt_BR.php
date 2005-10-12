@@ -245,6 +245,7 @@ define ('LBL_CATCNT_PF', '<strong>%d</strong> not&iacute;cias em <strong>%d</str
 
 define ('LBL_RATING','Avalia&ccedil;&atilde;o:');
 // New in 0.5.3:
+// TRANSLATION NEEDED! Please join gregarius-i18n: http://sinless.org/mailman/listinfo/gregarius-i18n
 define('LBL_ENCLOSURE', 'Enclosure:');
 define('LBL_DOWNLOAD', 'download');
 define('LBL_PLAY', 'play');
