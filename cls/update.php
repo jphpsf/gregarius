@@ -59,7 +59,7 @@ class Update {
 		$this->populate();
 		
 		// Script timeout: ten seconds per feed should be a good upper limit
-		set_time_limit(0);
+		@set_time_limit(0);
 		@ini_set('max_execution_time', (10 * count($this->chans) + 300));
 	}
 
