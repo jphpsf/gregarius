@@ -250,8 +250,7 @@ define ('LBL_CATCNT_PF', '<strong>%d</strong> canales en <strong>%d</strong> car
 define ('LBL_RATING','Valoraci&oacute;n:');
 
 // New in 0.5.3:
-// TRANSLATION NEEDED! Please join gregarius-i18n: http://sinless.org/mailman/listinfo/gregarius-i18n
-define('LBL_ENCLOSURE', 'Recinto:');
-define('LBL_DOWNLOAD', 'download');
-define('LBL_PLAY', 'play');
+define('LBL_ENCLOSURE', 'Recipiente:');
+define('LBL_DOWNLOAD', 'descargar');
+define('LBL_PLAY', 'reproducir');
 ?>
