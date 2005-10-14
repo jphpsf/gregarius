@@ -273,7 +273,7 @@ function update($id) {
 				." (cid, added, title, url, enclosure,"
             ." description, author, unread, pubdate) "
 				." values ("."$cid, now(), '$dbtitle', "
-				." '$url', '$enclosure', '"
+				." '$url', '".rss_real_escape_string($enclosure)."', '"
             .rss_real_escape_string($description)."', '"
 				.rss_real_escape_string($author)."', "
 				."$mode, $sec)";
