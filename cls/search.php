@@ -284,6 +284,7 @@ class SearchItemList extends ItemList {
 		require($GLOBALS['rss'] ->getTemplateFile("searchform.php"));
 		
 		$GLOBALS['rss'] -> currentItemList = $this;
+		rss_plugin_hook('rss.plugins.items.beforeitems', null);
 		require($GLOBALS['rss'] ->getTemplateFile("itemlist.php"));
 		rss_plugin_hook('rss.plugins.items.afteritems', null);
 	}

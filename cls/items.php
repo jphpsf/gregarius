@@ -449,6 +449,9 @@ class ItemList {
 		}
 		
 		$this-> rss -> currentItemList = $this;
+
+		rss_plugin_hook('rss.plugins.items.beforeitems', null);
+
 		require($this-> rss ->getTemplateFile("itemlist.php"));
 		
 		_pf("done: ItemList -> render()");
