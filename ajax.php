@@ -411,9 +411,13 @@ function setItemHide(id, redirect){
        }
        
        if (redirect) {
-        document.location = '<?php echo  getPath() ?>';
+       	self.setTimeout('setRedirect()', 1000);
        }
     }
+}
+
+function setRedirect() {
+        document.location = '<?php echo  getPath() ?>';
 }
 
 function setState_cb(ret) {
