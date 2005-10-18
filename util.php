@@ -888,5 +888,19 @@ function eval_mixed($string){
   $string = str_replace('?>', '', str_replace( array('<?php', '<?'), '', preg_replace_callback( "/\?>((.|\n)*?)<\?(php)?/","eval_mixed_helper",$string) ) );
   return $string;
   }
+ 
+ 
+function rss_svn_rev($prefix='.') {
+	static $ret;
+	if (file_exists('.svn/dir-wcprops')) {
+		$raw=getUrl('.svn/dir-wcprops');
+		if ($raw && preg_match('#ver/([0-9]+)/#',$raw,$matches) && isset($matches[1])) {
+			$ret = $prefix . $matches[1];
+		}
+	} else {
+		$ret = "";
+	}
+	return $ret;
+}
 
 ?>
