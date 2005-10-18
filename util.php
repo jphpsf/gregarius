@@ -889,7 +889,7 @@ function eval_mixed($string){
   return $string;
   }
  
- 
+/*
 function rss_svn_rev($prefix='.') {
 	static $ret;
 	if (file_exists('.svn/dir-wcprops')) {
@@ -902,5 +902,5 @@ function rss_svn_rev($prefix='.') {
 	}
 	return $ret;
 }
-
+*/
 ?>
