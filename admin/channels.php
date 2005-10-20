@@ -55,7 +55,7 @@ function channels() {
 	$b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=Add&amp;new_channel=";
 
 	$bookmarklet = "javascript:void(document.location = "
-	  ."('$b_url'.concat(document.location)))";
+	  ."('$b_url'.concat(escape(document.location))))";
 
 	echo "<p class=\"bookmarklet\">" . LBL_ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".LBL_ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
 
@@ -236,7 +236,6 @@ function channel_admin() {
 
    $label = trim($_REQUEST['new_channel']);
    $fid = trim(rss_real_escape_string($_REQUEST['add_channel_to_folder']));
-
 	list($flabel) = rss_fetch_row(rss_query(
 	    "select name from " . getTable('folders') . " where id=$fid"));
 	    
@@ -255,7 +254,7 @@ function channel_admin() {
    			$newCid = $ret[0];
 			rss_error(sprintf(
 				LBL_ADMIN_OPML_IMPORT_FEED_INFO,
-					$label,"/$flabel")
+					htmlentities($label),"/$flabel")
 					. LBL_ADMIN_OK
 					. "&nbsp;[<a href=\"index.php?domain=".CST_ADMIN_DOMAIN_CHANNEL
 						."&amp;action=edit&amp;cid=$newCid\">"
@@ -281,7 +280,7 @@ function channel_admin() {
 			      		$newCid = $ret[0];
 						rss_error(sprintf(
 							LBL_ADMIN_OPML_IMPORT_FEED_INFO,
-								$label,"/$flabel")
+								htmlentities($label),"/$flabel")
 								. LBL_ADMIN_OK
 								. "&nbsp;[<a href=\"index.php?domain=".CST_ADMIN_DOMAIN_CHANNEL
 									."&amp;action=edit&amp;cid=$newCid\">"
