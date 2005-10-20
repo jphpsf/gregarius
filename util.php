@@ -892,11 +892,14 @@ function eval_mixed($string){
   return $string;
   }
  
-/*
+
 function rss_svn_rev($prefix='.') {
 	static $ret;
-	if (file_exists('.svn/dir-wcprops')) {
-		$raw=getUrl('.svn/dir-wcprops');
+	if ($ret != NULL) {
+		return $ret;
+	}
+	if (file_exists(GREGARIUS_HOME .'.svn/dir-wcprops')) {
+		$raw=getUrl(GREGARIUS_HOME .'.svn/dir-wcprops');
 		if ($raw && preg_match('#ver/([0-9]+)/#',$raw,$matches) && isset($matches[1])) {
 			$ret = $prefix . $matches[1];
 		}
@@ -905,5 +908,5 @@ function rss_svn_rev($prefix='.') {
 	}
 	return $ret;
 }
-*/
+
 ?>
