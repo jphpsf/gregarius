@@ -24,7 +24,21 @@
 # Web page:    http://sourceforge.net/projects/gregarius
 ###############################################################################
 
+if (array_key_exists('js',$_GET)) {
 
+    // Check the cache right at the start 
+    $etag = md5($js.'$Revision$');
+    if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && 
+    	$_SERVER['HTTP_IF_NONE_MATCH'] == $etag) {
+		  header("HTTP/1.1 304 Not Modified");
+		  flush();
+		  exit();
+    }else {
+
+		  header("ETag: $key");
+
+    }
+}
 require_once('init.php');
 
 function __exp__setState($id,$state) {
@@ -132,11 +146,11 @@ sajax_init();
 /* spit out the javascript for this bugger */
 if (array_key_exists('js',$_GET)) {
 
-    $js = sajax_get_javascript();
     
     // The javascript output shall be cached
-    $etag = md5($js.'$Revision$');
-    ETagHandler($etag);
+    // The Etag was set at the start of this file. 
+    
+    $js = sajax_get_javascript();
     echo $js;
 
     // and here is s'more javascript for field editing...

@@ -28,13 +28,14 @@
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
 /// Description: Marks an item as read when you doubleclick its whitespace
-/// Version: 1.6
+/// Version: 1.7
 
 /**
  * Changelog:
  *
  * 1.5  Updated description
  * 1.6  Fixed a bug that would cause a Javascript error when user is not logged in
+ * 1.7  Moved the EtagHandler to make the javascript load faster. -- Sameer
  */
 
 function __dblclicktoread_js_register($js) {
@@ -55,8 +56,18 @@ function __dblclickToRead_init_js($dummy) {
 
 if (isset($_REQUEST['dcljs'])) {
 
-	require_once('../init.php');
-    ETagHandler(md5("dblclicktoread".'$Revision: 845 $'));
+	$key = md5("dblclicktoread".'$Revision: 845 $');
+    	if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && 
+    		$_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
+	  header("HTTP/1.1 304 Not Modified");
+	  flush();
+	  exit();
+    	} else {
+	  header("ETag: $key");
+	}
+
+    require_once('../init.php');
+
 
     if (hidePrivate()) {
 		return "";

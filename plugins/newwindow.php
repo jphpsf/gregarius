@@ -47,7 +47,7 @@ function __new_window_init_js($dummy) {
 
 if (isset($_REQUEST['nwjs'])) {
 
-	require_once('../init.php');
+	require_once('../util.php');
     ETagHandler(md5("newwindow".'$Revision$'));
     
     ?>

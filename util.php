@@ -868,6 +868,8 @@ function utf8_uri_encode( $utf8_string ) {
 
 
 function ETagHandler($key) {
+	// This function should be used inline for speed. However if you have already 
+	// included util.php you might as well use it. 
     if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && 
     	$_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
 		  header("HTTP/1.1 304 Not Modified");
