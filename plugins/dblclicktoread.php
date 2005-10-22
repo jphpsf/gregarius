@@ -28,12 +28,13 @@
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
 /// Description: Marks an item as read when you doubleclick its whitespace
-/// Version: 1.5
+/// Version: 1.6
 
 /**
  * Changelog:
  *
  * 1.5  Updated description
+ * 1.6  Fixed a bug that would cause a Javascript error when user is not logged in
  */
 
 function __dblclicktoread_js_register($js) {
@@ -42,12 +43,14 @@ function __dblclicktoread_js_register($js) {
 }
 
 function __dblclickToRead_init_js($dummy) {
-    echo "\n<script type=\"text/javascript\">\n"
-      ."<!--\n"
-      ."__dbclickToRead_jsInit();\n"
-      ."-->\n"
-      ."</script>\n";
-    return $dummy;
+   if (!hidePrivate()) {
+		 echo "\n<script type=\"text/javascript\">\n"
+			."<!--\n"
+			."__dbclickToRead_jsInit();\n"
+			."-->\n"
+			."</script>\n";
+	}
+   return $dummy;
 }
 
 if (isset($_REQUEST['dcljs'])) {
