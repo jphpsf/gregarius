@@ -50,8 +50,7 @@ function __filter_callback($matches) {
     if ($outmatches && isset ($outmatches[2])) {
         return "<a href=\"". $matches[1]."\">[" . $outmatches[2] . "]</a>";
     }
-    
-    return $matches[1];
+    return "<a href=\"". $matches[1]."\">[" . $matches[1] . "]</a>";
 } 
 
 
