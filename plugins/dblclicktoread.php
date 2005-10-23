@@ -55,17 +55,8 @@ function __dblclickToRead_init_js($dummy) {
 }
 
 if (isset($_REQUEST['dcljs'])) {
-
-	$key = md5("dblclicktoread".'$Revision$');
-    	if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && 
-    		$_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
-	  header("HTTP/1.1 304 Not Modified");
-	  flush();
-	  exit();
-    	} else {
-	  header("ETag: $key");
-	}
-
+	 require_once('../core.php');
+	 rss_bootstrap(false);
     require_once('../init.php');
 
 

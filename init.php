@@ -47,10 +47,15 @@ if (file_exists(dirname(__FILE__) . '/rss_extra.php')) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Base includes
+// Bootstrap
 //
 rss_require('core.php');
-checkETag();
+rss_bootstrap();
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Base includes
+//
 rss_require('util.php');
 rss_require('cls/rss.php');
 rss_require('config.php');
