@@ -336,12 +336,12 @@ class ItemList {
 		}
 		//echo $sql;		
 		$this -> iids = array();
-		$res = $this->rss->db->rss_query($sql);
-		$this -> rowCount = $this->rss->db->rss_num_rows($res);
+		$res = $GLOBALS['rss_db']->rss_query($sql);
+		$this -> rowCount = $GLOBALS['rss_db']->rss_num_rows($res);
 		$prevCid = -1;
 		$curIdx = 0;
 		$f=null;
-		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $ienclosure_, $iauthor_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_, $rrating_) = $this->rss->db->rss_fetch_row($res)) {
+		while (list ($ititle_, $ctitle_, $cid_, $iunread_, $iurl_, $ienclosure_, $iauthor_, $idescr_, $cicon_, $its_, $iispubdate_, $iid_, $rrating_) = $GLOBALS['rss_db']->rss_fetch_row($res)) {
 			
 			// Built a new Item
 			$i = new Item($iid_, $ititle_, $iurl_, $ienclosure_, $cid_, $iauthor_, $idescr_, $its_, $iispubdate_, $iunread_, $rrating_);
@@ -396,8 +396,8 @@ class ItemList {
 			.getTable('item')." i "
 			." where m.tid = t.id and i.id=m.fid and m.ttype = 'item' and m.fid in (".implode(",", $this -> iids).")";
 			
-			$res = $this->rss->db->rss_query($sql);
-			while (list ($tag_, $iid_, $cid_) = $this->rss->db->rss_fetch_row($res)) {
+			$res = $GLOBALS['rss_db']->rss_query($sql);
+			while (list ($tag_, $iid_, $cid_) = $GLOBALS['rss_db']->rss_fetch_row($res)) {
 				if (array_key_exists($iid_, $this -> iidInCid)) {
 					$idx = $this->iidInCid[$iid_];
 					while (list($key, $item) = each($this ->feeds[$idx] -> items)) {

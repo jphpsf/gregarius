@@ -25,6 +25,7 @@
 #
 ###############################################################################
 
+rss_require('util.php');
 
 /**
  * Checks the db schema for the for all required tables, adds those which are missing.

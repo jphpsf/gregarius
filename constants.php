@@ -53,6 +53,9 @@ function my_assert_handler($file, $line, $code) {
     echo "<span class=\"error\">Assertion Failed: File '$file'; Line '$line'; Code '$code'";
 }
 
+// Admin cookie name
+define('PRIVATE_COOKIE', 'prv');
+
 
 // Set up the callback
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');

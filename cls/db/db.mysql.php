@@ -26,7 +26,7 @@
 ###############################################################################
 
 
-rss_require('cls/db/db.php');
+require_once(dirname(__FILE__) . '../../../cls/db/db.php');
 
 class MysqlDB extends DB {
 
@@ -68,12 +68,14 @@ class MysqlDB extends DB {
 		 // if we got a missing table error, look for missing tables in the schema
 		 // and try to create them
 		 if ($error == 1146 && !$preventRecursion && $dieOnError) {
-			  rss_require('schema.php');
+		 		require_once(dirname(__FILE__) . '../../../init.php');
+		 		rss_require('schema.php');
 			  checkSchema();
 			  return $this -> rss_query ($query, $dieOnError, true);
 		 } elseif ($error == 1054 && !$preventRecursion && $dieOnError) {
 			  if (preg_match("/^[^']+'([^']+)'.*$/",$errorString,$matches)) {
-					rss_require('schema.php');
+			  	require_once(dirname(__FILE__) . '../../../init.php');
+			  	rss_require('schema.php');
 					checkSchemaColumns($matches[1]);
 					return $this -> rss_query ($query, $dieOnError, true);
 			  }

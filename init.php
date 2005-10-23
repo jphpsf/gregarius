@@ -49,12 +49,10 @@ if (file_exists(dirname(__FILE__) . '/rss_extra.php')) {
 ////////////////////////////////////////////////////////////////////////////////
 // Base includes
 //
-
-rss_require('constants.php');
+rss_require('core.php');
+checkETag();
 rss_require('util.php');
 rss_require('cls/rss.php');
-rss_require('dbinit.php');
-rss_require('db.php');
 rss_require('config.php');
 
 

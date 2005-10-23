@@ -25,52 +25,53 @@
 #
 ###############################################################################
 
+require_once(dirname(__FILE__) . '/dbinit.php');
 if (!defined('DBTYPE')) {
 	define ('DBTYPE','mysql');
 }
 
-rss_require('cls/db/db.'.DBTYPE.'.php');
+require_once('cls/db/db.'.DBTYPE.'.php');
 $dbcls = ucfirst(DBTYPE)."DB";
-$GLOBALS['rss']->db = new $dbcls;
+$GLOBALS['rss_db'] = new $dbcls;
 
 
 function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
-	return $GLOBALS['rss']->db->rss_query ($query, $dieOnError, $preventRecursion);
+	return $GLOBALS['rss_db']->rss_query ($query, $dieOnError, $preventRecursion);
 }
 
 function rss_fetch_row($rs) {
-    return  $GLOBALS['rss']->db->rss_fetch_row($rs);
+    return  $GLOBALS['rss_db']->rss_fetch_row($rs);
 }
 
 function rss_fetch_assoc($rs) {
-    return $GLOBALS['rss']->db->rss_fetch_assoc($rs);
+    return $GLOBALS['rss_db']->rss_fetch_assoc($rs);
 }
 function rss_num_rows($rs) {
-    return $GLOBALS['rss']->db->rss_num_rows($rs);
+    return $GLOBALS['rss_db']->rss_num_rows($rs);
 }
 
 function rss_sql_error() {
-	 return $GLOBALS['rss']->db->rss_sql_error();
+	 return $GLOBALS['rss_db']->rss_sql_error();
 }
 
 function rss_sql_error_message () {
-	 return $GLOBALS['rss']->db->rss_sql_error_message();
+	 return $GLOBALS['rss_db']->rss_sql_error_message();
 }
 
 function rss_insert_id() {
-    return $GLOBALS['rss']->db->rss_insert_id();
+    return $GLOBALS['rss_db']->rss_insert_id();
 }
 
 function rss_real_escape_string($string) {
-	return $GLOBALS['rss']->db->rss_real_escape_string($string);
+	return $GLOBALS['rss_db']->rss_real_escape_string($string);
 }
 
 function getTable($tableName) {
-	return $GLOBALS['rss']->db->getTable($tableName);
+	return $GLOBALS['rss_db']->getTable($tableName);
 }
 
 function rss_is_sql_error($kind) {
-    return $GLOBALS['rss']->db-> rss_is_sql_error($kind);
+    return $GLOBALS['rss_db']-> rss_is_sql_error($kind);
 }
 
 ?>

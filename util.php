@@ -654,7 +654,6 @@ function showViewForm($curValue) {
 		."</select></p>\n</form>\n";
 }
 
-define('PRIVATE_COOKIE', 'prv');
 function getPrivateCookieVal($prefix = DBUNAME) {
 	$val = $prefix.$_SERVER["SERVER_NAME"];
 	if (defined('ADMIN_USERNAME') && defined('ADMIN_PASSWORD')) {
