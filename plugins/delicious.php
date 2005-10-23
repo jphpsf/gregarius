@@ -38,7 +38,7 @@ function __delicious_js_register($js) {
 }
 
 if (isset($_REQUEST['deljs'])) {
-	$key = md5('$Revision: 845 $');
+	$key = md5("delicious".'$Revision$');
     	if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && 
     		$_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
 	  header("HTTP/1.1 304 Not Modified");
