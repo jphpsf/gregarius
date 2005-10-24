@@ -143,7 +143,7 @@ function rss_main_footer() {
 
 function rss_footer_last_modif() {
 	$ts = getLastModif();
-	return ($ts ? rss_locale_date ("%c", $ts):"never");
+	return ($ts ? rss_locale_date ("%c", $ts) : LBL_FOOTER_LAST_MODIF_NEVER);
 }
 
 function rss_header_logininfo() {

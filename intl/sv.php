@@ -191,6 +191,9 @@ define ('LBL_ADMIN_DOMAIN_LBL_OPML_LBL','opml');
 define ('LBL_ADMIN_BOOKMARKET_LABEL','Bookmarklet f&ouml;r att l&auml;gga till en sida i Gregarius [<a href="http://www.squarefree.com/bookmarklets/">?</a>]:');
 define ('LBL_ADMIN_BOOKMARKLET_TITLE','L&auml;gg till i Gregarius!');
 
+// New in 0.5.x:
+define('LBL_FOOTER_LAST_MODIF_NEVER', 'never');
+
 
 define ('LBL_ADMIN_ERROR_NOT_AUTHORIZED', 
  		"<h1>Stopp och bel&auml;gg!</h1>\Du har inte beh&ouml;righet att anv&auml;nda adminsidorna.\n"
@@ -259,5 +262,7 @@ define ('LBL_RATING','V&auml;rdering:');
 define('LBL_ENCLOSURE', 'Bilaga:');
 define('LBL_DOWNLOAD', 'ladda ned');
 define('LBL_PLAY', 'spela upp');
+
+define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
 
 ?>

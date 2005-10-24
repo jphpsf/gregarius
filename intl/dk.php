@@ -247,4 +247,5 @@ define ('LBL_RATING','Bed&oslash;mmelse:');
 define('LBL_ENCLOSURE', 'Bilag:'); 
 define('LBL_DOWNLOAD', 'download');
 define('LBL_PLAY', 'afspil'); 
+define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
 ?>

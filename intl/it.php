@@ -256,4 +256,6 @@ define ('LBL_RATING','Rating:');
 define('LBL_ENCLOSURE', 'Enclosure:');
 define('LBL_DOWNLOAD', 'scarica');
 define('LBL_PLAY', 'riproduci');
+
+define('LBL_FOOTER_LAST_MODIF_NEVER', 'nessuna');
 ?>

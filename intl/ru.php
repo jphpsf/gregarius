@@ -251,4 +251,6 @@ define ('LBL_RATING','Rating:');
 define('LBL_ENCLOSURE', 'Enclosure:');
 define('LBL_DOWNLOAD', 'download');
 define('LBL_PLAY', 'play');
+
+define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
 ?>
