@@ -27,7 +27,7 @@
 if (array_key_exists('js',$_GET)) {
 
     // Check the cache right at the start 
-    $key = md5($js.'$Revision$');
+    $key = md5('$Revision$');
     if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) && 
     	$_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
 		  header("HTTP/1.1 304 Not Modified");
