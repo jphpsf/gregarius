@@ -57,7 +57,7 @@ if (array_key_exists('metaaction', $_POST)
 		$sql .= " and id in (" . rss_real_escape_string($_POST['markreadids']) .")";
 	}
 	 rss_query( $sql );
-	  
+	rss_invalidate_cache();  
 }
 
 if (array_key_exists('update',$_REQUEST)) {
