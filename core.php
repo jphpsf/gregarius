@@ -41,7 +41,7 @@ function rss_bootstrap($withDB = true, $etag_prefix= "") {
 function checkETag($withDB = true, $keyPrefix= "") {
 	$key = $keyPrefix.'$Revision$'.$_SERVER["REQUEST_URI"];
 	if ($withDB) {
-		list($dt) = rss_fetch_row(rss_query(' select max(added) from ' .getTable('item')));
+		list($dt) = rss_fetch_row(rss_query('select timestamp from ' .getTable('cache') . " where cachekey='data_ts'"));
 		$key .= $dt;
 	}
 	if (array_key_exists(PRIVATE_COOKIE,$_REQUEST)) {

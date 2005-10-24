@@ -74,4 +74,10 @@ function rss_is_sql_error($kind) {
     return $GLOBALS['rss_db']-> rss_is_sql_error($kind);
 }
 
+function rss_invalidate_cache() {
+	$sql = 'update ' . getTable('cache') . " set timestamp=now() where cachekey='data_ts'";
+	$GLOBALS['rss_db']->rss_query ($sql, false, false);
+	return true;
+}
+
 ?>

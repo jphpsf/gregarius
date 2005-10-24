@@ -89,6 +89,9 @@ class Update {
 		if (count($newIds) > 0 && getConfig('rss.config.markreadonupdate')) {
 			rss_query("update ".getTable("item")." set unread = unread & ".SET_MODE_READ_STATE." where unread & ".FEED_MODE_UNREAD_STATE." and id not in (".implode(",", $newIds).")");
 		}
+		if (count($newIds) > 0) {
+			rss_invalidate_cache();
+		}
 	}
 }
 

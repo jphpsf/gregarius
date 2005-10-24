@@ -282,6 +282,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 		}
       rss_query($sql);
       
+      rss_invalidate_cache();
 
       /* Redirect! If this feed has more unread items, self-redirect */
       
@@ -389,6 +390,9 @@ if (array_key_exists ('metaaction', $_POST)) {
 		
     	//die($sql);
     	rss_query($sql);
+    	
+		rss_invalidate_cache();
+    	      
     	$next_fid = 0;
     	$found = false;
     	$res = rss_query( " select id from " .getTable('folders') ." f order by "
@@ -447,6 +451,8 @@ if (array_key_exists ('metaaction', $_POST)) {
 		
 		rss_query($sql);
 
+		rss_invalidate_cache();
+		      
 		// find next virtual folder to redirect to
 		$next_vfid = 0;
 		$found = false;

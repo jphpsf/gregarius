@@ -42,7 +42,8 @@ function checkSchema() {
 		"item" => trim(getTable("item")),
 		"metatag" => trim(getTable("metatag")),
 		"tag" => trim(getTable("tag")),
-		"rating" => trim(getTable("rating"))
+		"rating" => trim(getTable("rating")),
+		"cache" => trim(getTable("cache")),
 	);
 	
 	$rs = rss_query( "show tables", true, true );
@@ -419,6 +420,43 @@ _SQL_
 	}
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+
+function _init_cache() {
+	$table = getTable('cache');
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
+	$sql_create = str_replace('__table__',$table, <<< _SQL_
+		CREATE TABLE __table__ (
+		cachekey VARCHAR( 128 ) NOT NULL ,
+		timestamp DATETIME NOT NULL ,
+		cachetype ENUM( 'ts', 'icon', 'feed' ) NOT NULL ,
+		data BLOB,
+		PRIMARY KEY ( cachekey )
+		) TYPE=MYISAM;
+_SQL_
+);
+
+	rss_query_wrapper($sql_create, false, true);
+	
+
+	
+	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
+		return 0;
+	} else {
+
+		rss_query_wrapper ("INSERT INTO $table (cachekey,timestamp,cachetype,data) VALUES ('data_ts',now(),'ts',null)", false, true);	
+		if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+			rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
+			return 0;
+		}
+	
+		return 1;
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
 
 if (isset($argv) && in_array('--dump',$argv)) {
 	foreach ($argv as $idx => $arg) {

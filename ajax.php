@@ -44,6 +44,7 @@ require_once('init.php');
 function __exp__setState($id,$state) {
 	if (!hidePrivate()) {
 		rss_query('update '.getTable('item') . " set unread=$state where id=$id");	
+		rss_invalidate_cache();
 	}
     $rs = rss_query('select unread from '.getTable('item') . " where id=$id");
     list($unread) = rss_fetch_row($rs);
@@ -74,6 +75,7 @@ function __exp__getSideContent($what) {
 	}
 	$c = ob_get_contents();
 	ob_end_clean();
+	rss_invalidate_cache();
 	return ($what . "#@#" .$c);
 }
 

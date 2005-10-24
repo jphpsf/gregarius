@@ -141,3 +141,13 @@ CREATE TABLE `rating` (
 	rating tinyint(4) default '0'
 ) TYPE=MyISAM;
 
+DROP TABLE IF EXISTS `cache`;
+CREATE TABLE `cache` (
+	cachekey VARCHAR( 128 ) NOT NULL ,
+	timestamp DATETIME NOT NULL ,
+	cachetype ENUM( 'ts', 'icon', 'feed' ) NOT NULL ,
+	data BLOB,
+	PRIMARY KEY ( cachekey )
+) TYPE=MYISAM;
+
+INSERT INTO cache (cachekey,timestamp,cachetype,data) VALUES ('data_ts',now(),'ts',null)";

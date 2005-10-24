@@ -824,6 +824,9 @@ function __priv__updateTags($fid,$tags,$type) {
             }
         }
     }
+    
+    rss_invalidate_cache();
+    
     sort($ret);
     return $ret;
 }
