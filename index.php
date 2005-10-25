@@ -72,7 +72,9 @@ if (array_key_exists('logout',$_GET)) {
 
 $cntUnread = unreadItems($show_what);
 if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
-	readItems($cntUnread);
+	if (!defined('RSS_FRONTPAGE_NO_READ_ITEMS')) {
+		readItems($cntUnread);
+	}
 } 
 
 
