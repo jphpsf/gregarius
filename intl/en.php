@@ -164,7 +164,7 @@ define ('LBL_ADMIN_TRUE','True');
 define ('LBL_ADMIN_FALSE','False');
 define ('LBL_ADMIN_MOVE_UP','&uarr;');
 define ('LBL_ADMIN_MOVE_DOWN','&darr;');
-define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe)');
+define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)');
 define ('LBL_ADMIN_FEEDS','The following feeds were found in <a href="%s">%s</a>, which one would you like to subscribe?');
 
 define ('LBL_ADMIN_PRUNE_OLDER','Delete items older than ');
