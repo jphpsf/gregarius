@@ -29,7 +29,7 @@
 /// Name: del.icio.us Tags
 /// Author: Marco Bonetti
 /// Description: Fetches tag suggestiongs from del.icio.us
-/// Version: 0.3
+/// Version: 0.4
 
 
 function __delicious_js_register($js) {

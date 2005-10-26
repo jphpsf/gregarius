@@ -29,7 +29,7 @@
 /// Name: Rounded Corners
 /// Author: Marco Bonetti
 /// Description: Rounded corners in some GUI elements. Enabling this plugin breaks the CSS validation.
-/// Version: 0.1
+/// Version: 0.2
 
 function __rc_CSS($dummy) {
 	$url = getPath(). RSS_PLUGINS_DIR . "/roundedcorners.php?rc-css";
