@@ -39,7 +39,7 @@ function __delicious_js_register($js) {
 
 if (isset($_REQUEST['deljs'])) {
 	require_once('../core.php');
-	rss_bootstrap(false);
+	rss_bootstrap(false,'$Revision$',24);
 	require_once('../init.php');
 ?>
 function get_from_delicious(id) {

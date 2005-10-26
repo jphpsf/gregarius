@@ -29,16 +29,18 @@ if (!defined('GREGARIUS_HOME')) {
 	  define('GREGARIUS_HOME',dirname(__FILE__) . "/");
 }
 
-function rss_bootstrap($withDB = true, $etag_prefix= "") {
+function rss_bootstrap($withDB = true, $etag_prefix= "", $cacheValidity=0) {
 	require_once(GREGARIUS_HOME . 'constants.php');
 	if ($withDB) {
 		require_once(GREGARIUS_HOME . 'db.php');
 	}
-	checkETag($withDB,$etag_prefix);
+	if (!defined('RSS_NO_CACHE')) {
+		checkETag($withDB,$etag_prefix,$cacheValidity);
+	}
 }
 
 
-function checkETag($withDB = true, $keyPrefix= "") {
+function checkETag($withDB = true, $keyPrefix= "", $cacheValidity = 0) {
 	$key = $keyPrefix.'$Revision$'.$_SERVER["REQUEST_URI"];
 	if ($withDB) {
 		list($dt) = rss_fetch_row(rss_query('select timestamp from ' .getTable('cache') . " where cachekey='data_ts'"));
@@ -55,6 +57,9 @@ function checkETag($withDB = true, $keyPrefix= "") {
 		exit();
 	} else {
 		header("ETag: $key");
+		if ($cacheValidity) {
+			  header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheValidity*3600) . 'GMT');
+		}
 	}
 }
 ?>

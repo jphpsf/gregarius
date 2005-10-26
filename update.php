@@ -25,6 +25,7 @@
 #
 ###############################################################################
 
+define ('RSS_NO_CACHE',true);
 require_once('init.php');
 rss_require("cls/update.php");
 rss_require("extlib/browser.php");

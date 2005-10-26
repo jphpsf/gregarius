@@ -43,16 +43,11 @@ if (isset($_GET['rc-css'])) {
 ul.navlist li,a.bookmarklet, fieldset, div#pbholder, div.ief,
 div.ief p a, #loginfo, input[type=\"submit\"] { -moz-border-radius: 5px }
 ";
-	$key = md5($css);
-  	if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER) &&
-    	$_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
-		  header("HTTP/1.1 304 Not Modified");
-		  flush();
-    } else {
-		  header("ETag: $key");
-		  header('Content-Type: text/css');
-		  echo $css;
-	}
+
+	require_once('../core.php');
+	rss_bootstrap(false, '$Revision$' . $css,  24);
+  header('Content-Type: text/css');
+	echo $css;
 	exit();
 }
 
