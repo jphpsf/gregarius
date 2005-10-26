@@ -21,8 +21,8 @@
 # http://www.gnu.org/licenses/gpl.html
 #
 ###############################################################################
-# E-mail:      mbonetti at users dot sourceforge dot net
-# Web page:    http://sourceforge.net/projects/gregarius
+# E-mail:      mbonetti at gmail dot com
+# Web page:    http://gregarius.net/
 #
 ###############################################################################
 
