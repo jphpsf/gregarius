@@ -128,7 +128,11 @@ class Feed {
 		$this -> rss = &$GLOBALS['rss'];
 		$this->title = rss_htmlspecialchars($title);
 		$this->cid = $cid;
-		$this->iconUrl = $icon;
+		if (substr($icon,0,5) == 'blob:') {
+			$this->iconUrl = getPath() . "extlib/favicon.php?url=" . rss_real_escape_string(substr($icon,5));
+		} else {
+			$this->iconUrl = $icon;
+		}
 		$this->escapedTitle = preg_replace("/[^A-Za-z0-9\.]/", "_", $title);
 	} 
 	

@@ -72,7 +72,11 @@ class FeedListItem {
 
 		
 		if ( getConfig('rss.output.showfavicons') && $icon){
-            $this->icon = $icon;
+			if (substr($icon,0,5) == 'blob:') {
+				$this->icon = getPath() . "extlib/favicon.php?url=". rss_real_escape_string(substr($icon,5));
+			} else {
+				$this->icon = $icon;
+			}
 		} elseif (getConfig('rss.output.showfavicons')) {
             $this->icon = rss_theme_path() ."/media/noicon.png";
 		} else {

@@ -429,6 +429,12 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
 
 			rss_query($sql);
 			$newid = rss_insert_id();
+			
+			if ($icon && cacheFavicon($icon)) {
+				rss_query("update " . getTable("channels") . " set icon='blob:".$icon."'"
+					." where id=$newid");
+			}
+			
 			return array ($newid, "");
 
 		} else {
@@ -913,4 +919,19 @@ function rss_svn_rev($prefix='.') {
 	return $ret;
 }
 
+function cacheFavicon($icon) {
+	$icon_ = rss_real_escape_string($icon);
+	$binIcon = getUrl($icon);
+	if ($binIcon) {
+		$sql = "delete from " . getTable('cache') 
+		." where cachetype='icon' and cachekey='icon_'";
+		rss_query($sql);
+		$sql = "insert into ". getTable('cache') 
+		."(cachekey,timestamp,cachetype,data) values "
+		."('$icon_',now(),'icon','".rss_real_escape_string($binIcon)."')";
+		rss_query($sql);
+		return rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR); 
+	}
+	return false;
+}
 ?>

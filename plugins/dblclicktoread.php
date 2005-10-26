@@ -28,7 +28,7 @@
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
 /// Description: Marks an item as read when you doubleclick its whitespace
-/// Version: 1.7
+/// Version: 1.8
 
 /**
  * Changelog:
@@ -36,6 +36,7 @@
  * 1.5  Updated description
  * 1.6  Fixed a bug that would cause a Javascript error when user is not logged in
  * 1.7  Moved the EtagHandler to make the javascript load faster. -- Sameer
+ * 1.8  Switched to the rss_bootstrap caching method 
  */
 
 function __dblclicktoread_js_register($js) {

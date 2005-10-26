@@ -138,7 +138,9 @@ function channels() {
 			$fmode[] = "D";
 		}
 		$slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
-		
+		if ($icon && substr($icon,0,5) == 'blob:') {
+			$icon = getPath() . "extlib/favicon.php?url=" .rss_real_escape_string(substr($icon,5));
+		}
 		echo "<tr class=\"$class_\" id=\"fa$id\">\n"
 		  ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" /></td>\n"
 		  ."\t<td>"
@@ -541,16 +543,21 @@ function channel_admin() {
 			$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 			break;
 		}
-	
+
+		if ($icon && cacheFavicon($icon)) {
+				$icon = 'blob:'.$icon;
+		}
+		
 		$sql = "update " .getTable("channels") 
 			." set title='$title', url='$url', siteurl='$siteurl', "
 		  ." parent=$parent, descr='$descr', icon='$icon' "
 		  ." $mode where id=$cid";
 	
 		rss_query($sql);
+		
 
 		__exp__submitTag($cid,$tags,"'channel'");
-
+		rss_invalidate_cache();
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;
 
@@ -752,6 +759,9 @@ function channel_edit_form($cid) {
 		echo "<p><label for=\"c_icon\">" . LBL_ADMIN_CHANNEL_ICON ."</label>\n";
 	
 		if (trim($icon) != "") {
+			if (substr($icon,0,5) == 'blob:') {
+				$icon = substr($icon,5);
+			}
 			echo "<img src=\"$icon\" alt=\"$title\" class=\"favicon\" width=\"16\" height=\"16\" />\n";
 			echo "<span>" . LBL_CLEAR_FOR_NONE ."</span>";
 		}

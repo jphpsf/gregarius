@@ -77,7 +77,6 @@ function rss_feed_do_favicon() {
 }
 
 function rss_feed_favicon_url() {
-	
 	return $GLOBALS['rss']->currentFeed->iconUrl;
 }
 
