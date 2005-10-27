@@ -36,6 +36,7 @@ define('NO_NEW_ITEMS', '-');
 define ('UPDATING','...');
 
 define ('AJAX_BATCH_SIZE',3);
+define ('AJAX_PARALLEL_SIZE',1);
 
 define ('THIS_FILE',basename(__FILE__));
 
@@ -233,7 +234,8 @@ class AJAXUpdate extends Update {
 		
 		echo "</table>\n";  
 		echo "<script type=\"text/javascript\">\n";
-		echo "doUpdate();\n</script>\n";
+		echo "for (k =0; k < " . AJAX_PARALLEL_SIZE . "; k++){\n";
+		echo "doUpdate();}\n</script>\n";
 	}
 }
 
@@ -448,7 +450,10 @@ function ajaxUpdate_cb(data) {
 		}
 		
 		if (document.feedPointer < document.feedCount) {
+			if (document.returnedUpdates >= document.feedPointer - 
+				<?php echo AJAX_BATCH_SIZE * (AJAX_PARALLEL_SIZE - 1) ?>) {
 			doUpdate();
+			}
 		} else {
 			ajaxUpdateCleanup();
 			window.setTimeout('redirect()', 3000);
