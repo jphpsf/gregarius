@@ -72,12 +72,12 @@ class Item {
 			$this->title = "[nt]";
 		}
 		$this->escapedTitle = preg_replace("/[^A-Za-z0-9%\.]/", "_", utf8_uri_encode($title));
-		$this->url = $url;
+		$this->url = trim($url);
 		$this->enclosure = $enclosure;
 		$this->feed = $parent;
 		$this->author = $author;
 		if ($description) {
-			$this->description = $description;
+			$this->description = trim($description);
 		} elseif($title) {
 			$this -> description = $title;
 		}
