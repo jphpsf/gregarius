@@ -778,7 +778,7 @@ function guessTransportProto() {
 }
 
 function rss_redirect($url = "") {
-    header("Location: " .
+	header("Location: " .
         (guessTransportProto() . $_SERVER['HTTP_HOST'] . getPath() . $url));
 }
 
@@ -924,7 +924,7 @@ function cacheFavicon($icon) {
 	$binIcon = getUrl($icon);
 	if ($binIcon) {
 		$sql = "delete from " . getTable('cache') 
-		." where cachetype='icon' and cachekey='icon_'";
+		." where cachetype='icon' and cachekey='$icon_'";
 		rss_query($sql);
 		$sql = "insert into ". getTable('cache') 
 		."(cachekey,timestamp,cachetype,data) values "
