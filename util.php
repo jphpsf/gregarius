@@ -557,7 +557,7 @@ function getUrl($url, $maxlen = 0) {
 	//maybe it would be better to only use is_file() which only detect
 	//local files?
 	$urlParts = parse_url($url);
-	if (is_file($url) || (!isset($urlParts['scheme']) && !isset($urlParts['host'])) ) {
+	if (@is_file($url) || (!isset($urlParts['scheme']) && !isset($urlParts['host'])) ) {
 		//local file!
 		$c = "";
 		$h = @fopen($url, "r");

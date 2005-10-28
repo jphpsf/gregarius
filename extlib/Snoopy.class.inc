@@ -764,7 +764,9 @@ class Snoopy
 		# accept self-signed certs
 		// mbi: removed, as it breaks on older cURL's
 		//$cmdline_params .= " -k";
-		$full_cmdline = $this->curl_path." -D \"".$this -> tmpdir."$headerfile\"".$cmdline_params." ".$URI;
+		$safer_URI = preg_replace('/[;\s]/g',"",$URI);
+		$full_cmdline = $this->curl_path." -D \"".$this -> tmpdir."$headerfile\"".$cmdline_params." ".$safer_URI;
+		
 		exec($full_cmdline,$results,$return);
 				
 		if($return)
