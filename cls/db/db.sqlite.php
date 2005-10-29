@@ -59,7 +59,7 @@ class SqliteDB extends DB {
 	function  SQLite() {
 		parent::DB();
 	}
-    
+
 	//// The following are just wrappers of their mysql counterpart for now
 	//// maybe one day I shall support other rdbms and add some differentiation
 	//// in here.
@@ -187,11 +187,11 @@ class SqliteDB extends DB {
 				//this ensures that no reserved words are used as columns, for example
 				@sqlite_query($this->db,$createtesttableSQL);
 				if ($this->rss_sql_error()) return false;
-  
+
 				$droptempsql = 'DROP TABLE '.$tmpname;
 				@sqlite_query($this->db,$droptempsql);
 				//end block
-  
+
 				$createnewtableSQL = 'CREATE '.substr(trim(preg_replace("'".$tmpname."'",$table,$createtesttableSQL,1)),17);
 				$newcolumns = '';
 				$oldcolumns = '';
@@ -201,11 +201,11 @@ class SqliteDB extends DB {
 					$oldcolumns .= ($oldcolumns?', ':'').$key;
 				}
 				$copytonewsql = 'INSERT INTO '.$table.'('.$newcolumns.') SELECT '.$oldcolumns.' FROM '.$tmpname;
-  
+
 				@sqlite_query($this->db,$createtemptableSQL); //create temp table
 				@sqlite_query($this->db,$copytotempsql); //copy to table
 				@sqlite_query($this->db,$dropoldsql); //drop old table
-  
+
 				@sqlite_query($this->db,$createnewtableSQL); //recreate original table
 				@sqlite_query($this->db,$copytonewsql); //copy back to original table
 				@sqlite_query($this->db,$droptempsql); //drop temp table
@@ -222,12 +222,12 @@ class SqliteDB extends DB {
 		//check that $search is not inside quote into query
 		return preg_match("/('([^']|'')*".preg_quote($search)."([^']|'')*')/is",$query);
 	}
-	
+
 	function mysql2sqlite($query) {
   		//converts mysql specific syntax to sqlite syntax
   		//order of replace is important to optimize stuff
   		$doReturn=false;
-  
+
 		//table struct query
 		if (preg_match("/^\s*show\s+tables/is",$query)) {
 			$query="SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
@@ -254,7 +254,7 @@ class SqliteDB extends DB {
 			$query=$parse->convertQuery();
 			$doReturn=true;
 		}
-  
+
 		if ($doReturn || !$query) return $query;
 
 		//count(distinct(x)) is not supported
@@ -264,14 +264,14 @@ class SqliteDB extends DB {
 			$query=preg_replace("/from\s/is","from (select distinct($field) from ",$query);
 			$query.=")";
 		}
-  
+
 		/*
 		we must be carefull to not change text content but only SQL part
 		We do a really dirty hack here:
 		we replace all texts by an REFERENCES that will not interfere into the parsing
 		$i=0;
 		$tabStrings=array();
-		
+
 		//when note description are too big, doing basic str_replace/preg_replace
 		//sometime crash... so we try to be less "aggressive"
 		$len=strlen($query);
@@ -316,7 +316,7 @@ class SqliteDB extends DB {
 		unset($query);
 
 		$query=preg_replace("/(\s+)/is"," ",$new_query); // we can now trim data, but not before to prevent a change in values
-		
+
 		//we restore all the strings values
 		if (is_array($tabReplace) && count($tabReplace)>0) {
 			foreach ($tabReplace as $search=>$replace) {
@@ -329,8 +329,8 @@ class SqliteDB extends DB {
 
 		return $query;
 	}
-	
-		
+
+
 	function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
 		//we use a wrapper to convert MySQL specific instruction to sqlite
 		$result=false;
@@ -339,8 +339,11 @@ class SqliteDB extends DB {
 
 		$this->debugLog("SQL BEFORE: $query");
 		$query=$this->mysql2sqlite($query);
-		$this->debugLog("SQL AFTER: $query");
-  
+		if (is_array($query)) {
+			$this->debugLog("SQL AFTER: ".implode("\n",$query));
+		}
+		else $this->debugLog("SQL AFTER: $query");
+
 		if (is_string($query) && preg_match("/^alter table/is",$query)) {
 			$queryparts = preg_split("/[\s]+/",$query,4,PREG_SPLIT_NO_EMPTY);
 			$tablename = $queryparts[2];
@@ -385,14 +388,14 @@ class SqliteDB extends DB {
 				else $errorString = $this -> rss_sql_error_message();
 			}
 		}
-		
+
 		if ($error) $this->debugLog("SQL EXEC ERR: $error - $errorString");
 		else $this->debugLog("SQL EXEC OK");
-		
+
 		if ($error == 1 && $dieOnError && !$preventRecursion) {
 			if (preg_match("/no\s+such\s+table/is",$errorString)) {
 				ob_start();
-				
+
 				require_once(dirname(__FILE__) . '../../../init.php');
 				require_once(dirname(__FILE__) . '../../../schema.php');
 				checkSchema();
@@ -408,7 +411,7 @@ class SqliteDB extends DB {
 				return $this -> rss_query ($query, $dieOnError, true);
 			}
 		}
-	
+
 		if ($error && $dieOnError) {
 			die("<p>Failed to execute the SQL query <pre>$query</pre> </p>"
 			."<p>Error $error: $errorString</p>");
@@ -494,16 +497,16 @@ if (!defined("SQLITE_CALLBACK")) {
 		else $ret=$timestamp;
 		$ret=date("m",$ret);
 		__cb_sqlite_debug("MONTH ($timestamp) = $ret");
-		return $ret; 
+		return $ret;
 	}
-	
+
 	function __cb_sqlite_year($timestamp) {
 		$timestamp=trim($timestamp);
 		if (!preg_match("/^[0-9]+$/is",$timestamp)) $ret=strtotime($timestamp);
 		else $ret=$timestamp;
 		$ret=date("Y",$ret);
 		__cb_sqlite_debug("YEAR ($timestamp) =  $ret");
-		return $ret; 
+		return $ret;
 	}
 
 	function __cb_sqlite_dayofmonth($timestamp) {
@@ -536,7 +539,7 @@ if (!defined("SQLITE_CALLBACK")) {
 	function __cb_sqlite_now() {
 		return date("Y-m-d H:i:s");
 	}
-	
+
 	function __cb_sqlite_md5($str) {
 		return md5($str);
 	}
@@ -549,7 +552,7 @@ if (!defined("SQLITE_CALLBACK")) {
 			@fputs($fp,trim($str)."\n\n");
 			@fclose($fp);
 		}
-	}	
+	}
 
 }
 ?>
