@@ -750,8 +750,9 @@ class Snoopy
 		if(!empty($this->user) || !empty($this->pass))	
 			$headers[] = "Authorization: BASIC ".base64_encode($this->user.":".$this->pass);
 			
-		for($curr_header = 0; $curr_header < count($headers); $curr_header++)
+		for($curr_header = 0; $curr_header < count($headers); $curr_header++) {
 			$cmdline_params .= " -H \"".$headers[$curr_header]."\"";
+		}
 		
 		if(!empty($body))
 			$cmdline_params .= " -d \"$body\"";
@@ -764,8 +765,12 @@ class Snoopy
 		# accept self-signed certs
 		// mbi: removed, as it breaks on older cURL's
 		//$cmdline_params .= " -k";
-		$full_cmdline = $this->curl_path." -D \"".$this -> tmpdir."$headerfile\"".$cmdline_params." ".escapeshellcmd($URI);
-		
+		$full_cmdline = $this->curl_path
+			." -D \"".$this -> tmpdir
+			."$headerfile\""
+			.escapeshellcmd($cmdline_params)." "
+			.escapeshellcmd($URI);
+//		die($full_cmdline);
 		exec($full_cmdline,$results,$return);
 				
 		if($return)
