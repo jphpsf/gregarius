@@ -523,6 +523,8 @@ function channel_admin() {
 				." set unread = unread & " . SET_MODE_PUBLIC_STATE 
 				." where cid=$cid");
 			}
+			
+			rss_invalidate_cache();
 		} else { 
 			$mode = "";
 		}
@@ -557,8 +559,6 @@ function channel_admin() {
 		  ." $mode where id=$cid";
 	
 		rss_query($sql);
-		
-
 		__exp__submitTag($cid,$tags,"'channel'");
 		rss_invalidate_cache();
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
@@ -597,6 +597,7 @@ function channel_admin() {
 		if ($switch_with_position != $position) {
 			rss_query( "update " .getTable("channels") ." set position = $switch_with_position where id=$id" );
 			rss_query( "update " .getTable("channels") ." set position = $position where id=$switch_with_id" );
+			rss_invalidate_cache();
 		}
 		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
 		break;
@@ -625,7 +626,6 @@ function channel_admin() {
 			$fid=$_REQUEST['me_folder'];
 			$sql = "update " .getTable('channels') . " set parent=$fid where id in $sqlids";
 			rss_query($sql);
-			
 		/// STATE
 		} elseif (array_key_exists('me_state',$_REQUEST)) {
 			$deprecated = array_key_exists('me_deprecated',$_REQUEST)?$_REQUEST['me_deprecated']:false;
@@ -665,7 +665,7 @@ function channel_admin() {
 				rss_query($sql);
 			}
 		} 
-    
+    rss_invalidate_cache();
     break;
     
     

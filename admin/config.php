@@ -181,6 +181,7 @@ function config_admin() {
 	
 		if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
 			rss_query("update " . getTable('config') ." set value_=default_ where key_='$key'" );
+			rss_invalidate_cache();
 		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
 			//nop
 		} else {
@@ -551,6 +552,7 @@ function config_admin() {
 
 	if (isset($sql)) {
 		rss_query( $sql );
+		rss_invalidate_cache();
 	}
 	break;
 	default: break;
