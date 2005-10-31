@@ -56,7 +56,7 @@ function checkETag($withDB = true, $keyPrefix= "", $cacheValidity = 0) {
 		flush();
 		exit();
 	} else {
-		header("ETag: $key");
+		header("ETag: \"$key\"");
 		if ($cacheValidity) {
 			  header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheValidity*3600) . 'GMT');
 		}
