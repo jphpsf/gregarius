@@ -82,7 +82,18 @@ $GLOBALS['rss'] -> header = new Header("",LOCATION_HOME,array('cid'=>null,'fid'=
 $GLOBALS['rss'] -> feedList = new FeedList(false);
 $GLOBALS['rss'] -> renderWithTemplate('index.php');
 
-
+function getHiddenChannelIds() {
+	static $hiddenIds;
+	if ($hiddenIds == NULL) {
+		$sql = "select fk_ref_object_id from " .getTable('properties')
+		." where domain='feed' and property = 'Hide from front-page'";
+		$rs = rss_query($sql);
+		while (list($cid) = rss_fetch_row($rs)) {
+			$hiddenIds[] = $cid;
+		}
+	}
+	return $hiddenIds;
+}
 
 function unreadCallback($show_what) {
     showViewForm($show_what);
@@ -95,13 +106,19 @@ function unreadItems($show_what) {
 	$unreadItems = new ItemList();
 	$numItems = getConfig('rss.output.numitemsonpage');
 	
+	$hiddenIds = getHiddenChannelIds();
+	if (count($hiddenIds)) {
+		$sqlWhereHidden = " and c.id not in (" . implode(',',$hiddenIds) . ") ";
+	} else {
+		$sqlWhereHidden = "";
+	}
 	
 	
 	if(!$numItems){
 		$numItems = -1;
 	}
 	
-	$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE, "", 0, $numItems,ITEM_SORT_HINT_UNREAD);
+	$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE . $sqlWhereHidden, "", 0, $numItems,ITEM_SORT_HINT_UNREAD);
 	
     _pf('end populate unread items');
 	if ($unreadItems ->unreadCount) {
@@ -121,6 +138,14 @@ function unreadItems($show_what) {
 function readItems($cntUnread) {
     
     _pf('read items');
+    
+   $hiddenIds = getHiddenChannelIds();
+	if (count($hiddenIds)) {
+		$sqlWhereHidden = " and c.id not in (" . implode(',',$hiddenIds) . ") ";
+	} else {
+		$sqlWhereHidden = "";
+	}
+	
 
    $itemsOnPage = getConfig('rss.output.numitemsonpage');
    if (!$itemsOnPage) {
@@ -143,6 +168,8 @@ function readItems($cntUnread) {
             .getTable("channels") . " c, " 
             .getTable("folders") ." f "
           ." where c.parent = f.id ";
+          
+    	  $sql .= $sqlWhereHidden;
     
         $sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
         
@@ -168,7 +195,7 @@ function readItems($cntUnread) {
 		}
 		$sqlWhere  = " not(i.unread & ". FEED_MODE_UNREAD_STATE  .")  ";
     	$sqlWhere .= " and i.pubdate <= now() ";
-    	
+    	$sqlWhere .= $sqlWhereHidden;
 		$readItems -> populate($sqlWhere, "", 0, $limit, ITEM_SORT_HINT_READ);
 		$readItems -> setRenderOptions(IL_NO_COLLAPSE | IL_TITLE_NO_ESCAPE);
 

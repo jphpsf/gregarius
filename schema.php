@@ -44,6 +44,8 @@ function checkSchema() {
 		"tag" => trim(getTable("tag")),
 		"rating" => trim(getTable("rating")),
 		"cache" => trim(getTable("cache")),
+		"properties" => trim(getTable("properties")),
+
 	);
 	
 	$rs = rss_query( "show tables", true, true );
@@ -455,6 +457,31 @@ _SQL_
 		return 1;
 	}
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+function _init_properties() {
+	$table = getTable('properties');
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
+	$sql_create = str_replace('__table__',$table, <<< _SQL_
+		CREATE TABLE __table__ (
+			fk_ref_object_id  VARCHAR( 128 ) NOT NULL,
+  			domain ENUM('item','feed','folder','category','plugin','tag','misc') NOT NULL,
+  			property VARCHAR( 128 ) NOT NULL,
+  			val VARCHAR( 1024 )
+		) TYPE=MyISAM;
+_SQL_
+);
+
+	rss_query_wrapper($sql_create, false, true);
+	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
+		return 0;
+	} else {
+		return 1;
+	}
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
