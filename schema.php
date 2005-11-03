@@ -25,6 +25,7 @@
 #
 ###############################################################################
 
+
 rss_require('util.php');
 
 /**
@@ -44,7 +45,7 @@ function checkSchema() {
 		"tag" => trim(getTable("tag")),
 		"rating" => trim(getTable("rating")),
 		"cache" => trim(getTable("cache")),
-		"properties" => trim(getTable("properties")),
+	//	"properties" => trim(getTable("properties")),
 
 	);
 	
@@ -459,7 +460,7 @@ _SQL_
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
+/*
 function _init_properties() {
 	$table = getTable('properties');
 	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
@@ -482,7 +483,7 @@ _SQL_
 	}
 }
 
-
+*/
 ///////////////////////////////////////////////////////////////////////////////
 
 if (isset($argv) && in_array('--dump',$argv)) {

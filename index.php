@@ -82,6 +82,7 @@ $GLOBALS['rss'] -> header = new Header("",LOCATION_HOME,array('cid'=>null,'fid'=
 $GLOBALS['rss'] -> feedList = new FeedList(false);
 $GLOBALS['rss'] -> renderWithTemplate('index.php');
 
+/*
 function getHiddenChannelIds() {
 	static $hiddenIds;
 	if ($hiddenIds == NULL) {
@@ -94,6 +95,7 @@ function getHiddenChannelIds() {
 	}
 	return $hiddenIds;
 }
+*/
 
 function unreadCallback($show_what) {
     showViewForm($show_what);
@@ -106,13 +108,15 @@ function unreadItems($show_what) {
 	$unreadItems = new ItemList();
 	$numItems = getConfig('rss.output.numitemsonpage');
 	
+	/*
 	$hiddenIds = getHiddenChannelIds();
 	if (count($hiddenIds)) {
 		$sqlWhereHidden = " and c.id not in (" . implode(',',$hiddenIds) . ") ";
 	} else {
 		$sqlWhereHidden = "";
 	}
-	
+	*/
+	$sqlWhereHidden = "";
 	
 	if(!$numItems){
 		$numItems = -1;
@@ -138,14 +142,14 @@ function unreadItems($show_what) {
 function readItems($cntUnread) {
     
     _pf('read items');
-    
+   /*
    $hiddenIds = getHiddenChannelIds();
 	if (count($hiddenIds)) {
 		$sqlWhereHidden = " and c.id not in (" . implode(',',$hiddenIds) . ") ";
 	} else {
 		$sqlWhereHidden = "";
 	}
-	
+	*/
 
    $itemsOnPage = getConfig('rss.output.numitemsonpage');
    if (!$itemsOnPage) {
@@ -169,7 +173,7 @@ function readItems($cntUnread) {
             .getTable("folders") ." f "
           ." where c.parent = f.id ";
           
-    	  $sql .= $sqlWhereHidden;
+    	 // $sql .= $sqlWhereHidden;
     
         $sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
         
