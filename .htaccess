@@ -8,7 +8,7 @@ AddDefaultCharset utf-8
 <IfModule mod_rewrite.c>
   RewriteEngine on
   
-  RewriteBase /rss/
+  
   
   # If we have a file or a directory match then lets set the 
   # static variable
