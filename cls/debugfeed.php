@@ -34,7 +34,7 @@ class DebugFeed {
 	function DebugFeed($fid) {
 		$this -> fid = (int)rss_real_escape_string($fid);				
 	}
-	
+
 	function render() {
 		$res = rss_query("select url from " .getTable("channels") ." where id = " .$this -> fid);
     if (! defined('MAGPIE_DEBUG') || !MAGPIE_DEBUG) {
