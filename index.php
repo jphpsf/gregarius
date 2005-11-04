@@ -199,7 +199,7 @@ function readItems($cntUnread) {
 		}
 		$sqlWhere  = " not(i.unread & ". FEED_MODE_UNREAD_STATE  .")  ";
     	$sqlWhere .= " and i.pubdate <= now() ";
-    	$sqlWhere .= $sqlWhereHidden;
+    //	$sqlWhere .= $sqlWhereHidden;
 		$readItems -> populate($sqlWhere, "", 0, $limit, ITEM_SORT_HINT_READ);
 		$readItems -> setRenderOptions(IL_NO_COLLAPSE | IL_TITLE_NO_ESCAPE);
 
