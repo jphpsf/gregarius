@@ -82,6 +82,13 @@ function config() {
 			  . preg_replace('/ /','&nbsp;',date("g:i A",mktime()+$value*3600))
 			.")";
 			break;
+			case 'rss.output.cachedir':
+			echo $value;
+			if (!is_writable($value)) {
+				echo "<br />"
+				."<span class=\"error\">Warning: this isn't a writable directory!</span>";
+			}
+			break;
 		 default:
 		 
 			// generic handling per type:
@@ -371,7 +378,19 @@ function config_admin() {
             }
     		echo "</select>\n";
 		break;
-         
+        case 'rss.output.cachedir':
+        if (!is_writable($value)) {
+        	echo "</p><p class=\"error\">"
+        	."Warning! The current value ($value) is not a writable directory!<br />"
+        	."See <a href=\"http://wiki.gregarius.net/index.php/MagpieRSS\">here</a> "
+        	."why it is important you provide a valid, writable directory."
+        	."</p><p>\n";	
+        } else {
+        	echo "</p><p>"
+        	."The current value ($value) is a valid, writable directory!"
+        	."</p><p>\n";	
+        }
+        // no break: fall back into the normal handling
 	 default:
 
 		// generic handling per type:
