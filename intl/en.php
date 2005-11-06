@@ -258,4 +258,6 @@ define('LBL_PLAY', 'play');
 
 // New in 0.5.x:
 define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
+define ('LBL_ADMIN_DASHBOARD','Dashboard');
+
 ?>

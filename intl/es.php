@@ -254,4 +254,6 @@ define('LBL_ENCLOSURE', 'Recipiente:');
 define('LBL_DOWNLOAD', 'descargar');
 define('LBL_PLAY', 'reproducir');
 define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
+define ('LBL_ADMIN_DASHBOARD','Dashboard');
+
 ?>

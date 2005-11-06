@@ -250,5 +250,6 @@ define('LBL_DOWNLOAD', 'download');
 define('LBL_PLAY', 'play');
 
 define('LBL_FOOTER_LAST_MODIF_NEVER', 'noch nicht');
+define ('LBL_ADMIN_DASHBOARD','Dashboard');
 
 ?>

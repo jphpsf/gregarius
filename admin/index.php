@@ -37,6 +37,7 @@ require_once('items.php');
 require_once('config.php');
 require_once('folders.php');
 require_once('opml.php');
+require_once('dashboard.php');
 
 define ('CST_ADMIN_DOMAIN','domain');
 define ('CST_ADMIN_DOMAIN_NONE','none');
@@ -52,6 +53,7 @@ define ('CST_ADMIN_PRUNE','prune');
 define ('CST_ADMIN_DOMAIN_SYSINFO','sysinfo');
 define ('CST_ADMIN_METAACTION','metaaction');
 
+define ('CST_ADMIN_DOMAIN_DASHBOARD','dashboard');
 define ('CST_ADMIN_DOMAIN_FOLDER','folders');
 define ('CST_ADMIN_DOMAIN_CHANNEL','feeds');
 define ('CST_ADMIN_DOMAIN_ITEM','items');
@@ -144,11 +146,15 @@ function admin_main($authorised) {
          break;
 			 case CST_ADMIN_DOMAIN_SYSINFO:
 			sysinfo();
+			break;
+			case CST_ADMIN_DOMAIN_DASHBOARD:
+			dashboard();
+
 			 break;
           default:
          }
       } else {
-         channels();
+         dashboard();
       }
    
       echo "\n<div class=\"clearer\"></div>\n";
@@ -179,6 +185,7 @@ function admin_menu() {
 	echo "\n<ul class=\"navlist\">\n";
 	foreach (array (
 	/* url/id -- internationalized label, defined in intl/* */
+	array (CST_ADMIN_DOMAIN_DASHBOARD, LBL_ADMIN_DASHBOARD),
 	array (CST_ADMIN_DOMAIN_CHANNEL, LBL_ADMIN_DOMAIN_CHANNEL_LBL), 
 	array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL), 
 	array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL), 

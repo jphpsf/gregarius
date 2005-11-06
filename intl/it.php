@@ -258,4 +258,6 @@ define('LBL_DOWNLOAD', 'scarica');
 define('LBL_PLAY', 'riproduci');
 
 define('LBL_FOOTER_LAST_MODIF_NEVER', 'nessuna');
+define ('LBL_ADMIN_DASHBOARD','Dashboard');
+
 ?>

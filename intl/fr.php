@@ -252,5 +252,6 @@ define('LBL_DOWNLOAD', 't&eacute;l&eacute;charger');
 define('LBL_PLAY', 'jouer');
 
 define('LBL_FOOTER_LAST_MODIF_NEVER', 'aucune');
+define ('LBL_ADMIN_DASHBOARD','Dashboard');
 
 ?>
