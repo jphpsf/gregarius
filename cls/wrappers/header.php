@@ -80,14 +80,7 @@ function rss_main_div_id() {
 }
 
 function rss_main_object() {
-
-	/*
-	if (count($GLOBALS['rss'] -> errors)) {
-		rss_require('csl/error.php');
-		$e = new ErrorRenderer($GLOBALS['rss'] -> errors);
-		$e -> render();
-	}
-	*/
+	rss_plugin_hook("rss.plugins.before.mainobject",null);
 	foreach($GLOBALS['rss'] -> mainObject as $o) {
 		$o->render();
 	}
