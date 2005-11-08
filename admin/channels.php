@@ -261,7 +261,7 @@ function channel_admin() {
 				LBL_ADMIN_OPML_IMPORT_FEED_INFO,
 					htmlentities($label),"/$flabel")
 					. LBL_ADMIN_OK
-					. "&nbsp;[<a href=\"".getPath()."index.php?domain=".CST_ADMIN_DOMAIN_CHANNEL
+					. "&nbsp;[<a href=\"".getPath()."admin/index.php?domain=".CST_ADMIN_DOMAIN_CHANNEL
 						."&amp;action=edit&amp;cid=$newCid\">"
 					. LBL_ADMIN_EDIT
 					."</a>]",
