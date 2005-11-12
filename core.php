@@ -26,40 +26,40 @@
 ###############################################################################
 
 if (!defined('GREGARIUS_HOME')) {
-	  define('GREGARIUS_HOME',dirname(__FILE__) . "/");
+    define('GREGARIUS_HOME',dirname(__FILE__) . "/");
 }
 
 function rss_bootstrap($withDB = true, $etag_prefix= "", $cacheValidity=0) {
-	require_once(GREGARIUS_HOME . 'constants.php');
-	if ($withDB) {
-		require_once(GREGARIUS_HOME . 'db.php');
-	}
-	if (!defined('RSS_NO_CACHE')) {
-		checkETag($withDB,$etag_prefix,$cacheValidity);
-	}
+    require_once(GREGARIUS_HOME . 'constants.php');
+    if ($withDB) {
+        require_once(GREGARIUS_HOME . 'db.php');
+    }
+    if (!defined('RSS_NO_CACHE')) {
+        checkETag($withDB,$etag_prefix,$cacheValidity);
+    }
 }
 
 
 function checkETag($withDB = true, $keyPrefix= "", $cacheValidity = 0) {
-	$key = $keyPrefix.'$Revision$'.$_SERVER["REQUEST_URI"];
-	if ($withDB) {
-		list($dt) = rss_fetch_row(rss_query('select timestamp from ' .getTable('cache') . " where cachekey='data_ts'"));
-		$key .= $dt;
-	}
-	if (array_key_exists(PRIVATE_COOKIE,$_REQUEST)) {
-		$key .= $_REQUEST[PRIVATE_COOKIE];
-	}
-	$key = md5($key);
-	
-	if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER)  && $_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
-		header("HTTP/1.1 304 Not Modified");
-		flush();
-		exit();
-	} else {
-		header("ETag: \"$key\"");
-		if ($cacheValidity) {
-			  header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheValidity*3600) . 'GMT');
-		}
-	}
+    $key = $keyPrefix.'$Revision$'.$_SERVER["REQUEST_URI"];
+    if ($withDB) {
+        list($dt) = rss_fetch_row(rss_query('select timestamp from ' .getTable('cache') . " where cachekey='data_ts'"));
+        $key .= $dt;
+    }
+    if (array_key_exists(PRIVATE_COOKIE,$_REQUEST)) {
+        $key .= $_REQUEST[PRIVATE_COOKIE];
+    }
+    $key = md5($key);
+
+    if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER)  && $_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
+        header("HTTP/1.1 304 Not Modified");
+        flush();
+        exit();
+    } else {
+        header("ETag: \"$key\"");
+        if ($cacheValidity) {
+            header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheValidity*3600) . 'GMT');
+        }
+    }
 }
 ?>

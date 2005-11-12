@@ -69,22 +69,22 @@ define ('CST_ADMIN_OPML_IMPORT_MERGE',3);
 $auth = true;
 
 if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
-	if (!array_key_exists('PHP_AUTH_USER',$_SERVER) ||
-		$_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
-		!array_key_exists('PHP_AUTH_PW',$_SERVER) ||
-		$_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
-	  		header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
-	  		header('HTTP/1.0 401 Unauthorized');
-	  		$auth = false;
-	}
+    if (!array_key_exists('PHP_AUTH_USER',$_SERVER) ||
+            $_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
+            !array_key_exists('PHP_AUTH_PW',$_SERVER) ||
+            $_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
+        header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
+        header('HTTP/1.0 401 Unauthorized');
+        $auth = false;
+    }
 }
 
 if ($auth) {
-	setAdminCookie();
-	
-	if (array_key_exists('login',$_GET)) {
+    setAdminCookie();
+
+    if (array_key_exists('login',$_GET)) {
         rss_redirect();
-	}
+    }
 }
 admin_header();
 admin_main($auth);
@@ -99,70 +99,70 @@ admin_footer();
  */
 function admin_main($authorised) {
 
-	echo "\n<div id=\"channel_admin\" class=\"frame\">";
+    echo "\n<div id=\"channel_admin\" class=\"frame\">";
 
     if ($authorised) {
-      admin_menu();
-      if (array_key_exists(CST_ADMIN_DOMAIN,$_REQUEST)) {
-         switch($_REQUEST[CST_ADMIN_DOMAIN]) {
-          case CST_ADMIN_DOMAIN_FOLDER:
-         $show = folder_admin();
-         break;
-          case CST_ADMIN_DOMAIN_CHANNEL:
-         $show = channel_admin();
-         break;
-          case CST_ADMIN_DOMAIN_CONFIG:
-         $show = config_admin();
-         break;
-          case CST_ADMIN_DOMAIN_ITEM:
-         $show = item_admin();
-         break;
-          default:
-         break;
-         }
-      }
-   
-      if (array_key_exists(CST_ADMIN_VIEW,$_REQUEST) || isset($show)) {
-         if (!isset($show)) {
-         $show = $_REQUEST[CST_ADMIN_VIEW];
-         }
-         switch ($show) {
-          case CST_ADMIN_DOMAIN_CONFIG:
-         config();
-         break;
-          case CST_ADMIN_DOMAIN_CHANNEL:
-         channels();
-         break;
-          case CST_ADMIN_DOMAIN_FOLDER:
-         folders();
-         break;
-          case CST_ADMIN_DOMAIN_OPML:
-         opml();
-         break;
-          case CST_ADMIN_DOMAIN_NONE:
-         break;
-          case CST_ADMIN_DOMAIN_ITEM:
-         items();			
-         break;
-			 case CST_ADMIN_DOMAIN_SYSINFO:
-			sysinfo();
-			break;
-			case CST_ADMIN_DOMAIN_DASHBOARD:
-			dashboard();
+        admin_menu();
+        if (array_key_exists(CST_ADMIN_DOMAIN,$_REQUEST)) {
+            switch($_REQUEST[CST_ADMIN_DOMAIN]) {
+            case CST_ADMIN_DOMAIN_FOLDER:
+                    $show = folder_admin();
+                break;
+            case CST_ADMIN_DOMAIN_CHANNEL:
+                $show = channel_admin();
+                break;
+            case CST_ADMIN_DOMAIN_CONFIG:
+                $show = config_admin();
+                break;
+            case CST_ADMIN_DOMAIN_ITEM:
+                $show = item_admin();
+                break;
+            default:
+                break;
+            }
+        }
 
-			 break;
-          default:
-         }
-      } else {
-         dashboard();
-      }
-   
-      echo "\n<div class=\"clearer\"></div>\n";
-   
-   } else {
-		rss_error(sprintf(LBL_ADMIN_ERROR_NOT_AUTHORIZED,getPath()), RSS_ERROR_ERROR,true);
-	}
-	echo "</div>\n";
+        if (array_key_exists(CST_ADMIN_VIEW,$_REQUEST) || isset($show)) {
+            if (!isset($show)) {
+                $show = $_REQUEST[CST_ADMIN_VIEW];
+            }
+            switch ($show) {
+            case CST_ADMIN_DOMAIN_CONFIG:
+                config();
+                break;
+            case CST_ADMIN_DOMAIN_CHANNEL:
+                channels();
+                break;
+            case CST_ADMIN_DOMAIN_FOLDER:
+                folders();
+                break;
+            case CST_ADMIN_DOMAIN_OPML:
+                opml();
+                break;
+            case CST_ADMIN_DOMAIN_NONE:
+                break;
+            case CST_ADMIN_DOMAIN_ITEM:
+                items();
+                break;
+            case CST_ADMIN_DOMAIN_SYSINFO:
+                sysinfo();
+                break;
+            case CST_ADMIN_DOMAIN_DASHBOARD:
+                dashboard();
+
+                break;
+            default:
+            }
+        } else {
+            dashboard();
+        }
+
+        echo "\n<div class=\"clearer\"></div>\n";
+
+    } else {
+        rss_error(sprintf(LBL_ADMIN_ERROR_NOT_AUTHORIZED,getPath()), RSS_ERROR_ERROR,true);
+    }
+    echo "</div>\n";
 }
 
 /////////
@@ -171,69 +171,69 @@ function admin_main($authorised) {
  * Renders the admin sub-menu
  */
 function admin_menu() {
-	$active = array_key_exists(CST_ADMIN_VIEW, $_REQUEST) ? $_REQUEST[CST_ADMIN_VIEW] : null;
+    $active = array_key_exists(CST_ADMIN_VIEW, $_REQUEST) ? $_REQUEST[CST_ADMIN_VIEW] : null;
 
-	/*
-	$use_mod_rewrite = getConfig('rss.output.usemodrewrite');
+    /*
+    $use_mod_rewrite = getConfig('rss.output.usemodrewrite');
 
-	if (function_exists("apache_get_modules")) {
-		$use_mod_rewrite = $use_mod_rewrite && in_array('mod_rewrite', apache_get_modules());
-	}
-	*/
-	$use_mod_rewrite = false;
-	
-	echo "\n<ul class=\"navlist\">\n";
-	foreach (array (
-	/* url/id -- internationalized label, defined in intl/* */
-	array (CST_ADMIN_DOMAIN_DASHBOARD, LBL_ADMIN_DASHBOARD),
-	array (CST_ADMIN_DOMAIN_CHANNEL, LBL_ADMIN_DOMAIN_CHANNEL_LBL), 
-	array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL), 
-	array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL), 
-	array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL), 
-	array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
+    if (function_exists("apache_get_modules")) {
+    	$use_mod_rewrite = $use_mod_rewrite && in_array('mod_rewrite', apache_get_modules());
+    }
+    */
+    $use_mod_rewrite = false;
 
-		if ($use_mod_rewrite) {
-			$link = $item[0];
-		} else {
-			$link = "index.php?view=".$item[0];
-		}
-		$lbl = $item[1];
-		$cls = ($item[0] == $active ? " class=\"active\"" : "");
-		echo "\t<li$cls><a href=\"".getPath()."admin/$link\">".ucfirst($lbl)."</a></li>\n";
-	}
-	echo "\t<li><a href=\"".getPath()."?logout\">".LBL_ADMIN_LOGOUT."</a></li>\n";
-	echo "</ul>\n";
+    echo "\n<ul class=\"navlist\">\n";
+    foreach (array (
+                 /* url/id -- internationalized label, defined in intl/* */
+                 array (CST_ADMIN_DOMAIN_DASHBOARD, LBL_ADMIN_DASHBOARD),
+                 array (CST_ADMIN_DOMAIN_CHANNEL, LBL_ADMIN_DOMAIN_CHANNEL_LBL),
+                 array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL),
+                 array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL),
+                 array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL),
+                 array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
+
+        if ($use_mod_rewrite) {
+            $link = $item[0];
+        } else {
+            $link = "index.php?view=".$item[0];
+        }
+        $lbl = $item[1];
+        $cls = ($item[0] == $active ? " class=\"active\"" : "");
+        echo "\t<li$cls><a href=\"".getPath()."admin/$link\">".ucfirst($lbl)."</a></li>\n";
+    }
+    echo "\t<li><a href=\"".getPath()."?logout\">".LBL_ADMIN_LOGOUT."</a></li>\n";
+    echo "</ul>\n";
 }
 
 function admin_kses_to_html($arr) {
-	$ret = "";
-	foreach ($arr as $tag => $attr) {
-	$ret .= "&lt;$tag";
-	foreach ($attr as $nm => $val) {
-		$ret .= "&nbsp;$nm=\"...\"&nbsp;";
-	}
-	$ret .= "&gt;\n";
-	}
-	return $ret;
+    $ret = "";
+    foreach ($arr as $tag => $attr) {
+        $ret .= "&lt;$tag";
+        foreach ($attr as $nm => $val) {
+            $ret .= "&nbsp;$nm=\"...\"&nbsp;";
+        }
+        $ret .= "&gt;\n";
+    }
+    return $ret;
 }
 
 function admin_plugins_mgmnt($arr) {
-	$ret = "<ul>\n";
-	foreach($arr as $plugin) {
-		$info = getPluginInfo($plugin);
-		if (count($info)) {
-			$ret .= "\t<li>";
-			if (array_key_exists('name',$info)) {
-				$ret .= $info['name'];
-			}
-			if (array_key_exists('version',$info)) {
-				$ret .= " v".$info['version'];
-			}
-			$ret .="</li>\n";
-		}
-	}
-	$ret .= "</ul>\n";
-	return $ret;
+    $ret = "<ul>\n";
+    foreach($arr as $plugin) {
+        $info = getPluginInfo($plugin);
+        if (count($info)) {
+            $ret .= "\t<li>";
+            if (array_key_exists('name',$info)) {
+                $ret .= $info['name'];
+            }
+            if (array_key_exists('version',$info)) {
+                $ret .= " v".$info['version'];
+            }
+            $ret .="</li>\n";
+        }
+    }
+    $ret .= "</ul>\n";
+    return $ret;
 }
 
 
@@ -248,32 +248,32 @@ function admin_plugins_mgmnt($arr) {
  *
  */
 function getPluginInfo($file) {
-	$info = array();
-	$path = "../".RSS_PLUGINS_DIR."/$file";
-	if (file_exists($path)) {
-		$f = @fopen($path,'r');
-		$contents = "";
-		if ($f) {
-  			$contents .= fread($f, filesize($path));
-			@fclose($f);
-		} else {
-			$contents = "";
-		}
+    $info = array();
+    $path = "../".RSS_PLUGINS_DIR."/$file";
+    if (file_exists($path)) {
+        $f = @fopen($path,'r');
+        $contents = "";
+        if ($f) {
+            $contents .= fread($f, filesize($path));
+            @fclose($f);
+        } else {
+            $contents = "";
+        }
 
-		if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
-			foreach($matches as $match) {
-				$key = trim(strtolower($match[1]));
-				$val = trim($match[2]);
-				if ($key == 'version') {
-					$val=preg_replace('/[^0-9\.]+/','',$val);
-				}
-				
-				$info[$key] = $val;
-			}
-		}
-	} 
-	
-	return $info;
+        if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
+            foreach($matches as $match) {
+                $key = trim(strtolower($match[1]));
+                $val = trim($match[2]);
+                if ($key == 'version') {
+                    $val=preg_replace('/[^0-9\.]+/','',$val);
+                }
+
+                $info[$key] = $val;
+            }
+        }
+    }
+
+    return $info;
 }
 
 
@@ -284,16 +284,16 @@ function getLanguages() {
     $ret = array();
     $activeIdx = "0";
     while (false !== ($entry = $d->read())) {
-       if (
-        $entry != "CVS" &&
-        substr($entry,0,1) != "."
-       ) {
-       		$info = getLanguageInfo($entry);
-             if (count($info) && array_key_exists('language',$info)) {
+        if (
+            $entry != "CVS" &&
+            substr($entry,0,1) != "."
+        ) {
+            $info = getLanguageInfo($entry);
+            if (count($info) && array_key_exists('language',$info)) {
                 $shortL=  preg_replace('|\.php.*$|','',$entry);
                 $ret[$shortL] = $info['language'];
-             }
-       }
+            }
+        }
     }
     $d->close();
     return $ret;
@@ -307,9 +307,9 @@ function getThemes() {
     $ret = array();
     $activeIdx = "0";
     while (false !== ($theme = $d->read())) {
-       if ($theme != "CVS" && !is_file("../".RSS_THEME_DIR."/$theme") && substr($theme,0,1) != ".") {
-       		$ret[$theme]=getThemeInfo($theme);
-       }
+        if ($theme != "CVS" && !is_file("../".RSS_THEME_DIR."/$theme") && substr($theme,0,1) != ".") {
+            $ret[$theme]=getThemeInfo($theme);
+        }
     }
     $d->close();
     return $ret;
@@ -317,84 +317,86 @@ function getThemes() {
 
 function getThemeInfo($theme) {
 
-	$path = "../".RSS_THEME_DIR."/$theme/.themeinfo";
-	$ret = array(
-		'name' => '',
-		'url' => '',
-		'official' => false,
-		'fsname' => $theme,
-		'description' => '',
-		'htmltheme' => true,
-		'version' => "1.0",
-		'author' => ''
-		);
-	if (file_exists($path)) {
-	  $f = @fopen($path,'r');
-	  $contents = "";
-	  if ($f) {
-	    $contents .= fread($f, filesize($path));
-		@fclose($f);
-	  } else {
-	    $contents = "";
-	  }
+    $path = "../".RSS_THEME_DIR."/$theme/.themeinfo";
+    $ret = array(
+               'name' => '',
+               'url' => '',
+               'official' => false,
+               'fsname' => $theme,
+               'description' => '',
+               'htmltheme' => true,
+               'version' => "1.0",
+               'author' => ''
+           );
+    if (file_exists($path)) {
+        $f = @fopen($path,'r');
+        $contents = "";
+        if ($f) {
+            $contents .= fread($f, filesize($path));
+            @fclose($f);
+        } else {
+            $contents = "";
+        }
 
-	  if ($contents && preg_match_all("/^\s?([^:]+):(.*)$/m",$contents,$matches,PREG_SET_ORDER)) {
-		foreach($matches as $match) {
-			$key = trim(strtolower($match[1]));
-			$val = trim($match[2]);
-			if (array_key_exists($key,$ret)) {
-				if ($val == 'true') {
-					$ret[$key] = true;
-				} elseif ($val == 'false') {
-					$ret[$key] = false;
-				} else {
-				    $ret[$key] = $val;
-				}
-			}
-		}
-      }
+        if ($contents && preg_match_all("/^\s?([^:]+):(.*)$/m",$contents,$matches,PREG_SET_ORDER)) {
+            foreach($matches as $match) {
+                $key = trim(strtolower($match[1]));
+                $val = trim($match[2]);
+                if (array_key_exists($key,$ret)) {
+                    if ($val == 'true') {
+                        $ret[$key] = true;
+                    }
+                    elseif ($val == 'false') {
+                        $ret[$key] = false;
+                    }
+                    else {
+                        $ret[$key] = $val;
+                    }
+                }
+            }
+        }
     }
-	return $ret;
+    return $ret;
 }
 
 
 function getLanguageInfo($file) {
-	$info = array();
-	$path = "../intl/$file";
-	if (file_exists($path)) {
-		$f = @fopen($path,'r');
-		$contents = "";
-		if ($f) {
-  			$contents .= fread($f, filesize($path));
-			@fclose($f);
-		} else {
-			$contents = "";
-		}
+    $info = array();
+    $path = "../intl/$file";
+    if (file_exists($path)) {
+        $f = @fopen($path,'r');
+        $contents = "";
+        if ($f) {
+            $contents .= fread($f, filesize($path));
+            @fclose($f);
+        } else {
+            $contents = "";
+        }
 
-		if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
-			foreach($matches as $match) {
-				$key = trim(strtolower($match[1]));
-				$val = trim($match[2]);
-				if ($key == 'version') {
-					$val=preg_replace('/[^0-9\.]+/','',$val);
-				}
+        if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
+            foreach($matches as $match) {
+                $key = trim(strtolower($match[1]));
+                $val = trim($match[2]);
+                if ($key == 'version') {
+                    $val=preg_replace('/[^0-9\.]+/','',$val);
+                }
 
-				$info[$key] = $val;
-			}
-		}
-	}
+                $info[$key] = $val;
+            }
+        }
+    }
 
-	return $info;
+    return $info;
 }
 
 function admin_enum_to_html($arr) {
-	$idx = array_pop($arr);
-	$ret = "";
-	foreach ($arr as $i => $val) {
-		if ($i == $idx) 
-			$ret .= "$val";
-	}
-	return $ret;
+    $idx = array_pop($arr);
+    $ret = "";
+    foreach ($arr as $i => $val) {
+        if ($i == $idx)
+            $ret .= "$val";
+    }
+    return $ret;
 }
 
 /**
@@ -413,27 +415,27 @@ function setAdminCookie() {
 
 function admin_header() {
 
-	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
-	echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n";
-	echo "<head>";
-	
-	$header = new Header(LBL_TITLE_ADMIN, LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
-	$header -> render();
+    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+    echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n";
+    echo "<head>";
 
-	echo "</head>";
-	echo "<body>\n";
-	
-	echo ""
+    $header = new Header(LBL_TITLE_ADMIN, LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
+    $header -> render();
+
+    echo "</head>";
+    echo "<body>\n";
+
+    echo ""
     ."<div id=\"nav\" class=\"frame\">"
-    ."<h1 id=\"top\">" .rss_main_title() ."</h1>";    
-	$nav = new Navigation();
-	$nav->render();
-	echo "</div>";
+    ."<h1 id=\"top\">" .rss_main_title() ."</h1>";
+    $nav = new Navigation();
+    $nav->render();
+    echo "</div>";
 }
 
 function admin_footer() {
-	echo "<div id=\"footer\" class=\"frame\">\n";
-	rss_main_footer();
-	echo "</div>\n\n</body>\n</html>\n";
+    echo "<div id=\"footer\" class=\"frame\">\n";
+    rss_main_footer();
+    echo "</div>\n\n</body>\n</html>\n";
 }
 ?>

@@ -34,21 +34,21 @@ $GLOBALS['rss'] -> feedList = new FeedList(false);
 $items = new SearchItemList();
 $items->setRenderOptions(IL_NONE | IL_NO_COLLAPSE);
 
-if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {	
+if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     $GLOBALS['rss'] -> header = new Header("Search",LOCATION_SEARCH,null);
-	$cnt = $items->itemCount;
-	$humanReadableQuery = $items->humanReadableQuery;
-	$title = sprintf((($cnt > 1 || $cnt == 0) ? 
-		LBL_H2_SEARCH_RESULTS_FOR : LBL_H2_SEARCH_RESULT_FOR), $cnt, "'".$humanReadableQuery."'");
-		
-	$items->setTitle($title);
-} else {	
-	list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")
-        . " where "
-        .   " not(unread & " . FEED_MODE_DELETED_STATE  .") "
-    ));
-	$items->setTitle(sprintf(LBL_H2_SEARCH, $cnt));
-	$GLOBALS['rss'] -> header = new Header(LBL_TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('query').focus()");
+    $cnt = $items->itemCount;
+    $humanReadableQuery = $items->humanReadableQuery;
+    $title = sprintf((($cnt > 1 || $cnt == 0) ?
+                      LBL_H2_SEARCH_RESULTS_FOR : LBL_H2_SEARCH_RESULT_FOR), $cnt, "'".$humanReadableQuery."'");
+
+    $items->setTitle($title);
+} else {
+    list($cnt) = rss_fetch_row(rss_query('select count(*) from ' . getTable("item")
+                                         . " where "
+                                         .   " not(unread & " . FEED_MODE_DELETED_STATE  .") "
+                                        ));
+    $items->setTitle(sprintf(LBL_H2_SEARCH, $cnt));
+    $GLOBALS['rss'] -> header = new Header(LBL_TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('query').focus()");
 }
 $GLOBALS['rss'] -> appendContentObject($items);
 $GLOBALS['rss'] -> renderWithTemplate('index.php');
