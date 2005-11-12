@@ -226,8 +226,31 @@ elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQ
             list ($cid) = rss_fetch_row(rss_query($sql));
         }
     }
-
 }
+elseif (
+    array_key_exists('y',$_REQUEST) && $_REQUEST['y'] != "" && is_numeric($_REQUEST['y'])
+    && array_key_exists('m',$_REQUEST) && $_REQUEST['m'] != "" && is_numeric($_REQUEST['m'])
+    && array_key_exists('d',$_REQUEST) && $_REQUEST['d'] != "" && is_numeric($_REQUEST['d'])
+)   {
+
+    $y = (int) $_REQUEST['y'];
+    if ($y < 1000)
+        $y+=2000;
+
+    $m =  $_REQUEST['m'];
+    if ($m > 12) {
+        $m = date("m");
+    }
+
+    $d =  $_REQUEST['d'];
+    if ($d > 31) {
+        $d = date("d");
+    }
+    $iid = $cid  = null;
+}
+
+
+
 
 // If we have no channel-id something went terribly wrong.
 // Redirect to index.php
@@ -258,6 +281,10 @@ if (
     &&
     // virtual folder id
     (!isset($vfid))
+
+    &&
+    // date?
+    ($d == 0 && $m == 0 && $y == 0)
 ) {
     rss_redirect();
 }
@@ -510,7 +537,8 @@ if (array_key_exists ('metaaction', $_POST)) {
 assert(
     (isset($cid) && is_numeric($cid)) ||
     (isset($fid) && isset($cids) && is_array($cids) && count($cids)) ||
-    (isset($vfid) && isset($cids) && is_array($cids) && count($cids))
+    (isset($vfid) && isset($cids) && is_array($cids) && count($cids)) ||
+    (!isset($cid) && ($y || $m))
 );
 
 $itemFound = true;
@@ -532,7 +560,7 @@ if (!isset($cids)) {
 }
 //precompute the navigation hints, which will be passed to the header as <link>s
 $links = NULL;
-if (($cid || $fid || $vfid) && ($nv = makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids)) != null) {
+if (($cid || $fid || $vfid || ($y && $m && $d)) && ($nv = makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids)) != null) {
     list($prev,$succ, $up) = $nv;
     $links =array();
     if ($prev != null) {
@@ -589,6 +617,12 @@ if ($iid == "") {
         $dtitle = "";
         $cidfid ['cid']=null;
         $cidfid ['fid']=null;
+    }
+    elseif($y && $m && $d) {
+        $dtitle =  ( rss_locale_date('%B %e, %Y',mktime(0,0,0,$m,$d,$y),false));
+        $cidfid ['cid']=null;
+        $cidfid ['fid']=null;
+        $title ="";
     }
     else {
         $dtitle ="";
@@ -672,12 +706,14 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
                     $sql .= " and dayofmonth(ifnull(pubdate,added))= $d ";
                 }
             }
-
-            $sql .= " and cid in (".implode(',',$cids).")";
+            if ($cids && count($cids)) {
+                $sql .= " and cid in (".implode(',',$cids).")";
+            }
             list($unreadCount) = rss_fetch_row(rss_query($sql));
             if ($unreadCount == 0) {
                 $do_show = SHOW_READ_AND_UNREAD;
             }
+
         }
     }
 
@@ -711,14 +747,19 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
         $items -> populate($sqlWhere, "", 0, $cnt, $hint);
 
     } else {
-
+        if (!isset($cids)) {
+            $cids = array(-1);
+        }
         foreach ($cids as $cid) {
             $hint = ITEM_SORT_HINT_MIXED;
-
-            $sqlWhere = "i.cid = $cid";
-            if  ($do_show == SHOW_UNREAD_ONLY) {
-                $sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
-                $hint = ITEM_SORT_HINT_UNREAD;
+            if ($cid > -1) {
+                $sqlWhere = "i.cid = $cid";
+                if  ($do_show == SHOW_UNREAD_ONLY) {
+                    $sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+                    $hint = ITEM_SORT_HINT_UNREAD;
+                }
+            } else {
+                $sqlWhere = " 1 = 1 ";
             }
             if ($iid != "") {
                 $sqlWhere .= " and i.id=$iid";
@@ -773,7 +814,16 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 
     $items -> setTitle($title);
-    $items -> setRenderOptions(($severalFeeds? (IL_NO_COLLAPSE | IL_FOLDER_VIEW):(IL_CHANNEL_VIEW)));
+    if ($severalFeeds) {
+        $items -> setRenderOptions(IL_NO_COLLAPSE | IL_FOLDER_VIEW);
+    }
+    elseif ($cid && $cid > -1) {
+        $items -> setRenderOptions(IL_CHANNEL_VIEW);
+    }
+    else {
+        $items -> setRenderOptions(IL_NO_COLLAPSE | IL_FOLDER_VIEW);
+    }
+
     $items -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 
     if ($nv != null) {
@@ -829,6 +879,8 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
     $prev = $succ = $up = null;
     if (isset($_REQUEST['channel'])) {
         $escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
+    } else {
+    	$escaped_title = null;
     }
     // where are we anyway?
     if ($y > 0 && $m > 0 && $d > 0) {
@@ -874,9 +926,13 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                         ." month( ifnull(i.pubdate, i.added)) as m_, "
                         .(($currentView == 'day')?" dayofmonth( ifnull(i.pubdate, i.added)) as d_, ":"")
                         ." count(*) as cnt_ "
-                        ." from " . getTable("item") . "i  "
-                        ." where cid=$cid "
-                        ." and UNIX_TIMESTAMP(ifnull(i.pubdate, i.added)) > $ts_s ";
+                        ." from " . getTable("item") . "i  where "
+                        ." UNIX_TIMESTAMP(ifnull(i.pubdate, i.added)) > $ts_s ";
+
+            if ($cid) {
+                $sql_succ .= " and cid=$cid ";
+            }
+
 
             if (hidePrivate()) {
                 $sql_succ .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
@@ -892,9 +948,12 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                         ." month( ifnull(i.pubdate, i.added)) as m_, "
                         .(($currentView == 'day')?" dayofmonth( ifnull(i.pubdate, i.added)) as d_, ":"")
                         ." count(*) as cnt_ "
-                        ." from " . getTable("item") ." i  "
-                        ." where cid=$cid "
-                        ." and UNIX_TIMESTAMP(ifnull(i.pubdate, i.added)) < $ts_p ";
+                        ." from " . getTable("item") ." i  where "
+                        ." UNIX_TIMESTAMP(ifnull(i.pubdate, i.added)) < $ts_p ";
+
+            if ($cid) {
+                $sql_prev .= " and cid=$cid ";
+            }
 
 
             if (hidePrivate()) {

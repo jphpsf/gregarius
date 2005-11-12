@@ -43,7 +43,11 @@ AddDefaultCharset utf-8
 
   #author view
   RewriteRule ^author/(.+)$ author.php?author=$1 [L,QSA]
-  
+
+  #date view
+  RewriteCond  %{env:static} ^$
+  RewriteRule ^([0-9][0-9][0-9][0-9])\/([0-9][0-9]?)\/([0-9]?[0-9])\/?$ feed.php?y=$1&m=$2&d=$3 [L,QSA]
+
   #item view
   RewriteCond  %{env:static} ^$
   RewriteRule  ^(.+)\/([0-9][0-9][0-9][0-9])\/([0-9][0-9]?)\/?([0-9]?[0-9])?\/?(.*)?$ feed.php?channel=$1&y=$2&m=$3&d=$4&iid=$5 [L,QSA]
