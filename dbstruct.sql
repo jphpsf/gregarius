@@ -150,4 +150,4 @@ CREATE TABLE `cache` (
 	PRIMARY KEY ( cachekey )
 ) TYPE=MYISAM;
 
-INSERT INTO cache (cachekey,timestamp,cachetype,data) VALUES ('data_ts',now(),'ts',null)";
+INSERT INTO cache (cachekey,timestamp,cachetype,data) VALUES ('data_ts',now(),'ts',null);
