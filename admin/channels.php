@@ -248,7 +248,11 @@ function channel_admin() {
 
         // handle "feed:" urls
         if (substr($label, 0,5) == 'feed:') {
-            $label = substr($label,5);
+		if (substr($label, 0, 11 ) == "feed://http") {
+            		$label = substr($label,5);
+		} else { // handle feed://example.com/rss.xml urls
+			$label = "http:" . substr($label,5);
+		}
         }
 
         if ($label != 'http://' &&	substr($label, 0,4) == "http") {
