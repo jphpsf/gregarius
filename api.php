@@ -6,7 +6,7 @@ require_once('init.php');
 if (isset($_REQUEST['method'])) {
     switch ($_REQUEST['method']) {
     case 'update':
-            $uc = getUnreadCount(null,null);
+        $uc = getUnreadCount(null,null);
         die("|$uc||");
         break;
     case 'listsubs':
@@ -92,12 +92,12 @@ function blOPML() {
 
 function blGetItems($cid,$date,$markread) {
     if (hidePrivate()) {
-        header('HTTP/1.x 401 Not Authorized'); // TODO
+        header('HTTP/1.x 401 Not Authorized'); 
         exit();
     }
 
     if (!$cid) {
-        header ('HTTP/1.x 403 Forbidden'); // TODO
+        header ('HTTP/1.x 403 Forbidden'); 
         exit();
     }
 
@@ -113,7 +113,7 @@ function blGetItems($cid,$date,$markread) {
     $rs = rss_query($sql);
 
     if (rss_num_rows($rs) == 0) {
-        header('HTTP/1.x 304 ERROR'); // TODO
+        header('HTTP/1.x 304 Not Modified'); 
         exit();
     }
     $ids = array();
