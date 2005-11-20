@@ -295,7 +295,8 @@ function setDefaults($key) {
 		"rss.config.autologout"		=>		array('false','false','boolean','When true, Gregarius will automatically remove the "admin cookie" when the browser window is closed, effectively logging you out.',NULL),
 		"rss.config.publictagging"	=>		array('false','false','boolean','When true, every visitor to your Gregarius site will be allowed to tag items, when false only the Administrator (you) is allowed to tag.',NULL),
 		"rss.config.rating"			=>		array('true','true','boolean','Enable the item rating system.',NULL),
-		"rss.output.barefrontpage"			=>		array('false','false','boolean','Suppress the output of any read item on the front page.',NULL)
+		"rss.output.barefrontpage"			=>		array('false','false','boolean','Suppress the output of any read item on the front page.',NULL),
+		"rss.output.title"			=> array('Gregarius','Gregarius','string','Sets the title of this feedreader.',NULL)
 	);
 	
 	

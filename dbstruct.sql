@@ -114,6 +114,7 @@ insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.confi
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.publictagging", 'false','false','boolean','When true, every visitor to your Gregarius site will be allowed to tag items, when false only the Administrator (you) is allowed to tag.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.rating", 'true','true','boolean','Enable the item rating system.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.barefrontpage",'false','false','boolean','Suppress the output of any read item on the front page.',NULL);
+insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.title",'Gregarius','Gregarius','string','Sets the title of this feedreader.',NULL);
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag` (

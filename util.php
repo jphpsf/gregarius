@@ -110,11 +110,15 @@ function get_host($url, & $host) {
 }
 
 /**
- * Builds a title out of an already encoded strings.
+ * Builds a title out of an already encoded string.
  */
 function makeTitle($title) {
-
-    $ret = ""._TITLE_."";
+    // Let us find out if the user has set a title. 
+    $userTitle = _TITLE_;
+    if (getConfig('rss.output.title')) {
+	$userTitle = getConfig('rss.output.title');
+    }
+    $ret = "". $userTitle ."";
     if ($title != "") {
         $ret .= " ".TITLE_SEP." ".$title;
     }
