@@ -256,4 +256,10 @@ define('LBL_PLAY', 'reproducir');
 define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
 define ('LBL_ADMIN_DASHBOARD','Dashboard');
 
+
+define ('LBL_ADMIN_MUST_SET_PASS','<p>No Administrator has been specified yet!</p>'
+		.'<p>Please provide an Administrator username and password now!</p>');
+define ('LBL_USERNAME','Username');		
+define ('LBL_PASSWORD','Password');
+define ('LBL_ADMIN_LOGIN','Please log in');
 ?>

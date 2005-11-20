@@ -86,6 +86,8 @@ class Header {
 		}
 		
 		$this -> javascriptFiles[] = getPath()."ajax.php?js";		
+		$this -> javascriptFiles[] = getPath()."extlib/md5.js";		
+
 		if (getConfig('rss.output.channelcollapse')) {
 			$this -> javascriptFiles[] = getPath()."extlib/fcollapse.js";
 		}

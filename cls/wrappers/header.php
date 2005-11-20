@@ -141,12 +141,14 @@ function rss_footer_last_modif() {
 
 function rss_header_logininfo() {
 	$ret = "<span id=\"loginfo\">\n";
-	if (!hidePrivate()) {
-		$ret .= sprintf(LBL_LOGGED_IN_AS,defined('ADMIN_USERNAME')?ADMIN_USERNAME:"admin")
+	$user = rss_getUser();
+	if ($user['ulevel'] > RSS_USER_LEVEL_NOLEVEL) {
+		$ret .= sprintf(LBL_LOGGED_IN_AS, $user['uname'])
 			."&nbsp;|&nbsp;<a href=\"".getPath()."?logout\">".LBL_LOG_OUT."</a>\n";
 	} else {
 		$ret .= LBL_NOT_LOGGED_IN
-			."&nbsp;|&nbsp;<a href=\"".getPath()."admin/?login\">".LBL_LOG_IN."</a>\n";
+			."&nbsp;|&nbsp;<a href=\"#\" onclick=\"miniloginform(); return false;\">".LBL_LOG_IN."</a>";
+		$ret .= "<span id=\"loginformcontainer\"></span>\n";
 	}
 	$ret .= "</span>\n";
 	return $ret;

@@ -45,6 +45,7 @@ function checkSchema() {
 		"tag" => trim(getTable("tag")),
 		"rating" => trim(getTable("rating")),
 		"cache" => trim(getTable("cache")),
+		"users" => trim(getTable("users")),		
 	//	"properties" => trim(getTable("properties")),
 
 	);
@@ -454,6 +455,45 @@ _SQL_
 	} else {
 
 		rss_query_wrapper ("INSERT INTO $table (cachekey,timestamp,cachetype,data) VALUES ('data_ts',now(),'ts',null)", false, true);	
+		if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+			rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
+			return 0;
+		}
+	
+		return 1;
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+function _init_users() {
+	$table = getTable('users');
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
+	$sql_create = str_replace('__table__',$table, <<< _SQL_
+		CREATE TABLE __table__ (
+		  uid bigint(16) NOT NULL auto_increment,
+		  uname varchar(255) NOT NULL,		  
+		  password varchar(255) NOT NULL,		  
+		  ulevel bigint(11) NOT NULL default '1',		  
+		  realname varchar(255) default NULL,		  		  
+		  lastip varchar(255) default NULL,		  		  		  
+		  lastlogin datetime NULL default '0000-00-00 00:00:00',
+		  PRIMARY KEY  (uid),
+		  KEY (uname)
+		) TYPE=MyISAM;  
+_SQL_
+);
+
+	rss_query_wrapper($sql_create, false, true);
+	
+
+	
+	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
+		return 0;
+	} else {
+
+		rss_query_wrapper ("INSERT INTO $table (uname,password,ulevel,realname) VALUES ('admin','',99,'Administrator')", false, true);	
 		if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 			rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
 			return 0;

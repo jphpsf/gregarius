@@ -112,12 +112,14 @@ function __exp_itemRatedCB($iid,$rt) {
 	return null;
 }
 
+
+
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . basename(__FILE__);
 
 // Non standard! One usually calls sajax_export() ...
-$sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent");
+$sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent","__exp_login");
 
 // Plugins shall export ajax functions as well
 $sajax_export_list = rss_plugin_hook("rss.plugins.ajax.exports",$sajax_export_list);
@@ -152,6 +154,39 @@ if (array_key_exists('js',$_GET)) {
 /// From here on: Copyright (C) 2003 - 2005 Marco Bonetti, gregarius.net
 /// Released under GPL
 
+function ajax_login(uname,pass,cb_handler) {
+    x___exp_login(uname,pass, cb_handler,cb_handler);
+}
+
+function login(cb) {
+	uname=document.getElementById('login_uname').value;
+	pass=hex_md5(document.getElementById('login_pass').value);
+	ajax_login(uname,pass,cb);
+}
+
+
+function minilogin_cb_handler(data) {
+	tokens=data.split('|');
+	if (tokens[0] != <?php echo RSS_USER_LEVEL_NOLEVEL; ?>) {
+		document.getElementById('loginfo').innerHTML = ''
+		+ '<?php echo LBL_LOGGED_IN_AS; ?>'.replace(/%s/gi,tokens[1])
+		+ '&nbsp;|&nbsp;<a href="<?php echo getPath() . "?logout\">".LBL_LOG_OUT."</a>" ?>';
+		setCookie('<?php echo RSS_USER_COOKIE; ?>',tokens[1]+'|'+tokens[2],'<?php echo getPath(); ?>');
+	} 
+}
+
+function miniloginform() {
+	span = document.getElementById('loginformcontainer');
+	span.innerHTML = '<form method="post" action="#" '
+	 + 'onsubmit="login(minilogin_cb_handler); return false;">'
+	 + '<input style=" width:50px;"  id="login_uname" type="text" />'
+	 + '<input style=" width:50px;"  id="login_pass"  type="password" />'
+	 + '<input type="submit" value="<?php echo LBL_LOG_IN; ?>" />'
+	 + '</form>';
+	 
+}
+
+
 function setTags(id,tagss) {
   tags = tagss.split(' ');
 
@@ -174,6 +209,7 @@ function submit_tag_cb(ret) {
     tags=data[1];
     setTags(id,tags);
 }
+
 
 function submit_tag(id,tags) {
     x___exp__submitTag(id, tags, submit_tag_cb);

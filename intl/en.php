@@ -252,12 +252,19 @@ define ('LBL_RATING','Rating:');
 
 
 // New in 0.5.3:
-define('LBL_ENCLOSURE', 'Enclosure:');
-define('LBL_DOWNLOAD', 'download');
-define('LBL_PLAY', 'play');
+define ('LBL_ENCLOSURE', 'Enclosure:');
+define ('LBL_DOWNLOAD', 'download');
+define ('LBL_PLAY', 'play');
 
 // New in 0.5.x:
-define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
-define ('LBL_ADMIN_DASHBOARD','Dashboard');
+define ('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
+define ('LBL_ADMIN_DASHBOARD','Dashboard'); 
+
+define ('LBL_ADMIN_MUST_SET_PASS','<p>No Administrator has been specified yet!</p>'
+		.'<p>Please provide an Administrator username and password now!</p>');
+define ('LBL_USERNAME','Username');		
+define ('LBL_PASSWORD','Password');
+define ('LBL_ADMIN_LOGIN','Please log in');
+
 
 ?>

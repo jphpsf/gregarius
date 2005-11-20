@@ -55,7 +55,12 @@ function my_assert_handler($file, $line, $code) {
 
 // Admin cookie name
 define('PRIVATE_COOKIE', 'prv');
+define('RSS_USER_COOKIE', 'user');
 
+define ('RSS_USER_LEVEL_NOLEVEL',0);
+define ('RSS_USER_LEVEL_BASIC',1);
+define ('RSS_USER_LEVEL_PRIVATE',80);
+define ('RSS_USER_LEVEL_ADMIN',90);
 
 // Set up the callback
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');

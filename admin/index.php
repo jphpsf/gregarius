@@ -38,6 +38,7 @@ require_once('config.php');
 require_once('folders.php');
 require_once('opml.php');
 require_once('dashboard.php');
+require_once('users.php');
 
 define ('CST_ADMIN_DOMAIN','domain');
 define ('CST_ADMIN_DOMAIN_NONE','none');
@@ -66,26 +67,34 @@ define ('CST_ADMIN_OPML_IMPORT_FOLDER',2);
 define ('CST_ADMIN_OPML_IMPORT_MERGE',3);
 
 
-$auth = true;
-
-if (defined('ADMIN_USERNAME') && defined ('ADMIN_PASSWORD')) {
-    if (!array_key_exists('PHP_AUTH_USER',$_SERVER) ||
-            $_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||
-            !array_key_exists('PHP_AUTH_PW',$_SERVER) ||
-            $_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD ) {
-        header('WWW-Authenticate: Basic realm="Gregarius Admin Authentication"');
-        header('HTTP/1.0 401 Unauthorized');
-        $auth = false;
-    }
+$auth=rss_check_user_level(RSS_USER_LEVEL_ADMIN);
+if (! $auth) {
+	// check whether the admin password has been set.
+	$sql = "select uname,password from " . getTable('users') . " where ulevel=99";
+	list($dummy, $__pw__) = rss_fetch_row(rss_query($sql));
+	if ($__pw__ == '') {
+		$admin_uname = null;
+		$admin_pass = null;
+		if (isset($_POST['admin_uname']) && isset($_POST['admin_pass'])) {
+			$admin_uname = $_POST['admin_uname'];
+			$admin_pass = $_POST['admin_pass'];
+		}
+		set_admin_pass($admin_uname,$admin_pass);
+	} else {
+		// forget the password
+		unset($__pw__);
+		$login_uname = null;
+		$login_pass = null;		
+		if (isset($_POST['login_uname']) && isset($_POST['login_pass'])) {
+			$login_uname = $_POST['login_uname'];
+			$login_pass = $_POST['login_pass'];
+			
+		}
+		rss_login_form($login_uname,$login_pass);
+		exit();
+	}
 }
 
-if ($auth) {
-    setAdminCookie();
-
-    if (array_key_exists('login',$_GET)) {
-        rss_redirect();
-    }
-}
 admin_header();
 admin_main($auth);
 admin_footer();
@@ -412,6 +421,14 @@ function setAdminCookie() {
     setcookie(PRIVATE_COOKIE, getPrivateCookieVal(), $t, getPath());
 }
 
+function setUserCookie($user,$hash) {
+    if (getConfig('rss.config.autologout')) {
+        $t = 0;
+    } else {
+        $t =time()+COOKIE_LIFESPAN;
+    }
+    setcookie(RSS_USER_COOKIE, "$user|$hash", $t, getPath());	
+}
 
 function admin_header() {
 

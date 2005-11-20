@@ -696,6 +696,35 @@ function showViewForm($curValue) {
     ."</select></p>\n</form>\n";
 }
 
+function rss_getUser() {
+	static $user;
+	if ($user == null) {
+	
+		$user = array(
+			'uid' => 0,
+			'uname' => null,
+			'ulevel' => RSS_USER_LEVEL_NOLEVEL,
+			'realname' => null,
+			'lastip' => null,
+			'lastlogin' => null
+		);
+
+
+		if (isset($_COOKIE[RSS_USER_COOKIE])) {
+			list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
+			$sql = "select * from " . getTable('users') . " where uname='"
+			.rss_real_escape_string($cuname) ."' and password='"
+			.rss_real_escape_string($chash) ."'";
+			$rs = rss_query($sql);
+			if (rss_num_rows($rs) == 1) {
+				$user = rss_fetch_assoc($rs);
+				unset($user['password']);
+			}
+		}
+	}
+	return $user;
+}
+
 function getPrivateCookieVal($prefix = DBUNAME) {
     $val = $prefix.$_SERVER["SERVER_NAME"];
     if (defined('ADMIN_USERNAME') && defined('ADMIN_PASSWORD')) {
@@ -708,24 +737,38 @@ function getPrivateCookieVal($prefix = DBUNAME) {
 }
 
 function logoutPrivateCookie() {
-    if (array_key_exists(PRIVATE_COOKIE, $_COOKIE)) {
-        unset($_COOKIE[PRIVATE_COOKIE]);
-        setcookie(PRIVATE_COOKIE, "", -1, getPath());
+    if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
+        unset($_COOKIE[RSS_USER_COOKIE]);
+        setcookie(RSS_USER_COOKIE, "", -1, getPath());
     }
 }
 
 function hidePrivate() {
     static $ret;
-    if ($ret == null) {
-        if (!array_key_exists(PRIVATE_COOKIE, $_COOKIE)) {
-            $ret = true;
-        } else {
-            $ret = !($_COOKIE[PRIVATE_COOKIE] == getPrivateCookieVal());
-        }
+    if ($ret === null) {
+    	$ret = !rss_check_user_level(RSS_USER_LEVEL_PRIVATE);;
     }
-
+    
     return $ret;
 }
+
+function rss_check_user_level($level) {
+	$user = rss_getUser();
+	return $user['ulevel'] >= $level;
+}
+
+function __exp_login($uname,$pass,$cb) {
+    $sql ="select uname,ulevel from " .getTable('users') . "where uname='"
+    .rss_real_escape_string($uname)."' and password='$pass'";
+    list($uname,$ulevel) = rss_fetch_row(rss_query($sql));
+    if ($ulevel == '') {
+        $ulevel = RSS_USER_LEVEL_NOLEVEL;
+    } else {
+    	rss_invalidate_cache();
+    }
+    return "$ulevel|$uname|$pass";
+}
+
 
 function getThemePath() {
     $ret = getPath().RSS_THEME_DIR."/";
