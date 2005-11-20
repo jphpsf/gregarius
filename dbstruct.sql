@@ -115,6 +115,8 @@ insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.confi
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.rating", 'true','true','boolean','Enable the item rating system.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.barefrontpage",'false','false','boolean','Suppress the output of any read item on the front page.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.title",'Gregarius','Gregarius','string','Sets the title of this feedreader.',NULL);
+insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.ajaxparallelsize",'3','3','num','Sets the number of feeds to update in parallel. Remember to set rss.config.serverpush to false.',NULL);
+insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.ajaxbatchsize",'3','3','num','Sets the number of feeds in a batch when using the ajax updater. Remember to set rss.config.serverpush to false.',NULL);
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag` (

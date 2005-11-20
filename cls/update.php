@@ -35,14 +35,25 @@ define('ERROR_ERROR', " error");
 define('NO_NEW_ITEMS', '-');
 define ('UPDATING','...');
 
-define ('AJAX_BATCH_SIZE',3);
-define ('AJAX_PARALLEL_SIZE',1);
 
 define ('THIS_FILE',basename(__FILE__));
 
 define ('GROUP_SPLITTER',',');
 define ('SUB_SPLITTER','|');
 define ('SUB_SUB_SPLITTER','.');
+
+// Define the ajax parallel and batch size from the config options
+if (getConfig('rss.config.ajaxbatchsize')) {
+	define ('AJAX_BATCH_SIZE',getConfig('rss.config.ajaxbatchsize'));
+} else {
+	define ('AJAX_BATCH_SIZE',3);
+}
+
+if (getConfig('rss.config.ajaxparallelsize')) {
+	define ('AJAX_PARALLEL_SIZE',getConfig('rss.config.ajaxparallelsize'));
+} else {
+	define ('AJAX_PARALLEL_SIZE',3);
+}
 
 
 /**
