@@ -113,10 +113,10 @@ function get_host($url, & $host) {
  * Builds a title out of an already encoded string.
  */
 function makeTitle($title) {
-    // Let us find out if the user has set a title. 
+    // Let us find out if the user has set a title.
     $userTitle = _TITLE_;
     if (getConfig('rss.output.title')) {
-	$userTitle = getConfig('rss.output.title');
+        $userTitle = getConfig('rss.output.title');
     }
     $ret = "". $userTitle ."";
     if ($title != "") {
@@ -507,18 +507,18 @@ function parse_iso8601($date_str) {
         list ($year, $month, $day, $hours, $minutes, $seconds)
         = array ($match[1], $match[2], $match[3], $match[4], $match[5], $match[6]);
 
-# calc epoch for current date assuming GMT
+        // calc epoch for current date assuming GMT
 
         $epoch = gmmktime($hours, $minutes, $seconds, $month, $day, $year);
 
         $offset = 0;
         if ($match[10] == 'Z') {
-# zulu time, aka GMT
+            // zulu time, aka GMT
 
         } else {
             list ($tz_mod, $tz_hour, $tz_min) = array ($match[8], $match[9], $match[10]);
 
-# zero out the variables
+            // zero out the variables
 
             if (!$tz_hour) {
                 $tz_hour = 0;
@@ -529,8 +529,8 @@ function parse_iso8601($date_str) {
 
             $offset_secs = (($tz_hour * 60) + $tz_min) * 60;
 
-# is timezone ahead of GMT?	 then subtract offset
-			#
+            // is timezone ahead of GMT?	 then subtract offset
+
 
             if ($tz_mod == '+') {
                 $offset_secs = $offset_secs * -1;
@@ -697,32 +697,32 @@ function showViewForm($curValue) {
 }
 
 function rss_getUser() {
-	static $user;
-	if ($user == null) {
-	
-		$user = array(
-			'uid' => 0,
-			'uname' => null,
-			'ulevel' => RSS_USER_LEVEL_NOLEVEL,
-			'realname' => null,
-			'lastip' => null,
-			'lastlogin' => null
-		);
+    static $user;
+    if ($user == null) {
+
+        $user = array(
+                    'uid' => 0,
+                    'uname' => null,
+                    'ulevel' => RSS_USER_LEVEL_NOLEVEL,
+                    'realname' => null,
+                    'lastip' => null,
+                    'lastlogin' => null
+                );
 
 
-		if (isset($_COOKIE[RSS_USER_COOKIE])) {
-			list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
-			$sql = "select * from " . getTable('users') . " where uname='"
-			.rss_real_escape_string($cuname) ."' and password='"
-			.rss_real_escape_string($chash) ."'";
-			$rs = rss_query($sql);
-			if (rss_num_rows($rs) == 1) {
-				$user = rss_fetch_assoc($rs);
-				unset($user['password']);
-			}
-		}
-	}
-	return $user;
+        if (isset($_COOKIE[RSS_USER_COOKIE])) {
+            list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
+            $sql = "select * from " . getTable('users') . " where uname='"
+                   .rss_real_escape_string($cuname) ."' and password='"
+                   .rss_real_escape_string($chash) ."'";
+            $rs = rss_query($sql);
+            if (rss_num_rows($rs) == 1) {
+                $user = rss_fetch_assoc($rs);
+                unset($user['password']);
+            }
+        }
+    }
+    return $user;
 }
 
 
@@ -736,25 +736,26 @@ function logoutUserCookie() {
 function hidePrivate() {
     static $ret;
     if ($ret === null) {
-    	$ret = !rss_check_user_level(RSS_USER_LEVEL_PRIVATE);;
+        $ret = !rss_check_user_level(RSS_USER_LEVEL_PRIVATE);
+        ;
     }
-    
+
     return $ret;
 }
 
 function rss_check_user_level($level) {
-	$user = rss_getUser();
-	return $user['ulevel'] >= $level;
+    $user = rss_getUser();
+    return $user['ulevel'] >= $level;
 }
 
 function __exp_login($uname,$pass,$cb) {
     $sql ="select uname,ulevel from " .getTable('users') . "where uname='"
-    .rss_real_escape_string($uname)."' and password='$pass'";
+          .rss_real_escape_string($uname)."' and password='$pass'";
     list($uname,$ulevel) = rss_fetch_row(rss_query($sql));
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
-    	rss_invalidate_cache();
+        rss_invalidate_cache();
     }
     return "$ulevel|$uname|$pass";
 }
