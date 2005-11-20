@@ -29,7 +29,7 @@
 /// Name: New window
 /// Author: Marco Bonetti
 /// Description: When active, this plugin will open off-site links in a new window
-/// Version: 1.7
+/// Version: 1.8
 
 function __new_window_js_register($js) {
     $js[] = getPath(). RSS_PLUGINS_DIR . "/newwindow.php?nwjs";
@@ -46,9 +46,9 @@ function __new_window_init_js($dummy) {
 }
 
 if (isset($_REQUEST['nwjs'])) {
-
-	require_once('../util.php');
-    ETagHandler(md5("newwindow".'$Revision$'));
+	 require_once('../core.php');
+	 rss_bootstrap(false,'$Revision$',24);
+    require_once('../init.php');
     
     ?>
 	function __new_window() {

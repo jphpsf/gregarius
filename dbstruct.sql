@@ -154,3 +154,18 @@ CREATE TABLE `cache` (
 ) TYPE=MYISAM;
 
 INSERT INTO cache (cachekey,timestamp,cachetype,data) VALUES ('data_ts',now(),'ts',null);
+
+
+
+CREATE TABLE  users  (
+	uid bigint(16) NOT NULL auto_increment,
+	uname varchar(255) NOT NULL,            
+	password varchar(255) NOT NULL,                 
+	ulevel bigint(11) NOT NULL default '1',                 
+	realname varchar(255) default NULL,                             
+	lastip varchar(255) default NULL,                                               
+	lastlogin datetime NULL default '0000-00-00 00:00:00',
+	PRIMARY KEY  (uid),
+	KEY (uname)
+) TYPE=MyISAM; 
+INSERT INTO  users  (uname,password,ulevel,realname) VALUES ('admin','',99,'Administrator');

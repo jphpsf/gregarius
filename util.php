@@ -945,7 +945,8 @@ function utf8_uri_encode( $utf8_string ) {
     return $unicode;
 }
 
-
+/*
+// Deprecated in favor of the new core.php functionalities
 function ETagHandler($key) {
     // This function should be used inline for speed. However if you have already
     // included util.php you might as well use it.
@@ -959,7 +960,7 @@ function ETagHandler($key) {
         // ob_start('ob_gzhandler');
     }
 }
-
+*/
 //these two eval_ functions taken from the comments at http://us3.php.net/eval
 
 function eval_mixed_helper($arr) {
