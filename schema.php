@@ -26,7 +26,7 @@
 ###############################################################################
 
 
-rss_require('util.php');
+require_once('util.php');
 
 /**
  * Checks the db schema for the for all required tables, adds those which are missing.
@@ -539,7 +539,7 @@ if (isset($argv) && in_array('--dump',$argv)) {
 	require_once('init.php');
 	define ('DUMP_SCHEMA', true);
 	
-	foreach (array("channels","config","folders","item","metatag","tag","rating") as $tbl) {
+	foreach (array("channels","config","folders","item","metatag","tag","rating", "users") as $tbl) {
 	 	call_user_func("_init_$tbl"); 
 	}
 		

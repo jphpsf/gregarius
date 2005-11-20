@@ -725,18 +725,8 @@ function rss_getUser() {
 	return $user;
 }
 
-function getPrivateCookieVal($prefix = DBUNAME) {
-    $val = $prefix.$_SERVER["SERVER_NAME"];
-    if (defined('ADMIN_USERNAME') && defined('ADMIN_PASSWORD')) {
-        $val .= ADMIN_USERNAME.ADMIN_PASSWORD;
-    }
-    elseif (defined('ADMIN_USERNAME')) {
-        $val .= ADMIN_USERNAME;
-    }
-    return md5($val);
-}
 
-function logoutPrivateCookie() {
+function logoutUserCookie() {
     if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
         unset($_COOKIE[RSS_USER_COOKIE]);
         setcookie(RSS_USER_COOKIE, "", -1, getPath());

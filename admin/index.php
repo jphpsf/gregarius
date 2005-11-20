@@ -408,18 +408,6 @@ function admin_enum_to_html($arr) {
     return $ret;
 }
 
-/**
- * this function will set an admin cookie, which doesn't play a role in
- * authentication, but only allows access to Private items
- */
-function setAdminCookie() {
-    if (getConfig('rss.config.autologout')) {
-        $t = 0;
-    } else {
-        $t =time()+COOKIE_LIFESPAN;
-    }
-    setcookie(PRIVATE_COOKIE, getPrivateCookieVal(), $t, getPath());
-}
 
 function setUserCookie($user,$hash) {
     if (getConfig('rss.config.autologout')) {

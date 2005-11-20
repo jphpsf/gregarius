@@ -66,7 +66,7 @@ if (array_key_exists('update',$_REQUEST)) {
 
 
 if (array_key_exists('logout',$_GET)) {
-	logoutPrivateCookie();
+	logoutUserCookie();
 }
 
 
