@@ -172,6 +172,7 @@ function minilogin_cb_handler(data) {
 		+ '<?php echo LBL_LOGGED_IN_AS; ?>'.replace(/%s/gi,tokens[1])
 		+ '&nbsp;|&nbsp;<a href="<?php echo getPath() . "?logout\">".LBL_LOG_OUT."</a>" ?>';
 		setCookie('<?php echo RSS_USER_COOKIE; ?>',tokens[1]+'|'+tokens[2],'<?php echo getPath(); ?>');
+		document.location = document.location.href.replace(/\?logout$/, "");
 	} 
 }
 
