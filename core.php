@@ -53,6 +53,7 @@ function checkETag($withDB = true, $keyPrefix= "", $cacheValidity = 0) {
 
     if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER)  && $_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
         header("HTTP/1.1 304 Not Modified");
+        header("ETag: \"$key\"");
         flush();
         exit();
     } else {

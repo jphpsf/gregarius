@@ -28,7 +28,7 @@
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
 /// Description: Marks an item as read when you doubleclick its whitespace
-/// Version: 1.8
+/// Version: 1.9
 
 /**
  * Changelog:
@@ -37,6 +37,7 @@
  * 1.6  Fixed a bug that would cause a Javascript error when user is not logged in
  * 1.7  Moved the EtagHandler to make the javascript load faster. -- Sameer
  * 1.8  Switched to the rss_bootstrap caching method 
+ * 1.9  Set the cache-validity to 0 to cause a reload when loggin in and out -- Sameer
  */
 
 function __dblclicktoread_js_register($js) {
@@ -57,7 +58,7 @@ function __dblclickToRead_init_js($dummy) {
 
 if (isset($_REQUEST['dcljs'])) {
 	 require_once('../core.php');
-	 rss_bootstrap(false,'$Revision$',24);
+	 rss_bootstrap(false,'$Revision$',0);
     require_once('../init.php');
 
 

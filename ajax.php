@@ -26,7 +26,7 @@
 
 if (array_key_exists('js',$_GET)) {
     require_once('core.php');
-    rss_bootstrap(false,'$Revision$',24);
+    rss_bootstrap(false,'$Revision$',0);
 }
 
 require_once('init.php');
