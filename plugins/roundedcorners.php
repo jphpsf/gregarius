@@ -29,7 +29,15 @@
 /// Name: Rounded Corners
 /// Author: Marco Bonetti
 /// Description: Rounded corners in some GUI elements. Enabling this plugin breaks the CSS validation.
-/// Version: 0.2
+/// Version: 0.3
+
+/**
+ * Changelog:
+ *
+ * 0.3 Hack for a Gecko bug which did not render rounded corners properly
+ *  on large divs. https://bugzilla.mozilla.org/show_bug.cgi?id=252241 - Sameer
+ */
+
 
 function __rc_CSS($dummy) {
 	$url = getPath(). RSS_PLUGINS_DIR . "/roundedcorners.php?rc-css";
@@ -51,6 +59,22 @@ div.ief p a, #loginfo, input[type=\"submit\"] { -moz-border-radius: 5px }
 	exit();
 }
 
+/* Turn off rounded corners on the big frames because of a gecko
+rendering bug */
+function __roundedCornersCheckjs ($dummy) {
+?>
+      <script type="text/javascript">
+      	var theMainDivsOfItems = document.getElementById("items");	
+	if (theMainDivsOfItems && (theMainDivsOfItems.offsetHeight > 29000)) {
+	    theMainDivsOfItems.style.MozBorderRadius = 0;
+	}
+      </script>
+<?php
+   return $dummy;
+}
+
+
 
 rss_set_hook("rss.plugins.stylesheets",'__rc_CSS');
+rss_set_hook('rss.plugins.bodyend','__roundedCornersCheckjs');
 ?>
