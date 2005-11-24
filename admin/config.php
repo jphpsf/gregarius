@@ -245,17 +245,11 @@ function config_admin() {
             ."</tr>\n";
 
             $active_plugins= getConfig('rss.config.plugins');
+            $rss_plugins = getPlugins();
             $cntr = 0;
-            $d = dir('../plugins');
-            $files = array();
-            while (false !== ($entry = $d->read())) {
-                if (
-                    $entry != "CVS" &&
-                    substr($entry,0,1) != "."
-                ) {
-                    $info = getPluginInfo($entry);
+            if ($rss_plugins) {
+                foreach($rss_plugins as $entry => $info ) {
                     $active= in_array($entry,$active_plugins);
-
                     if (count($info)) {
                         echo "<tr class=\""
                         .(($cntr++ % 2 == 0)?"even":"odd")
@@ -275,7 +269,6 @@ function config_admin() {
                     }
                 }
             }
-            $d->close();
             echo "</table>\n<p>";
 
             break;
@@ -493,7 +486,7 @@ function config_admin() {
         case 'rss.config.plugins':
             $active=array();
             foreach($_REQUEST as $rkey=>$rentry) {
-                if (preg_match('/_gregarius_plugin.([a-zA-Z0-9_]+).php/',$rkey,$matches)) {
+                if (preg_match('/_gregarius_plugin.([a-zA-Z0-9_\/\-]+).php/',$rkey,$matches)) {
                     $active[] = ($matches[1] .".php");
                 }
             }

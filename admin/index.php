@@ -285,6 +285,54 @@ function getPluginInfo($file) {
     return $info;
 }
 
+/**
+* This function returns an associative array with all the php files that are
+* plugins and their plugin info. 
+
+* Following the wordpress model (and code) we search for plugins in the plugins
+* directory and each subdirectory 1 level deep.
+*/
+function getPlugins() {
+
+	$plugin_dir_files = array(); 
+	$rss_plugins = array(); 
+	$plugin_dir = '../' . RSS_PLUGINS_DIR;
+
+	$d = @dir($plugin_dir);
+	//Put all the *.php files in the plugin dir and 1 level below into $plugin_dir_files
+        while (($file = $d->read()) !== false) {
+            if ( $file != "CVS" && (substr($file,0,1) != ".")) {
+		if(is_dir($plugin_dir . '/' . $file)) {
+                   $plugins_subdir = @dir($plugin_dir . '/' . $file);
+                   if ($plugins_subdir) {
+                      while(($subfile = $plugins_subdir->read()) !== false) {
+                          if ( preg_match('|^\.+$|', $subfile) ) {
+                                  continue;
+			  }
+                          if ( preg_match('|\.php$|', $subfile) ) {
+                                  $plugin_dir_files[] = "$file/$subfile";
+			  }
+                      } 
+                  }
+		} else {
+                        if ( preg_match('|\.php$|', $file) ) {
+				$plugin_dir_files[] =  $file;
+			}
+		}
+	    }
+	}
+
+	// See which of the php files in $plugin_dir_files are really plugins
+	foreach($plugin_dir_files as $plugin_dir_file) {
+		$info = getPluginInfo($plugin_dir_file);
+		if (count($info)){
+			$rss_plugins[$plugin_dir_file] = $info;
+		}
+	}
+
+	//return an associative array with the plugin files and their info
+	return $rss_plugins;
+}
 
 function getLanguages() {
 
