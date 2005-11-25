@@ -267,4 +267,7 @@ define ('LBL_USERNAME','Username');
 define ('LBL_PASSWORD','Password');
 define ('LBL_ADMIN_LOGIN','Please log in');
 
+
+define ('LBL_ADMIN_PLUGINS','Plugins');
+define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','plugins');
 ?>

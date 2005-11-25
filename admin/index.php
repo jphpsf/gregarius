@@ -39,6 +39,7 @@ require_once('folders.php');
 require_once('opml.php');
 require_once('dashboard.php');
 require_once('users.php');
+require_once('plugins.php');
 
 define ('CST_ADMIN_DOMAIN','domain');
 define ('CST_ADMIN_DOMAIN_NONE','none');
@@ -60,6 +61,7 @@ define ('CST_ADMIN_DOMAIN_CHANNEL','feeds');
 define ('CST_ADMIN_DOMAIN_ITEM','items');
 define ('CST_ADMIN_DOMAIN_CONFIG','config');
 define ('CST_ADMIN_DOMAIN_OPML','opml');
+define ('CST_ADMIN_DOMAIN_PLUGINS','plugins');
 
 // OPML import target
 define ('CST_ADMIN_OPML_IMPORT_WIPE',1);
@@ -69,30 +71,30 @@ define ('CST_ADMIN_OPML_IMPORT_MERGE',3);
 
 $auth=rss_check_user_level(RSS_USER_LEVEL_ADMIN);
 if (! $auth) {
-	// check whether the admin password has been set.
-	$sql = "select uname,password from " . getTable('users') . " where ulevel=99";
-	list($dummy, $__pw__) = rss_fetch_row(rss_query($sql));
-	if ($__pw__ == '') {
-		$admin_uname = null;
-		$admin_pass = null;
-		if (isset($_POST['admin_uname']) && isset($_POST['admin_pass'])) {
-			$admin_uname = $_POST['admin_uname'];
-			$admin_pass = $_POST['admin_pass'];
-		}
-		set_admin_pass($admin_uname,$admin_pass);
-	} else {
-		// forget the password
-		unset($__pw__);
-		$login_uname = null;
-		$login_pass = null;		
-		if (isset($_POST['login_uname']) && isset($_POST['login_pass'])) {
-			$login_uname = $_POST['login_uname'];
-			$login_pass = $_POST['login_pass'];
-			
-		}
-		rss_login_form($login_uname,$login_pass);
-		exit();
-	}
+    // check whether the admin password has been set.
+    $sql = "select uname,password from " . getTable('users') . " where ulevel=99";
+    list($dummy, $__pw__) = rss_fetch_row(rss_query($sql));
+    if ($__pw__ == '') {
+        $admin_uname = null;
+        $admin_pass = null;
+        if (isset($_POST['admin_uname']) && isset($_POST['admin_pass'])) {
+            $admin_uname = $_POST['admin_uname'];
+            $admin_pass = $_POST['admin_pass'];
+        }
+        set_admin_pass($admin_uname,$admin_pass);
+    } else {
+        // forget the password
+        unset($__pw__);
+        $login_uname = null;
+        $login_pass = null;
+        if (isset($_POST['login_uname']) && isset($_POST['login_pass'])) {
+            $login_uname = $_POST['login_uname'];
+            $login_pass = $_POST['login_pass'];
+
+        }
+        rss_login_form($login_uname,$login_pass);
+        exit();
+    }
 }
 
 admin_header();
@@ -126,6 +128,9 @@ function admin_main($authorised) {
             case CST_ADMIN_DOMAIN_ITEM:
                 $show = item_admin();
                 break;
+            case CST_ADMIN_DOMAIN_PLUGINS:
+                $show = plugins_admin();
+                break;
             default:
                 break;
             }
@@ -158,7 +163,9 @@ function admin_main($authorised) {
                 break;
             case CST_ADMIN_DOMAIN_DASHBOARD:
                 dashboard();
-
+                break;
+            case CST_ADMIN_DOMAIN_PLUGINS:
+                plugins();
                 break;
             default:
             }
@@ -198,6 +205,7 @@ function admin_menu() {
                  array (CST_ADMIN_DOMAIN_CHANNEL, LBL_ADMIN_DOMAIN_CHANNEL_LBL),
                  array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL),
                  array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL),
+                 array (CST_ADMIN_DOMAIN_PLUGINS, LBL_ADMIN_DOMAIN_PLUGINS_LBL),
                  array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL),
                  array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
 
@@ -225,7 +233,7 @@ function admin_kses_to_html($arr) {
     }
     return $ret;
 }
-
+/*
 function admin_plugins_mgmnt($arr) {
     $ret = "<ul>\n";
     foreach($arr as $plugin) {
@@ -244,95 +252,8 @@ function admin_plugins_mgmnt($arr) {
     $ret .= "</ul>\n";
     return $ret;
 }
-
-
-/**
- * fetches information for the given plugin,
- * which should contain:
- *
- *	/// Name: Url filter
- *	/// Author: Marco Bonetti
- *	/// Description: This plugin will try to make ugly URL links look better
- *	/// Version: 1.0
- *
- */
-function getPluginInfo($file) {
-    $info = array();
-    $path = "../".RSS_PLUGINS_DIR."/$file";
-    if (file_exists($path)) {
-        $f = @fopen($path,'r');
-        $contents = "";
-        if ($f) {
-            $contents .= fread($f, filesize($path));
-            @fclose($f);
-        } else {
-            $contents = "";
-        }
-
-        if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
-            foreach($matches as $match) {
-                $key = trim(strtolower($match[1]));
-                $val = trim($match[2]);
-                if ($key == 'version') {
-                    $val=preg_replace('/[^0-9\.]+/','',$val);
-                }
-
-                $info[$key] = $val;
-            }
-        }
-    }
-
-    return $info;
-}
-
-/**
-* This function returns an associative array with all the php files that are
-* plugins and their plugin info. 
-
-* Following the wordpress model (and code) we search for plugins in the plugins
-* directory and each subdirectory 1 level deep.
 */
-function getPlugins() {
 
-	$plugin_dir_files = array(); 
-	$rss_plugins = array(); 
-	$plugin_dir = '../' . RSS_PLUGINS_DIR;
-
-	$d = @dir($plugin_dir);
-	//Put all the *.php files in the plugin dir and 1 level below into $plugin_dir_files
-        while (($file = $d->read()) !== false) {
-            if ( $file != "CVS" && (substr($file,0,1) != ".")) {
-		if(is_dir($plugin_dir . '/' . $file)) {
-                   $plugins_subdir = @dir($plugin_dir . '/' . $file);
-                   if ($plugins_subdir) {
-                      while(($subfile = $plugins_subdir->read()) !== false) {
-                          if ( preg_match('|^\.+$|', $subfile) ) {
-                                  continue;
-			  }
-                          if ( preg_match('|\.php$|', $subfile) ) {
-                                  $plugin_dir_files[] = "$file/$subfile";
-			  }
-                      } 
-                  }
-		} else {
-                        if ( preg_match('|\.php$|', $file) ) {
-				$plugin_dir_files[] =  $file;
-			}
-		}
-	    }
-	}
-
-	// See which of the php files in $plugin_dir_files are really plugins
-	foreach($plugin_dir_files as $plugin_dir_file) {
-		$info = getPluginInfo($plugin_dir_file);
-		if (count($info)){
-			$rss_plugins[$plugin_dir_file] = $info;
-		}
-	}
-
-	//return an associative array with the plugin files and their info
-	return $rss_plugins;
-}
 
 function getLanguages() {
 
@@ -463,13 +384,13 @@ function setUserCookie($user,$hash) {
     } else {
         $t =time()+COOKIE_LIFESPAN;
     }
-    setcookie(RSS_USER_COOKIE, "$user|$hash", $t, getPath());	
+    setcookie(RSS_USER_COOKIE, "$user|$hash", $t, getPath());
 }
 
 function admin_header() {
 
     header('Content-Type: text/html; charset='
-	. (getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING));
+           . (getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING));
     echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
     echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n";
     echo "<head>";

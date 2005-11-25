@@ -68,8 +68,7 @@ function config() {
 
             break;
         case 'rss.config.plugins':
-            $arr = unserialize($value);
-            echo admin_plugins_mgmnt($arr);
+            continue;
             break;
 
         case 'rss.output.lang':
@@ -232,46 +231,6 @@ function config_admin() {
         ."<p>\n";
 
         switch($key) {
-
-
-        case 'rss.config.plugins':
-            echo "<input type=\"hidden\" name=\"value\" value=\"\" />\n";
-            echo "</p>\n<table id=\"plugintable\">\n<tr>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_ACTION."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_NAME."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
-            ."</tr>\n";
-
-            $active_plugins= getConfig('rss.config.plugins');
-            $rss_plugins = getPlugins();
-            $cntr = 0;
-            if ($rss_plugins) {
-                foreach($rss_plugins as $entry => $info ) {
-                    $active= in_array($entry,$active_plugins);
-                    if (count($info)) {
-                        echo "<tr class=\""
-                        .(($cntr++ % 2 == 0)?"even":"odd")
-                        .($active?" active":"")
-                        ."\">\n";
-                        echo "<td class=\"cntr\">"
-                        ."<input type=\"checkbox\" name=\"_gregarius_plugin_$entry\" "
-                        ." id=\"_gregarius_plugin_$entry\" value=\"1\" "
-                        .($active?"checked=\"checked\"":"")." />\n"
-                        ."</td>\n";
-                        echo "<td><label for=\"_gregarius_plugin_$entry\">".(array_key_exists('name',$info)?$info['name']:"&nbsp"). "</label></td>\n";
-                        echo "<td class=\"cntr\">"	.(array_key_exists('version',$info)?$info['version']:"&nbsp"). "</td>\n";
-                        echo "<td>"	.(array_key_exists('author',$info)?$info['author']:"&nbsp"). "</td>\n";
-                        echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp"). "</td>\n";
-
-                        echo "</tr>\n";
-                    }
-                }
-            }
-            echo "</table>\n<p>";
-
-            break;
 
         case 'rss.output.theme':
 
@@ -480,18 +439,6 @@ function config_admin() {
             $sql = "update " . getTable('config') . " set value_='"
                    .serialize($ret)
                    ."' where key_='$key'";
-
-            break;
-
-        case 'rss.config.plugins':
-            $active=array();
-            foreach($_REQUEST as $rkey=>$rentry) {
-                if (preg_match('/_gregarius_plugin.([a-zA-Z0-9_\/\-]+).php/',$rkey,$matches)) {
-                    $active[] = ($matches[1] .".php");
-                }
-            }
-            $value = serialize($active);
-            $sql = "update " . getTable('config') . " set value_='$value' where key_='$key'";
 
             break;
 
