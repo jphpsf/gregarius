@@ -361,6 +361,25 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	filter: alpha(opacity=70);
 }
 
+
+
+#admin_login input{
+	height: 1.2em;
+	font-size: 1.3em;
+	padding: 0.2em;
+}
+
+#admin_login_submit {
+	display:block !important;
+	width:100% !important;
+	text-align:center !important;
+}
+
+#admin_login_submit p { padding: 0 auto; display:block; }
+#admin_login_submit input { height: auto; }
+
+}
+
 /* styles for the star rater */
 /*
 div.rating { height: 25px; display: block !important;}

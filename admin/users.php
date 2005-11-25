@@ -90,14 +90,14 @@ function rss_login_form($uname=null,$pass=null) {
   	echo "\n<div id=\"channel_admin\" class=\"frame\">";
 	echo "<h2></h2>\n";
 	
-	echo "<form style=\"text-align:center\" action=\"".getPath()."admin/\" onsubmit=\"return on_submit_login_form();\" method=\"post\">\n"
+	echo "<form id=\"admin_login\" style=\"text-align:center\" action=\"".getPath()."admin/\" onsubmit=\"return on_submit_login_form();\" method=\"post\">\n"
 //	."<p>".		 LBL_ADMIN_LOGIN ."</p>\n"
-	."<fieldset style=\"width:400px;\">"
+	."<fieldset>"
 	."<p><label style=\"display:block\" for=\"login_uname\">".LBL_USERNAME.":</label>\n"
-	."<input type=\"text\" id=\"login_uname\" name=\"login_uname\"></p>\n"
+	."<input type=\"text\" id=\"login_uname\" name=\"login_uname\" /></p>\n"
 	."<p><label style=\"display:block\" for=\"login_pass\">".LBL_PASSWORD.":</label>\n"
-	."<input type=\"password\" id=\"login_pass\" name=\"login_pass\"></p>\n"
-	."<p><input type=\"submit\" value=\"".LBL_LOG_IN."\"></p>\n"
+	."<input type=\"password\" id=\"login_pass\" name=\"login_pass\" /></p>\n"
+	."<p id=\"admin_login_submit\"><input type=\"submit\" value=\"".LBL_LOG_IN."\" /></p>\n"
 	."</fieldset>\n"
 	."</form>\n";
 	
