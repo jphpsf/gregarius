@@ -1324,7 +1324,7 @@ function markReadForm($cid) {
         define ('MARK_READ_FEED_FORM',$cid);
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
-    ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
+    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
@@ -1340,7 +1340,7 @@ function markFolderReadForm($fid) {
         define ('MARK_READ_FOLDER_FORM',$fid);
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
-    ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
+    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_FOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
@@ -1357,7 +1357,7 @@ function markVirtualFolderReadForm($vfid) {
         define ('MARK_READ_VFOLDER_FORM',$vfid);
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
-    ."\t<p><input type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
+    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_VFOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"

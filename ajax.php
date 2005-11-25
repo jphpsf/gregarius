@@ -440,7 +440,7 @@ function setItemHide(id, redirect){
        }
        
        // remove parent elements (heading, ul) if all the children are gone
-       if (ul.getElementsByTagName('li').length == 0) {
+       if (!redirect && (ul.getElementsByTagName('li').length == 0)) {
        	pn = ul.parentNode;
        	
        	var ps = ul.previousSibling;
@@ -454,7 +454,12 @@ function setItemHide(id, redirect){
        }
        
        if (redirect) {
-       	self.setTimeout('setRedirect()', 1000);
+	if (t = document.getElementById("_markReadButton")) {
+	    // Maybe we should fix the array of ids also...
+	    self.setTimeout('t.click()', 1000);
+	}else{
+             self.setTimeout('setRedirect()', 1000);
+	}
        }
     }
 }
