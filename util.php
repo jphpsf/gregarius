@@ -260,8 +260,8 @@ function update($id) {
             }
 
             // enclosure
-            if (array_key_exists('enclosure', $item) ) {
-                $enclosure = $item['enclosure'];
+            if (array_key_exists('enclosure@url', $item) ) {
+                $enclosure = $item['enclosure@url'];
             } else {
                 $enclosure = "";
             }
