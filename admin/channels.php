@@ -55,7 +55,7 @@ function channels() {
     $b_url .= "?domain=feeds&amp;add_channel_to_folder=0&amp;action=Add&amp;new_channel=";
 
     $bookmarklet = "javascript:void(document.location = "
-                   ."('$b_url'.concat(escape(document.location))))";
+                   ."('$b_url'.concat(escape(document.location).replace(/\s/,'%2520'))))";
 
     echo "<p class=\"bookmarklet\">" . LBL_ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".LBL_ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
 
