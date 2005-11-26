@@ -46,6 +46,11 @@ function config() {
     while ($row = rss_fetch_assoc($res)) {
         $value =  real_strip_slashes($row['value_']);
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
+        
+        // Fix for #279. Plugins have their own section.
+        if ($row['key_'] == 'rss.config.plugins') {
+        	continue;
+        }
 
         echo "<tr class=\"$class_\">\n"
         ."\t<td>".$row['key_']."</td>\n";
