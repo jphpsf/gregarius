@@ -261,5 +261,9 @@ define ('LBL_ADMIN_LOGIN','Please log in');
 define ('LBL_ADMIN_PLUGINS','Plugins');
 define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','plugins');
 define ('LBL_ADMIN_CHECK_FOR_UPDATES','Check for Updates');
-
+define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Bad login/password');
+define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> You are successfully '
+			.'logged in as %s, but you don\\\'t have administration privileges. Log in again '
+			.'with administration privileges or follow your way <a href="..">home</a>');
+			
 ?>

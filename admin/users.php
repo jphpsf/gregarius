@@ -80,8 +80,21 @@ function rss_login_form($uname=null,$pass=null) {
 			pass=tokens[2];
 			if (ulevel > 0) {
 				setCookie('<?php echo RSS_USER_COOKIE; ?>',uname+'|'+pass,'<?php echo getPath(); ?>');
+				
+			}
+			msg = '';
+			if (ulevel == <?php echo RSS_USER_LEVEL_NOLEVEL ?>) {
+				msg = '<?php echo LBL_ADMIN_LOGIN_BAD_LOGIN ?>';
+			} else if (ulevel > <?php echo RSS_USER_LEVEL_NOLEVEL ?> && ulevel < <?php echo RSS_USER_LEVEL_ADMIN ?>) {
+				msg = '<?php echo LBL_ADMIN_LOGIN_NO_ADMIN ?>'.replace('%s',uname);
+			} else if (ulevel >= <?php echo RSS_USER_LEVEL_ADMIN ?>) {
 				document.location=document.location;
-			} 
+				return 0;
+			}
+			
+			if (msg != '') {
+				document.getElementById('admin_login_result').innerHTML = '<br>' + msg;
+			}
 		}
 	-->
 	</script>
@@ -98,6 +111,7 @@ function rss_login_form($uname=null,$pass=null) {
 	."<p><label style=\"display:block\" for=\"login_pass\">".LBL_PASSWORD.":</label>\n"
 	."<input type=\"password\" id=\"login_pass\" name=\"login_pass\" /></p>\n"
 	."<p id=\"admin_login_submit\"><input type=\"submit\" value=\"".LBL_LOG_IN."\" /></p>\n"
+	."<span style=\"display:inline;\" id=\"admin_login_result\"></span>\n"
 	."</fieldset>\n"
 	."</form>\n";
 	
