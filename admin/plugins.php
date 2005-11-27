@@ -20,13 +20,13 @@ function plugins() {
         $active_plugins= getConfig('rss.config.plugins');
     }
 
-		$doUpdates = false;
-		$updates = array();
-		if  (isset($_REQUEST[CST_ADMIN_METAACTION]) && $_REQUEST[CST_ADMIN_METAACTION] == 'LBL_ADMIN_PLUGINS_CHECK_UPDATES') {
-    	$updates = plugins_check_for_updates();
-    	$doUpdates = true;
+    $doUpdates = false;
+    $updates = array();
+    if  (isset($_REQUEST[CST_ADMIN_METAACTION]) && $_REQUEST[CST_ADMIN_METAACTION] == 'LBL_ADMIN_PLUGINS_CHECK_UPDATES') {
+        $updates = plugins_check_for_updates();
+        $doUpdates = true;
     }
-    
+
     echo "<h2 class=\"trigger\">".LBL_ADMIN_PLUGINS."</h2>\n"
     ."<div id=\"admin_plugins\">\n";
 
@@ -39,9 +39,9 @@ function plugins() {
     ."<th>".LBL_ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
     ."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n";
     if ($doUpdates) {
-     echo "<th>".LBL_ADMIN_PLUGINS_HEADING_UPDATES."</th>\n";
+        echo "<th>".LBL_ADMIN_PLUGINS_HEADING_UPDATES."</th>\n";
     }
-    
+
     echo "</tr>\n";
 
 
@@ -52,20 +52,20 @@ function plugins() {
         foreach($rss_plugins as $entry => $info ) {
             $active= in_array($entry,$active_plugins);
             if (count($info)) {
-            
-            
-            		$updateDl = null;
-            		if (array_key_exists($info['file'],$updates)) {
-										$lastV = $updates[$info['file']][0];
-										$thisV = $info['version'];
-										if ($lastV > $thisV) {
-											$updateDl = str_replace("&","&amp;",$updates[$info['file']][1]);
-										}
-									} 
-								
-								$class = (($cntr++ % 2 == 0)?"even":"odd") .
-									($updateDl? " hilite":($active?" active":""));
-									
+
+
+                $updateDl = null;
+                if (array_key_exists($info['file'],$updates)) {
+                    $lastV = $updates[$info['file']][0];
+                    $thisV = $info['version'];
+                    if ($lastV > $thisV) {
+                        $updateDl = str_replace("&","&amp;",$updates[$info['file']][1]);
+                    }
+                }
+
+                $class = (($cntr++ % 2 == 0)?"even":"odd") .
+                         ($updateDl? " hilite":($active?" active":""));
+
                 echo "<tr class=\"$class\">\n";
                 echo "<td class=\"cntr\">"
                 ."<input type=\"checkbox\" name=\"_gregarius_plugin_$entry\" "
@@ -77,13 +77,13 @@ function plugins() {
                 echo "<td>"	.(array_key_exists('author',$info)?$info['author']:"&nbsp"). "</td>\n";
                 echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp"). "</td>\n";
 
-								if ($doUpdates && $updateDl) {
-									echo "<td class=\"cntr\">";
-									echo "<a href=\"$updateDl\">$lastV</a>";
-									echo "</td>";
-								} else {
-									echo "<td>&nbsp;</td>";
-								}
+                if ($doUpdates && $updateDl) {
+                    echo "<td class=\"cntr\">";
+                    echo "<a href=\"$updateDl\">$lastV</a>";
+                    echo "</td>";
+                } else {
+                    echo "<td>&nbsp;</td>";
+                }
                 echo "</tr>\n";
             }
         }
@@ -95,10 +95,10 @@ function plugins() {
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_PLUGINS."\" />\n";
-		echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_PLUGINS_CHECK_UPDATES\"/>\n";
-		echo "<input type=\"submit\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p></form>\n";
-		
-		
+    echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_PLUGINS_CHECK_UPDATES\"/>\n";
+    echo "<input type=\"submit\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p></form>\n";
+
+
     echo "</div>";
 }
 
@@ -138,7 +138,7 @@ function getPluginInfo($file) {
                 $info[$key] = $val;
             }
         }
-        
+
         $info['file'] = preg_replace('/\..+$/','',$file);
     }
 
@@ -147,9 +147,8 @@ function getPluginInfo($file) {
 
 /**
 * This function returns an associative array with all the php files that are
-* plugins
- and their plugin info. 
- 
+* plugins and their plugin info. 
+* 
 * Following the wordpress model (and code) we search for plugins in the plugins
 * directory and each subdirectory 1 level deep.
 */
@@ -215,12 +214,12 @@ function plugins_check_for_updates() {
 function plugins_xml_startElement($xp, $element, $attr) {
     global $pluginsxml;
 
-    if ($element == 'PLUGIN' && 
-    		array_key_exists('PID',$attr) && 
-    		array_key_exists('URL',$attr) && 
-    		array_key_exists('VERSION',$attr)) {
+    if ($element == 'PLUGIN' &&
+            array_key_exists('PID',$attr) &&
+            array_key_exists('URL',$attr) &&
+            array_key_exists('VERSION',$attr)) {
 
-    		$pluginsxml[$attr['PID']] = array($attr['VERSION'],$attr['URL']);
+        $pluginsxml[$attr['PID']] = array($attr['VERSION'],$attr['URL']);
     }
 }
 
