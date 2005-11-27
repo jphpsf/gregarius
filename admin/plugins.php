@@ -185,7 +185,8 @@ function getPlugins() {
     // See which of the php files in $plugin_dir_files are really plugins
     foreach($plugin_dir_files as $plugin_dir_file) {
         $info = getPluginInfo($plugin_dir_file);
-        if (count($info)) {
+        // $info will have the filename in it. Does it have anything else?
+        if (count($info) > 1) {
             $rss_plugins[$plugin_dir_file] = $info;
         }
     }
