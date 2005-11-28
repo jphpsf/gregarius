@@ -55,7 +55,7 @@ function plugins() {
 
 
                 $updateDl = null;
-                if (array_key_exists($info['file'],$updates)) {
+                if (is_array($updates) && array_key_exists($info['file'],$updates)) {
                     $lastV = $updates[$info['file']][0];
                     $thisV = $info['version'];
                     if ($lastV > $thisV) {
