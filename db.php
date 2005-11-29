@@ -43,7 +43,8 @@ function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
     $rs =  $GLOBALS['rss_db']->rss_query ($query, $dieOnError, $preventRecursion);
     if ($pf) {
         list ($usec2, $sec2) = explode(" ", microtime());
-        _pf("Query took " . (($sec2-$sec) + ($usec2-$usec)) . " seconds:\n\t\t\t" . $query);
+        _pf("Query took " . (($sec2-$sec) + ($usec2-$usec)) . " seconds:\n\t\t\t" 
+        . preg_replace('/\'[a-z0-9]+\'/i','\'[removed]\'',$query));
     }
     return $rs;
 }
