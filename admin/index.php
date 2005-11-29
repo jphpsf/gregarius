@@ -188,14 +188,6 @@ function admin_main($authorised) {
  */
 function admin_menu() {
     $active = array_key_exists(CST_ADMIN_VIEW, $_REQUEST) ? $_REQUEST[CST_ADMIN_VIEW] : null;
-
-    /*
-    $use_mod_rewrite = getConfig('rss.output.usemodrewrite');
-
-    if (function_exists("apache_get_modules")) {
-    	$use_mod_rewrite = $use_mod_rewrite && in_array('mod_rewrite', apache_get_modules());
-    }
-    */
     $use_mod_rewrite = false;
 
     echo "\n<ul class=\"navlist\">\n";
@@ -209,11 +201,7 @@ function admin_menu() {
                  array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL),
                  array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
 
-        if ($use_mod_rewrite) {
-            $link = $item[0];
-        } else {
-            $link = "index.php?view=".$item[0];
-        }
+        $link = "index.php?view=".$item[0];
         $lbl = $item[1];
         $cls = ($item[0] == $active ? " class=\"active\"" : "");
         echo "\t<li$cls><a href=\"".getPath()."admin/$link\">".ucfirst($lbl)."</a></li>\n";
@@ -233,26 +221,6 @@ function admin_kses_to_html($arr) {
     }
     return $ret;
 }
-/*
-function admin_plugins_mgmnt($arr) {
-    $ret = "<ul>\n";
-    foreach($arr as $plugin) {
-        $info = getPluginInfo($plugin);
-        if (count($info)) {
-            $ret .= "\t<li>";
-            if (array_key_exists('name',$info)) {
-                $ret .= $info['name'];
-            }
-            if (array_key_exists('version',$info)) {
-                $ret .= " v".$info['version'];
-            }
-            $ret .="</li>\n";
-        }
-    }
-    $ret .= "</ul>\n";
-    return $ret;
-}
-*/
 
 
 function getLanguages() {
