@@ -27,7 +27,7 @@
 
 require_once(dirname(__FILE__) . '/dbinit.php');
 if (!defined('DBTYPE')) {
-	define ('DBTYPE','mysql');
+    define ('DBTYPE','mysql');
 }
 
 require_once('cls/db/db.'.DBTYPE.'.php');
@@ -36,7 +36,16 @@ $GLOBALS['rss_db'] = new $dbcls;
 
 
 function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
-	return $GLOBALS['rss_db']->rss_query ($query, $dieOnError, $preventRecursion);
+    $pf = defined('PROFILING_DB') && PROFILING_DB && function_exists('_pf');
+    if ($pf) {
+        list ($usec, $sec) = explode(" ", microtime());
+    }
+    $rs =  $GLOBALS['rss_db']->rss_query ($query, $dieOnError, $preventRecursion);
+    if ($pf) {
+        list ($usec2, $sec2) = explode(" ", microtime());
+        _pf("Query took " . (($sec2-$sec) + ($usec2-$usec)) . " seconds:\n\t\t\t" . $query);
+    }
+    return $rs;
 }
 
 function rss_fetch_row($rs) {
@@ -51,11 +60,11 @@ function rss_num_rows($rs) {
 }
 
 function rss_sql_error() {
-	 return $GLOBALS['rss_db']->rss_sql_error();
+    return $GLOBALS['rss_db']->rss_sql_error();
 }
 
 function rss_sql_error_message () {
-	 return $GLOBALS['rss_db']->rss_sql_error_message();
+    return $GLOBALS['rss_db']->rss_sql_error_message();
 }
 
 function rss_insert_id() {
@@ -63,11 +72,11 @@ function rss_insert_id() {
 }
 
 function rss_real_escape_string($string) {
-	return $GLOBALS['rss_db']->rss_real_escape_string($string);
+    return $GLOBALS['rss_db']->rss_real_escape_string($string);
 }
 
 function getTable($tableName) {
-	return $GLOBALS['rss_db']->getTable($tableName);
+    return $GLOBALS['rss_db']->getTable($tableName);
 }
 
 function rss_is_sql_error($kind) {
@@ -75,9 +84,9 @@ function rss_is_sql_error($kind) {
 }
 
 function rss_invalidate_cache() {
-	$sql = 'update ' . getTable('cache') . " set timestamp=now() where cachekey='data_ts'";
-	$GLOBALS['rss_db']->rss_query ($sql, false, false);
-	return true;
+    $sql = 'update ' . getTable('cache') . " set timestamp=now() where cachekey='data_ts'";
+    $GLOBALS['rss_db']->rss_query ($sql, false, false);
+    return true;
 }
 
 ?>
