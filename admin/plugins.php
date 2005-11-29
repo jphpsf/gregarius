@@ -6,7 +6,9 @@ function plugins_admin() {
 
 
 function plugins() {
-    if (isset($_REQUEST[CST_ADMIN_METAACTION]) && $_REQUEST[CST_ADMIN_METAACTION] == 'LBL_ADMIN_SUBMIT_CHANGES') {
+
+		// Submit changes
+    if (isset($_POST['admin_plugin_submit_changes'])) {
         $active_plugins=array();
         foreach($_REQUEST as $rkey=>$rentry) {
             if (preg_match('/_gregarius_plugin.([a-zA-Z0-9_\/\-]+).php/',$rkey,$matches)) {
@@ -20,13 +22,18 @@ function plugins() {
         $active_plugins= getConfig('rss.config.plugins');
     }
 
+
+		// Check for updates
     $doUpdates = false;
     $updates = array();
-    if  (isset($_REQUEST[CST_ADMIN_METAACTION]) && $_REQUEST[CST_ADMIN_METAACTION] == 'LBL_ADMIN_PLUGINS_CHECK_UPDATES') {
+    if  (isset($_POST['admin_plugin_check_for_updates'])) {
         $updates = plugins_check_for_updates();
         $doUpdates = true;
     }
 
+
+
+		// Rendering
     echo "<h2 class=\"trigger\">".LBL_ADMIN_PLUGINS."</h2>\n"
     ."<div id=\"admin_plugins\">\n";
 
@@ -92,14 +99,9 @@ function plugins() {
         }
     }
     echo "</table>\n";
-    echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\"/>\n"
-    ."<input type=\"submit\" value=\"".LBL_ADMIN_SUBMIT_CHANGES."\" /></p>\n";
-    echo "\n</form>";
-
-    echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
-    echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_PLUGINS."\" />\n";
-    echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_PLUGINS_CHECK_UPDATES\"/>\n";
-    echo "<input type=\"submit\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p></form>\n";
+    echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\"/>\n";
+    echo "<input type=\"submit\" name=\"admin_plugin_submit_changes\" value=\"".LBL_ADMIN_SUBMIT_CHANGES."\" />\n";        
+    echo "<input type=\"submit\" name=\"admin_plugin_check_for_updates\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p></form>\n";
 
 
     echo "</div>";
