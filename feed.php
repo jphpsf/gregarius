@@ -772,10 +772,11 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
                     $sqlWhere .= " and dayofmonth(ifnull(i.pubdate,i.added))= $d ";
                 }
             }
-
+            $sqlLimit = 0;
             if ( $m==0 && $y==0 ) {
                 $sqlLimit = getConfig('rss.output.itemsinchannelview');
-            } else {
+            }
+            if ($sqlimit == 0) {
                 $sqlLimit = 9999;
             }
             /*
@@ -880,7 +881,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
     if (isset($_REQUEST['channel'])) {
         $escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
     } else {
-    	$escaped_title = null;
+        $escaped_title = null;
     }
     // where are we anyway?
     if ($y > 0 && $m > 0 && $d > 0) {
