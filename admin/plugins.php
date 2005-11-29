@@ -30,6 +30,9 @@ function plugins() {
     echo "<h2 class=\"trigger\">".LBL_ADMIN_PLUGINS."</h2>\n"
     ."<div id=\"admin_plugins\">\n";
 
+
+		echo LBL_ADMIN_PLUGINS_GET_MORE;
+
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_PLUGINS."\" /></p>\n";
     echo "\n<table id=\"plugintable\">\n<tr>\n"
@@ -81,7 +84,7 @@ function plugins() {
                     echo "<td class=\"cntr\">";
                     echo "<a href=\"$updateDl\">$lastV</a>";
                     echo "</td>";
-                } else {
+                } elseif($doUpdates) {
                     echo "<td>&nbsp;</td>";
                 }
                 echo "</tr>\n";

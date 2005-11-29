@@ -276,4 +276,10 @@ define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> You are successfully 
 			.'logged in as %s, but you don\\\'t have administration privileges. Log in again '
 			.'with administration privileges or follow your way <a href="..">home</a>');
 			
+
+define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
+.'Plugins are third-party scripts that offer extended functionalities. '
+.'More plugins can be downloaded at the <a style="text-decoration:underline" '
+.' href="http://plugins.gregarius.net/">Plugin Repository</a>.</p>');
+
 ?>
