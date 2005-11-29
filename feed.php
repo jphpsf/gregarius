@@ -776,7 +776,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
             if ( $m==0 && $y==0 ) {
                 $sqlLimit = getConfig('rss.output.itemsinchannelview');
             }
-            if ($sqlimit == 0) {
+            if ($sqlLimit == 0) {
                 $sqlLimit = 9999;
             }
             /*
