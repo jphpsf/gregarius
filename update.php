@@ -48,7 +48,10 @@ if (array_key_exists('js',$_GET)) {
 
 
 $browser = new Browser();
-$silent = array_key_exists('silent', $_GET);
+
+$cline = isset($argv);
+$silent = array_key_exists('silent', $_GET) || ($cline && in_array('--silent',$argv));
+
 
 $GLOBALS['rss'] -> header = new Header(
 			LBL_TITLE_UPDATING, 
@@ -61,9 +64,11 @@ $GLOBALS['rss'] -> header = new Header(
 $GLOBALS['rss'] -> feedList = new FeedList(false);
 
 
-
 // Instantiate a different Update object, depending on the client
-if (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPush()) {
+if ($cline && !$silent) {
+	$update = new CommandLineUpdate();
+	
+} elseif (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPush()) {
 	$update = new HTTPServerPushUpdate();	
 	
 } elseif(!$silent && $browser->supportsAJAX()) {
@@ -75,7 +80,7 @@ if (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPu
 }
 
 $GLOBALS['rss'] -> appendContentObject($update);
-if (!$silent) {
+if (!$silent && !$cline) {
 	$GLOBALS['rss'] -> renderWithTemplate('index.php','update');
 } else {
 	$update->render();
