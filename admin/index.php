@@ -170,7 +170,11 @@ function admin_main($authorised) {
             default:
             }
         } else {
-            dashboard();
+            if(true == getConfig('rss.config.defaultdashboard')) {
+                dashboard();
+            } else {
+                channels();
+            }
         }
 
         echo "\n<div class=\"clearer\"></div>\n";
