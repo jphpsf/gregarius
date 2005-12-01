@@ -49,7 +49,7 @@ if (array_key_exists('js',$_GET)) {
 
 $browser = new Browser();
 
-$cline = isset($argv);
+$cline = isset($argv) && !$_REQUEST;
 $silent = array_key_exists('silent', $_GET) || ($cline && in_array('--silent',$argv));
 
 
