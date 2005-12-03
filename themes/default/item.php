@@ -1,12 +1,12 @@
 <li class="<?php echo rss_item_css_class(); ?>">
 	<?php if(rss_item_permalink()) { ?>
 	<a class="plink" title="<?php echo rss_item_pl_title(); ?>" href="<?php echo rss_item_pl_url(); ?>">
-		<img src="<?php echo rss_theme_path(); ?>/media/pl.gif" alt="<?php echo rss_item_pl_title(); ?>" />
+		<img src="<?php echo getExternalThemeFile('media/pl.gif'); ?>" alt="<?php echo rss_item_pl_title(); ?>" />
 	</a>
 	<?php } ?>
 	<?php if(!hidePrivate()) { ?>
 	<a id="sa<?php echo rss_item_id(); ?>" href="#" onclick="_es(<?php echo rss_item_id(); ?>,<?php echo rss_item_flags(); ?>); return false;">
-		<img src="<?php echo rss_theme_path(); ?>/media/edit.gif" alt="edit" />
+		<img src="<?php echo getExternalThemeFile('media/edit.gif'); ?>" alt="edit" />
 	</a>
 	<?php } ?>
 	<?php rss_plugin_hook("rss.plugins.items.beforetitle", rss_item_id()); ?>

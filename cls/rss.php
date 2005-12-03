@@ -64,6 +64,15 @@ class RSS {
 	}
 	
 	function getTemplateFile($file) {
+		static $cache;
+		
+		if (!$cache) {
+			$cache = array();
+		} elseif (isset($cache[$file])) {
+			return $cache[$file];
+		}
+		
+		
 		$theme = getConfig('rss.output.theme');
 		if (defined('THEME_OVERRIDE')) {
 			$theme = THEME_OVERRIDE;
@@ -101,6 +110,8 @@ class RSS {
 		if (!file_exists($theme_check)) {
 			$ret= RSS_THEME_DIR."/default/$file";
 		}
+		
+		$cache[$file] = $ret;
 		
 		return $ret;
 	}

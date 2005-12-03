@@ -1007,4 +1007,6 @@ function cacheFavicon($icon) {
     }
     return false;
 }
+
+
 ?>

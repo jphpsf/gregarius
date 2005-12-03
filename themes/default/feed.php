@@ -3,7 +3,7 @@
 <h3<?php echo rss_feed_class(); ?>>
 <?php if(rss_feed_allow_collapsing()) { ?>
 <a class="<?php echo (rss_feed_collapsed()?"expand":"collapse"); ?>" href="#" onclick="<?php echo rss_feed_expand_collapse_js(); ?>">
-	<img src="<?php echo rss_theme_path(); ?>/media/<?php echo (rss_feed_collapsed()?"plus":"minus"); ?>.gif" alt="" <?php echo rss_feed_id("cli"); ?>/>
+	<img src="<?php echo getExternalThemeFile('media/'. (rss_feed_collapsed()?"plus":"minus") . '.gif'); ?>" alt="" <?php echo rss_feed_id("cli"); ?>/>
 </a>
 
 <?php } elseif (rss_feed_do_favicon()) { ?>

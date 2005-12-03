@@ -35,4 +35,8 @@ function rss_theme_path() {
 	return getPath(). RSS_THEME_DIR."/$theme";
 }
 
+function getExternalThemeFile($fn) {
+	return getPath() . $GLOBALS['rss'] -> getTemplateFile($fn);
+}
+
 ?>
