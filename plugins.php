@@ -33,11 +33,11 @@ require_once('init.php');
  * references of installed plugin's callback functions
  */
 function & __getHooksArray() {
-	static $__rss_hooks;
-	if ($__rss_hooks == null) {
-		$__rss_hooks = array();
-	}
-	return ($__rss_hooks);
+    static $__rss_hooks;
+    if ($__rss_hooks == null) {
+        $__rss_hooks = array();
+    }
+    return ($__rss_hooks);
 }
 
 /**
@@ -45,12 +45,12 @@ function & __getHooksArray() {
  * given hook
  */
 function rss_set_hook($hook,$fnct) {
-	 $hooks =& __getHooksArray();
-	 if (array_key_exists($hook, $hooks)) {
-		  $hooks[$hook][] = $fnct;
-	 } else {
-		  $hooks[$hook]=array($fnct);
-	 }
+    $hooks =& __getHooksArray();
+    if (array_key_exists($hook, $hooks)) {
+        $hooks[$hook][] = $fnct;
+    } else {
+        $hooks[$hook]=array($fnct);
+    }
 }
 
 /**
@@ -58,17 +58,17 @@ function rss_set_hook($hook,$fnct) {
  * based on the plugins registered functions
  */
 function rss_plugin_hook($hook, $data) {
-	$hooks =& __getHooksArray();
-	if (array_key_exists($hook, $hooks)) {
-		  foreach($hooks[$hook] as $fnct) {
-				if (function_exists($fnct)) {
-				     _pf("calling plugin func for $hook ...");
-					 $data = call_user_func($fnct,$data);
-					 _pf("done");
-				}
-		  }
-	 }
-	 return $data;
+    $hooks =& __getHooksArray();
+    if (array_key_exists($hook, $hooks)) {
+        foreach($hooks[$hook] as $fnct) {
+            if (function_exists($fnct)) {
+                _pf("calling plugin func for $hook ...");
+                $data = call_user_func($fnct,$data);
+                _pf("done");
+            }
+        }
+    }
+    return $data;
 }
 
 
@@ -78,14 +78,14 @@ function rss_plugin_hook($hook, $data) {
  * them
  */
 foreach(getConfig('rss.config.plugins') as $pf) {
-	if (defined('RSS_FILE_LOCATION')) {
-		$prefix = "../";
-	} else {
-		$prefix = "";
-	}
-  if (file_exists($prefix . RSS_PLUGINS_DIR.'/'.$pf)) {
-		require_once($prefix . RSS_PLUGINS_DIR."/$pf");
-  } 
+    if (defined('RSS_FILE_LOCATION')) {
+        $prefix = "../";
+    } else {
+        $prefix = "";
+    }
+    if (file_exists($prefix . RSS_PLUGINS_DIR.'/'.$pf)) {
+        require_once($prefix . RSS_PLUGINS_DIR."/$pf");
+    }
 }
 
 /*
@@ -94,15 +94,14 @@ foreach(getConfig('rss.config.plugins') as $pf) {
  * all plugins def must be inside a unique file called plugins.php that
  * do all the works
  */
-	$mytheme = defined('THEME_OVERRIDE')?constant("THEME_OVERRIDE"):getConfig('rss.output.theme');
+$mytheme = getActualTheme();
 /*
  * If theme is set in the request then let it overide everything. 
  * Then it can have a plugins.php page. 
  */
-	if (isset($_REQUEST['theme'])) {
-		    $mytheme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
-	}
-	$mythemeplugin=RSS_THEME_DIR."/$mytheme/plugins.php";
-	if (file_exists($mythemeplugin)) require_once($mythemeplugin);
+
+$mythemeplugin=RSS_THEME_DIR."/$mytheme/plugins.php";
+if (file_exists($mythemeplugin))
+    require_once($mythemeplugin);
 
 ?>

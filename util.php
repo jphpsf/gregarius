@@ -1008,5 +1008,23 @@ function cacheFavicon($icon) {
     return false;
 }
 
+function getActualTheme() {
+	 static $theme;
+	 
+	 if ($theme) {
+	 	return $theme;
+	 }
+	 
+	 
+    $theme = getConfig('rss.output.theme');
+    if (defined('THEME_OVERRIDE')) {
+        $theme = THEME_OVERRIDE;
+    }
+    elseif (isset($_REQUEST['theme'])) {
+        $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
+    }
+    
+    return $theme;
+}
 
 ?>

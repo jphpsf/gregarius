@@ -107,12 +107,7 @@ if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
 }
 
 // Theme  specific l10n handling
-$theme = defined('THEME_OVERRIDE')?
-	constant("THEME_OVERRIDE"):getConfig('rss.output.theme');
-if (isset($_REQUEST['theme'])) {
-	$theme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
-}
-
+$theme = getActualTheme();
 if (file_exists(RSS_THEME_DIR."/$theme/intl/$lang.php")) {
 	rss_require(RSS_THEME_DIR."/$theme/intl/$lang.php");
 } elseif ($lang != "en" && file_exists(RSS_THEME_DIR."/$theme/intl/en.php")) {
