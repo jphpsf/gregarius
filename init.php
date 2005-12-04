@@ -26,16 +26,16 @@
 ###############################################################################
 
 function rss_require($file,$once=true) {
-   if (!defined('GREGARIUS_HOME')) {
-	  define('GREGARIUS_HOME',dirname(__FILE__) . "/");
-	}
- 
-   $required_file = GREGARIUS_HOME.  $file;
-   if ($once) {
+    if (!defined('GREGARIUS_HOME')) {
+        define('GREGARIUS_HOME',dirname(__FILE__) . "/");
+    }
+
+    $required_file = GREGARIUS_HOME.  $file;
+    if ($once) {
         require_once($required_file);
-   } else {
+    } else {
         require($required_file);
-   }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -69,10 +69,10 @@ if (getConfig('rss.meta.debug')) {
     error_reporting(E_ALL);
 } else {
     error_reporting(0);
-}   
+}
 
 if (!isset($GLOBALS['rss'])) {
-	rss_require('cls/rss.php');
+    rss_require('cls/rss.php');
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,12 +80,18 @@ if (!isset($GLOBALS['rss'])) {
 //
 
 _pf('parsing classes:');
-rss_require('cls/errorhandler.php'); _pf(' ... errorhandler.php');
-rss_require('cls/items.php');        _pf(' ... items.php');
-rss_require("cls/channels.php");     _pf(' ... channels.php');
-rss_require('cls/sidemenu.php');	 _pf(' ... sidemenu.php');
-rss_require("cls/header.php");       _pf(' ... header.php');
-rss_require("cls/nav.php");          _pf(' ... nav.php');
+rss_require('cls/errorhandler.php');
+_pf(' ... errorhandler.php');
+rss_require('cls/items.php');
+_pf(' ... items.php');
+rss_require("cls/channels.php");
+_pf(' ... channels.php');
+rss_require('cls/sidemenu.php');
+_pf(' ... sidemenu.php');
+rss_require("cls/header.php");
+_pf(' ... header.php');
+rss_require("cls/nav.php");
+_pf(' ... nav.php');
 
 _pf('parsing remaining files...');
 rss_require('plugins.php');
@@ -109,28 +115,35 @@ if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
 // Theme  specific l10n handling
 $theme = getActualTheme();
 if (file_exists(RSS_THEME_DIR."/$theme/intl/$lang.php")) {
-	rss_require(RSS_THEME_DIR."/$theme/intl/$lang.php");
-} elseif ($lang != "en" && file_exists(RSS_THEME_DIR."/$theme/intl/en.php")) {
-		  rss_require(RSS_THEME_DIR."/$theme/intl/en.php");
+    rss_require(RSS_THEME_DIR."/$theme/intl/$lang.php");
+}
+elseif ($lang != "en" && file_exists(RSS_THEME_DIR."/$theme/intl/en.php")) {
+    rss_require(RSS_THEME_DIR."/$theme/intl/en.php");
 }
 
-
+//
+if (file_exists(RSS_THEME_DIR."/$theme/overrides.php")) {
+	rss_require(RSS_THEME_DIR."/$theme/overrides.php");
+}
 
 // Load the right locale
 if (defined('OVERRIDE_LOCALE')) {
-	setlocale(LC_TIME,constant("OVERRIDE_LOCALE"));
-} elseif (isset($_SERVER["WINDIR"]) && defined("LOCALE_WINDOWS")) {
-	setlocale(LC_TIME,constant("LOCALE_WINDOWS"));
-} elseif (defined("LOCALE_LINUX")) { 
-	setlocale(LC_TIME,constant("LOCALE_LINUX"));
-} else {
-	//last chance, we try to guess it
-	$mylocale=strtolower(getConfig('rss.output.lang'));
-	$mylocale.="_".strtoupper($mylocale);
-	if (!setlocale(LC_TIME,$mylocale)) {
-		// very last resort: try to load the system locale
-		setlocale(LC_TIME,"");
-	}
+    setlocale(LC_TIME,constant("OVERRIDE_LOCALE"));
+}
+elseif (isset($_SERVER["WINDIR"]) && defined("LOCALE_WINDOWS")) {
+    setlocale(LC_TIME,constant("LOCALE_WINDOWS"));
+}
+elseif (defined("LOCALE_LINUX")) {
+    setlocale(LC_TIME,constant("LOCALE_LINUX"));
+}
+else {
+    //last chance, we try to guess it
+    $mylocale=strtolower(getConfig('rss.output.lang'));
+    $mylocale.="_".strtoupper($mylocale);
+    if (!setlocale(LC_TIME,$mylocale)) {
+        // very last resort: try to load the system locale
+        setlocale(LC_TIME,"");
+    }
 }
 
 

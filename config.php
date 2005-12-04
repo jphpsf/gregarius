@@ -51,6 +51,10 @@ function getConfig($key,$allowRecursion = true) {
 			}
 		}
 	}
+	
+	if (defined('RSS_CONFIG_OVERRIDE_' . strtoupper(preg_replace('/\./','_',$key)))) {
+		return constant('RSS_CONFIG_OVERRIDE_' . strtoupper(preg_replace('/\./','_',$key)));
+	}
     
     if (array_key_exists($key,$config)) {
     	return $config[$key]['value'];
