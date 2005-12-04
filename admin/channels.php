@@ -519,6 +519,7 @@ function channel_admin() {
 
     case CST_ADMIN_SUBMIT_EDIT:
         $cid = $_REQUEST['cid'];
+        rss_plugin_hook('rss.plugins.admin.feed.properties.submit', null);
         $title= rss_real_escape_string(real_strip_slashes($_REQUEST['c_name']));
         $url= rss_real_escape_string($_REQUEST['c_url']);
         $siteurl= rss_real_escape_string($_REQUEST['c_siteurl']);
@@ -796,6 +797,8 @@ function channel_edit_form($cid) {
         echo "<p><input type=\"hidden\" name=\"c_icon\" id=\"c_icon\" value=\"$icon\"/></p>\n";
     }
 
+		rss_plugin_hook('rss.plugins.admin.feed.properties', $cid);
+		
     echo "<p><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\"/></p>"
     ."</form></div>\n";
 }
