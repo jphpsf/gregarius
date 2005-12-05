@@ -1,13 +1,21 @@
 <?php
 
+
 function plugins_admin() {
     return CST_ADMIN_DOMAIN_PLUGINS;
 }
 
+function plugin_options_admin() {
+    if (array_key_exists('plugin_name',$_REQUEST)) {
+        return CST_ADMIN_DOMAIN_PLUGIN_OPTIONS;
+    } else {
+        return CST_ADMIN_DOMAIN_PLUGINS;
+    }
+}
 
 function plugins() {
 
-		// Submit changes
+    // Submit changes
     if (isset($_POST['admin_plugin_submit_changes'])) {
         $active_plugins=array();
         foreach($_REQUEST as $rkey=>$rentry) {
@@ -22,8 +30,7 @@ function plugins() {
         $active_plugins= getConfig('rss.config.plugins');
     }
 
-
-		// Check for updates
+    // Check for updates
     $doUpdates = false;
     $updates = array();
     if  (isset($_POST['admin_plugin_check_for_updates'])) {
@@ -33,12 +40,12 @@ function plugins() {
 
 
 
-		// Rendering
+    // Rendering
     echo "<h2 class=\"trigger\">".LBL_ADMIN_PLUGINS."</h2>\n"
     ."<div id=\"admin_plugins\">\n";
 
 
-		echo LBL_ADMIN_PLUGINS_GET_MORE;
+    echo LBL_ADMIN_PLUGINS_GET_MORE;
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_PLUGINS."\" /></p>\n";
@@ -47,7 +54,8 @@ function plugins() {
     ."<th>".LBL_ADMIN_PLUGINS_HEADING_NAME."</th>\n"
     ."<th>".LBL_ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
     ."<th>".LBL_ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
-    ."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n";
+    ."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
+    ."<th>".LBL_ADMIN_PLUGINS_HEADING_OPTIONS."</th>\n";
     if ($doUpdates) {
         echo "<th>".LBL_ADMIN_PLUGINS_HEADING_UPDATES."</th>\n";
     }
@@ -62,8 +70,6 @@ function plugins() {
         foreach($rss_plugins as $entry => $info ) {
             $active= in_array($entry,$active_plugins);
             if (count($info)) {
-
-
                 $updateDl = null;
                 if (is_array($updates) && array_key_exists($info['file'],$updates)) {
                     $lastV = $updates[$info['file']][0];
@@ -82,16 +88,33 @@ function plugins() {
                 ." id=\"_gregarius_plugin_$entry\" value=\"1\" "
                 .($active?"checked=\"checked\"":"")." />\n"
                 ."</td>\n";
-                echo "<td><label for=\"_gregarius_plugin_$entry\">".(array_key_exists('name',$info)?$info['name']:"&nbsp"). "</label></td>\n";
-                echo "<td class=\"cntr\">"	.(array_key_exists('version',$info)?$info['version']:"&nbsp"). "</td>\n";
+                echo "<td><label
+                for=\"_gregarius_plugin_$entry\">".(array_key_exists('name',$info)?$info['name']:"&nbsp").
+                "</label></td>\n";
+                echo "<td class=\"cntr\">"
+                .(array_key_exists('version',$info)?$info['version']:"&nbsp"). "</td>\n";
                 echo "<td>"	.(array_key_exists('author',$info)?$info['author']:"&nbsp"). "</td>\n";
                 echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp"). "</td>\n";
+
+                // output the column to call a plugin's config page.
+                echo "<td>";
+                if(array_key_exists('configuration',$info)) {
+                    $escaped_plugin_name = str_replace("/", "%2F", $entry);
+                    echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=".
+                    CST_ADMIN_DOMAIN_PLUGIN_OPTIONS
+                    ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;plugin_name=".$escaped_plugin_name."\">" . LBL_ADMIN_EDIT
+                    ."</a>";
+                } else {
+                    echo "&nbsp";
+                }
+                echo "</td>\n";
 
                 if ($doUpdates && $updateDl) {
                     echo "<td class=\"cntr\">";
                     echo "<a href=\"$updateDl\">$lastV</a>";
                     echo "</td>";
-                } elseif($doUpdates) {
+                }
+                elseif($doUpdates) {
                     echo "<td>&nbsp;</td>";
                 }
                 echo "</tr>\n";
@@ -100,13 +123,29 @@ function plugins() {
     }
     echo "</table>\n";
     echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\"/>\n";
-    echo "<input type=\"submit\" name=\"admin_plugin_submit_changes\" value=\"".LBL_ADMIN_SUBMIT_CHANGES."\" />\n";        
+    echo "<input type=\"submit\" name=\"admin_plugin_submit_changes\" value=\"".LBL_ADMIN_SUBMIT_CHANGES."\" />\n";
     echo "<input type=\"submit\" name=\"admin_plugin_check_for_updates\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p></form>\n";
-
-
     echo "</div>";
 }
 
+function plugin_options() {
+    if (!array_key_exists('plugin_name',$_REQUEST)) {
+        return;
+    }
+    $plugin_filename = $_REQUEST['plugin_name'];
+    $plugin_filename = str_replace("%2F", "/", $plugin_filename);
+    if (preg_match('/([a-zA-Z0-9_\/\-]+).php/',$plugin_filename,$matches)) {
+        $plugin_filename = $matches[1] .".php"; // sanitize input
+        $plugin_info = getPluginInfo($plugin_filename);
+        if($plugin_info && array_key_exists('configuration', $plugin_info)) {
+            $plugin_config_func = $plugin_info['configuration'];
+            require_once("../".RSS_PLUGINS_DIR. "/" . $plugin_filename);
+            if(function_exists($plugin_config_func)) {
+                call_user_func($plugin_config_func); // Are you happy now?
+            }
+        }
+    }
+}
 
 
 /**
@@ -232,6 +271,76 @@ function plugins_xml_startElement($xp, $element, $attr) {
 function plugins_xml_endElement($xp, $element) {
     ///global $pluginsxml;
     return;
+}
+
+/**
+ * Wrapper functions for plugins
+ */
+function rss_plugins_add_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
+    if (!$key || !$value) {
+        return false;
+    }
+    $pKey = "plugins." . rss_real_escape_string($key);
+
+
+    // first check for duplicates
+    $res = rss_query("select value_,default_,type_ from " .getTable('config') . " where key_='$pKey'");
+    if(!rss_num_rows($res)) { // Then insert the config value
+        $value = rss_real_escape_string($value);
+        $default = $default? $default: $value;
+        return rss_query("insert into " . getTable("config")
+                         . " (key_,value_,default_,type_,desc_,export_) VALUES ("
+                         . "'$pKey','$value','$default','$type','$desc','$export')" );
+    } else { // the key exists, so update the option
+        return rss_plugins_update_option($key, $value, $type, $default, $desc, $export);
+    }
+
+
+}
+
+function rss_plugins_update_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
+    $pKey = "plugins." . rss_real_escape_string($key);
+    $value = rss_real_escape_string($value);
+    return rss_query("update " . getTable("config") . " set value_=" .
+                     $value . " where key_ ='$pKey'");
+}
+
+function rss_plugins_get_option($key) {
+    if (!$key) {
+        return;
+    }
+    $pKey = "plugins." . rss_real_escape_string($key);
+    $res = rss_query("select value_ from " . getTable("config") . " where key_='$pKey'");
+    $res_count = rss_num_rows($res);
+    if ($res_count == 1) {
+        list($value) = rss_fetch_row($res);
+        return $value; // should we unescape the string?
+    } else {
+        return;
+    }
+
+}
+
+function rss_plugins_delete_option($key) {
+    if (!$key) {
+        return;
+    }
+    $pKey = "plugins." . rss_real_escape_string($key);
+    return rss_query("delete from " . getTable("config") . " where key_='$pKey'");
+
+}
+
+function rss_plugins_redirect_to_admin() {
+    rss_redirect("/admin/index.php?" . CST_ADMIN_VIEW . "=" . CST_ADMIN_DOMAIN_PLUGINS);
+}
+
+function rss_plugins_redirect_to_plugin_config($filename) {
+    rss_redirect("/admin/index.php" . "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_PLUGIN_OPTIONS ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;plugin_name=" . $filename);
+}
+
+function rss_plugins_get_plugins_http_path() {
+    //returns http://example.com/rss/plugins/
+    return guessTransportProto().$_SERVER['HTTP_HOST'] . getPath() . RSS_PLUGINS_DIR . "/";
 }
 
 ?>

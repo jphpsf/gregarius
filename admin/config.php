@@ -39,17 +39,18 @@ function config() {
     ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
     ."</tr>\n";
 
-    $sql = "select * from " .getTable("config") ." order by key_ asc";
+    $sql = "select * from " .getTable("config") ." where key_ like
+           'rss.%' order by key_ asc";
 
     $res = rss_query($sql);
     $cntr = 0;
     while ($row = rss_fetch_assoc($res)) {
         $value =  real_strip_slashes($row['value_']);
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
-        
+
         // Fix for #279. Plugins have their own section.
         if ($row['key_'] == 'rss.config.plugins') {
-        	continue;
+            continue;
         }
 
         echo "<tr class=\"$class_\">\n"

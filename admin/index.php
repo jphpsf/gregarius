@@ -62,6 +62,7 @@ define ('CST_ADMIN_DOMAIN_ITEM','items');
 define ('CST_ADMIN_DOMAIN_CONFIG','config');
 define ('CST_ADMIN_DOMAIN_OPML','opml');
 define ('CST_ADMIN_DOMAIN_PLUGINS','plugins');
+define ('CST_ADMIN_DOMAIN_PLUGIN_OPTIONS','plugin_options');
 
 // OPML import target
 define ('CST_ADMIN_OPML_IMPORT_WIPE',1);
@@ -111,7 +112,6 @@ admin_footer();
 function admin_main($authorised) {
 
     echo "\n<div id=\"channel_admin\" class=\"frame\">";
-
     if ($authorised) {
         admin_menu();
         if (array_key_exists(CST_ADMIN_DOMAIN,$_REQUEST)) {
@@ -130,6 +130,9 @@ function admin_main($authorised) {
                 break;
             case CST_ADMIN_DOMAIN_PLUGINS:
                 $show = plugins_admin();
+                break;
+            case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
+                $show = plugin_options_admin();
                 break;
             default:
                 break;
@@ -166,6 +169,9 @@ function admin_main($authorised) {
                 break;
             case CST_ADMIN_DOMAIN_PLUGINS:
                 plugins();
+                break;
+            case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
+                plugin_options();
                 break;
             default:
             }
