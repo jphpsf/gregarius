@@ -129,20 +129,46 @@ function plugins() {
 }
 
 function plugin_options() {
-    if (!array_key_exists('plugin_name',$_REQUEST)) {
+    if (!array_key_exists('plugin_name',$_REQUEST) ||
+            array_key_exists('admin_plugin_options_cancel_changes', $_REQUEST)) {
+        plugins();
         return;
     }
     $plugin_filename = $_REQUEST['plugin_name'];
     $plugin_filename = str_replace("%2F", "/", $plugin_filename);
+    $plugin_output = "";
     if (preg_match('/([a-zA-Z0-9_\/\-]+).php/',$plugin_filename,$matches)) {
         $plugin_filename = $matches[1] .".php"; // sanitize input
         $plugin_info = getPluginInfo($plugin_filename);
         if($plugin_info && array_key_exists('configuration', $plugin_info)) {
             $plugin_config_func = $plugin_info['configuration'];
+            ob_start();
             require_once("../".RSS_PLUGINS_DIR. "/" . $plugin_filename);
             if(function_exists($plugin_config_func)) {
                 call_user_func($plugin_config_func); // Are you happy now?
+                $plugin_output = ob_get_contents();
+
             }
+            ob_end_clean();
+        }
+        if ($plugin_output) { // Let us set up a form
+            echo "<h2
+            class=\"trigger\">".LBL_ADMIN_PLUGINS_OPTIONS." ".TITLE_SEP." ". $plugin_info['name']. "</h2>\n"
+            ."<div id=\"admin_plugin_options\">\n";
+            echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
+            echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN
+            ."\" value=\"".CST_ADMIN_DOMAIN_PLUGIN_OPTIONS."\" /></p>\n";
+            echo $plugin_output;
+            echo "<p><input type=\"hidden\" name=\"plugin_name\" value=\"".$plugin_filename."\"/>\n";
+            echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION
+            ."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\"/>\n";
+            echo "<input type=\"submit\" name=\"admin_plugin_options_submit_changes\" value=\""
+            .LBL_ADMIN_SUBMIT_CHANGES."\" />\n";
+            echo "<input type=\"submit\" name=\"admin_plugin_options_cancel_changes\"
+            value=\"".LBL_ADMIN_CANCEL."\" /></p></form>\n";
+            echo "</div>";
+        } else {
+            plugins();
         }
     }
 }
@@ -341,6 +367,10 @@ function rss_plugins_redirect_to_plugin_config($filename) {
 function rss_plugins_get_plugins_http_path() {
     //returns http://example.com/rss/plugins/
     return guessTransportProto().$_SERVER['HTTP_HOST'] . getPath() . RSS_PLUGINS_DIR . "/";
+}
+
+function rss_plugins_is_submit() {
+	return array_key_exists("admin_plugin_options_submit_changes", $_REQUEST);
 }
 
 ?>

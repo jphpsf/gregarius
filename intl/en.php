@@ -147,6 +147,7 @@ define ('LBL_ADMIN_PLUGINS_HEADING_VERSION','Version');
 define ('LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION','Description');
 define ('LBL_ADMIN_PLUGINS_HEADING_ACTION','Active');
 define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Options');
+define ('LBL_ADMIN_PLUGINS_OPTIONS','Plugin Options');
 
 
 define ('LBL_ADMIN_CHANNEL_EDIT_CHANNEL','Edit the feed ');
