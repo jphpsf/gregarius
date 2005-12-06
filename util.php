@@ -306,7 +306,7 @@ function update($id) {
                  * Ticket #26: Add hook to modify the item just after it 
                  * has been inserted into the database
                  */
-                rss_plugin_hook('rss.plugins.items.newiid',array($newIid,$item));
+                rss_plugin_hook('rss.plugins.items.newiid',array($newIid,$item,$cid));
             }
             elseif (!($state & FEED_MODE_DELETED_STATE) &&
                     getConfig('rss.input.allowupdates') &&

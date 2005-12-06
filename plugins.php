@@ -72,6 +72,60 @@ function rss_plugin_hook($hook, $data) {
 }
 
 
+/***** Plugin options ******/
+
+/**
+ * Wrapper functions for plugins
+ */
+function rss_plugins_add_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
+    if (!$key || !$value) {
+        return false;
+    }
+    $pKey = "plugins." . rss_real_escape_string($key);
+
+
+		if (is_array($value) || $type == 'array') {
+			$value = str_replace("'","\'",serialize($value));
+		}
+    // first check for duplicates
+    $res = rss_query("select value_,default_,type_ from " .getTable('config') . " where key_='$pKey'");
+    if(!rss_num_rows($res)) { // Then insert the config value
+        $value = rss_real_escape_string($value);
+
+        $default = $default? $default: $value;
+        return rss_query("insert into " . getTable("config")
+                         . " (key_,value_,default_,type_,desc_,export_) VALUES ("
+                         . "'$pKey','$value','$default','$type','$desc','$export')" );
+    } else { // the key exists, so update the option
+        return rss_plugins_update_option($key, $value, $type, $default, $desc, $export);
+    }
+
+
+}
+
+function rss_plugins_update_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
+    $pKey = "plugins." . rss_real_escape_string($key);
+    $value = rss_real_escape_string($value);
+    return rss_query("update " . getTable("config") . " set value_='" .
+                     $value . "' where key_ ='$pKey'");
+}
+
+function rss_plugins_get_option($key) {
+    if (!$key) {
+        return false;
+    }
+    return getConfig("plugins.".rss_real_escape_string($key));
+}
+
+function rss_plugins_delete_option($key) {
+    if (!$key) {
+        return;
+    }
+    $pKey = "plugins." . rss_real_escape_string($key);
+    return rss_query("delete from " . getTable("config") . " where key_='$pKey'");
+
+}
+
 
 /**
  * loads the active plugins from the config, instantiates

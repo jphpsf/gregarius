@@ -97,7 +97,7 @@ function plugins() {
                 echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp"). "</td>\n";
 
                 // output the column to call a plugin's config page.
-                echo "<td>";
+                echo "<td  class=\"cntr\">";
                 if(array_key_exists('configuration',$info)) {
                     $escaped_plugin_name = str_replace("/", "%2F", $entry);
                     echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=".
@@ -299,62 +299,6 @@ function plugins_xml_endElement($xp, $element) {
     return;
 }
 
-/**
- * Wrapper functions for plugins
- */
-function rss_plugins_add_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
-    if (!$key || !$value) {
-        return false;
-    }
-    $pKey = "plugins." . rss_real_escape_string($key);
-
-
-    // first check for duplicates
-    $res = rss_query("select value_,default_,type_ from " .getTable('config') . " where key_='$pKey'");
-    if(!rss_num_rows($res)) { // Then insert the config value
-        $value = rss_real_escape_string($value);
-        $default = $default? $default: $value;
-        return rss_query("insert into " . getTable("config")
-                         . " (key_,value_,default_,type_,desc_,export_) VALUES ("
-                         . "'$pKey','$value','$default','$type','$desc','$export')" );
-    } else { // the key exists, so update the option
-        return rss_plugins_update_option($key, $value, $type, $default, $desc, $export);
-    }
-
-
-}
-
-function rss_plugins_update_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
-    $pKey = "plugins." . rss_real_escape_string($key);
-    $value = rss_real_escape_string($value);
-    return rss_query("update " . getTable("config") . " set value_=" .
-                     $value . " where key_ ='$pKey'");
-}
-
-function rss_plugins_get_option($key) {
-    if (!$key) {
-        return;
-    }
-    $pKey = "plugins." . rss_real_escape_string($key);
-    $res = rss_query("select value_ from " . getTable("config") . " where key_='$pKey'");
-    $res_count = rss_num_rows($res);
-    if ($res_count == 1) {
-        list($value) = rss_fetch_row($res);
-        return $value; // should we unescape the string?
-    } else {
-        return;
-    }
-
-}
-
-function rss_plugins_delete_option($key) {
-    if (!$key) {
-        return;
-    }
-    $pKey = "plugins." . rss_real_escape_string($key);
-    return rss_query("delete from " . getTable("config") . " where key_='$pKey'");
-
-}
 
 function rss_plugins_redirect_to_admin() {
     rss_redirect("/admin/index.php?" . CST_ADMIN_VIEW . "=" . CST_ADMIN_DOMAIN_PLUGINS);

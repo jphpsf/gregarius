@@ -31,7 +31,7 @@ function getConfig($key,$allowRecursion = true) {
    static $config;
 	if ($config == null) {
 		$cfgQry = "select key_,value_,default_,type_,desc_,export_ "
-		  ." from " .getTable("config") ."  where key_ LIKE 'rss.%'";
+		  ." from " .getTable("config");
 		
 		$res = rss_query($cfgQry);		
 		
