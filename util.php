@@ -641,7 +641,16 @@ function extractFeeds($url) {
                         if(substr($val,0,2) == "//") {
                             $val = preg_replace('/\/\/.*/', $val, $url);
                         } else {
-                            $val = ($url.$val);
+                        	 $urlParts = parse_url($url);
+                        	 if ($urlParts && is_array($urlParts)) {
+                        	 	if ($val[0] != '/') {
+                        	 		$val = '/'.$val;
+                        	 	}
+                        	 	$val = $urlParts['scheme'] . '://' 
+                        	 	 .$urlParts['host'] . $val;
+                        	 } else {
+                            	$val = ($url.$val);
+                            }
                         }
                     }
                     $tmp[$attr] = $val;

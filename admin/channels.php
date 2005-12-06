@@ -248,11 +248,12 @@ function channel_admin() {
 
         // handle "feed:" urls
         if (substr($label, 0,5) == 'feed:') {
-		if (substr($label, 0, 11 ) == "feed://http") {
-            		$label = substr($label,5);
-		} else { // handle feed://example.com/rss.xml urls
-			$label = "http:" . substr($label,5);
-		}
+
+            if (substr($label, 0, 11 ) == "feed://http") {
+                $label = substr($label,5);
+            } else { // handle feed://example.com/rss.xml urls
+                $label = "http:" . substr($label,5);
+            }
         }
 
         if ($label != 'http://' &&	substr($label, 0,4) == "http") {
@@ -797,8 +798,8 @@ function channel_edit_form($cid) {
         echo "<p><input type=\"hidden\" name=\"c_icon\" id=\"c_icon\" value=\"$icon\"/></p>\n";
     }
 
-		rss_plugin_hook('rss.plugins.admin.feed.properties', $cid);
-		
+    rss_plugin_hook('rss.plugins.admin.feed.properties', $cid);
+
     echo "<p><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\"/></p>"
     ."</form></div>\n";
 }
