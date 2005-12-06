@@ -263,6 +263,8 @@ define ('LBL_ADMIN_LOGIN','Please log in');
 
 define ('LBL_ADMIN_PLUGINS','Plugins');
 define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','plugins');
+define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Options');
+define ('LBL_ADMIN_PLUGINS_OPTIONS','Plugin Options');
 define ('LBL_ADMIN_CHECK_FOR_UPDATES','Check for Updates');
 define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Bad login/password');
 define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> You are successfully '
