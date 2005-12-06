@@ -27,8 +27,11 @@
 
 rss_require('util.php');
 
-function getConfig($key,$allowRecursion = true) {
+function getConfig($key,$allowRecursion = true, $invalidateCache = false) {
    static $config;
+   if ($invalidateCache) {
+   	$config = null;
+   }
 	if ($config == null) {
 		$cfgQry = "select key_,value_,default_,type_,desc_,export_ "
 		  ." from " .getTable("config");
@@ -66,6 +69,10 @@ function getConfig($key,$allowRecursion = true) {
     }
     
     return null;
+}
+
+function configInvalidate() {
+	getConfig('dummy',true,true);
 }
 
 function configRealValue($value_,$type_) {
