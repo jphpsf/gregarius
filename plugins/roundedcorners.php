@@ -64,10 +64,12 @@ rendering bug */
 function __roundedCornersCheckjs ($dummy) {
 ?>
       <script type="text/javascript">
+      <!--
       	var theMainDivsOfItems = document.getElementById("items");	
-	if (theMainDivsOfItems && (theMainDivsOfItems.offsetHeight > 29000)) {
-	    theMainDivsOfItems.style.MozBorderRadius = 0;
-	}
+		if (theMainDivsOfItems && (theMainDivsOfItems.offsetHeight > 29000)) {
+			theMainDivsOfItems.style.MozBorderRadius = 0;
+		}
+	   -->
       </script>
 <?php
    return $dummy;
