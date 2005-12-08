@@ -272,6 +272,9 @@ function update($id) {
                 continue;
             }
             $dbtitle = rss_real_escape_string($title);
+            if (strlen($dbtitle) >= 255) {
+                $dbtitle=substr($dbtitle,0,254);
+            }
             // check wether we already have this item
             $sql = "select id,length(description),unread from ".getTable("item")." where cid=$cid and url='$url' and title='$dbtitle'";
             $subres = rss_query($sql);

@@ -237,6 +237,7 @@ function channel_admin() {
 
     $ret__ = CST_ADMIN_DOMAIN_NONE;
     switch ($__action__) {
+
     case LBL_ADMIN_ADD:
     case 'LBL_ADMIN_ADD':
     case 'Add':
