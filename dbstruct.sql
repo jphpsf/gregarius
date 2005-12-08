@@ -59,7 +59,6 @@ CREATE TABLE `item` (
   `unread` tinyint(4) default '1',
   `pubdate` datetime default NULL,
   `author` varchar(255) default NULL,
-  `md5check` varchar(32) default NULL,
   PRIMARY KEY  (`id`),
   KEY `url` (`url`),
   KEY `cid` (`cid`)
