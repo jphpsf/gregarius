@@ -128,7 +128,20 @@ function checkSchemaColumns($column) {
 					. rss_sql_error_message(), RSS_ERROR_ERROR);
 			}
 		break;
-		
+
+		case 'i.md5check':
+		case 'md5check':
+			// item's md5 of description
+			rss_query('alter table ' . getTable('item') . ' add column md5check varchar(32) null');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error('updated schema for table ' . getTable('item'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error('Failed updating schema for table ' . getTable('item') . ': '
+					. rss_sql_error_message(), RSS_ERROR_ERROR);
+			}
+		break;
+	
 		case 'm.tdate':
 		case 'tdate':
 			// tag date
@@ -339,6 +352,7 @@ function _init_item() {
 		  unread tinyint(4) default '1',
 		  pubdate datetime default NULL,
 		  author varchar(255) default NULL,		  
+		  md5check varchar(32) default NULL,		  
 		  PRIMARY KEY  (id),
 		  KEY url (url),
 		  KEY cid (cid)

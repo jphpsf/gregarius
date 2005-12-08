@@ -179,31 +179,36 @@ function update($id) {
             //$title = strip_tags($item['title']);
             $title = array_key_exists('title', $item) ? strip_tags($item['title']) : "";
             //$title = str_replace('& ', '&amp; ', $title);
+            $description = "";
+            $md5check = "";
             // item content, if any
             if (array_key_exists('content', $item) && is_array($item['content']) && array_key_exists('encoded', $item['content'])) {
-                $description = kses($item['content']['encoded'], $kses_allowed);
+                $description = $item['content']['encoded'];
             }
             elseif (array_key_exists('description', $item)) {
-                $description = kses($item['description'], $kses_allowed);
+                $description = $item['description'];
             }
             elseif (array_key_exists('atom_content', $item)) {
-                $description = kses($item['atom_content'], $kses_allowed);
+                $description = $item['atom_content'];
             }
             elseif (array_key_exists('summary', $item)) {
-                $description = kses($item['summary'], $kses_allowed);
+                $description = $item['summary'];
             }
             else {
                 $description = "";
             }
 
-            if ($description != "" && $baseUrl != "") {
-                //$description = make_abs($description, $baseUrl);
-                $description = relative_to_absolute($description, $baseUrl);
-            }
+            if($description != "") {
+                $md5check = md5($description);
+                $description = kses($description, $kses_allowed);
 
-            if ($description != "") {
+                if ($baseUrl != "") {
+                    $description = relative_to_absolute($description, $baseUrl);
+                }
+
                 $description = rss_plugin_hook('rss.plugins.import.description', $description);
             }
+
 
             // link
             if (array_key_exists('link', $item) && $item['link'] != "") {
@@ -273,9 +278,9 @@ function update($id) {
             }
             $dbtitle = rss_real_escape_string($title);
             // check wether we already have this item
-            $sql = "select id,length(description),unread from ".getTable("item")." where cid=$cid and url='$url' and title='$dbtitle'";
+            $sql = "select id,length(description),unread,md5check from ".getTable("item")." where cid=$cid and url='$url' and title='$dbtitle'";
             $subres = rss_query($sql);
-            list ($indb, $dbdesc_len, $state) = rss_fetch_row($subres);
+            list ($indb, $dbdesc_len, $state, $dbmd5check) = rss_fetch_row($subres);
 
             if ($cDate > 0) {
                 $sec = "FROM_UNIXTIME($cDate)";
@@ -290,11 +295,12 @@ function update($id) {
 
                 $sql = "insert into ".getTable("item")
                        ." (cid, added, title, url, enclosure,"
-                       ." description, author, unread, pubdate) "
+                       ." description, author, md5check, unread, pubdate) "
                        ." values ("."$cid, now(), '$dbtitle', "
                        ." '$url', '".rss_real_escape_string($enclosure)."', '"
                        .rss_real_escape_string($description)."', '"
-                       .rss_real_escape_string($author)."', "
+                       .rss_real_escape_string($author)."', '"
+		       .$md5check."', "
                        ."$mode, $sec)";
 
                 rss_query($sql);
@@ -310,16 +316,27 @@ function update($id) {
             }
             elseif (!($state & FEED_MODE_DELETED_STATE) &&
                     getConfig('rss.input.allowupdates') &&
-                    strlen($description) > $dbdesc_len) {
+                    $md5check != $dbmd5check) {
 
                 list ($cid, $indb, $description) =
                     rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
 
+		if($dbmd5check) { // We have an md5 check in the db
                 $sql = "update ".getTable("item")
                        ." set "." description='".rss_real_escape_string($description)."', "
-                       ." unread = unread | ".FEED_MODE_UNREAD_STATE." where cid=$cid and id=$indb";
+                       ." unread = unread | ".FEED_MODE_UNREAD_STATE.", "
+                       ." md5check='". $md5check . "' "
+		       . " where cid=$cid and id=$indb";
 
                 rss_query($sql);
+		} else { // there was no dbmd5check - user may be svn'ing up?
+                $sql = "update ".getTable("item")
+                       ." set "." md5check='". $md5check . "' "
+		       . " where cid=$cid and id=$indb";
+                rss_query($sql);
+
+
+		}
                 $updatedIds[] = $indb;
             }
         }
