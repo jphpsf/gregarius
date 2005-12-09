@@ -275,4 +275,14 @@ define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
 .'Plugins are third-party scripts that offer extended functionalities. '
 .'More plugins can be downloaded at the <a style="text-decoration:underline" '
 .' href="http://plugins.gregarius.net/">Plugin Repository</a>.</p>');
+
+define ('LBL_LAST_UPDATE','Last update');						
+define ('LBL_ADMIN_DOMAIN_THEMES_LBL','themes');
+define ('LBL_ADMIN_THEMES','Themes');
+
+define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
+.'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'
+.'More themes can be downloaded at the <a style="text-decoration:underline" '
+.' href="http://themes.gregarius.net/">Themes Repository</a>.</p>');
+
 ?>

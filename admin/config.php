@@ -49,7 +49,7 @@ function config() {
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
         // Fix for #279. Plugins have their own section.
-        if ($row['key_'] == 'rss.config.plugins') {
+        if ($row['key_'] == 'rss.config.plugins' or $row['key_'] == 'rss.output.theme') {
             continue;
         }
 
@@ -74,6 +74,7 @@ function config() {
 
             break;
         case 'rss.config.plugins':
+        case 'rss.output.theme':
             continue;
             break;
 
@@ -191,7 +192,7 @@ function config_admin() {
             break;
         }
 
-        if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
             rss_query("update " . getTable('config') ." set value_=default_ where key_='$key'" );
             rss_invalidate_cache();
         }
@@ -237,53 +238,6 @@ function config_admin() {
         ."<p>\n";
 
         switch($key) {
-
-        case 'rss.output.theme':
-
-            $themes = getThemes();
-            echo "<input type=\"hidden\" name=\"value\" value=\"\" />\n";
-            echo "</p>\n<table id=\"plugintable\">\n<tr>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_ACTION."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_NAME."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
-            ."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
-            ."</tr>\n";
-
-            $active_theme= getConfig('rss.output.theme');
-            $cntr = 0;
-            foreach ($themes as $entry => $theme) {
-
-                extract($theme);
-                if (!$name) {
-                    $name = $entry;
-                }
-                if ($url) {
-                    $author = "<a href=\"$url\">$author</a>";
-                }
-                $active = ($entry ==  $active_theme);
-                echo "<tr class=\""
-                .(($cntr++ % 2 == 0)?"even":"odd")
-                .($active?" active":"")
-                ."\">\n";
-                echo "<td class=\"cntr\">"
-                ."<input type=\"radio\" name=\"value\" "
-                ." id=\"_gregarius_theme_$entry\" value=\"$entry\" "
-                .($active?" checked=\"checked\"":"")
-                .(!$htmltheme?" disabled=\"disabled\"":"")
-                ." />\n"
-                ."</td>\n";
-                echo "<td><label for=\"_gregarius_theme_$entry\">".($name?$name:"&nbsp"). "</label></td>\n";
-                echo "<td class=\"cntr\">".($version?$version:"&nbsp"). "</td>\n";
-                echo "<td>"	.($author?$author:"&nbsp") . "</td>\n";
-                echo "<td>"	.($description?$description:"&nbsp"). "</td>\n";
-
-                echo "</tr>\n";
-            }
-            echo "</table>\n<p>";
-
-
-            break;
 
         case 'rss.input.allowed':
 

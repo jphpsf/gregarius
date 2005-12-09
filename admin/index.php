@@ -40,6 +40,7 @@ require_once('opml.php');
 require_once('dashboard.php');
 require_once('users.php');
 require_once('plugins.php');
+require_once('themes.php');
 
 define ('CST_ADMIN_DOMAIN','domain');
 define ('CST_ADMIN_DOMAIN_NONE','none');
@@ -63,7 +64,7 @@ define ('CST_ADMIN_DOMAIN_CONFIG','config');
 define ('CST_ADMIN_DOMAIN_OPML','opml');
 define ('CST_ADMIN_DOMAIN_PLUGINS','plugins');
 define ('CST_ADMIN_DOMAIN_PLUGIN_OPTIONS','plugin_options');
-
+define ('CST_ADMIN_DOMAIN_THEMES','themes');
 // OPML import target
 define ('CST_ADMIN_OPML_IMPORT_WIPE',1);
 define ('CST_ADMIN_OPML_IMPORT_FOLDER',2);
@@ -131,6 +132,9 @@ function admin_main($authorised) {
             case CST_ADMIN_DOMAIN_PLUGINS:
                 $show = plugins_admin();
                 break;
+            case CST_ADMIN_DOMAIN_THEMES:
+                $show = themes_admin();
+                break;
             case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
                 $show = plugin_options_admin();
                 break;
@@ -170,6 +174,9 @@ function admin_main($authorised) {
             case CST_ADMIN_DOMAIN_PLUGINS:
                 plugins();
                 break;
+            case CST_ADMIN_DOMAIN_THEMES:
+                themes();
+                break;                
             case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
                 plugin_options();
                 break;
@@ -208,6 +215,7 @@ function admin_menu() {
                  array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL),
                  array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL),
                  array (CST_ADMIN_DOMAIN_PLUGINS, LBL_ADMIN_DOMAIN_PLUGINS_LBL),
+                 array (CST_ADMIN_DOMAIN_THEMES, LBL_ADMIN_DOMAIN_THEMES_LBL),                 
                  array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL),
                  array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
 
@@ -255,65 +263,6 @@ function getLanguages() {
     return $ret;
 }
 
-
-function getThemes() {
-
-    $d = dir('../'. RSS_THEME_DIR);
-    $files = array();
-    $ret = array();
-    $activeIdx = "0";
-    while (false !== ($theme = $d->read())) {
-        if ($theme != "CVS" && !is_file("../".RSS_THEME_DIR."/$theme") && substr($theme,0,1) != ".") {
-            $ret[$theme]=getThemeInfo($theme);
-        }
-    }
-    $d->close();
-    return $ret;
-}
-
-function getThemeInfo($theme) {
-
-    $path = "../".RSS_THEME_DIR."/$theme/.themeinfo";
-    $ret = array(
-               'name' => '',
-               'url' => '',
-               'official' => false,
-               'fsname' => $theme,
-               'description' => '',
-               'htmltheme' => true,
-               'version' => "1.0",
-               'author' => ''
-           );
-    if (file_exists($path)) {
-        $f = @fopen($path,'r');
-        $contents = "";
-        if ($f) {
-            $contents .= fread($f, filesize($path));
-            @fclose($f);
-        } else {
-            $contents = "";
-        }
-
-        if ($contents && preg_match_all("/^\s?([^:]+):(.*)$/m",$contents,$matches,PREG_SET_ORDER)) {
-            foreach($matches as $match) {
-                $key = trim(strtolower($match[1]));
-                $val = trim($match[2]);
-                if (array_key_exists($key,$ret)) {
-                    if ($val == 'true') {
-                        $ret[$key] = true;
-                    }
-                    elseif ($val == 'false') {
-                        $ret[$key] = false;
-                    }
-                    else {
-                        $ret[$key] = $val;
-                    }
-                }
-            }
-        }
-    }
-    return $ret;
-}
 
 
 function getLanguageInfo($file) {
