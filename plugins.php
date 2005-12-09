@@ -78,43 +78,22 @@ function rss_plugin_hook($hook, $data) {
  * Wrapper functions for plugins
  */
 function rss_plugins_add_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
-    if (!$key || !$value) {
+    if (!$key) {
         return false;
     }
     $pKey = "plugins." . rss_real_escape_string($key);
 
-
-    if (is_array($value) || $type == 'array') {
-        $value = str_replace("'","\'",serialize($value));
-    }
-    // first check for duplicates
-    $res = rss_query("select value_,default_,type_ from " .getTable('config') . " where key_='$pKey'");
-    if(!rss_num_rows($res)) { // Then insert the config value
-        $value = rss_real_escape_string($value);
-
-        $default = $default? $default: $value;
-        $ret =  rss_query("insert into " . getTable("config")
-                          . " (key_,value_,default_,type_,desc_,export_) VALUES ("
-                          . "'$pKey','$value','$default','$type','$desc','$export')" );
-    } else { // the key exists, so update the option
-        $ret = rss_plugins_update_option($key, $value, "string" , $default, $desc, $export);
-    }
-    configInvalidate();
-    return $ret;
-
-
-}
-
-function rss_plugins_update_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
-    $pKey = "plugins." . rss_real_escape_string($key);
     if (is_array($value) || $type == 'array') {
         $value = str_replace("'","\'",serialize($value));
     }
     $value = rss_real_escape_string($value);
-    $ret=  rss_query("update " . getTable("config") . " set value_='" .
-                     $value . "' where key_ ='$pKey'");
+    $default = $default? $default: $value;
+    $ret =  rss_query("replace into " . getTable("config")
+                      . " (key_,value_,default_,type_,desc_,export_) VALUES ("
+                      . "'$pKey','$value','$default','$type','$desc','$export')" );
     configInvalidate();
     return $ret;
+
 }
 
 function rss_plugins_get_option($key) {
