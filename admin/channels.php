@@ -380,7 +380,7 @@ function channel_admin() {
 
     case CST_ADMIN_DELETE_ACTION:
         $id = $_REQUEST['cid'];
-        if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
             $rs = rss_query("select distinct id from " .getTable("item") . " where cid=$id");
             $ids = array();
             while (list($did) = rss_fetch_row($rs)) {

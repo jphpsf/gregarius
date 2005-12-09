@@ -180,7 +180,7 @@ function folder_admin() {
             break;
         }
 
-        if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
             $sql = "delete from " . getTable("folders") ." where id=$id";
             rss_query($sql);
             $sql = "update " . getTable("channels") ." set parent=" . getRootFolder() . " where parent=$id";
