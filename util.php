@@ -1031,11 +1031,9 @@ function getActualTheme() {
     $theme = getConfig('rss.output.theme');
     if (defined('THEME_OVERRIDE')) {
         $theme = THEME_OVERRIDE;
+    } elseif (isset($_GET['theme'])) {
+        $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
     }
-    elseif (isset($_REQUEST['theme'])) {
-        $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_REQUEST['theme']);
-    }
-    
     return $theme;
 }
 
