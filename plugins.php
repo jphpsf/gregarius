@@ -97,7 +97,7 @@ function rss_plugins_add_option($key, $value, $type = "string", $default = "", $
                           . " (key_,value_,default_,type_,desc_,export_) VALUES ("
                           . "'$pKey','$value','$default','$type','$desc','$export')" );
     } else { // the key exists, so update the option
-        $ret = rss_plugins_update_option($key, $value, $type, $default, $desc, $export);
+        $ret = rss_plugins_update_option($key, $value, "string" , $default, $desc, $export);
     }
     configInvalidate();
     return $ret;
