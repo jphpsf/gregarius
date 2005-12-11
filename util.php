@@ -512,7 +512,7 @@ function parse_iso8601($date_str) {
 
         // calc epoch for current date assuming GMT
 
-        $epoch = gmmktime($hours, $minutes, $seconds, $month, $day, $year);
+        $epoch = gmmktime($hours, $minutes, intval($seconds), $month, $day, $year);
 
         $offset = 0;
         if ($match[10] == 'Z') {
