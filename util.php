@@ -644,15 +644,15 @@ function extractFeeds($url) {
                         if(substr($val,0,2) == "//") {
                             $val = preg_replace('/\/\/.*/', $val, $url);
                         } else {
-                        	 $urlParts = parse_url($url);
-                        	 if ($urlParts && is_array($urlParts)) {
-                        	 	if ($val[0] != '/') {
-                        	 		$val = '/'.$val;
-                        	 	}
-                        	 	$val = $urlParts['scheme'] . '://' 
-                        	 	 .$urlParts['host'] . $val;
-                        	 } else {
-                            	$val = ($url.$val);
+                            $urlParts = parse_url($url);
+                            if ($urlParts && is_array($urlParts)) {
+                                if ($val[0] != '/') {
+                                    $val = '/'.$val;
+                                }
+                                $val = $urlParts['scheme'] . '://'
+                                       .$urlParts['host'] . $val;
+                            } else {
+                                $val = ($url.$val);
                             }
                         }
                     }
@@ -1021,17 +1021,18 @@ function cacheFavicon($icon) {
 }
 
 function getActualTheme() {
-	 static $theme;
-	 
-	 if ($theme) {
-	 	return $theme;
-	 }
-	 
-	 
+    static $theme;
+
+    if ($theme) {
+        return $theme;
+    }
+
+
     $theme = getConfig('rss.output.theme');
     if (defined('THEME_OVERRIDE')) {
         $theme = THEME_OVERRIDE;
-    } elseif (isset($_GET['theme'])) {
+    }
+    elseif (isset($_GET['theme'])) {
         $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
     }
     return $theme;
