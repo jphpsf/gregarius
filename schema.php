@@ -537,8 +537,10 @@ if (isset($argv) && in_array('--dump',$argv)) {
 			define ('DB_TABLE_PREFIX',substr($arg,9));
 		}
 	}
-	require_once('init.php');
 	define ('DUMP_SCHEMA', true);
+	define ('PROFILING', false);
+	@require_once('init.php');
+	
 	
 	foreach (array("channels","config","folders","item","metatag","tag","rating", "users") as $tbl) {
 	 	call_user_func("_init_$tbl"); 
