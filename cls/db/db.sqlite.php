@@ -48,7 +48,7 @@
 # v0.4: added alter table and fixed processing of columns update schema
 ###############################################################################
 
-require_once(dirname(__FILE__) . '../../../cls/db/db.php');
+require_once(dirname(__FILE__) . '/db.php');
 
 class SqliteDB extends DB {
 
@@ -396,16 +396,16 @@ class SqliteDB extends DB {
 			if (preg_match("/no\s+such\s+table/is",$errorString)) {
 				ob_start();
 
-				require_once(dirname(__FILE__) . '../../../init.php');
-				require_once(dirname(__FILE__) . '../../../schema.php');
+				require_once(dirname(__FILE__) . '/../../init.php');
+				require_once(dirname(__FILE__) . '/../../schema.php');
 				checkSchema();
 				ob_clean();
 				return $this -> rss_query ($query, $dieOnError, true);
 			}
 			else if (preg_match("/(no\s+such\s+column\s*:\s*|no\s+column\s+named\s+)(.+)/is",$errorString,$matches)) {
 				ob_start();
-				require_once(dirname(__FILE__) . '../../../init.php');
-				require_once(dirname(__FILE__) . '../../../schema.php');
+				require_once(dirname(__FILE__) . '/../../init.php');
+				require_once(dirname(__FILE__) . '/../../schema.php');
 				checkSchemaColumns(trim($matches[2]));
 				ob_clean();
 				return $this -> rss_query ($query, $dieOnError, true);
