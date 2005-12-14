@@ -334,10 +334,11 @@ class ItemList {
 		} else {
 			$sql .= " $sqlOrder ";	
 		}
-		
-		if ($itemCount > 0) {		
-			$sql .= " limit $startItem, $itemCount";
+		if (($itemCount < 0) || ($itemCount > RSS_DB_MAX_QUERY_RESULTS)) {
+			$itemCount = RSS_DB_MAX_QUERY_RESULTS;
 		}
+		$sql .= " limit $startItem, $itemCount";
+
 		//echo $sql;		
 		$this -> iids = array();
 		$res = $GLOBALS['rss_db']->rss_query($sql);

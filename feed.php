@@ -772,13 +772,11 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
                     $sqlWhere .= " and dayofmonth(ifnull(i.pubdate,i.added))= $d ";
                 }
             }
-            $sqlLimit = 0;
             if ( $m==0 && $y==0 ) {
                 $sqlLimit = getConfig('rss.output.itemsinchannelview');
-            }
-            if ($sqlLimit == 0) {
-                $sqlLimit = 9999;
-            }
+            } else {
+		$sqlLimit =  RSS_DB_MAX_QUERY_RESULTS;
+	    }
             /*
             $sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc";
             if(getConfig("rss.config.datedesc")){

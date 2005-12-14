@@ -62,6 +62,10 @@ define ('RSS_USER_LEVEL_BASIC',1);
 define ('RSS_USER_LEVEL_PRIVATE',80);
 define ('RSS_USER_LEVEL_ADMIN',90);
 
+
+// Max number of results we want from a query
+define ('RSS_DB_MAX_QUERY_RESULTS', 9999);
+
 // Set up the callback
 assert_options(ASSERT_CALLBACK, 'my_assert_handler');
 
