@@ -49,7 +49,9 @@ function config() {
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
         // Fix for #279. Plugins have their own section.
-        if ($row['key_'] == 'rss.config.plugins' or $row['key_'] == 'rss.output.theme') {
+        if ($row['key_'] == 'rss.config.plugins' or $row['key_'] ==
+                'rss.output.theme' or $row['key_'] == 'rss.output.barefrontpage'
+                or $row['key_'] == 'rss.output.noreaditems' or $row['key_'] == 'rss.output.numitemsonpage') {
             continue;
         }
 

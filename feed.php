@@ -734,7 +734,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
         // how many items should we display in a folder view?
         // default to numitemsonpage.
-        $cnt = getConfig('rss.output.numitemsonpage');
+        $cnt = getConfig('rss.output.frontpage.numitems');
         // if that is set to zero, use itemsinchannelview times the number of feeds in the folder
         if ($cnt == 0) {
             $cnt = count($cids) * getConfig('rss.output.itemsinchannelview');

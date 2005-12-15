@@ -29,8 +29,8 @@ require_once("init.php");
 
 // Show unread items on the front page?
 // default to the config value, user can override this via a cookie
-$show_what = (getConfig('rss.output.noreaditems') ?
-	SHOW_UNREAD_ONLY : SHOW_READ_AND_UNREAD );
+$show_what = (getConfig('rss.output.frontpage.mixeditems') ?
+	SHOW_READ_AND_UNREAD : SHOW_UNREAD_ONLY);
 	
 if (array_key_exists(SHOW_WHAT,$_POST)) {
 	$show_what = $_POST[SHOW_WHAT];
@@ -70,12 +70,26 @@ if (array_key_exists('logout',$_GET)) {
 }
 
 
-$cntUnread = unreadItems($show_what);
-if ($show_what != SHOW_UNREAD_ONLY || $cntUnread == 0) {
-	if (!getConfig('rss.output.barefrontpage')) {
-		readItems($cntUnread);
+$cntTotalItems = getConfig('rss.output.frontpage.numitems');
+$cntUnreadItems = unreadItems($show_what);
+
+// Now we have to decide how many read items to display
+$cntReadItems = getConfig('rss.output.frontpage.numreaditems');
+
+if(($show_what == SHOW_UNREAD_ONLY) ) { 
+	if (($cntUnreadItems == 0) && $cntTotalItems) { // we showed no unread items
+		// Should we show some uread items?
+		if($cntReadItems == -1) { 
+			readItems($cntTotalItems);
+		} else {
+			readItems($cntReadItems);
+		}
 	}
-} 
+} else { // We are showing read and unread items 
+	if ($cntTotalItems){
+		readItems($cntTotalItems - $cntUnreadItems);
+	}
+}
 
 
 $GLOBALS['rss'] -> header = new Header("",LOCATION_HOME,array('cid'=>null,'fid'=>null));
@@ -106,7 +120,7 @@ function unreadItems($show_what) {
 
     _pf('populate unread items');
 	$unreadItems = new ItemList();
-	$numItems = getConfig('rss.output.numitemsonpage');
+	$numItems = getConfig('rss.output.frontpage.numitems');
 	
 	/*
 	$hiddenIds = getHiddenChannelIds();
@@ -117,10 +131,6 @@ function unreadItems($show_what) {
 	}
 	*/
 	$sqlWhereHidden = "";
-	
-	if(!$numItems){
-		$numItems = -1;
-	}
 	
 	$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE . $sqlWhereHidden, "", 0, $numItems,ITEM_SORT_HINT_UNREAD);
 	
@@ -139,7 +149,7 @@ function unreadItems($show_what) {
     return $ret;
 }
 
-function readItems($cntUnread) {
+function readItems($limit) {
     
     _pf('read items');
    /*
@@ -151,14 +161,7 @@ function readItems($cntUnread) {
 	}
 	*/
 
-   $itemsOnPage = getConfig('rss.output.numitemsonpage');
-   if (!$itemsOnPage) {
-	 // quite arbitrary: display 50 read items at most
-	 $limit = 50;
-   } else {
-	 $limit =  $itemsOnPage - $cntUnread;
-   }
-
+	
     $readItems = new ItemList();
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 
