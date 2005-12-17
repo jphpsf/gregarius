@@ -115,38 +115,40 @@ function rss_plugins_delete_option($key) {
 
 }
 
-function rss_plugins_set_item_state($itemId, $bit_mask, $set, $sqlwhere = "", $entire_db = false) {
-	$retvalue = false;
-	if($itemId || $entire_db) { // Check to see if itemId is set or if we are allowed to fsck up the entire db
-		// the bitmask has a zero in the spot (field) we want to change.
-		if($set) { // Set the value to the field to 1
-	    		$sql = "update " .getTable("item") ." set unread = unread | ~ ".  $bit_mask; 
-		} else { // set the value of the field to 0
-	    		$sql = "update " .getTable("item") ." set unread = unread & ". $bit_mask; 
-		}
-	
-		if($itemId) {	
-			if (is_array($itemId)) {
-				$sql .= " where id  in (" . implode(',',$itemId) .")";
-			} else { // assume it is a number or a string
-				$sql .= " where id=" .$itemId;
-			}
-		} else {
-			$sql .= " where 1";
-		}
-		
-		if($sqlwhere) {
-			$sql .= " " . $sqlwhere;
-		}		
-		
-		echo $sql;
-	       $retvalue =  rss_query($sql);
-	       rss_invalidate_cache();
+function rss_plugins_set_item_state($itemId, $bit_mask, $set
+                                    , $sqlwhere = "", $entire_db = false) {
+    $retvalue = false;
+    if($itemId || $entire_db) { // Check to see if itemId is set or if we are allowed to fsck up the entire db
+        // the bitmask has a zero in the spot (field) we want to change.
+        if($set
+          ) { // Set the value to the field to 1
+            $sql = "update " .getTable("item") ." set unread = unread | ~ ".  $bit_mask;
+        }
+        else { // set the value of the field to 0
+            $sql = "update " .getTable("item") ." set unread = unread & ". $bit_mask;
+        }
 
-	} else {
-		$retvalue = false;
-	}
-	return $retvalue;
+        if($itemId) {
+            if (is_array($itemId)) {
+                $sql .= " where id  in (" . implode(',',$itemId) .")";
+            } else { // assume it is a number or a string
+                $sql .= " where id=" .$itemId;
+            }
+        } else {
+            $sql .= " where 1";
+        }
+
+        if($sqlwhere) {
+            $sql .= " and " . $sqlwhere;
+        }
+
+        $retvalue =  rss_query($sql);
+        rss_invalidate_cache();
+
+    } else {
+        $retvalue = false;
+    }
+    return $retvalue;
 }
 
 
