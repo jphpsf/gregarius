@@ -78,7 +78,7 @@ class FeedListItem {
 				$this->icon = $icon;
 			}
 		} elseif (getConfig('rss.output.showfavicons')) {
-            $this->icon = rss_theme_path() ."/media/noicon.png";
+            $this->icon = getExternalThemeFile("media/noicon.png");
 		} else {
             $this->icon = false;
 		}

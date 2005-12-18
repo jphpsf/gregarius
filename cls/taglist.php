@@ -45,7 +45,7 @@ class TagListItem extends FeedListItem {
 		$this -> cnt = $cnt;
 		$this -> rlink = $url;
 		$this -> rdLbl = "($cnt)";
-		$this->icon = rss_theme_path() ."/media/noicon.png";
+		$this->icon = getExternalThemeFile("media/noicon.png");
 	}
 	
 	function render() {
