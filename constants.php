@@ -138,4 +138,10 @@ define ('RSS_ERROR_NOTICE',2);
 define ('ITEM_SORT_HINT_UNREAD', 0x00);
 define ('ITEM_SORT_HINT_READ', 0x01);
 define ('ITEM_SORT_HINT_MIXED', 0x02);
+
+// Profiling 
+//  - The profiling information is "html commented out" at the end of every html page
+//define('PROFILING', 1);
+//define('PROFILING_DB', 1);
+
 ?>
