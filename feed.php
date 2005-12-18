@@ -831,7 +831,9 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
         $readMoreNav = "";
         if($prev != null) {
             $lbl = $prev['lbl'];
-            if (strlen($lbl) > 40) {
+            if (function_exists('mb_strlen') && function_exists('mb_substr') && mb_strlen($lbl) > 40) {
+            	$lbl = mb_substr($lbl,0,37) . "...";
+            } elseif (strlen($lbl) > 40) {
                 $lbl = substr($lbl,0,37) . "...";
             }
             $readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".LBL_NAV_PREV_PREFIX ."$lbl</a>\n";
@@ -839,7 +841,9 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
         if($succ != null) {
             $lbl = $succ['lbl'];
-            if (strlen($lbl) > 40) {
+            if (function_exists('mb_strlen') && function_exists('mb_substr') && mb_strlen($lbl) > 40) {
+            	$lbl = mb_substr($lbl,0,37) . "...";
+            } elseif (strlen($lbl) > 40) {
                 $lbl = substr($lbl,0,37) . "...";
             }
             $readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">$lbl".LBL_NAV_SUCC_POSTFIX."</a>\n";
