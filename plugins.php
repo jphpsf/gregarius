@@ -151,6 +151,10 @@ function rss_plugins_set_item_state($itemId, $bit_mask, $set
     return $retvalue;
 }
 
+function rss_plugins_get_plugins_http_path() {
+    //returns http://example.com/rss/plugins/
+    return guessTransportProto().$_SERVER['HTTP_HOST'] . getPath() . RSS_PLUGINS_DIR . "/";
+}
 
 /**
  * loads the active plugins from the config, instantiates

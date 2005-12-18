@@ -333,10 +333,6 @@ function rss_plugins_redirect_to_plugin_config($filename) {
     rss_redirect("/admin/index.php" . "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_PLUGIN_OPTIONS ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;plugin_name=" . $filename);
 }
 
-function rss_plugins_get_plugins_http_path() {
-    //returns http://example.com/rss/plugins/
-    return guessTransportProto().$_SERVER['HTTP_HOST'] . getPath() . RSS_PLUGINS_DIR . "/";
-}
 
 function rss_plugins_is_submit() {
 	return array_key_exists("admin_plugin_options_submit_changes", $_REQUEST);
