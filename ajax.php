@@ -140,7 +140,7 @@ sajax_init();
 /* spit out the javascript for this bugger */
 if (array_key_exists('js',$_GET)) {
 
-    
+    header('Content-Type: text/javascript');
     // The javascript output shall be cached
     // The Etag was set at the start of this file. 
     
