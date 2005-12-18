@@ -70,10 +70,10 @@ class CatList extends FeedList {
 		$sql = "select "
 				." count(*) as cnt "
 				." from ".getTable("channels")." c "
-				." where  not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+				." where  not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
 		if (hidePrivate()) {
-			$sql .= " and not(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(c.mode & ".RSS_MODE_PRIVATE_STATE.") ";
 		}
 
 
@@ -104,12 +104,12 @@ class CatList extends FeedList {
 			.getTable('channels') . " c, "
 			.getTable('metatag') ." m, "
 			.getTable('tag') . " t"
-			." where i.unread & ". FEED_MODE_UNREAD_STATE
-			." and not(i.unread & ". FEED_MODE_DELETED_STATE .")";
+			." where i.unread & ". RSS_MODE_UNREAD_STATE
+			." and not(i.unread & ". RSS_MODE_DELETED_STATE .")";
 			if (hidePrivate()) {
-				$sql .=" and not(unread & " . FEED_MODE_PRIVATE_STATE .") ";
+				$sql .=" and not(unread & " . RSS_MODE_PRIVATE_STATE .") ";
 			}
-			$sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE .") ";
+			$sql .= " and not(c.mode & " . RSS_MODE_DELETED_STATE .") ";
 			$sql .= " and i.cid=c.id and c.id=m.fid and m.tid=t.id"
 			." group by m.tid";
 			_pf('query');
@@ -141,10 +141,10 @@ class CatList extends FeedList {
 
 
 		if (hidePrivate()) {
-			$sql .= " and not(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(c.mode & ".RSS_MODE_PRIVATE_STATE.") ";
 		}
 
-		$sql .= " and not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+		$sql .= " and not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
 		$sql .= " order by t.tag asc"; 
 		
@@ -154,8 +154,8 @@ class CatList extends FeedList {
 		
 		// get # of unread items for each feed
 		$ucres = rss_query ("select cid, count(*) from " .getTable("item")
-		 ." where unread & "  . FEED_MODE_UNREAD_STATE
-		 . " and not(unread & " . FEED_MODE_DELETED_STATE
+		 ." where unread & "  . RSS_MODE_UNREAD_STATE
+		 . " and not(unread & " . RSS_MODE_DELETED_STATE
 		 . ") group by cid");
 		$uc = array();
 		while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {

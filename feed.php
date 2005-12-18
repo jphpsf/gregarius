@@ -63,10 +63,10 @@ if (
     $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
 
     if (hidePrivate()) {
-        $sql .=" and not(mode & " . FEED_MODE_PRIVATE_STATE .") ";
+        $sql .=" and not(mode & " . RSS_MODE_PRIVATE_STATE .") ";
     }
     // hide deprecated
-    $sql .= " and not(mode & " . FEED_MODE_DELETED_STATE . ") ";
+    $sql .= " and not(mode & " . RSS_MODE_DELETED_STATE . ") ";
 
     $res =  rss_query( $sql );
     //echo $sql;
@@ -81,9 +81,9 @@ if (
                ." where c.parent=f.id and f.name like '$sqlid' and f.id > 0";
 
         if (hidePrivate()) {
-            $sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
+            $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
         }
-        $sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+        $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
         $res = rss_query( $sql );
         if ( rss_num_rows ( $res ) > 0) {
@@ -100,9 +100,9 @@ if (
                    . "and t.tag like '$sqlid'";
 
             if (hidePrivate()) {
-                $sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
+                $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
             }
-            $sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+            $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
             $res = rss_query( $sql );
             if ( rss_num_rows ( $res ) > 0) {
@@ -152,10 +152,10 @@ if (
         }
 
         if (hidePrivate()) {
-            $sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
+            $sql .=" and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
         }
 
-        $sql .=" and not(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+        $sql .=" and not(i.unread & " . RSS_MODE_DELETED_STATE  .") ";
 
         $sql .=" order by i.added desc, i.id asc";
 
@@ -180,10 +180,10 @@ elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQ
     if ($fid) {
         $sql = "select c.id from ". getTable('channels')." c "
                ." where c.parent=$fid and c.parent > 0";
-        $sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+        $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
         if (hidePrivate()) {
-            $sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
+            $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
         }
         $res = rss_query( $sql );
 
@@ -204,10 +204,10 @@ elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQ
         } else {
             $sql .= "and t.tag like '$vfid'";
         }
-        $sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+        $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
         if (hidePrivate()) {
-            $sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
+            $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
         }
         $res = rss_query( $sql );
 
@@ -222,7 +222,7 @@ elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQ
     elseif ($cid) {
         if (hidePrivate()) {
             $sql = "select id from ". getTable('channels')." where id=$cid ";
-            $sql .=" and not(mode & " . FEED_MODE_PRIVATE_STATE .") ";
+            $sql .=" and not(mode & " . RSS_MODE_PRIVATE_STATE .") ";
             list ($cid) = rss_fetch_row(rss_query($sql));
         }
     }
@@ -306,7 +306,7 @@ if (array_key_exists ('metaaction', $_POST)) {
         $sql = "update " .getTable("item")
                ." set unread = unread & ".SET_MODE_READ_STATE." where cid=$cid";
         if (hidePrivate()) {
-            $sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+            $sql .= " and not(unread & " . RSS_MODE_PRIVATE_STATE . ")";
         }
         if (count($IdsToMarkAsRead)) {
             $sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
@@ -318,11 +318,11 @@ if (array_key_exists ('metaaction', $_POST)) {
         /* Redirect! If this feed has more unread items, self-redirect */
 
         $sql = "select count(*) from " .getTable("item") . " i "
-               ." where i.unread & " .FEED_MODE_UNREAD_STATE
+               ." where i.unread & " .RSS_MODE_UNREAD_STATE
                ." and i.cid=$cid"
-               ." and not(i.unread & " . FEED_MODE_DELETED_STATE  .") ";
+               ." and not(i.unread & " . RSS_MODE_DELETED_STATE  .") ";
         if (hidePrivate()) {
-            $sql .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
+            $sql .=" and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
         }
         list($hasMoreUnreads) = rss_fetch_row(rss_query($sql));
 
@@ -345,9 +345,9 @@ if (array_key_exists ('metaaction', $_POST)) {
             $sql = "select c.id from "
                    . getTable('channels') . " c, "
                    . getTable('folders') . " f "
-                   . "where c.parent=f.id and not (c.mode & " . FEED_MODE_DELETED_STATE .") ";
+                   . "where c.parent=f.id and not (c.mode & " . RSS_MODE_DELETED_STATE .") ";
             if (hidePrivate()) {
-                $sql .= " and not (c.mode & " . FEED_MODE_PRIVATE_STATE . ") ";
+                $sql .= " and not (c.mode & " . RSS_MODE_PRIVATE_STATE . ") ";
             }
             if (getConfig('rss.config.absoluteordering')) {
                 $sql .= " order by f.position asc, c.position asc";
@@ -361,10 +361,10 @@ if (array_key_exists ('metaaction', $_POST)) {
 
             // 2: Get the unread count for each feed:
             $sql = "select cid, count(*) from " .getTable('item')
-                   ." where (unread & ".FEED_MODE_UNREAD_STATE . ") "
-                   ." and not (unread & " .FEED_MODE_DELETED_STATE . ") ";
+                   ." where (unread & ".RSS_MODE_UNREAD_STATE . ") "
+                   ." and not (unread & " .RSS_MODE_DELETED_STATE . ") ";
             if (hidePrivate()) {
-                $sql .= " and not (i.unread & " . FEED_MODE_PRIVATE_STATE . ") ";
+                $sql .= " and not (i.unread & " . RSS_MODE_PRIVATE_STATE . ") ";
             }
             $sql .= " group by cid";
             $res = rss_query($sql);
@@ -438,9 +438,9 @@ if (array_key_exists ('metaaction', $_POST)) {
             $sql = "select count(*) from "
                    .getTable('item') ." i, "
                    .getTable('channels') ." c "
-                   ." where i.unread & " .FEED_MODE_UNREAD_STATE ." and i.cid = c.id and c.parent = $fid__";
+                   ." where i.unread & " .RSS_MODE_UNREAD_STATE ." and i.cid = c.id and c.parent = $fid__";
             if (hidePrivate()) {
-                $sql .= " and not(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+                $sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE . ")";
             }
 
             list($c) = rss_fetch_row(rss_query($sql));
@@ -502,10 +502,10 @@ if (array_key_exists ('metaaction', $_POST)) {
                    .getTable('item') . "i, "
                    .getTable('channels') ." c on (fid=i.cid) "
                    ."where c.id = $tid__ and ttype = 'channel' and (c.id = i.cid)"
-                   ." and (i.unread & ".FEED_MODE_UNREAD_STATE.") "
-                   ."and not(i.unread & ".FEED_MODE_DELETED_STATE.")";
+                   ." and (i.unread & ".RSS_MODE_UNREAD_STATE.") "
+                   ."and not(i.unread & ".RSS_MODE_DELETED_STATE.")";
             if (hidePrivate()) {
-                $sql .= " and not(i.unread & " . FEED_MODE_PRIVATE_STATE . ")";
+                $sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE . ")";
             }
             list($c) = rss_fetch_row(rss_query($sql));
             if ($c > 0) {
@@ -651,7 +651,7 @@ if ($iid == "") {
     // "item mode"
     $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, "
                       .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid"
-                      ." and not(i.unread & " . FEED_MODE_DELETED_STATE  .") "
+                      ." and not(i.unread & " . RSS_MODE_DELETED_STATE  .") "
                      );
 
     list($title,$icon,$ititle) = rss_fetch_row($res);
@@ -695,8 +695,8 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
         } else {
             // archives, folders, channels
             $sql = "select count(*) from " . getTable('item') . " where"
-                   ." (unread & " . FEED_MODE_UNREAD_STATE .")"
-                   ." and not(unread & " . FEED_MODE_DELETED_STATE  .") ";
+                   ." (unread & " . RSS_MODE_UNREAD_STATE .")"
+                   ." and not(unread & " . RSS_MODE_DELETED_STATE  .") ";
 
             //archive?
             if ($m > 0 && $y > 0) {
@@ -728,7 +728,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
         $sqlWhere .= " 1=0) ";
         $hint = ITEM_SORT_HINT_MIXED;
         if  ($do_show == SHOW_UNREAD_ONLY) {
-            $sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+            $sqlWhere .= " and (i.unread & " . RSS_MODE_UNREAD_STATE .") ";
             $hint = ITEM_SORT_HINT_UNREAD;
         }
 
@@ -755,7 +755,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
             if ($cid > -1) {
                 $sqlWhere = "i.cid = $cid";
                 if  ($do_show == SHOW_UNREAD_ONLY) {
-                    $sqlWhere .= " and (i.unread & " . FEED_MODE_UNREAD_STATE .") ";
+                    $sqlWhere .= " and (i.unread & " . RSS_MODE_UNREAD_STATE .") ";
                     $hint = ITEM_SORT_HINT_UNREAD;
                 }
             } else {
@@ -778,7 +778,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 		$sqlLimit =  RSS_DB_MAX_QUERY_RESULTS;
 	    }
             /*
-            $sqlOrder = " order by i.unread & ".FEED_MODE_UNREAD_STATE." desc";
+            $sqlOrder = " order by i.unread & ".RSS_MODE_UNREAD_STATE." desc";
             if(getConfig("rss.config.datedesc")){
             	$sqlOrder .= ", ts desc, i.id asc";
             } else {
@@ -934,7 +934,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 
 
             if (hidePrivate()) {
-                $sql_succ .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
+                $sql_succ .=" and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
             }
 
             $sql_succ .= " group by y_,m_"
@@ -956,7 +956,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 
 
             if (hidePrivate()) {
-                $sql_prev .=" and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
+                $sql_prev .=" and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
             }
 
             $sql_prev .= " group by y_,m_"
@@ -1061,7 +1061,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                    ." where i.cid = $cid  ";
 
             if (hidePrivate()) {
-                $sql .= " and not(i.unread & " . FEED_MODE_PRIVATE_STATE .") ";
+                $sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
             }
 
             if(getConfig('rss.config.datedesc.unread')) {
@@ -1144,9 +1144,9 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 
 
             if (hidePrivate()) {
-                $sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";
+                $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
             }
-            $sql .= " and not(c.mode & " .  FEED_MODE_DELETED_STATE .") ";
+            $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
             if (getConfig('rss.config.absoluteordering')) {
                 $sql .=" order by d.position asc, c.position asc";
@@ -1248,7 +1248,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                    ." where c.parent=f.id and f.name != '' ";
 
             if (hidePrivate()) {
-                $sql .= " and not (c.mode & ".FEED_MODE_PRIVATE_STATE.")";
+                $sql .= " and not (c.mode & ".RSS_MODE_PRIVATE_STATE.")";
             }
 
             $sql .= " group by f.id ";

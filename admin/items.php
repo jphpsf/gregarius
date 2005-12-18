@@ -64,7 +64,7 @@ function item_admin() {
     switch ($_REQUEST['action']) {
     case LBL_ADMIN_DELETE2:
             $req = rss_query('select count(*) as cnt from ' .getTable('item')
-                             ." where not(unread & " . FEED_MODE_DELETED_STATE  .")"
+                             ." where not(unread & " . RSS_MODE_DELETED_STATE  .")"
                             );
         list($cnt) = rss_fetch_row($req);
 
@@ -102,7 +102,7 @@ function item_admin() {
             if (!array_key_exists('prune_include_sticky', $_REQUEST)
                     || $_REQUEST['prune_include_sticky'] != '1') {
 
-                $sql .= " and not(unread & " .FEED_MODE_STICKY_STATE .") ";
+                $sql .= " and not(unread & " .RSS_MODE_STICKY_STATE .") ";
             }
 
             if (array_key_exists('prune_exclude_tags', $_REQUEST)
@@ -230,7 +230,7 @@ function item_admin() {
                     }
                     if (count($in_cache)) {
                         rss_query( "update " . getTable('item')
-                                   ." set unread = unread | " . FEED_MODE_DELETED_STATE
+                                   ." set unread = unread | " . RSS_MODE_DELETED_STATE
                                    .", description='' "
                                    ." where id in ("
                                    . implode(", ", $in_cache)
@@ -242,7 +242,7 @@ function item_admin() {
 
             } else {
                 list($cnt_d) = rss_fetch_row(rss_query("select count(distinct(i.id)) as cnt " . $sql
-                                                       . " and not(i.unread & " . FEED_MODE_DELETED_STATE .")"
+                                                       . " and not(i.unread & " . RSS_MODE_DELETED_STATE .")"
                                                       ));
                 rss_error(sprintf(LBL_ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt), RSS_ERROR_ERROR,true);
 

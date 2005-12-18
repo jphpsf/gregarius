@@ -134,10 +134,10 @@ function channels() {
         }
 
         $fmode = array();
-        if ($mode & FEED_MODE_PRIVATE_STATE) {
+        if ($mode & RSS_MODE_PRIVATE_STATE) {
             $fmode[] = "P";
         }
-        if ($mode & FEED_MODE_DELETED_STATE) {
+        if ($mode & RSS_MODE_DELETED_STATE) {
             $fmode[] = "D";
         }
         $slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
@@ -182,10 +182,10 @@ function channels() {
     ."<span class=\"vr\">&nbsp;</span>"
 
     ."<label>".LBL_ADMIN_TOGGLE_STATE."</label>\n"
-    ."<input type=\"checkbox\" name=\"me_deprecated\" id=\"me_deprecated\" value=\"".FEED_MODE_DELETED_STATE."\" />\n"
+    ."<input type=\"checkbox\" name=\"me_deprecated\" id=\"me_deprecated\" value=\"".RSS_MODE_DELETED_STATE."\" />\n"
     ."<label for=\"me_deprecated\">".LBL_DEPRECATED."</label>\n"
 
-    ."<input type=\"checkbox\" name=\"me_private\" id=\"me_private\" value=\"".FEED_MODE_PRIVATE_STATE."\" />\n"
+    ."<input type=\"checkbox\" name=\"me_private\" id=\"me_private\" value=\"".RSS_MODE_PRIVATE_STATE."\" />\n"
     ."<label for=\"me_private\">".LBL_PRIVATE."</label>\n"
 
     ."<input type=\"submit\" id=\"me_state\" name=\"me_state\" value=\"".LBL_ADMIN_TOGGLE_SET."\" />\n"
@@ -534,9 +534,9 @@ function channel_admin() {
         if ($priv != $old_priv) {
             $mode = ", mode = mode ";
             if ($priv) {
-                $mode .=  " | " . FEED_MODE_PRIVATE_STATE;
+                $mode .=  " | " . RSS_MODE_PRIVATE_STATE;
                 rss_query ('update ' . getTable('item')
-                           ." set unread = unread | " . FEED_MODE_PRIVATE_STATE
+                           ." set unread = unread | " . RSS_MODE_PRIVATE_STATE
                            ." where cid=$cid");
             } else {
                 $mode .= " & " .SET_MODE_PUBLIC_STATE;
@@ -558,7 +558,7 @@ function channel_admin() {
                 $mode = ", mode = mode ";
             }
             if ($del) {
-                $mode .=  " | " . FEED_MODE_DELETED_STATE;
+                $mode .=  " | " . RSS_MODE_DELETED_STATE;
             } else {
                 $mode .= " & " . SET_MODE_AVAILABLE_STATE;
             }
@@ -656,10 +656,10 @@ function channel_admin() {
 
             if ($private) {
                 rss_query ('update ' . getTable('channels')
-                           ." set mode = mode | " . FEED_MODE_PRIVATE_STATE
+                           ." set mode = mode | " . RSS_MODE_PRIVATE_STATE
                            ." where id in $sqlids");
                 rss_query ('update ' . getTable('item')
-                           ." set unread = unread | " . FEED_MODE_PRIVATE_STATE
+                           ." set unread = unread | " . RSS_MODE_PRIVATE_STATE
                            ." where cid in $sqlids");
 
             } else {
@@ -673,7 +673,7 @@ function channel_admin() {
 
             if ($deprecated) {
                 rss_query ('update ' . getTable('channels')
-                           ." set mode = mode | " . FEED_MODE_DELETED_STATE
+                           ." set mode = mode | " . RSS_MODE_DELETED_STATE
                            ." where id in $sqlids");
             } else {
                 rss_query ('update ' . getTable('channels')
@@ -744,7 +744,7 @@ function channel_edit_form($cid) {
     ."<input type=\"text\" id=\"c_tags\" name=\"c_tags\" value=\"$tags\"/></p>";
 
     // Items state
-    if ($mode & FEED_MODE_PRIVATE_STATE) {
+    if ($mode & RSS_MODE_PRIVATE_STATE) {
         $pchk = " checked=\"checked\" ";
         $old_priv = "1";
     } else {
@@ -752,7 +752,7 @@ function channel_edit_form($cid) {
         $old_priv = "0";
     }
 
-    if ($mode & FEED_MODE_DELETED_STATE) {
+    if ($mode & RSS_MODE_DELETED_STATE) {
         $dchk = " checked=\"checked\" ";
         $old_del = "1";
     } else {

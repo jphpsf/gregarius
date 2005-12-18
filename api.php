@@ -25,8 +25,8 @@ if (isset($_REQUEST['method'])) {
 function blOPML() {
     // Unread count
     $ucres = rss_query ("select cid, count(*) from " .getTable("item")
-                        ." where unread & "  . FEED_MODE_UNREAD_STATE
-                        . " and not(unread & " . FEED_MODE_DELETED_STATE .") group by cid");
+                        ." where unread & "  . RSS_MODE_UNREAD_STATE
+                        . " and not(unread & " . RSS_MODE_DELETED_STATE .") group by cid");
     $uc = array();
     while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {
         $uc[$uccid]=$ucuc;
@@ -39,10 +39,10 @@ function blOPML() {
            .getTable("folders")." f "." where f.id = c.parent";
 
     if (hidePrivate()) {
-        $sql .= " and not(c.mode & ".FEED_MODE_PRIVATE_STATE.") ";
+        $sql .= " and not(c.mode & ".RSS_MODE_PRIVATE_STATE.") ";
     }
 
-    $sql .= " and not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+    $sql .= " and not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
     if (getConfig('rss.config.absoluteordering')) {
         $sql .= " order by f.position asc, c.position asc";
@@ -105,7 +105,7 @@ function blGetItems($cid,$date,$markread) {
            ." c.descr as cdescr, c.url as curl, i.author as iauth, i.url as iurl, "
            ." unix_timestamp(ifnull(i.pubdate, i.added)) as idate ,i.id as iid"
            ." from ".getTable('item')." i, ".getTable('channels') ." c "
-           ." where i.cid=c.id and i.unread & ". FEED_MODE_UNREAD_STATE ." and c.id=$cid";
+           ." where i.cid=c.id and i.unread & ". RSS_MODE_UNREAD_STATE ." and c.id=$cid";
 
     if ($date) {
         $sql .= " and ifnull(i.pubdate, i.added) > $date ";

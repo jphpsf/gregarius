@@ -78,11 +78,11 @@ class Update {
     function populate() {
         $sql = "select c.id, c.url, c.title from ".getTable("channels") . " c, "
                . getTable('folders') . " f ";
-        $sql .= " where not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+        $sql .= " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
         $sql .= " and c.parent = f.id ";
 
         if (hidePrivate()) {
-            $sql .= " and not(mode & ".FEED_MODE_PRIVATE_STATE.") ";
+            $sql .= " and not(mode & ".RSS_MODE_PRIVATE_STATE.") ";
         }
 
         if (getConfig('rss.config.absoluteordering')) {
@@ -99,7 +99,7 @@ class Update {
 
     function cleanUp($newIds) {
         if (count($newIds) > 0 && getConfig('rss.config.markreadonupdate')) {
-            rss_query("update ".getTable("item")." set unread = unread & ".SET_MODE_READ_STATE." where unread & ".FEED_MODE_UNREAD_STATE." and id not in (".implode(",", $newIds).")");
+            rss_query("update ".getTable("item")." set unread = unread & ".SET_MODE_READ_STATE." where unread & ".RSS_MODE_UNREAD_STATE." and id not in (".implode(",", $newIds).")");
         }
         if (count($newIds) > 0) {
             rss_invalidate_cache();

@@ -87,7 +87,7 @@ class Tags {
 
 		// Don't count tags of private items
 		if (hidePrivate()) {
-			$sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+			$sql .= " and not(i.unread & ".RSS_MODE_PRIVATE_STATE.") ";
 		}
 		
 		$sql .= "group by tid order by tag";
@@ -109,9 +109,9 @@ class Tags {
 					$cntUnread += getUnreadCount($fid,null);
 				}else{
 					$sql = "select unread from " . getTable('item') . " where id = $fid"
-						. " and (unread & ".FEED_MODE_UNREAD_STATE.") ";
+						. " and (unread & ".RSS_MODE_UNREAD_STATE.") ";
 					if (hidePrivate()) {
-						$sql .= " and not(unread & ".FEED_MODE_PRIVATE_STATE.") ";
+						$sql .= " and not(unread & ".RSS_MODE_PRIVATE_STATE.") ";
 					}
 					if(rss_num_rows(rss_query($sql))) $cntUnread++;
 				}

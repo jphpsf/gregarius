@@ -163,9 +163,9 @@ class SearchItemList extends ItemList {
         }
 
         if (hidePrivate()) {
-            $qWhere .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.") ";
+            $qWhere .= " and not(i.unread & ".RSS_MODE_PRIVATE_STATE.") ";
         }
-        $qWhere .= " and not(i.unread & ".FEED_MODE_DELETED_STATE.") ";
+        $qWhere .= " and not(i.unread & ".RSS_MODE_DELETED_STATE.") ";
 
         if ($this->orderBy == QUERY_ORDER_BY_DATE) {
             $qOrder = " order by ts desc";

@@ -47,10 +47,10 @@ if (array_key_exists('metaaction', $_POST)
     && !hidePrivate()) {
     
     $sql = "update " .getTable("item") . " set unread=unread & "
-     .SET_MODE_READ_STATE ." where unread  & " . FEED_MODE_UNREAD_STATE;
+     .SET_MODE_READ_STATE ." where unread  & " . RSS_MODE_UNREAD_STATE;
      
    if (hidePrivate()) {
-	  	$sql .= " and not(unread & " . FEED_MODE_PRIVATE_STATE . ")";
+	  	$sql .= " and not(unread & " . RSS_MODE_PRIVATE_STATE . ")";
 	 }
 	 
 	if (array_key_exists('markreadids',$_POST)) {
@@ -132,7 +132,7 @@ function unreadItems($show_what) {
 	*/
 	$sqlWhereHidden = "";
 	
-	$unreadItems -> populate("i.unread & " . FEED_MODE_UNREAD_STATE . $sqlWhereHidden, "", 0, $numItems,ITEM_SORT_HINT_UNREAD);
+	$unreadItems -> populate("i.unread & " . RSS_MODE_UNREAD_STATE . $sqlWhereHidden, "", 0, $numItems,ITEM_SORT_HINT_UNREAD);
 	
     _pf('end populate unread items');
 	if ($unreadItems ->unreadCount) {
@@ -178,7 +178,7 @@ function readItems($limit) {
           
     	 // $sql .= $sqlWhereHidden;
     
-        $sql .= " and not(c.mode & " . FEED_MODE_DELETED_STATE  .") ";
+        $sql .= " and not(c.mode & " . RSS_MODE_DELETED_STATE  .") ";
         
         if (getConfig('rss.config.absoluteordering')) {
         	$sql .= " order by f.position asc, c.position asc";
@@ -187,7 +187,7 @@ function readItems($limit) {
         }
     	$res1=rss_query($sql);
     	while ($readItems->itemCount < $limit && (list($cid) = rss_fetch_row($res1))) {
-    		$sqlWhere  = " not(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid";
+    		$sqlWhere  = " not(i.unread & ". RSS_MODE_UNREAD_STATE  .") and i.cid= $cid";
     		$sqlWhere .= " and i.pubdate <= now() ";
     		
 			$readItems->populate($sqlWhere, "", 0, 2, ITEM_SORT_HINT_READ);
@@ -200,7 +200,7 @@ function readItems($limit) {
 		if ($limit <= 0) {
 			return;
 		}
-		$sqlWhere  = " not(i.unread & ". FEED_MODE_UNREAD_STATE  .")  ";
+		$sqlWhere  = " not(i.unread & ". RSS_MODE_UNREAD_STATE  .")  ";
     	$sqlWhere .= " and i.pubdate <= now() ";
     //	$sqlWhere .= $sqlWhereHidden;
 		$readItems -> populate($sqlWhere, "", 0, $limit, ITEM_SORT_HINT_READ);

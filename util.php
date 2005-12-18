@@ -133,9 +133,9 @@ function update($id) {
     $sql = "select id, url, title, mode from ".getTable("channels");
     if ($id != "" && is_numeric($id)) {
         $sql .= " where id=$id";
-        $sql .= " and not(mode & ".FEED_MODE_DELETED_STATE.") ";
+        $sql .= " and not(mode & ".RSS_MODE_DELETED_STATE.") ";
     } else {
-        $sql .= " where not(mode & ".FEED_MODE_DELETED_STATE.") ";
+        $sql .= " where not(mode & ".RSS_MODE_DELETED_STATE.") ";
     }
 
     if (getConfig('rss.config.absoluteordering')) {
@@ -311,7 +311,7 @@ function update($id) {
                  */
                 rss_plugin_hook('rss.plugins.items.newiid',array($newIid,$item,$cid));
             }
-            elseif (!($state & FEED_MODE_DELETED_STATE) &&
+            elseif (!($state & RSS_MODE_DELETED_STATE) &&
                     getConfig('rss.input.allowupdates') &&
                     strlen($description) > $dbdesc_len) {
 
@@ -320,7 +320,7 @@ function update($id) {
 
                 $sql = "update ".getTable("item")
                        ." set "." description='".rss_real_escape_string($description)."', "
-                       ." unread = unread | ".FEED_MODE_UNREAD_STATE." where cid=$cid and id=$indb";
+                       ." unread = unread | ".RSS_MODE_UNREAD_STATE." where cid=$cid and id=$indb";
 
                 rss_query($sql);
                 $updatedIds[] = $indb;
@@ -443,9 +443,9 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
                 rss_plugin_hook('rss.plugins.feed.new',
                                 array ($title,$urlDB,$siteurl,$folderid,$descr,$icon));
 
-            $mode = FEED_MODE_UNREAD_STATE;
+            $mode = RSS_MODE_UNREAD_STATE;
             if ($private) {
-                $mode |= FEED_MODE_PRIVATE_STATE;
+                $mode |= RSS_MODE_PRIVATE_STATE;
             }
 
             $sql = "insert into ".getTable("channels")
@@ -792,12 +792,12 @@ function getUnreadCount($cid, $fid) {
 
     $sql = "select count(*) from "
            .getTable("item")	."i, ".getTable('channels')."c "
-           ." where i.unread & ".FEED_MODE_UNREAD_STATE. " and not(i.unread & " .
-           FEED_MODE_DELETED_STATE .") and i.cid=c.id "
-           ." and not(c.mode & ".FEED_MODE_DELETED_STATE.") ";
+           ." where i.unread & ".RSS_MODE_UNREAD_STATE. " and not(i.unread & " .
+           RSS_MODE_DELETED_STATE .") and i.cid=c.id "
+           ." and not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
     if (hidePrivate()) {
-        $sql .= " and not(i.unread & ".FEED_MODE_PRIVATE_STATE.")";
+        $sql .= " and not(i.unread & ".RSS_MODE_PRIVATE_STATE.")";
     }
 
     if ($cid) {

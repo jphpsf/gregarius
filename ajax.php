@@ -77,7 +77,7 @@ function __exp__getFeedContent($cid) {
 	
 	$readItems = new ItemList();
 
-	$readItems -> populate(" not(i.unread & ". FEED_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2, ITEM_SORT_HINT_READ);
+	$readItems -> populate(" not(i.unread & ". RSS_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2, ITEM_SORT_HINT_READ);
 	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 	foreach ($readItems -> feeds[0] -> items as $item) {
@@ -509,15 +509,15 @@ function _es(id, state) {
    	div.innerHTML = ''
    		+ '<form class="sf" id="sf"'+id+'" action="#" method="post">'
    		+ '<p><input type="checkbox" id="sf' + id + 'u" value="1"'
-   		+ (tmpState & <?php echo  FEED_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?php echo  RSS_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
    		+ ' />'
 		+ '<label for="sf' + id + 'u"><?php echo  LBL_STATE_UNREAD ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 's" value="1"'
-   		+ (tmpState & <?php echo  FEED_MODE_STICKY_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?php echo  RSS_MODE_STICKY_STATE ?> ?' checked="checked"':'')
    		+ ' />'
 		+ '<label for="sf' + id + 's"><?php echo  LBL_STATE_STICKY ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 'p" value="1"'
-   		+ (tmpState & <?php echo  FEED_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
+   		+ (tmpState & <?php echo  RSS_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
    		+ ' />'
 		+ '<label for="sf' + id + 'p"><?php echo  LBL_STATE_PRIVATE ?></label></p>'
 		+ extraCode
@@ -547,20 +547,20 @@ function _ces(id) {
 function _ses(id) {
     s = 0;
     if ((sfu = document.getElementById('sf'+id+'u')) && sfu.checked) {
-      s += <?php echo  FEED_MODE_UNREAD_STATE ?>;
+      s += <?php echo  RSS_MODE_UNREAD_STATE ?>;
     }
     if ((sfs = document.getElementById('sf'+id+'s')) && sfs.checked) {
-      s += <?php echo  FEED_MODE_STICKY_STATE ?>;
+      s += <?php echo  RSS_MODE_STICKY_STATE ?>;
     }
     if ((sfp = document.getElementById('sf'+id+'p')) && sfp.checked) {
-      s += <?php echo  FEED_MODE_PRIVATE_STATE ?>;
+      s += <?php echo  RSS_MODE_PRIVATE_STATE ?>;
     }
     
     
 
     if ((p=document.prevState[id]) != s) {
-        if ((s & <?php echo  FEED_MODE_UNREAD_STATE ?>) != (p & <?php echo  FEED_MODE_UNREAD_STATE ?>)) {
-            if (s & <?php echo  FEED_MODE_UNREAD_STATE ?>) {
+        if ((s & <?php echo  RSS_MODE_UNREAD_STATE ?>) != (p & <?php echo  RSS_MODE_UNREAD_STATE ?>)) {
+            if (s & <?php echo  RSS_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
                 c=unreadCnt(1);
             } else {

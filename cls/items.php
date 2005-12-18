@@ -85,10 +85,10 @@ class Item {
 		$this->isPubDate = $isPubDate;
 		$this -> tags=array();
 		$this -> rating = $rating;
-		$this ->isUnread 	= $unread & FEED_MODE_UNREAD_STATE;
-		$this ->isPrivate	= $unread & FEED_MODE_PRIVATE_STATE;
-		$this ->isDeleted	= $unread & FEED_MODE_DELETED_STATE;
-		$this ->isSticky	= $unread & FEED_MODE_STICKY_STATE;
+		$this ->isUnread 	= $unread & RSS_MODE_UNREAD_STATE;
+		$this ->isPrivate	= $unread & RSS_MODE_PRIVATE_STATE;
+		$this ->isDeleted	= $unread & RSS_MODE_DELETED_STATE;
+		$this ->isSticky	= $unread & RSS_MODE_STICKY_STATE;
 		//$this -> key = md5(rand(0,10000));
 		
 	}
@@ -190,7 +190,7 @@ class Feed {
 		$item-> setParent($this);
 		$this->items[] = $item;
 		
-		if ((!$this -> hasUnreadItems) && $item->flags & FEED_MODE_UNREAD_STATE) {
+		if ((!$this -> hasUnreadItems) && $item->flags & RSS_MODE_UNREAD_STATE) {
 			$this -> hasUnreadItems = true;
 		}
 	}
@@ -252,7 +252,7 @@ class ItemList {
 		$this -> setRenderOptions( IL_NONE );
 		
 		// Predefined alternate ordering
-		$this -> ORDER_BY_UNREAD_FIRST = " order by i.unread & " . FEED_MODE_UNREAD_STATE . " desc, ";
+		$this -> ORDER_BY_UNREAD_FIRST = " order by i.unread & " . RSS_MODE_UNREAD_STATE . " desc, ";
 		if (getConfig('rss.config.absoluteordering')) {
 			$this -> ORDER_BY_UNREAD_FIRST .= " f.position asc, c.position asc";
 		} else {
@@ -286,13 +286,13 @@ class ItemList {
 
 			." where "
 			." i.cid = c.id and "
-			." f.id=c.parent and "." not(c.mode & ".FEED_MODE_DELETED_STATE.") and "
-			." not(i.unread & ".FEED_MODE_DELETED_STATE.") and ";
+			." f.id=c.parent and "." not(c.mode & ".RSS_MODE_DELETED_STATE.") and "
+			." not(i.unread & ".RSS_MODE_DELETED_STATE.") and ";
 			
 
 
 		if (hidePrivate()) {
-			$sql .= " not(i.unread & ".FEED_MODE_PRIVATE_STATE.") and ";
+			$sql .= " not(i.unread & ".RSS_MODE_PRIVATE_STATE.") and ";
 		}
 
 		if ($sqlWhere) {
@@ -381,7 +381,7 @@ class ItemList {
 			
 			// Some stats...
 			$this -> itemCount++;			
-			if ($iunread_ & FEED_MODE_UNREAD_STATE) {
+			if ($iunread_ & RSS_MODE_UNREAD_STATE) {
 				$this -> unreadCount++;	
 				$this -> unreadIids[] = $iid_;
 			} else {
