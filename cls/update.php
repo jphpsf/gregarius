@@ -66,22 +66,23 @@ class Update {
 
     var $chans = array ();
 
-    function Update() {
-
-        $this->populate();
+    function Update($doPopulate = true, $updatePrivateAlso = false) {
+	if($doPopulate) {
+        	$this->populate($updatePrivateAlso);
+	}
 
         // Script timeout: ten seconds per feed should be a good upper limit
         @set_time_limit(0);
         @ini_set('max_execution_time', (10 * count($this->chans) + 300));
     }
 
-    function populate() {
+    function populate($updatePrivateAlso = false) {
         $sql = "select c.id, c.url, c.title from ".getTable("channels") . " c, "
                . getTable('folders') . " f ";
         $sql .= " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
         $sql .= " and c.parent = f.id ";
 
-        if (hidePrivate()) {
+        if (hidePrivate() && !$updatePrivateAlso) {
             $sql .= " and not(mode & ".RSS_MODE_PRIVATE_STATE.") ";
         }
 
@@ -104,6 +105,47 @@ class Update {
         if (count($newIds) > 0) {
             rss_invalidate_cache();
         }
+    }
+
+    function magpieError($error) {
+        if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
+            if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
+                $label = LBL_UPDATE_NOT_MODIFIED;
+                $cls = ERROR_NOERROR;
+            }
+            elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
+                $label = LBL_UPDATE_CACHE_TIMEOUT;
+                $cls = ERROR_WARNING;
+            }
+            elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
+                $label = LBL_UPDATE_STATUS_CACHED;
+                $cls = ERROR_NOERROR;
+            }
+            elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
+                $label = LBL_UPDATE_NOT_FOUND;
+                $cls = ERROR_ERROR;
+            }
+            else {
+                $label = $error;
+                $cls = ERROR_ERROR;
+            }
+        }
+        elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
+            $label = LBL_UPDATE_STATUS_OK;
+            $cls = ERROR_NOERROR;
+        }
+        else {
+            if (is_numeric($error)) {
+                $label = LBL_UPDATE_STATUS_ERROR;
+                $cls = ERROR_ERROR;
+            } else {
+                // shoud contain MagpieError at this point
+                $label = $error;
+                $cls = ERROR_ERROR;
+            }
+        }
+
+        return array( $label, $cls);
     }
 }
 
@@ -152,42 +194,7 @@ class HTTPServerPushUpdate extends Update {
             }
             $unread = count($unreadIds);
 
-            if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
-                if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
-                    $label = LBL_UPDATE_NOT_MODIFIED;
-                    $cls = ERROR_NOERROR;
-                }
-                elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
-                    $label = LBL_UPDATE_CACHE_TIMEOUT;
-                    $cls = ERROR_WARNING;
-                }
-                elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
-                    $label = LBL_UPDATE_STATUS_CACHED;
-                    $cls = ERROR_NOERROR;
-                }
-                elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
-                    $label = LBL_UPDATE_NOT_FOUND;
-                    $cls = ERROR_ERROR;
-                }
-                else {
-                    $label = $error;
-                    $cls = ERROR_ERROR;
-                }
-            }
-            elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
-                $label = LBL_UPDATE_STATUS_OK;
-                $cls = ERROR_NOERROR;
-            }
-            else {
-                if (is_numeric($error)) {
-                    $label = LBL_UPDATE_STATUS_ERROR;
-                    $cls = ERROR_ERROR;
-                } else {
-                    // shoud contain MagpieError at this point
-                    $label = $error;
-                    $cls = ERROR_ERROR;
-                }
-            }
+            list($label,$cls) = parent::magpieError($error);
 
             if ($cls == ERROR_ERROR && !defined("UPDATE_ERROR")) {
                 define("UPDATE_ERROR", true);
@@ -255,12 +262,12 @@ class AJAXUpdate extends Update {
 
 
 class CommandLineUpdate extends Update {
-    function SilentUpdate() {
-        parent::Update();
+    function CommandLineUpdate() {
+        parent::Update($doPopulate = true, $updatePrivateAlso = true);
     }
 
     function render() {
-    		$newIds = array();
+        $newIds = array();
         foreach ($this->chans as $chan) {
             list ($cid, $url, $title) = $chan;
             echo "$title ...\t";
@@ -276,35 +283,8 @@ class CommandLineUpdate extends Update {
             }
             $unread = count($unreadIds);
 
-            if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
-                if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
-                    $label = LBL_UPDATE_NOT_MODIFIED;
-                }
-                elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
-                    $label = LBL_UPDATE_CACHE_TIMEOUT;
-                }
-                elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
-                    $label = LBL_UPDATE_STATUS_CACHED;
-                }
-                elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
-                    $label = LBL_UPDATE_NOT_FOUND;
-                }
-                else {
-                    $label = $error;
-                }
-            }
-            elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
-                $label = LBL_UPDATE_STATUS_OK;
-            }
-            else {
-                if (is_numeric($error)) {
-                    $label = LBL_UPDATE_STATUS_ERROR;
-                } else {
-                    // shoud contain MagpieError at this point
-                    $label = $error;
-                }
-            }
-						echo "\n$label, $unread " . LBL_UPDATE_UNREAD . "\n\n";
+            list($label,$cls) = parent::magpieError($error);
+            echo "\n$label, $unread " . LBL_UPDATE_UNREAD . "\n\n";
             flush();
 
         }
@@ -326,7 +306,7 @@ class CommandLineUpdate extends Update {
  */
 class SilentUpdate extends Update {
     function SilentUpdate() {
-        parent::Update();
+	parent::Update($doPopulate = false);
     }
 
     function render() {
@@ -384,42 +364,7 @@ function ajaxUpdate($ids) {
             $error = 0;
             $unread = 0;
         }
-        if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
-            if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
-                $label = LBL_UPDATE_NOT_MODIFIED;
-                $cls = ERROR_NOERROR;
-            }
-            elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
-                $label = LBL_UPDATE_CACHE_TIMEOUT;
-                $cls = ERROR_WARNING;
-            }
-            elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
-                $label = LBL_UPDATE_STATUS_CACHED;
-                $cls = ERROR_NOERROR;
-            }
-            elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
-                $label = LBL_UPDATE_NOT_FOUND;
-                $cls = ERROR_ERROR;
-            }
-            else {
-                $label =  $error;
-                $cls = ERROR_ERROR;
-            }
-        }
-        elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
-            $label = LBL_UPDATE_STATUS_OK;
-            $cls = ERROR_NOERROR;
-        }
-        else {
-            if (is_numeric($error)) {
-                $label= LBL_UPDATE_STATUS_ERROR;
-                $cls  = ERROR_ERROR;
-            } else {
-                // shoud contain MagpieError at this point
-                $label= $error;
-                $cls = ERROR_ERROR;
-            }
-        }
+        list($label,$cls) = AJAXUpdate::magpieError($error);
         $sret[] = "$id".SUB_SPLITTER."$unread".SUB_SPLITTER."$label".SUB_SPLITTER."$cls";
     }
     // just cat the return elements together, as SAJAX
