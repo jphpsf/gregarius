@@ -241,6 +241,17 @@ div.feedaction.withmargin {
  margin-bottom: 0.8em;
 }
 
+div.feedaction.withmargin form {
+ display: inline;
+}
+
+div.feedaction.withmargin form p {
+ display: inline;
+}
+
+div.feedaction.withmargin #frmShow {
+ display: block;
+}
 
 form#frmShow { margin-bottom: 0.4em !important; }
 

@@ -52,7 +52,7 @@ function rss_itemlist_icon() {
 			return $GLOBALS['rss'] -> currentItemList -> feeds[$key[0]] -> iconUrl;
 	} elseif (($GLOBALS['rss']->renderOptions & IL_FOLDER_VIEW) && 
 			getConfig('rss.output.showfavicons')) {
-		return getThemePath()."media/folder.gif";
+		return getExternalThemeFile("media/folder.gif");
 	}
 		
 	return null;
@@ -71,7 +71,8 @@ function rss_itemlist_prerender_callback() {
 			list($prAfnct,$prAargs)=$prAction;
 			call_user_func($prAfnct, $prAargs);
 		}
-	}	
+	}
+	rss_plugin_hook( 'rss.plugins.items.beforeitemsimmediate', null );
 }
 
 function rss_itemlist_feeds() {
