@@ -555,15 +555,19 @@ function parse_iso8601($date_str) {
  */
 function getPath() {
     static $ret;
-    $ret = dirname($_SERVER['PHP_SELF']);
-    if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION."\$", $ret)) {
-        $ret = substr($ret, 0, strlen($ret) - strlen(RSS_FILE_LOCATION));
-    }
-    if (substr($ret, -1) != "/") {
-        $ret .= "/";
+    if ($ret === NULL) {
+		 $ret = dirname($_SERVER['PHP_SELF']);
+		 if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION."\$", $ret)) {
+			  $ret = substr($ret, 0, strlen($ret) - strlen(RSS_FILE_LOCATION));
+		 }
+		 if (substr($ret, -1) != "/") {
+			  $ret .= "/";
+		 }
     }
     return $ret;
+    
 }
+$dummy = getPath();
 
 /**
  * builds an url for an archive link
@@ -771,7 +775,6 @@ function __exp_login($uname,$pass,$cb) {
     }
     return "$ulevel|$uname|$pass";
 }
-
 
 function getThemePath() {
     $ret = getPath().RSS_THEME_DIR."/";
