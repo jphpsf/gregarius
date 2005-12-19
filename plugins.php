@@ -119,13 +119,13 @@ function rss_plugins_set_item_state($itemId, $bit_mask, $set
                                     , $sqlwhere = "", $entire_db = false) {
     $retvalue = false;
     if($itemId || $entire_db) { // Check to see if itemId is set or if we are allowed to fsck up the entire db
-        // the bitmask has a zero in the spot (field) we want to change.
+        // the bitmask has a one in the spot (field(s)) we want to change.
         if($set
           ) { // Set the value to the field to 1
-            $sql = "update " .getTable("item") ." set unread = unread | ".  ~ $bit_mask;
+            $sql = "update " .getTable("item") ." set unread = unread | ".  $bit_mask;
         }
         else { // set the value of the field to 0
-            $sql = "update " .getTable("item") ." set unread = unread & ". $bit_mask;
+            $sql = "update " .getTable("item") ." set unread = unread & ". ~ $bit_mask;
         }
 
         if($itemId) {
