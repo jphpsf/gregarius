@@ -44,12 +44,12 @@ function __exp__setState($id,$state) {
 function __exp__getSideContent($what) {
 	ob_start();
 	switch ($what) {
-		case '0':
+		case 'FeedList':
 			$f = new FeedList(false);
 			$f -> render();
 			break;
 
-		case '1':
+		case 'CatList':
 			//rss_require('cls/taglist.php');
 			//$v = new TagList('channel');
 			rss_require('cls/categories.php');
@@ -57,7 +57,7 @@ function __exp__getSideContent($what) {
 			$v -> render();
 			break;
 
-		case '2':
+		case 'TagList':
 			rss_require('cls/taglist.php');
 			$t = new TagList('item');
 			$t -> render();
@@ -295,14 +295,17 @@ function _setSideContent_cb(ret) {
  	kind=data[0];
  	content=data[1];
 	c = document.getElementById('channels').innerHTML;
-	
-	for (i=0;i<3;i++) {
-		if (i == kind) {
-			document.getElementById('sidemenu'+i).className = "active";
+	ul = document.getElementById('sidemenu');
+	lis= ul.getElementsByTagName('li');
+	for (j=0;j<lis.length;j++) {
+		var li = lis[j];
+		if (li.id == ('sidemenu'+kind)) {
+			li.className = "active";
 		} else {
-			document.getElementById('sidemenu'+i).className = "";
+			li.className = "";
 		}
 	}
+
 	document.currentSide = kind;
 	document.currentSideCache[kind] = content;
 	document.getElementById('channels').innerHTML = content;

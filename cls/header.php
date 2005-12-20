@@ -94,9 +94,9 @@ class Header {
 
 		
 		$GLOBALS['rss'] -> sideMenu = new SideMenu();
-		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_H2_CHANNELS,'0' , "_side('0')");
-		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_TAG_FOLDERS, '1', "_side('1')");
-		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_TAG_TAGS, '2', "_side('2')");
+		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_H2_CHANNELS,'FeedList' , "_side('FeedList')");
+		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_TAG_FOLDERS, 'CatList', "_side('CatList')");
+		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_TAG_TAGS, 'TagList', "_side('TagList')");
 	}
 
 	function appendHeader($hdr) {

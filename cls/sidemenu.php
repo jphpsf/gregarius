@@ -35,7 +35,7 @@ class SideMenu {
 	
 	function SideMenu() {
 		$this -> items = array();
-		$this -> activeElement = isset($_COOKIE['side']) ? $_COOKIE['side']:"0";
+		$this -> activeElement = isset($_COOKIE['side']) ? $_COOKIE['side']:"FeedList";
 		$GLOBALS['rss']->sideMenu = $this;
 	}
 	
