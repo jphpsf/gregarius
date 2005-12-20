@@ -86,10 +86,5 @@ class TagList extends FeedList{
 		return sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount);
 	}
 	
-	function render() {
-		_pf('TagList->render() ...');
-		eval($GLOBALS['rss'] ->getCachedTemplateFile("feeds.php"));
-		_pf('done');	
-	}
 }
 ?>
