@@ -101,7 +101,7 @@ div#channels li:hover, div#channels li.folder ul li:hover,div#channels li.active
 div#channels li.folder:hover { background-color: transparent}
 
 /** the main divs (nav, side, content, footer, ...) inherit this class */
-div.frame {
+.frame {
  background-color: #fff;
  border: 1px solid #ccc;
 }
