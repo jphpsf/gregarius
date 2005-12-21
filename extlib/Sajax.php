@@ -178,7 +178,7 @@ if (!isset($SAJAX_INCLUDED)) {
     	span.style.padding = '3px;';
     	span.className = 'frame';    	
     	span.innerHTML = '<img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" />';
-			document.getElementById('channels').appendChild(span);
+			document.body.appendChild(span);
 		}
 		
 		<?php
