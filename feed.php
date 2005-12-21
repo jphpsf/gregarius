@@ -38,8 +38,8 @@ define ('LBL_NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
 // Show unread items on the front page?
 // default to the config value, user can override this via a cookie
-$show_what = (getConfig('rss.output.noreaditems') ?
-              SHOW_UNREAD_ONLY : SHOW_READ_AND_UNREAD );
+$show_what = (getConfig('rss.output.frontpage.mixeditems') ?
+	SHOW_READ_AND_UNREAD : SHOW_UNREAD_ONLY);
 
 if (array_key_exists(SHOW_WHAT,$_POST)) {
     $show_what = $_POST[SHOW_WHAT];
