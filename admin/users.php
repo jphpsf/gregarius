@@ -56,22 +56,18 @@ function set_admin_pass($uname=null,$pass=null) {
 
 function rss_login_form($uname=null,$pass=null) {
 	
-	if ($uname && $pass) {
-		echo __exp_login($uname,md5($pass));
-	}
-
-
-
 	admin_header();
 	?>
 	<script type="text/javascript">
 	<!--
+		
 		function on_submit_login_form() {
 			uname=document.getElementById('login_uname').value;
 			pass=hex_md5(document.getElementById('login_pass').value);
 			ajax_login(uname,pass,admin_login_hdlr);
 			return false;
 		}
+		
 		
 		function admin_login_hdlr(data) {
 			tokens=data.split('|');
