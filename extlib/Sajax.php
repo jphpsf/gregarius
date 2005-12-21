@@ -172,7 +172,7 @@ if (!isset($SAJAX_INCLUDED)) {
 		function rss_sajax_busy() {			
 			var span=document.createElement('span');
 			span.id='ajax_throbber';
-			span.style.position='absolute';
+			span.style.position='fixed';
 			span.style.left = '5px';
     	span.style.top = '5px';
     	span.style.padding = '3px;';
