@@ -101,7 +101,7 @@ function rss_search_channels_combo($id) {
 		     ." where f.id=c.parent ";
 		      
 	if (hidePrivate()) {
-		$sql .=" and not(c.mode & " . FEED_MODE_PRIVATE_STATE .") ";	      
+		$sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";	      
 	}
 		      
 	$sql .= " order by "
