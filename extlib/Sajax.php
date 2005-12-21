@@ -131,6 +131,8 @@ if (!isset($SAJAX_INCLUDED)) {
 					post_data = post_data + "&rsargs[]=" + escape(args[i]);
 			}
 			
+			rss_sajax_busy();
+			
 			x = sajax_init_object();
 			x.open(sajax_request_type, uri, true);
 			if (sajax_request_type == "POST") {
@@ -146,15 +148,36 @@ if (!isset($SAJAX_INCLUDED)) {
 				var data;
 				status = x.responseText.charAt(0);
 				data = x.responseText.substring(2);
-				if (status == "-") 
+				if (status == "-") {
 					alert("Error: " + data);
-				else  
+				} else {
 					args[args.length-1](data);
+				}
+				rss_sajax_unbusy();
 			}
 			sajax_debug(func_name + " uri = " + uri + "\n/post = " + post_data);
 			x.send(post_data);
 			sajax_debug(func_name + " waiting..");
 			delete x;
+		}
+		
+		function rss_sajax_unbusy() {
+			span = document.getElementById('ajax_throbber');
+			if (span) {
+				devnull = span.parentNode.removeChild(span);
+			}
+			
+		}
+		
+		function rss_sajax_busy() {			
+			var span=document.createElement('span');
+			span.id='ajax_throbber';
+			span.style.position='absolute';
+			span.style.left = '5px';
+    	span.style.top = '5px';
+    	span.className = 'frame';
+    	span.innerHTML = '<img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" />';
+			document.getElementById('channels').appendChild(span);
 		}
 		
 		<?php
