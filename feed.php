@@ -369,7 +369,11 @@ if (array_key_exists ('metaaction', $_POST)) {
             $sql .= " group by cid";
             $res = rss_query($sql);
             while (list($cid__,$uc__) = rss_fetch_row($res)) {
-                $feeds[$cid__] = $uc__;
+                // this makes sure only the feeds that were gathered in the
+                // last query are put into this array.. fixes #305
+                if(array_key_exists($cid__, $feeds)) {
+                    $feeds[$cid__] = $uc__;
+                }
             }
 
             // 3: iterate over the feeds and see where we should redirect.
