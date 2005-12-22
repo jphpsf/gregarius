@@ -100,4 +100,19 @@ function configRealValue($value_,$type_) {
 	}
 	return $real_value;
 }
+
+/**
+* Theme wrapper function to override config options
+  Returns true if the config value was overridden. (otherwise it returns false)
+**/
+function rss_config_override($key, $value) {
+	$confKey = 'RSS_CONFIG_OVERRIDE_' . strtoupper(preg_replace('/\./','_',$key));
+	$retValue = false;
+	if (!defined($confKey)) {
+		define($confKey, $value);
+		$retValue = true;
+	}
+	return $retValue;
+}
+
 ?>
