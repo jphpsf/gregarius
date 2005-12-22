@@ -225,8 +225,8 @@ define ('LBL_STATE_PRIVATE','Privado (Solo los administradores pueden ver estos 
 define ('LBL_STICKY','Destacado');
 define ('LBL_DEPRECATED','No aprovado');
 define ('LBL_PRIVATE','Privado');
-define ('LBL_ADMIN_TOGGLE_STATE','Estado:');
-define ('LBL_ADMIN_TOGGLE_SET','Cambia');
+define ('LBL_ADMIN_STATE','Estado:');
+define ('LBL_ADMIN_STATE_SET','Cambia');
 define ('LBL_ADMIN_IM_SURE','Estoy seguro!');
 
 // new in 0.5.1:

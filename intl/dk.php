@@ -220,8 +220,8 @@ define ('LBL_STATE_PRIVATE','Privat (Kun administratore kan se privat items)');
 define ('LBL_STICKY','Sticky');
 define ('LBL_DEPRECATED','For&aelig;ldet');
 define ('LBL_PRIVATE','Privat');
-define ('LBL_ADMIN_TOGGLE_STATE','Toggle State:');
-define ('LBL_ADMIN_TOGGLE_SET','S&aelig;t');
+define ('LBL_ADMIN_STATE','State:');
+define ('LBL_ADMIN_STATE_SET','S&aelig;t');
 define ('LBL_ADMIN_IM_SURE','Jeg er sikker!');
 
 // new in 0.5.1:

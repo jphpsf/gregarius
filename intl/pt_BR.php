@@ -220,8 +220,8 @@ define ('LBL_STATE_PRIVATE','Privado (Apenas administradores podem &iacute;tens 
 define ('LBL_STICKY','Pregado');
 define ('LBL_DEPRECATED','Depreciado');
 define ('LBL_PRIVATE','Privado');
-define ('LBL_ADMIN_TOGGLE_STATE','Mudar estado:');
-define ('LBL_ADMIN_TOGGLE_SET','Mudar');
+define ('LBL_ADMIN_STATE','Estado:');
+define ('LBL_ADMIN_STATE_SET','Mudar');
 define ('LBL_ADMIN_IM_SURE','Eu tenho certeza!');
 
 // new in 0.5.1:

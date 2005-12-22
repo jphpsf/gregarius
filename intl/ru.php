@@ -221,8 +221,8 @@ define ('LBL_STATE_PRIVATE','Личная (только администрато
 define ('LBL_STICKY','Приклеенная');
 define ('LBL_DEPRECATED','Исключенная');
 define ('LBL_PRIVATE','Личная');
-define ('LBL_ADMIN_TOGGLE_STATE','Поменять состояние:');
-define ('LBL_ADMIN_TOGGLE_SET','Установить');
+define ('LBL_ADMIN_STATE','состояние:');
+define ('LBL_ADMIN_STATE_SET','Установить');
 define ('LBL_ADMIN_IM_SURE','Я уверен!');
 
 

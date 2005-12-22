@@ -221,8 +221,8 @@ define ('LBL_STATE_PRIVATE','Privat (Nur Administratoren koennen private Eintrae
 define ('LBL_STICKY','Sticky');
 define ('LBL_DEPRECATED','Veraltet');
 define ('LBL_PRIVATE','Privat');
-define ('LBL_ADMIN_TOGGLE_STATE','Status aendern:');
-define ('LBL_ADMIN_TOGGLE_SET','Aendern');
+define ('LBL_ADMIN_STATE','Status:');
+define ('LBL_ADMIN_STATE_SET','Aendern');
 define ('LBL_ADMIN_IM_SURE','Ich bin sicher!');
 // new in 0.5.1:
 define ('LBL_LOGGED_IN_AS','Angemeldet als <strong>%s</strong>');

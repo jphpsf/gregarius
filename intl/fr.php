@@ -219,8 +219,8 @@ define ('LBL_STATE_PRIVATE','Priv&eacute; (Seuls les administrateurs peuvent voi
 define ('LBL_STICKY','Persistant');
 define ('LBL_DEPRECATED','D&eacute;sactiv&eacute;');
 define ('LBL_PRIVATE','Priv&eacute');
-define ('LBL_ADMIN_TOGGLE_STATE','Basculer &eacute;tat:');
-define ('LBL_ADMIN_TOGGLE_SET','Basculer');
+define ('LBL_ADMIN_STATE','&Eacute;tat:');
+define ('LBL_ADMIN_STATE_SET','Basculer');
 define ('LBL_ADMIN_IM_SURE','Je suis sur!');
 
 // new in 0.5.1:

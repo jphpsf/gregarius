@@ -234,8 +234,8 @@ define ('LBL_STICKY','Sticky');
 define ('LBL_DEPRECATED','Ur bruk');
 define ('LBL_PRIVATE','Privat');
 
-define ('LBL_ADMIN_TOGGLE_STATE','V&auml;xla status:');
-define ('LBL_ADMIN_TOGGLE_SET','Utf&ouml;r');
+define ('LBL_ADMIN_STATE','Status:');
+define ('LBL_ADMIN_STATE_SET','Utf&ouml;r');
 define ('LBL_ADMIN_IM_SURE','Bekr&auml;fta!');
 
 // new in 0.5.1:

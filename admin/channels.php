@@ -181,14 +181,14 @@ function channels() {
 
     ."<span class=\"vr\">&nbsp;</span>"
 
-    ."<label>".LBL_ADMIN_TOGGLE_STATE."</label>\n"
+    ."<label>".LBL_ADMIN_STATE."</label>\n"
     ."<input type=\"checkbox\" name=\"me_deprecated\" id=\"me_deprecated\" value=\"".RSS_MODE_DELETED_STATE."\" />\n"
     ."<label for=\"me_deprecated\">".LBL_DEPRECATED."</label>\n"
 
     ."<input type=\"checkbox\" name=\"me_private\" id=\"me_private\" value=\"".RSS_MODE_PRIVATE_STATE."\" />\n"
     ."<label for=\"me_private\">".LBL_PRIVATE."</label>\n"
 
-    ."<input type=\"submit\" id=\"me_state\" name=\"me_state\" value=\"".LBL_ADMIN_TOGGLE_SET."\" />\n"
+    ."<input type=\"submit\" id=\"me_state\" name=\"me_state\" value=\"".LBL_ADMIN_STATE_SET."\" />\n"
 
     ."<span class=\"vr\">&nbsp;</span>"
 
