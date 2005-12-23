@@ -377,7 +377,10 @@ function get_feed_content_cb(data) {
 	}
 }
 
-
+function setGregariusCookie(cookieName,cookieValue) {
+  setCookie(cookieName,cookieValue,"<?php echo getPath(); ?>");	
+}	
+	
 // src: http://www.javascripter.net/faq/settinga.htm
 function setCookie(cookieName,cookieValue,path) {
     //alert(cookieValue);
