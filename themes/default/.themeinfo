@@ -3,3 +3,5 @@ official: true
 description: This is the default Gregarius theme
 author: Gregarius
 url: http://gregarius.net/
+version: 1.1
+screenshot: shot.png
