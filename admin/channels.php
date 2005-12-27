@@ -495,6 +495,9 @@ function channel_admin() {
                             trim($opml[$folder][$i]['XMLURL']):null;
                     $title_ = isset($opml[$folder][$i]['TEXT'])?
                               trim($opml[$folder][$i]['TEXT']):null;
+                    // support for title attribute (optional)
+                    $title_ = isset($opml[$folder][$i]['TITLE'])?
+                              trim($opml[$folder][$i]['TITLE']):$title_;
                     $descr_ = isset($opml[$folder][$i]['DESCRIPTION'])?
                               trim($opml[$folder][$i]['DESCRIPTION']):null;
                     if ($url_) {
