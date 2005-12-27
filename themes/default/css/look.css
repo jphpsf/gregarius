@@ -381,7 +381,7 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 
 
 /* admin/themes */
-/* thouroughly inspired by WP2.0's theme management */
+/* thoroughly inspired by WP2.0's theme management */
 
 .themeframe {
 	width: 30%;
@@ -393,12 +393,25 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	text-align:left;
 }
 
+.themeframe span {
+	background-color: #f9f9f9; 
+	padding: 1em; 
+	display:block;
+	border: 1px solid #f7f7f7;	
+	} 
+
+	
+.themeframe span:hover, .themeframe.active span { 
+ border-color: #eef;
+ background-color: #f8f8ff;
+ }
+ 
 .themeframe h4 { border:none; padding:0 }
 
 .themeframe p { text-align: justify; font-size: small; padding: 0 0.4em; }
 
 .themeframe a.themescreenshot {
-	width: 280px;
+	width: 240px;
 	height: 160px;
 	display: block;
 	margin: auto;
@@ -408,9 +421,7 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	overflow: hidden;
 }
 
-.themeframe a.themescreenshot:hover {
-/*	border: 1px solid #666;*/
-}
+
 
 .themeframe img {
 	width: 100%;

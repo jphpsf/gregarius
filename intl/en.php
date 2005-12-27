@@ -290,7 +290,7 @@ define ('LBL_ADMIN_THEMES','Themes');
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 .'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'
-.'More themes can be downloaded at the <a style="text-decoration:underline" '
+.'More themes can be downloaded from the <a style="text-decoration:underline" '
 .' href="http://themes.gregarius.net/">Themes Repository</a>.</p>');
 
 ?>
