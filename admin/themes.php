@@ -30,7 +30,57 @@ function themes_admin() {
     return CST_ADMIN_DOMAIN_THEMES;
 }
 
+
 function themes() {
+	$themes = getThemes();
+
+	if (isset($_GET['theme']) && array_key_exists($_GET['theme'],$themes)) {
+		$sql = "update " . getTable('config') . " set value_ = '". $_GET['theme']."'"
+			   ." where key_='rss.output.theme'";
+		rss_query($sql);
+		$active_theme = $_GET['theme'];
+	}	 else {
+		$active_theme= getConfig('rss.output.theme');
+    }
+    
+	echo "<h2 class=\"trigger\">".LBL_ADMIN_THEMES."</h2>\n"
+    ."<div id=\"admin_themes\" >\n";
+    echo LBL_ADMIN_THEMES_GET_MORE;
+
+
+	foreach ($themes as $entry => $theme) {
+
+        extract($theme);
+        if (!$name) {
+            $name = $entry;
+        }
+        if ($url) {
+            $author = "<a href=\"$url\">$author</a>";
+        }
+        $active = ($entry ==  $active_theme);
+        if ($screenshot) {
+        	$screenshotURL = "<img src=\"". getPath() . RSS_THEME_DIR . "/$fsname/$screenshot\"  />";
+        } else {
+        	$screenshotURL = "";
+        }
+        $h4="$name"; 
+        $h5="By&nbsp;$author | Version:&nbsp;$version";
+        if ($htmltheme) {
+        	$seturl = "index.php?view=themes&amp;theme=$entry";
+        } else {
+        	$seturl = "";
+        }
+        echo "<div class=\"themeframe\">"
+        	."<h4>$h4</h4>\n"
+        	."<h5>$h5</h5>\n"
+        	."<a href=\"$seturl\" class=\"themescreenshot\">$screenshotURL</a>"
+        	."<p>$description</p>"        	
+        	."</div>\n";
+    }
+
+	echo "</div>\n";
+}
+function themes2() {
     $themes = getThemes();
     if (isset($_REQUEST[CST_ADMIN_METAACTION]) && $_REQUEST[CST_ADMIN_METAACTION] == 'LBL_ADMIN_SUBMIT_CHANGES') {
         if (isset($_POST['value'])) {
@@ -46,7 +96,7 @@ function themes() {
     }
     echo "<h2 class=\"trigger\">".LBL_ADMIN_THEMES."</h2>\n"
     ."<div id=\"admin_plugins\">\n";
-
+  
 
     echo LBL_ADMIN_THEMES_GET_MORE;
 

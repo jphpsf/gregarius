@@ -377,3 +377,41 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 
 #admin_login_submit p { padding: 0 auto; display:block; }
 #admin_login_submit input { height: auto; }
+
+
+
+/* admin/themes */
+/* thouroughly inspired by WP2.0's theme management */
+
+.themeframe {
+	width: 30%;
+	margin: 0 1em;
+	float: left;
+	height: 22em;
+	overflow: hidden;
+	padding: 0.3 0;
+	text-align:left;
+}
+
+.themeframe h4 { border:none; padding:0 }
+
+.themeframe p { text-align: justify; font-size: small; padding: 0 0.4em; }
+
+.themeframe a.themescreenshot {
+	width: 280px;
+	height: 160px;
+	display: block;
+	margin: auto;
+	background: #f1f1f1;
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.themeframe a.themescreenshot:hover {
+/*	border: 1px solid #666;*/
+}
+
+.themeframe img {
+	width: 100%;
+}
