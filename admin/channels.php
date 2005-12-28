@@ -57,7 +57,7 @@ function channels() {
     $bookmarklet = "javascript:void(document.location = "
                    ."('$b_url'.concat(escape(document.location).replace(/\s/,'%2520'))))";
 
-    echo "<p class=\"bookmarklet\">" . LBL_ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".LBL_ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
+    echo "<p style=\"font-size:small\">" . LBL_ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".LBL_ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
 
     // feeds
 
