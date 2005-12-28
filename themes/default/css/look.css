@@ -387,7 +387,7 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	width: 29%;
 	margin: 0 1em;
 	float: left;
-	height: 22em;
+	height: 20em;
 	overflow: hidden;
 	padding: 0.2em 0;
 	text-align:left;
@@ -395,7 +395,7 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 
 .themeframe span {
 	background-color: #f9f9f9; 
-	padding: 1em; 
+	padding: 1em 1em 0 1em; 
 	display:block;
 	border: 1px solid #f7f7f7;	
 	} 
@@ -408,7 +408,7 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
  
 .themeframe h4 { border:none; padding:0 }
 
-.themeframe p { text-align: justify; font-size: small; padding: 0 0.4em; }
+.themeframe p { text-align: justify; font-size: small; padding: 0 0.4em; margin: 0 }
 
 .themeframe a.themescreenshot {
 	width: 230px;
