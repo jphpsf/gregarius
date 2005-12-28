@@ -771,6 +771,7 @@ function __exp_login($uname,$pass,$cb) {
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
+    	//setcookie(RSS_USER_COOKIE,$uname ."|". $pass,time()+3600*365,getPath());
         rss_invalidate_cache();
     }
     return "$ulevel|$uname|$pass";

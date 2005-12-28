@@ -46,18 +46,20 @@ function checkETag($withDB = true, $keyPrefix= "", $cacheValidity = 0) {
         list($dt) = rss_fetch_row(rss_query('select timestamp from ' .getTable('cache') . " where cachekey='data_ts'"));
         $key .= $dt;
     }
-    if (array_key_exists(PRIVATE_COOKIE,$_REQUEST)) {
-        $key .= $_REQUEST[PRIVATE_COOKIE];
+    if (array_key_exists(RSS_USER_COOKIE,$_REQUEST)) {
+        $key .= $_REQUEST[RSS_USER_COOKIE];
     }
     $key = md5($key);
 
     if (array_key_exists('HTTP_IF_NONE_MATCH',$_SERVER)  && $_SERVER['HTTP_IF_NONE_MATCH'] == $key) {
         header("HTTP/1.1 304 Not Modified");
-        header("ETag: \"$key\"");
+        header("X-RSS-CACHE-STATUS: HIT");
+        header("ETag: $key");
         flush();
         exit();
     } else {
-        header("ETag: \"$key\"");
+        header("ETag: $key");
+        header("X-RSS-CACHE-STATUS: MISS");
         if ($cacheValidity) {
             header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $cacheValidity*3600) . 'GMT');
         }

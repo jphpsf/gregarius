@@ -171,7 +171,7 @@ function minilogin_cb_handler(data) {
 		document.getElementById('loginfo').innerHTML = ''
 		+ '<?php echo LBL_LOGGED_IN_AS; ?>'.replace(/%s/gi,tokens[1])
 		+ '&nbsp;|&nbsp;<a href="<?php echo getPath() . "?logout\">".LBL_LOG_OUT."</a>" ?>';
-		setCookie('<?php echo RSS_USER_COOKIE; ?>',tokens[1]+'|'+tokens[2],'<?php echo getPath(); ?>');
+		setRootCookie('<?php echo RSS_USER_COOKIE; ?>', tokens[1]+'|'+tokens[2]);
 		document.location = document.location.href.replace(/\?logout$/, "");
 	} 
 }
@@ -309,7 +309,7 @@ function _setSideContent_cb(ret) {
 	document.currentSide = kind;
 	document.currentSideCache[kind] = content;
 	document.getElementById('channels').innerHTML = content;
-	setCookie("side",kind, "<?php echo  getPath() ?>");
+    setRootCookie("side",kind);
 }
 
 
@@ -360,7 +360,7 @@ function _ftgl(cid) {
 			}
 		}
 	}
-	setCookie('collapsedfeeds',cidsCookie, "/");
+	setRootCookie('collapsedfeeds',cidsCookie);
 }
 
 
@@ -377,7 +377,7 @@ function get_feed_content_cb(data) {
 	}
 }
 
-function setGregariusCookie(cookieName,cookieValue) {
+function setRootCookie(cookieName,cookieValue) {
   setCookie(cookieName,cookieValue,"<?php echo getPath(); ?>");	
 }	
 	

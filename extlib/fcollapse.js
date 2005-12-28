@@ -72,9 +72,9 @@ function _tgl(fid,ftype) {
         }
     }
 	if(ftype == 'category'){
-		setGregariusCookie(CATEGORYCOOKIENAME,c);
+		setRootCookie(CATEGORYCOOKIENAME,c);
 	}else{
-		setGregariusCookie(FOLDERCOOKIENAME,c);
+		setRootCookie(FOLDERCOOKIENAME,c);
 	}
 }
 
