@@ -39,6 +39,7 @@ function themes() {
 			   ." where key_='rss.output.theme'";
 		rss_query($sql);
 		$active_theme = $_GET['theme'];
+		rss_invalidate_cache();
 	}	 else {
 		$active_theme= getConfig('rss.output.theme');
     }
@@ -61,7 +62,7 @@ function themes() {
         if ($screenshot) {
         	$screenshotURL = "<img src=\"". getPath() . RSS_THEME_DIR . "/$fsname/$screenshot\"  />";
         } else {
-        	$screenshotURL = "";
+        	$screenshotURL = "<img />";
         }
         $h4="$name"; 
         $h5="By&nbsp;$author | Version:&nbsp;$version";
@@ -70,10 +71,15 @@ function themes() {
         } else {
         	$seturl = "";
         }
-        echo "<div class=\"themeframe".($active?" active":"")."\"><span>"
-        	."<h4>$h4</h4>\n"
+        echo "<div class=\"themeframe".($active?" active":"")."\"><span>";
+        if (!$active && $htmltheme) {
+        	echo "<a href=\"$seturl\" class=\"bookmarklet\">Use this theme</a>";
+        } elseif($active) {
+        	echo "<p class=\"bookmarklet\">Active theme</p>";
+        }
+        echo "<h4>$h4</h4>\n"
         	."<h5>$h5</h5>\n"
-        	."<a href=\"$seturl\" class=\"themescreenshot\">$screenshotURL</a>"
+        	."<p class=\"themescreenshot\">$screenshotURL</p>"
         	."<p>$description</p>&nbsp;"        	
         	."</span></div>\n";
     }

@@ -219,7 +219,7 @@ ul.navlist {
  list-style-type: none;
 }
 
-ul.navlist li,a.bookmarklet {
+ul.navlist li, .bookmarklet {
  border: 1px solid #ddd;
  background-color: #f4f4f4;
 }
@@ -393,6 +393,12 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	text-align:left;
 }
 
+.themeframe .bookmarklet {
+	float:right;
+	padding: 0 0.2em;
+	display:block;
+}
+
 .themeframe span {
 	background-color: #f9f9f9; 
 	padding: 1em 1em 0 1em; 
@@ -406,11 +412,11 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
  background-color: #f8f8ff;
  }
  
-.themeframe h4 { border:none; padding:0 }
+.themeframe h4 { border:none; padding:0; clear:right }
 
 .themeframe p { text-align: justify; font-size: small; padding: 0 0.4em; margin: 0 }
 
-.themeframe a.themescreenshot {
+.themeframe p.themescreenshot {
 	width: 230px;
 	height: 120px;
 	display: block;
