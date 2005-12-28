@@ -261,8 +261,9 @@ define ('LBL_ADMIN_MUST_SET_PASS','<p>No Administrator has been specified yet!</
 		.'<p>Please provide an Administrator username and password now!</p>');
 define ('LBL_USERNAME','Username');		
 define ('LBL_PASSWORD','Password');
+define ('LBL_PASSWORD2','Password (again)');
 define ('LBL_ADMIN_LOGIN','Please log in');
-
+define ('LBL_ADMIN_PASS_NO_MATCH','Passwords do not match!');
 
 define ('LBL_ADMIN_PLUGINS','Plugins');
 define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','plugins');
