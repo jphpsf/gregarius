@@ -171,7 +171,11 @@ function minilogin_cb_handler(data) {
 		document.getElementById('loginfo').innerHTML = ''
 		+ '<?php echo LBL_LOGGED_IN_AS; ?>'.replace(/%s/gi,tokens[1])
 		+ '&nbsp;|&nbsp;<a href="<?php echo getPath() . "?logout\">".LBL_LOG_OUT."</a>" ?>';
-		setRootCookie('<?php echo RSS_USER_COOKIE; ?>', tokens[1]+'|'+tokens[2]);
+        if (<?php echo (getConfig('rss.config.autologout') ? "true":"false"); ?>) {
+		  setRootSessionCookie('<?php echo RSS_USER_COOKIE; ?>', tokens[1]+'|'+tokens[2]);
+		} else {
+		  setRootCookie('<?php echo RSS_USER_COOKIE; ?>', tokens[1]+'|'+tokens[2]);
+		}
 		document.location = document.location.href.replace(/\?logout$/, "");
 	} 
 }
@@ -380,7 +384,9 @@ function get_feed_content_cb(data) {
 function setRootCookie(cookieName,cookieValue) {
   setCookie(cookieName,cookieValue,"<?php echo getPath(); ?>");	
 }	
-	
+function setRootSessionCookie(cookieName,cookieValue) {
+  setSessionCookie(cookieName,cookieValue,"<?php echo getPath(); ?>");	
+}	
 // src: http://www.javascripter.net/faq/settinga.htm
 function setCookie(cookieName,cookieValue,path) {
     //alert(cookieValue);
@@ -391,6 +397,11 @@ function setCookie(cookieName,cookieValue,path) {
     document.cookie = cookieName+"="+escape(cookieValue) 
     	+ "; expires="+expire.toGMTString()
     	+ "; path="+path;
+}
+
+function setSessionCookie(cookieName,cookieValue,path) {
+    document.cookie = cookieName+"="+escape(cookieValue) 
+    	+ "; path="+path;    
 }
 
 function getCookie(cookieName) {

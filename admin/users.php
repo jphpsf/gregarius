@@ -98,8 +98,11 @@ function rss_login_form($uname=null,$pass=null) {
 			uname=tokens[1];
 			pass=tokens[2];
 			if (ulevel > 0) {
-				setCookie('<?php echo RSS_USER_COOKIE; ?>',uname+'|'+pass,'<?php echo getPath(); ?>');
-				
+				if (<?php echo (getConfig('rss.config.autologout') ? "true":"false"); ?>) {
+		  			setRootSessionCookie('<?php echo RSS_USER_COOKIE; ?>', uname+'|'+pass);
+				} else {
+		  			setRootCookie('<?php echo RSS_USER_COOKIE; ?>', uname+'|'+pass);
+				}
 			}
 			msg = '';
 			if (ulevel == <?php echo RSS_USER_LEVEL_NOLEVEL ?>) {
