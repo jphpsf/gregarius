@@ -384,12 +384,12 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 /* thoroughly inspired by WP2.0's theme management */
 
 .themeframe {
-	width: 30%;
+	width: 29%;
 	margin: 0 1em;
 	float: left;
 	height: 22em;
 	overflow: hidden;
-	padding: 0.3 0;
+	padding: 0.2em 0;
 	text-align:left;
 }
 
@@ -411,8 +411,8 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 .themeframe p { text-align: justify; font-size: small; padding: 0 0.4em; }
 
 .themeframe a.themescreenshot {
-	width: 240px;
-	height: 160px;
+	width: 230px;
+	height: 120px;
 	display: block;
 	margin: auto;
 	background: #f1f1f1;
