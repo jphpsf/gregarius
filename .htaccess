@@ -39,7 +39,7 @@ AddDefaultCharset utf-8
   RewriteRule	^tag\/([a-zA-Z0-9_\.\+]+)\/rss\/?$  tags.php?tag=$1&rss [L,QSA]
   
   #sticky view
-  RewriteRule ^sticky?/?$ sticky.php [L,QSA]
+  RewriteRule ^sticky/?$ sticky.php [L,QSA]
 
   #author view
   RewriteRule ^author/(.+)$ author.php?author=$1 [L,QSA]
