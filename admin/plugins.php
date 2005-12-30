@@ -51,6 +51,7 @@ function plugins() {
         $value = serialize($active_plugins);
         $sql = "update " . getTable('config') . " set value_='$value' where key_='rss.config.plugins'";
         rss_query($sql);
+        rss_invalidate_cache();
     } else {
         $active_plugins= getConfig('rss.config.plugins');
     }
@@ -175,6 +176,7 @@ function plugin_options() {
 
             }
             ob_end_clean();
+            rss_invalidate_cache();
         }
         if ($plugin_output) { // Let us set up a form
             echo "<h2
@@ -335,7 +337,7 @@ function rss_plugins_redirect_to_plugin_config($filename) {
 
 
 function rss_plugins_is_submit() {
-	return array_key_exists("admin_plugin_options_submit_changes", $_REQUEST);
+    return array_key_exists("admin_plugin_options_submit_changes", $_REQUEST);
 }
 
 ?>
