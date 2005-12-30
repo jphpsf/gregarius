@@ -67,9 +67,9 @@ class Update {
     var $chans = array ();
 
     function Update($doPopulate = true, $updatePrivateAlso = false) {
-	if($doPopulate) {
-        	$this->populate($updatePrivateAlso);
-	}
+        if($doPopulate) {
+            $this->populate($updatePrivateAlso);
+        }
 
         // Script timeout: ten seconds per feed should be a good upper limit
         @set_time_limit(0);
@@ -98,9 +98,13 @@ class Update {
         }
     }
 
-    function cleanUp($newIds) {
-        if (count($newIds) > 0 && getConfig('rss.config.markreadonupdate')) {
-            rss_query("update ".getTable("item")." set unread = unread & ".SET_MODE_READ_STATE." where unread & ".RSS_MODE_UNREAD_STATE." and id not in (".implode(",", $newIds).")");
+    function cleanUp($newIds, $ignorePrivate = false) {
+        if (!hidePrivate() || $ignorePrivate) {
+            if (count($newIds) > 0 && getConfig('rss.config.markreadonupdate')) {
+                rss_query("update ".getTable("item")." set unread = unread & "
+                          .SET_MODE_READ_STATE." where unread & ".RSS_MODE_UNREAD_STATE
+                          ." and id not in (".implode(",", $newIds).")");
+            }
         }
         if (count($newIds) > 0) {
             rss_invalidate_cache();
@@ -212,9 +216,7 @@ class HTTPServerPushUpdate extends Update {
         // Sleep two seconds
         sleep(2);
 
-        if (!hidePrivate()) {
-            parent::cleanUp($newIds);
-        }
+        parent::cleanUp($newIds);
     }
 }
 
@@ -289,9 +291,7 @@ class CommandLineUpdate extends Update {
 
         }
 
-        if (!hidePrivate()) {
-            parent::cleanUp($newIds);
-        }
+        parent::cleanUp($newIds, $ignorePrivate = true);
 
     }
 
@@ -306,7 +306,7 @@ class CommandLineUpdate extends Update {
  */
 class SilentUpdate extends Update {
     function SilentUpdate() {
-	parent::Update($doPopulate = false);
+        parent::Update($doPopulate = false);
     }
 
     function render() {
@@ -316,9 +316,8 @@ class SilentUpdate extends Update {
             $newIds = $ret[1];
         }
 
-        if (!hidePrivate()) {
-            parent::cleanUp($newIds);
-        }
+        parent::cleanUp($newIds);
+
         if (!array_key_exists('silent', $_GET)) {
             rss_redirect();
         }
