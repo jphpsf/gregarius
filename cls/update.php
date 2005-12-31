@@ -67,6 +67,7 @@ class Update {
     var $chans = array ();
 
     function Update($doPopulate = true, $updatePrivateAlso = false) {
+	rss_plugin_hook('rss.plugins.updates.before', null);
         if($doPopulate) {
             $this->populate($updatePrivateAlso);
         }
@@ -109,6 +110,7 @@ class Update {
         if (count($newIds) > 0) {
             rss_invalidate_cache();
         }
+	rss_plugin_hook('rss.plugins.updates.after', null);
     }
 
     function magpieError($error) {
