@@ -202,7 +202,7 @@ function rss_item_date_ts() {
 
 
 function rss_item_date_with_format($fmt) {
-	return date($fmt,$GLOBALS['rss']->currentItem->date); 
+	return rss_date($fmt,$GLOBALS['rss']->currentItem->date); 
 }
 
 function rss_item_author() {
