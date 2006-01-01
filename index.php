@@ -52,7 +52,7 @@ if (array_key_exists('metaaction', $_POST)
    if (hidePrivate()) {
 	  	$sql .= " and not(unread & " . RSS_MODE_PRIVATE_STATE . ")";
 	 }
-	 
+
 	if (array_key_exists('markreadids',$_POST)) {
 		$sql .= " and id in (" . rss_real_escape_string($_POST['markreadids']) .")";
 	}
@@ -69,12 +69,15 @@ if (array_key_exists('logout',$_GET)) {
 	logoutUserCookie();
 }
 
-
 $cntTotalItems = getConfig('rss.output.frontpage.numitems');
+
+rss_plugin_hook('rss.plugins.frontpage.beforeunread', null);
 $cntUnreadItems = unreadItems($show_what);
 
 // Now we have to decide how many read items to display
 $cntReadItems = getConfig('rss.output.frontpage.numreaditems');
+
+rss_plugin_hook('rss.plugins.frontpage.beforeread', null);
 
 if(($show_what == SHOW_UNREAD_ONLY) ) { 
 	if (($cntUnreadItems == 0) && $cntTotalItems) { // we showed no unread items
@@ -91,6 +94,7 @@ if(($show_what == SHOW_UNREAD_ONLY) ) {
 	}
 }
 
+rss_plugin_hook('rss.plugins.frontpage.afterread', null);
 
 $GLOBALS['rss'] -> header = new Header("",LOCATION_HOME,array('cid'=>null,'fid'=>null));
 $GLOBALS['rss'] -> feedList = new FeedList(false);

@@ -47,7 +47,8 @@ class Item {
 	var $isPrivate;
 	var $isDeleted;
 	var $isSticky;
-	
+	var $isFlag;
+
 	var $escapedTitle;
 	var $cntr;
 	var $parent;
@@ -89,6 +90,7 @@ class Item {
 		$this ->isPrivate	= $unread & RSS_MODE_PRIVATE_STATE;
 		$this ->isDeleted	= $unread & RSS_MODE_DELETED_STATE;
 		$this ->isSticky	= $unread & RSS_MODE_STICKY_STATE;
+    $this ->isFlag    = $unread & RSS_MODE_FLAG_STATE;
 		//$this -> key = md5(rand(0,10000));
 		
 	}

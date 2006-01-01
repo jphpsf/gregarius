@@ -514,9 +514,7 @@ function _es(id, state) {
 	onCancel = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.oncancel",null); ?>'.replace(/_ID_/g,id);
 	extraCode = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg",null); ?>'.replace(/_ID_/g,id);
 	
-	if (!onOk) {
-        onOk = '_ses('+id+'); return false;';
-    }
+  onOk += '_ses('+id+'); return false;';
     if (!onCancel) {
         onCancel = '_ces('+id+'); return false;';
     }
@@ -537,6 +535,10 @@ function _es(id, state) {
    		+ (tmpState & <?php echo  RSS_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
    		+ ' />'
 		+ '<label for="sf' + id + 'p"><?php echo  LBL_STATE_PRIVATE ?></label></p>'
+   		+ '<p><input type="checkbox" id="sf' + id + 'f" value="1"'
+   		+ (tmpState & <?php echo  RSS_MODE_FLAG_STATE ?> ?' checked="checked"':'')
+   		+ ' />'
+    + '<label for="sf' + id + 'f"><?php echo  LBL_STATE_FLAG ?></label></p>'
 		+ extraCode
 		+ '<p class="sbm">'
 		+ '<a id="ess'+id+'ok" href="#" onclick="'+onOk+'"><?php echo  LBL_ADMIN_OK ?></a>'
@@ -571,6 +573,9 @@ function _ses(id) {
     }
     if ((sfp = document.getElementById('sf'+id+'p')) && sfp.checked) {
       s += <?php echo  RSS_MODE_PRIVATE_STATE ?>;
+    }
+    if ((sff = document.getElementById('sf'+id+'f')) && sff.checked) {
+      s += <?php echo  RSS_MODE_FLAG_STATE ?>;
     }
     
     

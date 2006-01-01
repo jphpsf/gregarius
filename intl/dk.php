@@ -282,5 +282,8 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 .'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'
 .'More themes can be downloaded at the <a style="text-decoration:underline" '
 .' href="http://themes.gregarius.net/">Themes Repository</a>.</p>');
+
+define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
+define ('LBL_FLAG','Flagged');
 	
 ?>

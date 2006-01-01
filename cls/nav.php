@@ -74,13 +74,17 @@ class Navigation {
         
         $GLOBALS['rss']->nav = $this;
         rss_plugin_hook('rss.plugins.navelements', null);
-        
-
     }
         
         
     function appendNavItem($url,$label,$loc = null) {
         $this->items[] = new NavItem($url,$label,$loc);
+    }
+
+    function addNavItem($url,$label,$loc = null) {
+        $item = array_pop($this->items);
+        $this->appendNavItem($url,$label,$loc);
+        $this->items[] = $item;
     }
     
 	function render() {

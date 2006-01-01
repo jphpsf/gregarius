@@ -98,31 +98,49 @@ define ('SHOW_UNREAD_ONLY',1);
 define ('SHOW_READ_AND_UNREAD',2);
 define ('SHOW_WHAT','show');
 
-// feed "modes": (default is 0001: unread)
-// xxx0 read / xxx1: unread
+// feed "modes": (default is 00001: unread)
+// xxxx0 read / xxxx1: unread
 define ('RSS_MODE_UNREAD_STATE', 0x01);
-// xx0x not sticky / xx1x: sticky
+// xxx0x not sticky / xxx1x: sticky
 define ('RSS_MODE_STICKY_STATE', 0x02);
-// x0xx public / x1xx: private
+// xx0xx public / xx1xx: private
 define ('RSS_MODE_PRIVATE_STATE', 0x04);
-// 0xxx available / 1xxx: deleted
+// x0xxx available / x1xxx: deleted
 define ('RSS_MODE_DELETED_STATE', 0x08);
+// 0xxxx not flagged / 1xxxx: flagged
+define ('RSS_MODE_FLAG_STATE', 0x10);
 
 // these are just helpers for the above
 define ('SET_MODE_READ_STATE',
    RSS_MODE_STICKY_STATE  | 
    RSS_MODE_PRIVATE_STATE | 
-   RSS_MODE_DELETED_STATE);
+   RSS_MODE_DELETED_STATE |
+   RSS_MODE_FLAG_STATE);
    
 define ('SET_MODE_PUBLIC_STATE',
    RSS_MODE_UNREAD_STATE  | 
    RSS_MODE_STICKY_STATE  | 
-   RSS_MODE_DELETED_STATE);
+   RSS_MODE_DELETED_STATE |
+   RSS_MODE_FLAG_STATE);
 
 define ('SET_MODE_AVAILABLE_STATE',
    RSS_MODE_UNREAD_STATE  | 
    RSS_MODE_STICKY_STATE  | 
-   RSS_MODE_PRIVATE_STATE);
+   RSS_MODE_PRIVATE_STATE |
+   RSS_MODE_FLAG_STATE);
+
+define ('SET_MODE_FLAG_STATE',
+   RSS_MODE_STICKY_STATE  |
+   RSS_MODE_PRIVATE_STATE |
+   RSS_MODE_DELETED_STATE);
+
+define ('SET_MODE_STICKY_STATE',
+   RSS_MODE_PRIVATE_STATE |
+   RSS_MODE_DELETED_STATE |
+   RSS_MODE_FLAG_STATE);
+
+define ('RSS_STATE_STICKY', 'sticky');
+define ('RSS_STATE_FLAG', 'flag');
    
 // Where do themes and plugins reside?
 define ('RSS_THEME_DIR','themes');
@@ -143,5 +161,4 @@ define ('ITEM_SORT_HINT_MIXED', 0x02);
 //  - The profiling information is "html commented out" at the end of every html page
 //define('PROFILING', 1);
 //define('PROFILING_DB', 1);
-
 ?>
