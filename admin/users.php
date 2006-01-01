@@ -30,6 +30,7 @@ function set_admin_pass($uname=null,$pass=null) {
 	if ($uname && $pass) {
 		rss_query( "update " . getTable('users') . " set uname='$uname', "
 		 ."password='" . md5($pass) . "' where ulevel=99" );
+		rss_invalidate_cache(); 
 		rss_redirect('admin/');
 		exit();
 	}
