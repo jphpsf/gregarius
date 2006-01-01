@@ -118,7 +118,7 @@ class RSS {
         if (array_key_exists($filename, $templateCache)) {
             return $templateCache[$filename];
         }
-        $fileContent = file_get_contents($filename);
+        $fileContent = file_get_contents(GREGARIUS_HOME . $filename);
         $modifiedFileContent = eval_mixed($fileContent);
         $templateCache[$filename] = $modifiedFileContent;
 
@@ -148,7 +148,7 @@ class RSS {
 
         $file = $this->getTemplateFile($template)
                 ;
-        require($file);
+        rss_require($file);
 
         $this->_pf('end rendering');
 
