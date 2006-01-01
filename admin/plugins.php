@@ -288,6 +288,8 @@ function getPlugins() {
         }
     }
 
+    ksort($rss_plugins);
+
     //return an associative array with the plugin files and their info
     return $rss_plugins;
 }
