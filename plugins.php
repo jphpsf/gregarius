@@ -100,7 +100,7 @@ function rss_plugins_get_option($key) {
     if (!$key) {
         return false;
     }
-    return getConfig("plugins.".rss_real_escape_string($key));
+    return getConfig("plugins.".rss_real_escape_string($key), false);
 
 }
 
