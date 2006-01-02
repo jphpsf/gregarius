@@ -139,7 +139,7 @@ class FeedFolder {
 	
 	function render() {		
 		$GLOBALS['rss']->currentFeedsFolder = $this;
-		require($GLOBALS['rss'] ->getTemplateFile("feedsfolder.php"));
+		eval($GLOBALS['rss'] ->getCachedTemplateFile("feedsfolder.php"));
 	}
 }
 

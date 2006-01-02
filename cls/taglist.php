@@ -27,8 +27,8 @@
 ###############################################################################
 
 
-require_once('cls/alltags.php');
-require_once('cls/channels.php');
+rss_require('cls/alltags.php');
+rss_require('cls/channels.php');
 
 /**
  * A TagListItem represents a single tag in the tags sidecolumn

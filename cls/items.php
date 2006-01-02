@@ -459,7 +459,7 @@ class ItemList {
 
 		rss_plugin_hook('rss.plugins.items.beforeitems', null);
 
-		require($this-> rss ->getTemplateFile("itemlist.php"));
+		eval($this-> rss ->getCachedTemplateFile("itemlist.php"));
 		
 		_pf("done: ItemList -> render()");
 		
