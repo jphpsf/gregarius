@@ -31,10 +31,10 @@ require_once('init.php');
 $items = new ItemList();
 $items -> setRenderOptions(IL_NO_COLLAPSE);
 
-if(RSS_STATE_FLAG == $_GET['state']) {
+if(array_key_exists('state', $_GET) && RSS_STATE_FLAG == $_GET['state']) {
     $items -> populate( "i.unread & " . RSS_MODE_FLAG_STATE	);
     $GLOBALS['rss'] -> header = new Header(LBL_FLAG . " " . LBL_ITEMS);
-} else if (RSS_STATE_STICKY == $_GET['state']) {
+} else if (array_key_exists('state', $_GET) && RSS_STATE_STICKY == $_GET['state']) {
     $items -> populate( "i.unread & " . RSS_MODE_STICKY_STATE	);
     $GLOBALS['rss'] -> header = new Header(LBL_STICKY . " " . LBL_ITEMS);
 } else {
