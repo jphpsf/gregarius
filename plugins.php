@@ -162,7 +162,7 @@ function rss_plugins_get_plugins_http_path() {
  */
 foreach(getConfig('rss.config.plugins') as $pf) {
     if (defined('RSS_FILE_LOCATION')) {
-        $prefix = "../";
+        $prefix = GREGARIUS_HOME;
     } else {
         $prefix = "";
     }
