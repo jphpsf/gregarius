@@ -62,7 +62,7 @@ function themes() {
         if ($screenshot) {
         	$screenshotURL = "<img src=\"". getPath() . RSS_THEME_DIR . "/$fsname/$screenshot\"  />";
         } else {
-        	$screenshotURL = "<img />";
+        	$screenshotURL = "<img src=\"". getPath() . RSS_THEME_DIR . "/default/media/noscreenshot.png\" />";
         }
         $h4="$name"; 
         $h5="By&nbsp;$author | Version:&nbsp;$version";
