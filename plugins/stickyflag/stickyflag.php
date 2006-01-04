@@ -139,6 +139,7 @@ function __stickyflag_BeforeTitle($id){
             print($ret);
         }
     }
+    return $id;
 }
 
 function __stickyflag_js(){
