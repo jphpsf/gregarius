@@ -165,7 +165,7 @@ function update($id) {
         if (array_key_exists('link', $rss->channel)) {
             $baseUrl = $rss->channel['link'];
         } else {
-            $baseUrl = "";
+            $baseUrl = $url; // The feed is invalid
         }
 
         foreach ($rss->items as $item) {
