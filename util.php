@@ -260,7 +260,14 @@ function update($id) {
             }
             elseif (array_key_exists('pubdate', $item)) {
                 // RSS 2.0 (?)
-                $cDate = strtotime($item['pubdate']);
+                // We use the second param of strtotime here as a workaround
+                // of a PHP bug with strtotime. If the pubdate field doesn't
+                // contain seconds, the strtotime function will use the current
+                // time to fill in seconds in PHP4. This interferes with the
+                // update mechanism of gregarius. See ticket #328 for the full
+                // gory details. Giving a known date as a second param to 
+                // strtotime fixes this problem, hence the 0 here.
+                $cDate = strtotime($item['pubdate'], 0);
             }
             elseif (array_key_exists('created', $item)) {
                 // atom 0.3
