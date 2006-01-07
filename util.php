@@ -157,8 +157,8 @@ function update($id) {
         if (!$rss && $id != "" && is_numeric($id)) {
             return array (magpie_error(), array ());
         }
-        elseif (!$rss) {
-            continue;
+        elseif (!$rss || !($rss->rss_origin & MAGPIE_FEED_ORIGIN_HTTP_200) ) {
+            continue; // no need to do anything if we do not get a 200 OK from the feed
         }
 
         // base URL for items in this feed.
@@ -174,36 +174,52 @@ function update($id) {
             // a plugin might delete this item
             if(!isset($item))
                 continue;
-            // item title: strip out html tags, shouldn't supposed
-            // to have any, should it?
-            //$title = strip_tags($item['title']);
+
+            // item title: strip out html tags
             $title = array_key_exists('title', $item) ? strip_tags($item['title']) : "";
             //$title = str_replace('& ', '&amp; ', $title);
+
+
+            $description = "";
             // item content, if any
             if (array_key_exists('content', $item) && is_array($item['content']) && array_key_exists('encoded', $item['content'])) {
-                $description = kses($item['content']['encoded'], $kses_allowed);
+                $description = $item['content']['encoded'];
             }
             elseif (array_key_exists('description', $item)) {
-                $description = kses($item['description'], $kses_allowed);
+                $description = $item['description'];
             }
             elseif (array_key_exists('atom_content', $item)) {
-                $description = kses($item['atom_content'], $kses_allowed);
+                $description = $item['atom_content'];
             }
             elseif (array_key_exists('summary', $item)) {
-                $description = kses($item['summary'], $kses_allowed);
+                $description = $item['summary'];
             }
             else {
                 $description = "";
             }
 
-            if ($description != "" && $baseUrl != "") {
-                //$description = make_abs($description, $baseUrl);
-                $description = relative_to_absolute($description, $baseUrl);
+            $md5sum = "";
+            $guid = "";
+
+            if(array_key_exists('guid', $item) && $item['guid'] != "") {
+                $guid = $item['guid'];
+            }
+            elseif(array_key_exists('id', $item) && $item['id'] != "") {
+                $guid = $item['id'];
             }
 
             if ($description != "") {
-                $description = rss_plugin_hook('rss.plugins.import.description', $description);
+                $md5sum = md5($description);
+                $description = kses($description, $kses_allowed); // strip out tags
+
+                if ($baseUrl != "") {
+                    $description = relative_to_absolute($description, $baseUrl);
+                }
             }
+
+            // Now let plugins modify the description
+            $description = rss_plugin_hook('rss.plugins.import.description', $description);
+
 
             // link
             if (array_key_exists('link', $item) && $item['link'] != "") {
@@ -271,14 +287,11 @@ function update($id) {
             if (strlen($url) >= 255) {
                 continue;
             }
+
             $dbtitle = rss_real_escape_string($title);
             if (strlen($dbtitle) >= 255) {
                 $dbtitle=substr($dbtitle,0,254);
             }
-            // check wether we already have this item
-            $sql = "select id,length(description),unread from ".getTable("item")." where cid=$cid and url='$url' and title='$dbtitle'";
-            $subres = rss_query($sql);
-            list ($indb, $dbdesc_len, $state) = rss_fetch_row($subres);
 
             if ($cDate > 0) {
                 $sec = "FROM_UNIXTIME($cDate)";
@@ -286,45 +299,56 @@ function update($id) {
                 $sec = "null";
             }
 
-            if ($indb == "") {
+            // check whether we already have this item
+            if ($guid) {
+                $sql = "select id,unread, md5sum, guid, pubdate from ".getTable("item")
+                       ." where cid=$cid and guid='$guid'";
+            } else {
+                $sql = "select id,unread, md5sum, guid, pubdate from ".getTable("item")
+                       ." where cid=$cid and url='$url' and title='$dbtitle'"
+                       ." and (pubdate is NULL OR pubdate=$sec)";
+            }
+            $subres = rss_query($sql);
+            list ($indb, $state, $dbmd5sum, $dbGuid, $dbPubDate) = rss_fetch_row($subres);
 
-                list ($cid, $dbtitle, $url, $description)
-                = rss_plugin_hook('rss.plugins.items.new', array ($cid, $dbtitle, $url, $description));
+            if ($indb && !($state & RSS_MODE_DELETED_STATE) && $md5sum != $dbmd5sum) {
+                // the md5sums do not match.
+                if(getConfig('rss.input.allowupdates')) { // Are we allowed update items in the db?
+                    list ($cid, $indb, $description) =
+                        rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
+
+                    $sql = "update ".getTable("item")
+                           ." set "." description='".rss_real_escape_string($description)."', "
+                           ." unread = unread | ".RSS_MODE_UNREAD_STATE
+                           .", md5sum='$md5sum'" . " where cid=$cid and id=$indb";
+
+                    rss_query($sql);
+                    $updatedIds[] = $indb;
+                    continue;
+                }
+            }
+
+            if ($indb == "") { // This must be new item then. In you go.
+
+                list ($cid, $dbtitle, $url, $description) =
+                    rss_plugin_hook('rss.plugins.items.new', array ($cid, $dbtitle, $url, $description));
 
                 $sql = "insert into ".getTable("item")
                        ." (cid, added, title, url, enclosure,"
-                       ." description, author, unread, pubdate) "
+                       ." description, author, unread, pubdate, md5sum, guid) "
                        ." values ("."$cid, now(), '$dbtitle', "
                        ." '$url', '".rss_real_escape_string($enclosure)."', '"
                        .rss_real_escape_string($description)."', '"
                        .rss_real_escape_string($author)."', "
-                       ."$mode, $sec)";
+                       ."$mode, $sec, '$md5sum', '$guid')";
 
                 rss_query($sql);
-
 
                 $newIid = rss_insert_id();
                 $updatedIds[] = $newIid;
-                /*
-                 * Ticket #26: Add hook to modify the item just after it 
-                 * has been inserted into the database
-                 */
                 rss_plugin_hook('rss.plugins.items.newiid',array($newIid,$item,$cid));
             }
-            elseif (!($state & RSS_MODE_DELETED_STATE) &&
-                    getConfig('rss.input.allowupdates') &&
-                    strlen($description) > $dbdesc_len) {
 
-                list ($cid, $indb, $description) =
-                    rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
-
-                $sql = "update ".getTable("item")
-                       ." set "." description='".rss_real_escape_string($description)."', "
-                       ." unread = unread | ".RSS_MODE_UNREAD_STATE." where cid=$cid and id=$indb";
-
-                rss_query($sql);
-                $updatedIds[] = $indb;
-            }
         }
     }
 
@@ -556,16 +580,16 @@ function parse_iso8601($date_str) {
 function getPath() {
     static $ret;
     if ($ret === NULL) {
-		 $ret = dirname($_SERVER['PHP_SELF']);
-		 if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION."\$", $ret)) {
-			  $ret = substr($ret, 0, strlen($ret) - strlen(RSS_FILE_LOCATION));
-		 }
-		 if (substr($ret, -1) != "/") {
-			  $ret .= "/";
-		 }
+        $ret = dirname($_SERVER['PHP_SELF']);
+        if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION."\$", $ret)) {
+            $ret = substr($ret, 0, strlen($ret) - strlen(RSS_FILE_LOCATION));
+        }
+        if (substr($ret, -1) != "/") {
+            $ret .= "/";
+        }
     }
     return $ret;
-    
+
 }
 $dummy = getPath();
 

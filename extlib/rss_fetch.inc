@@ -28,7 +28,7 @@ if (!defined('MAGPIE_DIR')) {
 }
 
 require_once( MAGPIE_DIR . 'rss_parse.inc' );
-require_once( MAGPIE_DIR . 'rss_cache.inc' );
+require_once( MAGPIE_DIR . 'rss_dbcache.inc' ); //sameer: changed to use db
 
 // for including 3rd party libraries
 define('MAGPIE_EXTLIB', MAGPIE_DIR);
@@ -130,7 +130,8 @@ function fetch_rss ($url) {
         // 3. if cached obj fails freshness check, fetch remote
         // 4. if remote fails, return stale object, or error
         
-        $cache = new RSSCache( MAGPIE_CACHE_DIR, MAGPIE_CACHE_AGE );
+	// sameer: changed to use db
+        $cache = new RSSdbCache( MAGPIE_CACHE_DIR, MAGPIE_CACHE_AGE );
         
         if (MAGPIE_DEBUG and $cache->ERROR) {
             debug($cache->ERROR, E_USER_WARNING);
@@ -144,7 +145,9 @@ function fetch_rss ($url) {
         
         // store parsed XML by desired output encoding
         // as character munging happens at parse time
-        $cache_key       = $url . MAGPIE_OUTPUT_ENCODING;
+        //$cache_key       = $url . MAGPIE_OUTPUT_ENCODING;
+	// sameer: removed the encoding from the key
+        $cache_key       = $url;
         
         if (!$cache->ERROR) {
             // return cache HIT, MISS, or STALE

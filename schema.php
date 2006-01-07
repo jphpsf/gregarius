@@ -116,6 +116,58 @@ function checkSchemaColumns($column) {
 				);
 			}
 		break;
+		case 'c.daterefreshed':
+		case 'daterefreshed':
+			// date feed was last refreshed, added in 0.5.3
+			rss_query('alter table ' .getTable('channels') .' add column daterefreshed datetime null');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error("Failed updating schema for table " . getTable('channels')
+				.": " . rss_sql_error_message(), RSS_ERROR_ERROR
+				);
+			}
+		// break; - fallthrough allowed on purpose because these are added at the same time
+		case 'c.refreshinterval':
+		case 'refreshinterval':
+			// refresh interval of a feed (in minutes), added in 0.5.3
+			rss_query('alter table ' .getTable('channels') .' add column refreshinterval int(16) not null default 60');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error("Failed updating schema for table " . getTable('channels')
+				.": " . rss_sql_error_message(), RSS_ERROR_ERROR
+				);
+			}
+		// break; - fallthrough allowed on purpose because these are added at the same time
+		case 'c.etag':
+		case 'etag':
+			// etag of the feed, (from HTTP header) added in 0.5.3
+			rss_query('alter table ' .getTable('channels') .' add column etag varchar(255) default null');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error("Failed updating schema for table " . getTable('channels')
+				.": " . rss_sql_error_message(), RSS_ERROR_ERROR
+				);
+			}
+		// break; - fallthrough allowed on purpose because these are added at the same time
+		case 'c.lastmodified':
+		case 'lastmodified':
+			// last modified code returned by the feed (from HTTP header), added in 0.5.3
+			rss_query('alter table ' .getTable('channels') .' add column lastmodified varchar(255) default null');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error("Failed updating schema for table " . getTable('channels')
+				.": " . rss_sql_error_message(), RSS_ERROR_ERROR
+				);
+			}
+		break;
 		case 'i.author':
 		case 'author':
 			// item's author
@@ -154,6 +206,31 @@ function checkSchemaColumns($column) {
 					. rss_sql_error_message(), RSS_ERROR_ERROR);
 			}
 		break;
+		case 'i.md5sum':
+		case 'md5sum':
+			// md5check on an item - added in 0.5.3
+			rss_query('alter table ' . getTable('item') . ' add column md5sum varchar(32) null');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error('updated schema for table ' . getTable('item'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error('Failed updating schema for table ' . getTable('item') . ': '
+					. rss_sql_error_message(), RSS_ERROR_ERROR);
+			}
+		// break; - fallthrough allowed on purpose because these are added at the same time
+		case 'i.guid':
+		case 'guid':
+			// guid of an item - added in 0.5.3
+			rss_query('alter table ' . getTable('item') . ' add column guid text null');
+			rss_query('alter table ' . getTable('item') . ' add index `guid` (`guid`(10))');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error('updated schema for table ' . getTable('item'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error('Failed updating schema for table ' . getTable('item') . ': '
+					. rss_sql_error_message(), RSS_ERROR_ERROR);
+			}
+		break;
 	}
 	return $updated;
 }
@@ -173,10 +250,15 @@ function _init_channels() {
   			parent tinyint(4) default '0',
   			descr varchar(255) default NULL,
   			dateadded datetime default NULL,
+			daterefreshed datetime default NULL,
+			refreshinterval int(16) NOT NULL default '60',
+			etag varchar(255) default NULL,
+			lastmodified varchar(255) default NULL,
   			icon varchar(255) default NULL,
   			position int(11) NOT NULL default '0',
 			mode int(16) NOT NULL default '1',
-  			PRIMARY KEY  (id)
+  			PRIMARY KEY  (id),
+			KEY url (url)
 		) TYPE=MyISAM;    
 _SQL_
 );
@@ -332,6 +414,8 @@ function _init_item() {
 		CREATE TABLE __table__ (
 		  id bigint(16) NOT NULL auto_increment,
 		  cid bigint(11) NOT NULL default '0',
+		  md5sum varchar(32) default NULL,
+		  guid text default NULL,
 		  added datetime NOT NULL default '0000-00-00 00:00:00',
 		  title varchar(255) default NULL,
 		  url varchar(255) default NULL,
@@ -342,6 +426,7 @@ function _init_item() {
 		  author varchar(255) default NULL,		  
 		  PRIMARY KEY  (id),
 		  KEY url (url),
+		  KEY guid(guid(10)),
 		  KEY cid (cid)
 		) TYPE=MyISAM;    
 _SQL_
