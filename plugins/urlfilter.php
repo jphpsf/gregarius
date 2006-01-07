@@ -30,14 +30,14 @@
 /// Name: Url filter
 /// Author: Marco Bonetti
 /// Description: This plugin will try to make ugly URL links look better
-/// Version: 1.5
+/// Version: 1.6
 
 /**
  * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
  * with a nicer <a href="http://www.test.com/a/b/c.html">[test.com]</a>
  */
 function __urlfilter_filter($in) {
-    $match = '|<a.*href="(.*)">\\1</a>|i';
+    $match = '|<a.*?href="(.*?)">\\1</a>|i';
     return preg_replace_callback($match, '__filter_callback', $in);
 }
 
