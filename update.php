@@ -51,7 +51,7 @@ $browser = new Browser();
 
 $cline = isset($argv) && !$_REQUEST;
 $silent = array_key_exists('silent', $_GET) || ($cline && in_array('--silent',$argv));
-
+$newsonly = array_key_exists('newsonly', $_GET) || ($cline && in_array('--newsonly', $argv));
 
 $GLOBALS['rss'] -> header = new Header(
 			LBL_TITLE_UPDATING, 
@@ -65,8 +65,11 @@ $GLOBALS['rss'] -> feedList = new FeedList(false);
 
 
 // Instantiate a different Update object, depending on the client
-if ($cline && !$silent) {
+if ($cline && !$silent && !$newsonly) {
 	$update = new CommandLineUpdate();
+
+} elseif ($cline && !$silent && $newsonly) {
+	$update = new CommandLineUpdateNews();
 	
 } elseif (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPush()) {
 	$update = new HTTPServerPushUpdate();	

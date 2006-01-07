@@ -299,6 +299,42 @@ class CommandLineUpdate extends Update {
 
 }
 
+/**
+ * CommandLineUpdateNews updates the feeds and displays only feeds with
+ * errors or new items.
+ */
+class CommandLineUpdateNews extends CommandLineUpdate {
+        function render() {
+                $newIds = array();
+                foreach ($this->chans as $chan) {
+                        list ($cid, $url, $title) = $chan;
+                        $ret = update($cid);
+
+                        if (is_array($ret)) {
+                                list ($error, $unreadIds) = $ret;
+                                $newIds = array_merge($newIds, $unreadIds);
+                        } else {
+                                $error = 0;
+                                $unreadIds = array();
+                        }
+                        $unread = count($unreadIds);
+
+                        list($label, $cls) = parent::magpieError($error);
+
+                        if (($cls != ERROR_NOERROR) || ($unread > 0)) {
+                                echo "$title ...\t";
+                                flush();
+                                echo "\n$label, $unread " . LBL_UPDATE_UNREAD . "\n\n";
+                                flush();
+                        }
+                }
+
+                if (!hidePrivate()) {
+                        parent::cleanUp($newIds);
+                }
+        }
+}
+
 
 
 /**
