@@ -37,7 +37,7 @@
  * with a nicer <a href="http://www.test.com/a/b/c.html">[test.com]</a>
  */
 function __urlfilter_filter($in) {
-    $match = '|<a.*?href="(.*?)">\\1</a>|i';
+    $match = '|<a[^>]+?href="(.*?)">\\1</a>|i';
     return preg_replace_callback($match, '__filter_callback', $in);
 }
 
@@ -46,7 +46,7 @@ function __urlfilter_filter($in) {
  * in preg_replace alone. This basically formats the output
  */
 function __filter_callback($matches) {
-    $ret = preg_match("/^(http:\/\/)?([^\/]+?)/i", $matches[1], $outmatches);
+    $ret = preg_match("/^(http:\/\/)?([^\/]+)/i", $matches[1], $outmatches);
     if ($outmatches && isset ($outmatches[2])) {
         return "<a href=\"". $matches[1]."\">[" . $outmatches[2] . "]</a>";
     }
