@@ -46,7 +46,7 @@ function __urlfilter_filter($in) {
  * in preg_replace alone. This basically formats the output
  */
 function __filter_callback($matches) {
-    $ret = preg_match("/^(http:\/\/)?([^\/]+)/i", $matches[1], $outmatches);
+    $ret = preg_match("/^(http:\/\/)?([^\/]+?)/i", $matches[1], $outmatches);
     if ($outmatches && isset ($outmatches[2])) {
         return "<a href=\"". $matches[1]."\">[" . $outmatches[2] . "]</a>";
     }
