@@ -207,6 +207,7 @@ function update($id) {
             elseif(array_key_exists('id', $item) && $item['id'] != "") {
                 $guid = $item['id'];
             }
+	    $guid = rss_real_escape_string($guid);
 
             if ($description != "") {
                 $md5sum = md5($description);
@@ -237,7 +238,9 @@ function update($id) {
             }
 
             // make sure the url is properly escaped
-            $url = htmlentities(str_replace("'", "\\'", $url));
+            $url = htmlentities($url, ENT_QUOTES );
+
+	    $url = rss_real_escape_string($url);
 
             // author
             if (array_key_exists('dc', $item) && array_key_exists('creator', $item['dc'])) {
