@@ -680,7 +680,7 @@ function extractFeeds($url) {
                             $val = preg_replace('/\/\/.*/', $val, $url);
                         } else {
                             $urlParts = parse_url($url);
-                            if ($urlParts && is_array($urlParts)) {
+                            if ($urlParts && is_array($urlParts) && strlen($val)) {
                                 if ($val[0] != '/') {
                                     $val = '/'.$val;
                                 }
@@ -1055,6 +1055,11 @@ function cacheFavicon($icon) {
     return false;
 }
 
+
+/**
+ * Returns an array holding the "main" theme to use,
+ * as well as the detected "media" (@see getThemeMedia)
+ */
 function getActualTheme() {
     static $theme;
 
@@ -1063,14 +1068,78 @@ function getActualTheme() {
     }
 
 
-    $theme = getConfig('rss.output.theme');
+	// Theme is what the config says
+    $maintheme = getConfig('rss.output.theme');
+    
+    // ...unless it is overridden (e.g. by the admin which always
+    // uses the default theme
     if (defined('THEME_OVERRIDE')) {
-        $theme = THEME_OVERRIDE;
+        $maintheme = THEME_OVERRIDE;
     }
+    
+    // ... or by the user.
     elseif (isset($_GET['theme'])) {
-        $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
+        $maintheme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
     }
+    
+    $theme = array($maintheme,getThemeMedia());
+    
+    // Let plugins voice their opinion
+	$theme = rss_plugin_hook('rss.plugins.theme',$theme);
     return $theme;
+}
+
+/**
+ * Returns the theme's "media" component, e.g. 'web', 
+ * 'rss' or 'mobile'.
+ */
+function getThemeMedia() {
+	static $media;
+	
+	if ($media) {
+		return $media;
+	}
+	
+	// Default to "web".
+	$media = 'web';
+	
+	// Has the user specified anything?
+	if (isset($_GET['rss'])) {
+		$media = 'rss';
+	} elseif (isset($_GET['mobile']) || isMobileDevice()) {
+		$media = 'mobile';
+	} 
+ 
+ 	// This is here so that auto-detected (e.g. mobile) medias
+ 	// can be overridden.
+	if (isset($_GET['media'])) {
+		$media = $_GET['media'];
+	}
+	
+	// Finally: let plugins voice their opinion
+	$media = rss_plugin_hook('rss.plugins.thememedia',$media);
+	
+	return $media;
+}
+
+/** 
+ * Dumb dunciton to detect mobile devices based on the passed user-agent.
+ * This definitely needs some heavy tweaking.
+ */
+function isMobileDevice() {
+	static $ret;
+	if ($ret !== NULL) {
+		return $ret;
+	} else {
+		$ret = false;
+		if (isset($_SERVER['HTTP_USER_AGENT'])) {
+			$ua = $_SERVER['HTTP_USER_AGENT'];
+			$ret = strpos($ua, 'SonyEricsson')
+				|| strpos($ua, 'Nokia')
+				|| strpos($ua, 'Mobile');
+		} 
+	}
+	return $ret;
 }
 
 ?>
