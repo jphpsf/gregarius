@@ -117,20 +117,20 @@ function __stickyflag_BeforeTitle($id){
 
         if($options & STICKYFLAG_ENABLE_STICKY_SHORTCUT) {
             if($flags & RSS_MODE_STICKY_STATE) {
-                $ret .= "<a id='ms" . $id . "' href='#' onClick='JavaScript: _stickyflag_sticky(" . $id . ", " . $flags . "); return false;' title='Make Un-Sticky'>"
+                $ret .= "<a id='ms" . $id . "' href='#' onclick='_stickyflag_sticky(" . $id . ", " . $flags . "); return false;' title='Make Un-Sticky'>"
                      .  "<img id='sticky_img_" . $id . "' src='" . STICKYFLAG_ICON_STICKY . "' alt='S' /></a>&nbsp;";
             } else {
-                $ret .= "<a id='ms" . $id . "' href='#' onClick='JavaScript: _stickyflag_sticky(" . $id . ", " . $flags . "); return false;' title='Make Sticky'>"
+                $ret .= "<a id='ms" . $id . "' href='#' onclick='_stickyflag_sticky(" . $id . ", " . $flags . "); return false;' title='Make Sticky'>"
                      .  "<img id='sticky_img_" . $id . "' src='" . STICKYFLAG_ICON_NOSTICKY . "' alt='S' /></a>&nbsp;";
             }
         }
 
         if($options & STICKYFLAG_ENABLE_FLAG_SHORTCUT) {
             if($flags & RSS_MODE_FLAG_STATE) {
-                $ret .= "<a id='mf" . $id . "' href='#' onClick='JavaScript: _stickyflag_flag(" . $id . ", " . $flags . "); return false;' title='Un-Flag Item'>"
+                $ret .= "<a id='mf" . $id . "' href='#' onclick='_stickyflag_flag(" . $id . ", " . $flags . "); return false;' title='Un-Flag Item'>"
                      .  "<img id='flag_img_" . $id . "' src='" . STICKYFLAG_ICON_FLAG . "' alt='F' /></a>&nbsp;";
             } else {
-                $ret .= "<a id='mf" . $id . "' href='#' onClick='JavaScript: _stickyflag_flag(" . $id . ", " . $flags . "); return false;' title='Flag Item'>"
+                $ret .= "<a id='mf" . $id . "' href='#' onclick='_stickyflag_flag(" . $id . ", " . $flags . "); return false;' title='Flag Item'>"
                      .  "<img id='flag_img_" . $id . "' src='" . STICKYFLAG_ICON_NOFLAG . "' alt='F' /></a>&nbsp;";
             }
         }
