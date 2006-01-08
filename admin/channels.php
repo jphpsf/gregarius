@@ -516,6 +516,7 @@ function channel_admin() {
 
             //update all the feeds
             update("");
+	    rss_invalidate_cache();
 
 
         }
