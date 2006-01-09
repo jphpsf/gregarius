@@ -139,10 +139,9 @@ class RSSdbCache {
         Output:     returns cid if it succeeds, else 0.
     \*=======================================================================*/
     function translateUrl ($url) {
-        $url = htmlentities($url, ENT_QUOTES );
         $url = rss_real_escape_string($url);
-
-        $res = rss_query("select id from " . getTable("channels") . " where url='$url'");
+				$sql = "select id from " . getTable("channels") . " where url='$url'";
+        $res = rss_query($sql);
         if(1 == rss_num_rows($res)) {
             list ($cid) = rss_fetch_row($res);
             $this -> translateUrltoCid[$url] = $cid;
