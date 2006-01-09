@@ -671,7 +671,7 @@ if ($iid == "") {
 
 $GLOBALS['rss'] -> feedList = new FeedList($cid);
 
-if (getConfig('rss.meta.debug') && array_key_exists('dbg',$_REQUEST)) {
+if (array_key_exists('dbg',$_GET)) {
     require_once('cls/debugfeed.php');
     $dbg = new DebugFeed($cid);
     $GLOBALS['rss'] -> appendContentObject($dbg);
