@@ -41,6 +41,7 @@ class DebugFeed {
     	define ('MAGPIE_DEBUG',true);
     }
     list($url) = rss_fetch_row($res);
+    define ('MAGPIE_CACHE_ON', false);
     $rss = fetch_rss($url);
 		echo "<pre>\n";
     echo htmlentities(print_r($rss,1));
