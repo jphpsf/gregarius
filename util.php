@@ -1071,26 +1071,16 @@ function getActualTheme() {
     }
 
 
-	// Theme is what the config says
-    $maintheme = getConfig('rss.output.theme');
-    
-    // ...unless it is overridden (e.g. by the admin which always
-    // uses the default theme
+    $theme = getConfig('rss.output.theme');
     if (defined('THEME_OVERRIDE')) {
-        $maintheme = THEME_OVERRIDE;
+        $theme = THEME_OVERRIDE;
     }
-    
-    // ... or by the user.
     elseif (isset($_GET['theme'])) {
-        $maintheme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
+        $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
     }
-    
-    $theme = array($maintheme,getThemeMedia());
-    
-    // Let plugins voice their opinion
-	$theme = rss_plugin_hook('rss.plugins.theme',$theme);
     return $theme;
 }
+
 
 /**
  * Returns the theme's "media" component, e.g. 'web', 
