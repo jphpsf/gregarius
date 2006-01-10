@@ -873,7 +873,7 @@ function rss_date($fmt, $ts, $addTZOffset = true) {
 }
 
 function _pf($msg) {
-    if (defined('PROFILING') && PROFILING) {
+    if (defined('PROFILING') && PROFILING && isset($GLOBALS['rss'])) {
         $GLOBALS['rss'] -> _pf($msg);
     }
 }
