@@ -790,7 +790,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
             }
             */
             $sqlOrder = "";
-            $items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit, $hint);
+            $items -> populate($sqlWhere,$sqlOrder,0, $sqlLimit, $hint, true);
         }
     }
 

@@ -272,8 +272,9 @@ class ItemList {
 	 * @param sqlWhere specifies what should be fetched
 	 * @param sqlOrder (optional) specifies a different item ordering
 	 * @param sqlLimit (optional) specifies how many items should be fetched
+   * @param includeDeprecated (optional) specifies if deprecated feeds should be fetched
 	 */
-	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED) {
+	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED, $includeDeprecated = false) {
 
         _pf('ItemList::populate()');
 		$sql = "select i.title,  c.title, c.id, i.unread, "
@@ -288,7 +289,7 @@ class ItemList {
 
 			." where "
 			." i.cid = c.id and "
-			." f.id=c.parent and "." not(c.mode & ".RSS_MODE_DELETED_STATE.") and "
+			." f.id=c.parent and ". (false == $includeDeprecated ? " not(c.mode & ".RSS_MODE_DELETED_STATE.") and " : "")
 			." not(i.unread & ".RSS_MODE_DELETED_STATE.") and ";
 			
 

@@ -183,7 +183,7 @@ class SearchItemList extends ItemList {
 
 
 
-        parent::populate($qWhere,$qOrder);
+        parent::populate($qWhere,$qOrder,0,-1,ITEM_SORT_HINT_MIXED,true);
 
         $this -> filterItems();
         $this -> nav();
