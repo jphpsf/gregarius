@@ -227,6 +227,7 @@ function item_admin() {
                                    . implode(", ", $to_trash)
                                    .")"
                                  );
+                        rss_invalidate_cache();
                     }
                     if (count($in_cache)) {
                         rss_query( "update " . getTable('item')
@@ -236,6 +237,7 @@ function item_admin() {
                                    . implode(", ", $in_cache)
                                    .")"
                                  );
+                        rss_invalidate_cache();
                     }
                 }
                 $ret__ = CST_ADMIN_DOMAIN_ITEM;
