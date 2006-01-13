@@ -262,6 +262,7 @@ function channel_admin() {
             //var_dump($ret);
             if (is_array($ret) && $ret[0] > -1) {
                 update($ret[0]);
+		rss_invalidate_cache();
 
                 // feedback
                 $newCid = $ret[0];
@@ -289,6 +290,7 @@ function channel_admin() {
                         $ret = add_channel($feeds[0]['href'],$fid);
                         if (is_array($ret) && $ret[0] > -1) {
                             update($ret[0]);
+			    rss_invalidate_cache();
 
                             // feedback
                             $newCid = $ret[0];
