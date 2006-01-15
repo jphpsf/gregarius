@@ -380,28 +380,27 @@ div#alltags {
  float:left;
 }
 
-
 #db_main .item { padding: 1em; }
-#db_main h4,#db_side h4  { border: none !important; margin-left: 0; padding-left:0 }
-#db_side {
+#db_main h4, .db_side h4  { border: none !important; margin-left: 0; padding-left:0 }
+
+div.db_side {
  width: 24%;
  margin: 0 1em 0 73%;
- padding: 0 1em;
+ padding: 1em;
  border-color: #eef;
  background-color: #f8f8ff;
- 
 }
 
 
-#db_side h3 { border:none; padding: 0; margin: 0.5em 0}
-#db_side ul { list-style-type: square; margin: 0 0 2em 0 }
-#db_side li {
+.db_side h3 { border:none; padding: 0; margin: 0.5em 0}
+.db_side ul { list-style-type: square; margin: 0 0 2em 0 }
+.db_side li {
 	margin: 1em 0 1em 1em;
 	padding: 0 0.2em;
 	color: #ccc; 
 }
-#db_side li h5 a {
+.db_side li h5 a {
 	color: #666 !important; 
 }
-#db_side li h5 a:hover { color: #333 !important }
+.db_side li h5 a:hover { color: #333 !important }
 

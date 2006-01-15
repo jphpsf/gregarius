@@ -46,6 +46,7 @@ function checkSchema() {
 		"rating" => trim(getTable("rating")),
 		"cache" => trim(getTable("cache")),
 		"users" => trim(getTable("users")),		
+		"dashboard" => trim(getTable("dashboard")),
 	//	"properties" => trim(getTable("properties")),
 
 	);
@@ -271,6 +272,56 @@ _SQL_
 		return 1;
 	}
 }
+///////////////////////////////////////////////////////////////////////////////
+
+function _init_dashboard() {
+	$table = getTable('dashboard');
+	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
+	$sql_create = str_replace('__table__',$table, <<< _SQL_
+		CREATE TABLE __table__ (
+			id bigint(11) NOT NULL auto_increment,
+  			title text NOT NULL default '',
+  			url text NOT NULL default '',
+  			position tinyint(1) NOT NULL default 0,
+  			obj text not NULL default '',
+  			daterefreshed datetime default NULL,
+  			itemcount tinyint(1) NOT NULL default 3,
+  			PRIMARY KEY  (id)
+		) TYPE=MyISAM;    
+_SQL_
+);
+
+	rss_query_wrapper($sql_create, false, true);
+	if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
+		return 0;
+	}
+	
+	
+	$baseData = array(
+		array ('Latest Gregarius News','http://devlog.gregarius.net/feed/?db=',0, 3),
+		array ('Latest Plugins','http://plugins.gregarius.net/rss.php?db=',1, 5),
+		array ('Latest Themes','http://themes.gregarius.net/rss.php?db=',1, 5),
+		array ('Latest Forum posts','http://forums.gregarius.net/feeds/?Type=rss2&db=',1, 5),
+		array ('Technorati','http://www.technorati.com/watchlists/rss.html?wid=59610&db=',1, 5)
+	);
+
+	foreach ($baseData as $feed) {
+		list($title,$url,$pos, $cnt) = $feed;
+		rss_query_wrapper (
+			"INSERT INTO $table (title, url, position, obj, daterefreshed, itemcount) VALUES "
+			." ('$title', '$url', '$pos', '', null, $cnt)"	, false, true);	
+		if (!rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+			rss_error('The '  . $table .  ' table was created successfully, but I couldn\'t insert the default values. Please do so manually!', RSS_ERROR_ERROR);
+			return 0;
+		}	
+	}
+	
+	return 1;
+	
+	
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -383,7 +434,8 @@ function setDefaults($key) {
 		"rss.output.title"			=> array('Gregarius','Gregarius','string','Sets the title of this feedreader.',NULL),
 		"rss.config.ajaxparallelsize"			=> array('3','3','num','Sets the number of feeds to update in parallel. Remember to set rss.config.serverpush to false.',NULL),
 		"rss.config.ajaxbatchsize"			=> array('3','3','num','Sets the number of feeds in a batch when using the ajax updater. Remember to set rss.config.serverpush to false.',NULL),
-		"rss.config.defaultdashboard"	  		=> array('true','true','boolean','If the first page seen when entering the admin section should be the dashboard',NULL)
+		"rss.config.defaultdashboard"	  		=> array('true','true','boolean','If the first page seen when entering the admin section should be the dashboard',NULL),
+		"rss.output.nav.unread"		=>		array('false','false','boolean','If the navigation hints on the feeds page should go to the next feed with unread items.  If false, it simply goes to the next feed.',NULL)
 	);
 	
 	
@@ -628,7 +680,7 @@ if (isset($argv) && in_array('--dump',$argv)) {
 	@require_once('init.php');
 	
 	
-	foreach (array("channels","config","folders","item","metatag","tag","rating", "users") as $tbl) {
+	foreach (array("channels","config","folders","item","metatag","tag","rating", "users", "dashboard") as $tbl) {
 	 	call_user_func("_init_$tbl"); 
 	}
 		

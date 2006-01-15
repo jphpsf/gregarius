@@ -28,8 +28,9 @@
 
 function dashboard() {
     $idtoken = _VERSION_ . "-" . md5($_SERVER["HTTP_HOST"]);
-    $old_level = error_reporting(E_ERROR);
+    
     $magpieCacheAge = 60*60*24;
+
     if (function_exists('apache_request_headers')) {
         $hdrs = apache_request_headers();
         if (
@@ -38,43 +39,47 @@ function dashboard() {
             $magpieCacheAge = 0;
         }
     }
+
     define ('MAGPIE_CACHE_AGE', $magpieCacheAge);
-    foreach (
-        array (
-            'devlog_rss' => array('http://devlog.gregarius.net/feed/?db=',3),
-            'plugins_rss' => array('http://plugins.gregarius.net/rss.php?db=',5),
-            'themes_rss' => array('http://themes.gregarius.net/rss.php?db=',5),
-            'forums_rss' => array('http://forums.gregarius.net/feeds/?Type=rss2&db=',5),
-            'technorati_rss' => array('http://www.technorati.com/watchlists/rss.html?wid=59610&db=',5)
-        ) as $key => $info) {
-        list($url,$cnt) = $info;
-        $$key=fetch_rss($url.$idtoken);
-        if ($$key) {
-            $$key -> items = array_slice($$key -> items, 0, $cnt);
-        }
+    $rs = rss_query(
+    "select id, title, position, url, obj, unix_timestamp(daterefreshed), itemcount "
+    ." from " . getTable('dashboard') . " order by position asc");
+    $rss = array();
+    while (list($id, $title,$pos,$url,$obj, $ts, $cnt) = rss_fetch_row($rs)) {
+    	if ($obj && (time() - $ts < $magpieCacheAge)) {
+    		$rss[$title] = unserialize($obj);
+    	} else {
+    		$old_level = error_reporting(E_ERROR);
+    		$rss[$title]  = fetch_rss($url.$idtoken);
+    		error_reporting($old_level);
+    		if ($rss[$title] && is_object($rss[$title])) {
+    			$rss[$title] -> items = array_slice($rss[$title] -> items, 0, $cnt);
+    			rss_query('update ' .getTable('dashboard') . " set obj='"
+    				.rss_real_escape_string(serialize($rss[$title])). "', "
+    				." daterefreshed=now()	where id=$id");
+    		}
+    	}
+    	
+    	if ($rss[$title] && is_object($rss[$title])) {
+    		if ($pos == 0) {
+						echo "
+							<h2 style=\"margin-bottom: 0.5em\">$title</h2>
+							<div id=\"db_main\">
+							<ul>";
+    				foreach ($rss[$title] -> items as $item) {
+							echo "<li class=\"item unread\">\n"
+								."<h4><a href=\"".$item['link']."\">".$item['title']."</a></h4>\n"
+								."<h5>Posted: " .time_since(strtotime($item['pubdate'])) . " ago </h5>\n"
+								."<div class=\"content\">" . $item['content']['encoded'] ."</div>\n</li>\n";    				
+    				}
+    				echo "</ul></div>\n";				
+    		} else {
+    	    echo "<div class=\"frame db_side\">\n";
+					db_side($title,$rss[$title]);
+					echo "</div>";	    		
+    		}
+    	}
     }
-    error_reporting($old_level);
-
-    echo "
-    <h2 style=\"margin-bottom: 0.5em\">Latest Gregarius News</h2>
-    <div id=\"db_main\">
-    <ul>
-    ";
-
-    foreach ($devlog_rss -> items as $item) {
-        echo "<li class=\"item unread\">\n"
-        ."<h4><a href=\"".$item['link']."\">".$item['title']."</a></h4>\n"
-        ."<h5>Posted: " .time_since(strtotime($item['pubdate'])) . " ago </h5>\n"
-        ."<div class=\"content\">" . $item['content']['encoded'] ."</div>\n</li>\n";
-    }
-    echo "</ul></div>\n";
-
-    echo "<div id=\"db_side\" class=\"frame\">\n";
-    db_side('Latest Forum posts',$forums_rss);
-    db_side('Latest Plugins',$plugins_rss);
-    db_side('Latest Themes',$themes_rss);
-    db_side('Technorati',$technorati_rss);
-    echo "</div>";
 }
 
 function db_side($title,&$rss) {
