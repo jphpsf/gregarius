@@ -128,7 +128,9 @@ function plugins() {
                     $escaped_plugin_name = str_replace("/", "%2F", $entry);
                     echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=".
                     CST_ADMIN_DOMAIN_PLUGIN_OPTIONS
-                    ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;plugin_name=".$escaped_plugin_name."\">" . LBL_ADMIN_EDIT
+                    ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;plugin_name=".$escaped_plugin_name
+                    ."&amp;" .CST_ADMIN_VIEW ."=" .CST_ADMIN_DOMAIN_PLUGIN_OPTIONS
+                    ."\">" . LBL_ADMIN_EDIT
                     ."</a>";
                 } else {
                     echo "&nbsp";

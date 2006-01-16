@@ -134,7 +134,9 @@ function config() {
 
         echo "\t<td class=\"cntr\">"
         ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CONFIG
-        ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']."\">" . LBL_ADMIN_EDIT
+        ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']
+        ."&amp;".CST_ADMIN_VIEW."=". CST_ADMIN_DOMAIN_CONFIG
+        ."\">" . LBL_ADMIN_EDIT
         ."</a>";
 
         if ($row['value_'] != $row['default_'] && $row['key_'] != 'rss.config.plugins') {

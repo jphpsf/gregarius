@@ -176,7 +176,7 @@ function admin_main($authorised) {
                 break;
             case CST_ADMIN_DOMAIN_THEMES:
                 themes();
-                break;                
+                break;
             case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
                 plugin_options();
                 break;
@@ -215,7 +215,7 @@ function admin_menu() {
                  array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL),
                  array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL),
                  array (CST_ADMIN_DOMAIN_PLUGINS, LBL_ADMIN_DOMAIN_PLUGINS_LBL),
-                 array (CST_ADMIN_DOMAIN_THEMES, LBL_ADMIN_DOMAIN_THEMES_LBL),                 
+                 array (CST_ADMIN_DOMAIN_THEMES, LBL_ADMIN_DOMAIN_THEMES_LBL),
                  array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL),
                  array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
 
@@ -322,7 +322,7 @@ function admin_header() {
     echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n";
     echo "<head>";
 
-    $header = new Header(LBL_TITLE_ADMIN, LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
+    $header = new Header(admin_title(), LOCATION_ADMIN, null, '', (HDR_NONE | HDR_NO_CACHECONTROL | HDR_NO_OUPUTBUFFERING));
     $header -> render();
 
     echo "</head>";
@@ -340,5 +340,15 @@ function admin_footer() {
     echo "<div id=\"footer\" class=\"frame\">\n";
     rss_main_footer();
     echo "</div>\n\n</body>\n</html>\n";
+}
+
+function admin_title() {
+	$title = array("Admin");
+    if (array_key_exists(CST_ADMIN_VIEW,$_REQUEST)) {
+    	$title[] = ucwords(
+    		preg_replace('#[^a-zA-Z]#',' ',$_REQUEST[CST_ADMIN_VIEW])
+    	) ;
+    }
+    return $title;
 }
 ?>

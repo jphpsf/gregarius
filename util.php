@@ -119,8 +119,14 @@ function makeTitle($title) {
         $userTitle = getConfig('rss.output.title');
     }
     $ret = "". $userTitle ."";
-    if ($title != "") {
-        $ret .= " ".TITLE_SEP." ".$title;
+    if ($title) {
+    		if (is_array($title)) {
+    			foreach($title as $token) {
+    				$ret .= " ".TITLE_SEP." ".$token;
+    			}
+    		} else {
+        		$ret .= " ".TITLE_SEP." ".$title;
+        	}
     }
     return $ret;
 }
@@ -318,10 +324,14 @@ function update($id) {
                        ." where cid=$cid and url='$url' and title='$dbtitle'"
                        ." and (pubdate is NULL OR pubdate=$sec)";
             }
+            
             $subres = rss_query($sql);
             list ($indb, $state, $dbmd5sum, $dbGuid, $dbPubDate) = rss_fetch_row($subres);
 
             if ($indb && !($state & RSS_MODE_DELETED_STATE) && $md5sum != $dbmd5sum) {
+            	
+            	//echo "<pre>$cid - $sql - $md5sum - $dbmd5sum</pre>\n";
+            	
                 // the md5sums do not match.
                 if(getConfig('rss.input.allowupdates')) { // Are we allowed update items in the db?
                     list ($cid, $indb, $description) =
