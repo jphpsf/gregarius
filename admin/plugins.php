@@ -42,18 +42,34 @@ function plugins() {
 
     // Submit changes
     if (isset($_POST['admin_plugin_submit_changes'])) {
+        $old_active_plugins = getConfig('rss.config.plugins');
         $active_plugins=array();
         foreach($_REQUEST as $rkey=>$rentry) {
             if (preg_match('/_gregarius_plugin.([a-zA-Z0-9_\/\-]+).php/',$rkey,$matches)) {
                 $active_plugins[] = ($matches[1] .".php");
             }
         }
+
         $value = serialize($active_plugins);
         $sql = "update " . getTable('config') . " set value_='$value' where key_='rss.config.plugins'";
         rss_query($sql);
         rss_invalidate_cache();
+
+        // deactivate
+        $to_deactivate = array_diff($old_active_plugins, $active_plugins);
+        foreach($to_deactivate as $deactivatethis) {
+            rss_load_plugin($deactivatethis);
+            rss_plugin_hook("rss.plugins.admin.deactivate", "", $deactivatethis);
+        }
+
+        //activate
+        $to_activate = array_diff($active_plugins, $old_active_plugins);
+        foreach($to_activate as $activatethis) {
+            rss_load_plugin($activatethis);
+            rss_plugin_hook("rss.plugins.admin.activate", "", $activatethis);
+        }
     } else {
-        $active_plugins= getConfig('rss.config.plugins');
+        $active_plugins = getConfig('rss.config.plugins');
     }
 
     // Check for updates
@@ -171,7 +187,7 @@ function plugin_options() {
         if($plugin_info && array_key_exists('configuration', $plugin_info)) {
             $plugin_config_func = $plugin_info['configuration'];
             ob_start();
-            require_once("../".RSS_PLUGINS_DIR. "/" . $plugin_filename);
+            rss_load_plugin($plugin_filename);
             if(function_exists($plugin_config_func)) {
                 call_user_func($plugin_config_func); // Are you happy now?
                 $plugin_output = ob_get_contents();

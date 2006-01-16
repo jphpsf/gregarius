@@ -41,15 +41,37 @@ function & __getHooksArray() {
 }
 
 /**
+ * (private)
+ * Returns a reference to the filename of the plugin
+ * being currently loaded
+ */
+function & __getLoadingPlugin() {
+    static $__rss_loading_plugin;
+    return ($__rss_loading_plugin);
+}
+
+function set_loading_plugin($loading) {
+    $static_var =& __getLoadingPlugin();
+    $static_var = $loading;
+}
+
+/**
  * Allows a plugin to register itself for the 
  * given hook
  */
 function rss_set_hook($hook,$fnct) {
     $hooks =& __getHooksArray();
-    if (array_key_exists($hook, $hooks)) {
-        $hooks[$hook][] = $fnct;
+    $loading_filename =& __getLoadingPlugin();
+
+    if (!array_key_exists($loading_filename, $hooks)) {
+        $hooks[$loading_filename]=array();
+    }
+    $filehooks =& $hooks[$loading_filename];
+    
+    if (array_key_exists($hook, $filehooks)) {
+        $filehooks[$hook][] = $fnct;
     } else {
-        $hooks[$hook]=array($fnct);
+        $filehooks[$hook]=array($fnct);
     }
 }
 
@@ -57,14 +79,18 @@ function rss_set_hook($hook,$fnct) {
  * Performs callbacks for the given hook,
  * based on the plugins registered functions
  */
-function rss_plugin_hook($hook, $data) {
+function rss_plugin_hook($hook, $data, $plugin_filename=null) {
     $hooks =& __getHooksArray();
-    if (array_key_exists($hook, $hooks)) {
-        foreach($hooks[$hook] as $fnct) {
-            if (function_exists($fnct)) {
-                _pf("calling plugin func for $hook ...");
-                $data = call_user_func($fnct,$data);
-                _pf("done");
+    foreach($hooks as $this_plugin_name => $filehooks) {
+        if (!isset($plugin_filename) || $this_plugin_name == $plugin_filename) {
+            if (array_key_exists($hook, $filehooks)) {
+                foreach($filehooks[$hook] as $fnct) {
+                    if (function_exists($fnct)) {
+                        _pf("calling plugin func $fnct in '$this_plugin_name' for $hook ...");
+                        $data = call_user_func($fnct,$data);
+                        _pf("done");
+                    }
+                }
             }
         }
     }
@@ -157,18 +183,23 @@ function rss_plugins_get_plugins_http_path() {
 }
 
 /**
+ * loads the specified plugin file
+ */
+function rss_load_plugin( $plugin_filename )
+{
+        set_loading_plugin($plugin_filename);
+        if( file_exists(rss_home_dir() . RSS_PLUGINS_DIR.'/'.$plugin_filename ) ) {
+		rss_require(RSS_PLUGINS_DIR.'/'.$plugin_filename);
+	}
+        set_loading_plugin('');
+}
+
+/**
  * loads the active plugins from the config, instantiates
  * them
  */
 foreach(getConfig('rss.config.plugins') as $pf) {
-    if (defined('RSS_FILE_LOCATION')) {
-        $prefix = GREGARIUS_HOME;
-    } else {
-        $prefix = "";
-    }
-    if (file_exists($prefix . RSS_PLUGINS_DIR.'/'.$pf)) {
-        require_once($prefix . RSS_PLUGINS_DIR."/$pf");
-    }
+    rss_load_plugin($pf);
 }
 
 /*
