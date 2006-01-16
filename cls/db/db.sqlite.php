@@ -2,7 +2,7 @@
 
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
-# Copyright (C) 2003 - 2005 Marco Bonetti
+# Copyright (C) 2003 - 2006 Marco Bonetti
 #
 ###############################################################################
 # This program is free software and open source software; you can redistribute

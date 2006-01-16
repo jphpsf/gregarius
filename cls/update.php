@@ -1,7 +1,7 @@
 <?php
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
-# Copyright (C) 2003 - 2005 Marco Bonetti
+# Copyright (C) 2003 - 2006 Marco Bonetti
 #
 ###############################################################################
 # This program is free software and open source software; you can redistribute
@@ -419,7 +419,7 @@ function ajaxUpdateJavacript () {
     echo sajax_get_javascript();
     ?>
     /// End Sajax javascript
-    /// From here on: Copyright (C) 2003 - 2005 Marco Bonetti, gregarius.net
+    /// From here on: Copyright (C) 2003 - 2006 Marco Bonetti, gregarius.net
     /// Released under GPL
 
 

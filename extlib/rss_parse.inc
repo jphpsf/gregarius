@@ -424,6 +424,7 @@ class MagpieRSS {
         if ( $this->current_namespace ) 
         {
             if ( $this->initem ) {
+            /*
 							$real_element = "";  
 						 
 							$element_tree = explode("_", $el);  
@@ -439,6 +440,9 @@ class MagpieRSS {
 							
 
             	$this->concat($real_element, $text);
+            	*/
+             $this->concat(
+                $this->current_item[ $this->current_namespace ][ $el ], $text);
             }
             elseif ($this->inchannel) {
         $this->concat(

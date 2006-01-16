@@ -119,6 +119,7 @@ insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.outpu
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.ajaxparallelsize",'3','3','num','Sets the number of feeds to update in parallel. Remember to set rss.config.serverpush to false.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.ajaxbatchsize",'3','3','num','Sets the number of feeds in a batch when using the ajax updater. Remember to set rss.config.serverpush to false.',NULL);
 insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.config.defaultdashboard", '1', '1','boolean','If the first page seen when entering the admin section should be the dashboard',NULL);
+insert into config (key_,value_,default_,type_,desc_,export_) values ("rss.output.nav.unread", 'false', 'false','boolean','If the navigation hints on the feeds page should go to the next feed with unread items.  If false, it simply goes to the next feed.',NULL);
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag` (
