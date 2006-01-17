@@ -25,16 +25,27 @@
 #
 ###############################################################################
 
+define('GREGARIUS_RELEASE', '0.5.4');
+define('GREGARIUS_CODENAME', 'Coots');
+
 define('DBINIT', dirname(__FILE__) . '/dbinit.php');
+
+// NOTE: This _must_ be a standard version string, see:
+// php.net/version_compare
+define('REQUIRED_VERSION', '4.0.0');
 
 define('SERVER_DEFAULT', 'localhost');
 define('DATABASE_DEFAULT', 'rss');
 
 function install_main() {
+    $hasXML    = function_exists('xml_parser_create');
+    $hasMySQL  = function_exists('mysql_connect');
+    $hasSQLite = function_exists('sqlite_open');
+
     echo ""
     . "<html>\n"
     . "<head>\n"
-    . " <title>Gregarius 0.5.4 Coots Installer</title>\n"
+    . " <title>Gregarius " . GREGARIUS_RELEASE . " " . GREGARIUS_CODENAME . " Installer</title>\n"
     . "	<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/default/css/layout.css\" />\n"
     . "	<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/default/css/look.css\" />\n"
     . "<style>\n"
@@ -42,6 +53,14 @@ function install_main() {
     . "    display: none;\n"
     . "    font-size: 12pt;\n"
     . "    color: red;\n"
+    . "  }\n"
+    . "  .found {\n"
+    . "    color: green;\n"
+    . "    font-weight: bold;\n"
+    . "  }\n"
+    . "  .not_found {\n"
+    . "    color: red;\n"
+    . "    font-weight: bold;\n"
     . "  }\n"
     . "</style>\n" 
     . "<script type=\"text/javascript\">\n"
@@ -80,12 +99,19 @@ function install_main() {
     . "<h2 class=\"trigger\">Gregarius Database Setup</h2>\n"
     . "<div id=\"install\" class=\"frame\">\n"
     . "<p><img src=\"themes/default/media/installer/codename.jpg\" alt=\"Coots\" /></p>\n"
+    . "<fieldset class=\"install\">\n"
+    . "<legend>Diagnostics</legend>\n"
+    . "<p class=\"" . (version_compare(REQUIRED_VERSION, PHP_VERSION) <= 0 ? "found" : "not_found") . "\">PHP Version: " . phpversion() . "</p>\n"
+    . "<p class=\"" . ($hasXML ? "found" : "not_found") . "\">XML: " . ($hasXML ? "Found" : "Not Found!") . "</p>\n"
+    . "<p class=\"" . ($hasMySQL ? "found" : "not_found") . "\">MySQL: " . ($hasMySQL ? "Found" : "Not Found!") . "</p>\n"
+    . "<p class=\"" . ($hasSQLite ? "found" : "not_found") . "\">SQLite: " . ($hasSQLite ? "Found" : "Not Found!") . "</p>\n"
+    . "</fieldset>\n"
     . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\" onSubmit=\"return ValidateData();\">\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>SQL Settings</legend>\n"
     . "<p><label for=\"type\">Server Type [<a href=\"#\" onClick=\"ToggleHelp('type_help'); return false; \">?</a>]</label>\n"
-    . "<input type=\"radio\" name=\"type\" id=\"type\" value=\"mysql\" checked='true'/>MySQL"
-    . "<input type=\"radio\" name=\"type\" id=\"type\" value=\"sqlite\" />SQLite"
+    . "<input type=\"radio\" name=\"type\" id=\"type\" value=\"mysql\" " . ($hasMySQL ? "checked=\"1\"" : "disabled=\"1\"") . "/>MySQL"
+    . "<input type=\"radio\" name=\"type\" id=\"type\" value=\"sqlite\"" . ($hasSQLite ? ($hasMySQL ? "" : "checked=\"1\"") : "disabled=\"1\"") . "/>SQLite"
     . "<span class=\"help\" name=\"type_help\" id=\"type_help\">The type of server being used.</span></p>\n"
     . "<p><label for=\"server\">Server Location [<a href=\"#\" onClick=\"ToggleHelp('server_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"text\" name=\"server\" id=\"server\" value=\"" . SERVER_DEFAULT . "\" />"
@@ -120,10 +146,12 @@ if(file_exists(DBINIT)) {
     if(empty($_POST['server']) ||
        empty($_POST['database']) ||
        empty($_POST['username']) ||
-       empty($_POST['password'])) {
+       empty($_POST['password']) ||
+       empty($_POST['type'])) {
 
         print("Not all required fields have been filled in!");
     } else {
+
 $out = "<?php
 //
 // The type of database server you are using. By default
