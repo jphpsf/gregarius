@@ -25,7 +25,11 @@
 #
 ###############################################################################
 
-require_once(dirname(__FILE__) . '/dbinit.php');
+if (!@include_once(dirname(__FILE__) . '/dbinit.php')) {
+	header('Location: install.php');
+	exit();
+}
+
 if (!defined('DBTYPE')) {
     define ('DBTYPE','mysql');
 }
