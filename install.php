@@ -25,7 +25,7 @@
 #
 ###############################################################################
 
-define('DBINIT', getcwd() . '/dbinit.php');
+define('DBINIT', dirname(__FILE__) . '/dbinit.php');
 
 define('SERVER_DEFAULT', 'localhost');
 define('DATABASE_DEFAULT', 'rss');
