@@ -32,7 +32,7 @@ define('DBINIT', dirname(__FILE__) . '/dbinit.php');
 
 // NOTE: This _must_ be a standard version string, see:
 // php.net/version_compare
-define('REQUIRED_VERSION', '4.0.0');
+define('REQUIRED_VERSION', '4.3.0');
 
 define('SERVER_DEFAULT', 'localhost');
 define('DATABASE_DEFAULT', 'rss');
