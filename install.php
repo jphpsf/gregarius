@@ -214,6 +214,7 @@ $out .= "\n?>";
         if(!$fp) {
         // unable to open file for writing
             header('Content-type: application/x-httpd-php-source');
+            header('Content-Disposition: attachment; filename="dbinit.php"');
             echo($out);
             exit();
         } else  {
