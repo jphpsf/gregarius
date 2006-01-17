@@ -109,11 +109,9 @@ function install_main() {
     . "</html>\n";
 }
 
-#if(file_exists(DBINIT)) {
-#    print(DBINIT . " already exists!");
-#}
-#else
-if(!empty($_POST['process']) && 1 == $_POST['process']){
+if(file_exists(DBINIT)) {
+    print(DBINIT . " already exists!");
+} else if(!empty($_POST['process']) && 1 == $_POST['process']){
 // process the post data
 
     if(empty($_POST['server']) ||
