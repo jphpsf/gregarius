@@ -34,7 +34,9 @@ function install_main() {
     echo ""
     . "<html>\n"
     . "<head>\n"
-    . " <title>Gregarius Install</title>\n"
+    . " <title>Gregarius 0.5.4 Coots Installer</title>\n"
+    . "	<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/default/css/layout.css\" />\n"
+    . "	<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/default/css/look.css\" />\n"
     . "<style>\n"
     . "  .help {\n"
     . "    display: none;\n"
@@ -77,10 +79,11 @@ function install_main() {
     . "<body>\n"
     . "<h2 class=\"trigger\">Gregarius Database Setup</h2>\n"
     . "<div id=\"install\" class=\"frame\">\n"
+    . "<p><img src=\"themes/default/media/installer/codename.jpg\" alt=\"Coots\" /></p>\n"
     . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\" onSubmit=\"return ValidateData();\">\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>SQL Settings</legend>\n"
-    . "<p><label for=\"type\">Server Type [<a href=\"#\" onClick=\"ToggleHelp('type_help'); return falses; \">?</a>]</label>\n"
+    . "<p><label for=\"type\">Server Type [<a href=\"#\" onClick=\"ToggleHelp('type_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"radio\" name=\"type\" id=\"type\" value=\"mysql\" checked='true'/>MySQL"
     . "<input type=\"radio\" name=\"type\" id=\"type\" value=\"sqlite\" />SQLite"
     . "<span class=\"help\" name=\"type_help\" id=\"type_help\">The type of server being used.</span></p>\n"
@@ -92,7 +95,7 @@ function install_main() {
     . "<span class=\"help\" name=\"database_help\" id=\"database_help\">The name of the database.  Default: " . DATABASE_DEFAULT . "</span></p>\n"
     . "<p><label for=\"username\">Database UserName [<a href=\"#\" onClick=\"ToggleHelp('username_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"text\" name=\"username\" id=\"username\" value=\"\" />"
-    . "<span class=\"help\" name=\"username_help\" id=\"username_help\">The username to connect to the database. Make sure this user has INSERT,UPDATE,DELETE,ALTER permission to the database!</span></p>\n"
+    . "<span class=\"help\" name=\"username_help\" id=\"username_help\">The username to connect to the database. <br/>Make sure this user has INSERT,UPDATE,DELETE,ALTER permission to the database!</span></p>\n"
     . "<p><label for=\"password\">Database Password [<a href=\"#\" onClick=\"ToggleHelp('password_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"password\" name=\"password\" id=\"password\" value=\"\" />"
     . "<span class=\"help\" id=\"password_help\">The passsword used to connect to the database.</span></p>\n"
@@ -101,7 +104,7 @@ function install_main() {
     . "<span class=\"help\" name=\"prefix_help\" id=\"prefix_help\">The string to prefix the tables with. Example: m_feeds</span></p>\n"
     . "<p>&nbsp;</p>\n"
     . "</fieldset>\n"
-    . "<p class=\"cntr\"><input type=\"submit\" name=\"action\" value=\"Proceed\" /></p>\n"
+    . "<p><input type=\"submit\" name=\"action\" value=\"Proceed\" /></p>\n"
     . "<p><input type=\"hidden\" name=\"process\" value=\"1\"></p>\n"
     . "</form>\n"
     . "</div>\n"
@@ -110,7 +113,7 @@ function install_main() {
 }
 
 if(file_exists(DBINIT)) {
-    print(DBINIT . " already exists!");
+    print("The dbinit.php file already exists in the Gregarius directory!");
 } else if(!empty($_POST['process']) && 1 == $_POST['process']){
 // process the post data
 
