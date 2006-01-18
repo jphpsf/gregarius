@@ -173,7 +173,8 @@ function update($id) {
         } else {
             $baseUrl = $url; // The feed is invalid
         }
-
+	
+	$itemIdsInFeed = array(); // This variable will store the item id's of the elements in the feed
         foreach ($rss->items as $item) {
 
             $item = rss_plugin_hook('rss.plugins.rssitem', $item);
@@ -328,27 +329,25 @@ function update($id) {
             $subres = rss_query($sql);
             list ($indb, $state, $dbmd5sum, $dbGuid, $dbPubDate) = rss_fetch_row($subres);
 
-            if ($indb && !($state & RSS_MODE_DELETED_STATE) && $md5sum != $dbmd5sum) {
-            	
-            	//echo "<pre>$cid - $sql - $md5sum - $dbmd5sum</pre>\n";
-            	
-                // the md5sums do not match.
-                if(getConfig('rss.input.allowupdates')) { // Are we allowed update items in the db?
-                    list ($cid, $indb, $description) =
-                        rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
+	    if ($indb){
+		  $itemIdsInFeed[] = $indb;
+		  if (!($state & RSS_MODE_DELETED_STATE) && $md5sum != $dbmd5sum) {
+		     // the md5sums do not match.
+		     if(getConfig('rss.input.allowupdates')) { // Are we allowed update items in the db?
+			list ($cid, $indb, $description) =
+			      rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
 
-                    $sql = "update ".getTable("item")
-                           ." set "." description='".rss_real_escape_string($description)."', "
-                           ." unread = unread | ".RSS_MODE_UNREAD_STATE
-                           .", md5sum='$md5sum'" . " where cid=$cid and id=$indb";
+			$sql = "update ".getTable("item")
+				 ." set "." description='".rss_real_escape_string($description)."', "
+				 ." unread = unread | ".RSS_MODE_UNREAD_STATE
+				 .", md5sum='$md5sum'" . " where cid=$cid and id=$indb";
 
-                    rss_query($sql);
-                    $updatedIds[] = $indb;
-                    continue;
-                }
-            }
-
-            if ($indb == "") { // This must be new item then. In you go.
+			rss_query($sql);
+			$updatedIds[] = $indb;
+			continue;
+		     }
+            	}
+	    } else { // $indb = "" . This must be new item then. In you go.
 
                 list ($cid, $dbtitle, $url, $description) =
                     rss_plugin_hook('rss.plugins.items.new', array ($cid, $dbtitle, $url, $description));
@@ -365,12 +364,18 @@ function update($id) {
                 rss_query($sql);
 
                 $newIid = rss_insert_id();
+                $itemIdsInFeed[] = $newIid;
                 $updatedIds[] = $newIid;
                 rss_plugin_hook('rss.plugins.items.newiid',array($newIid,$item,$cid));
-            }
+            } // end handling of this item
 
-        }
-    }
+        } // end handling of all the items in this feed
+	$sql = "update " .getTable("channels") . " set "." itemsincache = '" 
+		. serialize($itemIdsInFeed) . "' where id=$cid";
+	rss_query($sql);
+
+
+    } // end handling all the feeds we were asked to handle
 
     if ($id != "" && is_numeric($id)) {
         if ($rss) {

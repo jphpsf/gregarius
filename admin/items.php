@@ -140,7 +140,7 @@ function item_admin() {
             if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST)) {
                 //echo "<pre>\n";
                 //delete the tags for these items
-                $sqlids = "select distinct i.id,i.cid,c.url,i.url " . $sql
+                $sqlids = "select distinct i.id,i.cid " . $sql
                           . " and i.cid=c.id order by i.cid, i.id desc";
 
 
@@ -148,61 +148,29 @@ function item_admin() {
                 $ids = array();
                 $cids = array();
                 //echo "to be deleted\n";
-                while (list($id,$cid,$curl,$iurl) = rss_fetch_row($rs)) {
+                while (list($id,$cid) = rss_fetch_row($rs)) {
 
-                    $curls[$cid] = $curl;
-                    $cids[$cid][]= array($id,$iurl);
+                    $cids[$cid][]= $id;
 
-                    //echo "cid=$cid, $id, $iurl\n";
+                    //echo "cid=$cid, $id\n";
                 }
                 //echo "\n\n";
 
                 if (count($cids)) {
                     // Righto. Lets check which of these ids still is in cache:
 
-                    //$cache = new RSSCache(MAGPIE_CACHE_DIR, MAGPIE_CACHE_AGE);
-                    $cacheUrls = array();
+                    $cacheIds = array();
 
-                    // extract all the urls for each cached item, keep them sorted
-                    // by feed
-                    foreach($curls as $cid => $curl) {
-                        // suppress warnings because Magpie is rather noisy
-                        $old_level = error_reporting(E_ERROR);
-                        $rss = fetch_rss( $curl );
-                        //reset
-                        error_reporting($old_level);
-
-                        $cacheUrls[$cid]= array();
-                        //echo "Feed: $cid\n";
-                        if ($rss) {
-                            foreach($rss->items as $item) {
-                                // this comes from util.php:update()
-
-                                if (array_key_exists('link',$item) && $item['link'] != "") {
-                                    $url = $item['link'];
-                                }
-                                elseif (array_key_exists('guid',$item) && $item['guid'] != "") {
-                                    $url = $item['guid'];
-                                }
-                                else {
-                                    // fall back to something basic
-                                    $url =  md5($item['title']);
-                                }
-                                $cacheUrls[$cid][] = $url;
-                            }
-                        }
-                    }
-
-
-                    // now, sort the ids to be deleted into two lists: in chache / to trash
+                    // now, sort the ids to be deleted into two lists: in cache / to trash
                     $in_cache = array();
                     $to_trash = array();
-                    //var_dump($cacheUrls);
                     foreach ($cids as $cid => $ids) {
-                        foreach ($ids as $arr) {
-                            list($iid,$iurl) = $arr;
-                            //echo "examining: $iid (cid $cid) -> $iurl ->";
-                            if (array_search($iurl, $cacheUrls[$cid]) !== FALSE) {
+		    	$rsCache = rss_query("select itemsincache from " . getTable('channels') . " where id=$cid");
+			list($idString) = rss_fetch_row($rsCache);
+			$cacheIds = unserialize($idString);
+                        foreach ($ids as $iid) {
+                            //echo "examining: $iid (cid $cid) ->";
+                            if (array_search($iid, $cacheIds) !== FALSE) {
                                 $in_cache[] = $iid;
                                 //echo " in cache!\n";
                             } else {
@@ -220,7 +188,6 @@ function item_admin() {
 
                         rss_query($sqldel);
                     }
-
                     // finally, delete the actual items
                     if (count($to_trash)) {
                         rss_query( "delete from " . getTable('item') ." where id in ("

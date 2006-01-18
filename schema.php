@@ -117,6 +117,19 @@ function checkSchemaColumns($column) {
 				);
 			}
 		break;
+		case 'c.itemsincache':
+		case 'itemsincache':
+			// date feed was last refreshed, added in 0.5.3
+			rss_query('alter table ' .getTable('channels') .' add column itemsincache text null');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error("Failed updating schema for table " . getTable('channels')
+				.": " . rss_sql_error_message(), RSS_ERROR_ERROR
+				);
+			}
+		break;
 		case 'c.daterefreshed':
 		case 'daterefreshed':
 			// date feed was last refreshed, added in 0.5.3
@@ -253,6 +266,7 @@ function _init_channels() {
   			dateadded datetime default NULL,
 			daterefreshed datetime default NULL,
 			refreshinterval int(16) NOT NULL default '60',
+			itemsincache text default NULL,
 			etag varchar(255) default NULL,
 			lastmodified varchar(255) default NULL,
   			icon varchar(255) default NULL,
