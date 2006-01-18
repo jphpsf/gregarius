@@ -42,6 +42,16 @@ function install_main() {
     $hasMySQL  = function_exists('mysql_connect');
     $hasSQLite = function_exists('sqlite_open');
 
+    if($hasMySQL && $hasSQLite) {
+        $sql = "MySQL & SQLite";
+    } else if($hasMySQL) {
+        $sql = "MySQL";
+    } else if($hasSQLite) {
+        $sql = "SQLite";
+    } else {
+        $sql = "None!";
+    }
+
     echo ""
     . "<html>\n"
     . "<head>\n"
@@ -49,6 +59,10 @@ function install_main() {
     . "	<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/default/css/layout.css\" />\n"
     . "	<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/default/css/look.css\" />\n"
     . "<style>\n"
+    . "  .install {\n"
+    . "    display: block;\n"
+    . "    text-align: left;\n"
+    . "  }\n"
     . "  .help {\n"
     . "    display: none;\n"
     . "    font-size: 12pt;\n"
@@ -65,6 +79,10 @@ function install_main() {
     . "  label { display:block; }\n"
     . "</style>\n" 
     . "<script type=\"text/javascript\">\n"
+    . "  function ValidInput(str) {\n"
+    . "    return true;\n"
+    . "  }\n"
+    . "\n"
     . "  function ToggleHelp(name) {\n"
     . "    var i=document.getElementById(name);\n"
     . "    if('block' == i.style.display) {\n"
@@ -99,15 +117,17 @@ function install_main() {
     . "<body>\n"
     . "<h2>Gregarius Database Setup</h2>\n"
     . "<div id=\"install\" class=\"frame\">\n"
+    . "<fieldset class=\"install\">\n"
+    . "<legend>Version " . GREGARIUS_RELEASE . " - " . GREGARIUS_CODENAME . "</legend>\n"
     . "<p><img src=\"themes/default/media/installer/codename.jpg\" alt=\"Coots\" /></p>\n"
+    . "</fieldset>\n"
+    . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\" onSubmit=\"return ValidateData();\">\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>Diagnostics</legend>\n"
     . "<p class=\"" . (version_compare(REQUIRED_VERSION, PHP_VERSION) <= 0 ? "found" : "not_found") . "\">PHP Version: " . phpversion() . "</p>\n"
     . "<p class=\"" . ($hasXML ? "found" : "not_found") . "\">XML: " . ($hasXML ? "Found" : "Not Found!") . "</p>\n"
-    . "<p class=\"" . ($hasMySQL ? "found" : "not_found") . "\">MySQL: " . ($hasMySQL ? "Found" : "Not Found!") . "</p>\n"
-    . "<p class=\"" . ($hasSQLite ? "found" : "not_found") . "\">SQLite: " . ($hasSQLite ? "Found" : "Not Found!") . "</p>\n"
+    . "<p class=\"" . ($hasMySQL || $hasSQLite ? "found" : "not_found") . "\">Database: " . $sql . "</p>\n"
     . "</fieldset>\n"
-    . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\" onSubmit=\"return ValidateData();\">\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>Database Settings</legend>\n"
     . "<p><label for=\"type\">Server Type [<a href=\"#\" onClick=\"ToggleHelp('type_help'); return false; \">?</a>]</label>\n"
@@ -122,17 +142,26 @@ function install_main() {
     . "<span class=\"help\" name=\"database_help\" id=\"database_help\">The name of the database.  Default: " . DATABASE_DEFAULT . "</span></p>\n"
     . "<p><label for=\"username\">Database UserName [<a href=\"#\" onClick=\"ToggleHelp('username_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"text\" name=\"username\" id=\"username\" value=\"\" />"
-    . "<span class=\"help\" name=\"username_help\" id=\"username_help\">The username to connect to the database. <br/>Make sure this user has INSERT,UPDATE,DELETE,ALTER permission to the database!</span></p>\n"
+    . "<span class=\"help\" name=\"username_help\" id=\"username_help\">The username to connect to the database. <br/>Make sure this user has INSERT,UPDATE,DELETE,CREATE,ALTER permission to the database!</span></p>\n"
     . "<p><label for=\"password\">Database Password [<a href=\"#\" onClick=\"ToggleHelp('password_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"password\" name=\"password\" id=\"password\" value=\"\" />"
-    . "<span class=\"help\" id=\"password_help\">The passsword used to connect to the database.</span></p>\n"
+    . "<span class=\"help\" id=\"password_help\">The password used to connect to the database.</span></p>\n"
     . "<p><label for=\"prefix\">Database Table Prefix [<a href=\"#\" onClick=\"ToggleHelp('prefix_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"text\" name=\"prefix\" id=\"prefix\" value=\"\" />"
     . "<span class=\"help\" name=\"prefix_help\" id=\"prefix_help\">The string to prefix the tables with. Example: m_feeds</span></p>\n"
-    . "<p>&nbsp;</p>\n"
+    . "</fieldset>\n"
+    . "<fieldset class=\"install\">\n"
+    . "<legend>Administrator Setup</legend>\n"
+    . "<p>If you would like Gregarius to create the database and user for you, input the correct settings below.</p>\n"
+    . "<p><label for=\"admin_user\">Admin UserName [<a href=\"#\" onClick=\"ToggleHelp('admin_user_help'); return false; \">?</a>]</label>\n"
+    . "<input type=\"text\" name=\"admin_user\" id=\"admin_user\" value=\"\" />"
+    . "<span class=\"help\" name=\"admin_user_help\" id=\"admin_user_help\">The administrator username to use for database creation.</span></p>\n"
+    . "<p><label for=\"admin_password\">Admin Password [<a href=\"#\" onClick=\"ToggleHelp('admin_password_help'); return false; \">?</a>]</label>\n"
+    . "<input type=\"password\" name=\"admin_password\" id=\"admin_password\" value=\"\" />"
+    . "<span class=\"help\" id=\"admin_password_help\">The administrator password used to connect to the database.</span></p>\n"
     . "</fieldset>\n"
     . "<p><input type=\"submit\" name=\"action\" value=\"Proceed\" /></p>\n"
-    . "<p><input type=\"hidden\" name=\"process\" value=\"1\"></p>\n"
+    . "<p><input type=\"hidden\" name=\"process\" value=\"1\" /></p>\n"
     . "</form>\n"
     . "</div>\n"
     . "</body>\n"
