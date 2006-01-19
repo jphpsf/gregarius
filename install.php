@@ -34,7 +34,8 @@ define('DBINIT', dirname(__FILE__) . '/dbinit.php');
 // php.net/version_compare
 define('REQUIRED_VERSION', '4.3.0');
 
-define('SERVER_DEFAULT', 'localhost');
+define('SQL_SERVER_DEFAULT', 'localhost');
+define('WEB_SERVER_DEFAULT', 'localhost');
 define('DATABASE_DEFAULT', 'rss');
 
 function install_main() {
@@ -135,8 +136,8 @@ function install_main() {
     . "<input type=\"radio\" style=\"display:inline\" name=\"type\" id=\"type\" value=\"sqlite\"" . ($hasSQLite ? ($hasMySQL ? "" : "checked=\"1\"") : "disabled=\"1\"") . "/>SQLite"
     . "<span class=\"help\" name=\"type_help\" id=\"type_help\">The type of server being used.</span></p>\n"
     . "<p><label for=\"server\">Server Location [<a href=\"#\" onClick=\"ToggleHelp('server_help'); return false; \">?</a>]</label>\n"
-    . "<input type=\"text\" name=\"server\" id=\"server\" value=\"" . SERVER_DEFAULT . "\" />"
-    . "<span class=\"help\" name=\"server_help\" id=\"server_help\">The location of the database. Default: " . SERVER_DEFAULT . "</span></p>\n"
+    . "<input type=\"text\" name=\"server\" id=\"server\" value=\"" . SQL_SERVER_DEFAULT . "\" />"
+    . "<span class=\"help\" name=\"server_help\" id=\"server_help\">The location of the database. If in doubt, leave the default. Default: " . SQL_SERVER_DEFAULT . "</span></p>\n"
     . "<p><label for=\"database\">Database Name [<a href=\"#\" onClick=\"ToggleHelp('database_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"text\" name=\"database\" id=\"database\" value=\"" . DATABASE_DEFAULT . "\" />"
     . "<span class=\"help\" name=\"database_help\" id=\"database_help\">The name of the database.  Default: " . DATABASE_DEFAULT . "</span></p>\n"
@@ -151,14 +152,17 @@ function install_main() {
     . "<span class=\"help\" name=\"prefix_help\" id=\"prefix_help\">The string to prefix the tables with. Example: m_feeds</span></p>\n"
     . "</fieldset>\n"
     . "<fieldset class=\"install\">\n"
-    . "<legend>Administrator Setup</legend>\n"
+    . "<legend>Server Setup</legend>\n"
     . "<p>If you would like Gregarius to create the database and user for you, input the correct settings below.</p>\n"
-    . "<p><label for=\"admin_user\">Admin UserName [<a href=\"#\" onClick=\"ToggleHelp('admin_user_help'); return false; \">?</a>]</label>\n"
-    . "<input type=\"text\" name=\"admin_user\" id=\"admin_user\" value=\"\" />"
-    . "<span class=\"help\" name=\"admin_user_help\" id=\"admin_user_help\">The administrator username to use for database creation.</span></p>\n"
+    . "<p><label for=\"admin_user\">Admin UserName [<a href=\"#\" onClick=\"ToggleHelp('admin_username_help'); return false; \">?</a>]</label>\n"
+    . "<input type=\"text\" name=\"admin_username\" id=\"admin_username\" value=\"\" />"
+    . "<span class=\"help\" name=\"admin_username_help\" id=\"admin_username_help\">The administrator username to use for database creation.</span></p>\n"
     . "<p><label for=\"admin_password\">Admin Password [<a href=\"#\" onClick=\"ToggleHelp('admin_password_help'); return false; \">?</a>]</label>\n"
     . "<input type=\"password\" name=\"admin_password\" id=\"admin_password\" value=\"\" />"
     . "<span class=\"help\" id=\"admin_password_help\">The administrator password used to connect to the database.</span></p>\n"
+    . "<p><label for=\"server\">Web Location [<a href=\"#\" onClick=\"ToggleHelp('web_server_help'); return false; \">?</a>]</label>\n"
+    . "<input type=\"text\" name=\"web_server\" id=\"web_server\" value=\"" . WEB_SERVER_DEFAULT . "\" />"
+    . "<span class=\"help\" name=\"web_server_help\" id=\"web_server_help\">The location of the webserver. If in doubt, leave the default. Default: " . WEB_SERVER_DEFAULT . "</span></p>\n"
     . "</fieldset>\n"
     . "<p><input type=\"submit\" name=\"action\" value=\"Proceed\" /></p>\n"
     . "<p><input type=\"hidden\" name=\"process\" value=\"1\" /></p>\n"
@@ -182,7 +186,34 @@ if(file_exists(DBINIT)) {
         print("Not all required fields have been filled in!");
     } else {
 
-$out = "<?php
+    // create the database and user
+    if(!empty($_POST['admin_username']) &&
+       !empty($_POST['admin_password'])) {
+        if("mysql" == $_POST['type']) {
+            $sql = mysql_connect($_POST['server'], $_POST['admin_username'], $_POST['admin_password']);
+
+            if(!$sql) {
+                print("Unable to connect to database! Please create manually.");
+            } else {
+                mysql_query("CREATE DATABASE " . $_POST['database'] . "", $sql);
+
+#                mysql_query("GRANT ALL ON " . $_POST['database'] . ".* TO '" . $_POST['username'] . "'@'" . $_POST['web_server'] . "' IDENTIFIED BY " . $_POST['password'] . "", $sql);
+
+                mysql_close($sql);
+            }
+        } else if("sqlite" == $_POST['type']) {
+            $sql = @sqlite_open($_POST['server'], 0666);
+
+            if(!$sql) {
+                print("Unable to connect to database! Please create manually.");
+            } else {
+            }
+        } else {
+            print("Invalid SQL Type!");
+        }
+    }
+
+    $out = "<?php
 //
 // The type of database server you are using. By default
 // Gregarius will look for a MySQL database server. If you
@@ -231,14 +262,14 @@ define ('DBSERVER', '" . $_POST['server'] . "');
 //
 ";
 
-if(empty($_POST['prefix'])) {
-    $out .= "//define ('DB_TABLE_PREFIX','');";
-} else {
-    $out .= "define('DB_TABLE_PREFIX', '" . $_POST['prefix'] . "');";
-}
+        if(empty($_POST['prefix'])) {
+            $out .= "//define ('DB_TABLE_PREFIX','');";
+        } else {
+            $out .= "define('DB_TABLE_PREFIX', '" . $_POST['prefix'] . "');";
+        }
 
-$out .= "\n?>";
-        
+        $out .= "\n?>";
+
         $fp = @fopen(DBINIT, 'w');
 
         if(!$fp) {
@@ -247,7 +278,7 @@ $out .= "\n?>";
             header('Content-Disposition: attachment; filename="dbinit.php"');
             echo($out);
             exit();
-        } else  {
+        } else {
         // write the file
             fwrite($fp, $out);
             fclose($fp);
