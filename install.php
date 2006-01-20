@@ -42,6 +42,7 @@ function install_main() {
     $hasXML    = function_exists('xml_parser_create');
     $hasMySQL  = function_exists('mysql_connect');
     $hasSQLite = function_exists('sqlite_open');
+    $hasSocket = function_exists('fsockopen');
 
     if($hasMySQL && $hasSQLite) {
         $sql = "MySQL & SQLite";
@@ -130,6 +131,7 @@ function install_main() {
     . "<fieldset class=\"install\">\n"
     . "<legend>Diagnostics</legend>\n"
     . "<p class=\"" . (version_compare(REQUIRED_VERSION, PHP_VERSION) <= 0 ? "found" : "not_found") . "\">PHP Version: " . phpversion() . "</p>\n"
+    . "<p class=\"" . ($hasSocket ? "found" : "not_found") . "\">Sockets: " . ($hasSocket ? "Found" : "Not Found!") . "</p>\n"
     . "<p class=\"" . ($hasXML ? "found" : "not_found") . "\">XML: " . ($hasXML ? "Found" : "Not Found!") . "</p>\n"
     . "<p class=\"" . ($hasMySQL || $hasSQLite ? "found" : "not_found") . "\">Database: " . $sql . "</p>\n"
     . "</fieldset>\n"
@@ -194,15 +196,13 @@ if(file_exists(DBINIT)) {
     if(!empty($_POST['admin_username']) &&
        !empty($_POST['admin_password'])) {
         if("mysql" == $_POST['type']) {
-            $sql = mysql_connect($_POST['server'], $_POST['admin_username'], $_POST['admin_password']);
+            $sql = @mysql_connect($_POST['server'], $_POST['admin_username'], $_POST['admin_password']);
 
             if(!$sql) {
                 print("Unable to connect to database! Please create manually.");
             } else {
                 mysql_query("CREATE DATABASE " . $_POST['database'] . "", $sql);
-
-#                mysql_query("GRANT ALL ON " . $_POST['database'] . ".* TO '" . $_POST['username'] . "'@'" . $_POST['web_server'] . "' IDENTIFIED BY " . $_POST['password'] . "", $sql);
-
+                mysql_query("GRANT ALL ON " . $_POST['database'] . ".* TO '" . $_POST['username'] . "'@'" . $_POST['web_server'] . "' IDENTIFIED BY '" . $_POST['password'] . "'", $sql);
                 mysql_close($sql);
             }
         } else if("sqlite" == $_POST['type']) {
@@ -214,6 +214,7 @@ if(file_exists(DBINIT)) {
             }
         } else {
             print("Invalid SQL Type!");
+            exit();
         }
     }
 
