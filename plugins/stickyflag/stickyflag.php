@@ -33,20 +33,40 @@
 /// Configuration: __StickyFlag_Config
 
 define ('STICKYFLAG_CONFIG_OPTIONS', 'stickyflag.options');
+define ('STICKYFLAG_CONFIG_FLAGICON', 'stickyflag.flagicon');
 
 define ('STICKYFLAG_ENABLE_STICKY_MENU', 0x01);
 define ('STICKYFLAG_ENABLE_FLAG_MENU', 0x02);
 define ('STICKYFLAG_ENABLE_STICKY_SHORTCUT', 0x04);
 define ('STICKYFLAG_ENABLE_FLAG_SHORTCUT', 0x08);
 
+define ('STICKYFLAG_FLAG_BLUE', 0);
+define ('STICKYFLAG_FLAG_GREEN', 1);
+define ('STICKYFLAG_FLAG_ORANGE', 2);
+define ('STICKYFLAG_FLAG_RED', 3);
+define ('STICKYFLAG_FLAG_WHITE', 4);
+
 define ('STICKYFLAG_EXT_FILES', getPath() . RSS_PLUGINS_DIR . "/stickyflag");
 define ('STICKYFLAG_ICON_STICKY', STICKYFLAG_EXT_FILES . '/sticky.png');
 define ('STICKYFLAG_ICON_NOSTICKY', STICKYFLAG_EXT_FILES . '/nosticky.png');
-define ('STICKYFLAG_ICON_FLAG', STICKYFLAG_EXT_FILES . '/flag.png');
+define ('STICKYFLAG_ICON_FLAG_BLUE', STICKYFLAG_EXT_FILES . '/flag_blue.png');
+define ('STICKYFLAG_ICON_FLAG_GREEN', STICKYFLAG_EXT_FILES . '/flag_green.png');
+define ('STICKYFLAG_ICON_FLAG_ORANGE', STICKYFLAG_EXT_FILES . '/flag_orange.png');
+define ('STICKYFLAG_ICON_FLAG_RED', STICKYFLAG_EXT_FILES . '/flag_red.png');
+define ('STICKYFLAG_ICON_FLAG_WHITE', STICKYFLAG_EXT_FILES . '/flag_white.png');
 define ('STICKYFLAG_ICON_NOFLAG', STICKYFLAG_EXT_FILES . '/noflag.png');
 
 function __stickyflag_Config() {
     $options    = rss_plugins_get_option(STICKYFLAG_CONFIG_OPTIONS);
+    $flag_icon  = rss_plugins_get_option(STICKYFLAG_CONFIG_FLAGICON);
+
+    if(null == $options) {
+        $options = 0;
+    }
+
+    if(null == $flag_icon) {
+        $flag_option = 0;
+    }
 
     if(rss_plugins_is_submit()) {
         $options = 0;
@@ -64,6 +84,7 @@ function __stickyflag_Config() {
         }
 
         rss_plugins_add_option(STICKYFLAG_CONFIG_OPTIONS, $options, 'num');
+        rss_plugins_add_option(STICKYFLAG_CONFIG_FLAGICON, $_REQUEST['flag_icon'], 'num');
         return;
     }
 
@@ -73,6 +94,7 @@ function __stickyflag_Config() {
                . "<label for='ui_sm'>Show Menu Item</label></br></p>\n");
     print ("   <p><input id='ui_ss' type='checkbox' value='1' name='ui_ss'" . ($options & STICKYFLAG_ENABLE_STICKY_SHORTCUT ? "checked='1'" : "") . ">" 
                . "<label for='ui_ss'>Show Shortcut</label></br></p>\n");
+    print ("   <p>&nbsp;</p>\n");
     print ("</fieldset>\n");
     print ("<fieldset>\n");
     print ("  <legend>" . LBL_FLAG . " " . LBL_ITEMS . "</legend>\n");
@@ -80,13 +102,50 @@ function __stickyflag_Config() {
                 . "<label for='ui_fm'>Show Menu Item</label></br></p>\n");
     print ("    <p><input id='ui_fs' type='checkbox' value='1' name='ui_fs'" . ($options & STICKYFLAG_ENABLE_FLAG_SHORTCUT ? "checked='1'" : "") . ">"
                 . "<label for='ui_fs'>Show Shortcut</label></br></p>\n");
+    print ("    <p><input id='flag_icon' name='flag_icon' type='radio' value='" . STICKYFLAG_FLAG_BLUE . "'" . (STICKYFLAG_FLAG_BLUE == $flag_icon ? " checked='1'" : "") . ">"
+                . "<img src='" . STICKYFLAG_ICON_FLAG_BLUE . "' alt='blue'>\n"
+                . "<input id='flag_icon' name='flag_icon' type='radio' value='" . STICKYFLAG_FLAG_GREEN . "'" . (STICKYFLAG_FLAG_GREEN == $flag_icon ? " checked='1'" : "") . ">"
+                . "<img src='" . STICKYFLAG_ICON_FLAG_GREEN . "' alt='green'>\n"
+                . "<input id='flag_icon' name='flag_icon' type='radio' value='" . STICKYFLAG_FLAG_ORANGE . "'" . (STICKYFLAG_FLAG_ORANGE == $flag_icon ? " checked='1'" : "") . ">"
+                . "<img src='" . STICKYFLAG_ICON_FLAG_ORANGE . "' alt='orange'>\n"
+                . "<input id='flag_icon' name='flag_icon' type='radio' value='" . STICKYFLAG_FLAG_RED . "'" . (STICKYFLAG_FLAG_RED == $flag_icon ? " checked='1'" : "") . ">"
+                . "<img src='" . STICKYFLAG_ICON_FLAG_RED . "' alt='red'>\n"
+                . "<input id='flag_icon' name='flag_icon' type='radio' value='" . STICKYFLAG_FLAG_WHITE . "'" . (STICKYFLAG_FLAG_WHITE == $flag_icon ? " checked='1'" : "") . ">"
+                . "<img src='" . STICKYFLAG_ICON_FLAG_WHITE . "' alt='white'></p>\n");
     print ("</fieldset>\n");
+}
+
+function __stickyflag_GetFlagIcon() {
+    $icon = rss_plugins_get_option(STICKYFLAG_CONFIG_FLAGICON);
+
+    if(null == $icon) {
+        $icon = 0;
+    }
+
+    switch($icon) {
+        case STICKYFLAG_FLAG_BLUE   : $ret = STICKYFLAG_ICON_FLAG_BLUE;
+                                      break;
+        case STICKYFLAG_FLAG_GREEN  : $ret = STICKYFLAG_ICON_FLAG_GREEN;
+                                      break;
+        case STICKYFLAG_FLAG_ORANGE : $ret = STICKYFLAG_ICON_FLAG_ORANGE;
+                                      break;
+        case STICKYFLAG_FLAG_RED    : $ret = STICKYFLAG_ICON_FLAG_RED;
+                                      break;
+        case STICKYFLAG_FLAG_WHITE  : $ret = STICKYFLAG_ICON_FLAG_WHITE;
+                                      break;
+    }
+
+    return $ret;
 }
 
 function __stickyflag_AddButtons(){
     $usemodrewrite = getConfig('rss.output.usemodrewrite');
     $options       = rss_plugins_get_option(STICKYFLAG_CONFIG_OPTIONS);
-    
+   
+    if(null == $options) {
+        return;
+    }
+ 
     if($options & STICKYFLAG_ENABLE_STICKY_MENU) {
         if (true == $usemodrewrite) {
             $url = getPath() . "state/" . RSS_STATE_STICKY . "";
@@ -115,6 +174,10 @@ function __stickyflag_BeforeTitle($id){
     if(! hidePrivate()) {
         $options = rss_plugins_get_option(STICKYFLAG_CONFIG_OPTIONS);
 
+        if(null == $options) {
+            return;
+        }
+
         if($options & STICKYFLAG_ENABLE_STICKY_SHORTCUT) {
             if($flags & RSS_MODE_STICKY_STATE) {
                 $ret .= "<a id='ms" . $id . "' href='#' onclick='_stickyflag_sticky(" . $id . ", " . $flags . "); return false;' title='Make Un-Sticky'>"
@@ -128,7 +191,7 @@ function __stickyflag_BeforeTitle($id){
         if($options & STICKYFLAG_ENABLE_FLAG_SHORTCUT) {
             if($flags & RSS_MODE_FLAG_STATE) {
                 $ret .= "<a id='mf" . $id . "' href='#' onclick='_stickyflag_flag(" . $id . ", " . $flags . "); return false;' title='Un-Flag Item'>"
-                     .  "<img id='flag_img_" . $id . "' src='" . STICKYFLAG_ICON_FLAG . "' alt='F' /></a>&nbsp;";
+                     .  "<img id='flag_img_" . $id . "' src='" . __stickyflag_GetFlagIcon() . "' alt='F' /></a>&nbsp;";
             } else {
                 $ret .= "<a id='mf" . $id . "' href='#' onclick='_stickyflag_flag(" . $id . ", " . $flags . "); return false;' title='Flag Item'>"
                      .  "<img id='flag_img_" . $id . "' src='" . STICKYFLAG_ICON_NOFLAG . "' alt='F' /></a>&nbsp;";
@@ -144,6 +207,10 @@ function __stickyflag_BeforeTitle($id){
 
 function __stickyflag_js(){
     $options = rss_plugins_get_option(STICKYFLAG_CONFIG_OPTIONS);
+
+    if(null == $options) {
+        return;
+    }
 
     $ret = "";
 
@@ -182,7 +249,7 @@ function __stickyflag_js(){
              .  "    img.src = '" . STICKYFLAG_ICON_NOFLAG . "';\n"
              .  "  } else {\n"
              .  "    document.states[id] |= flag;\n"
-             .  "    img.src = '" . STICKYFLAG_ICON_FLAG . "';\n"
+             .  "    img.src = '" . __stickyflag_GetFlagIcon() . "';\n"
              .  "  }\n"
              .  "\n"
              .  "  setState(id, document.states[id]);\n"
@@ -197,6 +264,10 @@ function __stickyflag_js(){
 function __stickyflag_OnOk(){
     $options = rss_plugins_get_option(STICKYFLAG_CONFIG_OPTIONS);
 
+    if(null == $options) {
+        return;
+    }
+
     $ret = "";
 
     if($options & STICKYFLAG_ENABLE_STICKY_SHORTCUT) {
@@ -209,7 +280,7 @@ function __stickyflag_OnOk(){
 
     if($options & STICKYFLAG_ENABLE_FLAG_SHORTCUT) {
         $ret .= "if((sff = document.getElementById(\'sf_ID_f\')) && sff.checked) {"
-             .  "  document.getElementById(\'flag_img__ID_\').src = \'" . STICKYFLAG_ICON_FLAG . "\';"
+             .  "  document.getElementById(\'flag_img__ID_\').src = \'" . __stickyflag_GetFlagIcon() . "\';"
              .  "} else {"
              .  "  document.getElementById(\'flag_img__ID_\').src = \'" . STICKYFLAG_ICON_NOFLAG . "\';"
              .  "}";
