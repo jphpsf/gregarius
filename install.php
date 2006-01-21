@@ -43,17 +43,21 @@ function install_main() {
     $hasMySQL  = function_exists('mysql_connect');
     $hasSQLite = function_exists('sqlite_open');
     $hasSocket = function_exists('fsockopen');
-    $hasWritePerm = false;
 
-    // Check to see if we have write permissions
-    define (TMPINIT, DBINIT . GREGARIUS_CODENAME . "tmp");
-    $fp = @fopen(TMPINIT, 'w');
-    if ($fp) {
-        $hasWritePerm = true;
-	fclose($fp);
-	unlink (TMPINIT);
-    } 
-
+    // If the server is running safe mode, try writing a temp file.
+    if(ini_get('safe_mode')) {
+        define ('TMPINIT', DBINIT . GREGARIUS_CODENAME . "tmp");
+        $fp = @fopen(TMPINIT, 'w');
+        if ($fp) {
+            $hasWritePerm = true;
+            fclose($fp);
+            unlink (TMPINIT);
+        } else {
+            $hasWritePerm = false;
+        }
+    } else { // else, just check to see if it's writable.
+        $hasWritePerm = is_writable(dirname(__FILE__));
+    }
 
     if($hasMySQL && $hasSQLite) {
         $sql = "MySQL & SQLite";
