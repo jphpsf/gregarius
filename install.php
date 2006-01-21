@@ -43,6 +43,17 @@ function install_main() {
     $hasMySQL  = function_exists('mysql_connect');
     $hasSQLite = function_exists('sqlite_open');
     $hasSocket = function_exists('fsockopen');
+    $hasWritePerm = false;
+
+    // Check to see if we have write permissions
+    define (TMPINIT, DBINIT . GREGARIUS_CODENAME . "tmp");
+    $fp = @fopen(TMPINIT, 'w');
+    if ($fp) {
+        $hasWritePerm = true;
+	fclose($fp);
+	unlink (TMPINIT);
+    } 
+
 
     if($hasMySQL && $hasSQLite) {
         $sql = "MySQL & SQLite";
@@ -121,12 +132,14 @@ function install_main() {
     . "</script>\n"
     . "</head>\n"
     . "<body>\n"
-    . "<h2>Gregarius Database Setup</h2>\n"
-    . "<div id=\"install\" class=\"frame\">\n"
-    . "<fieldset class=\"install\">\n"
+    . "<div id=\"nav\" class=\"frame\">"
+    . "<h1>Gregarius Database Setup</h1>\n"
+    . "<fieldset class=\"install\" style=\"text-align:center\">\n"
     . "<legend>Version " . GREGARIUS_RELEASE . " - " . GREGARIUS_CODENAME . "</legend>\n"
-    . "<p><img src=\"themes/default/media/installer/codename.jpg\" alt=\"Coots\" /></p>\n"
+    . "<p><img src=\"themes/default/media/installer/codename.jpg\" alt=\"".GREGARIUS_CODENAME."\" /></p>\n"
     . "</fieldset>\n"
+    . "</div>"
+    . "<div id=\"install\" class=\"frame\">\n"
     . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\" onsubmit=\"return ValidateData();\">\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>Diagnostics</legend>\n"
@@ -137,40 +150,40 @@ function install_main() {
     . "</fieldset>\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>Database Settings</legend>\n"
-    . "<p><label for=\"type\">Server Type [<a href=\"#\" onclick=\"ToggleHelp('type_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"type\">Server Type <a href=\"#\" onclick=\"ToggleHelp('type_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"radio\" style=\"display:inline\" name=\"type\" id=\"type\" value=\"mysql\" " . ($hasMySQL ? "checked=\"checked\"" : "disabled=\"disabled\"") . "/>MySQL"
     . "<input type=\"radio\" style=\"display:inline\" name=\"type\" value=\"sqlite\"" . ($hasSQLite ? ($hasMySQL ? "" : "checked=\"checked\"") : "disabled=\"disabled\"") . "/>SQLite"
     . "<span class=\"help\" id=\"type_help\">The type of server being used.</span></p>\n"
-    . "<p><label for=\"server\">Server Location [<a href=\"#\" onclick=\"ToggleHelp('server_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"server\">Server Location <a href=\"#\" onclick=\"ToggleHelp('server_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"server\" id=\"server\" value=\"" . SQL_SERVER_DEFAULT . "\" />"
     . "<span class=\"help\" id=\"server_help\">The location of the database. If in doubt, leave the default. Default: " . SQL_SERVER_DEFAULT . "</span></p>\n"
-    . "<p><label for=\"database\">Database Name [<a href=\"#\" onclick=\"ToggleHelp('database_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"database\">Database Name <a href=\"#\" onclick=\"ToggleHelp('database_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"database\" id=\"database\" value=\"" . DATABASE_DEFAULT . "\" />"
     . "<span class=\"help\" id=\"database_help\">The name of the database.  Default: " . DATABASE_DEFAULT . "</span></p>\n"
-    . "<p><label for=\"username\">Database UserName [<a href=\"#\" onclick=\"ToggleHelp('username_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"username\">Database UserName <a href=\"#\" onclick=\"ToggleHelp('username_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"username\" id=\"username\" value=\"\" />"
     . "<span class=\"help\" id=\"username_help\">The username to connect to the database. <br/>Make sure this user has INSERT,UPDATE,DELETE,CREATE,ALTER permission to the database!</span></p>\n"
-    . "<p><label for=\"password\">Database Password [<a href=\"#\" onclick=\"ToggleHelp('password_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"password\">Database Password <a href=\"#\" onclick=\"ToggleHelp('password_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"password\" name=\"password\" id=\"password\" value=\"\" />"
     . "<span class=\"help\" id=\"password_help\">The password used to connect to the database.</span></p>\n"
-    . "<p><label for=\"prefix\">Database Table Prefix [<a href=\"#\" onclick=\"ToggleHelp('prefix_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"prefix\">Database Table Prefix <a href=\"#\" onclick=\"ToggleHelp('prefix_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"prefix\" id=\"prefix\" value=\"\" />"
-    . "<span class=\"help\" id=\"prefix_help\">The string to prefix the tables with. Example: m_feeds</span></p>\n"
+    . "<span class=\"help\" id=\"prefix_help\">The string to prefix the tables with. Example: A table called rss_item should have rss as the prefix. </span></p>\n"
     . "</fieldset>\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>Server Setup</legend>\n"
     . "<p>If you would like Gregarius to create the database and user for you, input the correct settings below.</p>\n"
-    . "<p><label for=\"admin_username\">Admin UserName [<a href=\"#\" onclick=\"ToggleHelp('admin_username_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"admin_username\">Admin UserName <a href=\"#\" onclick=\"ToggleHelp('admin_username_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"admin_username\" id=\"admin_username\" value=\"\" />"
     . "<span class=\"help\" id=\"admin_username_help\">The administrator username to use for database creation.</span></p>\n"
-    . "<p><label for=\"admin_password\">Admin Password [<a href=\"#\" onclick=\"ToggleHelp('admin_password_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"admin_password\">Admin Password <a href=\"#\" onclick=\"ToggleHelp('admin_password_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"password\" name=\"admin_password\" id=\"admin_password\" value=\"\" />"
     . "<span class=\"help\" id=\"admin_password_help\">The administrator password used to connect to the database.</span></p>\n"
-    . "<p><label for=\"server\">Web Location [<a href=\"#\" onclick=\"ToggleHelp('web_server_help'); return false; \">?</a>]</label>\n"
+    . "<p><label for=\"server\">Web Location <a href=\"#\" onclick=\"ToggleHelp('web_server_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"web_server\" id=\"web_server\" value=\"" . WEB_SERVER_DEFAULT . "\" />"
     . "<span class=\"help\" id=\"web_server_help\">The location of the webserver. If in doubt, leave the default. Default: " . WEB_SERVER_DEFAULT . "</span></p>\n"
     . "</fieldset>\n"
-    . "<p><input type=\"submit\" name=\"action\" value=\"Proceed\" /></p>\n"
+    . "<p><input type=\"submit\" name=\"action\" value=\"" . ($hasWritePerm ? "Setup Database" : "Download dbinit.php file") . "\" /></p>\n"
     . "<p><input type=\"hidden\" name=\"process\" value=\"1\" /></p>\n"
     . "</form>\n"
     . "</div>\n"
@@ -179,7 +192,7 @@ function install_main() {
 }
 
 if(file_exists(DBINIT)) {
-    print("The dbinit.php file already exists in the Gregarius directory!");
+    print("The dbinit.php file already exists in the Gregarius directory! Please remove it if you would like to use this installer.");
 } else if(!empty($_POST['process']) && 1 == $_POST['process']){
 // process the post data
 
@@ -292,7 +305,7 @@ define ('DBSERVER', '" . $_POST['server'] . "');
             exit();
         }
     }
-} else {
+} else { // dbinit.php does not exist and we are not asked to process
 // print out the form
     install_main();
 }
