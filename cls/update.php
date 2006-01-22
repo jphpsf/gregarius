@@ -26,7 +26,7 @@
 ###############################################################################
 
 require_once ('init.php');
-rss_require('config.php');
+rss_require('cls/config.php');
 
 define('PUSH_BOUNDARY', "-------- =_aaaaaaaaaa0");
 define('ERROR_NOERROR', "");

@@ -34,7 +34,6 @@ require_once('ds.php');
 
 require_once('channels.php');
 require_once('items.php');
-require_once('config.php');
 require_once('folders.php');
 require_once('opml.php');
 require_once('dashboard.php');
