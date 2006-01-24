@@ -35,6 +35,7 @@ define('DBINIT', dirname(__FILE__) . '/dbinit.php');
 define('REQUIRED_VERSION', '4.3.0');
 
 define('SQL_SERVER_DEFAULT', 'localhost');
+define('SQLITE_DEFAULT', '/tmp/gregarius.sqlite');
 define('WEB_SERVER_DEFAULT', 'localhost');
 define('DATABASE_DEFAULT', 'rss');
 
@@ -44,6 +45,7 @@ function install_main() {
     $hasSQLite = function_exists('sqlite_open');
     $hasSocket = function_exists('fsockopen');
 
+//    $hasSQLite = true;
     // If the server is running safe mode, try writing a temp file.
     if(ini_get('safe_mode')) {
         define ('TMPINIT', DBINIT . GREGARIUS_CODENAME . "tmp");
@@ -112,22 +114,50 @@ function install_main() {
     . "    }\n"
     . "  }\n"
     . "\n"
+    . "  function ToggleType(rad) {\n"
+    . "    if('mysql' == rad.value) {\n"
+    . "      document.getElementById('database').disabled = false;\n"
+    . "      document.getElementById('username').disabled = false;\n"
+    . "      document.getElementById('password').disabled = false;\n"
+    . "      document.getElementById('admin_username').disabled = false;\n"
+    . "      document.getElementById('admin_password').disabled = false;\n"
+    . "      document.getElementById('prefix').disabled = false;\n"
+    . "      document.getElementById('web_server').disabled = false;\n"
+    . "      document.getElementById('server').value = '" . SQL_SERVER_DEFAULT . "';\n"
+    . "    } else if ('sqlite' == rad.value) {\n"
+    . "      document.getElementById('database').disabled = true;\n"
+    . "      document.getElementById('username').disabled = true;\n"
+    . "      document.getElementById('password').disabled = true;\n"
+    . "      document.getElementById('admin_username').disabled = true;\n"
+    . "      document.getElementById('admin_password').disabled = true;\n"
+    . "      document.getElementById('prefix').disabled = true;\n"
+    . "      document.getElementById('web_server').disabled = true;\n"
+    . "      document.getElementById('server').value = '" . SQLITE_DEFAULT . "';\n"
+    . "    }\n"
+    . "  }\n"
+    . "\n"
     . "  function ValidateData() {\n"
     . "    var ret = false;\n"
-    . "    if(document.getElementById('server').value.length < 1) {\n"
-    . "      alert('A server location is required.');\n"
-    . "      document.getElementById('server').focus();\n"
-    . "    } else if(document.getElementById('database').value.length < 1) {\n"
-    . "      alert('A database name is required.');\n"
-    . "      document.getElementById('database').focus();\n"
-    . "    } else if(document.getElementById('username').value.length < 1) {\n"
-    . "      alert('A username is required.');\n"
-    . "      document.getElementById('username').focus();\n"
-    . "    } else if(document.getElementById('password').value.length < 1) {\n"
-    . "      alert('A password is required.');\n"
-    . "      document.getElementById('password').focus();\n"
-    . "    } else {\n"
-    . "      ret = true;\n"
+    . "    if('mysql' == document.getElementById('type').value) {\n"
+    . "      if(document.getElementById('server').value.length < 1) {\n"
+    . "        alert('A server location is required.');\n"
+    . "        document.getElementById('server').focus();\n"
+    . "      } else if(document.getElementById('database').value.length < 1) {\n"
+    . "        alert('A database name is required.');\n"
+    . "        document.getElementById('database').focus();\n"
+    . "      } else if(document.getElementById('username').value.length < 1) {\n"
+    . "        alert('A username is required.');\n"
+    . "        document.getElementById('username').focus();\n"
+    . "      } else if(document.getElementById('password').value.length < 1) {\n"
+    . "        alert('A password is required.');\n"
+    . "        document.getElementById('password').focus();\n"
+    . "      } else {\n"
+    . "        ret = true;\n"
+    . "    } else if('sqlite' == document.getElementById('type').value) {\n"
+    . "      if(document.getElementById('server').value.length < 1) {\n"
+    . "        alert('A server location is required.');\n"
+    . "        document.getElementById('server').focus();\n"
+    . "      }\n"
     . "    }\n"
     . "\n"
     . "    return ret;\n"
@@ -155,8 +185,8 @@ function install_main() {
     . "<fieldset class=\"install\">\n"
     . "<legend>Database Settings</legend>\n"
     . "<p><label for=\"type\">Server Type <a href=\"#\" onclick=\"ToggleHelp('type_help'); return false; \">[?]</a></label>\n"
-    . "<input type=\"radio\" style=\"display:inline\" name=\"type\" id=\"type\" value=\"mysql\" " . ($hasMySQL ? "checked=\"checked\"" : "disabled=\"disabled\"") . "/>MySQL"
-    . "<input type=\"radio\" style=\"display:inline\" name=\"type\" value=\"sqlite\"" . ($hasSQLite ? ($hasMySQL ? "" : "checked=\"checked\"") : "disabled=\"disabled\"") . "/>SQLite"
+    . "<input type=\"radio\" style=\"display:inline\" name=\"type\" id=\"type\" value=\"mysql\" onchange=\"ToggleType(this); return false;\" " . ($hasMySQL ? "checked=\"checked\"" : "disabled=\"disabled\"") . "/>MySQL"
+    . "<input type=\"radio\" style=\"display:inline\" name=\"type\" value=\"sqlite\" onchange=\"ToggleType(this); return false;\" " . ($hasSQLite ? ($hasMySQL ? "" : "checked=\"checked\"") : "disabled=\"disabled\"") . "/>SQLite"
     . "<span class=\"help\" id=\"type_help\">The type of server being used.</span></p>\n"
     . "<p><label for=\"server\">Server Location <a href=\"#\" onclick=\"ToggleHelp('server_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"server\" id=\"server\" value=\"" . SQL_SERVER_DEFAULT . "\" />"
@@ -210,8 +240,7 @@ if(file_exists(DBINIT)) {
     } else {
 
     // create the database and user
-    if(!empty($_POST['admin_username']) &&
-       !empty($_POST['admin_password'])) {
+    if(!empty($_POST['admin_username'])) {
         if("mysql" == $_POST['type']) {
             $sql = @mysql_connect($_POST['server'], $_POST['admin_username'], $_POST['admin_password']);
 
