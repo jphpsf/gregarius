@@ -39,6 +39,17 @@ define('SQLITE_DEFAULT', '/tmp/gregarius.sqlite');
 define('WEB_SERVER_DEFAULT', 'localhost');
 define('DATABASE_DEFAULT', 'rss');
 
+define('TYPE_HELP', 'The type of database being used.');
+define('SQL_SERVER_HELP', 'The location of the database. If in doubt, leave the default. Default: ' . SQL_SERVER_DEFAULT . '');
+define('SQLITE_HELP', 'The path to the database.  If in doubt, leave the default. Default: ' . SQLITE_DEFAULT . '');
+define('DATABASE_HELP', 'The name of the database. Default: ' . DATABASE_DEFAULT . '');
+define('USERNAME_HELP', 'The username to connect to the database. <br/>Make sure this user has INSERT,UPDATE,DELETE,CREATE,ALTER permission to the database!');
+define('PASSWORD_HELP', 'The password used to connect to the database.');
+define('PREFIX_HELP', 'The string to prefix the tables with. Example: A table called rss_item should have rss as the prefix.');
+define('ADMIN_USERNAME_HELP', 'The administrator username to use for database creation.');
+define('ADMIN_PASSWORD_HELP', 'The administrator password used to connect to the database. Make sure this user has GRANT privileges!');
+define('WEBSERVER_HELP', 'The location of the webserver. If in doubt, leave the default. Default: ' . WEB_SERVER_DEFAULT . '');
+
 function install_main() {
     $hasXML    = function_exists('xml_parser_create');
     $hasMySQL  = function_exists('mysql_connect');
@@ -153,10 +164,13 @@ function install_main() {
     . "        document.getElementById('password').focus();\n"
     . "      } else {\n"
     . "        ret = true;\n"
+    . "      }\n"
     . "    } else if('sqlite' == document.getElementById('type').value) {\n"
     . "      if(document.getElementById('server').value.length < 1) {\n"
-    . "        alert('A server location is required.');\n"
+    . "        alert('A server path is required.');\n"
     . "        document.getElementById('server').focus();\n"
+    . "      } else {\n"
+    . "        ret = true;\n"
     . "      }\n"
     . "    }\n"
     . "\n"
@@ -187,35 +201,35 @@ function install_main() {
     . "<p><label for=\"type\">Server Type <a href=\"#\" onclick=\"ToggleHelp('type_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"radio\" style=\"display:inline\" name=\"type\" id=\"type\" value=\"mysql\" onchange=\"ToggleType(this); return false;\" " . ($hasMySQL ? "checked=\"checked\"" : "disabled=\"disabled\"") . "/>MySQL"
     . "<input type=\"radio\" style=\"display:inline\" name=\"type\" value=\"sqlite\" onchange=\"ToggleType(this); return false;\" " . ($hasSQLite ? ($hasMySQL ? "" : "checked=\"checked\"") : "disabled=\"disabled\"") . "/>SQLite"
-    . "<span class=\"help\" id=\"type_help\">The type of server being used.</span></p>\n"
+    . "<span class=\"help\" id=\"type_help\">" . TYPE_HELP . "</span></p>\n"
     . "<p><label for=\"server\">Server Location <a href=\"#\" onclick=\"ToggleHelp('server_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"server\" id=\"server\" value=\"" . SQL_SERVER_DEFAULT . "\" />"
-    . "<span class=\"help\" id=\"server_help\">The location of the database. If in doubt, leave the default. Default: " . SQL_SERVER_DEFAULT . "</span></p>\n"
+    . "<span class=\"help\" id=\"server_help\">" . SQL_SERVER_HELP . "</span></p>\n"
     . "<p><label for=\"database\">Database Name <a href=\"#\" onclick=\"ToggleHelp('database_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"database\" id=\"database\" value=\"" . DATABASE_DEFAULT . "\" />"
-    . "<span class=\"help\" id=\"database_help\">The name of the database.  Default: " . DATABASE_DEFAULT . "</span></p>\n"
+    . "<span class=\"help\" id=\"database_help\">" . DATABASE_HELP . "</span></p>\n"
     . "<p><label for=\"username\">Database UserName <a href=\"#\" onclick=\"ToggleHelp('username_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"username\" id=\"username\" value=\"\" />"
-    . "<span class=\"help\" id=\"username_help\">The username to connect to the database. <br/>Make sure this user has INSERT,UPDATE,DELETE,CREATE,ALTER permission to the database!</span></p>\n"
+    . "<span class=\"help\" id=\"username_help\">" . USERNAME_HELP . "</span></p>\n"
     . "<p><label for=\"password\">Database Password <a href=\"#\" onclick=\"ToggleHelp('password_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"password\" name=\"password\" id=\"password\" value=\"\" />"
-    . "<span class=\"help\" id=\"password_help\">The password used to connect to the database.</span></p>\n"
+    . "<span class=\"help\" id=\"password_help\">" . PASSWORD_HELP . "</span></p>\n"
     . "<p><label for=\"prefix\">Database Table Prefix <a href=\"#\" onclick=\"ToggleHelp('prefix_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"prefix\" id=\"prefix\" value=\"\" />"
-    . "<span class=\"help\" id=\"prefix_help\">The string to prefix the tables with. Example: A table called rss_item should have rss as the prefix. </span></p>\n"
+    . "<span class=\"help\" id=\"prefix_help\">" . PREFIX_HELP . "</span></p>\n"
     . "</fieldset>\n"
     . "<fieldset class=\"install\">\n"
     . "<legend>Server Setup</legend>\n"
     . "<p>If you would like Gregarius to create the database and user for you, input the correct settings below.</p>\n"
     . "<p><label for=\"admin_username\">Admin UserName <a href=\"#\" onclick=\"ToggleHelp('admin_username_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"admin_username\" id=\"admin_username\" value=\"\" />"
-    . "<span class=\"help\" id=\"admin_username_help\">The administrator username to use for database creation.</span></p>\n"
+    . "<span class=\"help\" id=\"admin_username_help\">" . ADMIN_USERNAME_HELP . "</span></p>\n"
     . "<p><label for=\"admin_password\">Admin Password <a href=\"#\" onclick=\"ToggleHelp('admin_password_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"password\" name=\"admin_password\" id=\"admin_password\" value=\"\" />"
-    . "<span class=\"help\" id=\"admin_password_help\">The administrator password used to connect to the database.</span></p>\n"
+    . "<span class=\"help\" id=\"admin_password_help\">" . ADMIN_PASSWORD_HELP . "</span></p>\n"
     . "<p><label for=\"server\">Web Location <a href=\"#\" onclick=\"ToggleHelp('web_server_help'); return false; \">[?]</a></label>\n"
     . "<input type=\"text\" name=\"web_server\" id=\"web_server\" value=\"" . WEB_SERVER_DEFAULT . "\" />"
-    . "<span class=\"help\" id=\"web_server_help\">The location of the webserver. If in doubt, leave the default. Default: " . WEB_SERVER_DEFAULT . "</span></p>\n"
+    . "<span class=\"help\" id=\"web_server_help\">" . WEBSERVER_HELP . "</span></p>\n"
     . "</fieldset>\n"
     . "<p><input type=\"submit\" name=\"action\" value=\"" . ($hasWritePerm ? "Setup Database" : "Download dbinit.php file") . "\" /></p>\n"
     . "<p><input type=\"hidden\" name=\"process\" value=\"1\" /></p>\n"
