@@ -33,9 +33,11 @@ $GLOBALS['rss'] -> config = new Configuration();
 class Configuration {
 
     var $_config = null;
+    var $_properties = null;
 
     function Configuration() {
         $this -> _populate();
+        $this -> _populateProperties();
     }
 
 
@@ -61,8 +63,94 @@ class Configuration {
                 define ($export_,(string)$real_value);
             }
         }
-
     }
+    
+    function _populateProperties() {
+    	$this -> _properties = array();
+    	$qry = "select fk_ref_object_id, proptype, property, value from "
+    		.getTable('properties');
+    	$rs = rss_query($qry);
+    	while (list($ref_obj, $ptype,$prop, $pval)=rss_fetch_row($rs)) {
+    		if (!isset($this -> _properties[$ptype])) {
+    			$this -> _properties[$ptype] = array();
+    		}
+    		$val = @unserialize($pval);
+    		$this -> _properties[$ptype][$ref_obj] = array(
+    			'ref_obj' => $ref_obj,
+    			'property' => $prop,
+    			'value' => $val
+    		);
+    	}
+    }
+    
+    function getProperties($prop,$type) {
+    	$ret = array();
+    	if (!isset($this -> _properties[$type])) {
+    		return $ret;
+    	}
+    	
+    	foreach($this -> _properties[$type] as $ref_obj => $_prop) {
+    		if ($_prop['property'] == $prop) {
+    			$ret[$ref_obj] = $_prop['value'];
+    		}
+    	}
+    	return $ret;
+    }
+    
+    function getProperty($ref_obj, $prop) {
+
+    	foreach($this -> _properties as $type => $props) {
+    		if (!isset($this -> _properties[$type][$ref_obj])) {
+    			continue;
+    		}
+    		foreach($props as $ref => $_props) {
+    			if ($ref == $ref_obj && $_props['property'] == $prop) {
+    				return $_props['value'];
+    			}
+    		}
+    	}
+    	return null;
+    }
+		
+		function getObjectsHavingProperty($prop, $type, $value) {
+			if (!isset($this -> _properties[$type])) {
+				return array();
+			}
+		
+			$ret = array();
+			foreach ($this -> _properties[$type] as $ref_obj => $_data) {
+				if ($_data['property'] == $prop && $value == $_data['value']) {
+					$ret[] = $ref_obj;
+				}
+			}
+			return $ret;
+		}
+
+		function deleteProperty($ref_obj, $prop) {
+			rss_query( "delete from " . getTable('properties') 
+				. " where fk_ref_object_id = '$ref_obj'"
+				." and property='$prop'" );
+			$this -> _populateProperties();
+			rss_invalidate_cache();
+    }
+
+		function setProperty($ref_obj, $prop, $type, $value) {
+			$val = @serialize($value);
+			if (!$val) {
+				return false;
+			}
+			$val = rss_real_escape_string($val);
+			rss_query('insert into ' .getTable('properties') 
+			.'(fk_ref_object_id, proptype, property, value) values ('
+			."'$ref_obj','$type','$prop','$val'"
+			.')'
+			// I hope this is ANSI!
+			. " ON DUPLICATE KEY UPDATE value='$val'"
+			);
+			$this -> _populateProperties();
+			rss_invalidate_cache();
+			return true;
+		}
 
     function getConfig($key,$allowRecursion = true, $invalidateCache = false) {
         if (defined('RSS_CONFIG_OVERRIDE_' . strtoupper(preg_replace('/\./','_',$key)))) {

@@ -47,4 +47,44 @@ function rss_config_override($key, $value) {
 	return $GLOBALS['rss'] -> config -> rss_config_override($key, $value);
 }
 
+/////////// Properties //////////////////////////////////////////////////
+
+/**
+ * Returns the property 'prop' of the object 'ref_obj'
+ */
+function getProperty($ref_obj, $prop) {
+	return $GLOBALS['rss'] -> config ->getProperty($ref_obj, $prop);
+}
+
+/**
+ * Returns an array of the ID's (and their value) of all objects having 
+ * the property 'prop' of type 'type'
+ */
+function getProperties($prop,$type) {
+	return $GLOBALS['rss'] -> config -> getProperties($prop,$type);
+}
+    
+/**
+ * Sets the property 'prop' of type 'type' of the object having an id 'ref_obj'
+ * to 'value', replaces the property if it already exists
+ */
+function setProperty($ref_obj, $prop, $type, $value) {
+	return $GLOBALS['rss'] -> config -> setProperty($ref_obj, $prop, $type, $value);
+}
+
+/**
+ * Returns an array of ID's of the objects having their property 'prop' of type
+ * 'type' set to 'value'
+ */
+function getObjectsHavingProperty($prop, $type, $value) {
+	return $GLOBALS['rss'] -> config ->getObjectsHavingProperty($prop, $type, $value);
+}
+
+/**
+ * Deletes the property 'prop' of the object 'ref_obj'
+ */
+function deleteProperty($ref_obj, $prop) {
+	return $GLOBALS['rss'] -> config ->deleteProperty($ref_obj, $prop);
+}
+
 ?>

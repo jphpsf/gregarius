@@ -47,7 +47,7 @@ function checkSchema() {
 		"cache" => trim(getTable("cache")),
 		"users" => trim(getTable("users")),		
 		"dashboard" => trim(getTable("dashboard")),
-	//	"properties" => trim(getTable("properties")),
+		"properties" => trim(getTable("properties")),
 
 	);
 	
@@ -84,6 +84,9 @@ function checkSchema() {
 		}
 	}
 	
+	if ($updated) {
+		rss_invalidate_cache();
+	}
 	return $updated;
 }
 
@@ -656,17 +659,18 @@ _SQL_
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-/*
+
 function _init_properties() {
 	$table = getTable('properties');
 	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
-		CREATE TABLE __table__ (
-			fk_ref_object_id  VARCHAR( 128 ) NOT NULL,
-  			domain ENUM('item','feed','folder','category','plugin','tag','misc') NOT NULL,
-  			property VARCHAR( 128 ) NOT NULL,
-  			val VARCHAR( 1024 )
-		) TYPE=MyISAM;
+		CREATE TABLE properties (
+		  fk_ref_object_id text NOT NULL,
+		  proptype enum('item','feed','folder','category','plugin','tag','theme','misc') NOT NULL default 'item',
+		  property varchar(128) NOT NULL default '',
+		  value text NOT NULL,
+		  UNIQUE KEY uniq (fk_ref_object_id(255),property,proptype)
+		) ENGINE=MyISAM;
 _SQL_
 );
 
@@ -679,7 +683,7 @@ _SQL_
 	}
 }
 
-*/
+
 ///////////////////////////////////////////////////////////////////////////////
 
 if (isset($argv) && in_array('--dump',$argv)) {
