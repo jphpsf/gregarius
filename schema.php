@@ -669,7 +669,7 @@ function _init_properties() {
 		  proptype enum('item','feed','folder','category','plugin','tag','theme','misc') NOT NULL default 'item',
 		  property varchar(128) NOT NULL default '',
 		  value text NOT NULL,
-		  UNIQUE KEY uniq (fk_ref_object_id(255),property,proptype)
+		  UNIQUE KEY uniq (fk_ref_object_id(180),property,proptype)
 		) ENGINE=MyISAM;
 _SQL_
 );
