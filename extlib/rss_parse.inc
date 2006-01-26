@@ -240,7 +240,17 @@ class MagpieRSS {
         {
             $this->intextinput = true;
         }
-        
+
+	// This is a hack to ignore the text input. 
+	// --Sameer
+	elseif (
+            $this->feed_type == RSS and 
+            $this->current_namespace == '' and 
+            ($this->intextinput or $this->inimage)) 
+	{
+
+	}
+
         elseif (
             $this->feed_type == RSS and 
             $this->current_namespace == '' and 
