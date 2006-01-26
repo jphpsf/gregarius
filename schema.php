@@ -664,7 +664,7 @@ function _init_properties() {
 	$table = getTable('properties');
 	rss_query_wrapper ('DROP TABLE IF EXISTS ' . $table, true, true);
 	$sql_create = str_replace('__table__',$table, <<< _SQL_
-		CREATE TABLE properties (
+		CREATE TABLE __table__ (
 		  fk_ref_object_id text NOT NULL,
 		  proptype enum('item','feed','folder','category','plugin','tag','theme','misc') NOT NULL default 'item',
 		  property varchar(128) NOT NULL default '',
