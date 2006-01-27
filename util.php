@@ -226,7 +226,6 @@ function update($id) {
             if ($guid && isset($guids[$guid])) {
             	continue;
             } elseif($guid) {
-            	echo $guid;
             	$guids[$guid] = true;
             }
 				
