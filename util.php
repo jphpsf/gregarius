@@ -120,13 +120,13 @@ function makeTitle($title) {
     }
     $ret = "". $userTitle ."";
     if ($title) {
-    		if (is_array($title)) {
-    			foreach($title as $token) {
-    				$ret .= " ".TITLE_SEP." ".$token;
-    			}
-    		} else {
-        		$ret .= " ".TITLE_SEP." ".$title;
-        	}
+        if (is_array($title)) {
+            foreach($title as $token) {
+                $ret .= " ".TITLE_SEP." ".$token;
+            }
+        } else {
+            $ret .= " ".TITLE_SEP." ".$title;
+        }
     }
     return $ret;
 }
@@ -135,6 +135,7 @@ function makeTitle($title) {
 function update($id) {
     $kses_allowed = getConfig('rss.input.allowed'); //getAllowedTags();
     $updatedIds = array ();
+    
 
     $sql = "select id, url, title, mode from ".getTable("channels");
     if ($id != "" && is_numeric($id)) {
@@ -173,10 +174,15 @@ function update($id) {
         } else {
             $baseUrl = $url; // The feed is invalid
         }
-	
-	$itemIdsInFeed = array(); // This variable will store the item id's of the elements in the feed
-        foreach ($rss->items as $item) {
+        
+			// Keep track of guids we've handled, because some feeds (hello, 
+        	// Technorati!) have this insane habit of serving the same item 
+        	// twice in the same feed.
+        	$guids = array();
 
+        $itemIdsInFeed = array(); // This variable will store the item id's of the elements in the feed
+        foreach ($rss->items as $item) {
+        
             $item = rss_plugin_hook('rss.plugins.rssitem', $item);
             // a plugin might delete this item
             if(!isset($item))
@@ -214,8 +220,16 @@ function update($id) {
             elseif(array_key_exists('id', $item) && $item['id'] != "") {
                 $guid = $item['id'];
             }
-	    $guid = rss_real_escape_string($guid);
-
+            $guid = rss_real_escape_string($guid);
+            
+            // skip this one if it's an  in-feed-dupe
+            if ($guid && isset($guids[$guid])) {
+            	continue;
+            } elseif($guid) {
+            	echo $guid;
+            	$guids[$guid] = true;
+            }
+				
             if ($description != "") {
                 $md5sum = md5($description);
                 $description = kses($description, $kses_allowed); // strip out tags
@@ -247,7 +261,7 @@ function update($id) {
             // make sure the url is properly escaped
             $url = htmlentities($url, ENT_QUOTES );
 
-	    $url = rss_real_escape_string($url);
+            $url = rss_real_escape_string($url);
 
             // author
             if (array_key_exists('dc', $item) && array_key_exists('creator', $item['dc'])) {
@@ -275,7 +289,7 @@ function update($id) {
                 // contain seconds, the strtotime function will use the current
                 // time to fill in seconds in PHP4. This interferes with the
                 // update mechanism of gregarius. See ticket #328 for the full
-                // gory details. Giving a known date as a second param to 
+                // gory details. Giving a known date as a second param to
                 // strtotime fixes this problem, hence the 0 here.
                 $cDate = strtotime($item['pubdate'], 0);
             }
@@ -325,29 +339,29 @@ function update($id) {
                        ." where cid=$cid and url='$url' and title='$dbtitle'"
                        ." and (pubdate is NULL OR pubdate=$sec)";
             }
-            
+
             $subres = rss_query($sql);
             list ($indb, $state, $dbmd5sum, $dbGuid, $dbPubDate) = rss_fetch_row($subres);
 
-	    if ($indb){
-		  $itemIdsInFeed[] = $indb;
-		  if (!($state & RSS_MODE_DELETED_STATE) && $md5sum != $dbmd5sum) {
-		     // the md5sums do not match.
-		     if(getConfig('rss.input.allowupdates')) { // Are we allowed update items in the db?
-			list ($cid, $indb, $description) =
-			      rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
+            if ($indb) {
+                $itemIdsInFeed[] = $indb;
+                if (!($state & RSS_MODE_DELETED_STATE) && $md5sum != $dbmd5sum) {
+                    // the md5sums do not match.
+                    if(getConfig('rss.input.allowupdates')) { // Are we allowed update items in the db?
+                        list ($cid, $indb, $description) =
+                            rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
 
-			$sql = "update ".getTable("item")
-				 ." set "." description='".rss_real_escape_string($description)."', "
-				 ." unread = unread | ".RSS_MODE_UNREAD_STATE
-				 .", md5sum='$md5sum'" . " where cid=$cid and id=$indb";
+                        $sql = "update ".getTable("item")
+                               ." set "." description='".rss_real_escape_string($description)."', "
+                               ." unread = unread | ".RSS_MODE_UNREAD_STATE
+                               .", md5sum='$md5sum'" . " where cid=$cid and id=$indb";
 
-			rss_query($sql);
-			$updatedIds[] = $indb;
-			continue;
-		     }
-            	}
-	    } else { // $indb = "" . This must be new item then. In you go.
+                        rss_query($sql);
+                        $updatedIds[] = $indb;
+                        continue;
+                    }
+                }
+            } else { // $indb = "" . This must be new item then. In you go.
 
                 list ($cid, $dbtitle, $url, $description) =
                     rss_plugin_hook('rss.plugins.items.new', array ($cid, $dbtitle, $url, $description));
@@ -370,9 +384,9 @@ function update($id) {
             } // end handling of this item
 
         } // end handling of all the items in this feed
-	$sql = "update " .getTable("channels") . " set "." itemsincache = '" 
-		. serialize($itemIdsInFeed) . "' where id=$cid";
-	rss_query($sql);
+        $sql = "update " .getTable("channels") . " set "." itemsincache = '"
+               . serialize($itemIdsInFeed) . "' where id=$cid";
+        rss_query($sql);
 
 
     } // end handling all the feeds we were asked to handle
@@ -820,7 +834,7 @@ function __exp_login($uname,$pass,$cb) {
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
-    	//setcookie(RSS_USER_COOKIE,$uname ."|". $pass,time()+3600*365,getPath());
+        //setcookie(RSS_USER_COOKIE,$uname ."|". $pass,time()+3600*365,getPath());
         rss_invalidate_cache();
     }
     return "$ulevel|$uname|$pass";
@@ -1102,52 +1116,53 @@ function getActualTheme() {
  * 'rss' or 'mobile'.
  */
 function getThemeMedia() {
-	static $media;
-	
-	if ($media) {
-		return $media;
-	}
-	
-	// Default to "web".
-	$media = 'web';
-	
-	// Has the user specified anything?
-	if (isset($_GET['rss'])) {
-		$media = 'rss';
-	} elseif (isset($_GET['mobile']) || isMobileDevice()) {
-		$media = 'mobile';
-	} 
- 
- 	// This is here so that auto-detected (e.g. mobile) medias
- 	// can be overridden.
-	if (isset($_GET['media'])) {
-		$media = $_GET['media'];
-	}
-	
-	// Finally: let plugins voice their opinion
-	$media = rss_plugin_hook('rss.plugins.thememedia',$media);
-	
-	return $media;
+    static $media;
+
+    if ($media) {
+        return $media;
+    }
+
+    // Default to "web".
+    $media = 'web';
+
+    // Has the user specified anything?
+    if (isset($_GET['rss'])) {
+        $media = 'rss';
+    }
+    elseif (isset($_GET['mobile']) || isMobileDevice()) {
+        $media = 'mobile';
+    }
+
+    // This is here so that auto-detected (e.g. mobile) medias
+    // can be overridden.
+    if (isset($_GET['media'])) {
+        $media = $_GET['media'];
+    }
+
+    // Finally: let plugins voice their opinion
+    $media = rss_plugin_hook('rss.plugins.thememedia',$media);
+
+    return $media;
 }
 
-/** 
+/**
  * Dumb dunciton to detect mobile devices based on the passed user-agent.
  * This definitely needs some heavy tweaking.
  */
 function isMobileDevice() {
-	static $ret;
-	if ($ret !== NULL) {
-		return $ret;
-	} else {
-		$ret = false;
-		if (isset($_SERVER['HTTP_USER_AGENT'])) {
-			$ua = $_SERVER['HTTP_USER_AGENT'];
-			$ret = strpos($ua, 'SonyEricsson')
-				|| strpos($ua, 'Nokia')
-				|| strpos($ua, 'Mobile');
-		} 
-	}
-	return $ret;
+    static $ret;
+    if ($ret !== NULL) {
+        return $ret;
+    } else {
+        $ret = false;
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            $ua = $_SERVER['HTTP_USER_AGENT'];
+            $ret = strpos($ua, 'SonyEricsson')
+                   || strpos($ua, 'Nokia')
+                   || strpos($ua, 'Mobile');
+        }
+    }
+    return $ret;
 }
 
 ?>
