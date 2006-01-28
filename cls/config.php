@@ -34,7 +34,9 @@ class Configuration {
 
     var $_config = null;
     var $_properties = null;
-
+	var $_propCahceHits = null;
+	var $_propCacheMisses = null;
+	
     function Configuration() {
         $this -> _populate();
         $this -> _populateProperties();
@@ -66,6 +68,7 @@ class Configuration {
     }
     
     function _populateProperties() {
+    	_pf('Populating properties');
     	$this -> _properties = array();
     	$qry = "select fk_ref_object_id, proptype, property, value from "
     		.getTable('properties');
@@ -81,6 +84,7 @@ class Configuration {
     			'value' => $val
     		);
     	}
+		_pf('Done: populating properties');
     }
     
     function getProperties($prop,$type) {

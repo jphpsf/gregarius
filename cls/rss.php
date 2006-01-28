@@ -125,9 +125,10 @@ class RSS {
         return $modifiedFileContent;
 
     }
+    
     function renderWithTemplate($template,$mainDivId="items") {
+    	
         $this->_pf('start rendering');
-
         if (!($this->header->options & HDR_NO_OUPUTBUFFERING)) {
             if (getConfig('rss.output.compression')) {
                 ob_start('ob_gzhandler');
@@ -139,15 +140,15 @@ class RSS {
                    . (getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING));
 
         }
-
+		
 
         $this -> mainDivId = $mainDivId;
         if (isset($this->header)) {
             $this->header->preRender();
         }
 
-        $file = $this->getTemplateFile($template)
-                ;
+        $file = $this->getTemplateFile($template);
+        
         rss_require($file);
 
         $this->_pf('end rendering');
