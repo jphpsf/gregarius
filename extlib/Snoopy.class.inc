@@ -148,13 +148,14 @@ class Snoopy
 					$this -> curl_path = CURL_PATH;
 					$this -> use_curl = true;
 			}
-			
+			/*
 			if (function_exists('getConfig') && ($tmp = getConfig('rss.output.cachedir')) != null) {
 					if (substr($tmp, -1, 1) != "/") {
 						$tmp .= "/";
 					}
 					$this -> tmpdir = $tmp;
 			}
+			*/
 	}
 /*======================================================================*\
 	Function:	fetch
@@ -765,12 +766,15 @@ class Snoopy
 		# accept self-signed certs
 		// mbi: removed, as it breaks on older cURL's
 		//$cmdline_params .= " -k";
+		if (defined ('RSS_SNOOPY_EXTRA_PARAMS')) {
+			$cmdline_params .= (" " . RSS_SNOOPY_EXTRA_PARAMS ." ");
+		}
 		$full_cmdline = $this->curl_path
 			." -D \"".$this -> tmpdir
 			."$headerfile\""
 			.escapeshellcmd($cmdline_params)." "
 			.escapeshellcmd($URI);
-//		die($full_cmdline);
+		//die($full_cmdline);
 		exec($full_cmdline,$results,$return);
 				
 		if($return)
