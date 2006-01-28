@@ -145,11 +145,12 @@ function channels() {
             $icon = getPath() . "extlib/favicon.php?url=" .rss_real_escape_string(substr($icon,5));
         }
         echo "<tr class=\"$class_\" id=\"fa$id\">\n"
-        ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" /></td>\n"
+        ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" id=\"scb_$id\" /></td>\n"
         ."\t<td>"
         .((getConfig('rss.output.showfavicons') && $icon != "")?
           "<img src=\"$icon\" class=\"favicon\" alt=\"\" width=\"16\" height=\"16\" />":"")
-        ."<a href=\"$outUrl\">$title</a></td>\n"
+        ."<label for=\"scb_$id\">$title</label>"
+        ."</td>\n"
         ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
         ."\t<td>$descr</td>\n"
         ."\t<td>$tags</td>\n"
