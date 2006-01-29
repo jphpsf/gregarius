@@ -837,7 +837,10 @@ function channel_edit_form($cid) {
     // Feed properties
     echo "<fieldset id=\"channeleditpropfs\">";
     echo "<p>"
-    	."Allow Gregarius to look for updates in existing items for this feed?</p>";
+    	."<span style=\"float:left;\">Allow Gregarius to look for updates in existing items for this feed?</span>"
+    	."<span style=\"float:right;\">[<a  href=\"index.php?domain=config&amp;action=edit&amp;key=rss.input.allowupdates&amp;view=config\">Edit the global option</a>]</span>\n"
+    	."&nbsp;"
+    	."</p>";
 		
 		$rss_input_allowupdates_default_current = getProperty($cid,'rss.input.allowupdates');
 
