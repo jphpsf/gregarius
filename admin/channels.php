@@ -401,6 +401,13 @@ function channel_admin() {
             rss_query($sql);
             $sql = "delete from " . getTable("channels") ." where id=$id";
             rss_query($sql);
+            
+            // Delete properties
+            deleteProperty($id,'rss.input.allowupdates');
+            
+            // Invalidate cache
+            rss_invalidate_cache();
+            
             $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
         }
         elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
@@ -540,6 +547,17 @@ function channel_admin() {
         $priv = (array_key_exists('c_private',$_REQUEST) && $_REQUEST['c_private'] == '1');
         $tags = rss_real_escape_string($_REQUEST['c_tags']);
         $old_priv = ($_REQUEST['old_priv'] == '1');
+        
+        
+        // Feed Properties
+        $prop_rss_input_allowupdates = rss_real_escape_string($_REQUEST['prop_rss_input_allowupdates']);
+        if ($prop_rss_input_allowupdates == 'default') {
+        	deleteProperty($cid,'rss.input.allowupdates');
+        } else {
+        	setProperty($cid, 'rss.input.allowupdates' , 'feed', ($prop_rss_input_allowupdates == 1));
+        }
+        
+        
         if ($priv != $old_priv) {
             $mode = ", mode = mode ";
             if ($priv) {
@@ -723,15 +741,19 @@ function channel_edit_form($cid) {
 
     echo "<div>\n";
     echo "\n\n<h2>".LBL_ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
-    echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."#fa$cid\" id=\"channeledit\">\n"
-    ."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
+    
+    echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."#fa$cid\" id=\"channeledit\">\n";
+    echo "<fieldset id=\"channeleditfs\">"
+    ."<p>";
+        // Item name
+    echo "<label for=\"c_name\">". LBL_ADMIN_CHANNEL_NAME ."</label>\n"
+    ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\" />"
+		."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
     ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_SUBMIT_EDIT ."\" />\n"
-    ."<input type=\"hidden\" name=\"cid\" value=\"$cid\" />\n"
+    ."<input type=\"hidden\" name=\"cid\" value=\"$cid\" /></p>\n"
 
-    // Item name
-    ."<label for=\"c_name\">". LBL_ADMIN_CHANNEL_NAME ."</label>\n"
-    ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\" /></p>"
 
+    
     // RSS URL
     ."<p><label for=\"c_url\">". LBL_ADMIN_CHANNEL_RSS_URL ."</label>\n"
     ."<a href=\"$url\">" . LBL_VISIT . "</a>\n"
@@ -809,9 +831,52 @@ function channel_edit_form($cid) {
     }
 
     rss_plugin_hook('rss.plugins.admin.feed.properties', $cid);
+		echo "</fieldset>\n";
+    
+    
+    // Feed properties
+    echo "<fieldset id=\"channeleditpropfs\">";
+    echo "<p>"
+    	."Allow Gregarius to look for updates in existing items for this feed?</p>";
+		
+		$rss_input_allowupdates_default_current = getProperty($cid,'rss.input.allowupdates');
 
-    echo "<p><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\" /></p>"
-    ."</form></div>\n";
+		$rss_input_allowupdates_default_value = 
+		$rss_input_allowupdates_default = ("Use global option (" . (getConfig('rss.input.allowupdates')?"Yes":"No") .")");
+		
+		echo "<p id=\"rss_input_allowupdates_options\">"
+		
+		."<input type=\"radio\" "
+						."id=\"rss_input_allowupdates_yes\" "
+						."name=\"prop_rss_input_allowupdates\" value=\"1\"  "
+						.(($rss_input_allowupdates_default_current === true)?" checked=\"checked\" ":"")
+						."/>\n"
+		."<label for=\"rss_input_allowupdates_yes\">Yes</label>\n"
+		
+		
+		."<input type=\"radio\" "
+						."id=\"rss_input_allowupdates_no\" "
+						."name=\"prop_rss_input_allowupdates\" value=\"0\"  "
+						.(($rss_input_allowupdates_default_current === false)?" checked=\"checked\" ":"")
+						."/>\n"
+		."<label for=\"rss_input_allowupdates_no\">No</label>"
+		
+		
+		."<input type=\"radio\" "
+						."id=\"rss_input_allowupdates_default\" "
+						."name=\"prop_rss_input_allowupdates\" value=\"default\"  "
+						.(($rss_input_allowupdates_default_current === null)?" checked=\"checked\" ":"")
+						."/>\n"
+		."<label for=\"rss_input_allowupdates_default\">$rss_input_allowupdates_default</label>"
+		
+		
+    ."</p>\n";
+    echo "</fieldset>\n";
+    
+    
+    echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\" /></p>";
+    
+    echo "</form></div>\n";
 }
 
 ?>

@@ -179,6 +179,12 @@ function update($id) {
         	// Technorati!) have this insane habit of serving the same item 
         	// twice in the same feed.
         	$guids = array();
+        	
+        // Allow updates in this feed?	
+		  $allowUpdates = getProperty($cid,'rss.input.allowupdates');
+		  if ($allowUpdates === null) {
+				$allowUpdates = getConfig('rss.input.allowupdates');
+		  }
 
         $itemIdsInFeed = array(); // This variable will store the item id's of the elements in the feed
         foreach ($rss->items as $item) {
@@ -346,7 +352,7 @@ function update($id) {
                 $itemIdsInFeed[] = $indb;
                 if (!($state & RSS_MODE_DELETED_STATE) && $md5sum != $dbmd5sum) {
                     // the md5sums do not match.
-                    if(getConfig('rss.input.allowupdates')) { // Are we allowed update items in the db?
+                    if($allowUpdates) { // Are we allowed update items in the db?
                         list ($cid, $indb, $description) =
                             rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
 

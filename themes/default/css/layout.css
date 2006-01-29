@@ -213,11 +213,41 @@ table#foldertable { width: auto }
 
 td>input[type="text"] { width: 100%; }
 
+fieldset#channeleditfs {
+	display:block;
+	width:100%;
+	padding: 1em;
+	text-align:left;
+	width: 45%; 
+	float: left;
+}
+
+fieldset#channeleditpropfs {
+	text-align:left;
+	float:left;
+	display:block;
+	width: 47%;
+	font-size:small;
+}
+
+form#channeledit p{
+	margin: 0 0 0.7em 0;
+}
+
+p#rss_input_allowupdates_options input {
+	display:inline !important;
+}
+
+p#rss_input_allowupdates_options label {
+	display:inline !important;
+	margin-right: 1em;
+}
+
 form#channeledit input { display:block; }
 
 form#channeledit input[type="text"] {
   display:block;
-  width: 50%;
+  width: 100% !important;
 }
 
 div.feedaction {
