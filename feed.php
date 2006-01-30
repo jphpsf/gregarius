@@ -491,7 +491,7 @@ if (array_key_exists ('metaaction', $_POST)) {
         // find next virtual folder to redirect to
         $next_vfid = 0;
         $found = false;
-        $res = rss_query("select distinct tid from " .getTable('metatag') ." m order by m.tid desc");
+        $res = rss_query("select distinct tid from " .getTable('metatag') ." m," .getTable('tag') ."t where m.tid = t.id order by t.tag asc");
         while (list($tid__) = rss_fetch_row($res)) {
             if ($tid__ == $vfid && $next_vfid > 0) {
                 $found = true;
@@ -503,9 +503,8 @@ if (array_key_exists ('metaaction', $_POST)) {
             // check for unread items in next virtual folder
             $sql = "select count(distinct(i.id)) as cnt from "
                    .getTable('metatag') ." left join "
-                   .getTable('item') . "i, "
-                   .getTable('channels') ." c on (fid=i.cid) "
-                   ."where c.id = $tid__ and ttype = 'channel' and (c.id = i.cid)"
+                   .getTable('item') . "i on (i.cid=fid) "
+                   ."where tid = $tid__ and ttype = 'channel' "
                    ." and (i.unread & ".RSS_MODE_UNREAD_STATE.") "
                    ."and not(i.unread & ".RSS_MODE_DELETED_STATE.")";
             if (hidePrivate()) {
@@ -1142,7 +1141,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
             break;
 
         case 'feed':
-
+	
             $sql = "select "
                    ." c.id, c.title "
                    ." from "
