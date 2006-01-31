@@ -245,10 +245,15 @@ function install_main() {
     . "<p><input type=\"submit\" name=\"action\" value=\"" . ($hasWritePerm ? "Setup Database" : "Download dbinit.php file") . "\" /></p>\n"
     . "<p><input type=\"hidden\" name=\"process\" value=\"1\" /></p>\n"
     . "</form>\n"
-    . "<form onsubmit=\"alert('This does not work yet :P'); return false;\">\n"
+    . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">\n"
     . "<h2>Step 5: Activate mod-rewrite (optional)</h2>\n"
     . "<p><input type=\"submit\" name=\"action\" value=\"" . ($hasWritePerm ? "Activate mod-rewrite" : "Download .htaccess file") . "\" /></p>\n"
-    . "<p><input type=\"hidden\" name=\"process\" value=\"2\" /></p>\n"    
+    . "<p><input type=\"hidden\" name=\"process\" value=\"2\" /></p>\n"
+    . "</form>\n"
+    . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">\n"
+    . "<h2>Step 6: Goto Admin Section</h2>\n"
+    . "<p><input type=\"submit\" name=\"action\" value=\"Start Using Gregarius!\" /></p>\n"
+    . "<p><input type=\"hidden\" name=\"process\" value=\"3\" /></p>\n"
     . "</form>\n"
     . "</div>\n"
     . "</body>\n"
@@ -257,44 +262,56 @@ function install_main() {
 
 if(file_exists(DBINIT)) {
     print("The dbinit.php file already exists in the Gregarius directory! Please remove it if you would like to use this installer.");
-} else if(!empty($_POST['process']) && 1 == $_POST['process']){
+} else if(!empty($_POST['process'])){
 // process the post data
-
-    if(empty($_POST['server']) ||
-       empty($_POST['database']) ||
-       empty($_POST['username']) ||
-       empty($_POST['password']) ||
-       empty($_POST['type'])) {
-
-        print("Not all required fields have been filled in!");
-    } else {
-
-    // create the database and user
-    if(!empty($_POST['admin_username'])) {
-        if("mysql" == $_POST['type']) {
-            $sql = @mysql_connect($_POST['server'], $_POST['admin_username'], $_POST['admin_password']);
-
-            if(!$sql) {
-                print("Unable to connect to database! Please create manually.");
-            } else {
-                mysql_query("CREATE DATABASE " . $_POST['database'] . "", $sql);
-                mysql_query("GRANT ALL ON " . $_POST['database'] . ".* TO '" . $_POST['username'] . "'@'" . $_POST['web_server'] . "' IDENTIFIED BY '" . $_POST['password'] . "'", $sql);
-                mysql_close($sql);
-            }
-        } else if("sqlite" == $_POST['type']) {
-            $sql = @sqlite_open($_POST['server'], 0666);
-
-            if(!$sql) {
-                print("Unable to connect to database! Please create manually.");
-            } else {
-            }
-        } else {
-            print("Invalid SQL Type!");
-            exit();
+    if(3 == $_POST['process']) {
+        header('Location: admin/');
+        exit();
+    } else if(2 == $_POST['process']) {
+        $success = @rename('.htaccess.disabled', '.htaccess');
+        if(false == $success) {
+            $htaccess = file('.htaccess.disabled', 'r');
+            header('Content-type: application/text');
+            header('Content-Disposition: attachment; filename=".htaccess"');
+            echo($htaccess);
         }
-    }
 
-    $out = "<?php
+        exit();
+    } else if(1 == $_POST['process']) {
+        if(empty($_POST['server']) ||
+            empty($_POST['database']) ||
+            empty($_POST['username']) ||
+            empty($_POST['password']) ||
+            empty($_POST['type'])) {
+
+            print("Not all required fields have been filled in!");
+        } else {
+        // create the database and user
+        if(!empty($_POST['admin_username'])) {
+            if("mysql" == $_POST['type']) {
+                $sql = @mysql_connect($_POST['server'], $_POST['admin_username'], $_POST['admin_password']);
+
+                if(!$sql) {
+                    print("Unable to connect to database! Please create manually.");
+                } else {
+                    mysql_query("CREATE DATABASE " . $_POST['database'] . "", $sql);
+                    mysql_query("GRANT ALL ON " . $_POST['database'] . ".* TO '" . $_POST['username'] . "'@'" . $_POST['web_server'] . "' IDENTIFIED BY '" . $_POST['password'] . "'", $sql);
+                    mysql_close($sql);
+                }
+            } else if("sqlite" == $_POST['type']) {
+                $sql = @sqlite_open($_POST['server'], 0666);
+
+                if(!$sql) {
+                    print("Unable to connect to database! Please create manually.");
+                } else {
+            }
+            } else {
+                print("Invalid SQL Type!");
+                exit();
+            }
+        }
+
+        $out = "<?php
 //
 // The type of database server you are using. By default
 // Gregarius will look for a MySQL database server. If you
@@ -343,29 +360,29 @@ define ('DBSERVER', '" . $_POST['server'] . "');
 //
 ";
 
-        if(empty($_POST['prefix'])) {
-            $out .= "//define ('DB_TABLE_PREFIX','');";
-        } else {
-            $out .= "define('DB_TABLE_PREFIX', '" . $_POST['prefix'] . "');";
-        }
+            if(empty($_POST['prefix'])) {
+                $out .= "//define ('DB_TABLE_PREFIX','');";
+            } else {
+                $out .= "define('DB_TABLE_PREFIX', '" . $_POST['prefix'] . "');";
+            }
 
-        $out .= "\n?>";
+            $out .= "\n?>";
 
-        $fp = @fopen(DBINIT, 'w');
+            $fp = @fopen(DBINIT, 'w');
 
-        if(!$fp) {
-        // unable to open file for writing
-            header('Content-type: application/x-httpd-php-source');
-            header('Content-Disposition: attachment; filename="dbinit.php"');
-            echo($out);
-            exit();
-        } else {
-        // write the file
-            fwrite($fp, $out);
-            fclose($fp);
+            if(!$fp) {
+            // unable to open file for writing
+                header('Content-type: application/x-httpd-php-source');
+                header('Content-Disposition: attachment; filename="dbinit.php"');
+                echo($out);
+                exit();
+            } else {
+            // write the file
+                fwrite($fp, $out);
+                fclose($fp);
 
-            header('Location: admin/');
-            exit();
+                exit();
+            }
         }
     }
 } else { // dbinit.php does not exist and we are not asked to process
