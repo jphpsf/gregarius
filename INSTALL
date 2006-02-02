@@ -60,7 +60,8 @@ QUICK START
 	database tables you should import your schema manually: from the
 	command-line type (replacing database_user, database_host and
 	database_name)
-
+	
+	php schema.php --dump > dbstruct.sql
         mysql -u database_user -h database_host -p database_name < dbstruct.sql
 	
 	
