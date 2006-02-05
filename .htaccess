@@ -1,8 +1,8 @@
 
 # Disable MultiViews: we want the real thing
 # http://httpd.apache.org/docs-2.0/mod/mod_negotiation.html#multiviews
-# Options -MultiViews
 
+Options -MultiViews
 AddDefaultCharset utf-8
 
 <IfModule mod_rewrite.c>
