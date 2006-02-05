@@ -167,7 +167,11 @@ function item_admin() {
                     foreach ($cids as $cid => $ids) {
 		    	$rsCache = rss_query("select itemsincache from " . getTable('channels') . " where id=$cid");
 			list($idString) = rss_fetch_row($rsCache);
-			$cacheIds = unserialize($idString);
+			if ($idString) {
+				$cacheIds = unserialize($idString);
+			} else {
+				$cacheIds = array();	
+			}
                         foreach ($ids as $iid) {
                             //echo "examining: $iid (cid $cid) ->";
                             if (array_search($iid, $cacheIds) !== FALSE) {
