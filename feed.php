@@ -168,14 +168,14 @@ if (
     // no mod rewrite: ugly but effective
 }
 elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQUEST) || array_key_exists('vfolder',$_REQUEST)) {
-    $cid= (array_key_exists('channel',$_REQUEST))?$_REQUEST['channel']:"";
-    $iid= (array_key_exists('iid',$_REQUEST))?$_REQUEST['iid']:"";
-    $fid= (array_key_exists('folder',$_REQUEST))?$_REQUEST['folder']:"";
-    $vfid= (array_key_exists('vfolder',$_REQUEST))?$_REQUEST['vfolder']:"";
-
-    $y= (array_key_exists('y',$_REQUEST))?$_REQUEST['y']:"0";
-    $m= (array_key_exists('m',$_REQUEST))?$_REQUEST['m']:"0";
-    $d= (array_key_exists('d',$_REQUEST))?$_REQUEST['d']:"0";
+    $cid= (array_key_exists('channel',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['channel']):"";
+    $iid= (array_key_exists('iid',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['iid']):"";
+    $fid= (array_key_exists('folder',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['folder']):"";
+    $vfid= (array_key_exists('vfolder',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['vfolder']):"";
+	
+    $y= (array_key_exists('y',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['y']):"0";
+    $m= (array_key_exists('m',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['m']):"0";
+    $d= (array_key_exists('d',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['d']):"0";
 
     if ($fid) {
         $sql = "select c.id from ". getTable('channels')." c "
