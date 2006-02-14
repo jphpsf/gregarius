@@ -1177,6 +1177,8 @@ function sanitize($input, $rules = 0) {
 	}
 	if ($rules & RSS_SANITIZER_NO_SPACES) {
 		$ret = preg_replace('#\s#','',$ret);
+		// also strip out SQL comments
+		$ret = preg_replace('#/\*.*\*/#U','',$ret);
 	}
 	if ($rules & RSS_SANITIZER_NUMERIC) {
 		$ret = preg_replace('#[^0-9\.]#','',$ret);
