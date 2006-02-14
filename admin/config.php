@@ -380,6 +380,15 @@ function config_admin() {
         $type = sanitize($_POST['type'],RSS_SANITIZER_CHARACTERS);
         $value = sanitize($_POST['value'], RSS_SANITIZER_SIMPLE_SQL);
 
+				
+				// sanitizine routines for values
+				switch ($key) {
+					case 'rss.output.title':
+					$value = strip_tags($value);
+					break;
+				}
+				
+				
         switch ($key) {
 
 
