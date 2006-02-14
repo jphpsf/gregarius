@@ -208,11 +208,6 @@ function channels() {
 
 
     echo "</form></div>\n\n\n";
-    /*
-    echo "<pre>\n";
-    var_dump($_REQUEST);
-    echo "</pre>\n";
-       */
 }
 
 /**
@@ -246,9 +241,9 @@ function channel_admin() {
     case 'Add':
 
         $label = trim($_REQUEST['new_channel']);
-        $fid = trim(rss_real_escape_string($_REQUEST['add_channel_to_folder']));
+        $fid = trim(sanitize($_REQUEST['add_channel_to_folder'], RSS_SANITIZER_SIMPLE_SQL |ÊRSS_SANITIZER_NO_SPACES));
         list($flabel) = rss_fetch_row(rss_query(
-                                          "select name from " . getTable('folders') . " where id=$fid"));
+          "select name from " . getTable('folders') . " where id=$fid"));
 
         // handle "feed:" urls
         if (substr($label, 0,5) == 'feed:') {
@@ -378,13 +373,13 @@ function channel_admin() {
         break;
 
     case CST_ADMIN_EDIT_ACTION:
-        $id = $_REQUEST['cid'];
+        $id = sanitize($_REQUEST['cid'],RSS_SANITIZER_NUMERIC);
         channel_edit_form($id);
         break;
 
 
     case CST_ADMIN_DELETE_ACTION:
-        $id = $_REQUEST['cid'];
+        $id = sanitize($_REQUEST['cid'],RSS_SANITIZER_NUMERIC);
         if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
             $rs = rss_query("select distinct id from " .getTable("item") . " where cid=$id");
             $ids = array();
@@ -401,13 +396,13 @@ function channel_admin() {
             rss_query($sql);
             $sql = "delete from " . getTable("channels") ." where id=$id";
             rss_query($sql);
-            
+
             // Delete properties
             deleteProperty($id,'rss.input.allowupdates');
-            
+
             // Invalidate cache
             rss_invalidate_cache();
-            
+
             $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
         }
         elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
@@ -436,7 +431,7 @@ function channel_admin() {
 
 
         if (array_key_exists('opml',$_REQUEST) && strlen(trim($_REQUEST['opml'])) > 7) {
-            $url = trim( $_REQUEST['opml'] );
+            $url = trim( sanitize($_REQUEST['opml'],RSS_SANITIZER_NO_SPACES) );
         }
         elseif (array_key_exists('opmlfile',$_FILES) && $_FILES['opmlfile']['tmp_name']) {
             if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
@@ -462,7 +457,7 @@ function channel_admin() {
         }
 
         if ($import_opt == CST_ADMIN_OPML_IMPORT_FOLDER) {
-            $opmlfid = rss_real_escape_string($_REQUEST['opml_import_to_folder']);
+            $opmlfid = sanitize($_REQUEST['opml_import_to_folder'], RSS_SANITIZER_NUMERIC);
         } else {
             $opmlfid = getRootFolder();
         }
@@ -536,28 +531,29 @@ function channel_admin() {
         break;
 
     case CST_ADMIN_SUBMIT_EDIT:
-        $cid = $_REQUEST['cid'];
+        $cid = sanitize($_POST['cid'],RSS_SANITIZER_NUMERIC);
         rss_plugin_hook('rss.plugins.admin.feed.properties.submit', null);
-        $title= rss_real_escape_string(real_strip_slashes($_REQUEST['c_name']));
-        $url= rss_real_escape_string($_REQUEST['c_url']);
-        $siteurl= rss_real_escape_string($_REQUEST['c_siteurl']);
-        $parent= rss_real_escape_string($_REQUEST['c_parent']);
-        $descr= rss_real_escape_string(real_strip_slashes($_REQUEST['c_descr']));
-        $icon = rss_real_escape_string($_REQUEST['c_icon']);
-        $priv = (array_key_exists('c_private',$_REQUEST) && $_REQUEST['c_private'] == '1');
-        $tags = rss_real_escape_string($_REQUEST['c_tags']);
-        $old_priv = ($_REQUEST['old_priv'] == '1');
-        
-        
+        // TBD
+        $title= rss_real_escape_string(real_strip_slashes($_POST['c_name']));
+        $url= rss_real_escape_string($_POST['c_url']);
+        $siteurl= rss_real_escape_string($_POST['c_siteurl']);
+        $parent= rss_real_escape_string($_POST['c_parent']);
+        $descr= rss_real_escape_string(real_strip_slashes($_POST['c_descr']));
+        $icon = rss_real_escape_string($_POST['c_icon']);
+        $priv = (array_key_exists('c_private',$_POST) && $_POST['c_private'] == '1');
+        $tags = rss_real_escape_string($_POST['c_tags']);
+        $old_priv = ($_POST['old_priv'] == '1');
+
+
         // Feed Properties
-        $prop_rss_input_allowupdates = rss_real_escape_string($_REQUEST['prop_rss_input_allowupdates']);
+        $prop_rss_input_allowupdates = rss_real_escape_string($_POST['prop_rss_input_allowupdates']);
         if ($prop_rss_input_allowupdates == 'default') {
-        	deleteProperty($cid,'rss.input.allowupdates');
+            deleteProperty($cid,'rss.input.allowupdates');
         } else {
-        	setProperty($cid, 'rss.input.allowupdates' , 'feed', ($prop_rss_input_allowupdates == 1));
+            setProperty($cid, 'rss.input.allowupdates' , 'feed', ($prop_rss_input_allowupdates == 1));
         }
-        
-        
+
+
         if ($priv != $old_priv) {
             $mode = ", mode = mode ";
             if ($priv) {
@@ -578,8 +574,8 @@ function channel_admin() {
             $mode = "";
         }
 
-        $del = (array_key_exists('c_deleted',$_REQUEST) && $_REQUEST['c_deleted'] == '1');
-        $old_del = ($_REQUEST['old_del'] == '1');
+        $del = (array_key_exists('c_deleted',$_POST) && $_POST['c_deleted'] == '1');
+        $old_del = ($_POST['old_del'] == '1');
         if ($del != $old_del) {
             if ($mode == "") {
                 $mode = ", mode = mode ";
@@ -615,7 +611,7 @@ function channel_admin() {
 
     case CST_ADMIN_MOVE_UP_ACTION:
     case CST_ADMIN_MOVE_DOWN_ACTION:
-        $id = $_REQUEST['cid'];
+        $id = sanitize($_REQUEST['cid'],RSS_SANITIZER_NUMERIC);
         $res = rss_query("select parent,position from " . getTable("channels") ." where id=$id");
         list($parent,$position) = rss_fetch_row($res);
         $res = rss_query(
@@ -672,7 +668,7 @@ function channel_admin() {
 
         // MOVE TO FOLDER
         if (array_key_exists('me_move_to_folder',$_REQUEST)) {
-            $fid=$_REQUEST['me_folder'];
+            $fid= sanitize($_REQUEST['me_folder'],RSS_SANITIZER_NUMERIC);
             $sql = "update " .getTable('channels') . " set parent=$fid where id in $sqlids";
             rss_query($sql);
             /// STATE
@@ -741,19 +737,19 @@ function channel_edit_form($cid) {
 
     echo "<div>\n";
     echo "\n\n<h2>".LBL_ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
-    
+
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."#fa$cid\" id=\"channeledit\">\n";
     echo "<fieldset id=\"channeleditfs\">"
     ."<p>";
-        // Item name
+    // Item name
     echo "<label for=\"c_name\">". LBL_ADMIN_CHANNEL_NAME ."</label>\n"
     ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\" />"
-		."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
+    ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
     ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_SUBMIT_EDIT ."\" />\n"
     ."<input type=\"hidden\" name=\"cid\" value=\"$cid\" /></p>\n"
 
 
-    
+
     // RSS URL
     ."<p><label for=\"c_url\">". LBL_ADMIN_CHANNEL_RSS_URL ."</label>\n"
     ."<a href=\"$url\">" . LBL_VISIT . "</a>\n"
@@ -831,54 +827,54 @@ function channel_edit_form($cid) {
     }
 
     rss_plugin_hook('rss.plugins.admin.feed.properties', $cid);
-		echo "</fieldset>\n";
-    
-    
+    echo "</fieldset>\n";
+
+
     // Feed properties
     echo "<fieldset id=\"channeleditpropfs\">";
     echo "<p>"
-    	."<span style=\"float:left;\">Allow Gregarius to look for updates in existing items for this feed?</span>"
-    	."<span style=\"float:right;\">[<a  href=\"index.php?domain=config&amp;action=edit&amp;key=rss.input.allowupdates&amp;view=config\">Edit the global option</a>]</span>\n"
-    	."&nbsp;"
-    	."</p>";
-		
-		$rss_input_allowupdates_default_current = getProperty($cid,'rss.input.allowupdates');
+    ."<span style=\"float:left;\">Allow Gregarius to look for updates in existing items for this feed?</span>"
+    ."<span style=\"float:right;\">[<a  href=\"index.php?domain=config&amp;action=edit&amp;key=rss.input.allowupdates&amp;view=config\">Edit the global option</a>]</span>\n"
+    ."&nbsp;"
+    ."</p>";
 
-		$rss_input_allowupdates_default_value = 
-		$rss_input_allowupdates_default = ("Use global option (" . (getConfig('rss.input.allowupdates')?"Yes":"No") .")");
-		
-		echo "<p id=\"rss_input_allowupdates_options\">"
-		
-		."<input type=\"radio\" "
-						."id=\"rss_input_allowupdates_yes\" "
-						."name=\"prop_rss_input_allowupdates\" value=\"1\"  "
-						.(($rss_input_allowupdates_default_current === true)?" checked=\"checked\" ":"")
-						."/>\n"
-		."<label for=\"rss_input_allowupdates_yes\">Yes</label>\n"
-		
-		
-		."<input type=\"radio\" "
-						."id=\"rss_input_allowupdates_no\" "
-						."name=\"prop_rss_input_allowupdates\" value=\"0\"  "
-						.(($rss_input_allowupdates_default_current === false)?" checked=\"checked\" ":"")
-						."/>\n"
-		."<label for=\"rss_input_allowupdates_no\">No</label>"
-		
-		
-		."<input type=\"radio\" "
-						."id=\"rss_input_allowupdates_default\" "
-						."name=\"prop_rss_input_allowupdates\" value=\"default\"  "
-						.(($rss_input_allowupdates_default_current === null)?" checked=\"checked\" ":"")
-						."/>\n"
-		."<label for=\"rss_input_allowupdates_default\">$rss_input_allowupdates_default</label>"
-		
-		
+    $rss_input_allowupdates_default_current = getProperty($cid,'rss.input.allowupdates');
+
+    $rss_input_allowupdates_default_value =
+        $rss_input_allowupdates_default = ("Use global option (" . (getConfig('rss.input.allowupdates')?"Yes":"No") .")");
+
+    echo "<p id=\"rss_input_allowupdates_options\">"
+
+    ."<input type=\"radio\" "
+    ."id=\"rss_input_allowupdates_yes\" "
+    ."name=\"prop_rss_input_allowupdates\" value=\"1\"  "
+    .(($rss_input_allowupdates_default_current === true)?" checked=\"checked\" ":"")
+    ."/>\n"
+    ."<label for=\"rss_input_allowupdates_yes\">Yes</label>\n"
+
+
+    ."<input type=\"radio\" "
+    ."id=\"rss_input_allowupdates_no\" "
+    ."name=\"prop_rss_input_allowupdates\" value=\"0\"  "
+    .(($rss_input_allowupdates_default_current === false)?" checked=\"checked\" ":"")
+    ."/>\n"
+    ."<label for=\"rss_input_allowupdates_no\">No</label>"
+
+
+    ."<input type=\"radio\" "
+    ."id=\"rss_input_allowupdates_default\" "
+    ."name=\"prop_rss_input_allowupdates\" value=\"default\"  "
+    .(($rss_input_allowupdates_default_current === null)?" checked=\"checked\" ":"")
+    ."/>\n"
+    ."<label for=\"rss_input_allowupdates_default\">$rss_input_allowupdates_default</label>"
+
+
     ."</p>\n";
     echo "</fieldset>\n";
-    
-    
+
+
     echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\" /></p>";
-    
+
     echo "</form></div>\n";
 }
 

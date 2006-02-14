@@ -27,6 +27,13 @@
 
 
 function set_admin_pass($uname=null,$pass=null) {
+	$sql = "select count(*) from " . getTable('users')
+		." where password != '' and ulevel >=99";
+	list($adminexists) = rss_fetch_row(rss_query($sql));
+	if ($adminexists) {
+		die('Oops. Admin already exists!');
+	}
+	
 	if ($uname && $pass) {
 		rss_query( "update " . getTable('users') . " set uname='$uname', "
 		 ."password='" . md5($pass) . "' where ulevel=99" );

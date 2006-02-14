@@ -1141,7 +1141,7 @@ function getThemeMedia() {
     // This is here so that auto-detected (e.g. mobile) medias
     // can be overridden.
     if (isset($_GET['media'])) {
-        $media = $_GET['media'];
+        $media = sanitize($_GET['media'], RSS_SANITIZER_CHARACTERS);
     }
 
     // Finally: let plugins voice their opinion
@@ -1168,6 +1168,23 @@ function isMobileDevice() {
         }
     }
     return $ret;
+}
+
+function sanitize($input, $rules = 0) {
+	$ret = $input;
+	if ($rules & RSS_SANITIZER_SIMPLE_SQL) {
+		$ret = rss_real_escape_string($ret);
+	}
+	if ($rules & RSS_SANITIZER_NO_SPACES) {
+		$ret = preg_replace('#\s#','',$ret);
+	}
+	if ($rules & RSS_SANITIZER_NUMERIC) {
+		$ret = preg_replace('#[^0-9\.]#','',$ret);
+	}	
+	if ($rules & RSS_SANITIZER_CHARACTERS) {
+		$ret = preg_replace('#[^a-zA-Z]#','',$ret);
+	}
+	return $ret;
 }
 
 ?>

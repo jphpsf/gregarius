@@ -35,10 +35,12 @@ function themes() {
 	$themes = getThemes();
 
 	if (isset($_GET['theme']) && array_key_exists($_GET['theme'],$themes)) {
-		$sql = "update " . getTable('config') . " set value_ = '". $_GET['theme']."'"
+		$active_theme = sanitize($_GET['theme'], RSS_SANITIZER_SIMPLE_SQL |ÊRSS_SANITIZER_NO_SPACES);
+		
+		$sql = "update " . getTable('config') . " set value_ = '$active_theme'"
 			   ." where key_='rss.output.theme'";
 		rss_query($sql);
-		$active_theme = $_GET['theme'];
+		
 		rss_invalidate_cache();
 	}	 else {
 		$active_theme= getConfig('rss.output.theme');

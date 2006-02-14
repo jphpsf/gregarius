@@ -173,7 +173,7 @@ function config_admin() {
             rss_error('Invalid config key specified.', RSS_ERROR_ERROR,true);
             break;
         }
-        $key = $_REQUEST['key'];
+        $key = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
         $res = rss_query("select value_,default_,type_ from " .getTable('config') . " where key_='$key'");
         list($value,$default,$type) = rss_fetch_row($res);
         $value = real_strip_slashes($value);
@@ -222,7 +222,7 @@ function config_admin() {
 
     case CST_ADMIN_EDIT_ACTION:
     case 'CST_ADMIN_EDIT_ACTION':
-        $key_ = $_REQUEST['key'];
+        $key_ = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
         $res = rss_query("select * from ". getTable('config') . " where key_ ='$key_'");
         list($key,$value,$default,$type,$desc,$export) =  rss_fetch_row($res);
         $value = real_strip_slashes($value);
@@ -376,9 +376,9 @@ function config_admin() {
 
     case LBL_ADMIN_SUBMIT_CHANGES:
     case 'LBL_ADMIN_SUBMIT_CHANGES':
-        $key = $_REQUEST['key'];
-        $type = $_REQUEST['type'];
-        $value = rss_real_escape_string($_REQUEST['value']);
+        $key = sanitize($_POST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
+        $type = sanitize($_POST['type'],RSS_SANITIZER_CHARACTERS);
+        $value = sanitize($_POST['value'], RSS_SANITIZER_SIMPLE_SQL);
 
         switch ($key) {
 
@@ -472,7 +472,7 @@ function config_admin() {
                 break;
             default:
                 rss_error('Ooops, unknown config type: ' . $type, RSS_ERROR_ERROR,true);
-                var_dump($_REQUEST);
+                //var_dump($_REQUEST);
                 break;
             }
         }

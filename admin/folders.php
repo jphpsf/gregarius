@@ -163,34 +163,37 @@ function folder_admin() {
         $__action__ = "";
     }
 
+    if (isset($_REQUEST['fid'])) {
+        $fid = sanitize($_REQUEST['fid'],RSS_SANITIZER_NUMERIC);
+    }
+
     $ret__ = CST_ADMIN_DOMAIN_FOLDER;
     switch ($__action__) {
 
     case CST_ADMIN_EDIT_ACTION:
-        folder_edit($_REQUEST['fid']);
+        folder_edit($fid);
         $ret__ = CST_ADMIN_DOMAIN_NONE;
         break;
 
     case CST_ADMIN_DELETE_ACTION:
-        $id = $_REQUEST['fid'];
-        assert(is_numeric($id));
 
-        if ($id == 0) {
+
+        if ($fid == 0) {
             rss_error(LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER, RSS_ERROR_ERROR,true);
             break;
         }
 
         if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
-            $sql = "delete from " . getTable("folders") ." where id=$id";
+            $sql = "delete from " . getTable("folders") ." where id=$fid";
             rss_query($sql);
-            $sql = "update " . getTable("channels") ." set parent=" . getRootFolder() . " where parent=$id";
+            $sql = "update " . getTable("channels") ." set parent=" . getRootFolder() . " where parent=$fid";
             rss_query($sql);
         }
         elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
             // nop;
         }
         else {
-            list($fname) = rss_fetch_row(rss_query("select name from " .getTable("folders") ." where id = $id"));
+            list($fname) = rss_fetch_row(rss_query("select name from " .getTable("folders") ." where id = $fid"));
 
             echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
             ."<p class=\"error\">";
@@ -198,7 +201,7 @@ function folder_admin() {
             echo "</p>\n"
             ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
             ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
-            ."<input type=\"hidden\" name=\"fid\" value=\"$id\"/>\n"
+            ."<input type=\"hidden\" name=\"fid\" value=\"$fid\"/>\n"
             ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_FOLDER."\"/>\n"
             ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\"/>\n"
             ."</p>\n</form>\n";
@@ -207,10 +210,9 @@ function folder_admin() {
         break;
 
     case CST_ADMIN_SUBMIT_EDIT:
-        $id = $_REQUEST['fid'];
-
+        // TBD
         $new_label = rss_real_escape_string($_REQUEST['f_name']);
-        if (is_numeric($id) && strlen($new_label) > 0) {
+        if (is_numeric($fid) && strlen($new_label) > 0) {
 
             $res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
             list($cnt) = rss_fetch_row($res);
@@ -218,30 +220,29 @@ function folder_admin() {
                 rss_error(sprintf(LBL_ADMIN_CANT_RENAME,$new_label), RSS_ERROR_ERROR,true);
                 break;
             }
-            rss_query("update " .getTable("folders") ." set name='$new_label' where id=$id");
+            rss_query("update " .getTable("folders") ." set name='$new_label' where id=$fid");
         }
         break;
 
     case LBL_ADMIN_ADD:
     case 'LBL_ADMIN_ADD':
-        $label=$_REQUEST['new_folder'];
+        $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_SIMPLE_SQL);
         assert(strlen($label) > 0);
         create_folder($label);
         break;
 
     case CST_ADMIN_MOVE_UP_ACTION:
     case CST_ADMIN_MOVE_DOWN_ACTION:
-        $id = $_REQUEST['fid'];
 
-        if ($id == 0) {
+        if ($fid == 0) {
             return;
         }
 
-        $res = rss_query("select position from " .getTable("folders") ." where id=$id");
+        $res = rss_query("select position from " .getTable("folders") ." where id=$fid");
         list($position) = rss_fetch_row($res);
 
         $sql = "select id, position from " .getTable("folders")
-               ." where	id != $id order by abs($position-position) limit 2";
+               ." where	id != $fid order by abs($position-position) limit 2";
 
         $res = rss_query($sql);
 
@@ -267,7 +268,7 @@ function folder_admin() {
 
         // right, lets!
         if ($switch_with_position != $position) {
-            rss_query( "update " . getTable("folders") ." set position = $switch_with_position where id=$id" );
+            rss_query( "update " . getTable("folders") ." set position = $switch_with_position where id=$fid" );
             rss_query( "update " . getTable("folders") ." set position = $position where id=$switch_with_id" );
         }
         break;

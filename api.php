@@ -1,4 +1,30 @@
 <?php
+###############################################################################
+# Gregarius - A PHP based RSS aggregator.
+# Copyright (C) 2003 - 2006 Marco Bonetti
+#
+###############################################################################
+# This program is free software and open source software; you can redistribute
+# it and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the License,
+# or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA  or visit
+# http://www.gnu.org/licenses/gpl.html
+#
+###############################################################################
+# E-mail:	   mbonetti at gmail dot com
+# Web page:	   http://gregarius.net/
+#
+###############################################################################
+
 require_once('core.php');
 rss_bootstrap();
 require_once('init.php');
@@ -6,7 +32,7 @@ require_once('init.php');
 if (isset($_REQUEST['method'])) {
     switch ($_REQUEST['method']) {
     case 'update':
-        $uc = getUnreadCount(null,null);
+            $uc = getUnreadCount(null,null);
         die("|$uc||");
         break;
     case 'listsubs':
@@ -16,6 +42,10 @@ if (isset($_REQUEST['method'])) {
         $cid = (isset($_REQUEST['s'])?$_REQUEST['s']:null);
         $date = (isset($_REQUEST['d'])?$_REQUEST['d']:null);
         $markread = (isset($_REQUEST['n']) && $_REQUEST['n'] == '1');
+
+        $cid = sanitize($cid,RSS_SANITIZER_NUMERIC);
+        $date = sanitize($date,RSS_SANITIZER_NUMERIC);
+
         blGetItems($cid,$date,$markread);
         break;
     }
@@ -92,12 +122,12 @@ function blOPML() {
 
 function blGetItems($cid,$date,$markread) {
     if (hidePrivate()) {
-        header('HTTP/1.x 401 Not Authorized'); 
+        header('HTTP/1.x 401 Not Authorized');
         exit();
     }
 
     if (!$cid) {
-        header ('HTTP/1.x 403 Forbidden'); 
+        header ('HTTP/1.x 403 Forbidden');
         exit();
     }
 
@@ -113,7 +143,7 @@ function blGetItems($cid,$date,$markread) {
     $rs = rss_query($sql);
 
     if (rss_num_rows($rs) == 0) {
-        header('HTTP/1.x 304 Not Modified'); 
+        header('HTTP/1.x 304 Not Modified');
         exit();
     }
     $ids = array();

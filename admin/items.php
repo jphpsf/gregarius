@@ -68,8 +68,7 @@ function item_admin() {
                             );
         list($cnt) = rss_fetch_row($req);
 
-        $prune_older = (int) $_REQUEST['prune_older'];
-        //$prune_keep = (int) $_REQUEST['prune_keep'];
+        $prune_older = sanitize( $_REQUEST['prune_older'], RSS_SANITIZER_NUMERIC);
         if (array_key_exists('prune_older',$_REQUEST) &&
                 strlen($_REQUEST['prune_older']) &&
                 is_numeric($_REQUEST['prune_older'])) 	{
@@ -165,13 +164,13 @@ function item_admin() {
                     $in_cache = array();
                     $to_trash = array();
                     foreach ($cids as $cid => $ids) {
-		    	$rsCache = rss_query("select itemsincache from " . getTable('channels') . " where id=$cid");
-			list($idString) = rss_fetch_row($rsCache);
-			if ($idString) {
-				$cacheIds = unserialize($idString);
-			} else {
-				$cacheIds = array();	
-			}
+                        $rsCache = rss_query("select itemsincache from " . getTable('channels') . " where id=$cid");
+                        list($idString) = rss_fetch_row($rsCache);
+                        if ($idString) {
+                            $cacheIds = unserialize($idString);
+                        } else {
+                            $cacheIds = array();
+                        }
                         foreach ($ids as $iid) {
                             //echo "examining: $iid (cid $cid) ->";
                             if (array_search($iid, $cacheIds) !== FALSE) {

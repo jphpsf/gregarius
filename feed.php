@@ -59,7 +59,7 @@ if (
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])
 ) {
-    $sqlid = rss_real_escape_string($_REQUEST['channel']);
+    $sqlid = sanitize($_REQUEST['channel'], RSS_SANITIZER_SIMPLE_SQL |ÊRSS_SANITIZER_NO_SPACES);
     $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
 
     if (hidePrivate()) {
@@ -123,12 +123,12 @@ if (
         if ($y < 1000)
             $y+=2000;
 
-        $m =  $_REQUEST['m'];
+        $m =  (int)$_REQUEST['m'];
         if ($m > 12) {
             $m = date("m");
         }
 
-        $d =  $_REQUEST['d'];
+        $d =  (int)$_REQUEST['d'];
         if ($d > 31) {
             $d = date("d");
         }
@@ -168,14 +168,14 @@ if (
     // no mod rewrite: ugly but effective
 }
 elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQUEST) || array_key_exists('vfolder',$_REQUEST)) {
-    $cid= (array_key_exists('channel',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['channel']):"";
-    $iid= (array_key_exists('iid',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['iid']):"";
-    $fid= (array_key_exists('folder',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['folder']):"";
-    $vfid= (array_key_exists('vfolder',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['vfolder']):"";
+    $cid= (array_key_exists('channel',$_REQUEST))?sanitize($_REQUEST['channel'],RSS_SANITIZER_NO_SPACES):"";
+    $iid= (array_key_exists('iid',$_REQUEST))?sanitize($_REQUEST['iid'],RSS_SANITIZER_NO_SPACES):"";
+    $fid= (array_key_exists('folder',$_REQUEST))?sanitize($_REQUEST['folder'],RSS_SANITIZER_NO_SPACES):"";
+    $vfid= (array_key_exists('vfolder',$_REQUEST))?sanitize($_REQUEST['vfolder'],RSS_SANITIZER_NO_SPACES):"";
 	
-    $y= (array_key_exists('y',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['y']):"0";
-    $m= (array_key_exists('m',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['m']):"0";
-    $d= (array_key_exists('d',$_REQUEST))?preg_replace('#\s#','',$_REQUEST['d']):"0";
+    $y= (array_key_exists('y',$_REQUEST))?sanitize($_REQUEST['y'],RSS_SANITIZER_NUMERIC):"0";
+    $m= (array_key_exists('m',$_REQUEST))?sanitize($_REQUEST['m'],RSS_SANITIZER_NUMERIC):"0";
+    $d= (array_key_exists('d',$_REQUEST))?sanitize($_REQUEST['d'],RSS_SANITIZER_NUMERIC):"0";
 
     if ($fid) {
         $sql = "select c.id from ". getTable('channels')." c "
@@ -233,16 +233,16 @@ elseif (
     && array_key_exists('d',$_REQUEST) && $_REQUEST['d'] != "" && is_numeric($_REQUEST['d'])
 )   {
 
-    $y = (int) $_REQUEST['y'];
+    $y = (int) sanitize($_REQUEST['y'],RSS_SANITIZER_NUMERIC);
     if ($y < 1000)
         $y+=2000;
 
-    $m =  $_REQUEST['m'];
+    $m =  (int) sanitize($_REQUEST['m'],RSS_SANITIZER_NUMERIC);
     if ($m > 12) {
         $m = date("m");
     }
 
-    $d =  $_REQUEST['d'];
+    $d =  (int) sanitize($_REQUEST['d'],RSS_SANITIZER_NUMERIC);
     if ($d > 31) {
         $d = date("d");
     }

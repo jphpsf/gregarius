@@ -178,6 +178,7 @@ function plugin_options() {
         plugins();
         return;
     }
+    // TBD
     $plugin_filename = $_REQUEST['plugin_name'];
     $plugin_filename = str_replace("%2F", "/", $plugin_filename);
     $plugin_output = "";

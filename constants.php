@@ -157,8 +157,17 @@ define ('ITEM_SORT_HINT_UNREAD', 0x00);
 define ('ITEM_SORT_HINT_READ', 0x01);
 define ('ITEM_SORT_HINT_MIXED', 0x02);
 
+
+
+// Sanitizer constants
+define ('RSS_SANITIZER_SIMPLE_SQL', 0x01);
+define ('RSS_SANITIZER_NO_SPACES', 0x02);
+define ('RSS_SANITIZER_NUMERIC', 0x04);
+define ('RSS_SANITIZER_CHARACTERS',0x08);
+
 // Profiling 
 //  - The profiling information is "html commented out" at the end of every html page
 //define('PROFILING', 1);
 //define('PROFILING_DB', 1);
+
 ?>
