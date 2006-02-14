@@ -59,7 +59,7 @@ if (
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])
 ) {
-    $sqlid = sanitize($_REQUEST['channel'], RSS_SANITIZER_SIMPLE_SQL |ÊRSS_SANITIZER_NO_SPACES);
+    $sqlid = sanitize($_REQUEST['channel'], RSS_SANITIZER_SIMPLE_SQL | RSS_SANITIZER_NO_SPACES);
     $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
 
     if (hidePrivate()) {

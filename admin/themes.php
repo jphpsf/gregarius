@@ -35,7 +35,7 @@ function themes() {
 	$themes = getThemes();
 
 	if (isset($_GET['theme']) && array_key_exists($_GET['theme'],$themes)) {
-		$active_theme = sanitize($_GET['theme'], RSS_SANITIZER_SIMPLE_SQL |ÊRSS_SANITIZER_NO_SPACES);
+		$active_theme = sanitize($_GET['theme'], RSS_SANITIZER_SIMPLE_SQL |RSS_SANITIZER_NO_SPACES);
 		
 		$sql = "update " . getTable('config') . " set value_ = '$active_theme'"
 			   ." where key_='rss.output.theme'";
