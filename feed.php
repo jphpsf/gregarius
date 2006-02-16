@@ -168,10 +168,10 @@ if (
     // no mod rewrite: ugly but effective
 }
 elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQUEST) || array_key_exists('vfolder',$_REQUEST)) {
-    $cid= (array_key_exists('channel',$_REQUEST))?sanitize($_REQUEST['channel'],RSS_SANITIZER_NO_SPACES):"";
-    $iid= (array_key_exists('iid',$_REQUEST))?sanitize($_REQUEST['iid'],RSS_SANITIZER_NO_SPACES):"";
-    $fid= (array_key_exists('folder',$_REQUEST))?sanitize($_REQUEST['folder'],RSS_SANITIZER_NO_SPACES):"";
-    $vfid= (array_key_exists('vfolder',$_REQUEST))?sanitize($_REQUEST['vfolder'],RSS_SANITIZER_NO_SPACES):"";
+    $cid= (array_key_exists('channel',$_REQUEST))?sanitize($_REQUEST['channel'],RSS_SANITIZER_NUMERIC):"";
+    $iid= (array_key_exists('iid',$_REQUEST))?sanitize($_REQUEST['iid'],RSS_SANITIZER_NUMERIC):"";
+    $fid= (array_key_exists('folder',$_REQUEST))?sanitize($_REQUEST['folder'],RSS_SANITIZER_NUMERIC):"";
+    $vfid= (array_key_exists('vfolder',$_REQUEST))?sanitize($_REQUEST['vfolder'],RSS_SANITIZER_NUMERIC):"";
 	
     $y= (array_key_exists('y',$_REQUEST))?sanitize($_REQUEST['y'],RSS_SANITIZER_NUMERIC):"0";
     $m= (array_key_exists('m',$_REQUEST))?sanitize($_REQUEST['m'],RSS_SANITIZER_NUMERIC):"0";
@@ -414,7 +414,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 
         // folder
     case 'LBL_MARK_FOLDER_READ':
-        $fid = $_REQUEST['folder'];
+        $fid = sanitize($_REQUEST['folder'],RSS_SANITIZER_NUMERIC);
         $sql = "update " .getTable('item') . " i, " . getTable('channels') . " c "
                . " set i.unread = i.unread & ".SET_MODE_READ_STATE
                . " where i.cid=c.id and c.parent=$fid";
@@ -475,7 +475,7 @@ if (array_key_exists ('metaaction', $_POST)) {
         break;
         // virtual folder - code extremely similar to LBL_MARK_FOLDER_READ
     case 'LBL_MARK_VFOLDER_READ':
-        $vfid = $_REQUEST['vfolder'];
+        $vfid = sanitize($_REQUEST['vfolder'],RSS_SANITIZER_NUMERIC);
         $sql = "update " .getTable('item') . " i, " . getTable('metatag') . " m"
                . " set i.unread = i.unread & ".SET_MODE_READ_STATE
                . " where i.cid = m.fid and m.tid = $vfid and m.ttype = 'channel'";
