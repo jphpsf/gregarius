@@ -1182,10 +1182,13 @@ function sanitize($input, $rules = 0) {
 		$ret = preg_replace('#/\*.*\*/#','',$ret);
 	}
 	if ($rules & RSS_SANITIZER_NUMERIC) {
-		$ret = preg_replace('#[^0-9\.]#','',$ret);
+		$ret = preg_replace('#[^0-9\.-]#','',$ret);
 	}	
 	if ($rules & RSS_SANITIZER_CHARACTERS) {
 		$ret = preg_replace('#[^a-zA-Z]#','',$ret);
+	}
+	if ($rules & RSS_SANITIZER_CHARACTERS_EXT) {
+		$ret = preg_replace('#[^a-zA-Z_]#','',$ret);
 	}
 	return $ret;
 }

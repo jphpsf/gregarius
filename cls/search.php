@@ -105,16 +105,30 @@ class SearchItemList extends ItemList {
             return;
         }
 
-        $this->query = $_REQUEST[QUERY_PRM];
+				// fixme: this probably breaks on queries with weird characters, depending
+				// on the locale. 
+				// see: http://php.benscom.com/manual/en/reference.pcre.pattern.syntax.php
+        $this->query = trim(preg_replace('#[^\w\s]#','',$_REQUEST[QUERY_PRM]));
+        
         if (!$this->query) {
             return;
         }
 
-        $this->matchMode = (!array_key_exists(QUERY_MATCH_MODE, $_REQUEST) ? QUERY_MATCH_AND : $_REQUEST[QUERY_MATCH_MODE]);
-        $this->channelId = (array_key_exists(QUERY_CHANNEL, $_REQUEST)) ? (int) $_REQUEST[QUERY_CHANNEL] : ALL_CHANNELS_ID;
+        $this->matchMode = sanitize(
+        		(!array_key_exists(QUERY_MATCH_MODE, $_REQUEST) ? QUERY_MATCH_AND : $_REQUEST[QUERY_MATCH_MODE]), 
+        	RSS_SANITIZER_CHARACTERS_EXT);
+        	
+        $this->channelId = sanitize(
+        	((array_key_exists(QUERY_CHANNEL, $_REQUEST)) ? $_REQUEST[QUERY_CHANNEL] : ALL_CHANNELS_ID),
+        	RSS_SANITIZER_NUMERIC);
 
-        $this->resultsPerPage = (array_key_exists(QUERY_RESULTS, $_REQUEST)) ? (int) $_REQUEST[QUERY_RESULTS] : INFINE_RESULTS;
-        $this->currentPage = (array_key_exists(QUERY_CURRENT_PAGE, $_REQUEST) ? (int) $_REQUEST[QUERY_CURRENT_PAGE] : 0);
+        $this->resultsPerPage = sanitize(
+        	((array_key_exists(QUERY_RESULTS, $_REQUEST)) ? $_REQUEST[QUERY_RESULTS] : INFINE_RESULTS),
+        	RSS_SANITIZER_NUMERIC);
+        
+        $this->currentPage = sanitize(
+        	(array_key_exists(QUERY_CURRENT_PAGE, $_REQUEST) ? $_REQUEST[QUERY_CURRENT_PAGE] : 0),
+        	RSS_SANITIZER_NUMERIC);
 
         $this->startItem = $this->resultsPerPage * $this->currentPage;
 
@@ -124,7 +138,10 @@ class SearchItemList extends ItemList {
             $this->endItem = 99999999;
         }
 
-        $this->orderBy = (array_key_exists(QUERY_ORDER_BY, $_REQUEST) ? $_REQUEST[QUERY_ORDER_BY] : QUERY_ORDER_BY_DATE);
+        $this->orderBy = sanitize(
+        	(array_key_exists(QUERY_ORDER_BY, $_REQUEST) ? $_REQUEST[QUERY_ORDER_BY] : QUERY_ORDER_BY_DATE),
+        	RSS_SANITIZER_CHARACTERS_EXT);
+        	
         $qWhere = "";
         $this->regMatch = "";
         $term = "";
