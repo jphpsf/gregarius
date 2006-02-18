@@ -848,6 +848,7 @@ function __exp_login($uname,$pass,$cb) {
 function getThemePath() {
     $ret = getPath().RSS_THEME_DIR."/";
     if (($theme = getConfig('rss.output.theme')) != null) {
+    	  $theme = sanitize($theme,RSS_SANITIZER_CHARACTERS);
         $ret .= $theme."/";
     } else {
         $ret .= "default/";
