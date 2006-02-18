@@ -65,15 +65,15 @@ QUICK START
         mysql -u database_user -h database_host -p database_name < dbstruct.sql
 	
 	
-   7.   Point your browser to the URL corresponding the install location
-	and click "Admin". You can start adding feeds by pasting URLs of
-	RSS or RDF feeds into the "Add a feed" field. Alternatively you
-	can import a whole structure of items using the OPML import
-	feature.
+   7.   Point your browser to the URL corresponding the install
+	location and click "Admin". After selecting a new password,
+	you can start adding feeds by pasting URLs of RSS or RDF feeds
+	into the "Add a feed" field. Alternatively you can import a
+	list of feeds using the OPML import feature.
    
-   8.   You may wish to password-protect the administration section of
-	your fresh gregarius installation, to prevent unauthorized users
-	from messing with your subscriptions and breaking stuff. 
+   8.   This version of Gregarius comes with default password
+	protection, however you may wish to to strengthen it by using
+	a .htaccess file. 
         
-	See http://wiki.gregarius.net/index.php/Password_Protection for
-	this purpose.
+	See http://wiki.gregarius.net/index.php/Password_Protection
+	for this purpose.
