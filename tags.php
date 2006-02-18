@@ -83,7 +83,7 @@ function relatedTags($tags) {
 
 if (array_key_exists('tag', $_GET)) {
 	// while this one displays a list of items for the requested tag(s)
-	$tag = $_GET['tag'];
+	$tag = strip_tags($_GET['tag']);
 	$twhere = "";
 	$tarr = explode(" ", $tag);
 	$hrTag = implode(" ".LBL_AND." ", $tarr);
