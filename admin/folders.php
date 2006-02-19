@@ -188,6 +188,7 @@ function folder_admin() {
             rss_query($sql);
             $sql = "update " . getTable("channels") ." set parent=" . getRootFolder() . " where parent=$fid";
             rss_query($sql);
+            rss_invalidate_cache();
         }
         elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
             // nop;
@@ -211,7 +212,7 @@ function folder_admin() {
 
     case CST_ADMIN_SUBMIT_EDIT:
         // TBD
-        $new_label = rss_real_escape_string($_REQUEST['f_name']);
+        $new_label = sanitize($_REQUEST['f_name'], RSS_SANITIZER_CHARACTERS_EXT);
         if (is_numeric($fid) && strlen($new_label) > 0) {
 
             $res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
@@ -221,12 +222,13 @@ function folder_admin() {
                 break;
             }
             rss_query("update " .getTable("folders") ." set name='$new_label' where id=$fid");
+            rss_invalidate_cache();
         }
         break;
 
     case LBL_ADMIN_ADD:
     case 'LBL_ADMIN_ADD':
-        $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_SIMPLE_SQL);
+        $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_CHARACTERS_EXT);
         assert(strlen($label) > 0);
         create_folder($label);
         break;
@@ -270,6 +272,7 @@ function folder_admin() {
         if ($switch_with_position != $position) {
             rss_query( "update " . getTable("folders") ." set position = $switch_with_position where id=$fid" );
             rss_query( "update " . getTable("folders") ." set position = $position where id=$switch_with_id" );
+            rss_invalidate_cache();
         }
         break;
 
@@ -302,6 +305,7 @@ function create_folder($label, $complainonerror=true) {
             $np = "0";
         }
         rss_query("insert into " .getTable("folders") ." (name,position) values ('" . rss_real_escape_string($label) ."', $np)");
+        rss_invalidate_cache();
     }
 
     list($fid) = rss_fetch_row( rss_query("select id from " .getTable("folders") ." where name='". rss_real_escape_string($label) ."'"));
