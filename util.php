@@ -790,6 +790,7 @@ function rss_getUser() {
                     'ulevel' => RSS_USER_LEVEL_NOLEVEL,
                     'realname' => null,
                     'lastip' => null,
+                    'userips' => null,
                     'lastlogin' => null
                 );
 
@@ -798,11 +799,23 @@ function rss_getUser() {
             list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
             $sql = "select * from " . getTable('users') . " where uname='"
                    .rss_real_escape_string($cuname) ."' and password='"
-                   .rss_real_escape_string($chash) ."'";
+                   .preg_replace('#[^a-zA-Z0-9]#','',$chash) ."'";
             $rs = rss_query($sql);
             if (rss_num_rows($rs) == 1) {
-                $user = rss_fetch_assoc($rs);
-                unset($user['password']);
+                $tmp = rss_fetch_assoc($rs);
+                if (isset($tmp['userips'])) {
+                	$tmp['userips'] = explode(' ',$tmp['userips']);
+                } else {
+                	$tmp['userips'] = array();
+                }
+                
+                unset($tmp['password']);
+                $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+    				 if (array_search($subnet, $tmp['userips']) !== FALSE) {
+    				 	// success: password hash was checked and the user's IP 
+    				 	// address subnet is registered 
+    				 	$user = $tmp;
+    				 }
             }
         }
     }
@@ -812,8 +825,28 @@ function rss_getUser() {
 
 function logoutUserCookie() {
     if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
-        unset($_COOKIE[RSS_USER_COOKIE]);
-        setcookie(RSS_USER_COOKIE, "", -1, getPath());
+    
+    		// remove the user's IP subnet from the list of valid addresses
+    		$user = rss_getUser();
+    	   $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+    	   
+			if (($idx = array_search($subnet, $user['userips'])) !== FALSE) {
+				$cnt = count($user['userips']);
+				unset($user['userips'][$idx]);
+				$uname = trim($user['uname']);
+				if ($uname && ($cnt > count($user['userips']))) {
+					$sql = "update " .getTable('users') 
+						. " set userips = '" . implode(' ',$user['userips']) ."'"
+						." where uname = '$uname' ";
+					rss_query($sql);
+				}
+			}
+    	   
+    	   // get rid of the cookie
+         unset($_COOKIE[RSS_USER_COOKIE]);
+         setcookie(RSS_USER_COOKIE, "", -1, getPath());
+        	rss_invalidate_cache();
+        
     }
 }
 
@@ -821,7 +854,6 @@ function hidePrivate() {
     static $ret;
     if ($ret === null) {
         $ret = !rss_check_user_level(RSS_USER_LEVEL_PRIVATE);
-        ;
     }
 
     return $ret;
@@ -833,12 +865,24 @@ function rss_check_user_level($level) {
 }
 
 function __exp_login($uname,$pass,$cb) {
-    $sql ="select uname,ulevel from " .getTable('users') . "where uname='"
+    $sql ="select uname,ulevel,userips from " .getTable('users') . "where uname='"
           .rss_real_escape_string($uname)."' and password='$pass'";
-    list($uname,$ulevel) = rss_fetch_row(rss_query($sql));
+    list($uname,$ulevel,$userips) = rss_fetch_row(rss_query($sql));
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
+    		// is the user's IP subnet in the database, already?
+    		$subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+    		$useripsArray = explode(' ',$userips);
+    		if (array_search($subnet, $useripsArray) === FALSE) {
+    			$useripsArray[] = $subnet;
+    			$sql = "update " .getTable('users') 
+    				. " set userips = '" . implode(' ',$useripsArray) ."'"
+    				." where uname = '$uname' ";
+    			rss_query($sql);
+    		}
+    		
+    		
         //setcookie(RSS_USER_COOKIE,$uname ."|". $pass,time()+3600*365,getPath());
         rss_invalidate_cache();
     }

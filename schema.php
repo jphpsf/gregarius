@@ -223,6 +223,21 @@ function checkSchemaColumns($column) {
 					. rss_sql_error_message(), RSS_ERROR_ERROR);
 			}
 		break;
+		
+		case 'userips':
+		case 'i.userips':
+		// users.userips: list of valid IP subnets the user has logged in from
+		rss_query('alter table ' . getTable('users') . ' add column userips text default \'\'');
+			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
+				$updated++;
+				rss_error('updated schema for table ' . getTable('users'), RSS_ERROR_NOTICE);
+			} else {
+				rss_error('Failed updating schema for table ' . getTable('users') . ': '
+					. rss_sql_error_message(), RSS_ERROR_ERROR);
+			}
+		break;
+		
+		
 		case 'i.md5sum':
 		case 'md5sum':
 			// md5check on an item - added in 0.5.3
@@ -247,6 +262,7 @@ function checkSchemaColumns($column) {
 				rss_error('Failed updating schema for table ' . getTable('item') . ': '
 					. rss_sql_error_message(), RSS_ERROR_ERROR);
 			}
+		
 		break;
 	}
 	return $updated;
@@ -632,6 +648,7 @@ function _init_users() {
 		  ulevel bigint(11) NOT NULL default '1',		  
 		  realname varchar(255) default NULL,		  		  
 		  lastip varchar(255) default NULL,		  		  		  
+		  userips TEXT default '',		  
 		  lastlogin datetime NULL default '0000-00-00 00:00:00',
 		  PRIMARY KEY  (uid),
 		  KEY (uname)
