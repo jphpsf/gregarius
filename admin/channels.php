@@ -534,11 +534,11 @@ function channel_admin() {
         $cid = sanitize($_POST['cid'],RSS_SANITIZER_NUMERIC);
         rss_plugin_hook('rss.plugins.admin.feed.properties.submit', null);
         // TBD
-        $title= rss_real_escape_string(real_strip_slashes($_POST['c_name']));
+        $title= strip_tags(rss_real_escape_string(real_strip_slashes($_POST['c_name'])));
         $url= rss_real_escape_string($_POST['c_url']);
         $siteurl= rss_real_escape_string($_POST['c_siteurl']);
         $parent= rss_real_escape_string($_POST['c_parent']);
-        $descr= rss_real_escape_string(real_strip_slashes($_POST['c_descr']));
+        $descr= strip_tags(rss_real_escape_string(real_strip_slashes($_POST['c_descr'])));
         $icon = rss_real_escape_string($_POST['c_icon']);
         $priv = (array_key_exists('c_private',$_POST) && $_POST['c_private'] == '1');
         $tags = rss_real_escape_string($_POST['c_tags']);
