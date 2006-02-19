@@ -103,7 +103,10 @@ function rss_search_channels_combo($id) {
 	if (hidePrivate()) {
 		$sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";	      
 	}
-		      
+
+	
+	$sql .=" and not(c.mode & " . RSS_MODE_DELETED_STATE .") ";	      
+	
 	$sql .= " order by "
 	     .((getConfig('rss.config.absoluteordering'))?"f.position asc, c.position asc":"f.name asc, c.title asc");
 
