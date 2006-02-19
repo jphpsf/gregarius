@@ -386,6 +386,10 @@ function config_admin() {
 					case 'rss.output.title':
 					$value = strip_tags($value);
 					break;
+					
+					case 'rss.config.robotsmeta':
+					$value = preg_replace('#[^a-zA-Z,\s]#','',$value);
+					break;
 				}
 				
 				
