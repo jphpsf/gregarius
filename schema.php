@@ -428,7 +428,6 @@ _SQL_
 function setDefaults($key) {
   	rss_error('inserting some default config values...', RSS_ERROR_NOTICE);
 	$defaults = array (
-		"rss.output.cachedir"		=>		array("/tmp/magpierss","/tmp/magpierss","string","Where should magpie store its temporary files? (Apache needs write permissions on this dir.)","MAGPIE_CACHE_DIR"),
 		"rss.output.encoding"		=>		array("UTF-8","UTF-8","string","Output encoding for the PHP XML parser.","MAGPIE_OUTPUT_ENCODING"),
 		"rss.output.itemsinchannelview"=>array("10","10","num","Number of read items shown on for a single channel.",NULL),
 		"rss.output.showfavicons"	=>		array("true","true","boolean","Display the favicon for the channels that have one. Due to a IE bug, some icons do not render correctly. You can either change the URL to the icon in the admin screen, or turn the display of favicons off globally here.",NULL),

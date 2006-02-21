@@ -48,10 +48,13 @@ function config() {
         $value =  real_strip_slashes($row['value_']);
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
-        // Fix for #279. Plugins have their own section.
-        if ($row['key_'] == 'rss.config.plugins' or $row['key_'] ==
-                'rss.output.theme' or $row['key_'] == 'rss.output.barefrontpage'
-                or $row['key_'] == 'rss.output.noreaditems' or $row['key_'] == 'rss.output.numitemsonpage') {
+        // Don't show old/moved config keys in the main config list
+        if ($row['key_'] == 'rss.config.plugins' or 
+		$row['key_'] == 'rss.output.theme' or 
+		$row['key_'] == 'rss.output.barefrontpage' or 
+		$row['key_'] == 'rss.output.noreaditems' or 
+		$row['key_'] == 'rss.output.cachedir' or
+		$row['key_'] == 'rss.output.numitemsonpage') {
             continue;
         }
 
@@ -89,13 +92,6 @@ function config() {
             . " (your local time: "
             . preg_replace('/ /','&nbsp;',date("g:i A",mktime()+$value*3600))
             .")";
-            break;
-        case 'rss.output.cachedir':
-            echo $value;
-            if (!is_writable($value)) {
-                echo "<br />"
-                ."<span class=\"error\">Warning: this isn't a writable directory!</span>";
-            }
             break;
         default:
 
@@ -298,19 +294,6 @@ function config_admin() {
             }
             echo "</select>\n";
             break;
-        case 'rss.output.cachedir':
-            if (!is_writable($value)) {
-                echo "</p><p class=\"error\">"
-                ."Warning! The current value ($value) is not a writable directory!<br />"
-                ."See <a href=\"http://wiki.gregarius.net/index.php/MagpieRSS\">here</a> "
-                ."why it is important you provide a valid, writable directory."
-                ."</p><p>\n";
-            } else {
-                echo "</p><p>"
-                ."The current value ($value) is a valid, writable directory!"
-                ."</p><p>\n";
-            }
-            // no break: fall back into the normal handling
         default:
 
             // generic handling per type:
