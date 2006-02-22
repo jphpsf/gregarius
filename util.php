@@ -234,7 +234,7 @@ function update($id) {
             } elseif($guid) {
             	$guids[$guid] = true;
             }
-				
+
             if ($description != "") {
                 $md5sum = md5($description);
                 $description = kses($description, $kses_allowed); // strip out tags
@@ -794,9 +794,13 @@ function rss_getUser() {
                     'lastlogin' => null
                 );
 
-
+        $cuname =  $chash = null;
         if (isset($_COOKIE[RSS_USER_COOKIE])) {
             list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
+         } elseif(isset($_SESSION['mobile'])) {
+         		list($cuname,$chash) = explode('|',$_SESSION['mobile']);
+         }
+         if ($cuname && $chash) {
             $sql = "select * from " . getTable('users') . " where uname='"
                    .rss_real_escape_string($cuname) ."' and password='"
                    .preg_replace('#[^a-zA-Z0-9]#','',$chash) ."'";
@@ -822,6 +826,14 @@ function rss_getUser() {
     return $user;
 }
 
+function setUserCookie($user,$hash) {
+    if (getConfig('rss.config.autologout')) {
+        $t = 0;
+    } else {
+        $t =time()+COOKIE_LIFESPAN;
+    }
+    setcookie(RSS_USER_COOKIE, "$user|$hash", $t, getPath());
+}
 
 function logoutUserCookie() {
     if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
@@ -889,15 +901,13 @@ function __exp_login($uname,$pass,$cb) {
     return "$ulevel|$uname|$pass";
 }
 
-function getThemePath() {
-    $ret = getPath().RSS_THEME_DIR."/";
-    if (($theme = getConfig('rss.output.theme')) != null) {
-    	  $theme = sanitize($theme,RSS_SANITIZER_CHARACTERS);
-        $ret .= $theme."/";
-    } else {
-        $ret .= "default/";
-    }
-    return $ret;
+function getThemePath($path=null) {
+    list($theme,$media) = getActualTheme();
+    if (null === $path)
+        $path = getPath();
+    if( !file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/") )
+        $theme = 'default';
+    return $path.RSS_THEME_DIR."/$theme/$media/";
 }
 
 function getUnreadCount($cid, $fid) {
@@ -1143,21 +1153,31 @@ function cacheFavicon($icon) {
  * as well as the detected "media" (@see getThemeMedia)
  */
 function getActualTheme() {
-    static $theme;
+    static $ret;
 
-    if ($theme) {
-        return $theme;
+    if ($ret) {
+        return $ret;
     }
 
 
+	// Theme
     $theme = getConfig('rss.output.theme');
+    if (null === $theme)
+        $theme = 'default';
     if (defined('THEME_OVERRIDE')) {
         $theme = THEME_OVERRIDE;
     }
     elseif (isset($_GET['theme'])) {
         $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
     }
-    return $theme;
+
+    $theme = sanitize($theme,RSS_SANITIZER_CHARACTERS);
+    
+    // Media
+    $media = getThemeMedia();
+    
+    $ret = array($theme,$media);
+    return $ret;
 }
 
 
@@ -1179,14 +1199,14 @@ function getThemeMedia() {
     if (isset($_GET['rss'])) {
         $media = 'rss';
     }
-    elseif (isset($_GET['mobile']) || isMobileDevice()) {
+    elseif (isset($_SESSION['mobile']) || isset($_REQUEST['mobile']) || isMobileDevice()) {
         $media = 'mobile';
     }
 
     // This is here so that auto-detected (e.g. mobile) medias
     // can be overridden.
-    if (isset($_GET['media'])) {
-        $media = sanitize($_GET['media'], RSS_SANITIZER_CHARACTERS);
+    if (isset($_REQUEST['media'])) {
+        $media = sanitize($_REQUEST['media'], RSS_SANITIZER_CHARACTERS);
     }
 
     // Finally: let plugins voice their opinion
@@ -1200,19 +1220,30 @@ function getThemeMedia() {
  * This definitely needs some heavy tweaking.
  */
 function isMobileDevice() {
-    static $ret;
-    if ($ret !== NULL) {
-        return $ret;
-    } else {
-        $ret = false;
-        if (isset($_SERVER['HTTP_USER_AGENT'])) {
-            $ua = $_SERVER['HTTP_USER_AGENT'];
-            $ret = strpos($ua, 'SonyEricsson')
-                   || strpos($ua, 'Nokia')
-                   || strpos($ua, 'Mobile');
-        }
-    }
-    return $ret;
+	static $ret;
+	if ($ret !== NULL) {
+		return $ret;
+	} else {
+		$ret = false;
+		if (isset($_SERVER['HTTP_USER_AGENT'])) {
+			$ua = $_SERVER['HTTP_USER_AGENT'];
+			$ua_lwr = strtolower( $ua );
+			$ret = strpos($ua, 'SonyEricsson') !== FALSE
+				|| strpos($ua, 'Nokia') !== FALSE
+				|| strpos($ua, 'Mobile') !== FALSE
+				|| strpos($ua, 'Windows CE') !== FALSE
+				|| strpos($ua, 'EPOC') !== FALSE
+				|| strpos($ua, 'Opera Mini') !== FALSE
+				|| strpos($ua_lwr, 'j2me') !== FALSE
+				|| strpos($ua, 'Netfront') !== FALSE;
+			// if none of those matched, let's have a gander at grabbing the resolution...
+			if (!$ret && eregi( "([0-9]{3})x([0-9]{3})", $ua, $matches ) ) {
+				if ($matches[1]<600 || $matches[2]<600) {
+					$ret = 1; //one of the screen dimensions is less than 600 - we'll call it a mobile device
+				}
+			}
+		} 
+	}
 }
 
 function sanitize($input, $rules = 0) {

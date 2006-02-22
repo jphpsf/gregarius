@@ -120,7 +120,8 @@ if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
 }
 
 // Theme  specific l10n handling
-$theme = getActualTheme();
+list($theme,$media) = getActualTheme();
+
 if (file_exists(RSS_THEME_DIR."/$theme/intl/$lang.php")) {
     rss_require(RSS_THEME_DIR."/$theme/intl/$lang.php");
 }
@@ -128,10 +129,12 @@ elseif ($lang != "en" && file_exists(RSS_THEME_DIR."/$theme/intl/en.php")) {
     rss_require(RSS_THEME_DIR."/$theme/intl/en.php");
 }
 
+
 //
-if (file_exists(RSS_THEME_DIR."/$theme/overrides.php")) {
-	rss_require(RSS_THEME_DIR."/$theme/overrides.php");
+if (file_exists(getThemePath(GREGARIUS_HOME)."overrides.php")) {
+	rss_require(getThemePath('')."overrides.php");
 }
+
 
 // Load the right locale
 if (defined('OVERRIDE_LOCALE')) {

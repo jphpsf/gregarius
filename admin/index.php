@@ -304,16 +304,6 @@ function admin_enum_to_html($arr) {
     return $ret;
 }
 
-
-function setUserCookie($user,$hash) {
-    if (getConfig('rss.config.autologout')) {
-        $t = 0;
-    } else {
-        $t =time()+COOKIE_LIFESPAN;
-    }
-    setcookie(RSS_USER_COOKIE, "$user|$hash", $t, getPath());
-}
-
 function admin_header() {
 
     header('Content-Type: text/html; charset='

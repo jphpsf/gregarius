@@ -74,9 +74,8 @@ class RSS {
         }
 
 
-				$theme = getActualTheme();
-				
-        $ret=RSS_THEME_DIR."/$theme/$file";
+		list($theme,$media) = getActualTheme();
+        $ret=RSS_THEME_DIR."/$theme/$media/$file";
 
 
 
@@ -95,7 +94,7 @@ class RSS {
         see remarks about this here: http://www.php.net/reserved.variables
         We must use SCRIPT_FILENAME instead, because it always exists
         */
-        $theme_check = RSS_THEME_DIR."/$theme/$file";
+        $theme_check = RSS_THEME_DIR."/$theme/$media/$file";
         if (isset($_SERVER['SCRIPT_FILENAME']) && ereg('admin', $_SERVER['SCRIPT_FILENAME']))   {
             $theme_path = substr($_SERVER['SCRIPT_FILENAME'],
                                  0, strpos($_SERVER['SCRIPT_FILENAME'], 'admin'));
@@ -104,7 +103,7 @@ class RSS {
 
 
         if (!file_exists(GREGARIUS_HOME . $theme_check)) {
-            $ret= RSS_THEME_DIR."/default/$file";
+            $ret= RSS_THEME_DIR."/default/$media/$file";
         }
 
         $cache[$file] = $ret;
@@ -148,7 +147,7 @@ class RSS {
         }
 
         $file = $this->getTemplateFile($template);
-        
+
         rss_require($file);
 
         $this->_pf('end rendering');

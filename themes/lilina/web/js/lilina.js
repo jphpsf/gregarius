@@ -1,0 +1,67 @@
+function toggleItemByID(id) {
+ var fld=document.getElementById("c" + id);
+ if (fld.style.display == "none") {
+ 	fld.style.display = "block";
+ } else {
+ 	fld.style.display = "none";
+ }
+}
+
+var _lilina_cDivs = document.getElementsByTagName('div');
+var _lilina_divs = new Array();
+document._lilinaCollapsed = true;
+
+j=0;
+for (i=0;i<_lilina_cDivs.length; i++){
+	if (_lilina_cDivs[i].className == 'content') {
+		_lilina_divs[j] = _lilina_cDivs[i]; 		
+		_lilina_divs[j].lilinaArray = j;
+		j++;
+	}
+}
+
+function _lilina_expandAlldivs(flag) {
+	if (flag) { // then expand
+		for(i=0;i<_lilina_divs.length; i++){
+			_lilina_divs[i].style.display = "block";
+			document._lilinaCollapsed = false;
+		}
+	} else { // else contract
+		for(i=0;i<_lilina_divs.length; i++){
+			_lilina_divs[i].style.display = "none";
+			document._lilinaCollapsed = true;
+		}
+	}
+}
+
+function _lilina_toggleAlldivs() {
+	_lilina_expandAlldivs(document._lilinaCollapsed);
+}
+
+// This function below taken from code that mbonetti sent me. 
+
+function _lilina_channels_collapse(o) {
+	var items = o.parentNode.parentNode;
+	if (items && document.sidecollapsed) {
+		document.getElementById('channels').style.display="block";
+		document.getElementById('sidemenu').style.display="block";
+		items.style.marginLeft="290px";
+		document.sidecollapsed = false;
+		o.innerHTML = '&nbsp;&laquo;&nbsp;';
+		setCookie("_lilinaCollapser", "uncollapsed", _lilinaCookiePath);
+	} else {
+		document.getElementById('channels').style.display="none";
+		document.getElementById('sidemenu').style.display="none";
+		document.sidecollapsed = true;
+		items.style.marginLeft="0px";
+		o.innerHTML = '&nbsp;&raquo;&nbsp;';
+		setCookie("_lilinaCollapser", "collapsed", _lilinaCookiePath);
+	}
+}
+
+// Mmm delicious cookies, let us find out what they want us to do. 
+
+if(getCookie("_lilinaCollapser") == "collapsed") {
+document.sidecollapsed = false;
+_lilina_channels_collapse(document.getElementById("collapser").childNodes[0]);
+}

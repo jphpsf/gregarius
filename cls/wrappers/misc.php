@@ -28,8 +28,8 @@
 
 ///// MISC WRAPPERS /////
 function rss_theme_path() {
-	$theme = getActualTheme();
-	return getPath(). RSS_THEME_DIR."/$theme";
+	list($theme,$media) = getActualTheme();
+	return getPath(). RSS_THEME_DIR."/$theme/$media";
 }
 
 function getExternalThemeFile($fn) {
