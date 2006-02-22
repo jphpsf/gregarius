@@ -46,7 +46,7 @@ echo "var _lilinaCookiePath = '" . getPath() . "';\n";
 ?>
 -->
 </script>
-<script type="text/javascript" src="<?php echo getThemePath();?>web/js/lilina.js"></script>	
+<script type="text/javascript" src="<?php echo getThemePath();?>/js/lilina.js"></script>	
 
 <?php rss_plugin_hook('rss.plugins.bodyend', null); ?>
 </body>
