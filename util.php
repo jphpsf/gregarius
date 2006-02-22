@@ -1243,6 +1243,7 @@ function isMobileDevice() {
 				}
 			}
 		} 
+		return $ret;
 	}
 }
 
