@@ -428,7 +428,7 @@ if (array_key_exists ('metaaction', $_POST)) {
 
         rss_invalidate_cache();
 
-        $next_fid = 0;
+        $next_fid = $first_fid = 0;
         $found = false;
         $res = rss_query( " select id from " .getTable('folders') ." f order by "
 
@@ -439,28 +439,34 @@ if (array_key_exists ('metaaction', $_POST)) {
             if($fid__ == $fid) {
                 $found = true;
             }
-            $sql = "select count(*) from "
-                   .getTable('item') ." i, "
-                   .getTable('channels') ." c "
-                   ." where i.unread & " .RSS_MODE_UNREAD_STATE ." and i.cid = c.id and c.parent = $fid__";
-            if (hidePrivate()) {
-                $sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE . ")";
-            }
+			
+			if( $found || !$first_fid ) {
+				$sql = "select count(*) from "
+					   .getTable('item') ." i, "
+					   .getTable('channels') ." c "
+					   ." where i.unread & " .RSS_MODE_UNREAD_STATE ." and i.cid = c.id and c.parent = $fid__";
+				if (hidePrivate()) {
+					$sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE . ")";
+				}
+	
+				list($c) = rss_fetch_row(rss_query($sql));
+				//echo "$fid__ -> $c\n";
 
-            list($c) = rss_fetch_row(rss_query($sql));
-            //echo "$fid__ -> $c\n";
-
-            if ($c > 0) {
-                $next_fid = $fid__;
-                //echo "next -> $fid__\n";
-                if ($found) {
-                    //echo "can break\n";
-                    break;
-                }
-            }
+				if ($c > 0) {
+					if (!$first_fid)
+						$first_fid = $fid__;
+					if ($found) {
+						$next_fid = $fid__;
+						break;
+					}
+				}
+			}
         }
+		
+		if( !$next_fid && $first_fid )
+			$next_fid = $first_fid;
 
-        if ( $next_fid  && $found) {
+        if ( $next_fid ) {
             $fid = $next_fid;
             $sql = "select id from " . getTable('channels') ." where parent=$fid";
             $res = rss_query($sql);
@@ -468,7 +474,6 @@ if (array_key_exists ('metaaction', $_POST)) {
             while ( list($cid__) = rss_fetch_row($res)) {
                 $cids[] = $cid__;
             }
-
         } else {
             rss_redirect();
         }
@@ -489,39 +494,41 @@ if (array_key_exists ('metaaction', $_POST)) {
         rss_invalidate_cache();
 
         // find next virtual folder to redirect to
-        $next_vfid = 0;
+        $next_vfid = $first_vfid = 0;
         $found = false;
         $res = rss_query("select distinct tid from " .getTable('metatag') ." m," .getTable('tag') ."t where m.tid = t.id order by t.tag asc");
         while (list($tid__) = rss_fetch_row($res)) {
-            if ($tid__ == $vfid && $next_vfid > 0) {
-                $found = true;
-                break;
-            }
-            elseif($tid__ == $vfid) {
+            if ($tid__ == $vfid) {
                 $found = true;
             }
-            // check for unread items in next virtual folder
-            $sql = "select count(distinct(i.id)) as cnt from "
-                   .getTable('metatag') ." left join "
-                   .getTable('item') . "i on (i.cid=fid) "
-                   ."where tid = $tid__ and ttype = 'channel' "
-                   ." and (i.unread & ".RSS_MODE_UNREAD_STATE.") "
-                   ."and not(i.unread & ".RSS_MODE_DELETED_STATE.")";
-            if (hidePrivate()) {
-                $sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE . ")";
-            }
-            list($c) = rss_fetch_row(rss_query($sql));
-            if ($c > 0) {
-                $next_vfid = $tid__;
-                //echo "next -> $vfid__\n";
-                if ($found) {
-                    //echo "can break\n";
-                    break;
-                }
-            }
+			
+			if( $found || !$first_vfid ) {
+				// check for unread items in next virtual folder
+				$sql = "select count(distinct(i.id)) as cnt from "
+					   .getTable('metatag') ." left join "
+					   .getTable('item') . "i on (i.cid=fid) "
+					   ."where tid = $tid__ and ttype = 'channel' "
+					   ." and (i.unread & ".RSS_MODE_UNREAD_STATE.") "
+					   ."and not(i.unread & ".RSS_MODE_DELETED_STATE.")";
+				if (hidePrivate()) {
+					$sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE . ")";
+				}
+				list($c) = rss_fetch_row(rss_query($sql));
+				if ($c > 0) {
+					if (!$first_vfid)
+						$first_vfid = $tid__;
+					if ($found) {
+						$next_vfid = $tid__;
+						break;
+					}
+				}
+			}
         }
+		
+		if( !$next_vfid && $first_vfid )
+			$next_vfid = $first_vfid;
 
-        if($next_vfid && $found) {
+        if($next_vfid) {
             $vfid = $next_vfid;
             $sql = "select distinct(fid) from " . getTable('metatag') . " where tid = $vfid";
             $res = rss_query($sql);
