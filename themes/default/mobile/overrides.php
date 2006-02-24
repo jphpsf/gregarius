@@ -1,9 +1,12 @@
 <?php
 
-// force at most 10 items on the front page
-rss_config_override('rss.output.frontpage.numitems', 10);
-// and on feed.php as well
-rss_config_override('rss.output.itemsinchannelview', 10);
+// stores constants for overrides' defaults
+require_once('mobileconstants.php');
+
+// load our optional overrides
+rss_plugin_config_override_option('rss.output.frontpage.numitems', DEFAULT_MOBILE_FRONTPAGE_NUMITEMS);
+rss_plugin_config_override_option('rss.output.itemsinchannelview', DEFAULT_MOBILE_FRONTPAGE_ITEMSINCHANNELVIEW);
+
 // but why does it sort in reverse order unless we set this?
 rss_config_override('rss.output.frontpage.mixeditems', false);
 

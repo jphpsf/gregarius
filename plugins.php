@@ -208,11 +208,6 @@ foreach(getConfig('rss.config.plugins') as $pf) {
  * all plugins def must be inside a unique file called plugins.php that
  * do all the works
  */
-list($mytheme,$media) = getActualTheme();
-/*
- * If theme is set in the request then let it overide everything. 
- * Then it can have a plugins.php page. 
- */
 
 $mythemeplugin=getThemePath(GREGARIUS_HOME)."plugins.php";
 if (file_exists($mythemeplugin)) {

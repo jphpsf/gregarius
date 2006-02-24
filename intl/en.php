@@ -114,6 +114,7 @@ define ('LBL_ADMIN_CONFIG','Configuration:');
 define ('LBL_ADMIN_OK','OK');
 define ('LBL_ADMIN_CANCEL','Cancel');
 define ('LBL_ADMIN_LOGOUT','Logout');
+define ('LBL_ADMIN_CONFIGURE','Configure');
 
 define ('LBL_ADMIN_OPML_IMPORT','Import');
 define ('LBL_ADMIN_OPML_EXPORT','Export');
@@ -148,6 +149,7 @@ define ('LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION','Description');
 define ('LBL_ADMIN_PLUGINS_HEADING_ACTION','Active');
 define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Options');
 define ('LBL_ADMIN_PLUGINS_OPTIONS','Plugin Options');
+define ('LBL_ADMIN_THEME_OPTIONS','Theme Options');
 
 
 define ('LBL_ADMIN_CHANNEL_EDIT_CHANNEL','Edit the feed ');

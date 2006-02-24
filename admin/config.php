@@ -31,124 +31,139 @@ function config() {
     echo "<h2 class=\"trigger\">".LBL_ADMIN_CONFIG."</h2>\n"
     ."<div id=\"admin_config\" class=\"trigger\">\n";
 
-    echo "<table id=\"configtable\">\n"
-    ."<tr>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_KEY ."</th>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_VALUE ."</th>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
-    ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
-    ."</tr>\n";
-
+	config_table_header();
+	
     $sql = "select * from " .getTable("config") ." where key_ like
            'rss.%' order by key_ asc";
 
     $res = rss_query($sql);
     $cntr = 0;
     while ($row = rss_fetch_assoc($res)) {
-        $value =  real_strip_slashes($row['value_']);
-        $class_ = (($cntr++ % 2 == 0)?"even":"odd");
-
-        // Don't show old/moved config keys in the main config list
-        if ($row['key_'] == 'rss.config.plugins' or 
+		// Don't show old/moved config keys in the main config list
+		if ($row['key_'] == 'rss.config.plugins' or 
 		$row['key_'] == 'rss.output.theme' or 
 		$row['key_'] == 'rss.output.barefrontpage' or 
 		$row['key_'] == 'rss.output.noreaditems' or 
 		$row['key_'] == 'rss.output.cachedir' or
 		$row['key_'] == 'rss.output.numitemsonpage') {
-            continue;
-        }
-
-        echo "<tr class=\"$class_\">\n"
-        ."\t<td>".$row['key_']."</td>\n";
-
-        echo "\t<td>";
-
-        switch($row['key_']) {
-
-            //specific handling per key
-        case 'rss.config.dateformat':
-            echo $value
-            . " ("
-            . preg_replace('/ /','&nbsp;',date($value))
-            .")";
-            break;
-        case 'rss.input.allowed':
-
-            $arr = unserialize($value);
-            echo admin_kses_to_html($arr);
-
-            break;
-        case 'rss.config.plugins':
-        case 'rss.output.theme':
-            continue;
-            break;
-
-        case 'rss.output.lang':
-            $arr = getLanguages();
-            echo $arr[getConfig('rss.output.lang')];
-            break;
-        case 'rss.config.tzoffset':
-            echo $value
-            . " (your local time: "
-            . preg_replace('/ /','&nbsp;',date("g:i A",mktime()+$value*3600))
-            .")";
-            break;
-        default:
-
-            // generic handling per type:
-            switch ($row['type_']) {
-            case 'string':
-            case 'num':
-            case 'boolean':
-            default:
-                echo $value;
-                break;
-            case 'enum':
-                $arr = explode(',',$value);
-                echo admin_enum_to_html($arr);
-
-                break;
-            case 'array':
-                $arr = unserialize($value);
-                echo "<ul>\n";
-                foreach($arr as $av) {
-                    echo "\t<li>$av</li>\n";
-                }
-                echo "</ul>\n";
-            }
-            break;
-        }
-
-        echo "</td>\n";
-
-        echo "\t<td>" .
-        // source: http://ch2.php.net/manual/en/function.preg-replace.php
-        preg_replace('/\s(\w+:\/\/)(\S+)/',
-                     ' <a href="\\1\\2">\\1\\2</a>',
-                     $row['desc_'])
-        . "</td>\n";
-
-        echo "\t<td class=\"cntr\">"
-        ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CONFIG
-        ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']
-        ."&amp;".CST_ADMIN_VIEW."=". CST_ADMIN_DOMAIN_CONFIG
-        ."\">" . LBL_ADMIN_EDIT
-        ."</a>";
-
-        if ($row['value_'] != $row['default_'] && $row['key_'] != 'rss.config.plugins') {
-            echo "|"
-
-            ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CONFIG
-            ."&amp;action=". CST_ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."\">" . LBL_ADMIN_DEFAULT
-            ."</a>";
-        }
-
-        echo "</td>\n"
-        ."</tr>\n";
-
+			continue;
+		}
+		
+        $class_ = (($cntr++ % 2 == 0)?"even":"odd");
+		config_table_row($row, $class_, CST_ADMIN_DOMAIN_CONFIG);
     }
-    echo "</table>";
+	
+	config_table_footer();
     echo "</div>\n";
+}
+
+function config_table_header($caption=null) {
+    echo "<table id=\"configtable\">\n";
+	if ($caption !== null) {
+		echo "<caption>$caption</caption>\n";
+	}
+    echo "<tr>\n"
+    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_KEY ."</th>\n"
+    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_VALUE ."</th>\n"
+    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
+    ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+    ."</tr>\n";
+}
+
+function config_table_footer() {
+    echo "</table>";
+}
+
+function config_table_row($row, $class_, $adminDomain, $extraLinkText='') {
+	$value =  real_strip_slashes($row['value_']);
+
+	echo "<tr class=\"$class_\">\n"
+	."\t<td>".$row['key_']."</td>\n";
+
+	echo "\t<td>";
+
+	switch($row['key_']) {
+
+		//specific handling per key
+	case 'rss.config.dateformat':
+		echo $value
+		. " ("
+		. preg_replace('/ /','&nbsp;',date($value))
+		.")";
+		break;
+	case 'rss.input.allowed':
+
+		$arr = unserialize($value);
+		echo admin_kses_to_html($arr);
+
+		break;
+	case 'rss.config.plugins':
+	case 'rss.output.theme':
+		continue;
+		break;
+
+	case 'rss.output.lang':
+		$arr = getLanguages();
+		echo $arr[getConfig('rss.output.lang')];
+		break;
+	case 'rss.config.tzoffset':
+		echo $value
+		. " (your local time: "
+		. preg_replace('/ /','&nbsp;',date("g:i A",mktime()+$value*3600))
+		.")";
+		break;
+	default:
+
+		// generic handling per type:
+		switch ($row['type_']) {
+		case 'string':
+		case 'num':
+		case 'boolean':
+		default:
+			echo $value;
+			break;
+		case 'enum':
+			$arr = explode(',',$value);
+			echo admin_enum_to_html($arr);
+
+			break;
+		case 'array':
+			$arr = unserialize($value);
+			echo "<ul>\n";
+			foreach($arr as $av) {
+				echo "\t<li>$av</li>\n";
+			}
+			echo "</ul>\n";
+		}
+		break;
+	}
+
+	echo "</td>\n";
+
+	echo "\t<td>" .
+	// source: http://ch2.php.net/manual/en/function.preg-replace.php
+	preg_replace('/\s(\w+:\/\/)(\S+)/',
+				 ' <a href="\\1\\2">\\1\\2</a>',
+				 $row['desc_'])
+	. "</td>\n";
+
+	echo "\t<td class=\"cntr\">"
+	."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". $adminDomain
+	."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']
+	."&amp;".CST_ADMIN_VIEW."=". $adminDomain
+	."$extraLinkText\">" . LBL_ADMIN_EDIT
+	."</a>";
+
+	if ($row['value_'] != $row['default_'] && $row['key_'] != 'rss.config.plugins') {
+		echo "|"
+
+		."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". $adminDomain
+		."&amp;action=". CST_ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."$extraLinkText\">" . LBL_ADMIN_DEFAULT
+		."</a>";
+	}
+
+	echo "</td>\n"
+	."</tr>\n";
 }
 
 function config_admin() {
@@ -180,18 +195,6 @@ function config_admin() {
             break;
         }
 
-        switch ($type) {
-        case 'enum':
-            $html_default = admin_enum_to_html(explode(',',$default));
-            break;
-        case 'array':
-            $html_default = admin_kses_to_html(unserialize($default));
-            break;
-        default:
-            $html_default = $default;
-            break;
-        }
-
         if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
             rss_query("update " . getTable('config') ." set value_=default_ where key_='$key'" );
             rss_invalidate_cache();
@@ -200,17 +203,9 @@ function config_admin() {
             //nop
         }
         else {
-
-            echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-            ."<p class=\"error\">";
-            printf(LBL_ADMIN_ARE_YOU_SURE_DEFAULT,$key,$html_default);
-            echo "</p>\n"
-            ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
-            ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
-            ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
-            ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
-            ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DEFAULT_ACTION ."\"/>\n"
-            ."</p>\n</form>\n";
+            echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
+			config_default_form($key, $type, $default, CST_ADMIN_DOMAIN_CONFIG);
+			echo "</form>\n";
 
             $ret =	CST_ADMIN_DOMAIN_NONE;
         }
@@ -221,134 +216,29 @@ function config_admin() {
         $key_ = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
         $res = rss_query("select * from ". getTable('config') . " where key_ ='$key_'");
         list($key,$value,$default,$type,$desc,$export) =  rss_fetch_row($res);
-        $value = real_strip_slashes($value);
 
-        echo "<div>\n";
-        echo "\n\n<h2>Edit '$key'</h2>\n";
-        echo "<form style=\"display:inline\" id=\"cfg\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-        ."<p>\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
-        ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
-        ."<input type=\"hidden\" name=\"type\" value=\"$type\"/>\n"
+		echo "<div>\n";
+		echo "\n\n<h2>Edit '$key'</h2>\n";
+		echo "<form style=\"display:inline\" id=\"cfg\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
+		
+		config_edit_form($key,$value,$default,$type,$desc,$export);
 
-        .preg_replace('/\s(\w+:\/\/)(\S+)/',
-                      ' <a href="\\1\\2">\\1\\2</a>',
-                      $desc)
-
-        ."\n</p>\n"
-        ."<p>\n";
-
-        switch($key) {
-
-        case 'rss.input.allowed':
-
-            $arr = unserialize($value);
-
-            echo "</p>\n"
-            ."<fieldset class=\"tags\">\n"
-            ."<legend>Tags</legend>\n"
-            ."<select size=\"8\" name=\"first\" onchange=\"populate2()\">\n"
-            ."<option>Your browser doesn't support javascript</option>\n"
-            ."</select>\n"
-            ."<input type=\"text\" name=\"newtag\" id=\"newtag\" />\n"
-            ."<input type=\"button\" onclick=\"add1(); return false;\" value=\"add tag\" />\n"
-            ."<input type=\"button\" onclick=\"delete1(); return false;\" value=\"delete tag\" />\n"
-            ."</fieldset><fieldset class=\"tags\">\n"
-            ."<legend>Attributes</legend>\n"
-            ."<select size=\"8\" name=\"second\">\n"
-            ."<option>Your browser doesn't support javascript</option>\n"
-            ."</select>\n"
-            ."<input type=\"text\" name=\"newattr\" id=\"newattr\" />\n"
-            ."<input type=\"button\" onclick=\"add2(); return false;\" value=\"add attr\" />"
-            . "<input type=\"button\" onclick=\"delete2(); return false;\" value=\"delete attr\" />"
-            ."</fieldset>\n"
-            ."<p><input type=\"hidden\" name=\"value\" id=\"packed\" value=\"\" />\n"
-            ;
-
-            $onclickaction = "pack(); return true";
-            //$preview = true;
-
-            echo "<script type=\"text/javascript\">\n"
-            ."<!--\n";
-            jsCode($arr);
-            echo "\n// -->\n";
-            echo "</script>\n";
-
-            break;
-
-
-        case 'rss.output.lang':
-            $active_lang = getConfig('rss.output.lang');
-
-
-            echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
-            ."\t\t<select name=\"value\" id=\"c_value\">\n";
-            $cntr = 0;
-            $value = "";
-            $langs = getLanguages();
-            foreach ($langs as $code => $name) {
-                echo "<option value=\"$code\"";
-                if ($code == $active_lang)   {
-                    echo " selected=\"selected\"";
-                }
-                echo ">".$langs[$code]."</option>\n";
-            }
-            echo "</select>\n";
-            break;
-        default:
-
-            // generic handling per type:
-            switch ($type) {
-            case 'string':
-            case 'num':
-                echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
-                ."<input type=\"text\" id=\"c_value\" name=\"value\" value=\"$value\"/>";
-                break;
-            case 'boolean':
-                echo LBL_ADMIN_CONFIG_VALUE ." $key:</p><p>";
-                echo "<input type=\"radio\" id=\"c_value_true\" name=\"value\""
-                .($value == 'true' ? " checked=\"checked\"":"") .""
-                ." value=\"".LBL_ADMIN_TRUE."\" "
-                ."/>\n"
-                ."<label for=\"c_value_true\">" . LBL_ADMIN_TRUE . "</label>\n";
-
-                echo "<input type=\"radio\" id=\"c_value_false\" name=\"value\""
-                .($value != 'true' ? " checked=\"checked\"":"") .""
-                ." value=\"".LBL_ADMIN_FALSE."\" "
-                ."/>\n"
-                ."<label for=\"c_value_false\">" . LBL_ADMIN_FALSE . "</label>\n";
-                break;
-            case 'enum':
-                echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
-                ."\t\t<select name=\"value\" id=\"c_value\">\n";
-                $arr = explode(',',$value);
-                $idx = array_pop($arr);
-                foreach ($arr as $i => $val) {
-                    echo "<option value=\"$val\"";
-                    if ($i == $idx)
-                        echo " selected=\"selected\"";
-                    echo ">$val</option>\n";
-                }
-                echo "</select>\n";
-                break;
-            }
-        }
-
-        echo "</p><p style=\"display:inline\">\n";
-        echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_PREVIEW_CHANGES ."\""
-      .(isset($onclickaction)?" onclick=\"$onclickaction\"":"") ." />\n":"");
-        echo "<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\" />";
-
-        echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\""
-        .(isset($onclickaction)?" onclick=\"$onclickaction\"":"")
-        ." /></p></form>\n";
-
-
-        echo "<form style=\"display:inline\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-        ."<p style=\"display:inline\">\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG."\"/>\n"
-        ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CANCEL\" />"
-        ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/></p></form>\n"
-        ."\n\n</div>\n";
-
+		echo "<p style=\"display:inline\">\n";
+		echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_PREVIEW_CHANGES ."\""
+	  .(isset($onclickaction)?" onclick=\"$onclickaction\"":"") ." />\n":"");
+		echo "<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\" />";
+	
+		echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\""
+		.(isset($onclickaction)?" onclick=\"$onclickaction\"":"")
+		." /><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG ."\"/>\n</p></form>\n";
+	
+	
+		echo "<form style=\"display:inline\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+		."<p style=\"display:inline\">\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG ."\"/>\n"
+		."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CANCEL\" />"
+		."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/></p></form>\n"
+		."\n\n</div>\n";
+		
         $ret__ = CST_ADMIN_DOMAIN_NONE;
         break;
 
@@ -482,6 +372,143 @@ function config_admin() {
         break;
     }
     return $ret__;
+}
+
+function config_edit_form($key,$value,$default,$type,$desc,$export) {
+	$value = real_strip_slashes($value);
+
+	echo "<p>\n"
+	."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
+	."<input type=\"hidden\" name=\"type\" value=\"$type\"/>\n"
+
+	.preg_replace('/\s(\w+:\/\/)(\S+)/',
+				  ' <a href="\\1\\2">\\1\\2</a>',
+				  $desc)
+
+	."\n</p>\n";
+	echo "<p>\n";
+
+	switch($key) {
+
+	case 'rss.input.allowed':
+
+		$arr = unserialize($value);
+
+		echo "</p>\n"
+		."<fieldset class=\"tags\">\n"
+		."<legend>Tags</legend>\n"
+		."<select size=\"8\" name=\"first\" onchange=\"populate2()\">\n"
+		."<option>Your browser doesn't support javascript</option>\n"
+		."</select>\n"
+		."<input type=\"text\" name=\"newtag\" id=\"newtag\" />\n"
+		."<input type=\"button\" onclick=\"add1(); return false;\" value=\"add tag\" />\n"
+		."<input type=\"button\" onclick=\"delete1(); return false;\" value=\"delete tag\" />\n"
+		."</fieldset><fieldset class=\"tags\">\n"
+		."<legend>Attributes</legend>\n"
+		."<select size=\"8\" name=\"second\">\n"
+		."<option>Your browser doesn't support javascript</option>\n"
+		."</select>\n"
+		."<input type=\"text\" name=\"newattr\" id=\"newattr\" />\n"
+		."<input type=\"button\" onclick=\"add2(); return false;\" value=\"add attr\" />"
+		. "<input type=\"button\" onclick=\"delete2(); return false;\" value=\"delete attr\" />"
+		."</fieldset>\n"
+		."<p><input type=\"hidden\" name=\"value\" id=\"packed\" value=\"\" />\n"
+		;
+
+		$onclickaction = "pack(); return true";
+		//$preview = true;
+
+		echo "<script type=\"text/javascript\">\n"
+		."<!--\n";
+		jsCode($arr);
+		echo "\n// -->\n";
+		echo "</script>\n";
+
+		break;
+
+
+	case 'rss.output.lang':
+		$active_lang = getConfig('rss.output.lang');
+
+
+		echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
+		."\t\t<select name=\"value\" id=\"c_value\">\n";
+		$cntr = 0;
+		$value = "";
+		$langs = getLanguages();
+		foreach ($langs as $code => $name) {
+			echo "<option value=\"$code\"";
+			if ($code == $active_lang)   {
+				echo " selected=\"selected\"";
+			}
+			echo ">".$langs[$code]."</option>\n";
+		}
+		echo "</select>\n";
+		break;
+	default:
+
+		// generic handling per type:
+		switch ($type) {
+		case 'string':
+		case 'num':
+			echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
+			."<input type=\"text\" id=\"c_value\" name=\"value\" value=\"$value\"/>";
+			break;
+		case 'boolean':
+			echo LBL_ADMIN_CONFIG_VALUE ." $key:</p><p>";
+			echo "<input type=\"radio\" id=\"c_value_true\" name=\"value\""
+			.($value == 'true' ? " checked=\"checked\"":"") .""
+			." value=\"".LBL_ADMIN_TRUE."\" "
+			."/>\n"
+			."<label for=\"c_value_true\">" . LBL_ADMIN_TRUE . "</label>\n";
+
+			echo "<input type=\"radio\" id=\"c_value_false\" name=\"value\""
+			.($value != 'true' ? " checked=\"checked\"":"") .""
+			." value=\"".LBL_ADMIN_FALSE."\" "
+			."/>\n"
+			."<label for=\"c_value_false\">" . LBL_ADMIN_FALSE . "</label>\n";
+			break;
+		case 'enum':
+			echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
+			."\t\t<select name=\"value\" id=\"c_value\">\n";
+			$arr = explode(',',$value);
+			$idx = array_pop($arr);
+			foreach ($arr as $i => $val) {
+				echo "<option value=\"$val\"";
+				if ($i == $idx)
+					echo " selected=\"selected\"";
+				echo ">$val</option>\n";
+			}
+			echo "</select>\n";
+			break;
+		}
+	}
+
+	echo "</p>\n";
+}
+
+function config_default_form($key, $type, $default, $adminDomain) {
+	switch ($type) {
+	case 'enum':
+		$html_default = admin_enum_to_html(explode(',',$default));
+		break;
+	case 'array':
+		$html_default = admin_kses_to_html(unserialize($default));
+		break;
+	default:
+		$html_default = $default;
+		break;
+	}
+	
+	echo "<p class=\"error\">";
+	printf(LBL_ADMIN_ARE_YOU_SURE_DEFAULT,$key,$html_default);
+	echo "</p>\n"
+	."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
+	."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
+	."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
+	."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".$adminDomain."\"/>\n"
+	."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DEFAULT_ACTION ."\"/>\n"
+	."</p>\n";
 }
 
 function sysinfo() {

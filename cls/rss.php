@@ -105,6 +105,10 @@ class RSS {
         if (!file_exists(GREGARIUS_HOME . $theme_check)) {
             $ret= RSS_THEME_DIR."/default/$media/$file";
         }
+		
+		if (!file_exists(GREGARIUS_HOME . $ret)) {
+            $ret= RSS_THEME_DIR."/default/web/$file";
+		}
 
         $cache[$file] = $ret;
 

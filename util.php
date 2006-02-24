@@ -12,7 +12,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-# FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU General Public License for
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 # more details.
 #
 # You should have received a copy of the GNU General Public License along
@@ -21,8 +21,8 @@
 # http://www.gnu.org/licenses/gpl.html
 #
 ###############################################################################
-# E-mail:	   mbonetti at gmail dot com
-# Web page:	   http://gregarius.net/
+# E-mail:      mbonetti at gmail dot com
+# Web page:    http://gregarius.net/
 #
 ###############################################################################
 
@@ -175,16 +175,16 @@ function update($id) {
             $baseUrl = $url; // The feed is invalid
         }
         
-			// Keep track of guids we've handled, because some feeds (hello, 
-        	// Technorati!) have this insane habit of serving the same item 
-        	// twice in the same feed.
-        	$guids = array();
-        	
-        // Allow updates in this feed?	
-		  $allowUpdates = getProperty($cid,'rss.input.allowupdates');
-		  if ($allowUpdates === null) {
-				$allowUpdates = getConfig('rss.input.allowupdates');
-		  }
+            // Keep track of guids we've handled, because some feeds (hello, 
+            // Technorati!) have this insane habit of serving the same item 
+            // twice in the same feed.
+            $guids = array();
+            
+        // Allow updates in this feed?  
+          $allowUpdates = getProperty($cid,'rss.input.allowupdates');
+          if ($allowUpdates === null) {
+                $allowUpdates = getConfig('rss.input.allowupdates');
+          }
 
         $itemIdsInFeed = array(); // This variable will store the item id's of the elements in the feed
         foreach ($rss->items as $item) {
@@ -230,9 +230,9 @@ function update($id) {
             
             // skip this one if it's an  in-feed-dupe
             if ($guid && isset($guids[$guid])) {
-            	continue;
+                continue;
             } elseif($guid) {
-            	$guids[$guid] = true;
+                $guids[$guid] = true;
             }
 
             if ($description != "") {
@@ -600,7 +600,7 @@ function parse_iso8601($date_str) {
 
             $offset_secs = (($tz_hour * 60) + $tz_min) * 60;
 
-            // is timezone ahead of GMT?	 then subtract offset
+            // is timezone ahead of GMT?     then subtract offset
 
 
             if ($tz_mod == '+') {
@@ -798,7 +798,7 @@ function rss_getUser() {
         if (isset($_COOKIE[RSS_USER_COOKIE])) {
             list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
          } elseif(isset($_SESSION['mobile'])) {
-         		list($cuname,$chash) = explode('|',$_SESSION['mobile']);
+                list($cuname,$chash) = explode('|',$_SESSION['mobile']);
          }
          if ($cuname && $chash) {
             $sql = "select * from " . getTable('users') . " where uname='"
@@ -808,18 +808,18 @@ function rss_getUser() {
             if (rss_num_rows($rs) == 1) {
                 $tmp = rss_fetch_assoc($rs);
                 if (isset($tmp['userips'])) {
-                	$tmp['userips'] = explode(' ',$tmp['userips']);
+                    $tmp['userips'] = explode(' ',$tmp['userips']);
                 } else {
-                	$tmp['userips'] = array();
+                    $tmp['userips'] = array();
                 }
                 
                 unset($tmp['password']);
                 $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-    				 if (array_search($subnet, $tmp['userips']) !== FALSE) {
-    				 	// success: password hash was checked and the user's IP 
-    				 	// address subnet is registered 
-    				 	$user = $tmp;
-    				 }
+                     if (array_search($subnet, $tmp['userips']) !== FALSE) {
+                        // success: password hash was checked and the user's IP 
+                        // address subnet is registered 
+                        $user = $tmp;
+                     }
             }
         }
     }
@@ -838,26 +838,26 @@ function setUserCookie($user,$hash) {
 function logoutUserCookie() {
     if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
     
-    		// remove the user's IP subnet from the list of valid addresses
-    		$user = rss_getUser();
-    	   $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-    	   
-			if (($idx = array_search($subnet, $user['userips'])) !== FALSE) {
-				$cnt = count($user['userips']);
-				unset($user['userips'][$idx]);
-				$uname = trim($user['uname']);
-				if ($uname && ($cnt > count($user['userips']))) {
-					$sql = "update " .getTable('users') 
-						. " set userips = '" . implode(' ',$user['userips']) ."'"
-						." where uname = '$uname' ";
-					rss_query($sql);
-				}
-			}
-    	   
-    	   // get rid of the cookie
+            // remove the user's IP subnet from the list of valid addresses
+            $user = rss_getUser();
+           $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+           
+            if (($idx = array_search($subnet, $user['userips'])) !== FALSE) {
+                $cnt = count($user['userips']);
+                unset($user['userips'][$idx]);
+                $uname = trim($user['uname']);
+                if ($uname && ($cnt > count($user['userips']))) {
+                    $sql = "update " .getTable('users') 
+                        . " set userips = '" . implode(' ',$user['userips']) ."'"
+                        ." where uname = '$uname' ";
+                    rss_query($sql);
+                }
+            }
+           
+           // get rid of the cookie
          unset($_COOKIE[RSS_USER_COOKIE]);
          setcookie(RSS_USER_COOKIE, "", -1, getPath());
-        	rss_invalidate_cache();
+            rss_invalidate_cache();
         
     }
 }
@@ -883,18 +883,18 @@ function __exp_login($uname,$pass,$cb) {
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
-    		// is the user's IP subnet in the database, already?
-    		$subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-    		$useripsArray = explode(' ',$userips);
-    		if (array_search($subnet, $useripsArray) === FALSE) {
-    			$useripsArray[] = $subnet;
-    			$sql = "update " .getTable('users') 
-    				. " set userips = '" . implode(' ',$useripsArray) ."'"
-    				." where uname = '$uname' ";
-    			rss_query($sql);
-    		}
-    		
-    		
+            // is the user's IP subnet in the database, already?
+            $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+            $useripsArray = explode(' ',$userips);
+            if (array_search($subnet, $useripsArray) === FALSE) {
+                $useripsArray[] = $subnet;
+                $sql = "update " .getTable('users') 
+                    . " set userips = '" . implode(' ',$useripsArray) ."'"
+                    ." where uname = '$uname' ";
+                rss_query($sql);
+            }
+            
+            
         //setcookie(RSS_USER_COOKIE,$uname ."|". $pass,time()+3600*365,getPath());
         rss_invalidate_cache();
     }
@@ -905,8 +905,6 @@ function getThemePath($path=null) {
     list($theme,$media) = getActualTheme();
     if (null === $path)
         $path = getPath();
-    if( !file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/") )
-        $theme = 'default';
     return $path.RSS_THEME_DIR."/$theme/$media/";
 }
 
@@ -918,7 +916,7 @@ function getUnreadCount($cid, $fid) {
     }
 
     $sql = "select count(*) from "
-           .getTable("item")	."i, ".getTable('channels')."c "
+           .getTable("item")    ."i, ".getTable('channels')."c "
            ." where i.unread & ".RSS_MODE_UNREAD_STATE. " and not(i.unread & " .
            RSS_MODE_DELETED_STATE .") and i.cid=c.id "
            ." and not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
@@ -1160,7 +1158,7 @@ function getActualTheme() {
     }
 
 
-	// Theme
+    // Theme
     $theme = getConfig('rss.output.theme');
     if (null === $theme)
         $theme = 'default';
@@ -1176,7 +1174,10 @@ function getActualTheme() {
     // Media
     $media = getThemeMedia();
     
-    $ret = array($theme,$media);
+    if( !file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/") )
+        $theme = 'default';
+
+	$ret = array($theme,$media);
     return $ret;
 }
 
@@ -1220,53 +1221,95 @@ function getThemeMedia() {
  * This definitely needs some heavy tweaking.
  */
 function isMobileDevice() {
-	static $ret;
-	if ($ret !== NULL) {
-		return $ret;
-	} else {
-		$ret = false;
-		if (isset($_SERVER['HTTP_USER_AGENT'])) {
-			$ua = $_SERVER['HTTP_USER_AGENT'];
-			$ua_lwr = strtolower( $ua );
-			$ret = strpos($ua, 'SonyEricsson') !== FALSE
-				|| strpos($ua, 'Nokia') !== FALSE
-				|| strpos($ua, 'Mobile') !== FALSE
-				|| strpos($ua, 'Windows CE') !== FALSE
-				|| strpos($ua, 'EPOC') !== FALSE
-				|| strpos($ua, 'Opera Mini') !== FALSE
-				|| strpos($ua_lwr, 'j2me') !== FALSE
-				|| strpos($ua, 'Netfront') !== FALSE;
-			// if none of those matched, let's have a gander at grabbing the resolution...
-			if (!$ret && eregi( "([0-9]{3})x([0-9]{3})", $ua, $matches ) ) {
-				if ($matches[1]<600 || $matches[2]<600) {
-					$ret = 1; //one of the screen dimensions is less than 600 - we'll call it a mobile device
-				}
-			}
-		} 
-		return $ret;
-	}
+    static $ret;
+    if ($ret !== NULL) {
+        return $ret;
+    } else {
+        $ret = false;
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            $ua = $_SERVER['HTTP_USER_AGENT'];
+            $ua_lwr = strtolower( $ua );
+            $ret = strpos($ua, 'SonyEricsson') !== FALSE
+                || strpos($ua, 'Nokia') !== FALSE
+                || strpos($ua, 'Mobile') !== FALSE
+                || strpos($ua, 'Windows CE') !== FALSE
+                || strpos($ua, 'EPOC') !== FALSE
+                || strpos($ua, 'Opera Mini') !== FALSE
+                || strpos($ua_lwr, 'j2me') !== FALSE
+                || strpos($ua, 'Netfront') !== FALSE;
+            // if none of those matched, let's have a gander at grabbing the resolution...
+            if (!$ret && eregi( "([0-9]{3})x([0-9]{3})", $ua, $matches ) ) {
+                if ($matches[1]<600 || $matches[2]<600) {
+                    $ret = 1; //one of the screen dimensions is less than 600 - we'll call it a mobile device
+                }
+            }
+        } 
+    }
 }
 
 function sanitize($input, $rules = 0) {
-	$ret = $input;
-	if ($rules & RSS_SANITIZER_SIMPLE_SQL) {
-		$ret = rss_real_escape_string($ret);
-	}
-	if ($rules & RSS_SANITIZER_NO_SPACES) {
-		$ret = preg_replace('#\s#','',$ret);
-		// also strip out SQL comments
-		$ret = preg_replace('#/\*.*\*/#','',$ret);
-	}
-	if ($rules & RSS_SANITIZER_NUMERIC) {
-		$ret = preg_replace('#[^0-9\.-]#','',$ret);
-	}	
-	if ($rules & RSS_SANITIZER_CHARACTERS) {
-		$ret = preg_replace('#[^a-zA-Z]#','',$ret);
-	}
-	if ($rules & RSS_SANITIZER_CHARACTERS_EXT) {
-		$ret = preg_replace('#[^a-zA-Z_]#','',$ret);
-	}
-	return $ret;
+    $ret = $input;
+    if ($rules & RSS_SANITIZER_SIMPLE_SQL) {
+        $ret = rss_real_escape_string($ret);
+    }
+    if ($rules & RSS_SANITIZER_NO_SPACES) {
+        $ret = preg_replace('#\s#','',$ret);
+        // also strip out SQL comments
+        $ret = preg_replace('#/\*.*\*/#','',$ret);
+    }
+    if ($rules & RSS_SANITIZER_NUMERIC) {
+        $ret = preg_replace('#[^0-9\.-]#','',$ret);
+    }   
+    if ($rules & RSS_SANITIZER_CHARACTERS) {
+        $ret = preg_replace('#[^a-zA-Z]#','',$ret);
+    }
+    if ($rules & RSS_SANITIZER_CHARACTERS_EXT) {
+        $ret = preg_replace('#[^a-zA-Z_]#','',$ret);
+    }
+    return $ret;
 }
 
+function rss_theme_option_ref_obj_from_theme($theme=null, $media=null) {
+    if ($theme===null) {
+        list($theme,$media) = getActualTheme();
+    }
+    
+    $ref_obj = "theme.$theme";
+    if( $media !== null )
+        $ref_obj .= ".$media";
+        
+    return $ref_obj;
+}
+
+function rss_theme_get_option($option, $theme=null, $media=null) {
+    return getProperty(rss_theme_option_ref_obj_from_theme($theme,$media), $option);
+}
+
+function rss_theme_set_option($option, $value, $type = "string", $theme, $media) {
+    setProperty(rss_theme_option_ref_obj_from_theme($theme,$media), $option, $type, $value);
+}
+
+function rss_theme_delete_option($option, $theme=null, $media=null) {
+    return deleteProperty(rss_theme_option_ref_obj_from_theme($theme,$media), $option);
+}
+
+function rss_plugin_config_override_option_name_mangle($config_key) {
+    return preg_replace( '/^rss\./', 'rss.prop.theme.', $config_key ) . '.override';
+}
+
+function rss_plugin_config_override_option($config_key, $default, $theme=null, $media=null) {
+    $ret = getProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_plugin_config_override_option_name_mangle($config_key));
+    if( $ret === null )
+        $ret = $default;
+    rss_config_override($config_key,$ret);
+    return $ret;
+}
+
+function rss_plugin_set_config_override_option($config_key, $value, $type, $theme=null, $media=null) {
+    setProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_plugin_config_override_option_name_mangle($config_key), $type, $value);
+}
+
+function rss_plugin_delete_config_override_option($config_key, $theme=null, $media=null) {
+    deleteProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_plugin_config_override_option_name_mangle($config_key));
+}
 ?>

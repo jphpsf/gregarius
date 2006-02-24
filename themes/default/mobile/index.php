@@ -7,6 +7,11 @@
 <a name="top"></a>
 <?php 
 if( array_key_exists('feeds',$_REQUEST) ) {
+	$GLOBALS['rss']->sideMenu->activeElement = 'FeedList';
+	rss_main_feeds();
+}
+else if( array_key_exists('cats',$_REQUEST) ) {
+	$GLOBALS['rss']->sideMenu->activeElement = 'CatList';
 	rss_main_feeds();
 }
 else { ?>

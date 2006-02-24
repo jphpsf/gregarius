@@ -65,6 +65,7 @@ define ('CST_ADMIN_DOMAIN_OPML','opml');
 define ('CST_ADMIN_DOMAIN_PLUGINS','plugins');
 define ('CST_ADMIN_DOMAIN_PLUGIN_OPTIONS','plugin_options');
 define ('CST_ADMIN_DOMAIN_THEMES','themes');
+define ('CST_ADMIN_DOMAIN_THEME_OPTIONS','theme_options');
 // OPML import target
 define ('CST_ADMIN_OPML_IMPORT_WIPE',1);
 define ('CST_ADMIN_OPML_IMPORT_FOLDER',2);
@@ -138,6 +139,9 @@ function admin_main($authorised) {
             case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
                 $show = plugin_options_admin();
                 break;
+            case CST_ADMIN_DOMAIN_THEME_OPTIONS:
+                $show = theme_options_admin();
+                break;
             default:
                 break;
             }
@@ -179,6 +183,9 @@ function admin_main($authorised) {
                 break;
             case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
                 plugin_options();
+                break;
+            case CST_ADMIN_DOMAIN_THEME_OPTIONS:
+                theme_options();
                 break;
             default:
             }

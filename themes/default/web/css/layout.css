@@ -209,6 +209,10 @@ table#channeltable,table#foldertable,table#updatetable,table#configtable {
  width: 99.2%;
 }
 
+table#configtable caption{
+ margin: 0 0 -18px 0;
+}
+
 table#foldertable { width: auto }
 
 td>input[type="text"] { width: 100%; }

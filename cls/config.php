@@ -115,27 +115,27 @@ class Configuration {
     	}
     	return null;
     }
-		
-		function getObjectsHavingProperty($prop, $type, $value) {
-			if (!isset($this -> _properties[$type])) {
-				return array();
-			}
-		
-			$ret = array();
-			foreach ($this -> _properties[$type] as $ref_obj => $_data) {
-				if ($_data['property'] == $prop && $value == $_data['value']) {
-					$ret[] = $ref_obj;
-				}
-			}
-			return $ret;
+	
+	function getObjectsHavingProperty($prop, $type, $value) {
+		if (!isset($this -> _properties[$type])) {
+			return array();
 		}
+	
+		$ret = array();
+		foreach ($this -> _properties[$type] as $ref_obj => $_data) {
+			if ($_data['property'] == $prop && $value == $_data['value']) {
+				$ret[] = $ref_obj;
+			}
+		}
+		return $ret;
+	}
 
-		function deleteProperty($ref_obj, $prop) {
-			rss_query( "delete from " . getTable('properties') 
-				. " where fk_ref_object_id = '$ref_obj'"
-				." and property='$prop'" );
-			$this -> _populateProperties();
-			rss_invalidate_cache();
+	function deleteProperty($ref_obj, $prop) {
+		rss_query( "delete from " . getTable('properties') 
+			. " where fk_ref_object_id = '$ref_obj'"
+			." and property='$prop'" );
+		$this -> _populateProperties();
+		rss_invalidate_cache();
     }
 
 		function setProperty($ref_obj, $prop, $type, $value) {

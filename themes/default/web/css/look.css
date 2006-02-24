@@ -177,6 +177,15 @@ table#plugintable,table#channeltable,table#foldertable,table#updatetable,table#c
 
 
 table tr:hover td { background-color: #f8f8ff }
+table caption {
+  text-align: left;
+  font-family: "Trebuchet MS", "Gill Sans", Geneva, Arial, Helvetica, sans-serif;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  line-height:1.1em;
+  font-size: medium;
+  font-weight: bold;
+}
   
 form.markread p, form.markallread { text-align:right; }
 
