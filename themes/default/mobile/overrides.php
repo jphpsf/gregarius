@@ -14,16 +14,16 @@ rss_config_override('rss.output.frontpage.mixeditems', false);
 $GLOBALS['rss'] -> profiler = null;
 
 //handle form data...
-foreach($_POST as $varName => $value)
-{
-	switch( $value )
-	{
-		case 'mobile_sticky':
-			rss_plugins_set_item_state( $varName, RSS_MODE_STICKY_STATE, true );
-		//intentional fallthrough
-		case 'mobile_read':
-			rss_plugins_set_item_state( $varName, RSS_MODE_UNREAD_STATE, false );
+if (!hidePrivate()) {
+	foreach($_POST as $varName => $value) {
+		switch( $value ) {
+			case 'mobile_sticky':
+				rss_plugins_set_item_state( $varName, RSS_MODE_STICKY_STATE, true );
+			//intentional fallthrough
+			case 'mobile_read':
+				rss_plugins_set_item_state( $varName, RSS_MODE_UNREAD_STATE, false );
+		}
 	}
-};
+}
 
 ?>
