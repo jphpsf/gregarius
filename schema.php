@@ -686,7 +686,8 @@ function _init_properties() {
 		  property varchar(128) NOT NULL default '',
 		  value text NOT NULL,
 		  UNIQUE KEY uniq (fk_ref_object_id(180),property,proptype)
-		) ENGINE=MyISAM;
+		) TYPE=MyISAM;
+		
 _SQL_
 );
 
