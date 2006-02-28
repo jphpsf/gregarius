@@ -144,13 +144,27 @@ class Configuration {
 				return false;
 			}
 			$val = rss_real_escape_string($val);
-			rss_query('insert into ' .getTable('properties') 
-			.'(fk_ref_object_id, proptype, property, value) values ('
-			."'$ref_obj','$type','$prop','$val'"
-			.')'
-			// I hope this is ANSI!
-			. " ON DUPLICATE KEY UPDATE value='$val'"
-			);
+
+		   $res = rss_query('SELECT count(fk_ref_object_id) FROM ' 
+		   .getTable('properties')
+		   ." WHERE fk_ref_object_id = '$ref_obj' AND proptype = '$type'"
+		   ." AND property = '$prop'");
+			list ($cnt_rows) = rss_fetch_row($res);
+
+			if ($cnt_rows) {
+				   rss_query('UPDATE ' 
+				   .getTable('properties') 
+				   ." SET value = '$val' WHERE fk_ref_object_id = '$ref_obj' AND proptype = '$type'"
+				   ." AND property = '$prop'");
+		   	} else {
+				   rss_query('insert into ' 
+				   .getTable('properties') 
+				   .'(fk_ref_object_id, proptype, property, value) values ('
+				   ."'$ref_obj','$type','$prop','$val'"
+				   .')');
+		   	}
+		   	
+		   	
 			$this -> _populateProperties();
 			rss_invalidate_cache();
 			return true;
