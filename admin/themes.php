@@ -216,30 +216,51 @@ function theme_options() {
 // an array to match the entire input array
 function theme_options_fill_override_array($theme, $media, $array_input, $key=null) {
     $ret = array();
+    if( !is_array( $array_input ) ) {
+        $array_input = split( ",", $array_input );
+    }
+    
     foreach( $array_input as $inp ) {
         if( !is_array( $inp ) && isset( $inp ) ) {
             $inp = array( 'key_' => $inp );
         }
+        
         if( isset( $inp['key_'] ) ) {
             $thisret = array();
             if( $key === null || $key === $inp['key_'] ) {
-                $sql = "select * from " .getTable("config") ." where key_ like
-                       '" . $inp['key_'] . "'";
-
-                $res = rss_query($sql);
-                if ($row = rss_fetch_assoc($res)) {
-                    foreach( $row as $rowkey => $rowval ) {
-                        if( $rowkey !== 'value_' ) {
-                            if( !isset( $inp[$rowkey] ) ) {
-                                $thisret[$rowkey] = $rowval;
-                            } else {
-                                $thisret[$rowkey] = $inp[$rowkey];
+                if($inp['key_'] == 'rss.output.theme.subtheme') {
+                    $thisret = $inp;
+                    $subthemes = loadSubthemeList( true, $theme, $media );
+                    if( !isset( $inp['default_'] ) )
+                        $thisret['default_'] = implode(',', $subthemes ) . ",0";
+                    $thisret['type_'] = 'enum';
+                    if( !isset( $inp['desc_'] ) )
+                        $thisret['desc_'] = 'The subtheme to use.  A subtheme is basically an alternate .css file.';
+                    if( !isset( $inp['export_'] ) )
+                        $thisret['export_'] = '';
+                        
+                    $value = rss_theme_config_override_option($thisret['key_'], $thisret['default_'], $theme, $media);
+                    $value = array_pop( explode( ',', $value ) );
+                    $thisret['value_'] = implode(',', $subthemes ) . "," . $value;
+                    
+                } else {
+                    $sql = "select * from " .getTable("config") ." where key_ like
+                           '" . $inp['key_'] . "'";
+                    $res = rss_query($sql);
+                    if ($row = rss_fetch_assoc($res)) {
+                        foreach( $row as $rowkey => $rowval ) {
+                            if( $rowkey !== 'value_' ) {
+                                if( !isset( $inp[$rowkey] ) ) {
+                                    $thisret[$rowkey] = $rowval;
+                                } else {
+                                    $thisret[$rowkey] = $inp[$rowkey];
+                                }
                             }
                         }
                     }
+                    
+                    $thisret['value_'] = rss_theme_config_override_option($thisret['key_'], $thisret['default_'], $theme, $media);
                 }
-                
-                $thisret['value_'] = rss_plugin_config_override_option($thisret['key_'], $thisret['default_'], $theme, $media);
 
                 if( $key === null )
                     $ret[] = $thisret;
@@ -281,7 +302,7 @@ function rss_theme_options_configure_overrides($theme, $media, $config_items) {
             rss_error('Invalid config key specified.', RSS_ERROR_ERROR,true);
         } else {
             $key = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
-            rss_plugin_delete_config_override_option($key,$theme,$media);
+            rss_theme_delete_config_override_option($key,$theme,$media);
         }
         $action = null; //redirect to our theme's admin page
     } else if( rss_theme_options_is_submit() ) {
@@ -304,7 +325,29 @@ function rss_theme_options_configure_overrides($theme, $media, $config_items) {
             $key = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
             $type = sanitize($_POST['type'],RSS_SANITIZER_CHARACTERS);
             $value = sanitize($_POST['value'], RSS_SANITIZER_SIMPLE_SQL);
-            rss_plugin_set_config_override_option($key, $value, $type, $theme, $media);
+
+            if( $type == 'enum' ) {
+                $item = theme_options_fill_override_array($theme,$media,$config_items,$key);
+                if( count( $item ) ) {
+                    $arr = explode(',',$item['default_']);
+                    $idx = array_pop($arr);
+                    $newkey = -1;
+                    foreach ($arr as $i => $val) {
+                        if ($val == $value) {
+                            $newkey = $i;
+                        }
+                    }
+                    reset($arr);
+                    if ($newkey > -1) {
+                        array_push($arr, $newkey);
+                        rss_theme_set_config_override_option($key, implode(',',$arr), 'string', $theme, $media);
+                    } else {
+                        rss_error("Oops, invalid value '$value' for this config key", RSS_ERROR_ERROR,true);
+                    }
+                }
+            } else {
+                rss_theme_set_config_override_option($key, $value, $type, $theme, $media);
+            }
 
             break;
             
@@ -324,10 +367,12 @@ function rss_theme_options_configure_overrides($theme, $media, $config_items) {
         }
         $key = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
         $item = theme_options_fill_override_array($theme,$media,$config_items,$key);
-        extract( $item );
-        config_default_form($key_, $type_, $default_, CST_ADMIN_DOMAIN_THEME_OPTIONS);
-        rss_theme_options_form_class('box');
-        rss_theme_options_rendered_buttons(true);
+        if( count( $item ) ) {
+            extract( $item );
+            config_default_form($key_, $type_, $default_, CST_ADMIN_DOMAIN_THEME_OPTIONS);
+            rss_theme_options_form_class('box');
+            rss_theme_options_rendered_buttons(true);
+        }
         break;
         
     case CST_ADMIN_EDIT_ACTION:
@@ -338,8 +383,10 @@ function rss_theme_options_configure_overrides($theme, $media, $config_items) {
         }
         $key = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
         $item = theme_options_fill_override_array($theme,$media,$config_items,$key);
-        extract( $item );
-        config_edit_form($key_,$value_,$default_,$type_,$desc_,$export_);
+        if( count( $item ) ) {
+            extract( $item );
+            config_edit_form($key_,$value_,$default_,$type_,$desc_,$export_);
+        }
         break;
         
     default:
