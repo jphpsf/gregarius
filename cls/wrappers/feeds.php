@@ -62,9 +62,20 @@ function rss_feeds_folder_link() {
 function rss_feeds_folders_unread_count($label=LBL_UNREAD_PF) {
 	if (array_key_exists($GLOBALS['rss']->currentFeedsFolder->id,$GLOBALS['rss']->feedList->collapsed_folders)) { 
 		$sCls = ($GLOBALS['rss']->currentFeedsFolder->isCollapsed?"display:inline":"display:none");
-		return sprintf($label, "fs".$GLOBALS['rss']->currentFeedsFolder->id, 
+		$ret = sprintf($label, "fs".$GLOBALS['rss']->currentFeedsFolder->id, 
 			$sCls, 
 			$GLOBALS['rss']->feedList->collapsed_folders[$GLOBALS['rss']->currentFeedsFolder->id]);
+
+		switch( $GLOBALS['rss']->feedList -> columnTitle ) {
+			case LBL_TAG_FOLDERS:
+				$ret = rss_plugin_hook("rss.plugins.sidemenu.categoryunreadlabel", $ret);
+				break;
+			case LBL_H2_CHANNELS:
+				$ret = rss_plugin_hook("rss.plugins.sidemenu.folderunreadlabel", $ret);
+				break;
+		}
+		
+		return $ret;
 	}
 	return "";
 }
@@ -117,7 +128,7 @@ function rss_feeds_feed_link() {
 }
 
 function rss_feeds_feed_read_label() {
-	return ($GLOBALS['rss']->currentFeedsFeed-> rdLbl);
+	return rss_plugin_hook( 'rss.plugins.sidemenu.feedunreadlabel', ($GLOBALS['rss']->currentFeedsFeed-> rdLbl) );
 }
 
 function rss_feeds_feed_meta() {

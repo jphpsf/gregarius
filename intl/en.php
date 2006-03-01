@@ -216,9 +216,9 @@ define ('LBL_TAG_SUGGESTIONS','suggestions');
 define ('LBL_TAG_SUGGESTIONS_NONE','no suggestions');
 define ('LBL_TAG_RELATED','Related tags: ');
 
-define ('LBL_MARK_READ', "Mark all items as read");
-define ('LBL_MARK_CHANNEL_READ', "Mark this feed as read");
-define ('LBL_MARK_FOLDER_READ',"Mark this folder as read");
+define ('LBL_MARK_READ', "Mark These Items as Read");
+define ('LBL_MARK_CHANNEL_READ', "Mark These Items as Read");
+define ('LBL_MARK_FOLDER_READ',"Mark These Items as Read");
 define ('LBL_SHOW_UNREAD_ALL_SHOW','Show items: ');
 define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Unread only');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Read and unread');

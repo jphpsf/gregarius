@@ -290,7 +290,7 @@ if (
 }
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 
-if (array_key_exists ('metaaction', $_POST)) {
+if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
 
     if (array_key_exists('markreadids',$_POST)) {
         $IdsToMarkAsRead = explode(",",rss_real_escape_string($_POST['markreadids']));
@@ -298,7 +298,7 @@ if (array_key_exists ('metaaction', $_POST)) {
     } else {
         $IdsToMarkAsRead = array();
     }
-    switch ($_POST['metaaction']) {
+    switch ($_REQUEST['metaaction']) {
 
     case  'LBL_MARK_CHANNEL_READ':
 
@@ -542,6 +542,11 @@ if (array_key_exists ('metaaction', $_POST)) {
         break;
     }
 
+	if( array_key_exists ('redirectto', $_REQUEST)) {
+		header("Location: " .
+			   $_REQUEST['redirectto']);
+		exit();
+	}
 }
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 assert(
