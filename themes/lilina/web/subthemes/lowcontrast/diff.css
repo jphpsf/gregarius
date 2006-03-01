@@ -1,0 +1,38 @@
+div.content {
+	padding: 0 1em;
+	width: auto;
+}
+
+body {
+  color:  inherit;
+  background-color: inherit; 
+  background-image: none;
+}
+
+a:visited { color:#b85b5a; }
+
+body {
+ font-family: "Verdana", "Gill Sans", Geneva, Arial, Helvetica, sans-serif;
+ font-size: small;
+}
+
+h1,h2,h3 {
+  font-family: "Verdana", "Gill Sans", Geneva, Arial, Helvetica, sans-serif;
+}
+
+h4 { font-size: small; }
+
+a:hover,input:hover {color: #147; }
+a,input,select,h4 { color: #06c }
+
+h4 a.tlink:hover { color: #336; }
+h4 a.tlink, h4 a.tlink:visited { color: #667; }
+
+li.item.unread,h3.collapsed.unread {
+  background-color: #eeeeff;
+}
+  
+.dateheader {
+  font-size: small;
+  background: #aaaaaa;
+}

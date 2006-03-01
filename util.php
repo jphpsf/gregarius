@@ -1324,7 +1324,7 @@ function loadSubthemeList($pretty, $theme=null, $media=null) {
 	{
 		if( $checkDir = opendir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes" ) ) {
 			while($file = readdir($checkDir)){
-				if($file != "." && $file != ".."){
+				if($file != "." && $file != ".." && $file != ".svn"){
 				   if(file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/" . $file) && is_dir(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/" . $file)){
 					   if( $pretty )
 					   		$theme_info = getThemeInfo( "$theme/$media/subthemes/$file" );
