@@ -93,19 +93,19 @@ function __markallread_buttondisplay() {
 			$metaaction = "LBL_MARK_CHANNEL_READ";
 			$id = 'name="channel" value="' . MARK_READ_FEED_FORM . '"';
 			$text = "Mark this feed as read";
-			if( $options & MARKALLREAD_OPTION_LINK_FEED )
+			if( $options & MARKALLREAD_OPTION_CONFIIRM )
 				$safety = ' onclick=\'javascript: return _confirmmarkallread("feed", "");\'';
 	} elseif(defined('MARK_READ_FOLDER_FORM')) {
 			$metaaction = "LBL_MARK_FOLDER_READ";
 			$id = 'name="folder" value="' . MARK_READ_FOLDER_FORM . '"';
 			$text = "Mark this folder as read";
-			if( $options & MARKALLREAD_OPTION_LINK_FEED )
+			if( $options & MARKALLREAD_OPTION_CONFIIRM )
 				$safety = ' onclick=\'javascript: return _confirmmarkallread("folder", "");\'';
 	} elseif(defined('MARK_READ_VFOLDER_FORM')){
 			$metaaction = "LBL_MARK_VFOLDER_READ";
 			$id = 'name="vfolder" value="' . MARK_READ_VFOLDER_FORM . '"';
 			$text = "Mark this category as read";
-			if( $options & MARKALLREAD_OPTION_LINK_FEED )
+			if( $options & MARKALLREAD_OPTION_CONFIIRM )
 				$safety = ' onclick=\'javascript: return _confirmmarkallread("category", "");\'';
 	}
 	
