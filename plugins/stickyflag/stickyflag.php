@@ -261,14 +261,14 @@ function __stickyflag_js(){
     }
 }
 
-function __stickyflag_OnOk(){
+function __stickyflag_OnOk($ret){
     $options = rss_plugins_get_option(STICKYFLAG_CONFIG_OPTIONS);
 
     if(null == $options) {
         return;
     }
-
-    $ret = "";
+	
+	$ret .= " ";
 
     if($options & STICKYFLAG_ENABLE_STICKY_SHORTCUT) {
         $ret .= "if((sfs = document.getElementById(\'sf_ID_s\')) && sfs.checked) {"

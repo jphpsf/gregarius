@@ -515,9 +515,9 @@ function _es(id, state) {
 	if (div = document.getElementById('sad'+id)) {
 
 
-	onOk = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.onok",null); ?>'.replace(/_ID_/g,id);
-	onCancel = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.oncancel",null); ?>'.replace(/_ID_/g,id);
-	extraCode = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg",null); ?>'.replace(/_ID_/g,id);
+	onOk = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.onok",""); ?>'.replace(/_ID_/g,id);
+	onCancel = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.oncancel",""); ?>'.replace(/_ID_/g,id);
+	extraCode = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg",""); ?>'.replace(/_ID_/g,id);
 	
   onOk += '_ses('+id+'); return false;';
     if (!onCancel) {
