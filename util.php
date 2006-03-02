@@ -1222,9 +1222,7 @@ function getThemeMedia() {
  */
 function isMobileDevice() {
     static $ret;
-    if ($ret !== NULL) {
-        return $ret;
-    } else {
+    if ($ret === NULL) {
         $ret = false;
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
             $ua = $_SERVER['HTTP_USER_AGENT'];
@@ -1245,6 +1243,8 @@ function isMobileDevice() {
             }
         } 
     }
+
+    return $ret;
 }
 
 function sanitize($input, $rules = 0) {
