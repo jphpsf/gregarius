@@ -94,7 +94,7 @@ function rss_query_wrapper($query, $dieOnError=true, $preventRecursion=false) {
 	if (defined('DUMP_SCHEMA')) {
 		echo $query . ";\n";
 	} else {
-		rss_query($query,$dieOnError,$preventRecursion);
+	    rss_query(trim($query),$dieOnError,$preventRecursion);
 	}
 }
 
