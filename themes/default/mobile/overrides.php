@@ -4,8 +4,8 @@
 require_once('mobileconstants.php');
 
 // load our optional overrides
-rss_plugin_config_override_option('rss.output.frontpage.numitems', DEFAULT_MOBILE_FRONTPAGE_NUMITEMS);
-rss_plugin_config_override_option('rss.output.itemsinchannelview', DEFAULT_MOBILE_FRONTPAGE_ITEMSINCHANNELVIEW);
+rss_theme_config_override_option('rss.output.frontpage.numitems', DEFAULT_MOBILE_FRONTPAGE_NUMITEMS);
+rss_theme_config_override_option('rss.output.itemsinchannelview', DEFAULT_MOBILE_FRONTPAGE_ITEMSINCHANNELVIEW);
 
 // but why does it sort in reverse order unless we set this?
 rss_config_override('rss.output.frontpage.mixeditems', false);
