@@ -25,6 +25,7 @@
 </div>
 
 <?php rss_errors_render() ?>
+<?php rss_plugin_hook('rss.plugins.before.maindiv', rss_main_div_id()); ?>
 <div <?php echo rss_main_div_id(); ?> class="frame">
  	<?php rss_main_object(); ?>
 </div>
