@@ -25,6 +25,7 @@
 </div>
 
 <?php rss_errors_render() ?>
+<?php rss_plugin_hook('rss.plugins.before.maindiv', rss_main_div_id()); ?>
 <div <?php echo rss_main_div_id(); ?> class="frame">
 	<span id="collapser">
 		<a style="font-weight:bold; font-size:150%; border: 1px solid #ddd; background-color: #f5f5f5;" 
