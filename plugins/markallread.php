@@ -112,7 +112,7 @@ function __markallread_buttondisplay() {
 	if( isset( $id ) && isset( $metaaction ) && isset( $text ) )
 	{
 ?>
-<form action="/~keith/rssmain/feed.php" method="post">
+<form action="<?php echo getPath(); ?>feed.php" method="post">
 	<p><input id="_markReadButton" type="submit" name="action" accesskey="m" value="<?php echo $text;?>" <?php echo $safety ?>/>
 	<input type="hidden" name="metaaction" value="<?php echo $metaaction; ?>"/>
 	<input type="hidden" <?php echo $id; ?>/>
