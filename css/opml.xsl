@@ -13,8 +13,8 @@
 		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 			<head>
 				 <title><xsl:value-of select="/opml/head/title"/></title> 
-				<link rel="stylesheet" href="themes/default/css/look.css" type="text/css" />
-				<link rel="stylesheet" href="themes/default/css/layout.css" type="text/css" />
+				<link rel="stylesheet" href="themes/default/web/css/look.css" type="text/css" />
+				<link rel="stylesheet" href="themes/default/web/css/layout.css" type="text/css" />
 			</head>
             <xsl:apply-templates select="opml/body" />
 		</html>
