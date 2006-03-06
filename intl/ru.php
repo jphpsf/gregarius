@@ -292,4 +292,10 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
 define ('LBL_FLAG','Flagged');
 
+define ('LBL_MARK_READ', "Пометить все как прочтенные");
+define ('LBL_MARK_CHANNEL_READ', "Пометить эту ленту как прочтенную");
+define ('LBL_MARK_FOLDER_READ',"Пометить эту папку как прочтенную");
+define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
+define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
+define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
 ?>
