@@ -375,7 +375,7 @@ function config_admin() {
     return $ret__;
 }
 
-function config_edit_form($key,$value,$default,$type,$desc,$export, & $onclickaction = null) {
+function config_edit_form($key,$value,$default,$type,$desc,$export, & $onclickaction) {
 	$value = real_strip_slashes($value);
 
 	echo "<p>\n"

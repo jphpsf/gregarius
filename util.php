@@ -1222,7 +1222,9 @@ function getThemeMedia() {
  */
 function isMobileDevice() {
     static $ret;
-    if ($ret === NULL) {
+    if ($ret !== NULL) {
+        return $ret;
+    } else {
         $ret = false;
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
             $ua = $_SERVER['HTTP_USER_AGENT'];
@@ -1243,8 +1245,6 @@ function isMobileDevice() {
             }
         } 
     }
-
-    return $ret;
 }
 
 function sanitize($input, $rules = 0) {
@@ -1285,8 +1285,8 @@ function rss_theme_get_option($option, $theme=null, $media=null) {
     return getProperty(rss_theme_option_ref_obj_from_theme($theme,$media), $option);
 }
 
-function rss_theme_set_option($option, $value, $type = "string", $theme, $media) {
-    setProperty(rss_theme_option_ref_obj_from_theme($theme,$media), $option, $type, $value);
+function rss_theme_set_option($option, $value, $theme, $media) {
+    setProperty(rss_theme_option_ref_obj_from_theme($theme,$media), $option, 'theme', $value);
 }
 
 function rss_theme_delete_option($option, $theme=null, $media=null) {
@@ -1305,8 +1305,8 @@ function rss_theme_config_override_option($config_key, $default, $theme=null, $m
     return $ret;
 }
 
-function rss_theme_set_config_override_option($config_key, $value, $type, $theme=null, $media=null) {
-    setProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_theme_config_override_option_name_mangle($config_key), $type, $value);
+function rss_theme_set_config_override_option($config_key, $value, $theme=null, $media=null) {
+    setProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_theme_config_override_option_name_mangle($config_key), 'theme', $value);
 }
 
 function rss_theme_delete_config_override_option($config_key, $theme=null, $media=null) {
@@ -1358,13 +1358,9 @@ function rss_subtheme_stylesheets($theme=null, $media=null) {
 		if ($i == $idx) {
 			if( $i > 0 ) {
 				if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val" ) && is_dir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val" ) ) {
-					if( $checkDir = opendir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val" ) ) {
-						while($file = readdir($checkDir)){
-							if( is_file( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val/$file" ) && strtolower( substr( $file, -4 ) ) === '.css' ) {
-								$ret .= "	<link rel=\"stylesheet\" type=\"text/css\" href=\"" . getPath().RSS_THEME_DIR."/$theme/$media/subthemes/$val/$file\" />\n";
-							}
-						}
-					}
+                    foreach( glob( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val/*.css" ) as $file ) {
+                        $ret .= "	<link rel=\"stylesheet\" type=\"text/css\" href=\"" . getPath().RSS_THEME_DIR."/$theme/$media/subthemes/$val/$file\" />\n";
+                    }
 				}
 			}
 			break;

@@ -77,8 +77,12 @@ class Configuration {
     		if (!isset($this -> _properties[$ptype])) {
     			$this -> _properties[$ptype] = array();
     		}
+    		if (!isset($this -> _properties[$ptype][$ref_obj])) {
+    			$this -> _properties[$ptype][$ref_obj] = array();
+    		}
+
     		$val = @unserialize($pval);
-    		$this -> _properties[$ptype][$ref_obj] = array(
+    		$this -> _properties[$ptype][$ref_obj][] = array(
     			'ref_obj' => $ref_obj,
     			'property' => $prop,
     			'value' => $val
@@ -102,14 +106,15 @@ class Configuration {
     }
     
     function getProperty($ref_obj, $prop) {
-
     	foreach($this -> _properties as $type => $props) {
     		if (!isset($this -> _properties[$type][$ref_obj])) {
     			continue;
     		}
     		foreach($props as $ref => $_props) {
-    			if ($ref == $ref_obj && $_props['property'] == $prop) {
-    				return $_props['value'];
+				foreach($_props as $thisprop) {
+					if ($ref == $ref_obj && $thisprop['property'] == $prop) {
+						return $thisprop['value'];
+					}
     			}
     		}
     	}
