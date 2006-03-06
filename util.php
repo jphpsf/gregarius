@@ -453,7 +453,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
     error_reporting($old_level);
 
 
-    if ($rss) {
+    if ($rss || isFeed($url)) {
         if ($title_) {
             $title = rss_real_escape_string($title_);
         }
@@ -461,7 +461,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
             $title = rss_real_escape_string($rss->channel['title']);
         }
         else {
-            $title = "";
+            $title = $url;
         }
 
         if (is_object($rss) && array_key_exists('link', $rss->channel)) {
@@ -689,6 +689,35 @@ function getUrl($url, $maxlen = 0) {
     }
     @ $client->fetch($url);
     return $client->results;
+}
+
+/**
+ * Is the document at a URL a feed?
+ * 
+ * Given a URL, looks at the contents to determine if the document is a
+ * RSS or Atom feed.
+ * 
+ * @param string $url feed item
+ * @return bool
+ */
+function isFeed($url) {
+	$content = getUrl($url);
+	if (preg_match('|<\?xml\s+[^>]*>|Ui', $content)) {
+		if (preg_match('|<rss\s+[^>]*>|Ui', $content)) {
+			// RSS 0.9x, 2.x
+			return true;
+		} elseif (preg_match('|<channel\s+[^>]*rdf:about=[^>]*>|Ui', $content)) {
+			// RSS 1.0
+			return true;
+		} elseif (preg_match('|<rss\s+[^>]*>|Ui', $content)) {
+			// Atom 1.0
+			return true;
+		}
+	} elseif (preg_match('|<channel\s+[^>]*rdf:about=[^>]*>|Ui', $content)) {
+		//RSS 1.0 without the XMl prolog
+		return true;
+	}
+	return false;
 }
 
 /**
@@ -1315,21 +1344,21 @@ function rss_theme_delete_config_override_option($config_key, $theme=null, $medi
     deleteProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_theme_config_override_option_name_mangle($config_key));
 }
 
-function loadSubthemeList($pretty, $theme=null, $media=null) {
+function loadSchemeList($pretty, $theme=null, $media=null) {
     if ($theme===null) {
         list($theme,$media) = getActualTheme();
     }
 
-    $ret = array( '(use main theme)' );
+    $ret = array( '(use default scheme)' );
     
-	if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes" ) )
+	if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes" ) )
 	{
-		if( $checkDir = opendir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes" ) ) {
+		if( $checkDir = opendir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes" ) ) {
 			while($file = readdir($checkDir)){
 				if($file != "." && $file != ".." && $file != ".svn"){
-				   if(file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/" . $file) && is_dir(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/" . $file)){
+				   if(file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/" . $file) && is_dir(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/" . $file)){
 					   if( $pretty )
-					   		$theme_info = getThemeInfo( "$theme/$media/subthemes/$file" );
+					   		$theme_info = getThemeInfo( "$theme/$media/schemes/$file" );
 					   if( $pretty && isset( $theme_info['name'] ) && $theme_info['name'] !== '' )
 						   $ret[] = str_replace( ",", "_", $theme_info['name'] );
 					   else
@@ -1344,25 +1373,25 @@ function loadSubthemeList($pretty, $theme=null, $media=null) {
 }
 
 
-function rss_subtheme_stylesheets($theme=null, $media=null) {
+function rss_scheme_stylesheets($theme=null, $media=null) {
     if ($theme===null) {
         list($theme,$media) = getActualTheme();
     }
 
-    $ret = getProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_theme_config_override_option_name_mangle('rss.output.theme.subtheme'));
+    $ret = getProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_theme_config_override_option_name_mangle('rss.output.theme.scheme'));
     if( $ret === null )
 		return "";
 
 	$arr = explode(',',$ret);
 	$ret = "";
 	$idx = array_pop($arr);
-	foreach (loadSubthemeList( false, $theme, $media) as $i => $val) {
+	foreach (loadSchemeList( false, $theme, $media) as $i => $val) {
 		if ($i == $idx) {
 			if( $i > 0 ) {
-				if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val" ) && is_dir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val" ) ) {
-                    foreach( glob( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val/*.css" ) as $file ) {
-                        $file = substr( $file, strlen( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val/" ) );
-                        $file = getPath().RSS_THEME_DIR."/$theme/$media/subthemes/$val/$file";
+				if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/scheme/$val" ) && is_dir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/scheme/$val" ) ) {
+                    foreach( glob( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/scheme/$val/*.css" ) as $file ) {
+                        $file = substr( $file, strlen( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/scheme/$val/" ) );
+                        $file = getPath().RSS_THEME_DIR."/$theme/$media/scheme/$val/$file";
                         $ret .= "	<link rel=\"stylesheet\" type=\"text/css\" href=\"$file\" />\n";
                     }
 				}

@@ -233,20 +233,20 @@ function theme_options_fill_override_array($theme, $media, $array_input, $key=nu
         if( isset( $inp['key_'] ) ) {
             $thisret = array();
             if( $key === null || $key === $inp['key_'] ) {
-                if($inp['key_'] == 'rss.output.theme.subtheme') {
+                if($inp['key_'] == 'rss.output.theme.scheme') {
                     $thisret = $inp;
-                    $subthemes = loadSubthemeList( true, $theme, $media );
+                    $schemes = loadSchemeList( true, $theme, $media );
                     if( !isset( $inp['default_'] ) )
-                        $thisret['default_'] = implode(',', $subthemes ) . ",0";
+                        $thisret['default_'] = implode(',', $schemes ) . ",0";
                     $thisret['type_'] = 'enum';
                     if( !isset( $inp['desc_'] ) )
-                        $thisret['desc_'] = 'The subtheme to use.  A subtheme is basically an alternate .css file.';
+                        $thisret['desc_'] = 'The color scheme to use.';
                     if( !isset( $inp['export_'] ) )
                         $thisret['export_'] = '';
                         
                     $value = rss_theme_config_override_option($thisret['key_'], $thisret['default_'], $theme, $media);
                     $value = array_pop( explode( ',', $value ) );
-                    $thisret['value_'] = implode(',', $subthemes ) . "," . $value;
+                    $thisret['value_'] = implode(',', $schemes ) . "," . $value;
                     
                 } else {
                     $sql = "select * from " .getTable("config") ." where key_ like
