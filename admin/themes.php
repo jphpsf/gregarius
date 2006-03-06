@@ -109,51 +109,6 @@ function getThemes() {
     return $ret;
 }
 
-function getThemeInfo($theme) {
-
-    $path = "../".RSS_THEME_DIR."/$theme/.themeinfo";
-    $ret = array(
-               'name' => '',
-               'url' => '',
-               'official' => false,
-               'fsname' => $theme,
-               'description' => '',
-               'htmltheme' => true,
-               'version' => "1.0",
-               'author' => '',
-               'screenshot' => ''
-           );
-    if (file_exists($path)) {
-        $f = @fopen($path,'r');
-        $contents = "";
-        if ($f) {
-            $contents .= fread($f, filesize($path));
-            @fclose($f);
-        } else {
-            $contents = "";
-        }
-
-        if ($contents && preg_match_all("/^\s?([^:]+):(.*)$/m",$contents,$matches,PREG_SET_ORDER)) {
-            foreach($matches as $match) {
-                $key = trim(strtolower($match[1]));
-                $val = trim($match[2]);
-                if (array_key_exists($key,$ret)) {
-                    if ($val == 'true') {
-                        $ret[$key] = true;
-                    }
-                    elseif ($val == 'false') {
-                        $ret[$key] = false;
-                    }
-                    else {
-                        $ret[$key] = $val;
-                    }
-                }
-            }
-        }
-    }
-    return $ret;
-}
-
 function theme_options_admin() {
     return CST_ADMIN_DOMAIN_THEME_OPTIONS;
 }

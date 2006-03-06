@@ -64,6 +64,7 @@ rss_require('util.php');
 rss_require('cls/rss.php');
 //rss_require('config.php');
 rss_require('cls/config.php');
+rss_require('themes.php');
 
 
 ////////////////////////////////////////////////////////////////////////////////
