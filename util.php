@@ -1359,7 +1359,9 @@ function rss_subtheme_stylesheets($theme=null, $media=null) {
 			if( $i > 0 ) {
 				if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val" ) && is_dir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val" ) ) {
                     foreach( glob( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val/*.css" ) as $file ) {
-                        $ret .= "	<link rel=\"stylesheet\" type=\"text/css\" href=\"" . getPath().RSS_THEME_DIR."/$theme/$media/subthemes/$val/$file\" />\n";
+                        $file = substr( $file, strlen( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/subthemes/$val/" ) );
+                        $file = getPath().RSS_THEME_DIR."/$theme/$media/subthemes/$val/$file";
+                        $ret .= "	<link rel=\"stylesheet\" type=\"text/css\" href=\"$file\" />\n";
                     }
 				}
 			}
