@@ -207,9 +207,6 @@ define ('LBL_TAG_SUGGESTIONS','sugest&otilde;es');
 define ('LBL_TAG_SUGGESTIONS_NONE','sem sugest&otilde;es');
 define ('LBL_TAG_RELATED','Etiquetas relacionadas: ');
 
-define ('LBL_MARK_READ', "Marcar todos os &iacute;tens como lidos");
-define ('LBL_MARK_CHANNEL_READ', "Marcar este feed como lido");
-define ('LBL_MARK_FOLDER_READ',"Marcar esta pasta como lida");
 define ('LBL_SHOW_UNREAD_ALL_SHOW','Mostrar &iacute;tens: ');
 define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','N&atilde;o lidos apenas');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Lidos e n&atilde;o lidos');
@@ -291,4 +288,11 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
 define ('LBL_FLAG','Flagged');
 
+define ('LBL_MARK_READ', "Marcar todos os &iacute;tens como lidos");
+define ('LBL_MARK_CHANNEL_READ', "Marcar este feed como lido");
+define ('LBL_MARK_FOLDER_READ',"Marcar esta pasta como lida");
+
+define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
+define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
+define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
 ?>

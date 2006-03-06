@@ -220,9 +220,6 @@ define ('LBL_TAG_SUGGESTIONS','f&ouml;rslag');
 define ('LBL_TAG_SUGGESTIONS_NONE','inga f&ouml;rslag');
 define ('LBL_TAG_RELATED','Relaterade taggar: ');
 
-define ('LBL_MARK_READ', "Markera alla inl&auml;gg som l&auml;sta");
-define ('LBL_MARK_CHANNEL_READ', "Markera detta fl&ouml;de som l&auml;st");
-define ('LBL_MARK_FOLDER_READ',"Markera foldern som l&auml;st");
 define ('LBL_SHOW_UNREAD_ALL_SHOW','Visa: ');
 define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Ol&auml;sta');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','L&auml;sta och ol&auml;sta');
@@ -304,4 +301,11 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
 define ('LBL_FLAG','Flagged');
 
+define ('LBL_MARK_READ', "Markera alla inl&auml;gg som l&auml;sta");
+define ('LBL_MARK_CHANNEL_READ', "Markera detta fl&ouml;de som l&auml;st");
+define ('LBL_MARK_FOLDER_READ',"Markera foldern som l&auml;st");
+
+define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
+define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
+define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
 ?>
