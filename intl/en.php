@@ -216,9 +216,6 @@ define ('LBL_TAG_SUGGESTIONS','suggestions');
 define ('LBL_TAG_SUGGESTIONS_NONE','no suggestions');
 define ('LBL_TAG_RELATED','Related tags: ');
 
-define ('LBL_MARK_READ', "Mark These Items as Read");
-define ('LBL_MARK_CHANNEL_READ', "Mark These Items as Read");
-define ('LBL_MARK_FOLDER_READ',"Mark These Items as Read");
 define ('LBL_SHOW_UNREAD_ALL_SHOW','Show items: ');
 define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Unread only');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Read and unread');
@@ -259,6 +256,14 @@ define ('LBL_RATING','Rating:');
 define ('LBL_ENCLOSURE', 'Enclosure:');
 define ('LBL_DOWNLOAD', 'download');
 define ('LBL_PLAY', 'play');
+
+define ('LBL_MARK_READ', "Mark These Items as Read");
+define ('LBL_MARK_CHANNEL_READ', "Mark These Items as Read");
+define ('LBL_MARK_FOLDER_READ',"Mark These Items as Read");
+
+define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
+define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
+define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
 
 // New in 0.5.x:
 define ('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
