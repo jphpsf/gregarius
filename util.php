@@ -453,7 +453,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
     error_reporting($old_level);
 
 
-    if ($rss || isFeed($url)) {
+    if ($rss) {
         if ($title_) {
             $title = rss_real_escape_string($title_);
         }
@@ -689,35 +689,6 @@ function getUrl($url, $maxlen = 0) {
     }
     @ $client->fetch($url);
     return $client->results;
-}
-
-/**
- * Is the document at a URL a feed?
- * 
- * Given a URL, looks at the contents to determine if the document is a
- * RSS or Atom feed.
- * 
- * @param string $url feed item
- * @return bool
- */
-function isFeed($url) {
-	$content = getUrl($url);
-	if (preg_match('|<\?xml\s+[^>]*>|Ui', $content)) {
-		if (preg_match('|<rss\s+[^>]*>|Ui', $content)) {
-			// RSS 0.9x, 2.x
-			return true;
-		} elseif (preg_match('|<channel\s+[^>]*rdf:about=[^>]*>|Ui', $content)) {
-			// RSS 1.0
-			return true;
-		} elseif (preg_match('|<rss\s+[^>]*>|Ui', $content)) {
-			// Atom 1.0
-			return true;
-		}
-	} elseif (preg_match('|<channel\s+[^>]*rdf:about=[^>]*>|Ui', $content)) {
-		//RSS 1.0 without the XMl prolog
-		return true;
-	}
-	return false;
 }
 
 /**
