@@ -60,7 +60,7 @@ function parse_weblogsDotCom($url) {
     xml_set_element_handler($xp, '_xml_startElement', '_xml_endElement') 
       or xml_error("couldnt set XML handlers");
     
-    xml_parse($xp, $opml, true) or xml_error("failed parsing xml");
+    xml_parse($xp, $opml, true) or xml_error("failed parsing xml at line ".xml_get_current_line_number().": " . xml_error_string());
     xml_parser_free($xp) or xml_error("failed freeing the parser");
     return $blogs;
 }

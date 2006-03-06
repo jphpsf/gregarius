@@ -221,15 +221,16 @@ function config_admin() {
 		echo "\n\n<h2>Edit '$key'</h2>\n";
 		echo "<form style=\"display:inline\" id=\"cfg\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 		
-		config_edit_form($key,$value,$default,$type,$desc,$export);
+		$onclickaction = null;
+		config_edit_form($key,$value,$default,$type,$desc,$export,$onclickaction);
 
 		echo "<p style=\"display:inline\">\n";
 		echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_PREVIEW_CHANGES ."\""
-	  .(isset($onclickaction)?" onclick=\"$onclickaction\"":"") ." />\n":"");
+	  .($onclickaction?" onclick=\"$onclickaction\"":"") ." />\n":"");
 		echo "<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\" />";
 	
 		echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\""
-		.(isset($onclickaction)?" onclick=\"$onclickaction\"":"")
+		.($onclickaction?" onclick=\"$onclickaction\"":"")
 		." /><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG ."\"/>\n</p></form>\n";
 	
 	
@@ -249,11 +250,11 @@ function config_admin() {
 
     case LBL_ADMIN_SUBMIT_CHANGES:
     case 'LBL_ADMIN_SUBMIT_CHANGES':
+				
         $key = sanitize($_POST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
         $type = sanitize($_POST['type'],RSS_SANITIZER_CHARACTERS);
         $value = sanitize($_POST['value'], RSS_SANITIZER_SIMPLE_SQL);
 
-				
 				// sanitizine routines for values
 				switch ($key) {
 					case 'rss.output.title':
@@ -374,7 +375,7 @@ function config_admin() {
     return $ret__;
 }
 
-function config_edit_form($key,$value,$default,$type,$desc,$export) {
+function config_edit_form($key,$value,$default,$type,$desc,$export, & $onclickaction = null) {
 	$value = real_strip_slashes($value);
 
 	echo "<p>\n"

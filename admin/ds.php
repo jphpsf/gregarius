@@ -56,7 +56,7 @@ function jsCode($data) {
 	  return  document.getElementById("cfg");
 	}	 
 
-        function populate1() {
+    function populate1() {
 	  var box1 = getForm().first;
 	  var box2 = getForm().second;
 	  box1.options.length = 0;
@@ -67,7 +67,7 @@ function jsCode($data) {
 	}	
 	
 	function add1() {
-	  var newtag = getForm().newtag.value.replace(/[^a-zA-Z]*/g,"");
+	  var newtag = getForm().newtag.value.replace(/[^a-zA-Z0-9]*/g,"");
 	  if (newtag == '') return;
 	  getForm().newtag.value = '';
 	  store [ store.length ] = new Array(newtag);
