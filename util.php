@@ -692,14 +692,20 @@ function getUrl($url, $maxlen = 0) {
 }
 
 /**
+ * Feed Autodiscovery 
+ * 
  * returns an array of all (hopefully) rss/atom/rdf feeds in the document,
- * pointed by $url
+ * pointed by $url. 
+ * See http://diveintomark.org/archives/2002/06/02/important_change_to_the_link_tag
+ *
+ * @param string $url URL of a web document containing <link> elements
+ * @return array Array of feed URLs
  */
 function extractFeeds($url) {
     $cnt = getUrl($url);
     $ret = array ();
     //find all link tags
-    if (preg_match_all('|<link \w*=["\'][^"\']+["\']+[^>]*>|Ui', $cnt, $res)) {
+    if (preg_match_all('|<link\s+\w*=["\'][^"\']+["\']+[^>]*>|Uis', $cnt, $res)) {
         while (list ($id, $match) = each($res[0])) {
             // we only want '<link alternate=...'
             if (strpos(strtolower($match), 'alternate') &&
