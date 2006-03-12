@@ -152,7 +152,7 @@ function theme_options() {
             if( isset( $_REQUEST['mediaparam'] ) ) //pass it along
             {
                 $mediaparam = sanitize($_REQUEST['mediaparam'], RSS_SANITIZER_CHARACTERS);
-                echo( "<input type=\"hidden\" name=\"mediaparam\" value=\"$mediaparam\"\n" );
+                echo( "<input type=\"hidden\" name=\"mediaparam\" value=\"$mediaparam\">\n" );
             }
             if( !rss_theme_options_rendered_buttons() )
             {
