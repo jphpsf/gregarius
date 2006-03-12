@@ -26,11 +26,13 @@ function _lilina_expandAlldivs(flag) {
 			_lilina_divs[i].style.display = "block";
 			document._lilinaCollapsed = false;
 		}
+		setCookie("_lilinaItemsCollapser", "uncollapsed", _lilinaCookiePath);
 	} else { // else contract
 		for(i=0;i<_lilina_divs.length; i++){
 			_lilina_divs[i].style.display = "none";
 			document._lilinaCollapsed = true;
 		}
+		setCookie("_lilinaItemsCollapser", "collapsed", _lilinaCookiePath);
 	}
 }
 
@@ -48,20 +50,25 @@ function _lilina_channels_collapse(o) {
 		items.style.marginLeft="290px";
 		document.sidecollapsed = false;
 		o.innerHTML = '&nbsp;&laquo;&nbsp;';
-		setCookie("_lilinaCollapser", "uncollapsed", _lilinaCookiePath);
+		setCookie("_lilinaSidebarCollapser", "uncollapsed", _lilinaCookiePath);
 	} else {
 		document.getElementById('channels').style.display="none";
 		document.getElementById('sidemenu').style.display="none";
 		document.sidecollapsed = true;
 		items.style.marginLeft="0px";
 		o.innerHTML = '&nbsp;&raquo;&nbsp;';
-		setCookie("_lilinaCollapser", "collapsed", _lilinaCookiePath);
+		setCookie("_lilinaSidebarCollapser", "collapsed", _lilinaCookiePath);
 	}
 }
 
 // Mmm delicious cookies, let us find out what they want us to do. 
 
-if(getCookie("_lilinaCollapser") == "collapsed") {
+if(getCookie("_lilinaSidebarCollapser") == "collapsed") {
 document.sidecollapsed = false;
 _lilina_channels_collapse(document.getElementById("collapser").childNodes[0]);
+}
+
+
+if(getCookie("_lilinaItemsCollapser") == "uncollapsed") {
+_lilina_expandAlldivs(1);
 }
