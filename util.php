@@ -461,7 +461,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
             $title = rss_real_escape_string($rss->channel['title']);
         }
         else {
-            $title = $url;
+            $title = "";
         }
 
         if (is_object($rss) && array_key_exists('link', $rss->channel)) {
