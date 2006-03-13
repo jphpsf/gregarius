@@ -108,7 +108,7 @@ class SearchItemList extends ItemList {
 				// fixme: this probably breaks on queries with weird characters, depending
 				// on the locale. 
 				// see: http://php.benscom.com/manual/en/reference.pcre.pattern.syntax.php
-        $this->query = trim(preg_replace('#[^\w\s]#','',$_REQUEST[QUERY_PRM]));
+        $this->query = trim(preg_replace('#[^\w\s\x80-\xff]#','',$_REQUEST[QUERY_PRM]));
         
         if (!$this->query) {
             return;
