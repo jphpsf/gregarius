@@ -64,10 +64,6 @@ class Navigation {
         $this->appendNavItem(getPath().'search.php',LBL_NAV_SEARCH,LOCATION_SEARCH);
         $this->appendNavItem(getPath().'admin/',LBL_NAV_CHANNEL_ADMIN,LOCATION_ADMIN);
         
-        if (getConfig('rss.config.showdevloglink')) {
-            $this->appendNavItem('http://devlog.gregarius.net/',LBL_NAV_DEVLOG );
-        }
-
         if (($an = rss_plugin_hook('rss.plugins.afternav', null)) != null) {
         	$this -> postRender .= $an;
         }

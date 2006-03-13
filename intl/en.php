@@ -63,7 +63,6 @@ define ('LBL_NAV_HOME','<span>H</span>ome');
 define ('LBL_NAV_UPDATE', '<span>R</span>efresh');
 define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>min');
 define ('LBL_NAV_SEARCH', "<span>S</span>earch");
-define ('LBL_NAV_DEVLOG', "Dev<span>l</span>og");
 define ('LBL_SEARCH_GO', 'Search');
 
 define ('LBL_POSTED', 'Posted: ');

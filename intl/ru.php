@@ -59,7 +59,6 @@ define ('LBL_NAV_HOME','<span>Г</span>лавная');
 define ('LBL_NAV_UPDATE', '<span>О</span>бновить');
 define ('LBL_NAV_CHANNEL_ADMIN', 'У<span>п</span>равление');
 define ('LBL_NAV_SEARCH', "<span>П</span>оиск");
-define ('LBL_NAV_DEVLOG', "Дев<span>л</span>ог");
 define ('LBL_SEARCH_GO', 'Искать');
 
 define ('LBL_POSTED', 'Опубликовано: ');

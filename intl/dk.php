@@ -58,7 +58,6 @@ define ('LBL_NAV_HOME','<span>H</span>jem');
 define ('LBL_NAV_UPDATE', '<span>O</span>pdater');
 define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>min');
 define ('LBL_NAV_SEARCH', "<span>S</span>&oslash;g");
-define ('LBL_NAV_DEVLOG', "Dev<span>l</span>og");
 define ('LBL_SEARCH_GO', 'S&oslash;g');
 
 define ('LBL_POSTED', 'Skrevet: ');

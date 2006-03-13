@@ -58,7 +58,6 @@ define ('LBL_NAV_HOME','<span>I</span>nicial');
 define ('LBL_NAV_UPDATE', '<span>A</span>tualizar');
 define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>min');
 define ('LBL_NAV_SEARCH', "<span>B</span>usca");
-define ('LBL_NAV_DEVLOG', "Dev<span>l</span>og");
 define ('LBL_SEARCH_GO', 'Busca');
 
 define ('LBL_POSTED', 'Postado: ');

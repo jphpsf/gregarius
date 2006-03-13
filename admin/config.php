@@ -45,6 +45,7 @@ function config() {
 		$row['key_'] == 'rss.output.barefrontpage' or 
 		$row['key_'] == 'rss.output.noreaditems' or 
 		$row['key_'] == 'rss.output.cachedir' or
+		$row['key_'] == 'rss.config.showdevloglink' or
 		$row['key_'] == 'rss.output.numitemsonpage') {
 			continue;
 		}

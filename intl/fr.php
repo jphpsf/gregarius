@@ -59,7 +59,6 @@ define ('LBL_NAV_HOME','<span>A</span>ccueil');
 define ('LBL_NAV_UPDATE', 'Mise &agrave; jo<span>u</span>r');
 define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>ministration');
 define ('LBL_NAV_SEARCH', "<span>R</span>echerche");
-define ('LBL_NAV_DEVLOG', "Journa<span>l</span> du d&eacute;veloppeur");
 define ('LBL_SEARCH_GO', 'Rechercher');
 
 define ('LBL_POSTED', 'Publi&eacute;: ');
