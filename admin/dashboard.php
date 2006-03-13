@@ -39,7 +39,7 @@ function dashboard() {
             $magpieCacheAge = 0;
         }
     }
-
+		define ('MAGPIE_FETCH_TIME_OUT',2);
     define ('MAGPIE_CACHE_AGE', $magpieCacheAge);
     $rs = rss_query(
     "select id, title, position, url, obj, unix_timestamp(daterefreshed), itemcount "

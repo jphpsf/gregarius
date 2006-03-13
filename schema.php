@@ -336,7 +336,7 @@ _SQL_
 		array ('Latest Plugins','http://plugins.gregarius.net/rss.php?db=',1, 5),
 		array ('Latest Themes','http://themes.gregarius.net/rss.php?db=',1, 5),
 		array ('Latest Forum posts','http://forums.gregarius.net/feeds/?Type=rss2&db=',1, 5),
-		array ('Technorati','http://www.technorati.com/watchlists/rss.html?wid=59610&db=',1, 5)
+//		array ('Technorati','http://www.technorati.com/watchlists/rss.html?wid=59610&db=',1, 5)
 	);
 
 	foreach ($baseData as $feed) {

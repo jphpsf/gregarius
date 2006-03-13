@@ -419,14 +419,14 @@ div#alltags {
 
 div.db_side {
  width: 24%;
- margin: 0 1em 0 73%;
+ margin: 0 1em 10px 73%;
  padding: 1em;
  border-color: #eef;
  background-color: #f8f8ff;
 }
 
 
-.db_side h3 { border:none; padding: 0; margin: 0.5em 0}
+.db_side h3 { border:none; padding: 0; margin: 0}
 .db_side ul { list-style-type: square; margin: 0 0 2em 0 }
 .db_side li {
 	margin: 1em 0 1em 1em;
