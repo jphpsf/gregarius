@@ -44,8 +44,8 @@ class RSSdbCache {
             return 0;
         }
         $sql = "update ".getTable("channels")
-               ." set "." lastmodified='" . rss_real_escape_string($rss->last_modified) . "', "
-               ." etag='" . rss_real_escape_string($rss->etag)
+               ." set "." lastmodified='" . rss_real_escape_string(trim($rss->last_modified)) . "', "
+               ." etag='" . rss_real_escape_string((trim($rss->etag))
                ."', daterefreshed = now()" . " where id=$cid";
         rss_query($sql);
         if (! rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
@@ -82,8 +82,8 @@ class RSSdbCache {
         }
         list($etag, $lastmodified) = rss_fetch_row($res);
         $rss = new FakeMagpieRSS();
-        $rss ->etag = $etag;
-        $rss ->last_modified  = $lastmodified;
+        $rss ->etag = trim($etag);
+        $rss ->last_modified  = trim($lastmodified);
 
         return $rss;
 
