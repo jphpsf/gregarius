@@ -45,7 +45,7 @@ class RSSdbCache {
         }
         $sql = "update ".getTable("channels")
                ." set "." lastmodified='" . rss_real_escape_string(trim($rss->last_modified)) . "', "
-               ." etag='" . rss_real_escape_string((trim($rss->etag))
+               ." etag='" . rss_real_escape_string(trim($rss->etag))
                ."', daterefreshed = now()" . " where id=$cid";
         rss_query($sql);
         if (! rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
