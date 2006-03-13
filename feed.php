@@ -253,7 +253,7 @@ elseif (
 
 
 // If we have no channel-id something went terribly wrong.
-// Redirect to index.php
+// Send a 404. 
 if (
     // channel id:
     (
@@ -286,7 +286,9 @@ if (
     // date?
     ($d == 0 && $m == 0 && $y == 0)
 ) {
-    rss_redirect();
+	header("HTTP/1.1 404 Not Found");
+	echo "404 Page Not Found";
+	exit;
 }
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 
