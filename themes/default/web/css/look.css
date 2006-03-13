@@ -59,7 +59,7 @@ ul {
 div#errors ul { list-style-type:square !important;  }
 div#errors { padding: 1em 2em; }
 
-table#configtable li, content.ul {
+table#configtable li, .content ul {
    list-style-type:circle; 
 }
 
