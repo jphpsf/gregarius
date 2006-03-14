@@ -134,9 +134,9 @@ class RSS {
         $this->_pf('start rendering');
         if (!($this->header->options & HDR_NO_OUPUTBUFFERING)) {
             if (getConfig('rss.output.compression')) {
-                ob_start('ob_gzhandler');
+                @ob_start('ob_gzhandler');
             } else {
-                ob_start();
+                @ob_start();
             }
             // force a content-type and a charset
             header('Content-Type: text/html; charset='

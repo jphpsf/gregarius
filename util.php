@@ -766,6 +766,82 @@ function firstNwords($text, $count=7) {
     return $new;
 }
 
+/** Props: mr at bbp dot biz - http://ch2.php.net/substr */
+function html_substr($posttext, $minimum_length = 200, $length_offset = 20, $cut_words = FALSE, $dots = TRUE) {
+  
+   // $minimum_length:
+   // The approximate length you want the concatenated text to be 
+ 
+
+   // $length_offset:
+   // The variation in how long the text can be in this example text
+   // length will be between 200 and 200-20=180 characters and the
+   // character where the last tag ends
+
+   // Reset tag counter & quote checker
+   $tag_counter = 0;
+   $quotes_on = FALSE;
+   // Check if the text is too long
+   if (strlen($posttext) > $minimum_length) {
+       // Reset the tag_counter and pass through (part of) the entire text
+       $c = 0;
+       for ($i = 0; $i < strlen($posttext); $i++) {
+           // Load the current character and the next one
+           // if the string has not arrived at the last character
+           $current_char = substr($posttext,$i,1);
+           if ($i < strlen($posttext) - 1) {
+               $next_char = substr($posttext,$i + 1,1);
+           }
+           else {
+               $next_char = "";
+           }
+           // First check if quotes are on
+           if (!$quotes_on) {
+               // Check if it's a tag
+               // On a "<" add 3 if it's an opening tag (like <a href...)
+               // or add only 1 if it's an ending tag (like </a>)
+               if ($current_char == '<') {
+                   if ($next_char == '/') {
+                       $tag_counter += 1;
+                   }
+                   else {
+                       $tag_counter += 3;
+                   }
+               }
+               // Slash signifies an ending (like </a> or ... />)
+               // substract 2
+               if ($current_char == '/' && $tag_counter <> 0) $tag_counter -= 2;
+               // On a ">" substract 1
+               if ($current_char == '>') $tag_counter -= 1;
+               // If quotes are encountered, start ignoring the tags
+               // (for directory slashes)
+               if ($current_char == '"') $quotes_on = TRUE;
+           }
+           else {
+               // IF quotes are encountered again, turn it back off
+               if ($current_char == '"') $quotes_on = FALSE;
+           }
+          
+           // Count only the chars outside html tags
+           if($tag_counter == 2 || $tag_counter == 0){
+               $c++;
+           }         
+                          
+           // Check if the counter has reached the minimum length yet,
+           // then wait for the tag_counter to become 0, and chop the string there
+           if ($c > $minimum_length - $length_offset && $tag_counter == 0 && ($next_char == ' ' || $cut_words == TRUE)) {
+               $posttext = substr($posttext,0,$i + 1);             
+               if($dots){
+                   $posttext .= '...';
+               }
+               return $posttext;
+           }
+       }
+   } 
+   return $posttext;
+} 
+
+
 function showViewForm($curValue) {
 
     //default: read and unread!

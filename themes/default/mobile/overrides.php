@@ -7,6 +7,15 @@ require_once('mobileconstants.php');
 rss_theme_config_override_option('rss.output.frontpage.numitems', DEFAULT_MOBILE_FRONTPAGE_NUMITEMS);
 rss_theme_config_override_option('rss.output.itemsinchannelview', DEFAULT_MOBILE_FRONTPAGE_ITEMSINCHANNELVIEW);
 
+if (getProperty('rss.prop.theme.default.mobile','rss.output.maxlength') === NULL) {
+	setProperty('rss.prop.theme.default.mobile','rss.output.maxlength','theme',0);
+}
+
+if (getProperty('rss.prop.theme.default.mobile','rss.content.strip.images') === NULL) {
+	setProperty('rss.prop.theme.default.mobile','rss.content.strip.images','theme',false);
+}
+
+
 // but why does it sort in reverse order unless we set this?
 rss_config_override('rss.output.frontpage.mixeditems', false);
 

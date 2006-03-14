@@ -17,9 +17,22 @@ function __mobile_strip_images($i) {
     $i -> description = kses($i -> description ,$allowed);
     return $i;
 }
+
+function __mobile_truncate_content($i) {
+	$ml = getProperty('rss.prop.theme.default.mobile','rss.output.maxlength');
+	$i -> description =  html_substr($i -> description, $ml) ;
+	return $i;
+}
+
 if (getProperty('rss.prop.theme.default.mobile','rss.content.strip.images')) {
 	rss_set_hook('rss.plugins.items.beforerender','__mobile_strip_images');
 } 
+
+if (getProperty('rss.prop.theme.default.mobile','rss.output.maxlength')) {
+		rss_set_hook('rss.plugins.items.beforerender','__mobile_truncate_content');
+}
+
+
 /*else {
 setProperty('rss.prop.theme.default.mobile','rss.content.strip.images','theme',true) ;
 }*/
