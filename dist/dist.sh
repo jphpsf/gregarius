@@ -4,12 +4,12 @@ if [ $# != 1 ]; then
   exit 1
 fi
 
-if [ ! -d rss ]; then
+if [ ! -d gregarius ]; then
   echo "run this script from rss's parent directory!" >&2
   exit 1
 fi
 
-tar cvfz rss-$1.tar.gz \
+tar cvfz gregarius-$1.tar.gz \
  --exclude=*CVS* \
  --exclude=dbinit.php \
  --exclude=dist \
@@ -25,7 +25,7 @@ tar cvfz rss-$1.tar.gz \
  --exclude=*.*~ \
  rss
 
-zip -r  rss-$1.zip rss \
+zip -r  gregarius-$1.zip rss \
  -x \*/CVS\* \
  -x \*/dbinit.php \
  -x \*/dist\* \
@@ -39,8 +39,3 @@ zip -r  rss-$1.zip rss \
   -x \*.svn\* \
  -x \*.cvsignore \
  -x \*.\*~ \
- 
-
-	  
-
- 
