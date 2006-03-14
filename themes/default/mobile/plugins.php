@@ -1,5 +1,8 @@
 <?php
 
+// stores constants for overrides' defaults
+require_once('mobileconstants.php');
+
 // Mobile theme relys on PHP sessions
 ini_set('session.use_trans_sid',true);
 session_start();
@@ -19,17 +22,17 @@ function __mobile_strip_images($i) {
 }
 
 function __mobile_truncate_content($i) {
-	$ml = getProperty('rss.prop.theme.default.mobile','rss.output.maxlength');
+	$ml = rss_theme_config_override_option('rss.output.maxlength',DEFAULT_MOBILE_OUTPUT_MAXLENGTH);
 	$i -> description =  html_substr($i -> description, $ml) ;
 	return $i;
 }
 
-if (getProperty('rss.prop.theme.default.mobile','rss.content.strip.images')) {
+if (rss_theme_config_override_option('rss.content.strip.images',DEFAULT_MOBILE_CONTENT_STRIP_IMAGES)) {
 	rss_set_hook('rss.plugins.items.beforerender','__mobile_strip_images');
 } 
 
-if (getProperty('rss.prop.theme.default.mobile','rss.output.maxlength')) {
-		rss_set_hook('rss.plugins.items.beforerender','__mobile_truncate_content');
+if (rss_theme_config_override_option('rss.output.maxlength',DEFAULT_MOBILE_OUTPUT_MAXLENGTH) > 0) {
+	rss_set_hook('rss.plugins.items.beforerender','__mobile_truncate_content');
 }
 
 

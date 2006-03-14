@@ -188,8 +188,8 @@ function theme_options_fill_override_array($theme, $media, $array_input, $key=nu
         if( isset( $inp['key_'] ) ) {
             $thisret = array();
             if( $key === null || $key === $inp['key_'] ) {
+                $thisret = $inp;
                 if($inp['key_'] == 'rss.output.theme.scheme') {
-                    $thisret = $inp;
                     $schemes = loadSchemeList( true, $theme, $media );
                     if( !isset( $inp['default_'] ) )
                         $thisret['default_'] = implode(',', $schemes ) . ",0";
