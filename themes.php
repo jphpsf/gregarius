@@ -162,6 +162,7 @@ function isMobileDevice() {
             $ua = $_SERVER['HTTP_USER_AGENT'];
             $ua_lwr = strtolower( $ua );
             $ret = strpos($ua, 'SonyEricsson') !== FALSE
+            		|| strpos($ua, 'Symbian') !== FALSE
                 || strpos($ua, 'Nokia') !== FALSE
                 || strpos($ua, 'Mobile') !== FALSE
                 || strpos($ua, 'Windows CE') !== FALSE
