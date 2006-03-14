@@ -12,7 +12,7 @@ rss_theme_options_configure_overrides( /*theme name*/ 'default', /*media (option
                 array( 'key_' => 'rss.output.frontpage.numitems', 'default_' => DEFAULT_MOBILE_FRONTPAGE_NUMITEMS ),
                 array( 'key_' => 'rss.output.itemsinchannelview', 'default_' => DEFAULT_MOBILE_FRONTPAGE_ITEMSINCHANNELVIEW ),
                 array( 'key_' => 'rss.output.maxlength', 'default_' => DEFAULT_MOBILE_OUTPUT_MAXLENGTH, 'type_' => 'num', 
-			'desc_' => 'Truncate long posts to this many words. Set to 0 (default) to disable this.', 'export_' => NULL ),
+			'desc_' => 'Truncate long posts to this many characters. Set to 0 (default) to disable this.', 'export_' => NULL ),
                 array( 'key_' => 'rss.content.strip.images', 'default_' => DEFAULT_MOBILE_CONTENT_STRIP_IMAGES, 'type_' => 'boolean', 
 			'desc_' => "When true, Gregarius won't display any image in items shown on mobile devices.", 'export_' => NULL )
         )
