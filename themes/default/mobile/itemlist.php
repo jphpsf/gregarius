@@ -5,5 +5,8 @@
 <h2><?php echo $title; ?></h2>
 <form method="POST" style="display: inline;">
 <?php } rss_itemlist_feeds(); ?>
+<?php if( !isMobileDevice() ) { ?>
+<input type='hidden' name='mobile'>
+<?php } ?>
 <input type='submit' value='next'>
 </form>
