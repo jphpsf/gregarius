@@ -1,7 +1,7 @@
-img {
-  border: 0px;
-}
-
+img {  border: 0px; }
+h4,h5 { display:block;margin:0;padding:0 }
 div.mobileform {
-  border: 1px dashed black; margin-right: 13px;
+  border: 1px dashed black; 
+  margin: 0 13px 13px 0;
+  display:block;
 }

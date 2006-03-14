@@ -1,4 +1,4 @@
-<h4><a href="<?php
+<br /><br /><h4><a href="<?php
   $url = rss_item_url();
   if (substr($url,0,4) == 'http') {
     echo $url;
@@ -14,10 +14,12 @@
 <?php	if (rss_item_display_tags() && count($GLOBALS['rss']->currentItem->tags)) { ?>
 <h5><a href="<?php echo rss_item_tagslink(); ?>"><?php echo LBL_TAG_TAGS; ?></a>:&nbsp;<span><?php echo rss_item_tags(); ?></h5>
 <?php } ?>
+<br />
 <div class="content">
 <?php echo rss_item_content(); ?>
 
 <?php if(!hidePrivate()) { ?>
+	<br />
 	<div class="mobileform">
 	<input type="radio" value="mobile_read" name="<?= rss_item_id(); ?>" <?php
 	  if( !$GLOBALS['rss'] -> currentItem -> isUnread && !$GLOBALS['rss'] -> currentItem -> isSticky ) {
