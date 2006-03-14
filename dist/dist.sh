@@ -23,9 +23,9 @@ tar cvfz gregarius-$1.tar.gz \
   --exclude=*.svn* \
  --exclude=*.cvsignore \
  --exclude=*.*~ \
- rss
+ gregarius
 
-zip -r  gregarius-$1.zip rss \
+zip -r  gregarius-$1.zip gregarius \
  -x \*/CVS\* \
  -x \*/dbinit.php \
  -x \*/dist\* \
