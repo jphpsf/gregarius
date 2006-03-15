@@ -275,6 +275,10 @@ define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
 define ('LBL_LAST_UPDATE','Letzte Aktualisierung');						
 define ('LBL_ADMIN_DOMAIN_THEMES_LBL','Themen');
 define ('LBL_ADMIN_THEMES','Themen');
+define('LBL_ADMIN_ACTIVE_THEME','Aktuelles Thema');
+define('LBL_ADMIN_USE_THIS_THEME','Dieses Thema verwenden');
+define('LBL_ADMIN_THEME_OPTIONS','Themenoptionen');
+define('LBL_ADMIN_CONFIGURE','Konfigurieren');
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 .'Themen sind mit mehreren Vorlagen erstellt, welche das Aussehen von Gregarius bestimmen.<br />'

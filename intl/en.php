@@ -285,7 +285,8 @@ define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> You are successfully 
 			.'logged in as %s, but you don\\\'t have administration privileges. Log in again '
 			.'with administration privileges or follow your way <a href="..">home</a>');
 
-
+define('LBL_ADMIN_ACTIVE_THEME','Active Theme');
+define('LBL_ADMIN_USE_THIS_THEME','Use this Theme');
 
 define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
 .'Plugins are third-party scripts that offer extended functionalities. '

@@ -191,9 +191,8 @@ define ('LBL_ADMIN_BOOKMARKET_LABEL','Bookmarklet f&ouml;r att l&auml;gga till e
 define ('LBL_ADMIN_BOOKMARKLET_TITLE','L&auml;gg till i Gregarius!');
 
 // New in 0.5.x:
-define('LBL_FOOTER_LAST_MODIF_NEVER', 'never');
 
-
+define ('LBL_ADMIN_CONFIGURE','Configure');
 define ('LBL_ADMIN_ERROR_NOT_AUTHORIZED', 
  		"<h1>Stopp och bel&auml;gg!</h1>\Du har inte beh&ouml;righet att anv&auml;nda adminsidorna.\n"
 		."Klicka <a href=\"%s\">h&auml;r</a> f&ouml;r att komma tillbaka till startsidan.\n"
@@ -291,6 +290,10 @@ define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
 define ('LBL_LAST_UPDATE','Last update');						
 define ('LBL_ADMIN_DOMAIN_THEMES_LBL','themes');
 define ('LBL_ADMIN_THEMES','Themes');
+define('LBL_ADMIN_ACTIVE_THEME','Active Theme');
+define('LBL_ADMIN_USE_THIS_THEME','Use this Theme');
+define('LBL_ADMIN_THEME_OPTIONS','Theme Options');
+
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 .'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'

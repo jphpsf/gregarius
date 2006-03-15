@@ -284,6 +284,10 @@ define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
 define ('LBL_LAST_UPDATE','Ultimo aggiornamento');						
 define ('LBL_ADMIN_DOMAIN_THEMES_LBL','temi');
 define ('LBL_ADMIN_THEMES','Temi');
+define('LBL_ADMIN_ACTIVE_THEME','Tema attivo');
+define('LBL_ADMIN_USE_THIS_THEME','Utilizzare questo tema');
+define('LBL_ADMIN_THEME_OPTIONS','Opzioni del tema');
+define ('LBL_ADMIN_CONFIGURE','Configurare');
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 ."I temi sono composti da una serie de templates qui specificano l'aspetto di Gregarius.<br />"

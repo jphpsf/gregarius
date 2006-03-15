@@ -111,7 +111,7 @@ rss_require('tags.php');
 // Localization
 //
 $lang = getConfig('rss.output.lang');
-if (!preg_match('#^[a-zA-Z]+$#', $lang)) {
+if (!preg_match('#^[a-zA-Z_]+$#', $lang)) {
 	die('woopsie, bad lang: ' .$lang);
 }
 if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {

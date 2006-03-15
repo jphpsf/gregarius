@@ -74,9 +74,9 @@ function themes() {
         }
         echo "<div class=\"themeframe".($active?" active":"")."\"><span>";
         if (!$active && $htmltheme) {
-            echo "<a href=\"$seturl\" class=\"bookmarklet\">Use this theme</a>";
+            echo "<a href=\"$seturl\" class=\"bookmarklet\">".LBL_ADMIN_USE_THIS_THEME."</a>";
         } elseif($active) {
-            echo "<p class=\"bookmarklet\">Active theme</p>";
+            echo "<p class=\"bookmarklet\">".LBL_ADMIN_ACTIVE_THEME."</p>";
         }
         echo "<h4>$h4</h4>\n";
         if( file_exists( "../" . RSS_THEME_DIR . "/$fsname/config.php" ) )

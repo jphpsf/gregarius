@@ -109,6 +109,7 @@ define ('LBL_ADMIN_CONFIG','Настройка:');
 define ('LBL_ADMIN_OK','OK');
 define ('LBL_ADMIN_CANCEL','Отмена');
 define ('LBL_ADMIN_LOGOUT','Выйти');
+define ('LBL_ADMIN_CONFIGURE','Configure');
 
 define ('LBL_ADMIN_OPML_IMPORT','Импорт');
 define ('LBL_ADMIN_OPML_EXPORT','Экспорт');
@@ -207,9 +208,7 @@ define ('LBL_TAG_SUGGESTIONS','варианты');
 define ('LBL_TAG_SUGGESTIONS_NONE','вариантов нет');
 define ('LBL_TAG_RELATED','Связанные теги: ');
 
-define ('LBL_MARK_READ', "Пометить все как прочтенные");
-define ('LBL_MARK_CHANNEL_READ', "Пометить эту ленту как прочтенную");
-define ('LBL_MARK_FOLDER_READ',"Пометить эту папку как прочтенную");
+
 define ('LBL_SHOW_UNREAD_ALL_SHOW','Показать записи: ');
 define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Только непрочтенные');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Прочтенные и непрочтенные');
@@ -282,6 +281,10 @@ define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
 define ('LBL_LAST_UPDATE','Last update');						
 define ('LBL_ADMIN_DOMAIN_THEMES_LBL','themes');
 define ('LBL_ADMIN_THEMES','Themes');
+define('LBL_ADMIN_ACTIVE_THEME','Active Theme');
+define('LBL_ADMIN_USE_THIS_THEME','Use this theme');
+define('LBL_ADMIN_THEME_OPTIONS','Theme Options');
+
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 .'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'
@@ -295,6 +298,8 @@ define ('LBL_MARK_READ', "Пометить все как прочтенные");
 define ('LBL_MARK_CHANNEL_READ', "Пометить эту ленту как прочтенную");
 define ('LBL_MARK_FOLDER_READ',"Пометить эту папку как прочтенную");
 define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
+
 define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
+
 define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
 ?>
