@@ -242,60 +242,60 @@ define ('LBL_CATCNT_PF', '<strong>%d</strong> not&iacute;cias em <strong>%d</str
 define ('LBL_RATING','Avalia&ccedil;&atilde;o:');
 // New in 0.5.3:
 // TRANSLATION NEEDED! Please join gregarius-i18n: http://sinless.org/mailman/listinfo/gregarius-i18n
-define('LBL_ENCLOSURE', 'Enclosure:');
+define('LBL_ENCLOSURE', 'Cercado:');
 define('LBL_DOWNLOAD', 'download');
-define('LBL_PLAY', 'play');
+define('LBL_PLAY', 'tocar');
 
-define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
-define ('LBL_ADMIN_DASHBOARD','Dashboard');
+define('LBL_FOOTER_LAST_MODIF_NEVER', 'Nunca');
+define ('LBL_ADMIN_DASHBOARD','Prancheta');
 
 
-define ('LBL_ADMIN_MUST_SET_PASS','<p>No Administrator has been specified yet!</p>'
-		.'<p>Please provide an Administrator username and password now!</p>');
-define ('LBL_USERNAME','Username');		
-define ('LBL_PASSWORD','Password');
-define ('LBL_PASSWORD2','Password (again)');
-define ('LBL_ADMIN_LOGIN','Please log in');
-define ('LBL_ADMIN_PASS_NO_MATCH','Passwords do not match!');
+define ('LBL_ADMIN_MUST_SET_PASS','<p>Nenhum administrador foi especificado ainda!</p>'
+		.'<p>Por favor forneça um usu&aacute;rio e senha para o Administrador agora!</p>');
+define ('LBL_USERNAME','Usu&aacute;rio');		
+define ('LBL_PASSWORD','Senha');
+define ('LBL_PASSWORD2','Senha (novamente)');
+define ('LBL_ADMIN_LOGIN','Por favor entre');
+define ('LBL_ADMIN_PASS_NO_MATCH','Senhas não conferem!');
 
 define ('LBL_ADMIN_PLUGINS','Plugins');
 define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','plugins');
-define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Options');
-define ('LBL_ADMIN_PLUGINS_OPTIONS','Plugin Options');
-define ('LBL_ADMIN_CHECK_FOR_UPDATES','Check for Updates');
-define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Bad login/password');
-define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> You are successfully '
-			.'logged in as %s, but you don\\\'t have administration privileges. Log in again '
-			.'with administration privileges or follow your way <a href="..">home</a>');
+define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Op&ccedil;&otilde;es');
+define ('LBL_ADMIN_PLUGINS_OPTIONS','Op&ccedil;&otilde;es de Plugins');
+define ('LBL_ADMIN_CHECK_FOR_UPDATES','Verificar atualiza&ccedil;&otilde;es');
+define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Senha ou usu&aacute;rio inválido');
+define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> Voc&ecirc; entrou com sucesso '
+			.'como %s, mas voc&ecirc; n&atilde;o tem privil&eacute;gios administrativos. Por favor entre novamente '
+			.'com privil&eacute;gios administrativos ou volte para o <a href="..">&iacute;n&iacute;cio</a>');
 
 
 define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
-.'Plugins are third-party scripts that offer extended functionalities. '
-.'More plugins can be downloaded at the <a style="text-decoration:underline" '
-.' href="http://plugins.gregarius.net/">Plugin Repository</a>.</p>');
+.'Plugins s&atilde;o scripts fornecidos por terceiros que oferecem funcionalidades extras. '
+.'Mais plugins podem ser encontrados no <a style="text-decoration:underline" '
+.' href="http://plugins.gregarius.net/">Reposit&oacute;rio de Plugins</a>.</p>');
 
 
-define ('LBL_LAST_UPDATE','Last update');						
-define ('LBL_ADMIN_DOMAIN_THEMES_LBL','themes');
-define ('LBL_ADMIN_THEMES','Themes');
-define('LBL_ADMIN_ACTIVE_THEME','Active Theme');
-define('LBL_ADMIN_USE_THIS_THEME','Use this Theme');
-define('LBL_ADMIN_CONFIGURE','Configure');
-define('LBL_ADMIN_THEME_OPTIONS','Theme Options');
+define ('LBL_LAST_UPDATE','&Uacute;ltima atualiza&ccedil;&atilde;o');						
+define ('LBL_ADMIN_DOMAIN_THEMES_LBL','temas');
+define ('LBL_ADMIN_THEMES','Temas');
+define('LBL_ADMIN_ACTIVE_THEME','Tema ativo');
+define('LBL_ADMIN_USE_THIS_THEME','Usar este Tema');
+define('LBL_ADMIN_CONFIGURE','Configurar');
+define('LBL_ADMIN_THEME_OPTIONS','Op&ccedil;&otilde;es do Tema');
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
-.'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'
-.'More themes can be downloaded at the <a style="text-decoration:underline" '
-.' href="http://themes.gregarius.net/">Themes Repository</a>.</p>');
+.'Temas s&atilde;o feitos de um conjunto de arquivos de modelos que especificam como sua instala&ccedil;&atilde;o do Gregarius vai se parecer.<br />'
+.'Mais temas podem ser encontrados no  <a style="text-decoration:underline" '
+.' href="http://themes.gregarius.net/">Reposit&oacute;rio de Temas</a>.</p>');
 
-define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
-define ('LBL_FLAG','Flagged');
+define ('LBL_STATE_FLAG','Flag (Marca um &iacute;tem para leitura posterior)');
+define ('LBL_FLAG','Marcado');
 
 define ('LBL_MARK_READ', "Marcar todos os &iacute;tens como lidos");
 define ('LBL_MARK_CHANNEL_READ', "Marcar este feed como lido");
 define ('LBL_MARK_FOLDER_READ',"Marcar esta pasta como lida");
 
-define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
-define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
-define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
+define ('LBL_MARK_CHANNEL_READ_ALL', "Marcar este feed como lido");
+define ('LBL_MARK_FOLDER_READ_ALL',"Marcar esta pasta como lida");
+define ('LBL_MARK_CATEGORY_READ_ALL',"Marcar esta categoria como lida");
 ?>
