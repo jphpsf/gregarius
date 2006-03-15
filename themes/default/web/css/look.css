@@ -309,6 +309,7 @@ div.content img {
  padding: 0.4em; 
  margin: 0.8em 0; 
  border: 1px solid #ddd;
+ max-width:99%;
 }
 
 div#pbholder {
