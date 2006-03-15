@@ -31,36 +31,36 @@ define ('LOCALE_LINUX','de_DE');
 
 define ('LBL_ITEM','Artikel');
 define ('LBL_ITEMS','Artikel');
-define ('LBL_H2_SEARCH_RESULTS_FOR', "%d Artikel gefunden fuer %s");
-define ('LBL_H2_SEARCH_RESULT_FOR',"%d passt fuer %s");
+define ('LBL_H2_SEARCH_RESULTS_FOR', "%d Artikel gefunden f&uuml;r %s");
+define ('LBL_H2_SEARCH_RESULT_FOR',"%d passt f&uuml;r %s");
 define ('LBL_H2_SEARCH', 'Suche %d Artikel');
 define ('LBL_SEARCH_SEARCH_QUERY','Suchbegriffe:');
 define ('LBL_SEARCH_MATCH_OR', 'Einige Begriffe (ODER)');
 define ('LBL_SEARCH_MATCH_AND', 'Alle Begriffe (UND)');                                                                 
-define ('LBL_SEARCH_MATCH_EXACT', 'Exakte Uebereinstimmung');
+define ('LBL_SEARCH_MATCH_EXACT', 'Exakte &Uuml;bereinstimmung');
 define ('LBL_SEARCH_CHANNELS', 'Feed:');
 define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Sortiert nach Datum und Feed');
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Sortiert nach Feed und Datum');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','Resultate pro Seite:');
 define ('LBL_SEARCH_RESULTS','Resultate: ');
 define ('LBL_H2_UNREAD_ITEMS','Ungelesene Artikel (<span id="ucnt">%d</span>)');
-define ('LBL_H2_RECENT_ITEMS', "Kuerzliche Artikel");
+define ('LBL_H2_RECENT_ITEMS', "K&uuml;rzliche Artikel");
 define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d Artikel, %d ungelesen');
-define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> Begriffe (<strong>%d</strong> ungelesen) in <strong>%d</strong> Feeds');
-define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> getaggte Artikel, in <strong>%d</strong> Tags');
+define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> Artikel (<strong>%d</strong> ungelesen) in <strong>%d</strong> Feeds');
+define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> markierte Artikel, in <strong>%d</strong> Tags');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d ungelesen)</strong>');
 define ('LBL_UNREAD','ungelesen');
 
 define ('LBL_FTR_POWERED_BY', " powered by ");
 define ('LBL_ALL','Alle');
 define ('LBL_NAV_HOME','<span>H</span>ome');
-define ('LBL_NAV_UPDATE', '<span>R</span>efresh');
+define ('LBL_NAV_UPDATE', '<span>E</span>rneuern');
 define ('LBL_NAV_CHANNEL_ADMIN', 'A<span>d</span>min');
-define ('LBL_NAV_SEARCH', "<span>S</span>earch");
+define ('LBL_NAV_SEARCH', "<span>S</span>uchen");
 define ('LBL_SEARCH_GO', 'Suchen');
 
-define ('LBL_POSTED', 'Veroeffentlicht: ');
+define ('LBL_POSTED', 'Ver&ouml;ffentlicht: ');
 define ('LBL_FETCHED','geholt: ');
 define ('LBL_BY', ' by ');
 
@@ -75,7 +75,7 @@ define ('LBL_HOME_FOLDER','Root');
 define ('LBL_VISIT', '(besuchen)');
 define ('LBL_COLLAPSE','[-] verringern');
 define ('LBL_EXPAND','[+] erweitern');
-define ('LBL_PL_FOR','Permalink fuer ');
+define ('LBL_PL_FOR','Permalink f&uuml;r ');
 
 define ('LBL_UPDATE_CHANNEL','Feed');
 define ('LBL_UPDATE_STATUS','Status');
@@ -85,13 +85,13 @@ define ('LBL_UPDATE_STATUS_OK','OK (HTTP 200)');
 define ('LBL_UPDATE_STATUS_CACHED', 'OK (Local cache)');
 define ('LBL_UPDATE_STATUS_ERROR','ERROR');
 define ('LBL_UPDATE_H2','Aktualisiere %d Feeds...');
-define ('LBL_UPDATE_CACHE_TIMEOUT','HTTP Zeitueberschreitung (Local cache)');
+define ('LBL_UPDATE_CACHE_TIMEOUT','HTTP Zeit&uuml;berschreitung (Local cache)');
 define ('LBL_UPDATE_NOT_MODIFIED','OK (304 Not modified)');
 define ('LBL_UPDATE_NOT_FOUND','404 Not Found (Local cache)');
 // admin
 define ('LBL_ADMIN_EDIT', 'bearbeiten');
-define ('LBL_ADMIN_DELETE', 'loeschen');
-define ('LBL_ADMIN_DELETE2', 'Loeschen');
+define ('LBL_ADMIN_DELETE', 'l&ouml;schen');
+define ('LBL_ADMIN_DELETE2', 'L&ouml;schen');
 define ('LBL_ADMIN_RENAME', 'Umbenennen zu...');
 define ('LBL_ADMIN_CREATE', 'Erstellen');
 define ('LBL_ADMIN_IMPORT','Import');
@@ -127,12 +127,12 @@ define ('LBL_ADMIN_CHANNELS_HEADING_DESCR','Beschreibung');
 define ('LBL_ADMIN_CHANNELS_HEADING_MOVE','Bewegen');
 define ('LBL_ADMIN_CHANNELS_HEADING_ACTION','Aktion');
 define ('LBL_ADMIN_CHANNELS_HEADING_FLAGS','Flags');
-define ('LBL_ADMIN_CHANNELS_HEADING_KEY','Schluessel');
+define ('LBL_ADMIN_CHANNELS_HEADING_KEY','Schl&uuml;ssel');
 define ('LBL_ADMIN_CHANNELS_HEADING_VALUE','Wert');
 define ('LBL_ADMIN_CHANNELS_ADD','Feed:');
 define ('LBL_ADMIN_FOLDERS_ADD','Ordner hinzuf&uuml;gen:');
 define ('LBL_ADMIN_CHANNEL_ICON','Gezeigte Favoriten-Zeichen:');
-define ('LBL_CLEAR_FOR_NONE','(Leer lassen fuer kein Icon)');
+define ('LBL_CLEAR_FOR_NONE','(Leer lassen f&uuml;r kein Icon)');
 
 define ('LBL_ADMIN_CONFIG_VALUE','Wert f&uuml;r');
 
@@ -153,25 +153,25 @@ define ('LBL_ADMIN_FOLDER_NAME','Ordnername:');
 define ('LBL_ADMIN_CHANNEL_PRIVATE','Dieser Feed ist <strong>privat</strong>, nur Admins sehen ihn.');
 define ('LBL_ADMIN_CHANNEL_DELETED','Dieser Feed ist <strong>veraltet</strong>, er wird nicht mehr aktualisiert und wird nicht mehr in der Feedspalte sichtbar sein.');
 
-define ('LBL_ADMIN_ARE_YOU_SURE', "Wollen sie den Ordner '%s' wirklich loeschen?");
-define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT','Bist du sicher, dass du den Wert fuer %s auf den Standard zuruecksetzen willst \'%s\'?');
+define ('LBL_ADMIN_ARE_YOU_SURE', "Wollen sie den Ordner '%s' wirklich l&ouml;schen?");
+define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT','Bist du sicher, dass du den Wert f&uuml;r %s auf den Standard zur&uuml;cksetzen willst \'%s\'?');
 define ('LBL_ADMIN_TRUE','Wahr');
 define ('LBL_ADMIN_FALSE','Falsch');
 define ('LBL_ADMIN_MOVE_UP','&uarr;');
 define ('LBL_ADMIN_MOVE_DOWN','&darr;');
-define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Die URL von einem RSS Feed eintragen oder die Webseite, welche den gewuenschten Feed enthaelt )');
+define ('LBL_ADMIN_ADD_CHANNEL_EXPL','(Die URL von einem RSS Feed eintragen oder die Webseite, welche den gew&uuml;nschten Feed enth&auml;lt )');
 define ('LBL_ADMIN_FEEDS','Die folgenden Feeds wurden in <a href="%s">%s</a> gefunden, welchen wollen sie abonnieren?');
 
-define ('LBL_ADMIN_PRUNE_OLDER','Loesche Artikel aelter als ');
+define ('LBL_ADMIN_PRUNE_OLDER','L&ouml;sche Artikel &auml;lter als ');
 define ('LBL_ADMIN_PRUNE_DAYS','Tage');
 define ('LBL_ADMIN_PRUNE_MONTHS','Monate');
 define ('LBL_ADMIN_PRUNE_YEARS','Jahre');
 define ('LBL_ADMIN_PRUNE_KEEP','Behalte die neuesten Artikel: ');
-define ('LBL_ADMIN_PRUNE_INCLUDE_STICKY','Loesche auch Sticky Artikel: ');
-define ('LBL_ADMIN_PRUNE_EXCLUDE_TAGS','Getaggte Artikel nicht loeschen... ');
-define ('LBL_ADMIN_ALLTAGS_EXPL','(Trage <strong>*</strong> ein, um alle getaggten Artikel zu behalten)');
+define ('LBL_ADMIN_PRUNE_INCLUDE_STICKY','L&ouml;sche auch Sticky Artikel: ');
+define ('LBL_ADMIN_PRUNE_EXCLUDE_TAGS','Markierte Artikel nicht l&ouml;schen... ');
+define ('LBL_ADMIN_ALLTAGS_EXPL','(Trage <strong>*</strong> ein, um alle markierten Artikel zu behalten)');
 
-define ('LBL_ADMIN_ABOUT_TO_DELETE','Achtung: es werden %s Artikel (von %s) geloescht');
+define ('LBL_ADMIN_ABOUT_TO_DELETE','Achtung: es werden %s Artikel (von %s) gel&ouml;scht');
 define ('LBL_ADMIN_PRUNING','Bereinigen');
 define ('LBL_ADMIN_DOMAIN_FOLDER_LBL','Ordner');
 define ('LBL_ADMIN_DOMAIN_CHANNEL_LBL','Feeds');
@@ -183,42 +183,42 @@ define ('LBL_ADMIN_BOOKMARKLET_TITLE','Gregarius abonnieren!');
 
 
 define ('LBL_ADMIN_ERROR_NOT_AUTHORIZED', 
- 		"<h1>Not Authorized!</h1>\nYou are not authorized to access the administration interface.\n"
-		."Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-		."Have a nice day!");
+ 		"<h1>Nicht berechtigt!</h1>\nDu bist nicht berechtigt, auf die Admin Umgebung zuzugreifen.\n"
+		."Bitte folge <a href=\"%s\">diesem Link</a> zur&uuml;ck zur Hauptseite.\n"
+		."Sch&ouml;nen Tag noch!");
 		
-define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Ungueltige Bereinigungsperiode');
-define ('LBL_ADMIN_ERROR_NO_PERIOD','oops, kein Zeitraum angegeben');
-define ('LBL_ADMIN_BAD_RSS_URL',"Entschuldige, Ich kann diese URL nicht verarbeiten: '%s'");
-define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Du kannst den " . LBL_HOME_FOLDER . " folder nicht loeschen");
+define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Ung&uuml;ltige Bereinigungsperiode');
+define ('LBL_ADMIN_ERROR_NO_PERIOD','Oops, kein Zeitraum angegeben');
+define ('LBL_ADMIN_BAD_RSS_URL',"Entschuldige, ich kann diese URL nicht verarbeiten: '%s'");
+define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Du kannst den " . LBL_HOME_FOLDER . " Ordner nicht l&ouml;schen");
 define ('LBL_ADMIN_CANT_RENAME',"Du kannst den Ordner '%s' nicht umbenennen, da ein solcher schon existiert.");
 define('LBL_ADMIN_ERROR_CANT_CREATE',"Der Ordner '%s' existiert schon!");
 
 define ('LBL_TAG_TAGS','Markierungen');
-define ('LBL_TAG_EDIT','bearbeiten');
-define ('LBL_TAG_SUBMIT','Ausloesen');
+define ('LBL_TAG_EDIT','Bearbeiten');
+define ('LBL_TAG_SUBMIT','Ausl&ouml;sen');
 define ('LBL_TAG_CANCEL','Abbrechen');
 define ('LBL_TAG_SUBMITTING','...');
-define ('LBL_TAG_ERROR_NO_TAG',"Oops! Getaggte Artikel wurden nicht gefunden &laquo;%s&raquo.");
+define ('LBL_TAG_ERROR_NO_TAG',"Oops! Markierte Artikel wurden nicht gefunden &laquo;%s&raquo.");
 define ('LBL_TAG_ALL_TAGS','Alle Markierungen');
-define ('LBL_TAG_TAGGED','getaggt');
-define ('LBL_TAG_TAGGEDP','getaggt');
-define ('LBL_TAG_SUGGESTIONS','Vorschlaege');
-define ('LBL_TAG_SUGGESTIONS_NONE','keine Vorschlaege');
-define ('LBL_TAG_RELATED','Aehnliche Markierungen: ');
+define ('LBL_TAG_TAGGED','markiert');
+define ('LBL_TAG_TAGGEDP','markiert');
+define ('LBL_TAG_SUGGESTIONS','Vorschl&auml;ge');
+define ('LBL_TAG_SUGGESTIONS_NONE','keine Vorschl&auml;ge');
+define ('LBL_TAG_RELATED','&Auml;hnliche Markierungen: ');
 
-define ('LBL_SHOW_UNREAD_ALL_SHOW','Begriffe anzeigen: ');
+define ('LBL_SHOW_UNREAD_ALL_SHOW','Artikel anzeigen: ');
 define ('LBL_SHOW_UNREAD_ALL_UNREAD_ONLY','Nur Ungelesene');
 define ('LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD','Gelesene und Ungelesene');
 
-define ('LBL_STATE_UNREAD','Ungelesen (Set this item\\\'s read/unread state)');
-define ('LBL_STATE_STICKY','Sticky (Won\\\'t be deleted when you prune items)');
-define ('LBL_STATE_PRIVATE','Privat (Nur Administratoren koennen private Eintraege sehen)');
+define ('LBL_STATE_UNREAD','Ungelesen (Setzt den Status des Artikels auf gelesen/ungelesen)');
+define ('LBL_STATE_STICKY','Sticky (Wird nicht gel&ouml;scht beim Bereinigen von Artikeln)');
+define ('LBL_STATE_PRIVATE','Privat (Nur Administratoren k&ouml;nnen private Eintr&auml;ge sehen)');
 define ('LBL_STICKY','Sticky');
 define ('LBL_DEPRECATED','Veraltet');
 define ('LBL_PRIVATE','Privat');
 define ('LBL_ADMIN_STATE','Status:');
-define ('LBL_ADMIN_STATE_SET','Aendern');
+define ('LBL_ADMIN_STATE_SET','&Auml;ndern');
 define ('LBL_ADMIN_IM_SURE','Ich bin sicher!');
 // new in 0.5.1:
 define ('LBL_LOGGED_IN_AS','Angemeldet als <strong>%s</strong>');
@@ -227,11 +227,11 @@ define ('LBL_LOG_OUT','Abmelden');
 define ('LBL_LOG_IN','Anmelden');
 
 define ('LBL_ADMIN_OPML_IMPORT_AND','Import neuer Feeds und:');
-define ('LBL_ADMIN_OPML_IMPORT_WIPE','... ersetzen aller existierender Feeds und Begriffe.');
-define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... zum Ordner hinzufuegen:');
+define ('LBL_ADMIN_OPML_IMPORT_WIPE','... ersetzen aller existierender Feeds und Artikel.');
+define ('LBL_ADMIN_OPML_IMPORT_FOLDER','... zum Ordner hinzuf&uuml;gen:');
 define ('LBL_ADMIN_OPML_IMPORT_MERGE','... verbinde diese mit den existierenden Ordnern.');
 
-define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Fuege %s zu %s... ');
+define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','F&uuml;ge %s zu %s... ');
 
 define ('LBL_TAG_FOLDERS','Kategorien');
 define ('LBL_SIDE_ITEMS','(%d Artikel)');
@@ -239,57 +239,56 @@ define ('LBL_SIDE_UNREAD_FEEDS','(%d ungelesene in %d Feeds)');
 define ('LBL_CATCNT_PF', '<strong>%d</strong> Feeds in <strong>%d</strong> Kategorien');
 
 define ('LBL_RATING','Bewertung:');
-// New in 0.5.3:
-// TRANSLATION NEEDED! Please join gregarius-i18n: http://sinless.org/mailman/listinfo/gregarius-i18n
-define('LBL_ENCLOSURE', 'Enclosure:');
+
+define('LBL_ENCLOSURE', 'Enclosure (Einschl&uuml;sse):');
 define('LBL_DOWNLOAD', 'download');
-define('LBL_PLAY', 'play');
+define('LBL_PLAY', 'abspielen');
 
 define('LBL_FOOTER_LAST_MODIF_NEVER', 'noch nicht');
 define ('LBL_ADMIN_DASHBOARD','Dashboard');
 
 
-define ('LBL_ADMIN_MUST_SET_PASS','<p>No Administrator has been specified yet!</p>'
-		.'<p>Please provide an Administrator username and password now!</p>');
-define ('LBL_USERNAME','Username');		
-define ('LBL_PASSWORD','Password');
-define ('LBL_PASSWORD2','Password (again)');
-define ('LBL_ADMIN_LOGIN','Please log in');
-define ('LBL_ADMIN_PASS_NO_MATCH','Passwords do not match!');
+define ('LBL_ADMIN_MUST_SET_PASS','<p>Es wurde noch kein Administrator bestimmt!</p>'
+		.'<p>Bitte bestimme einen Administrator-Benutzernamen und -Passwort!</p>');
+define ('LBL_USERNAME','Benutzername');		
+define ('LBL_PASSWORD','Passwort');
+define ('LBL_PASSWORD2','Passwort (nochmals)');
+define ('LBL_ADMIN_LOGIN','Bitte anmelden');
+define ('LBL_ADMIN_PASS_NO_MATCH','Die Passworte sind falsch!');
 
 define ('LBL_ADMIN_PLUGINS','Plugins');
-define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Options');
-define ('LBL_ADMIN_PLUGINS_OPTIONS','Plugin Options');
-define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','plugins');
-define ('LBL_ADMIN_CHECK_FOR_UPDATES','Check for Updates');
-define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Bad login/password');
-define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> You are successfully '
-			.'logged in as %s, but you don\\\'t have administration privileges. Log in again '
-			.'with administration privileges or follow your way <a href="..">home</a>');
+define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Optionen');
+define ('LBL_ADMIN_PLUGINS_OPTIONS','Plugin Optionen');
+define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','Plugins');
+define ('LBL_ADMIN_CHECK_FOR_UPDATES','Pr&uuml;fe auf Updates');
+define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Falsche(s) Anmeldung/Passwort');
+define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> Erfolgreich '
+			.'angemeldet als %s, aber du hast keine Administratorenrechte. Bitte nochmals '
+			.'mit Administratorenrechten anmelden oder dann zur&uuml;ck <a href="..">home</a>');
 
 
 define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
-.'Plugins are third-party scripts that offer extended functionalities. '
-.'More plugins can be downloaded at the <a style="text-decoration:underline" '
-.' href="http://plugins.gregarius.net/">Plugin Repository</a>.</p>');
+.'Plugins sind kleine Programme, welche von Dritten geschrieben worden f&uuml;r Erweiterungen von Gregarius. '
+.'Mehr Plugins k&ouml;nnen unter folgendem Link heruntergeladen werden <a style="text-decoration:underline" '
+.' href="http://plugins.gregarius.net/"></a>.</p>');
 
-define ('LBL_LAST_UPDATE','Last update');						
-define ('LBL_ADMIN_DOMAIN_THEMES_LBL','themes');
-define ('LBL_ADMIN_THEMES','Themes');
+define ('LBL_LAST_UPDATE','Letzte Aktualisierung');						
+define ('LBL_ADMIN_DOMAIN_THEMES_LBL','Themen');
+define ('LBL_ADMIN_THEMES','Themen');
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
-.'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'
-.'More themes can be downloaded at the <a style="text-decoration:underline" '
-.' href="http://themes.gregarius.net/">Themes Repository</a>.</p>');
+.'Themen sind mit mehreren Vorlagen erstellt, welche das Aussehen von Gregarius bestimmen.<br />'
+.'Mehr Themen k&ouml;nnen unter folgendem Link heruntergeladen werden <a style="text-decoration:underline" '
+.' href="http://themes.gregarius.net/"></a>.</p>');
 
-define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
-define ('LBL_FLAG','Flagged');
+define ('LBL_STATE_FLAG','Markiere (markiert einen Artikel zum sp&auml;teren Lesen)');
+define ('LBL_FLAG','Markiert');
 
-define ('LBL_MARK_READ', "Alle Begriffe als gelesen markieren");
+define ('LBL_MARK_READ', "Alle Artikel als gelesen markieren");
 define ('LBL_MARK_CHANNEL_READ', "Den Feed als gelesen markieren");
 define ('LBL_MARK_FOLDER_READ',"Den Ordner als gelesen markieren");
 
-define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
-define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
-define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
+define ('LBL_MARK_CHANNEL_READ_ALL', "Markiere diesen Feed als gelesen");
+define ('LBL_MARK_FOLDER_READ_ALL',"Markiere diesen Ordner als gelesen");
+define ('LBL_MARK_CATEGORY_READ_ALL',"Markiere diese Kategorie als gelesen");
 ?>
