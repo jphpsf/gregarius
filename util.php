@@ -135,7 +135,7 @@ function makeTitle($title) {
 function update($id) {
     $kses_allowed = getConfig('rss.input.allowed'); //getAllowedTags();
     $updatedIds = array ();
-    
+
 
     $sql = "select id, url, title, mode from ".getTable("channels");
     if ($id != "" && is_numeric($id)) {
@@ -174,21 +174,21 @@ function update($id) {
         } else {
             $baseUrl = $url; // The feed is invalid
         }
-        
-            // Keep track of guids we've handled, because some feeds (hello, 
-            // Technorati!) have this insane habit of serving the same item 
-            // twice in the same feed.
-            $guids = array();
-            
-        // Allow updates in this feed?  
-          $allowUpdates = getProperty($cid,'rss.input.allowupdates');
-          if ($allowUpdates === null) {
-                $allowUpdates = getConfig('rss.input.allowupdates');
-          }
+
+        // Keep track of guids we've handled, because some feeds (hello,
+        // Technorati!) have this insane habit of serving the same item
+        // twice in the same feed.
+        $guids = array();
+
+        // Allow updates in this feed?
+        $allowUpdates = getProperty($cid,'rss.input.allowupdates');
+        if ($allowUpdates === null) {
+            $allowUpdates = getConfig('rss.input.allowupdates');
+        }
 
         $itemIdsInFeed = array(); // This variable will store the item id's of the elements in the feed
         foreach ($rss->items as $item) {
-        
+
             $item = rss_plugin_hook('rss.plugins.rssitem', $item);
             // a plugin might delete this item
             if(!isset($item))
@@ -227,11 +227,12 @@ function update($id) {
                 $guid = $item['id'];
             }
             $guid = rss_real_escape_string($guid);
-            
+
             // skip this one if it's an  in-feed-dupe
             if ($guid && isset($guids[$guid])) {
                 continue;
-            } elseif($guid) {
+            }
+            elseif($guid) {
                 $guids[$guid] = true;
             }
 
@@ -768,78 +769,79 @@ function firstNwords($text, $count=7) {
 
 /** Props: mr at bbp dot biz - http://ch2.php.net/substr */
 function html_substr($posttext, $minimum_length = 200, $length_offset = 20, $cut_words = FALSE, $dots = TRUE) {
-  
-   // $minimum_length:
-   // The approximate length you want the concatenated text to be 
- 
 
-   // $length_offset:
-   // The variation in how long the text can be in this example text
-   // length will be between 200 and 200-20=180 characters and the
-   // character where the last tag ends
+    // $minimum_length:
+    // The approximate length you want the concatenated text to be
 
-   // Reset tag counter & quote checker
-   $tag_counter = 0;
-   $quotes_on = FALSE;
-   // Check if the text is too long
-   if (strlen($posttext) > $minimum_length) {
-       // Reset the tag_counter and pass through (part of) the entire text
-       $c = 0;
-       for ($i = 0; $i < strlen($posttext); $i++) {
-           // Load the current character and the next one
-           // if the string has not arrived at the last character
-           $current_char = substr($posttext,$i,1);
-           if ($i < strlen($posttext) - 1) {
-               $next_char = substr($posttext,$i + 1,1);
-           }
-           else {
-               $next_char = "";
-           }
-           // First check if quotes are on
-           if (!$quotes_on) {
-               // Check if it's a tag
-               // On a "<" add 3 if it's an opening tag (like <a href...)
-               // or add only 1 if it's an ending tag (like </a>)
-               if ($current_char == '<') {
-                   if ($next_char == '/') {
-                       $tag_counter += 1;
-                   }
-                   else {
-                       $tag_counter += 3;
-                   }
-               }
-               // Slash signifies an ending (like </a> or ... />)
-               // substract 2
-               if ($current_char == '/' && $tag_counter <> 0) $tag_counter -= 2;
-               // On a ">" substract 1
-               if ($current_char == '>') $tag_counter -= 1;
-               // If quotes are encountered, start ignoring the tags
-               // (for directory slashes)
-               if ($current_char == '"') $quotes_on = TRUE;
-           }
-           else {
-               // IF quotes are encountered again, turn it back off
-               if ($current_char == '"') $quotes_on = FALSE;
-           }
-          
-           // Count only the chars outside html tags
-           if($tag_counter == 2 || $tag_counter == 0){
-               $c++;
-           }         
-                          
-           // Check if the counter has reached the minimum length yet,
-           // then wait for the tag_counter to become 0, and chop the string there
-           if ($c > $minimum_length - $length_offset && $tag_counter == 0 && ($next_char == ' ' || $cut_words == TRUE)) {
-               $posttext = substr($posttext,0,$i + 1);             
-               if($dots){
-                   $posttext .= '...';
-               }
-               return $posttext;
-           }
-       }
-   } 
-   return $posttext;
-} 
+
+    // $length_offset:
+    // The variation in how long the text can be in this example text
+    // length will be between 200 and 200-20=180 characters and the
+    // character where the last tag ends
+
+    // Reset tag counter & quote checker
+    $tag_counter = 0;
+    $quotes_on = FALSE;
+    // Check if the text is too long
+    if (strlen($posttext) > $minimum_length) {
+        // Reset the tag_counter and pass through (part of) the entire text
+        $c = 0;
+        for ($i = 0; $i < strlen($posttext); $i++) {
+            // Load the current character and the next one
+            // if the string has not arrived at the last character
+            $current_char = substr($posttext,$i,1);
+            if ($i < strlen($posttext) - 1) {
+                $next_char = substr($posttext,$i + 1,1);
+            } else {
+                $next_char = "";
+            }
+            // First check if quotes are on
+            if (!$quotes_on) {
+                // Check if it's a tag
+                // On a "<" add 3 if it's an opening tag (like <a href...)
+                // or add only 1 if it's an ending tag (like </a>)
+                if ($current_char == '<') {
+                    if ($next_char == '/') {
+                        $tag_counter += 1;
+                    } else {
+                        $tag_counter += 3;
+                    }
+                }
+                // Slash signifies an ending (like </a> or ... />)
+                // substract 2
+                if ($current_char == '/' && $tag_counter <> 0)
+                    $tag_counter -= 2;
+                // On a ">" substract 1
+                if ($current_char == '>')
+                    $tag_counter -= 1;
+                // If quotes are encountered, start ignoring the tags
+                // (for directory slashes)
+                if ($current_char == '"')
+                    $quotes_on = TRUE;
+            } else {
+                // IF quotes are encountered again, turn it back off
+                if ($current_char == '"')
+                    $quotes_on = FALSE;
+            }
+
+            // Count only the chars outside html tags
+            if($tag_counter == 2 || $tag_counter == 0) {
+                $c++;
+            }
+
+            // Check if the counter has reached the minimum length yet,
+            // then wait for the tag_counter to become 0, and chop the string there
+            if ($c > $minimum_length - $length_offset && $tag_counter == 0 && ($next_char == ' ' || $cut_words == TRUE)) {
+                $posttext = substr($posttext,0,$i + 1);
+                if($dots) {
+                    $posttext .= '...';
+                }
+                return $posttext;
+            }
+        }
+    }
+    return $posttext;
+}
 
 
 function showViewForm($curValue) {
@@ -879,13 +881,14 @@ function rss_getUser() {
         $cuname =  $chash = null;
         if (isset($_COOKIE[RSS_USER_COOKIE])) {
             list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
-         } elseif(isset($_SESSION['mobile'])) {
-                list($cuname,$chash) = explode('|',$_SESSION['mobile']);
-         }
-         if ($cuname && $chash) {
+        }
+        elseif(isset($_SESSION['mobile'])) {
+            list($cuname,$chash) = explode('|',$_SESSION['mobile']);
+        }
+        if ($cuname && $chash) {
             $sql = "select * from " . getTable('users') . " where uname='"
                    .rss_real_escape_string($cuname) ."' and password='"
-                   .preg_replace('#[^a-zA-Z0-9]#','',$chash) ."'";
+                   .preg_replace('#[^a-zA-Z0-9]#','',md5($chash)) ."'";
             $rs = rss_query($sql);
             if (rss_num_rows($rs) == 1) {
                 $tmp = rss_fetch_assoc($rs);
@@ -894,14 +897,14 @@ function rss_getUser() {
                 } else {
                     $tmp['userips'] = array();
                 }
-                
+
                 unset($tmp['password']);
                 $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-                     if (array_search($subnet, $tmp['userips']) !== FALSE) {
-                        // success: password hash was checked and the user's IP 
-                        // address subnet is registered 
-                        $user = $tmp;
-                     }
+                if (array_search($subnet, $tmp['userips']) !== FALSE) {
+                    // success: password hash was checked and the user's IP
+                    // address subnet is registered
+                    $user = $tmp;
+                }
             }
         }
     }
@@ -919,28 +922,28 @@ function setUserCookie($user,$hash) {
 
 function logoutUserCookie() {
     if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
-    
-            // remove the user's IP subnet from the list of valid addresses
-            $user = rss_getUser();
-           $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-           
-            if (($idx = array_search($subnet, $user['userips'])) !== FALSE) {
-                $cnt = count($user['userips']);
-                unset($user['userips'][$idx]);
-                $uname = trim($user['uname']);
-                if ($uname && ($cnt > count($user['userips']))) {
-                    $sql = "update " .getTable('users') 
-                        . " set userips = '" . implode(' ',$user['userips']) ."'"
-                        ." where uname = '$uname' ";
-                    rss_query($sql);
-                }
+
+        // remove the user's IP subnet from the list of valid addresses
+        $user = rss_getUser();
+        $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+
+        if (($idx = array_search($subnet, $user['userips'])) !== FALSE) {
+            $cnt = count($user['userips']);
+            unset($user['userips'][$idx]);
+            $uname = trim($user['uname']);
+            if ($uname && ($cnt > count($user['userips']))) {
+                $sql = "update " .getTable('users')
+                       . " set userips = '" . implode(' ',$user['userips']) ."'"
+                       ." where uname = '$uname' ";
+                rss_query($sql);
             }
-           
-           // get rid of the cookie
-         unset($_COOKIE[RSS_USER_COOKIE]);
-         setcookie(RSS_USER_COOKIE, "", -1, getPath());
-            rss_invalidate_cache();
-        
+        }
+
+        // get rid of the cookie
+        unset($_COOKIE[RSS_USER_COOKIE]);
+        setcookie(RSS_USER_COOKIE, "", -1, getPath());
+        rss_invalidate_cache();
+
     }
 }
 
@@ -960,23 +963,23 @@ function rss_check_user_level($level) {
 
 function __exp_login($uname,$pass,$cb) {
     $sql ="select uname,ulevel,userips from " .getTable('users') . "where uname='"
-          .rss_real_escape_string($uname)."' and password='$pass'";
+          .rss_real_escape_string($uname)."' and password='".md5($pass)."'";
     list($uname,$ulevel,$userips) = rss_fetch_row(rss_query($sql));
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
-            // is the user's IP subnet in the database, already?
-            $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-            $useripsArray = explode(' ',$userips);
-            if (array_search($subnet, $useripsArray) === FALSE) {
-                $useripsArray[] = $subnet;
-                $sql = "update " .getTable('users') 
-                    . " set userips = '" . implode(' ',$useripsArray) ."'"
-                    ." where uname = '$uname' ";
-                rss_query($sql);
-            }
-            
-            
+        // is the user's IP subnet in the database, already?
+        $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+        $useripsArray = explode(' ',$userips);
+        if (array_search($subnet, $useripsArray) === FALSE) {
+            $useripsArray[] = $subnet;
+            $sql = "update " .getTable('users')
+                   . " set userips = '" . implode(' ',$useripsArray) ."'"
+                   ." where uname = '$uname' ";
+            rss_query($sql);
+        }
+
+
         //setcookie(RSS_USER_COOKIE,$uname ."|". $pass,time()+3600*365,getPath());
         rss_invalidate_cache();
     }
@@ -1232,7 +1235,7 @@ function sanitize($input, $rules = 0) {
     }
     if ($rules & RSS_SANITIZER_NUMERIC) {
         $ret = preg_replace('#[^0-9\.-]#','',$ret);
-    }   
+    }
     if ($rules & RSS_SANITIZER_CHARACTERS) {
         $ret = preg_replace('#[^a-zA-Z]#','',$ret);
     }
@@ -1240,7 +1243,7 @@ function sanitize($input, $rules = 0) {
         $ret = preg_replace('#[^a-zA-Z_]#','',$ret);
     }
     if ($rules & RSS_SANITIZER_WORDS) {
-    	 $ret = preg_replace('#[^a-zA-Z0-9\-\._]#','',$ret);
+        $ret = preg_replace('#[^a-zA-Z0-9\-\._]#','',$ret);
     }
     return $ret;
 }
