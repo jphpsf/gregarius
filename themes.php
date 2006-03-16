@@ -98,10 +98,10 @@ function getActualTheme() {
         $theme = THEME_OVERRIDE;
     }
     elseif (isset($_GET['theme'])) {
-        $theme = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['theme']);
+     		$theme = sanitize($_GET['theme'],RSS_SANITIZER_WORDS);   
     }
 
-    $theme = sanitize($theme,RSS_SANITIZER_CHARACTERS);
+    
     
     // Media
     $media = getThemeMedia();
@@ -139,7 +139,7 @@ function getThemeMedia() {
     // This is here so that auto-detected (e.g. mobile) medias
     // can be overridden.
     if (isset($_REQUEST['media'])) {
-        $media = sanitize($_REQUEST['media'], RSS_SANITIZER_CHARACTERS);
+        $media = sanitize($_REQUEST['media'], RSS_SANITIZER_WORDS);
     }
 
     // Finally: let plugins voice their opinion

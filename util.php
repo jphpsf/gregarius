@@ -1239,6 +1239,9 @@ function sanitize($input, $rules = 0) {
     if ($rules & RSS_SANITIZER_CHARACTERS_EXT) {
         $ret = preg_replace('#[^a-zA-Z_]#','',$ret);
     }
+    if ($rules & RSS_SANITIZER_WORDS) {
+    	 $ret = preg_replace('#[^a-zA-Z0-9\-\._]#','',$ret);
+    }
     return $ret;
 }
 
