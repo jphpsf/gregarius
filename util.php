@@ -968,20 +968,15 @@ function __exp_login($uname,$pass,$cb) {
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
-        // is the user's IP subnet in the database, already?
-        $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-        $useripsArray = explode(' ',$userips);
-        if (array_search($subnet, $useripsArray) === FALSE) {
-            $useripsArray[] = $subnet;
-            $sql = "update " .getTable('users')
-                   . " set userips = '" . implode(' ',$useripsArray) ."'"
-                   ." where uname = '$uname' ";
-            rss_query($sql);
-        }
-
-
-        //setcookie(RSS_USER_COOKIE,$uname ."|". $pass,time()+3600*365,getPath());
-        rss_invalidate_cache();
+			// "push" the user IP into the list of logged-in IP subnets        
+			$subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+			$useripsArray = explode(' ',$userips);
+			$useripsArray[] = $subnet;
+			$sql = "update " .getTable('users')
+					 . " set userips = '" . implode(' ',$useripsArray) ."'"
+					 ." where uname = '$uname' ";
+			rss_query($sql);
+			rss_invalidate_cache();
     }
     return "$ulevel|$uname|$pass";
 }
