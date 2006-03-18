@@ -673,9 +673,11 @@ function getUrl($url, $maxlen = 0) {
         //local file!
         $c = "";
         $h = @fopen($url, "r");
-        while (!feof($h)) {
-            $c .= @fread($h, 8192);
-        }
+        if ($h) {
+			  while (!feof($h)) {
+					$c .= @fread($h, 8192);
+			  }
+			}
         @fclose($h);
         return $c;
     }
