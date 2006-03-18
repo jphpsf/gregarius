@@ -35,7 +35,8 @@ function rss_search_title() {
 }
 
 function rss_search_query() {
-	return (array_key_exists(QUERY_PRM,$_REQUEST)?$_REQUEST[QUERY_PRM]:"");
+	return (isset($GLOBALS['rss'] -> mainObject[0] -> query) ?
+		$GLOBALS['rss'] -> mainObject[0] -> query : "");
 }
 
 function rss_search_or_checked() {
