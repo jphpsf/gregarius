@@ -1240,6 +1240,10 @@ function sanitize($input, $rules = 0) {
     if ($rules & RSS_SANITIZER_WORDS) {
         $ret = preg_replace('#[^a-zA-Z0-9\-\._]#','',$ret);
     }
+    if ($rules & RSS_SANITIZER_URL) {
+    		// filter out "unsafe" characters: {,},|,\,^,<,>,;
+    		$ret = preg_replace('#[{}\|\\\^<>;]#','',$ret);
+    }
     return $ret;
 }
 

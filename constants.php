@@ -166,6 +166,7 @@ define ('RSS_SANITIZER_NUMERIC', 0x04);
 define ('RSS_SANITIZER_CHARACTERS',0x08);
 define ('RSS_SANITIZER_CHARACTERS_EXT',0x10);
 define ('RSS_SANITIZER_WORDS',0x20);
+define ('RSS_SANITIZER_URL',0x40);
 
 // Profiling 
 //  - The profiling information is "html commented out" at the end of every html page

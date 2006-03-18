@@ -239,9 +239,9 @@ function channel_admin() {
     case LBL_ADMIN_ADD:
     case 'LBL_ADMIN_ADD':
     case 'Add':
-
-        $label = trim($_REQUEST['new_channel']);
-        $fid = trim(sanitize($_REQUEST['add_channel_to_folder'], RSS_SANITIZER_SIMPLE_SQL | RSS_SANITIZER_NO_SPACES));
+    
+        $label 	= trim(sanitize($_REQUEST['new_channel'], RSS_SANITIZER_URL));
+        $fid 		= trim(sanitize($_REQUEST['add_channel_to_folder'], RSS_SANITIZER_SIMPLE_SQL | RSS_SANITIZER_NO_SPACES));
         list($flabel) = rss_fetch_row(rss_query(
           "select name from " . getTable('folders') . " where id=$fid"));
 
