@@ -430,8 +430,8 @@ function channel_admin() {
     case 'LBL_ADMIN_IMPORT':
 
 
-        if (array_key_exists('opml',$_REQUEST) && strlen(trim($_REQUEST['opml'])) > 7) {
-            $url = trim( sanitize($_REQUEST['opml'],RSS_SANITIZER_NO_SPACES) );
+        if (array_key_exists('opml',$_POST) && strlen(trim($_POST['opml'])) > 7) {
+            $url = trim( sanitize($_POST['opml'],RSS_SANITIZER_NO_SPACES) );
         }
         elseif (array_key_exists('opmlfile',$_FILES) && $_FILES['opmlfile']['tmp_name']) {
             if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
@@ -450,14 +450,14 @@ function channel_admin() {
         }
 
 
-        if (array_key_exists('opml_import_option',$_REQUEST)) {
-            $import_opt = $_REQUEST['opml_import_option'];
+        if (array_key_exists('opml_import_option',$_POST)) {
+            $import_opt = $_POST['opml_import_option'];
         } else {
             $import_opt = CST_ADMIN_OPML_IMPORT_MERGE;
         }
 
         if ($import_opt == CST_ADMIN_OPML_IMPORT_FOLDER) {
-            $opmlfid = sanitize($_REQUEST['opml_import_to_folder'], RSS_SANITIZER_NUMERIC);
+            $opmlfid = sanitize($_POST['opml_import_to_folder'], RSS_SANITIZER_NUMERIC);
         } else {
             $opmlfid = getRootFolder();
         }
@@ -480,7 +480,7 @@ function channel_admin() {
             if ($import_opt == CST_ADMIN_OPML_IMPORT_FOLDER) {
                 $fid = $opmlfid;
 
-                $prev_folder = rss_fetch_row(rss_query(
+                list($prev_folder) = rss_fetch_row(rss_query(
                                                  "select name from " .getTable('folders')
                                                  ." where id= $opmlfid "));
 
@@ -493,9 +493,10 @@ function channel_admin() {
             echo "<div class=\"frame\" style=\"background-color:#eee;font-size:small\"><ul>\n";
             while (list($folder,$items) = each ($opml)) {
                 if ($folder != $prev_folder && $import_opt != CST_ADMIN_OPML_IMPORT_FOLDER) {
-                    $fid = create_folder($folder, false);
-                    $prev_folder = $folder;
+                    $fid = create_folder(strip_tags($folder), false);
+                    $prev_folder = strip_tags($folder);
                 }
+
 
                 for ($i=0;$i<sizeof($opml[$folder]);$i++) {
                     $url_ = isset($opml[$folder][$i]['XMLURL'])?
@@ -507,10 +508,17 @@ function channel_admin() {
                               trim($opml[$folder][$i]['TITLE']):$title_;
                     $descr_ = isset($opml[$folder][$i]['DESCRIPTION'])?
                               trim($opml[$folder][$i]['DESCRIPTION']):null;
-                    if ($url_) {
-                        echo "<li><p>" . sprintf(LBL_ADMIN_OPML_IMPORT_FEED_INFO,$title_,$prev_folder);
+                              
+                    $t__ = strip_tags($title_);
+                    $d__ = strip_tags($descr_);
+                    $f__ = strip_tags($prev_folder);
+                    $u__ = sanitize($url_,RSS_SANITIZER_URL);
+
+                    if ($u__) {
+
+                        echo "<li><p>" . sprintf(LBL_ADMIN_OPML_IMPORT_FEED_INFO,$t__,$f__);
                         flush();
-                        list($retcde, $retmsg) = add_channel($url_, $fid, $title_, $descr_);
+                        list($retcde, $retmsg) = add_channel($u__, $fid, $t__, $d__);
                         echo ($retcde<0 ?$retmsg:" OK")."</p></li>\n";
                         flush();
                     }

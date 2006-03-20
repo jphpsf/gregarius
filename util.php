@@ -429,8 +429,8 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
         return array (-2, "Invalid folderid $folderid");
     }
 
-    $url = str_replace('&amp;','&',$url);
-
+    $url = sanitize(str_replace('&amp;','&',$url), RSS_SANITIZER_URL);
+	
     $urlDB = $url; //htmlentities($url);
 
     $res = rss_query("select count(*) as channel_exists from ".getTable("channels")." where url='$urlDB'");
