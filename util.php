@@ -299,10 +299,6 @@ function update($id) {
                 // strtotime fixes this problem, hence the 0 here.
                 $cDate = strtotime($item['pubdate'], 0);
             }
-            elseif (array_key_exists('created', $item)) {
-                // atom 0.3
-                $cDate = parse_iso8601($item['created']);
-            }
             elseif (array_key_exists('published',$item)) {
                 // atom 1.0
                 $cDate = parse_iso8601($item['published']);
@@ -310,6 +306,10 @@ function update($id) {
             elseif (array_key_exists('issued', $item)) {
                 //Atom, alternative
                 $cDate = parse_iso8601($item['issued']);
+            }
+            elseif (array_key_exists('created', $item)) {
+                // atom 0.3
+                $cDate = parse_iso8601($item['created']);
             }
 
             // enclosure
