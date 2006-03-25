@@ -226,6 +226,7 @@ function update($id) {
             elseif(array_key_exists('id', $item) && $item['id'] != "") {
                 $guid = $item['id'];
             }
+            $guid = trim($guid);
             $guid = rss_real_escape_string($guid);
 
             // skip this one if it's an  in-feed-dupe
@@ -430,7 +431,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
     }
 
     $url = sanitize(str_replace('&amp;','&',$url), RSS_SANITIZER_URL);
-	
+
     $urlDB = rss_real_escape_string($url); //htmlentities($url);
 
     $res = rss_query("select count(*) as channel_exists from ".getTable("channels")." where url='$urlDB'");
@@ -674,10 +675,10 @@ function getUrl($url, $maxlen = 0) {
         $c = "";
         $h = @fopen($url, "r");
         if ($h) {
-			  while (!feof($h)) {
-					$c .= @fread($h, 8192);
-			  }
-			}
+            while (!feof($h)) {
+                $c .= @fread($h, 8192);
+            }
+        }
         @fclose($h);
         return $c;
     }
@@ -970,15 +971,15 @@ function __exp_login($uname,$pass,$cb) {
     if ($ulevel == '') {
         $ulevel = RSS_USER_LEVEL_NOLEVEL;
     } else {
-			// "push" the user IP into the list of logged-in IP subnets        
-			$subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-			$useripsArray = explode(' ',$userips);
-			$useripsArray[] = $subnet;
-			$sql = "update " .getTable('users')
-					 . " set userips = '" . implode(' ',$useripsArray) ."'"
-					 ." where uname = '$uname' ";
-			rss_query($sql);
-			rss_invalidate_cache();
+        // "push" the user IP into the list of logged-in IP subnets
+        $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+        $useripsArray = explode(' ',$userips);
+        $useripsArray[] = $subnet;
+        $sql = "update " .getTable('users')
+               . " set userips = '" . implode(' ',$useripsArray) ."'"
+               ." where uname = '$uname' ";
+        rss_query($sql);
+        rss_invalidate_cache();
     }
     return "$ulevel|$uname|$pass";
 }
@@ -1243,8 +1244,8 @@ function sanitize($input, $rules = 0) {
         $ret = preg_replace('#[^a-zA-Z0-9\-\._]#','',$ret);
     }
     if ($rules & RSS_SANITIZER_URL) {
-    		// filter out "unsafe" characters: {,},|,\,^,<,>,;
-    		$ret = preg_replace('#[{}\|\\\^<>;]#','',$ret);
+        // filter out "unsafe" characters: {,},|,\,^,<,>,;
+        $ret = preg_replace('#[{}\|\\\^<>;]#','',$ret);
     }
     return $ret;
 }
