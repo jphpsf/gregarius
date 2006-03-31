@@ -2,10 +2,19 @@
 	global $lastDate;  
 	$thisDate = date("F d, Y", $GLOBALS['rss']->currentItem->date);  
 	if (!$lastDate || $lastDate != $thisDate) {   
+		$thisYear = date("Y",$GLOBALS['rss']->currentItem->date);
+		$thisMon = date("m",$GLOBALS['rss']->currentItem->date);
+		$thisDay = date("d",$GLOBALS['rss']->currentItem->date);
 		?>
 <li>
 <div class="dateheader">
-<?php echo $thisDate; $lastDate = $thisDate;  ?>
+<?php 
+		echo "<a href=\"./$thisYear/$thisMon/$thisDay/\">";
+		echo $thisDate;
+		echo "<a href=\"./$thisYear\">";
+		$lastDate=$thisDate;
+		?>
+
 </div>
 </li>
 		<?php	
