@@ -5,20 +5,18 @@
 		$thisYear = date("Y",$GLOBALS['rss']->currentItem->date);
 		$thisMon = date("m",$GLOBALS['rss']->currentItem->date);
 		$thisDay = date("d",$GLOBALS['rss']->currentItem->date);
-		?>
+		if(getConfig('rss.output.usemodrewrite')) {
+			$dateURL =  getPath() . "$thisYear/$thisMon/$thisDay/";
+		}else{
+			$dateURL = getPath() . "feed.php?y=$thisYear&m=$thisMon&d=$thisDay";
+		}
+		$lastDate=$thisDate; 
+?>
 <li>
-<div class="dateheader">
-<?php 
-		echo "<a href=\"./$thisYear/$thisMon/$thisDay/\">";
-		echo $thisDate;
-		echo "<a href=\"./$thisYear\">";
-		$lastDate=$thisDate;
-		?>
-
-</div>
+	<div class="dateheader"><a href="<?php echo $dateURL; ?>"><?php echo $thisDate; ?></a></div>
 </li>
-		<?php	
-	} 
+<?php
+	}
 ?>
 <?php
 if ( (isset($_REQUEST["iid"]) && $_REQUEST["iid"]) ) {

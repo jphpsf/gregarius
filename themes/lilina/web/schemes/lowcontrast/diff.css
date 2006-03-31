@@ -36,3 +36,5 @@ li.item.unread,h3.collapsed.unread {
   font-size: small;
   background: #aaaaaa;
 }
+
+.dateheader a { color:#fff }
