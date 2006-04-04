@@ -49,7 +49,7 @@ if (array_key_exists('js',$_GET)) {
 
 $browser = new Browser();
 
-$cline = isset($argv) && !$_REQUEST;
+$cline = isset($argv) && !$_REQUEST && isset($argc) && $argc;
 $silent = array_key_exists('silent', $_GET) || ($cline && in_array('--silent',$argv));
 $newsonly = array_key_exists('newsonly', $_GET) || ($cline && in_array('--newsonly', $argv));
 
