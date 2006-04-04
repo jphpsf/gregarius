@@ -415,7 +415,7 @@ function ajaxUpdateCleanup($ids) {
     return 0;
 }
 
-function ajaxUpdateJavacript () {
+function ajaxUpdateJavascript () {
     echo sajax_get_javascript();
     ?>
     /// End Sajax javascript

@@ -38,7 +38,8 @@ sajax_init();
 
 	
 if (array_key_exists('js',$_GET)) {
-	ajaxUpdateJavacript();
+	header('Content-Type: text/javascript');
+	ajaxUpdateJavascript();
 	exit();
 } elseif(array_key_exists('rs',$_REQUEST)) {
     // this one handles the xmlhttprequest call from the above javascript
