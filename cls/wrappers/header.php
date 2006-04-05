@@ -143,7 +143,14 @@ function rss_header_logininfo() {
     } else {
         $ret .= LBL_NOT_LOGGED_IN
                 ."&nbsp;|&nbsp;<a href=\"#\" onclick=\"miniloginform(); return false;\">".LBL_LOG_IN."</a>";
-        $ret .= "<span id=\"loginformcontainer\"></span>\n";
+        $ret .= "<span style=\"display:none\" id=\"loginformcontainer\">"
+						 . '<form method="post" action="#" '
+						 . 'onsubmit="login(minilogin_cb_handler); return false;">'
+						 . '<input style=" width:50px;"  id="username" type="text" />'
+						 . '<input style=" width:50px;"  id="password"  type="password" />'
+						 . '<input type="submit" value="'.LBL_LOG_IN.'" />'
+						 . '</form>'	 
+        		 ."</span>\n";
     }
     $ret .= "</span>\n";
     return $ret;

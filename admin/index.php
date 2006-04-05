@@ -90,9 +90,9 @@ if (! $auth) {
         unset($__pw__);
         $login_uname = null;
         $login_pass = null;
-        if (isset($_POST['login_uname']) && isset($_POST['login_pass'])) {
-            $login_uname = $_POST['login_uname'];
-            $login_pass = $_POST['login_pass'];
+        if (isset($_POST['username']) && isset($_POST['password'])) {
+            $login_uname = $_POST['username'];
+            $login_pass = $_POST['password'];
 
         }
         rss_login_form($login_uname,$login_pass);

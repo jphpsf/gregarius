@@ -402,7 +402,6 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
             if (!$next_unread_id && $first_unread_id) {
                 $next_unread_id = $first_unread_id;
             }
-
         }
 
         //redirect

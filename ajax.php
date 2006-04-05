@@ -164,8 +164,8 @@ function ajax_login(uname,pass,cb_handler) {
 }
 
 function login(cb) {
-	uname=document.getElementById('login_uname').value;
-	pass=hex_md5(document.getElementById('login_pass').value);
+	uname=document.getElementById('username').value;
+	pass=hex_md5(document.getElementById('password').value);
 	ajax_login(uname,pass,cb);
 }
 
@@ -187,13 +187,11 @@ function minilogin_cb_handler(data) {
 
 function miniloginform() {
 	span = document.getElementById('loginformcontainer');
-	span.innerHTML = '<form method="post" action="#" '
-	 + 'onsubmit="login(minilogin_cb_handler); return false;">'
-	 + '<input style=" width:50px;"  id="login_uname" type="text" />'
-	 + '<input style=" width:50px;"  id="login_pass"  type="password" />'
-	 + '<input type="submit" value="<?php echo LBL_LOG_IN; ?>" />'
-	 + '</form>';
-	 
+	if (span.style.display == 'none') {
+		span.style.display = 'block';
+	} else {
+		span.style.display = 'none';
+	}
 }
 
 

@@ -93,8 +93,8 @@ function rss_login_form($uname=null,$pass=null) {
 	<!--
 		
 		function on_submit_login_form() {
-			uname=document.getElementById('login_uname').value;
-			pass=hex_md5(document.getElementById('login_pass').value);
+			uname=document.getElementById('username').value;
+			pass=hex_md5(document.getElementById('password').value);
 			ajax_login(uname,pass,admin_login_hdlr);
 			return false;
 		}
@@ -136,10 +136,10 @@ function rss_login_form($uname=null,$pass=null) {
 	echo "<form id=\"admin_login\" style=\"text-align:center\" action=\"".$_SERVER['PHP_SELF'] ."\" onsubmit=\"return on_submit_login_form();\" method=\"post\">\n"
 //	."<p>".		 LBL_ADMIN_LOGIN ."</p>\n"
 	."<fieldset>"
-	."<p><label style=\"display:block\" for=\"login_uname\">".LBL_USERNAME.":</label>\n"
-	."<input type=\"text\" id=\"login_uname\" name=\"login_uname\" /></p>\n"
-	."<p><label style=\"display:block\" for=\"login_pass\">".LBL_PASSWORD.":</label>\n"
-	."<input type=\"password\" id=\"login_pass\" name=\"login_pass\" /></p>\n"
+	."<p><label style=\"display:block\" for=\"username\">".LBL_USERNAME.":</label>\n"
+	."<input type=\"text\" id=\"username\" name=\"username\" /></p>\n"
+	."<p><label style=\"display:block\" for=\"password\">".LBL_PASSWORD.":</label>\n"
+	."<input type=\"password\" id=\"password\" name=\"password\" /></p>\n"
 	."<p id=\"admin_login_submit\"><input type=\"submit\" value=\"".LBL_LOG_IN."\" /></p>\n"
 	."<span style=\"display:inline;\" id=\"admin_login_result\"></span>\n"
 	."</fieldset>\n"
