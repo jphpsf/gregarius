@@ -1206,6 +1206,11 @@ function rss_svn_rev($prefix='.') {
 }
 
 function cacheFavicon($icon) {
+	 // Make sure only real favicons get fetched into the DB
+	 if (! preg_match('#^https?://.+$#',$icon)) {
+	 	return false;
+	 }
+	 
     $icon_ = rss_real_escape_string($icon);
     $binIcon = getUrl($icon);
     if ($binIcon) {
