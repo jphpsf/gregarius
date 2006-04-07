@@ -55,7 +55,7 @@ function my_assert_handler($file, $line, $code) {
 
 // Admin cookie name
 // Deprecated: define('PRIVATE_COOKIE', 'prv');
-define('RSS_USER_COOKIE', 'user');
+define('RSS_USER_COOKIE', 'gregariusUser');
 
 define ('RSS_USER_LEVEL_NOLEVEL',0);
 define ('RSS_USER_LEVEL_BASIC',1);
