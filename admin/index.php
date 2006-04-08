@@ -71,7 +71,6 @@ define ('CST_ADMIN_OPML_IMPORT_WIPE',1);
 define ('CST_ADMIN_OPML_IMPORT_FOLDER',2);
 define ('CST_ADMIN_OPML_IMPORT_MERGE',3);
 
-
 $auth=rss_check_user_level(RSS_USER_LEVEL_ADMIN);
 if (! $auth) {
     // check whether the admin password has been set.
@@ -90,13 +89,17 @@ if (! $auth) {
         unset($__pw__);
         $login_uname = null;
         $login_pass = null;
+        // Last chance: log in
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $login_uname = $_POST['username'];
             $login_pass = $_POST['password'];
-
+            $loginRes  = explode('|', __exp_login($login_uname,md5($login_pass)));
+            $auth = $loginRes[0] >= RSS_USER_LEVEL_ADMIN;
         }
-        rss_login_form($login_uname,$login_pass);
-        exit();
+        if (!$auth) {
+        	rss_login_form($login_uname,$login_pass);
+        	exit();
+        }
     }
 }
 

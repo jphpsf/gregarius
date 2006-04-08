@@ -135,8 +135,19 @@ function rss_footer_last_modif() {
 }
 
 function rss_header_logininfo() {
+
+		// Login handler
+		if (isset($_POST['username']) && isset($_POST['password'])) {
+			$loginRes  = explode('|', __exp_login($_POST['username'],md5($_POST['password'])));
+			$user = array();
+			list($user['ulevel'],$user['uname'],$dummy) = $loginRes;
+			unset($dummy);
+		} else {
+			$user = rss_getUser();
+		}
+
     $ret = "<span id=\"loginfo\">\n";
-    $user = rss_getUser();
+    
     if ($user['ulevel'] > RSS_USER_LEVEL_NOLEVEL) {
         $ret .= sprintf(LBL_LOGGED_IN_AS, $user['uname'])
                 ."&nbsp;|&nbsp;<a href=\"".getPath()."?logout\">".LBL_LOG_OUT."</a>\n";
@@ -144,12 +155,11 @@ function rss_header_logininfo() {
         $ret .= LBL_NOT_LOGGED_IN
                 ."&nbsp;|&nbsp;<a href=\"#\" onclick=\"miniloginform(); return false;\">".LBL_LOG_IN."</a>";
         $ret .= "<span style=\"display:none\" id=\"loginformcontainer\">"
-						 . '<form method="post" action="#" '
-						 . 'onsubmit="login(minilogin_cb_handler); return false;">'
-						 . '<input style=" width:50px;"  id="username" type="text" />'
-						 . '<input style=" width:50px;"  id="password"  type="password" />'
+						 . '<form method="post" action="'.getPath().'">'
+						 . '<input style=" width:50px;" name="username" id="username" type="text" />'
+						 . '<input style=" width:50px;" name="password" id="password"  type="password" />'
 						 . '<input type="submit" value="'.LBL_LOG_IN.'" />'
-						 . '</form>'	 
+						 . '</form>'
         		 ."</span>\n";
     }
     $ret .= "</span>\n";

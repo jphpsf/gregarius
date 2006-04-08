@@ -119,7 +119,7 @@ $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . basename(__FILE__);
 
 // Non standard! One usually calls sajax_export() ...
-$sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent","__exp_login");
+$sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent");
 
 // Plugins shall export ajax functions as well
 $sajax_export_list = rss_plugin_hook("rss.plugins.ajax.exports",$sajax_export_list);
@@ -158,32 +158,6 @@ if (array_key_exists('js',$_GET)) {
 /// End Sajax javscript
 /// From here on: Copyright (C) 2003 - 2006 Marco Bonetti, gregarius.net
 /// Released under GPL
-
-function ajax_login(uname,pass,cb_handler) {
-    x___exp_login(uname,pass, cb_handler,cb_handler);
-}
-
-function login(cb) {
-	uname=document.getElementById('username').value;
-	pass=hex_md5(document.getElementById('password').value);
-	ajax_login(uname,pass,cb);
-}
-
-
-function minilogin_cb_handler(data) {
-	tokens=data.split('|');
-	if (tokens[0] != <?php echo RSS_USER_LEVEL_NOLEVEL; ?>) {
-		document.getElementById('loginfo').innerHTML = ''
-		+ '<?php echo LBL_LOGGED_IN_AS; ?>'.replace(/%s/gi,tokens[1])
-		+ '&nbsp;|&nbsp;<a href="<?php echo getPath() . "?logout\">".LBL_LOG_OUT."</a>" ?>';
-        if (<?php echo (getConfig('rss.config.autologout') ? "true":"false"); ?>) {
-		  setRootSessionCookie('<?php echo RSS_USER_COOKIE; ?>', tokens[1]+'|'+tokens[2]);
-		} else {
-		  setRootCookie('<?php echo RSS_USER_COOKIE; ?>', tokens[1]+'|'+tokens[2]);
-		}
-		document.location = document.location.href.replace(/\?logout$/, "");
-	} 
-}
 
 function miniloginform() {
 	span = document.getElementById('loginformcontainer');

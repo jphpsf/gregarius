@@ -880,12 +880,10 @@ function rss_getUser() {
                     'userips' => null,
                     'lastlogin' => null
                 );
-
         $cuname =  $chash = null;
         if (isset($_COOKIE[RSS_USER_COOKIE])) {
             list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
-        }
-        elseif(isset($_SESSION['mobile'])) {
+        }  elseif(isset($_SESSION['mobile'])) {
             list($cuname,$chash) = explode('|',$_SESSION['mobile']);
         }
         if ($cuname && $chash) {
@@ -964,7 +962,7 @@ function rss_check_user_level($level) {
     return $user['ulevel'] >= $level;
 }
 
-function __exp_login($uname,$pass,$cb) {
+function __exp_login($uname,$pass) {
     $sql ="select uname,ulevel,userips from " .getTable('users') . "where uname='"
           .rss_real_escape_string($uname)."' and password='".md5($pass)."'";
     list($uname,$ulevel,$userips) = rss_fetch_row(rss_query($sql));
@@ -979,6 +977,7 @@ function __exp_login($uname,$pass,$cb) {
                . " set userips = '" . implode(' ',$useripsArray) ."'"
                ." where uname = '$uname' ";
         rss_query($sql);
+        setUserCookie($uname,$pass);
         rss_invalidate_cache();
     }
     return "$ulevel|$uname|$pass";

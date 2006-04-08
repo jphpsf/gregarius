@@ -88,54 +88,11 @@ function set_admin_pass($uname=null,$pass=null) {
 function rss_login_form($uname=null,$pass=null) {
 	
 	admin_header();
-	?>
-	<script type="text/javascript">
-	<!--
+  echo "\n<div id=\"channel_admin\" class=\"frame\">";
 		
-		function on_submit_login_form() {
-			uname=document.getElementById('username').value;
-			pass=hex_md5(document.getElementById('password').value);
-			ajax_login(uname,pass,admin_login_hdlr);
-			return false;
-		}
-		
-		
-		function admin_login_hdlr(data) {
-			tokens=data.split('|');
-			ulevel=tokens[0];
-			uname=tokens[1];
-			pass=tokens[2];
-			if (ulevel > 0) {
-				if (<?php echo (getConfig('rss.config.autologout') ? "true":"false"); ?>) {
-		  			setRootSessionCookie('<?php echo RSS_USER_COOKIE; ?>', uname+'|'+pass);
-				} else {
-		  			setRootCookie('<?php echo RSS_USER_COOKIE; ?>', uname+'|'+pass);
-				}
-			}
-			msg = '';
-			if (ulevel == <?php echo RSS_USER_LEVEL_NOLEVEL ?>) {
-				msg = '<?php echo LBL_ADMIN_LOGIN_BAD_LOGIN ?>';
-			} else if (ulevel > <?php echo RSS_USER_LEVEL_NOLEVEL ?> && ulevel < <?php echo RSS_USER_LEVEL_ADMIN ?>) {
-				msg = '<?php echo LBL_ADMIN_LOGIN_NO_ADMIN ?>'.replace('%s',uname);
-			} else if (ulevel >= <?php echo RSS_USER_LEVEL_ADMIN ?>) {
-				document.location=document.location;
-				return 0;
-			}
-			
-			if (msg != '') {
-				document.getElementById('admin_login_result').innerHTML = '<br>' + msg;
-			}
-		}
-	-->
-	</script>
-	
-	<?php
-  	echo "\n<div id=\"channel_admin\" class=\"frame\">";
-	echo "<h2></h2>\n";
-	
-	echo "<form id=\"admin_login\" style=\"text-align:center\" action=\"".$_SERVER['PHP_SELF'] ."\" onsubmit=\"return on_submit_login_form();\" method=\"post\">\n"
-//	."<p>".		 LBL_ADMIN_LOGIN ."</p>\n"
+	echo "<form id=\"admin_login\" style=\"text-align:center\" action=\"".$_SERVER['PHP_SELF'] ."\" method=\"post\">\n"
 	."<fieldset>"
+	."<legend>" . LBL_ADMIN_LOGIN . "</legend>\n"
 	."<p><label style=\"display:block\" for=\"username\">".LBL_USERNAME.":</label>\n"
 	."<input type=\"text\" id=\"username\" name=\"username\" /></p>\n"
 	."<p><label style=\"display:block\" for=\"password\">".LBL_PASSWORD.":</label>\n"
