@@ -683,8 +683,7 @@ function _init_properties() {
 		  fk_ref_object_id text NOT NULL,
 		  proptype enum('item','feed','folder','category','plugin','tag','theme','misc') NOT NULL default 'item',
 		  property varchar(128) NOT NULL default '',
-		  value text NOT NULL,
-		  UNIQUE KEY uniq (fk_ref_object_id(180),property,proptype)
+		  value text NOT NULL
 		) TYPE=MyISAM;
 		
 _SQL_
@@ -695,7 +694,9 @@ _SQL_
 		rss_error('The ' . $table . 'table doesn\'t exist and I couldn\'t create it! Please create it manually.', RSS_ERROR_ERROR);
 		return 0;
 	} else {
-		return 1;
+		$idSql = "alter table $table add UNIQUE KEY uniq (fk_ref_object_id(180),property,proptype)";
+		rss_query_wrapper($idSql, false, true);
+		return rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR);
 	}
 }
 
