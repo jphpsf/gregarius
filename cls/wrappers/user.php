@@ -37,8 +37,9 @@ function rss_user_logout() {
 	$GLOBALS['rssuser'] -> logout();
 }
 
+// Legacy function name: use rss_user_check_user_level() instead of this crap
 function hidePrivate() {
-	return rss_user_level() < RSS_USER_LEVEL_PRIVATE;
+	return !rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE);
 }
 
 function rss_user_check_user_level($level) {
