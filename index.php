@@ -64,12 +64,6 @@ if (array_key_exists('update',$_REQUEST)) {
     update("");
 }
 
-
-if (array_key_exists('logout',$_GET)) {
-	logoutUserCookie();
-	rss_redirect('');
-}
-
 $cntTotalItems = getConfig('rss.output.frontpage.numitems');
 
 rss_plugin_hook('rss.plugins.frontpage.beforeunread', null);

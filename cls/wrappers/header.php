@@ -136,20 +136,10 @@ function rss_footer_last_modif() {
 
 function rss_header_logininfo() {
 
-		// Login handler
-		if (isset($_POST['username']) && isset($_POST['password'])) {
-			$loginRes  = explode('|', __exp_login($_POST['username'],md5($_POST['password'])));
-			$user = array();
-			list($user['ulevel'],$user['uname'],$dummy) = $loginRes;
-			unset($dummy);
-		} else {
-			$user = rss_getUser();
-		}
-
     $ret = "<span id=\"loginfo\">\n";
     
-    if ($user['ulevel'] > RSS_USER_LEVEL_NOLEVEL) {
-        $ret .= sprintf(LBL_LOGGED_IN_AS, $user['uname'])
+    if (rss_user_level() > RSS_USER_LEVEL_NOLEVEL) {
+        $ret .= sprintf(LBL_LOGGED_IN_AS, rss_user_name())
                 ."&nbsp;|&nbsp;<a href=\"".getPath()."?logout\">".LBL_LOG_OUT."</a>\n";
     } else {
         $ret .= LBL_NOT_LOGGED_IN
