@@ -26,14 +26,29 @@
 #
 ###############################################################################
 rss_require('cls/wrappers/user.php');
+
+/** 
+ * The RSSUser class holds all the business logic to handle Gregarius users 
+ */
 class RSSUser {
-	
+	/** Userid */
 	var $_uid;
+	/** Userlevel */
 	var $_level;
+	/** Username */
 	var $_uname;
+	/** md5 hash of the user password */
 	var $_hash;
+	/** List of valid IP subnets this user is allowed to log in via a cookie */
 	var $_validIPs;
 	
+	/** 
+	 * RSSUser constructor:
+	 * Handles: 
+	 * -logout
+	 * -cookie login (with validation)
+	 * -login
+	 */
 	function RSSUser() {
 		$this -> _uid = 0;
 		$this -> _validIPs = array();
@@ -81,7 +96,15 @@ class RSSUser {
 			}
 	}
 	
-	
+	/**
+	 * Logs in a user given the username and password.
+	 * If the user provided valid username and password,
+	 * he is given a cookie and his IP address subnet is added 
+	 * to the list of valid IPs this user is allowed to log in
+	 * via a cookie
+	 *
+	 * Returns true on a successful login, false otherwise.
+	 */
 	function login($uname,$pass) {
     $sql ="select uname,ulevel,userips from " .getTable('users') . "where uname='"
           .rss_real_escape_string($uname)."' and password='".md5($pass)."'";
@@ -105,6 +128,10 @@ class RSSUser {
     return false;
 	}
 
+	/**
+	 * Hands the user a yummy cookie.
+	 * The cookie holds the md5 hash of the user password
+	 */
 	function setUserCookie($user,$hash) {
    // if (getConfig('rss.config.autologout')) {
    //     $t = 0;
@@ -114,7 +141,12 @@ class RSSUser {
     setcookie(RSS_USER_COOKIE, $user .'|' . $hash , $t, getPath());
 	}
 
-
+	/**
+	 * Logs the user out.
+	 * - deletes the cookie
+	 * - removes the user's IP subnet from the list of valid subnets this
+	 *   user is allowed to log in with a cookie.
+	 */
 	function logout() {
     if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
         $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
@@ -148,5 +180,6 @@ class RSSUser {
 	}
 }
 
+// Create the unique instance. Todo: make the RSSUser a singleton.
 $GLOBALS['rssuser'] = new RSSUser();
 ?>
