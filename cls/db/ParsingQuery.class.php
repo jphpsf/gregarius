@@ -115,7 +115,9 @@ class ParsingQuery {
 							$tabValue[1].=$defineElement[$numElement]['sup'];
 							unset($defineElement[$numElement]['sup']);
 						}
-						for($i=($key+1) ; $i<= (count($tableElement)+1) ; $i++) {
+						# FIX wrong enum parsing
+						$nb_items=count($tableElement);
+						for($i=($key+1) ; $i<= ($nb_items+1) ; $i++) {
 							$tabValue[1] .= ','.$tableElement[$i];
 							unset($tableElement[$i]);
 							if(ereg('\)', $tabValue[1])) break;
