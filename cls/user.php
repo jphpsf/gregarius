@@ -76,12 +76,12 @@ class RSSUser {
     	}
     }
 		if ($cuname && $chash) {
-				$sql = "select * from " . getTable('users') . " where uname='"
+				$sql = "select uid, uname, ulevel, realname, userips from " . getTable('users') . " where uname='"
 							 .rss_real_escape_string($cuname) ."' and password='"
 							 .preg_replace('#[^a-zA-Z0-9]#','',md5($chash)) ."'";
 				$rs = rss_query($sql);
 				if (rss_num_rows($rs) == 1) {
-						list($uid, $uname, $dummy, $level, $realName, $dummy2, $dummy3, $tmpUserIps) = rss_fetch_row($rs);
+						list($uid, $uname, $level, $realName, $tmpUserIps) = rss_fetch_row($rs);
 						$userIPs = explode(' ',$tmpUserIps);
 						$subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
 						if (array_search($subnet, $userIPs) !== FALSE) {
