@@ -1,10 +1,10 @@
 <?php  
 	global $lastDate;  
-	$thisDate = date("F d, Y", $GLOBALS['rss']->currentItem->date);  
+	$thisDate = rss_locale_date("%B %d, %Y", $GLOBALS['rss']->currentItem->date);  
 	if (!$lastDate || $lastDate != $thisDate) {   
-		$thisYear = date("Y",$GLOBALS['rss']->currentItem->date);
-		$thisMon = date("m",$GLOBALS['rss']->currentItem->date);
-		$thisDay = date("d",$GLOBALS['rss']->currentItem->date);
+		$thisYear = rss_locale_date("%Y", $GLOBALS['rss']->currentItem->date);  
+		$thisMon = rss_locale_date("%m", $GLOBALS['rss']->currentItem->date); 
+		$thisDay = rss_locale_date("%d", $GLOBALS['rss']->currentItem->date); 
 		if(getConfig('rss.output.usemodrewrite')) {
 			$dateURL =  getPath() . "$thisYear/$thisMon/$thisDay/";
 		}else{
