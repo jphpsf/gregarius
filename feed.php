@@ -416,10 +416,17 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         // folder
     case 'LBL_MARK_FOLDER_READ':
         $fid = sanitize($_REQUEST['folder'],RSS_SANITIZER_NUMERIC);
-        $sql = "update " .getTable('item') . " i, " . getTable('channels') . " c "
+        $rs  = rss_query("select id from " .getTable('channels') . " where parent=$fid");
+        $cids_ = array();
+        while(list($cid_) = rss_fetch_row($rs)) {
+        	$cids_[]=$cid_;
+        }
+        
+        
+        $sql = "update " .getTable('item') . " i "
                . " set i.unread = i.unread & ".SET_MODE_READ_STATE
-               . " where i.cid=c.id and c.parent=$fid";
-
+               . " where i.cid  in (" .implode(',', $cids_) . ") ";
+		  unset($cids_);
         if (count($IdsToMarkAsRead)) {
             $sql .= " and i.id in (" . implode(',',$IdsToMarkAsRead) .")";
         }
@@ -482,9 +489,18 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         // virtual folder - code extremely similar to LBL_MARK_FOLDER_READ
     case 'LBL_MARK_VFOLDER_READ':
         $vfid = sanitize($_REQUEST['vfolder'],RSS_SANITIZER_NUMERIC);
-        $sql = "update " .getTable('item') . " i, " . getTable('metatag') . " m"
+        
+        $rs  = rss_query(
+        	"select fid from " .getTable('metatag') . "m  "
+        	." where m.ttype = 'channel' and m.tid = $vfid");
+        $fids_ = array();
+        while(list($fid_) = rss_fetch_row($rs)) {
+        	$fids_[]=$fid_;
+        }
+        
+        $sql = "update " .getTable('item') . " i "
                . " set i.unread = i.unread & ".SET_MODE_READ_STATE
-               . " where i.cid = m.fid and m.tid = $vfid and m.ttype = 'channel'";
+               . " where i.cid in (" .implode(',',$fids_). ")";
 
         if (count($IdsToMarkAsRead)) {
             $sql .= " and i.id in (" . implode(',',$IdsToMarkAsRead) .")";
