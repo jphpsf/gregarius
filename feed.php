@@ -423,12 +423,12 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         }
         
         
-        $sql = "update " .getTable('item') . " i "
-               . " set i.unread = i.unread & ".SET_MODE_READ_STATE
-               . " where i.cid  in (" .implode(',', $cids_) . ") ";
+        $sql = "update " .getTable('item')
+               . " set unread = unread & ".SET_MODE_READ_STATE
+               . " where cid  in (" .implode(',', $cids_) . ") ";
 		  unset($cids_);
         if (count($IdsToMarkAsRead)) {
-            $sql .= " and i.id in (" . implode(',',$IdsToMarkAsRead) .")";
+            $sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
         }
 
         //die($sql);
@@ -498,12 +498,12 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         	$fids_[]=$fid_;
         }
         
-        $sql = "update " .getTable('item') . " i "
-               . " set i.unread = i.unread & ".SET_MODE_READ_STATE
-               . " where i.cid in (" .implode(',',$fids_). ")";
+        $sql = "update " .getTable('item') 
+	  . " set unread = unread & ".SET_MODE_READ_STATE
+	  . " where cid in (" .implode(',',$fids_). ")";
 
         if (count($IdsToMarkAsRead)) {
-            $sql .= " and i.id in (" . implode(',',$IdsToMarkAsRead) .")";
+            $sql .= " and id in (" . implode(',',$IdsToMarkAsRead) .")";
         }
 
         rss_query($sql);
