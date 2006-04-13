@@ -28,7 +28,7 @@
 
 require_once('init.php');
 
-$items = new ItemList();
+$items = new PaginatedItemList();
 $items -> setRenderOptions(IL_NO_COLLAPSE);
 
 if(array_key_exists('state', $_GET) && RSS_STATE_FLAG == $_GET['state']) {

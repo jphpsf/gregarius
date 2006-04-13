@@ -243,11 +243,16 @@ class ItemList {
 	var $iids = array();
 	var $unreadIids = array();
 	var $rss;
+	var $_template;
 	
-
+	var $_sqlActualWhat = "";
+	var $_sqlActualFrom = "";
+	var $_sqlActualWhere= "";
+	var $_sqlActualOrder= "";
+	var $_sqlActualLimit= "";
 	
 	function ItemList() {
-	
+		$this -> _template = 'itemlist.php';
 		$this -> rss = &$GLOBALS['rss'];
 		
 		// make sure we have  a default rendering options defined
@@ -276,32 +281,31 @@ class ItemList {
 	 */
 	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED, $includeDeprecated = false) {
 
-        _pf('ItemList::populate()');
-		$sql = "select i.title,  c.title, c.id, i.unread, "
+      _pf('ItemList::populate()');
+		$this -> _sqlActualWhat = " i.title,  c.title, c.id, i.unread, "
 			."i.url, i.enclosure, i.author, i.description, c.icon, "
 			." unix_timestamp(ifnull(i.pubdate,i.added)) as ts, "
-			." i.pubdate is not null as ispubdate, i.id, r.rating  "
-			." from ".getTable("item") ." i "
+			." i.pubdate is not null as ispubdate, i.id, r.rating  ";
+		$this -> _sqlActualFrom = 	getTable("item") ." i "
 			." left join "
 			. getTable("rating") ." r on (i.id = r.iid), "
 			.getTable("channels")." c, "
-			.getTable("folders") ." f "
+			.getTable("folders") ." f ";
 
-			." where "
-			." i.cid = c.id and "
+		$this -> _sqlActualWhere = " i.cid = c.id and "
 			." f.id=c.parent and ". (false == $includeDeprecated ? " not(c.mode & ".RSS_MODE_DELETED_STATE.") and " : "")
 			." not(i.unread & ".RSS_MODE_DELETED_STATE.") and ";
 			
 
 
 		if (hidePrivate()) {
-			$sql .= " not(i.unread & ".RSS_MODE_PRIVATE_STATE.") and ";
+			$this -> _sqlActualWhere .= " not(i.unread & ".RSS_MODE_PRIVATE_STATE.") and ";
 		}
 
-		if ($sqlWhere) {
-			$sql .= $sqlWhere ." and ";
+		if ($this -> _sqlActualWhere) {
+			$this -> _sqlActualWhere .= $sqlWhere ." and ";
 		}
-		$sql .= " 1=1 ";
+		$this -> _sqlActualWhere .= " 1=1 ";
 		
 		/// Order by
 		$sqlOrder = rss_plugin_hook("rss.plugins.items.order",$sqlOrder);
@@ -317,31 +321,42 @@ class ItemList {
 						$skey = 'unread';
 					break;
 			}
-			$sql .= " order by  ";
+
 			if (!getConfig('rss.config.feedgrouping')) {
 				if(getConfig("rss.config.datedesc.$skey")){
-					$sql .= " ts desc, f.position asc, c.position asc ";
+					$this -> _sqlActualOrder = " ts desc, f.position asc, c.position asc ";
 				}else{
-					$sql .= " ts asc, f.position asc, c.position asc ";
+					$this -> _sqlActualOrder = " ts asc, f.position asc, c.position asc ";
 				}
 			} elseif (getConfig('rss.config.absoluteordering')) {
-				$sql .= " f.position asc, c.position asc";
+				$this -> _sqlActualOrder = " f.position asc, c.position asc";
 			} else {
-				$sql .= " f.name asc, c.title asc";
+				$this -> _sqlActualOrder = " f.name asc, c.title asc";
 			}
 			if(getConfig("rss.config.datedesc.$skey")){
-				$sql .= ", ts desc, i.id asc";
+				$this -> _sqlActualOrder  .= ", ts desc, i.id asc";
 			}else{
-				$sql .= ", ts asc, i.id asc";
+				$this -> _sqlActualOrder  .= ", ts asc, i.id asc";
 			}
 		} else {
-			$sql .= " $sqlOrder ";	
+			$this -> _sqlActualOrder = " $sqlOrder ";	
 		}
 		if (($itemCount < 0) || ($itemCount > RSS_DB_MAX_QUERY_RESULTS)) {
 			$itemCount = RSS_DB_MAX_QUERY_RESULTS;
 		}
-		$sql .= " limit $startItem, $itemCount";
+		$this -> _sqlActualLimit = " $startItem, $itemCount";
 
+		$sql = "select "
+			.$this -> _sqlActualWhat
+			. " from "
+			.$this -> _sqlActualFrom
+			. " where "
+			. $this -> _sqlActualWhere
+			. " order by "
+			. $this -> _sqlActualOrder
+			. " limit "
+			. $this -> _sqlActualLimit;
+			
 		//echo $sql;		
 		$this -> iids = array();
 		$res = $GLOBALS['rss_db']->rss_query($sql);
@@ -460,7 +475,7 @@ class ItemList {
 
 		rss_plugin_hook('rss.plugins.items.beforeitems', null);
 
-		eval($this-> rss ->getCachedTemplateFile("itemlist.php"));
+		eval($this-> rss ->getCachedTemplateFile($this -> _template));
 		
 		_pf("done: ItemList -> render()");
 		
@@ -469,5 +484,60 @@ class ItemList {
 
 }
 
+class ItemListNavigation {
+	var $_parent;
+	var $pages;
+	function ItemListNavigation($il) {
+		$this -> _parent = $il;
+		$this -> pages = array();
+		$base = $_SERVER["REQUEST_URI"];
+		if (!preg_match('#page=[0-9]+$#',$base)) {
+			$base .= "?page=0";
+		}
+		$last = ceil( $this -> _parent -> numItems / $this -> _parent -> itemsPerPage);
+		$lastin = 0;
+		for ($i = 0; $i < $last; $i++) {
+			if ($i == 0 || $i == $last-1 || abs($i - $this -> _parent -> page) < 3) {
+				$url = preg_replace('#^(.+)page=[0-9]+$#','${1}page='.$i, $base);
+				$this -> pages[$i] = array($url, $i == $this -> _parent -> page, false);
+				$lastin = $i;
+			} elseif ($i - 1 == $lastin) {
+				$this -> pages[$i] = array(null,false,true);
+			}
+		}
+	}
+	function render() {
+		eval($this-> _parent -> rss ->getCachedTemplateFile('pagination.php'));
+	}
+}
 
+class PaginatedItemList extends ItemList {
+	var $page;
+	var $navigation;
+	var $itemsPerPage = 0;
+	var $numItems = 0;
+	function PaginatedItemList() { 
+		parent::ItemList();	
+		if (isset($_REQUEST['page'])) {
+			$this -> page = sanitize($_REQUEST['page'], RSS_SANITIZER_NUMERIC);
+		} else {
+			$this -> page = 0;
+		}
+		
+		$this ->  itemsPerPage = getConfig('rss.output.frontpage.numitems');
+	}
+	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED, $includeDeprecated = false) {
+
+		$si = $this -> page * $this ->  itemsPerPage;
+		parent::populate($sqlWhere, $sqlOrder, $si, $this ->  itemsPerPage, $hint, $includeDeprecated);
+		
+		$sql = "select count(*) as cnt "
+			. " from "
+			. $this -> _sqlActualFrom
+			. " where "
+			. $this -> _sqlActualWhere;
+		list($this -> numItems) = rss_fetch_row(rss_query($sql));
+		$this -> navigation = new ItemListNavigation(& $this);
+	}
+}
 ?>

@@ -14,5 +14,7 @@
 <a <?php echo rss_itemlist_anchor(); ?>></a>
 <?php } ?>
 <?php echo rss_itemlist_before_list(); ?>
+<?php rss_itemlist_navigation(); ?>
 <?php rss_itemlist_feeds(); ?>
+<?php rss_itemlist_navigation(); ?>
 <?php echo rss_itemlist_after_list(); ?>

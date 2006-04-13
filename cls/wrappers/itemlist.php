@@ -90,4 +90,15 @@ function rss_itemlist_after_list() {
 	return $GLOBALS['rss'] -> currentItemList-> afterList;
 }
 
+function rss_itemlist_navigation() {
+	if (isset($GLOBALS['rss'] -> currentItemList -> navigation)) {
+		$GLOBALS['rss'] -> currentItemList -> navigation -> render();
+	}
+}
+
+function rss_itemlist_navigation_pages() {
+	if (isset($GLOBALS['rss'] -> currentItemList -> navigation)) {
+		return $GLOBALS['rss'] -> currentItemList -> navigation -> pages;
+	}
+}
 ?>
