@@ -185,12 +185,12 @@ class SearchItemList extends ItemList {
         $qWhere .= " and not(i.unread & ".RSS_MODE_DELETED_STATE.") ";
 
         if ($this->orderBy == QUERY_ORDER_BY_DATE) {
-            $qOrder = " order by ts desc";
+            $qOrder = "  ts desc";
         } else {
             if (getConfig('rss.config.absoluteordering')) {
-                $qOrder = " order by f.position asc, c.position asc";
+                $qOrder = "  f.position asc, c.position asc";
             } else {
-                $qOrder = " order by f.name asc, c.title asc";
+                $qOrder = "  f.name asc, c.title asc";
             }
         }
 
