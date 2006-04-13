@@ -630,7 +630,10 @@ function getPath() {
         if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION."\$", $ret)) {
             $ret = substr($ret, 0, strlen($ret) - strlen(RSS_FILE_LOCATION));
         }
-        if (substr($ret, -1) != "/") {
+	if (substr($ret, -1) == "\\") { // Take off trailing backslash
+            $ret = substr($ret, 0, -1);
+	}
+        if (substr($ret, -1) != "/") {  // Add a frontslash
             $ret .= "/";
         }
     }
