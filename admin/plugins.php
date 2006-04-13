@@ -131,12 +131,12 @@ function plugins() {
                 .($active?"checked=\"checked\"":"")." />\n"
                 ."</td>\n";
                 echo "<td><label
-                for=\"_gregarius_plugin_$entry\">".(array_key_exists('name',$info)?$info['name']:"&nbsp").
+                for=\"_gregarius_plugin_$entry\">".(array_key_exists('name',$info)?$info['name']:"&nbsp;").
                 "</label></td>\n";
                 echo "<td class=\"cntr\">"
-                .(array_key_exists('version',$info)?$info['version']:"&nbsp"). "</td>\n";
-                echo "<td>"	.(array_key_exists('author',$info)?$info['author']:"&nbsp"). "</td>\n";
-                echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp"). "</td>\n";
+                .(array_key_exists('version',$info)?$info['version']:"&nbsp;"). "</td>\n";
+                echo "<td>"	.(array_key_exists('author',$info)?$info['author']:"&nbsp;"). "</td>\n";
+                echo "<td>"	.(array_key_exists('description',$info)?$info['description']:"&nbsp;"). "</td>\n";
 
                 // output the column to call a plugin's config page.
                 echo "<td  class=\"cntr\">";
@@ -149,7 +149,7 @@ function plugins() {
                     ."\">" . LBL_ADMIN_EDIT
                     ."</a>";
                 } else {
-                    echo "&nbsp";
+                    echo "&nbsp;";
                 }
                 echo "</td>\n";
 
