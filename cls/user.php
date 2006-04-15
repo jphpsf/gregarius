@@ -27,157 +27,159 @@
 ###############################################################################
 rss_require('cls/wrappers/user.php');
 
-/** 
+/**
  * The RSSUser class holds all the business logic to handle Gregarius users 
  */
 class RSSUser {
-	/** Userid */
-	var $_uid;
-	/** Userlevel */
-	var $_level;
-	/** Username */
-	var $_uname;
-	/** md5 hash of the user password */
-	var $_hash;
-	/** List of valid IP subnets this user is allowed to log in via a cookie */
-	var $_validIPs;
-	
-	/** 
-	 * RSSUser constructor:
-	 * Handles: 
-	 * -logout
-	 * -cookie login (with validation)
-	 * -login
-	 */
-	function RSSUser() {
-		$this -> _uid = 0;
-		$this -> _validIPs = array();
-		$this -> _level = RSS_USER_LEVEL_NOLEVEL;
-		$this -> _uname = '';
-		$this -> _realName = '';		
-		$this -> _hash = null;
-				
-		if (array_key_exists('logout',$_GET)) {
-			$this -> logout();
-			rss_redirect('');
-		}
-		
-		$cuname = $chash = null;
-    if (isset($_COOKIE[RSS_USER_COOKIE])) {
-    	list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
-    }  elseif(isset($_SESSION['mobile'])) {
-    	list($cuname,$chash) = explode('|',$_SESSION['mobile']);
-    } elseif (isset($_POST['username']) && isset($_POST['password'])) {
-    	$_cuname = trim($_POST['username']);
-    	$_chash = md5($_POST['password']);
-    	if ($this -> login($_cuname,$_chash)) {
-    		$cuname = $_cuname;
-    		$chash = $_chash;
-    	}
-    }
-		if ($cuname && $chash) {
-				$sql = "select uid, uname, ulevel, realname, userips from " . getTable('users') . " where uname='"
-							 .rss_real_escape_string($cuname) ."' and password='"
-							 .preg_replace('#[^a-zA-Z0-9]#','',md5($chash)) ."'";
-				$rs = rss_query($sql);
-				if (rss_num_rows($rs) == 1) {
-						list($uid, $uname, $level, $realName, $tmpUserIps) = rss_fetch_row($rs);
-						$userIPs = explode(' ',$tmpUserIps);
-						$subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-						if (array_search($subnet, $userIPs) !== FALSE) {
-							$this -> _uid = $uid;
-							$this -> _uname = $uname;
-							$this -> _validIPs = $userIPs;
-							$this -> _level = $level;
-							$this -> _realName = $realName;
-							$this -> _hash = $chash;
-						}
-				}
-			}
-	}
-	
-	/**
-	 * Logs in a user given the username and password.
-	 * If the user provided valid username and password,
-	 * he is given a cookie and his IP address subnet is added 
-	 * to the list of valid IPs this user is allowed to log in
-	 * via a cookie
-	 *
-	 * Returns true on a successful login, false otherwise.
-	 */
-	function login($uname,$pass) {
-    $sql ="select uname,ulevel,userips from " .getTable('users') . "where uname='"
-          .rss_real_escape_string($uname)."' and password='".md5($pass)."'";
-    list($uname,$ulevel,$userips) = rss_fetch_row(rss_query($sql));
-    if ($ulevel == '') {
-        $ulevel = RSS_USER_LEVEL_NOLEVEL;
-        return false;
-    } else {
-        // "push" the user IP into the list of logged-in IP subnets
-        $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-        $this -> _validIPs = explode(' ',$userips);
-        $this -> _validIPs[] = $subnet;
-        $sql = "update " .getTable('users')
-               . " set userips = '" . implode(' ', $this -> _validIPs ) ."'"
-               ." where uname = '$uname' ";
-        rss_query($sql);
-        $this -> setUserCookie($uname,$pass);
-        rss_invalidate_cache();
-        return true;
-    }
-    return false;
-	}
+    /** Userid */
+    var $_uid;
+    /** Userlevel */
+    var $_level;
+    /** Username */
+    var $_uname;
+    /** md5 hash of the user password */
+    var $_hash;
+    /** List of valid IP subnets this user is allowed to log in via a cookie */
+    var $_validIPs;
 
-	/**
-	 * Hands the user a yummy cookie.
-	 * The cookie holds the md5 hash of the user password
-	 */
-	function setUserCookie($user,$hash) {
-   // if (getConfig('rss.config.autologout')) {
-   //     $t = 0;
-   // } else {
-        $t =time()+COOKIE_LIFESPAN;
-   // }
-    setcookie(RSS_USER_COOKIE, $user .'|' . $hash , $t, getPath());
-	}
+    /**
+     * RSSUser constructor:
+     * Handles: 
+     * -logout
+     * -cookie login (with validation)
+     * -login
+     */
+    function RSSUser() {
+        $this -> _uid = 0;
+        $this -> _validIPs = array();
+        $this -> _level = RSS_USER_LEVEL_NOLEVEL;
+        $this -> _uname = '';
+        $this -> _realName = '';
+        $this -> _hash = null;
 
-	/**
-	 * Logs the user out.
-	 * - deletes the cookie
-	 * - removes the user's IP subnet from the list of valid subnets this
-	 *   user is allowed to log in with a cookie.
-	 */
-	function logout() {
-    if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
-        $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-
-        if (($idx = array_search($subnet, $this -> _validIPs)) !== FALSE) {
-            $cnt = count($this -> _validIPs);
-            unset($this -> _validIPs[$idx]);
-            $uname = trim($this -> _uname);
-            if ($uname && ($cnt > count($this -> _validIPs))) {
-                $sql = "update " .getTable('users')
-                       . " set userips = '" . implode(' ',$this -> _validIPs) ."'"
-                       ." where uname = '$uname' ";
-                rss_query($sql);
-            }
+        if (array_key_exists('logout',$_GET)) {
+            $this -> logout();
+            rss_redirect('');
         }
 
-        // get rid of the cookie
-        unset($_COOKIE[RSS_USER_COOKIE]);
-        setcookie(RSS_USER_COOKIE, "", -1, getPath());
-        rss_invalidate_cache();
+        $cuname = $chash = null;
+        if (isset($_POST['username']) && isset($_POST['password'])) {
+            $_cuname = trim($_POST['username']);
+            $_chash = md5($_POST['password']);
+            if ($this -> login($_cuname,$_chash)) {
+                $cuname = $_cuname;
+                $chash = $_chash;
+            }
+        }
+        elseif (isset($_COOKIE[RSS_USER_COOKIE])) {
+            list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
+        }
+        elseif(isset($_SESSION['mobile'])) {
+            list($cuname,$chash) = explode('|',$_SESSION['mobile']);
+        }
+        if ($cuname && $chash) {
+            $sql = "select uid, uname, ulevel, realname, userips from " . getTable('users') . " where uname='"
+                   .rss_real_escape_string($cuname) ."' and password='"
+                   .preg_replace('#[^a-zA-Z0-9]#','',md5($chash)) ."'";
+            $rs = rss_query($sql);
+            if (rss_num_rows($rs) == 1) {
+                list($uid, $uname, $level, $realName, $tmpUserIps) = rss_fetch_row($rs);
+                $userIPs = explode(' ',$tmpUserIps);
+                $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+                if (array_search($subnet, $userIPs) !== FALSE) {
+                    $this -> _uid = $uid;
+                    $this -> _uname = $uname;
+                    $this -> _validIPs = $userIPs;
+                    $this -> _level = $level;
+                    $this -> _realName = $realName;
+                    $this -> _hash = $chash;
+                }
+            }
+        }
     }
-	}
 
-	///// Getters //////
-	function getUserName() {
-		return $this -> _uname;
-	}
-	
-	function getUserLevel() {
-		return $this -> _level;
-	}
+    /**
+     * Logs in a user given the username and password.
+     * If the user provided valid username and password,
+     * he is given a cookie and his IP address subnet is added 
+     * to the list of valid IPs this user is allowed to log in
+     * via a cookie
+     *
+     * Returns true on a successful login, false otherwise.
+     */
+    function login($uname,$pass) {
+        $sql ="select uname,ulevel,userips from " .getTable('users') . "where uname='"
+              .rss_real_escape_string($uname)."' and password='".md5($pass)."'";
+        list($uname,$ulevel,$userips) = rss_fetch_row(rss_query($sql));
+        if ($ulevel == '') {
+            $ulevel = RSS_USER_LEVEL_NOLEVEL;
+            return false;
+        } else {
+            // "push" the user IP into the list of logged-in IP subnets
+            $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+            $this -> _validIPs = explode(' ',$userips);
+            $this -> _validIPs[] = $subnet;
+            $sql = "update " .getTable('users')
+                   . " set userips = '" . implode(' ', $this -> _validIPs ) ."'"
+                   ." where uname = '$uname' ";
+            rss_query($sql);
+            $this -> setUserCookie($uname,$pass);
+            rss_invalidate_cache();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Hands the user a yummy cookie.
+     * The cookie holds the md5 hash of the user password
+     */
+    function setUserCookie($user,$hash) {
+        // if (getConfig('rss.config.autologout')) {
+        //     $t = 0;
+        // } else {
+        $t =time()+COOKIE_LIFESPAN;
+        // }
+        setcookie(RSS_USER_COOKIE, $user .'|' . $hash , $t, getPath());
+    }
+
+    /**
+     * Logs the user out.
+     * - deletes the cookie
+     * - removes the user's IP subnet from the list of valid subnets this
+     *   user is allowed to log in with a cookie.
+     */
+    function logout() {
+        if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
+            $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
+
+            if (($idx = array_search($subnet, $this -> _validIPs)) !== FALSE) {
+                $cnt = count($this -> _validIPs);
+                unset($this -> _validIPs[$idx]);
+                $uname = trim($this -> _uname);
+                if ($uname && ($cnt > count($this -> _validIPs))) {
+                    $sql = "update " .getTable('users')
+                           . " set userips = '" . implode(' ',$this -> _validIPs) ."'"
+                           ." where uname = '$uname' ";
+                    rss_query($sql);
+                }
+            }
+
+            // get rid of the cookie
+            unset($_COOKIE[RSS_USER_COOKIE]);
+            setcookie(RSS_USER_COOKIE, "", -1, getPath());
+            rss_invalidate_cache();
+        }
+    }
+
+    ///// Getters //////
+    function getUserName() {
+        return $this -> _uname;
+    }
+
+    function getUserLevel() {
+        return $this -> _level;
+    }
 }
 
 // Create the unique instance. Todo: make the RSSUser a singleton.
