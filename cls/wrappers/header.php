@@ -145,7 +145,7 @@ function rss_header_logininfo() {
         $ret .= LBL_NOT_LOGGED_IN
                 ."&nbsp;|&nbsp;<a href=\"#\" onclick=\"miniloginform(); return false;\">".LBL_LOG_IN."</a>";
         $ret .= "<span style=\"display:none\" id=\"loginformcontainer\">"
-						 . '<form method="post" action="'.getPath().'">'
+						 . '<form ' /*onsubmit="return loginHandler();" */ .'method="post" action="'.getPath().'">'
 						 . '<input style=" width:50px;" name="username" id="username" type="text" />'
 						 . '<input style=" width:50px;" name="password" id="password"  type="password" />'
 						 . '<input type="submit" value="'.LBL_LOG_IN.'" />'

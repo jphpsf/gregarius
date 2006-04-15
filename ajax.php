@@ -168,6 +168,17 @@ function miniloginform() {
 	}
 }
 
+function loginHandler() {
+	pw = document.getElementById('password');
+	var re = new RegExp('/[0-9a-f]{32}/');
+	if (! re.test(pw.value)) {
+		alert('hashing');
+		pw.value = hex_md5(pw.value);
+	} else {
+		alert('not hashing');
+	}
+	return true;
+}
 
 function setTags(id,tagss) {
   tags = tagss.split(' ');
