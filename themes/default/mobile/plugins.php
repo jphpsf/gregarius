@@ -3,12 +3,6 @@
 // stores constants for overrides' defaults
 require_once('mobileconstants.php');
 
-// Mobile theme relys on PHP sessions
-ini_set('session.use_trans_sid',true);
-session_start();
-
-//var_dump($_SESSION['mobile']);
-
 function __mobile_strip_images($i) {
     static $allowed;
     if (!$allowed) {

@@ -41,6 +41,8 @@ class RSSUser {
     var $_hash;
     /** List of valid IP subnets this user is allowed to log in via a cookie */
     var $_validIPs;
+    /** Mobile session */
+    var $_mobileSession;
 
     /**
      * RSSUser constructor:
@@ -50,22 +52,32 @@ class RSSUser {
      * -login
      */
     function RSSUser() {
+    
+    		// We need sessions for the mobile version
+    		ini_set('session.use_trans_sid',true);
+    		session_start();
+    
         $this -> _uid = 0;
         $this -> _validIPs = array();
         $this -> _level = RSS_USER_LEVEL_NOLEVEL;
         $this -> _uname = '';
         $this -> _realName = '';
         $this -> _hash = null;
-
+				$this -> _mobileSession = (isset($_POST['media']) && 'mobile' == $_POST['media']);
+				
         if (array_key_exists('logout',$_GET)) {
             $this -> logout();
             rss_redirect('');
         }
-
+				
         $cuname = $chash = null;
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $_cuname = trim($_POST['username']);
-            $_chash = md5($_POST['password']);
+            if ($this -> _mobileSession) {
+            	$_chash = md5(md5($_POST['password'] . $_POST['username']));
+            } else {
+            	$_chash = md5($_POST['password']);
+            }
             if ($this -> login($_cuname,$_chash)) {
                 $cuname = $_cuname;
                 $chash = $_chash;
@@ -76,6 +88,7 @@ class RSSUser {
         }
         elseif(isset($_SESSION['mobile'])) {
             list($cuname,$chash) = explode('|',$_SESSION['mobile']);
+            $this -> _mobileSession = true;
         }
         if ($cuname && $chash) {
             $sql = "select uid, uname, ulevel, realname, userips from " . getTable('users') . " where uname='"
@@ -123,7 +136,11 @@ class RSSUser {
                    . " set userips = '" . implode(' ', $this -> _validIPs ) ."'"
                    ." where uname = '$uname' ";
             rss_query($sql);
-            $this -> setUserCookie($uname,$pass);
+            if ($this -> _mobileSession) {
+            	$this -> setUserSession($uname,$pass);
+           	} else {
+            	$this -> setUserCookie($uname,$pass);
+            }
             rss_invalidate_cache();
             return true;
         }
@@ -135,14 +152,22 @@ class RSSUser {
      * The cookie holds the md5 hash of the user password
      */
     function setUserCookie($user,$hash) {
-        // if (getConfig('rss.config.autologout')) {
-        //     $t = 0;
-        // } else {
-        $t =time()+COOKIE_LIFESPAN;
-        // }
+    		$rs = rss_query(
+    			'select value_ from ' .getTable('config') . "where key_ = 'rss.config.autologout'", false,true);
+				if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR) && rss_num_rows($rs) > 0) {
+					list($als) = rss_fetch_row($rs);
+					$al = ($als == 'true');
+				} else {
+					$al = false;
+				}
+        $t = $al ? 0: time()+COOKIE_LIFESPAN;
         setcookie(RSS_USER_COOKIE, $user .'|' . $hash , $t, getPath());
     }
 
+		function setUserSession($user,$hash) {
+			$_SESSION['mobile'] = $user . "|" . $hash;
+		}
+		
     /**
      * Logs the user out.
      * - deletes the cookie
@@ -150,7 +175,7 @@ class RSSUser {
      *   user is allowed to log in with a cookie.
      */
     function logout() {
-        if (array_key_exists(RSS_USER_COOKIE, $_COOKIE)) {
+        if (array_key_exists(RSS_USER_COOKIE, $_COOKIE) || isset($_SESSION['mobile'])) {
             $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
 
             if (($idx = array_search($subnet, $this -> _validIPs)) !== FALSE) {
@@ -168,6 +193,10 @@ class RSSUser {
             // get rid of the cookie
             unset($_COOKIE[RSS_USER_COOKIE]);
             setcookie(RSS_USER_COOKIE, "", -1, getPath());
+            if (isset($_SESSION['mobile'])) {
+            	unset($_SESSION['mobile']);
+            }
+
             rss_invalidate_cache();
         }
     }
