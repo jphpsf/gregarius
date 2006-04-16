@@ -80,9 +80,9 @@ if (! $auth) {
     if ($__pw__ == '') {
         $admin_uname = null;
         $admin_pass = null;
-        if (isset($_POST['admin_uname']) && isset($_POST['admin_pass'])) {
-            $admin_uname = $_POST['admin_uname'];
-            $admin_pass = $_POST['admin_pass'];
+        if (isset($_POST['username']) && isset($_POST['password'])) {
+            $admin_uname = $_POST['username'];
+            $admin_pass = $_POST['password'];
         }
         set_admin_pass($admin_uname,$admin_pass);
     } else {

@@ -47,16 +47,17 @@ function set_admin_pass($uname=null,$pass=null) {
 	<script type="text/javascript">
 	<!--
 		function on_submit_password_match() {
-			pass=document.getElementById('admin_pass').value;
-			pass2=document.getElementById('admin_pass2').value;
+			pass=document.getElementById('password').value;
+			pass2=document.getElementById('password2').value;
 			if(pass !== pass2){
 				msg = '<?php echo LBL_ADMIN_PASS_NO_MATCH ?>';
 				document.getElementById('admin_match_result').innerHTML = msg;
-				document.getElementById('admin_pass').value = '';
-				document.getElementById('admin_pass2').value = '';
+				document.getElementById('password').value = '';
+				document.getElementById('password2').value = '';
 				return false;
 			}else{
-				return true;
+				document.getElementById('password2').value = '';
+				return loginHandler();
 			}
 		}	
 	-->
@@ -69,12 +70,12 @@ function set_admin_pass($uname=null,$pass=null) {
 	
 	echo "<form action=\"".$_SERVER['PHP_SELF'] . "\" onsubmit=\"return on_submit_password_match();\" method=\"post\">\n"
 	."<fieldset style=\"width:400px;\">"
-	."<p><label style=\"display:block\" for=\"admin_uname\">".LBL_USERNAME.":</label>\n"
-	."<input type=\"text\" id=\"admin_uname\" name=\"admin_uname\" /></p>\n"
-	."<p><label style=\"display:block\" for=\"admin_pass\">".LBL_PASSWORD.":</label>\n"
-	."<input type=\"password\" id=\"admin_pass\" name=\"admin_pass\" /></p>\n"
-	."<p><label style=\"display:block\" for=\"admin_pass2\">".LBL_PASSWORD2.":</label>\n"
-	."<input type=\"password\" id=\"admin_pass2\" name=\"admin_pass2\" /></p>\n"
+	."<p><label style=\"display:block\" for=\"username\">".LBL_USERNAME.":</label>\n"
+	."<input type=\"text\" id=\"username\" name=\"username\" /></p>\n"
+	."<p><label style=\"display:block\" for=\"password\">".LBL_PASSWORD.":</label>\n"
+	."<input type=\"password\" id=\"password\" name=\"password\" /></p>\n"
+	."<p><label style=\"display:block\" for=\"password2\">".LBL_PASSWORD2.":</label>\n"
+	."<input type=\"password\" id=\"password2\" name=\"password2\" /></p>\n"
 	."<p><input type=\"submit\" value=\"".LBL_ADMIN_OK."\" /></p>\n"
 	."<div style=\"display:inline;\" id=\"admin_match_result\"></div>\n"
 	."</fieldset>\n"
@@ -90,7 +91,8 @@ function rss_login_form($uname=null,$pass=null) {
 	admin_header();
   echo "\n<div id=\"channel_admin\" class=\"frame\">";
 		
-	echo "<form id=\"admin_login\" style=\"text-align:center\" action=\"".$_SERVER['PHP_SELF'] ."\" method=\"post\">\n"
+	echo "<form id=\"admin_login\" onsubmit=\"return loginHandler();\" 
+		style=\"text-align:center\" action=\"".$_SERVER['PHP_SELF'] ."\" method=\"post\">\n"
 	."<fieldset>"
 	."<legend>" . LBL_ADMIN_LOGIN . "</legend>\n"
 	."<p><label style=\"display:block\" for=\"username\">".LBL_USERNAME.":</label>\n"
