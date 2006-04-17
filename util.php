@@ -308,6 +308,10 @@ function update($id) {
                 //Atom, alternative
                 $cDate = parse_iso8601($item['issued']);
             }
+            elseif (array_key_exists('updated', $item)) {
+                //Atom, alternative
+                $cDate = parse_iso8601($item['updated']);
+            }
             elseif (array_key_exists('created', $item)) {
                 // atom 0.3
                 $cDate = parse_iso8601($item['created']);
