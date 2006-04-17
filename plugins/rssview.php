@@ -29,25 +29,26 @@
 /// Name: RSS View
 /// Author: Marco Bonetti
 /// Description: Adds a RSS link to the header and the footer of each page
-/// Version: 0.5
+/// Version: 0.6
 
 /**
  * Changes:
  * 0.4 - Properly escape the RSS url's entities.
  * 0.5 - Adapted to the new theme model
+ * 0.6 - Don't put a link in admin and other locations
  */
 
 function __rss_view_url() {
     $url 	= guessTransportProto() . $_SERVER['HTTP_HOST'];
     $url .= $_SERVER["REQUEST_URI"];
-    
+
     if (strstr($_SERVER['REQUEST_URI'],"?") !== FALSE) {
-    	$url .= "&amp;media=rss";
+        $url .= "&amp;media=rss";
     } else {
-			$url .= "?media=rss";
-		}
-		$url .= __rss_view_post2get();
-		$url = str_replace('&amp;','&',$url);
+        $url .= "?media=rss";
+    }
+    $url .= __rss_view_post2get();
+    $url = str_replace('&amp;','&',$url);
     return str_replace('&','&amp;',$url);
 }
 
@@ -55,22 +56,26 @@ function __rss_view_url() {
  * look for POST parameters prefixed with "rss_" and add them to the RSS url 
  */
 function __rss_view_post2get() {
-	$ret = "";
-	foreach($_POST as $key => $val) {
-		if (substr($key,0,4) == 'rss_') {
-			$ret .= "&" ."$key=" . $_POST[$key];
-		}
-	}
-	return $ret;
+    $ret = "";
+    foreach($_POST as $key => $val) {
+        if (substr($key,0,4) == 'rss_') {
+            $ret .= "&" ."$key=" . $_POST[$key];
+        }
+    }
+    return $ret;
 }
 
 function __rss_view_footerlink($dummy) {
-    echo "<span><a href=\"".__rss_view_url()."\">RSS</a></span>\n";
+    if (!defined('RSS_FILE_LOCATION')) {
+        echo "<span><a href=\"".__rss_view_url()."\">RSS</a></span>\n";
+    }
     return $dummy;
 }
 
 function __rss_view_headerlink($dummy) {
-    echo "\t<link rel=\"alternate\" type=\"application/rss+xml\" title=\"RSS\" href=\"".__rss_view_url()."\" />\n";
+    if (!defined('RSS_FILE_LOCATION')) {
+        echo "\t<link rel=\"alternate\" type=\"application/rss+xml\" title=\"RSS\" href=\"".__rss_view_url()."\" />\n";
+    }
     return $dummy;
 }
 
