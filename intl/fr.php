@@ -69,7 +69,6 @@ define ('LBL_AND','et');
 
 define ('LBL_TITLE_UPDATING','Mise &agrave; jour');
 define ('LBL_TITLE_SEARCH','Recherche');
-define ('LBL_TITLE_ADMIN','Administration des canaux');
 
 define ('LBL_HOME_FOLDER','Racine');
 define ('LBL_VISIT', '(visiter)');

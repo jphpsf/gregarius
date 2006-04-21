@@ -69,7 +69,6 @@ define ('LBL_AND','и');
 
 define ('LBL_TITLE_UPDATING','Обновление');
 define ('LBL_TITLE_SEARCH','Поиск');
-define ('LBL_TITLE_ADMIN','Панель управления');
 
 
 define ('LBL_HOME_FOLDER','Корень');

@@ -70,7 +70,6 @@ define ('LBL_AND','och');
 
 define ('LBL_TITLE_UPDATING','Uppdaterar');
 define ('LBL_TITLE_SEARCH','S&ouml;k');
-define ('LBL_TITLE_ADMIN','Admin');
 
 
 define ('LBL_HOME_FOLDER','Root');

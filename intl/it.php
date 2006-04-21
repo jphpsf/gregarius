@@ -74,7 +74,6 @@ define ('LBL_AND','e');
 
 define ('LBL_TITLE_UPDATING','Aggiornando');
 define ('LBL_TITLE_SEARCH','Ricerca');
-define ('LBL_TITLE_ADMIN','Amministrazione');
 
 
 define ('LBL_HOME_FOLDER','Radice');

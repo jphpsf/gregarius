@@ -68,7 +68,6 @@ define ('LBL_AND','und');
 
 define ('LBL_TITLE_UPDATING','Aktualisiere');
 define ('LBL_TITLE_SEARCH','Suchen');
-define ('LBL_TITLE_ADMIN','Feeds Admin');
 
 
 define ('LBL_HOME_FOLDER','Root');
