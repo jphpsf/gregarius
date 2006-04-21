@@ -87,7 +87,7 @@ else {
 	<?php echo rss_item_date_with_format("G:i"); ?>
 	<h4><a class="tlink" href="#" onclick="toggleItemByID(<?php echo rss_item_id();?>);return false;">
 	<?php echo rss_item_title(); ?></a></h4> 
-	<a href="<?php echo rss_item_url(); ?>">&nbsp;&raquo;&nbsp;
+	<a href="<?php echo rss_item_url(); ?>">&nbsp;&raquo;&nbsp;&lrm;
 	<?php echo rss_feed_title();?></a>
 	<div id="sad<?php echo rss_item_id(); ?>" style="display:none"></div>
 	<div class="content" id="c<?php echo rss_item_id(); ?>" style="display:none">
