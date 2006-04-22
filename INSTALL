@@ -40,8 +40,9 @@ QUICK START
                 cp dbinit.php.sample dbinit.php
         
         2.  Edit the dbinit.php file to match your database configuration. 
-            Make sure that the database user you define owns privileges to 
-            create tables.
+            Make sure that the database exists and has the right permissions
+            and the database user you define owns privileges to create/modify
+            tables.
    
    6.   Point your browser to the root directory of your installation.
 	You should read a message informing you that the database schema
