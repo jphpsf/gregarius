@@ -61,11 +61,14 @@ rss_bootstrap();
 // Base includes
 //
 rss_require('util.php');
-rss_require('cls/user.php');
 rss_require('cls/rss.php');
-//rss_require('config.php');
 rss_require('cls/config.php');
 rss_require('themes.php');
+rss_require('plugins.php');
+rss_require('cls/user.php');
+//rss_require('config.php');
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +104,7 @@ rss_require("cls/nav.php");
 _pf(' ... nav.php');
 
 _pf('parsing remaining files...');
-rss_require('plugins.php');
+
 rss_require('extlib/rss_fetch.inc');
 rss_require('extlib/rss_utils.inc');
 rss_require('extlib/kses.php');

@@ -53,17 +53,19 @@ class RSSUser {
      */
     function RSSUser() {
     
-    		// We need sessions for the mobile version
-    		ini_set('session.use_trans_sid',true);
-    		session_start();
-    
         $this -> _uid = 0;
         $this -> _validIPs = array();
         $this -> _level = RSS_USER_LEVEL_NOLEVEL;
         $this -> _uname = '';
         $this -> _realName = '';
         $this -> _hash = null;
-				$this -> _mobileSession = (isset($_POST['media']) && 'mobile' == $_POST['media']);
+				$this -> _mobileSession = 
+					isset($_POST['media']) && 'mobile' == $_POST['media'];
+				
+				if ('mobile' ==  getThemeMedia()) {
+					ini_set('session.use_trans_sid',true);
+    			session_start();
+				}
 				
         if (array_key_exists('logout',$_GET)) {
             $this -> logout();

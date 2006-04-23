@@ -928,7 +928,7 @@ function rss_date($fmt, $ts, $addTZOffset = true) {
 }
 
 function _pf($msg) {
-    if (defined('PROFILING') && PROFILING && isset($GLOBALS['rss'])) {
+    if (defined('PROFILING') && PROFILING && isset($GLOBALS['rss']) && method_exists($GLOBALS['rss'], "_pf")) {
         $GLOBALS['rss'] -> _pf($msg);
     }
 }
