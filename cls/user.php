@@ -27,6 +27,11 @@
 ###############################################################################
 rss_require('cls/wrappers/user.php');
 
+define ('RSS_USER_ACTION_LOGIN',0x01);
+define ('RSS_USER_ACTION_COOKIE',0x02);
+define ('RSS_USER_ACTION_SESSION',0x04);
+define ('RSS_USER_ACTION_LOGOUT',0x08);
+
 /**
  * The RSSUser class holds all the business logic to handle Gregarius users 
  */
@@ -43,6 +48,8 @@ class RSSUser {
     var $_validIPs;
     /** Mobile session */
     var $_mobileSession;
+    /** Action */
+    var $_action;
 
     /**
      * RSSUser constructor:
@@ -59,13 +66,15 @@ class RSSUser {
         $this -> _uname = '';
         $this -> _realName = '';
         $this -> _hash = null;
-				$this -> _mobileSession = 
-					isset($_POST['media']) && 'mobile' == $_POST['media'];
-				
-				if ('mobile' ==  getThemeMedia()) {
-					ini_set('session.use_trans_sid',true);
-    			session_start();
-				}
+        
+        
+		$this -> _mobileSession = 
+			isset($_POST['media']) && 'mobile' == $_POST['media'];
+		
+		if ('mobile' ==  getThemeMedia()) {
+			ini_set('session.use_trans_sid',true);
+			session_start();
+		}
 				
         if (array_key_exists('logout',$_GET)) {
             $this -> logout();
@@ -83,14 +92,17 @@ class RSSUser {
             if ($this -> login($_cuname,$_chash)) {
                 $cuname = $_cuname;
                 $chash = $_chash;
+                $this -> _action = RSS_USER_ACTION_LOGIN;
             }
         }
         elseif (isset($_COOKIE[RSS_USER_COOKIE])) {
             list($cuname,$chash) = explode('|',$_COOKIE[RSS_USER_COOKIE]);
+            $this -> _action = RSS_USER_ACTION_COOKIE;
         }
         elseif(isset($_SESSION['mobile'])) {
             list($cuname,$chash) = explode('|',$_SESSION['mobile']);
             $this -> _mobileSession = true;
+            $this -> _action = RSS_USER_ACTION_SESSION;
         }
         if ($cuname && $chash) {
             $sql = "select uid, uname, ulevel, realname, userips from " . getTable('users') . " where uname='"
@@ -101,7 +113,7 @@ class RSSUser {
                 list($uid, $uname, $level, $realName, $tmpUserIps) = rss_fetch_row($rs);
                 $userIPs = explode(' ',$tmpUserIps);
                 $subnet = preg_replace('#^([0-9]+\.[0-9]+\.[0-9]+)\.[0-9]+$#','\1',$_SERVER['REMOTE_ADDR']);
-                if (array_search($subnet, $userIPs) !== FALSE) {
+                if ((array_search($subnet, $userIPs) !== FALSE) || ($this -> _action != RSS_USER_ACTION_COOKIE)) {
                     $this -> _uid = $uid;
                     $this -> _uname = $uname;
                     $this -> _validIPs = $userIPs;
