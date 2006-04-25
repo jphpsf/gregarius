@@ -31,7 +31,7 @@
 		<a style="font-weight:bold; font-size:150%; border: 1px solid #ddd; background-color: #f5f5f5;" 
 			href="#" onclick="_lilina_channels_collapse(this)" accesskey="f">&nbsp;&laquo;&nbsp;</a>
 	</span>
-	<a href="#" onclick="_lilina_toggleAlldivs();return false;" accesskey="c">expand/collapse</a>
+	<a href="#" onclick="_lilina_toggleAlldivs();return false;" accesskey="c"><?php echo LILINA_EXPAND_COLLAPSE; ?></a>
  	<?php rss_main_object(); ?>
 </div>
 
