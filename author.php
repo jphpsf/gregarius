@@ -27,11 +27,10 @@
 
 require_once ('init.php');
 
-$a =  preg_replace("/[^A-Za-z0-9\.]/","%",rss_real_escape_string($_REQUEST['author']));
-
+$a =trim(sanitize($_REQUEST['author'], RSS_SANITIZER_WORDS));
 list ($ra) = rss_fetch_row(rss_query(
 	"select distinct(author) from " .getTable('item') 
-	." where author like '%$a%'"
+	." where author like '$a'"
 ));
 
 if (!$ra) {
@@ -42,8 +41,9 @@ $t = ucfirst(LBL_ITEMS) . " " . LBL_BY . " " . $ra;
 $GLOBALS['rss']->header = new Header($t);
 $GLOBALS['rss']->feedList = new FeedList(false);
 $authorItems = new ItemList();
-$sqlWhere = " i.author like '%$a%' ";
-$authorItems->populate($sqlWhere);
+$sqlWhere = " i.author like '$a' ";
+$numItems = getConfig('rss.output.frontpage.numitems');
+$authorItems->populate($sqlWhere, 0, $numItems);
 $authorItems->setTitle($t);
 $authorItems->setRenderOptions(IL_NO_COLLAPSE|IL_TITLE_NO_ESCAPE);
 $GLOBALS['rss']->appendContentObject($authorItems);
