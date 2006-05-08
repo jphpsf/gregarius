@@ -34,7 +34,8 @@ list ($ra) = rss_fetch_row(rss_query(
 ));
 
 if (!$ra) {
-    rss_redirect();
+	rss_404();
+	exit;
 }
 
 $t = ucfirst(LBL_ITEMS) . " " . LBL_BY . " " . $ra;

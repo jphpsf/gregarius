@@ -286,8 +286,7 @@ if (
     // date?
     ($d == 0 && $m == 0 && $y == 0)
 ) {
-	header("HTTP/1.1 404 Not Found");
-	echo "404 Page Not Found";
+	rss_404();
 	exit;
 }
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));

@@ -1153,4 +1153,11 @@ function hidePrivate() {
 	}
 	return !rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE);
 }
+
+// Send a crappy 404 (to save bandwidth) for webbots 
+function rss_404() {
+	header("HTTP/1.1 404 Not Found");
+	echo "404 Page Not Found\n";
+}
+
 ?>
