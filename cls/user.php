@@ -225,6 +225,6 @@ class RSSUser {
     }
 }
 
-// Create the unique instance. Todo: make the RSSUser a singleton.
+// Create the unique instance. 
 $GLOBALS['rssuser'] = new RSSUser();
 ?>

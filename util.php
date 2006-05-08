@@ -1147,4 +1147,10 @@ function sanitize($input, $rules = 0) {
     return $ret;
 }
 
+function hidePrivate() {
+	if (!isset($GLOBALS['rssuser'])) {
+		require_once('cls/user.php');
+	}
+	return !rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE);
+}
 ?>
