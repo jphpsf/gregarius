@@ -44,7 +44,7 @@ $GLOBALS['rss']->feedList = new FeedList(false);
 $authorItems = new ItemList();
 $sqlWhere = " i.author like '$a' ";
 $numItems = getConfig('rss.output.frontpage.numitems');
-$authorItems->populate($sqlWhere, 0, $numItems);
+$authorItems->populate($sqlWhere, "",  0, $numItems);
 $authorItems->setTitle($t);
 $authorItems->setRenderOptions(IL_NO_COLLAPSE|IL_TITLE_NO_ESCAPE);
 $GLOBALS['rss']->appendContentObject($authorItems);

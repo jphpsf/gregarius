@@ -509,7 +509,8 @@ function _init_item() {
 		  PRIMARY KEY  (id),
 		  KEY url (url),
 		  KEY guid(guid(10)),
-		  KEY cid (cid)
+		  KEY cid (cid),
+		  KEY author (author)
 		) TYPE=MyISAM;    
 _SQL_
 );
