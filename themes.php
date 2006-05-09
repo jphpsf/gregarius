@@ -169,6 +169,7 @@ function isMobileDevice() {
                 || strpos($ua, 'EPOC') !== FALSE
                 || strpos($ua, 'Opera Mini') !== FALSE
                 || strpos($ua_lwr, 'j2me') !== FALSE
+                || strpos($ua,'MIDP-') !== FALSE
                 || strpos($ua, 'Netfront') !== FALSE;
             // if none of those matched, let's have a gander at grabbing the resolution...
             if (!$ret && eregi( "([0-9]{3})x([0-9]{3})", $ua, $matches ) ) {
