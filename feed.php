@@ -84,7 +84,7 @@ if (
         if (hidePrivate()) {
             $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
         }
-        $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
+        //$sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
         $res = rss_query( $sql );
         if ( rss_num_rows ( $res ) > 0) {
@@ -103,7 +103,7 @@ if (
             if (hidePrivate()) {
                 $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
             }
-            $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
+            //$sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
             $res = rss_query( $sql );
             if ( rss_num_rows ( $res ) > 0) {
@@ -156,7 +156,7 @@ if (
             $sql .=" and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
         }
 
-        $sql .=" and not(i.unread & " . RSS_MODE_DELETED_STATE  .") ";
+        //$sql .=" and not(i.unread & " . RSS_MODE_DELETED_STATE  .") ";
         $sql .=" order by i.added desc, i.id asc";
 
         $res =  rss_query( $sql );

@@ -53,6 +53,7 @@ $browser = new Browser();
 $cline = isset($argv) && !$_REQUEST && isset($argc) && $argc;
 $silent = array_key_exists('silent', $_GET) || ($cline && in_array('--silent',$argv));
 $newsonly = array_key_exists('newsonly', $_GET) || ($cline && in_array('--newsonly', $argv));
+$mobile = array_key_exists('mobile',$_GET);
 
 $GLOBALS['rss'] -> header = new Header(
 			LBL_TITLE_UPDATING, 
@@ -77,6 +78,9 @@ if ($cline && !$silent && !$newsonly) {
 	
 } elseif(!$silent && $browser->supportsAJAX()) {
 	$update = new AJAXUpdate();	
+
+} elseif($mobile) {
+	$update = new MobileUpdate();
 	
 } else {
     error_reporting(0);
