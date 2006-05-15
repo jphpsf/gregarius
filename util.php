@@ -521,10 +521,10 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
             if ($private) {
                 $mode |= RSS_MODE_PRIVATE_STATE;
             }
-
+            
             $sql = "insert into ".getTable("channels")
-                   ." (title, url, siteurl, parent, descr, dateadded, icon, position, mode)"
-                   ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np, $mode)";
+                   ." (title, url, siteurl, parent, descr, dateadded, icon, position, mode, daterefreshed)"
+                   ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np, $mode, 1)";
 
             rss_query($sql);
             $newid = rss_insert_id();
