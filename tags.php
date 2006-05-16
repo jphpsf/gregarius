@@ -112,7 +112,8 @@ if (array_key_exists('tag', $_GET)) {
 
 		$taggedItems = new ItemList();
 		$sqlWhere = " i.id in (".implode(",", $ids).") ";
-		$taggedItems->populate($sqlWhere);
+		// include deprecated feeds while showing tags. 
+		$taggedItems->populate($sqlWhere, "", 0, -1, ITEM_SORT_HINT_MIXED, true);
 
 		$rtags = relatedTags($tarr);
 		$related = array ();

@@ -277,7 +277,7 @@ class ItemList {
 	 * @param sqlWhere specifies what should be fetched
 	 * @param sqlOrder (optional) specifies a different item ordering
 	 * @param sqlLimit (optional) specifies how many items should be fetched
-   * @param includeDeprecated (optional) specifies if deprecated feeds should be fetched
+	 * @param includeDeprecated (optional) specifies if deprecated feeds should be fetched
 	 */
 	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED, $includeDeprecated = false) {
 
