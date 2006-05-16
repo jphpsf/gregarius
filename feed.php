@@ -65,9 +65,8 @@ if (
     if (hidePrivate()) {
         $sql .=" and not(mode & " . RSS_MODE_PRIVATE_STATE .") ";
     }
-    // hide deprecated
-    // mbi: don't actually: we want items of deprecated feeds to be accessible, still.
-    //$sql .= " and not(mode & " . RSS_MODE_DELETED_STATE . ") ";
+    // don't hide deprecated items becuase we want items of deprecated feeds to be accessible
+    // $sql .= " and not(mode & " . RSS_MODE_DELETED_STATE . ") ";
 
     $res =  rss_query( $sql );
     //echo $sql;
@@ -84,7 +83,7 @@ if (
         if (hidePrivate()) {
             $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
         }
-        //$sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
+        $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
         $res = rss_query( $sql );
         if ( rss_num_rows ( $res ) > 0) {
@@ -103,7 +102,7 @@ if (
             if (hidePrivate()) {
                 $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
             }
-            //$sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
+            $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
             $res = rss_query( $sql );
             if ( rss_num_rows ( $res ) > 0) {
@@ -156,7 +155,7 @@ if (
             $sql .=" and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
         }
 
-        //$sql .=" and not(i.unread & " . RSS_MODE_DELETED_STATE  .") ";
+        $sql .=" and not(i.unread & " . RSS_MODE_DELETED_STATE  .") ";
         $sql .=" order by i.added desc, i.id asc";
 
         $res =  rss_query( $sql );
@@ -180,7 +179,7 @@ elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQ
     if ($fid) {
         $sql = "select c.id from ". getTable('channels')." c "
                ." where c.parent=$fid and c.parent > 0";
-        //$sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
+        $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
         if (hidePrivate()) {
             $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
@@ -204,7 +203,7 @@ elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQ
         } else {
             $sql .= "and t.tag like '$vfid'";
         }
-        //$sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
+        $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
         if (hidePrivate()) {
             $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
@@ -321,7 +320,7 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         $sql = "select count(*) from " .getTable("item") . " i "
                ." where i.unread & " .RSS_MODE_UNREAD_STATE
                ." and i.cid=$cid"
-               //." and not(i.unread & " . RSS_MODE_DELETED_STATE  .") "
+               ." and not(i.unread & " . RSS_MODE_DELETED_STATE  .") "
                ;
         if (hidePrivate()) {
             $sql .=" and not(i.unread & " . RSS_MODE_PRIVATE_STATE .") ";
@@ -685,7 +684,7 @@ if ($iid == "") {
     // "item mode"
     $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, "
                       .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid"
-                      //." and not(i.unread & " . RSS_MODE_DELETED_STATE  .") "
+                      ." and not(i.unread & " . RSS_MODE_DELETED_STATE  .") "
                      );
 
     list($title,$icon,$ititle) = rss_fetch_row($res);
@@ -1184,7 +1183,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
             if (hidePrivate()) {
                 $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
             }
-            //$sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
+            $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
             if (getConfig('rss.config.absoluteordering')) {
                 $sql .=" order by d.position asc, c.position asc";
