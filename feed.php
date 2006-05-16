@@ -440,8 +440,7 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         $next_fid = $first_fid = 0;
         $found = false;
         $res = rss_query( " select id from " .getTable('folders') ." f order by "
-
-                          .(getConfig('rss.config.absoluteordering')?" f.position asc":"f.name desc")
+                          .(getConfig('rss.config.absoluteordering')?" f.position asc":"f.name asc")
                         );
 
         while (list($fid__) = rss_fetch_row($res)) {
