@@ -240,7 +240,7 @@ function kses_hair($attr, $allowed_protocols)
 
       case 2: # attribute value, a URL after href= for instance
 
-        if (preg_match('/^"([^"]*)"(\s+|$|\/)/', $attr, $match))
+        if (preg_match('/^"([^"]*)"(\s+|$|\/)?/', $attr, $match))
          # "value"
         {
           $thisval = kses_bad_protocol($match[1], $allowed_protocols);
@@ -251,11 +251,11 @@ function kses_hair($attr, $allowed_protocols)
                          'whole' => "$attrname=\"$thisval\"",
                          'vless' => 'n');
           $working = 1; $mode = 0;
-          $attr = preg_replace('/^"[^"]*"(\s+|$|\/)/', '', $attr);
+          $attr = preg_replace('/^"[^"]*"(\s+|$|\/)?/', '', $attr);
           break;
         }
 
-        if (preg_match("/^'([^']*)'(\s+|$|\/)/", $attr, $match))
+        if (preg_match("/^'([^']*)'(\s+|$|\/)?/", $attr, $match))
          # 'value'
         {
           $thisval = kses_bad_protocol($match[1], $allowed_protocols);
@@ -266,7 +266,7 @@ function kses_hair($attr, $allowed_protocols)
                          'whole' => "$attrname='$thisval'",
                          'vless' => 'n');
           $working = 1; $mode = 0;
-          $attr = preg_replace("/^'[^']*'(\s+|$)/", '', $attr);
+          $attr = preg_replace("/^'[^']*'(\s+|$)?/", '', $attr);
           break;
         }
 
