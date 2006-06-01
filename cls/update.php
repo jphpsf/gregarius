@@ -258,8 +258,14 @@ class AJAXUpdate extends Update {
 
         echo "</table>\n";
         echo "<script type=\"text/javascript\">\n";
-        echo "for (k =0; k < " . AJAX_PARALLEL_SIZE . "; k++){\n";
-        echo "doUpdate();}\n</script>\n";
+		echo "function runAjaxUpdate() { \n";
+        echo "    for (k =0; k < " . AJAX_PARALLEL_SIZE . "; k++){\n";
+		echo "    doUpdate();\n";
+		echo "    }\n";
+		echo "}\n";
+		// Fix for IE's stupid "Operation Aborted" Error
+		echo "   if (window.addEventListener) window.addEventListener(\"load\",runAjaxUpdate,false); else if (window.attachEvent) window.attachEvent(\"onload\",runAjaxUpdate);\n";
+		echo "</script>\n";
     }
 }
 
