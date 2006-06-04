@@ -436,6 +436,7 @@ function setDefaults($key) {
 		"rss.meta.debug"			=>		array("false","false","boolean"," When in debug mode some extra debug info is shown and the error reporting is a bit more verbose.",NULL),
 		"rss.output.compression"	=>		array("true","true","boolean","This variable turns output compression on and off. Output compression is handled by most browsers.",NULL),
 		"rss.output.channelcollapse"=>	array("true","true","boolean","Allow collapsing of channels on the main page. ",NULL),
+		"rss.output.channelcollapsedefault"=>	array("false","false","boolean","Collapse the channels on the main page by default",NULL),
 		"rss.output.usepermalinks"	=>		array("true","true","boolean","Display a permalink icon and allow linking a given item directly.",NULL),
 		"rss.config.markreadonupdate"=>	array("false","false","boolean","Mark all old unread feeds as read when updating if new unread feeds are found.",NULL),
 		"rss.output.lang"			=>		array("en,es,fr,dk,it,pt_BR,se,0","en,es,fr,dk,it,pt_BR,se,0","enum","Language pack to use.",NULL),

@@ -204,9 +204,16 @@ class FeedList {
 			//read per-user stored collapsed folders
 			if (array_key_exists(COLLAPSED_FOLDERS_COOKIE, $_COOKIE)) {
 				$this->collapsed_ids = explode(":", $_COOKIE[COLLAPSED_FOLDERS_COOKIE]);
+			}  elseif (empty($this->collapsed_ids) && getConfig("rss.output.channelcollapsedefault")) {
+			   // Lets collapse all folders
+			   $res = rss_query("select id from " . getTable('folders') . " where id != 0");
+			   while (list ($this->collapsed_ids[]) = rss_fetch_row($res)) {
+			   }
+			   if (!headers_sent()) { // Sajax does not allow us to set cookies
+			    setcookie(COLLAPSED_FOLDERS_COOKIE, 
+				  implode(":", $this->collapsed_ids ) , time()+COOKIE_LIFESPAN,getPath());
+			   }
 			}
-	
-			//get unread count per folder
 	
 			//get unread count per folder                                                                        
 			$sql = "select f.id, f.name, count(*) as cnt "

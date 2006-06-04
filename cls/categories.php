@@ -95,6 +95,15 @@ class CatList extends FeedList {
 			//read per-user stored collapsed categories
 			if (array_key_exists(COLLAPSED_CATEGORIES_COOKIE, $_COOKIE)) {
 				$this->collapsed_ids = explode(":", $_COOKIE[COLLAPSED_CATEGORIES_COOKIE]);
+			} elseif (empty($this->collapsed_ids) && getConfig("rss.output.channelcollapsedefault")) {
+			   // Lets collapse all categories
+			   $res = rss_query("select distinct(tid) from " . getTable('metatag') . " where ttype='channel'");
+			   while (list ($this->collapsed_ids[]) = rss_fetch_row($res)) {
+			   }
+			   if (!headers_sent()) { // Sajax does not allow us to set cookies
+			   	setcookie(COLLAPSED_CATEGORIES_COOKIE, 
+				   implode(":", $this->collapsed_ids ) , time()+COOKIE_LIFESPAN,getPath());
+			   }
 			}
 
 			//get unread count per folder
