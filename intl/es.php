@@ -71,7 +71,7 @@ define ('LBL_TITLE_UPDATING','Actualizando');
 define ('LBL_TITLE_SEARCH','Buscador');
 
 
-define ('LBL_HOME_FOLDER','Raiz');
+define ('LBL_HOME_FOLDER','Ra&iacute;z');
 define ('LBL_VISIT', '(visitado)');
 define ('LBL_COLLAPSE','[-] recoger');
 define ('LBL_EXPAND','[+] expandir');
@@ -82,9 +82,9 @@ define ('LBL_UPDATE_STATUS','Estado');
 define ('LBL_UPDATE_UNREAD','Nuevos temas');
 
 define ('LBL_UPDATE_STATUS_OK','OK');
-define ('LBL_UPDATE_STATUS_CACHED', 'OK (Cache local)');
+define ('LBL_UPDATE_STATUS_CACHED', 'OK (Cach&eacute; local)');
 define ('LBL_UPDATE_STATUS_ERROR','ERROR');
-define ('LBL_UPDATE_H2','Actualizando %d temas...');
+define ('LBL_UPDATE_H2','Actualizando %d canales...');
 define ('LBL_UPDATE_CACHE_TIMEOUT','No se pudo recuperar (Cache local)');
 define ('LBL_UPDATE_NOT_MODIFIED','OK (Sin modificaciones)');
 define ('LBL_UPDATE_NOT_FOUND','No encontrado (Cache local)');
@@ -107,8 +107,8 @@ define ('LBL_ADMIN_ITEM','Temas:');
 define ('LBL_ADMIN_CONFIG','Configuraci&oacute;n:');
 define ('LBL_ADMIN_OK','Aceptar');
 define ('LBL_ADMIN_CANCEL','Cancelar');
-//FIXME:
 define ('LBL_ADMIN_LOGOUT','Desconectar');
+define ('LBL_ADMIN_CONFIGURE','Configuraci&oacute;n');
 
 define ('LBL_ADMIN_OPML_IMPORT','Importar');
 define ('LBL_ADMIN_OPML_EXPORT','Exportar');
@@ -142,19 +142,17 @@ define ('LBL_ADMIN_PLUGINS_HEADING_AUTHOR','Autor');
 define ('LBL_ADMIN_PLUGINS_HEADING_VERSION','Version');
 define ('LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION','Descripcion');
 define ('LBL_ADMIN_PLUGINS_HEADING_ACTION','Activo');
-
-
-
+define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS', 'Opciones');
 
 define ('LBL_ADMIN_CHANNEL_EDIT_CHANNEL','Editar canal ');
-define ('LBL_ADMIN_CHANNEL_NAME','Titulo:');
+define ('LBL_ADMIN_CHANNEL_NAME','T&iacute;tulo:');
 define ('LBL_ADMIN_CHANNEL_RSS_URL','URL RSS:');
 define ('LBL_ADMIN_CHANNEL_SITE_URL','URL Sitio:');
 define ('LBL_ADMIN_CHANNEL_FOLDER','En carpeta:');
 define ('LBL_ADMIN_CHANNEL_DESCR','Descripcion:');
 define ('LBL_ADMIN_FOLDER_NAME','Nombre carpeta:');
 define ('LBL_ADMIN_CHANNEL_PRIVATE','El canal es <strong>privado</strong>, solo lo ven los administradores');
-define ('LBL_ADMIN_CHANNEL_DELETED','El tema <strong>no esta aprovado</strong>, no ser&aacute; puesto al d&iacute;a m&aacute;s y no ser&aacute; visible en la columna de las canales.');
+define ('LBL_ADMIN_CHANNEL_DELETED','El tema <strong>no esta aprobado</strong>, no ser&aacute; puesto al d&iacute;a m&aacute;s y no ser&aacute; visible en la columna de las canales.');
 
 define ('LBL_ADMIN_ARE_YOU_SURE', "Est&aacute; seguro de querer eliminar '%s'?");
 define ('LBL_ADMIN_ARE_YOU_SURE_DEFAULT','Est&aacute; seguro que quiere establecer el valor de %s al predeterminado \'%s\'?');
@@ -190,7 +188,7 @@ define ('LBL_ADMIN_ERROR_NOT_AUTHORIZED',
 		."Por favor siga <a href=\"%s\">este enlace</a> para volver atras.\n"
 		."Le deseamos un buen d&iacute;a!");
 		
-define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Periodo de limpieza no valido');
+define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Periodo de limpieza no v&aacute;lido');
 define ('LBL_ADMIN_ERROR_NO_PERIOD','Oops, no ha especificado un periodo');
 define ('LBL_ADMIN_BAD_RSS_URL',"Lo siento, creo que no podemos hacer nada con esta URL: '%s'");
 define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"No puede eliminar la carpeta " . LBL_HOME_FOLDER);
@@ -218,7 +216,7 @@ define ('LBL_STATE_UNREAD','Sin leer (Cambia el estado de lectura)');
 define ('LBL_STATE_STICKY','Destacado (No ser&aacute;n eliminados por las tareas de limpieza)');
 define ('LBL_STATE_PRIVATE','Privado (Solo los administradores pueden ver estos temas)');
 define ('LBL_STICKY','Destacado');
-define ('LBL_DEPRECATED','No aprovado');
+define ('LBL_DEPRECATED','No aprobado');
 define ('LBL_PRIVATE','Privado');
 define ('LBL_ADMIN_STATE','Estado:');
 define ('LBL_ADMIN_STATE_SET','Cambia');
@@ -237,7 +235,7 @@ define ('LBL_ADMIN_OPML_IMPORT_MERGE','... unir con los existentes.');
 
 define ('LBL_ADMIN_OPML_IMPORT_FEED_INFO','Importando %s a %s... ');
 
-define ('LBL_TAG_FOLDERS','Categorias');
+define ('LBL_TAG_FOLDERS','Categor&iacute;as');
 define ('LBL_SIDE_ITEMS','(%d temas)');
 define ('LBL_SIDE_UNREAD_FEEDS','(%d sin leer en %d feeds)');
 define ('LBL_CATCNT_PF', '<strong>%d</strong> canales en <strong>%d</strong> carpetas');
@@ -245,58 +243,56 @@ define ('LBL_CATCNT_PF', '<strong>%d</strong> canales en <strong>%d</strong> car
 define ('LBL_RATING','Valoraci&oacute;n:');
 
 // New in 0.5.3:
-define('LBL_ENCLOSURE', 'Recipiente:');
-define('LBL_DOWNLOAD', 'descargar');
-define('LBL_PLAY', 'reproducir');
-define('LBL_FOOTER_LAST_MODIF_NEVER', 'Never');
-define ('LBL_ADMIN_DASHBOARD','Dashboard');
+define ('LBL_ENCLOSURE', 'Recipiente:');
+define ('LBL_DOWNLOAD', 'descarga');
+define ('LBL_PLAY', 'reproducir');
 
+define ('LBL_MARK_READ', "Marcar como le&iacute;do");
+define ('LBL_MARK_CHANNEL_READ', "Marcar como le&iacute;do");
+define ('LBL_MARK_FOLDER_READ',"Marcar como le&iacute;do");
 
-define ('LBL_ADMIN_MUST_SET_PASS','<p>No Administrator has been specified yet!</p>'
-		.'<p>Please provide an Administrator username and password now!</p>');
-define ('LBL_USERNAME','Username');		
-define ('LBL_PASSWORD','Password');
-define ('LBL_PASSWORD2','Password (again)');
-define ('LBL_ADMIN_LOGIN','Please log in');
-define ('LBL_ADMIN_PASS_NO_MATCH','Passwords do not match!');
+define ('LBL_MARK_CHANNEL_READ_ALL', "Marcar este canal como le&iacute;do");
+define ('LBL_MARK_FOLDER_READ_ALL',"Marcar esta carpeta como le&iacute;da");
+define ('LBL_MARK_CATEGORY_READ_ALL',"Marcar esta categor&iacute;a como le&iacute;da");
+
+// New in 0.5.x:
+define ('LBL_FOOTER_LAST_MODIF_NEVER', 'Nunca');
+define ('LBL_ADMIN_DASHBOARD','Dashboard'); 
+
+define ('LBL_ADMIN_MUST_SET_PASS','<p>No se ha configurado un Administrador todav&iacute;a!</p>'
+		.'<p>Por favor, introduzca un usuario y contrase&ntilde;a para el Administrador!</p>');
+define ('LBL_USERNAME','Usuario');		
+define ('LBL_PASSWORD','Contrase&ntilde;a');
+define ('LBL_PASSWORD2','Contrase&ntilde;a (repita)');
+define ('LBL_ADMIN_LOGIN','Indentif&iacute;quese, por favor');
+define ('LBL_ADMIN_PASS_NO_MATCH','Las contrase&ntilde;as no son iguales!');
 
 define ('LBL_ADMIN_PLUGINS','Plugins');
 define ('LBL_ADMIN_DOMAIN_PLUGINS_LBL','plugins');
-define ('LBL_ADMIN_PLUGINS_HEADING_OPTIONS','Options');
-define ('LBL_ADMIN_PLUGINS_OPTIONS','Plugin Options');
-define ('LBL_ADMIN_CHECK_FOR_UPDATES','Check for Updates');
-define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Bad login/password');
-define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> You are successfully '
-			.'logged in as %s, but you don\\\'t have administration privileges. Log in again '
-			.'with administration privileges or follow your way <a href="..">home</a>');
+define ('LBL_ADMIN_PLUGINS_HEADING_UPDATES','Actualizaci&oacute;n disponible');
+define ('LBL_ADMIN_CHECK_FOR_UPDATES','Comprobar actualizaciones');
+define ('LBL_ADMIN_LOGIN_BAD_LOGIN','<strong>Oops!</strong> Usuario/contrasea incorrectos');
+define ('LBL_ADMIN_LOGIN_NO_ADMIN','<strong>Oops!</strong> Ha sido identificado '
+			.'correctamente como %s, pero no tiene privilegios de administracin. Por favor, con&eacute;ctese con '
+			.'un usuario con derechos de administracin o vuelva a <a href="..">Inicio</a>');
 
+define('LBL_ADMIN_ACTIVE_THEME','Tema activo');
+define('LBL_ADMIN_USE_THIS_THEME','Usar este tema');
 
 define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
-.'Plugins are third-party scripts that offer extended functionalities. '
-.'More plugins can be downloaded at the <a style="text-decoration:underline" '
-.' href="http://plugins.gregarius.net/">Plugin Repository</a>.</p>');
+.'Los plugins son c&oacute;digo escrito por otros desarrolladores para ofrecer m&aacute;s funciones. '
+.'Se pueden descargar m&aacute;s plugins desde <a style="text-decoration:underline" '
+.' href="http://plugins.gregarius.net/">Repositorio de Plugins</a>.</p>');
 
-define ('LBL_LAST_UPDATE','Last update');						
-define ('LBL_ADMIN_DOMAIN_THEMES_LBL','themes');
-define ('LBL_ADMIN_THEMES','Themes');
-define('LBL_ADMIN_ACTIVE_THEME','Active Theme');
-define('LBL_ADMIN_USE_THIS_THEME','Use this Theme');
-define('LBL_ADMIN_CONFIGURE','Configure');
-define('LBL_ADMIN_THEME_OPTIONS','Theme Options');
+define ('LBL_LAST_UPDATE','&Uacute;ltima actualizaci&oacute;n');
+define ('LBL_ADMIN_DOMAIN_THEMES_LBL','temas');
+define ('LBL_ADMIN_THEMES','Temas');
 
 define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
-.'Themes are made of a set of template files which specify how your Gregarius installation looks.<br />'
-.'More themes can be downloaded at the <a style="text-decoration:underline" '
-.' href="http://themes.gregarius.net/">Themes Repository</a>.</p>');
+.'Los temas permiten cambiar el aspecto de Gregarius.<br />'
+.'Se pueden descargar m&aacute;s temas desde <a style="text-decoration:underline" '
+.' href="http://themes.gregarius.net/">Repositorio de Temas</a>.</p>');
 
-define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
-define ('LBL_FLAG','Flagged');
-
-define ('LBL_MARK_READ', "Marcar todos como leidos");
-define ('LBL_MARK_CHANNEL_READ', "Marcar este como leido");
-define ('LBL_MARK_FOLDER_READ',"Marcar esta carpeta como leida");
-
-define ('LBL_MARK_CHANNEL_READ_ALL', "Mark This Feed as Read");
-define ('LBL_MARK_FOLDER_READ_ALL',"Mark This Folder as Read");
-define ('LBL_MARK_CATEGORY_READ_ALL',"Mark This Category as Read");
+define ('LBL_STATE_FLAG','Marca (Marca un item para leerlo m&aacute;s tarde)');
+define ('LBL_FLAG','Marcado');
 ?>
