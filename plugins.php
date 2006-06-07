@@ -102,6 +102,9 @@ function rss_plugin_hook($hook, $data, $plugin_filename=null) {
 
 /**
  * Wrapper functions for plugins
+ *
+ * Notes: Make sure that $value and $default are not escaped strings/arrays of strings, 
+ *        otherwise they will not come out of the database correctly because of rss_real_escape_string
  */
 function rss_plugins_add_option($key, $value, $type = "string", $default = "", $desc= "", $export = NULL) {
     if (!$key) {
@@ -110,7 +113,7 @@ function rss_plugins_add_option($key, $value, $type = "string", $default = "", $
     $pKey = "plugins." . rss_real_escape_string($key);
 
     if (is_array($value) || $type == 'array') {
-        $value = str_replace("'","\'",serialize($value));
+        $value = serialize($value);
     }
     $value = rss_real_escape_string($value);
     $default = $default? $default: $value;
