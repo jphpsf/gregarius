@@ -1,9 +1,12 @@
 function toggleItemByID(id) {
- var fld=document.getElementById("c" + id);
+ var fld=document.getElementById("im" + id);
+ var fld2=document.getElementById("c" + id);
  if (fld.style.display == "none") {
  	fld.style.display = "block";
+	fld2.style.display = "block";
  } else {
  	fld.style.display = "none";
+	fld2.style.display = "none";
  }
 }
 

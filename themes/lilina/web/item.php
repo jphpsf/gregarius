@@ -36,25 +36,27 @@ if ( (isset($_REQUEST["iid"]) && $_REQUEST["iid"]) ) {
 	<h4><a href="<?php echo rss_item_url(); ?>"><?php echo rss_item_title(); ?></a></h4>
 	<div id="sad<?php echo rss_item_id(); ?>" style="display:none"></div>
 	<h5><?php echo rss_item_date(); ?><?php echo rss_item_author(); ?></h5>
-	<?php if (rss_item_do_rating()) { ?>
-	<div class="rating">
-		<h5><?php echo LBL_RATING; ?></h5>
-		<?php echo rss_item_rating(); ?>
-		<?php rss_item_rating(); ?>
-	</div>
-	<?php } ?>
-	<?php if (_VERSION_ > "0.5.2" && rss_item_has_enclosure()) { ?>
-      <h5><?php echo LBL_ENCLOSURE; ?>&nbsp;[<a href="<?php echo rss_item_enclosure(); ?>"><?php echo LBL_DOWNLOAD; ?></a><?php rss_plugin_hook("rss.plugins.items.enclosure", null); ?>]</h5>
-	<?php } ?>
-	<?php	if (rss_item_display_tags()) { ?>
-	<h5>
-		<a href="<?php echo rss_item_tagslink(); ?>"><?php echo LBL_TAG_TAGS; ?></a>:&nbsp;
-		<span id="t<?php echo rss_item_id(); ?>"><?php echo rss_item_tags(); ?></span>&nbsp;
-		<?php if (rss_item_can_edit_tags()) { ?>
-		[<span id="ta<?php echo rss_item_id(); ?>"><a href="#" onclick="_et(<?php echo rss_item_id(); ?>); return false;"><?php echo LBL_TAG_EDIT; ?></a></span>]
+	<div id="im<?php echo rss_item_id(); ?>">
+		<?php if (rss_item_do_rating()) { ?>
+		<div class="rating">
+			<h5><?php echo LBL_RATING; ?></h5>
+			<?php echo rss_item_rating(); ?>
+			<?php rss_item_rating(); ?>
+		</div>
 		<?php } ?>
-	</h5>
-	<?php } ?>
+		<?php if (_VERSION_ > "0.5.2" && rss_item_has_enclosure()) { ?>
+		  <h5><?php echo LBL_ENCLOSURE; ?>&nbsp;[<a href="<?php echo rss_item_enclosure(); ?>"><?php echo LBL_DOWNLOAD; ?></a><?php rss_plugin_hook("rss.plugins.items.enclosure", null); ?>]</h5>
+		<?php } ?>
+		<?php	if (rss_item_display_tags()) { ?>
+		<h5>
+			<a href="<?php echo rss_item_tagslink(); ?>"><?php echo LBL_TAG_TAGS; ?></a>:&nbsp;
+			<span id="t<?php echo rss_item_id(); ?>"><?php echo rss_item_tags(); ?></span>&nbsp;
+			<?php if (rss_item_can_edit_tags()) { ?>
+			[<span id="ta<?php echo rss_item_id(); ?>"><a href="#" onclick="_et(<?php echo rss_item_id(); ?>); return false;"><?php echo LBL_TAG_EDIT; ?></a></span>]
+			<?php } ?>
+		</h5>
+		<?php } ?>
+	</div>
 	<div class="content" id="c<?php echo rss_item_id(); ?>">
 		<?php echo rss_item_content(); ?>
 	</div>
@@ -90,6 +92,27 @@ else {
 	<a href="<?php echo rss_item_url(); ?>">&nbsp;&raquo;&nbsp;&lrm;
 	<?php echo rss_feed_title();?></a>
 	<div id="sad<?php echo rss_item_id(); ?>" style="display:none"></div>
+	<div id="im<?php echo rss_item_id(); ?>" style="display:none">
+			<?php if (rss_item_do_rating()) { ?>
+			<div class="rating">
+				<h5><?php echo LBL_RATING; ?></h5>
+				<?php echo rss_item_rating(); ?>
+				<?php rss_item_rating(); ?>
+			</div>
+			<?php } ?>
+			<?php if (_VERSION_ > "0.5.2" && rss_item_has_enclosure()) { ?>
+			  <h5><?php echo LBL_ENCLOSURE; ?>&nbsp;[<a href="<?php echo rss_item_enclosure(); ?>"><?php echo LBL_DOWNLOAD; ?></a><?php rss_plugin_hook("rss.plugins.items.enclosure", null); ?>]</h5>
+			<?php } ?>
+			<?php	if (rss_item_display_tags()) { ?>
+			<h5>
+				<a href="<?php echo rss_item_tagslink(); ?>"><?php echo LBL_TAG_TAGS; ?></a>:&nbsp;
+				<span id="t<?php echo rss_item_id(); ?>"><?php echo rss_item_tags(); ?></span>&nbsp;
+				<?php if (rss_item_can_edit_tags()) { ?>
+				[<span id="ta<?php echo rss_item_id(); ?>"><a href="#" onclick="_et(<?php echo rss_item_id(); ?>); return false;"><?php echo LBL_TAG_EDIT; ?></a></span>]
+				<?php } ?>
+			</h5>
+			<?php } ?>
+	</div>
 	<div class="content" id="c<?php echo rss_item_id(); ?>" style="display:none">
 		<?php echo rss_item_content(); ?>
 	</div>
