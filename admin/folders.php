@@ -212,7 +212,8 @@ function folder_admin() {
 
     case CST_ADMIN_SUBMIT_EDIT:
         // TBD
-        $new_label = sanitize($_REQUEST['f_name'], RSS_SANITIZER_CHARACTERS_EXT);
+        $new_label = sanitize($_REQUEST['f_name'], RSS_SANITIZER_URL);
+        $new_label = rss_real_escape_string($new_label);
         if (is_numeric($fid) && strlen($new_label) > 0) {
 
             $res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
@@ -228,7 +229,8 @@ function folder_admin() {
 
     case LBL_ADMIN_ADD:
     case 'LBL_ADMIN_ADD':
-        $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_CHARACTERS_EXT);
+        $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_URL);
+        $new_label = rss_real_escape_string($new_label);
         assert(strlen($label) > 0);
         create_folder($label);
         break;
