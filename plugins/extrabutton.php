@@ -28,7 +28,7 @@
 
 /// Name: Extra Button
 /// Author: Marco Bonetti
-/// Description: Adds an extra "Mark Feed As Read" button at the bottom of each feed view
+/// Description: Adds an extra "Mark These Items as Read" button at the bottom of each feed view
 /// Version: $Revision: 1.9
 
 function __extra_button_Button($in) {
