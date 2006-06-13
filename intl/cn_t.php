@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2006 Marco Bonetti
@@ -49,11 +49,11 @@ define ('LBL_SEARCH_ORDER_DATE_CHANNEL','日期, feed排序');
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','feed, 日期排序');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','每頁結果:');
 define ('LBL_SEARCH_RESULTS','結果: ');
-define ('LBL_H2_UNREAD_ITEMS','未讀條目 (<span id="ucnt">%d</span>)');
+define ('LBL_H2_UNREAD_ITEMS','未讀條目 (<strong id="ucnt">%d</strong>)');
 define ('LBL_H2_RECENT_ITEMS', "最近條目");
 define ('LBL_H2_CHANNELS','Feeds');
 define ('LBL_H5_READ_UNREAD_STATS','%d 條, %d 未讀');
-define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> 條 (<strong>%d</strong> 未讀) 共 <strong>%d</strong> feeds');
+define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> 條 (<strong id="fucnt">%d</strong> 未讀) 共 <strong>%d</strong> feeds');
 define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> tagged items, 共 <strong>%d</strong> tags');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d 未讀)</strong>');
 define ('LBL_UNREAD','未讀');

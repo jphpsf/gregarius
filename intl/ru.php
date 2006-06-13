@@ -44,11 +44,11 @@ define ('LBL_SEARCH_ORDER_DATE_CHANNEL','Сортировать по дате, �
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','Сортировать по имени, дате');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','Результатов на страницу:');
 define ('LBL_SEARCH_RESULTS','Результаты: ');
-define ('LBL_H2_UNREAD_ITEMS','Непрочтенные сообщения (<span id="ucnt">%d</span>)');
+define ('LBL_H2_UNREAD_ITEMS','Непрочтенные сообщения (<strong id="ucnt">%d</strong>)');
 define ('LBL_H2_RECENT_ITEMS', "Последние сообщения");
 define ('LBL_H2_CHANNELS','Каналы');
 define ('LBL_H5_READ_UNREAD_STATS','%d сообщений, %d непрочтенных');
-define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> сообщений (<strong>%d</strong> непрочтенных) в <strong>%d</strong> feeds');
+define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong> сообщений (<strong id="fucnt">%d</strong> непрочтенных) в <strong>%d</strong> feeds');
 define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> помеченных сообщений, в <strong>%d</strong> тегах');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d непрочитано)</strong>');
 define ('LBL_UNREAD','непрочитано');

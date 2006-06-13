@@ -479,7 +479,7 @@ function setState_cb(ret) {
     _ces(id);
 }
 
-function _es(id, state) {
+function _es(id, state, cid) {
 	if (document.prevState[id] != null) {
 	   // if we click the edit icon while editing cancel the edit
 	   _ces(id);
@@ -500,7 +500,7 @@ function _es(id, state) {
 	onCancel = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg.oncancel",""); ?>'.replace(/_ID_/g,id);
 	extraCode = '<?php echo  rss_plugin_hook("rss.plugins.ajax.admindlg",""); ?>'.replace(/_ID_/g,id);
 	
-  onOk += '_ses('+id+'); return false;';
+  onOk += '_ses('+id+','+cid+'); return false;';
     if (!onCancel) {
         onCancel = '_ces('+id+'); return false;';
     }
@@ -549,7 +549,7 @@ function _ces(id) {
 
 }
 
-function _ses(id) {
+function _ses(id,cid) {
     s = 0;
     if ((sfu = document.getElementById('sf'+id+'u')) && sfu.checked) {
       s += <?php echo  RSS_MODE_UNREAD_STATE ?>;
@@ -570,9 +570,9 @@ function _ses(id) {
         if ((s & <?php echo  RSS_MODE_UNREAD_STATE ?>) != (p & <?php echo  RSS_MODE_UNREAD_STATE ?>)) {
             if (s & <?php echo  RSS_MODE_UNREAD_STATE ?>) {
                 setItemClass(id,'item unread');
-                c=unreadCnt(1);
+                c=unreadCnt(1,cid);
             } else {
-                c = unreadCnt(-1);
+                c = unreadCnt(-1,cid);
 				if ((sel = document.getElementById('<?php echo  SHOW_WHAT ?>')) &&
 				    sel.options[sel.selectedIndex].value == <?php echo  SHOW_UNREAD_ONLY ?>) {
                         setItemHide(id, (c==0));
@@ -593,15 +593,19 @@ function _ses(id) {
     }
 }
 
-function unreadCnt(d) {
-    if (span = document.getElementById('ucnt')) {
-        if (c = span.innerHTML.replace(/[^0-9]+/g,"")) {
-            c = d+eval(c);
-            span.innerHTML = span.innerHTML.replace(/[0-9]+/g,c);
-        }
-        return c;
-    }
-    return null;
+function unreadCnt(d,channel) {
+	c = null;
+	channels = document.getElementsByTagName("strong");
+	for(i=0;i<channels.length;i++){
+		if((channels[i].id == 'cid'+channel) || (channels[i].id == 'ucnt') || (channels[i].id == 'fucnt')){
+			if (e = channels[i].innerHTML.replace(/[^0-9]+/g,"")) {
+				e = d+eval(e);
+				channels[i].innerHTML = channels[i].innerHTML.replace(/[0-9]+/g,e);
+				if(channels[i].id == 'ucnt'){ c = e; }
+			}
+		}
+	}
+	return c;
 }
 
 function _rt(id,rt) {

@@ -48,11 +48,11 @@ define ('LBL_SEARCH_ORDER_DATE_CHANNEL','日付、フィードの順に並べる
 define ('LBL_SEARCH_ORDER_CHANNEL_DATE','フィード、日付の順に並べる');
 define ('LBL_SEARCH_RESULTS_PER_PAGE','表示件数:');
 define ('LBL_SEARCH_RESULTS','検索結果: ');
-define ('LBL_H2_UNREAD_ITEMS','未読記事 (<span id="ucnt">%d</span>)');
+define ('LBL_H2_UNREAD_ITEMS','未読記事 (<strong id="ucnt">%d</strong>)');
 define ('LBL_H2_RECENT_ITEMS', "最近の記事");
 define ('LBL_H2_CHANNELS','フィード');
 define ('LBL_H5_READ_UNREAD_STATS','%d 件, %d 未読');
-define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong>件の記事 (未読<strong>%d</strong>件) <strong>%d</strong>フィード');
+define ('LBL_ITEMCOUNT_PF', '<strong>%d</strong>件の記事 (未読<strong id="fucnt">%d</strong>件) <strong>%d</strong>フィード');
 define ('LBL_TAGCOUNT_PF', '<strong>%d</strong> tagged items, in <strong>%d</strong> tags');
 define ('LBL_UNREAD_PF', '<strong id="%s" style="%s">(%d)</strong>');
 define ('LBL_UNREAD','unread');

@@ -5,7 +5,7 @@
 	</a>
 	<?php } ?>
 	<?php if(!hidePrivate()) { ?>
-	<a id="sa<?php echo rss_item_id(); ?>" href="#" onclick="_es(<?php echo rss_item_id(); ?>,<?php echo rss_item_flags(); ?>); return false;">
+	<a id="sa<?php echo rss_item_id(); ?>" href="#" onclick="_es(<?php echo rss_item_id(); ?>,<?php echo rss_item_flags(); ?>,<?php echo rss_item_cid(); ?>); return false;">
 		<img src="<?php echo getExternalThemeFile('media/edit.gif'); ?>" alt="edit" />
 	</a>
 	<?php } ?>

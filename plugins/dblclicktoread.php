@@ -71,7 +71,29 @@ if (isset($_REQUEST['dcljs'])) {
 	var isIE=document.all?true:false;
 	function __dblclickToRead_js_getId(o) {
 		if (html = o.innerHTML) {
-			if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*","gm").exec(html)) {
+			if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*,([0-9]+).*","gm").exec(html)) {
+				if (!isIE) {
+					c = unreadCnt(-1,r1[3]);
+            	} else {
+                	c = 1;
+            	}
+				id=r1[1];
+				s =r1[2] & <?= SET_MODE_READ_STATE ?>;
+				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
+			    	sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
+                	setItemHide(id, (c == 0));
+				} else{
+			    	setItemClass(id, 'item even');
+   					if (document.all) {
+            			o.ondblclick = function() {return false;}
+					} else {
+						o.setAttribute("ondblclick","return false;");
+					}
+				}
+
+				setState(id,s);
+			// legacy code for compatibility with old themes - 2006-06-12
+			}else if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*","gm").exec(html)) {
           		if (!isIE) {
                 	c = unreadCnt(-1);
             	} else {
@@ -93,6 +115,7 @@ if (isset($_REQUEST['dcljs'])) {
 
 				setState(id,s);
 			}
+
 		}
 	}
 	function __dbclickToRead_jsInit() {

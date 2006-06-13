@@ -86,6 +86,10 @@ function rss_item_id() {
 	return $GLOBALS['rss'] -> currentItem -> id;
 }
 
+function rss_item_cid() {
+	return $GLOBALS['rss'] -> currentItem -> parent -> cid;
+}
+
 function rss_item_flags() {
 	
 	return $GLOBALS['rss'] -> currentItem -> flags;
