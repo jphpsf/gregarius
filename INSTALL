@@ -33,22 +33,26 @@ QUICK START
 
             cd rss
  
-   5.   Create a configuration file, based on the sample:
+   5.   Choose your installation type:
+
+        1.  For a graphical installation, point your browser at the root
+            directory of your installation. Enter the necessary information about your database structure and continue.
+
+        2.  For a manual installation, create a configuration file, based on the
+            sample:
          
-        1.  Copy the sample database configuration file:
+            Copy the sample database configuration file:
 
                 cp dbinit.php.sample dbinit.php
-        
-        2.  Edit the dbinit.php file to match your database configuration. 
+
+            Edit the dbinit.php file to match your database configuration. 
             Make sure that the database exists and has the right permissions
             and the database user you define owns privileges to create/modify
-            tables.
+            tables. Point your browser at the root directory of your 
+            installation. You should read a message informing you that the 
+            database schema has been generated.
    
-   6.   Point your browser to the root directory of your installation.
-	You should read a message informing you that the database schema
-	has been generated.
-
-	If at this point, the browser returns a 500 internal server
+   6.   If at this point, the browser returns a 500 internal server
 	error, then remove (or disable) the .htaccess file in this
 	directory and try again.
 
