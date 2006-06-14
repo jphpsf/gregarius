@@ -45,6 +45,8 @@ function channels() {
 
     echo "<label for=\"add_channel_to_folder\">". LBL_ADMIN_IN_FOLDER . "</label>\n";
     folder_combo('add_channel_to_folder');
+	echo "<label for=\"channel_tags\">" . LBL_TAG_FOLDERS . ":</label>\n";
+	echo "<input type=\"text\" name=\"channel_tags\" id=\"channel_tags\" />\n";
     echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_ADD\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\" /></p>\n";
     echo "<p style=\"font-size:small\">".LBL_ADMIN_ADD_CHANNEL_EXPL."</p>";
@@ -256,7 +258,8 @@ function channel_admin() {
         }
 
         if ($label != 'http://' &&	substr($label, 0,4) == "http") {
-            $ret = add_channel($label,$fid);
+            $tags = $_REQUEST['channel_tags'];
+            $ret = add_channel($label,$fid,null,null,$tags);
             //var_dump($ret);
             if (is_array($ret) && $ret[0] > -1) {
                 update($ret[0]);

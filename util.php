@@ -426,7 +426,7 @@ function getRootFolder() {
     return $root;
 }
 
-function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
+function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null) {
     if (!$url || strlen($url) <= 7) {
         return array (-2, "Invalid URL $url");
     }
@@ -532,6 +532,10 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null) {
             if ($icon && cacheFavicon($icon)) {
                 rss_query("update " . getTable("channels") . " set icon='blob:".$icon."'"
                           ." where id=$newid");
+            }
+
+            if($tags != ""){
+                __exp__submitTag($newid,$tags,"'channel'");
             }
 
             return array ($newid, "");
