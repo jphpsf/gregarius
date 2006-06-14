@@ -25,6 +25,7 @@
 #
 ###############################################################################
 
+define('DBSTRUCT', dirname(__FILE__) . '/dbstruct.sql');
 
 require_once('util.php');
 
@@ -91,8 +92,10 @@ function checkSchema() {
 }
 
 function rss_query_wrapper($query, $dieOnError=true, $preventRecursion=false) {
+	global $out;
+
 	if (defined('DUMP_SCHEMA')) {
-		echo $query . ";\n";
+		$out .= $query . ";\n";
 	} else {
 	    rss_query(trim($query),$dieOnError,$preventRecursion);
 	}
@@ -715,12 +718,28 @@ if (isset($argv) && in_array('--dump',$argv)) {
 	define ('PROFILING', false);
 	@require_once('init.php');
 	
-	
+	$out = "################
+# Gregarius " . _VERSION_ . "
+# database structure
+#################
+
+";
 	foreach (array("channels","config","folders","item","metatag","tag","rating", "users", "dashboard") as $tbl) {
 	 	call_user_func("_init_$tbl"); 
 	}
-		
-		
+	// shamelessly copied from install.php
+		$fp = @fopen(DBSTRUCT, 'w');
+		if(!$fp) {
+			// unable to open file for writing
+			echo($out);
+			exit();
+		} else {
+			// write the file
+			fwrite($fp, $out);
+			fclose($fp);
+			echo "The database structure has been written to the file 'dbstruct.sql'.\n";
+			exit();
+		}
 }
 
 ?>

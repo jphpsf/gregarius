@@ -36,7 +36,8 @@ QUICK START
    5.   Choose your installation type:
 
         1.  For a graphical installation, point your browser at the root
-            directory of your installation. Enter the necessary information about your database structure and continue.
+            directory of your installation. Enter the necessary information
+            about your database structure and continue.
 
         2.  For a manual installation, create a configuration file, based on the
             sample:
