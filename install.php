@@ -25,8 +25,8 @@
 #
 ###############################################################################
 
-define('GREGARIUS_RELEASE', '0.5.4');
-define('GREGARIUS_CODENAME', 'Coots');
+define('GREGARIUS_RELEASE', '0.5.5');
+define('GREGARIUS_CODENAME', 'null');
 
 define('DBINIT', dirname(__FILE__) . '/dbinit.php');
 
@@ -49,6 +49,8 @@ define('PREFIX_HELP', 'The string to prefix the tables with. Example: A table ca
 define('ADMIN_USERNAME_HELP', 'The administrator username to use for database creation.');
 define('ADMIN_PASSWORD_HELP', 'The administrator password used to connect to the database. Make sure this user has GRANT privileges!');
 define('WEBSERVER_HELP', 'The location of the webserver. If in doubt, leave the default. Default: ' . WEB_SERVER_DEFAULT . '');
+
+global $hasWritePerm;
 
 function install_main() {
     $hasXML    = function_exists('xml_parser_create');
@@ -245,39 +247,14 @@ function install_main() {
     . "<p><input type=\"submit\" name=\"action\" value=\"" . ($hasWritePerm ? "Setup Database" : "Download dbinit.php file") . "\" /></p>\n"
     . "<p><input type=\"hidden\" name=\"process\" value=\"1\" /></p>\n"
     . "</form>\n"
-    . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">\n"
-    . "<h2>Step 5: Activate mod-rewrite (optional)</h2>\n"
-    . "<p><input type=\"submit\" name=\"action\" value=\"" . ($hasWritePerm ? "Activate mod-rewrite" : "Download .htaccess file") . "\" /></p>\n"
-    . "<p><input type=\"hidden\" name=\"process\" value=\"2\" /></p>\n"
-    . "</form>\n"
-    . "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">\n"
-    . "<h2>Step 6: Goto Admin Section</h2>\n"
-    . "<p><input type=\"submit\" name=\"action\" value=\"Start Using Gregarius!\" /></p>\n"
-    . "<p><input type=\"hidden\" name=\"process\" value=\"3\" /></p>\n"
-    . "</form>\n"
     . "</div>\n"
     . "</body>\n"
     . "</html>\n";
 }
 
-if(file_exists(DBINIT)) {
+if(file_exists(DBINIT) && empty($_POST['process'])) {
     print("The dbinit.php file already exists in the Gregarius directory! Please remove it if you would like to use this installer.");
-} else if(!empty($_POST['process'])){
-// process the post data
-    if(3 == $_POST['process']) {
-        header('Location: admin/');
-        exit();
-    } else if(2 == $_POST['process']) {
-        $success = @rename('.htaccess.disabled', '.htaccess');
-        if(false == $success) {
-            $htaccess = file('.htaccess.disabled', 'r');
-            header('Content-type: application/text');
-            header('Content-Disposition: attachment; filename=".htaccess"');
-            echo($htaccess);
-        }
-
-        exit();
-    } else if(1 == $_POST['process']) {
+} else if(1 == $_POST['process']) {
         if(empty($_POST['server']) ||
             empty($_POST['database']) ||
             empty($_POST['username']) ||
@@ -303,8 +280,7 @@ if(file_exists(DBINIT)) {
 
                 if(!$sql) {
                     print("Unable to connect to database! Please create manually.");
-                } else {
-            }
+                }
             } else {
                 print("Invalid SQL Type!");
                 exit();
@@ -381,9 +357,9 @@ define ('DBSERVER', '" . $_POST['server'] . "');
                 fwrite($fp, $out);
                 fclose($fp);
 
-                exit();
-            }
-        }
+				header('Location: admin/');
+				exit();
+			}
     }
 } else { // dbinit.php does not exist and we are not asked to process
 // print out the form
