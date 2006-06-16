@@ -136,7 +136,7 @@ function rss_footer_last_modif() {
 
 function rss_header_logininfo() {
 
-    $ret = "<span id=\"loginfo\">\n";
+    $ret = "<div id=\"loginfo\">\n";
     
     if (rss_user_level() > RSS_USER_LEVEL_NOLEVEL) {
         $ret .= sprintf(LBL_LOGGED_IN_AS, rss_user_name())
@@ -144,15 +144,15 @@ function rss_header_logininfo() {
     } else {
         $ret .= LBL_NOT_LOGGED_IN
                 ."&nbsp;|&nbsp;<a href=\"#\" onclick=\"miniloginform(); return false;\">".LBL_LOG_IN."</a>";
-        $ret .= "<span style=\"display:none\" id=\"loginformcontainer\">"
+        $ret .= "<div style=\"display:none\" id=\"loginformcontainer\">"
 						 . '<form ' . 'onsubmit="return loginHandler();" ' . 'method="post" action="'.getPath().'">'
-						 . '<input style=" width:50px;" name="username" id="username" type="text" />'
-						 . '<input style=" width:50px;" name="password" id="password"  type="password" />'
-						 . '<input type="submit" value="'.LBL_LOG_IN.'" />'
+						 . '<div style="display:inline"><input style=" width:50px;" name="username" id="username" type="text" /></div>'
+						 . '<div style="display:inline"><input style=" width:50px;" name="password" id="password"  type="password" /></div>'
+						 . '<div style="display:inline"><input type="submit" value="'.LBL_LOG_IN.'" /></div>'
 						 . '</form>'
-        		 ."</span>\n";
+        		 ."</div>\n";
     }
-    $ret .= "</span>\n";
+    $ret .= "</div>\n";
     return $ret;
 }
 
