@@ -28,7 +28,7 @@
 /// Name: Mark All Read
 /// Author: Keith D. Zimmerman
 /// Description: Display "Mark All Read" buttons and links in many places
-/// Version: 0.3
+/// Version: 0.4
 /// Configuration: __markallread_config
 
 /**
@@ -37,6 +37,7 @@
  * 0.1	getting started
  * 0.2	initial public release
  * 0.3	support for i18n
+ * 0.4  Fixed a couple validation issues
  */
 
 define ('MARKALLREAD_CONFIG_OPTIONS', 'markallread.options');
@@ -70,7 +71,7 @@ function __markallread_sidemenu_folderunreadlabel( $existingText ) {
 
 	$options = rss_plugins_get_option( MARKALLREAD_CONFIG_OPTIONS );
 	if( $options & MARKALLREAD_OPTION_LINK_FOLDER )
-		return "<a title='".LBL_MARK_FOLDER_READ_ALL."' href='". getPath() ."feed.php?metaaction=LBL_MARK_FOLDER_READ&folder=" . rss_feeds_folder_id() . "' onclick='javascript: return _markallread(this,\"folder\",\"" . rss_feeds_folder_name() . "\");'>" . $existingText . '</a>';
+		return "<a title='".LBL_MARK_FOLDER_READ_ALL."' href='". getPath() ."feed.php?metaaction=LBL_MARK_FOLDER_READ&amp;folder=" . rss_feeds_folder_id() . "' onclick='javascript: return _markallread(this,\"folder\",\"" . rss_feeds_folder_name() . "\");'>" . $existingText . '</a>';
 	else
 		return $existingText;
 }
@@ -81,7 +82,7 @@ function __markallread_sidemenu_feedunreadlabel( $existingText ) {
 
 	$options = rss_plugins_get_option( MARKALLREAD_CONFIG_OPTIONS );
 	if( $options & MARKALLREAD_OPTION_LINK_FEED )
-		return "<a title='".LBL_MARK_CHANNEL_READ_ALL."' href='". getPath() ."feed.php?metaaction=LBL_MARK_CHANNEL_READ&channel=" . $GLOBALS['rss']->currentFeedsFeed-> id . "' onclick='javascript: return _markallread(this,\"feed\",\"" . rss_feeds_feed_title() . "\");'>" . $existingText . '</a>';
+		return "<a title='".LBL_MARK_CHANNEL_READ_ALL."' href='". getPath() ."feed.php?metaaction=LBL_MARK_CHANNEL_READ&amp;channel=" . $GLOBALS['rss']->currentFeedsFeed-> id . "' onclick='javascript: return _markallread(this,\"feed\",\"" . rss_feeds_feed_title() . "\");'>" . $existingText . '</a>';
 	else
 		return $existingText;
 }
