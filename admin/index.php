@@ -41,6 +41,7 @@ require_once('dashboard.php');
 require_once('users.php');
 require_once('plugins.php');
 require_once('themes.php');
+require_once('tags.php');
 
 define ('CST_ADMIN_DOMAIN','domain');
 define ('CST_ADMIN_DOMAIN_NONE','none');
@@ -66,6 +67,7 @@ define ('CST_ADMIN_DOMAIN_PLUGINS','plugins');
 define ('CST_ADMIN_DOMAIN_PLUGIN_OPTIONS','plugin_options');
 define ('CST_ADMIN_DOMAIN_THEMES','themes');
 define ('CST_ADMIN_DOMAIN_THEME_OPTIONS','theme_options');
+define ('CST_ADMIN_DOMAIN_TAGS','tags');
 // OPML import target
 define ('CST_ADMIN_OPML_IMPORT_WIPE',1);
 define ('CST_ADMIN_OPML_IMPORT_FOLDER',2);
@@ -126,6 +128,9 @@ function admin_main($authorised) {
             case CST_ADMIN_DOMAIN_THEMES:
                 $show = themes_admin();
                 break;
+			case CST_ADMIN_DOMAIN_TAGS:
+				$show = tags_admin();
+				break;
             case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
                 $show = plugin_options_admin();
                 break;
@@ -171,6 +176,9 @@ function admin_main($authorised) {
             case CST_ADMIN_DOMAIN_THEMES:
                 themes();
                 break;
+			case CST_ADMIN_DOMAIN_TAGS:
+				tags();
+				break;
             case CST_ADMIN_DOMAIN_PLUGIN_OPTIONS:
                 plugin_options();
                 break;
@@ -214,7 +222,8 @@ function admin_menu() {
                  array (CST_ADMIN_DOMAIN_PLUGINS, LBL_ADMIN_DOMAIN_PLUGINS_LBL),
                  array (CST_ADMIN_DOMAIN_THEMES, LBL_ADMIN_DOMAIN_THEMES_LBL),
                  array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL),
-                 array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL)) as $item) {
+                 array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL),
+                 array (CST_ADMIN_DOMAIN_TAGS, LBL_TAG_TAGS)) as $item) {
 
         $link = "index.php?view=".$item[0];
         $lbl = $item[1];

@@ -195,7 +195,7 @@ define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Periodo invalido');
 define ('LBL_ADMIN_ERROR_NO_PERIOD','Non avete specificato nessun periodo');
 define ('LBL_ADMIN_BAD_RSS_URL',"Spiacente, non so cosa fare con questa URL: '%s'");
 define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Non potete cancellare la cartella " . LBL_HOME_FOLDER);
-define ('LBL_ADMIN_CANT_RENAME',"Non puoi rinominare la cartella in '%s' Perch&eacute; una cartella con quel nome esiste gia.");
+define ('LBL_ADMIN_CANT_RENAME',"Non puoi rinominare le elemento in '%s' Perch&eacute; un elemento con quel nome esiste gia.");
 define('LBL_ADMIN_ERROR_CANT_CREATE',"Una cartella chiamata '%s' esiste gia!");
 
 define ('LBL_TAG_TAGS','Tags');

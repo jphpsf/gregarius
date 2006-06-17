@@ -157,7 +157,13 @@ define ('ITEM_SORT_HINT_UNREAD', 0x00);
 define ('ITEM_SORT_HINT_READ', 0x01);
 define ('ITEM_SORT_HINT_MIXED', 0x02);
 
+// an item should have this many tags, at most
+define('MAX_TAGS_PER_ITEM', 5);
 
+// This regexp is used both in php and javascript, basically
+// it is used to filter out everything but the allowed tag
+// characters, plus a whitespace
+define('ALLOWED_TAGS_REGEXP', '/[^a-zA-Z0-9\ _\.]/');
 
 // Sanitizer constants
 define ('RSS_SANITIZER_SIMPLE_SQL', 0x01);

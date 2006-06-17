@@ -192,7 +192,7 @@ define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Periodo de limpieza no v&aacute;lido')
 define ('LBL_ADMIN_ERROR_NO_PERIOD','Oops, no ha especificado un periodo');
 define ('LBL_ADMIN_BAD_RSS_URL',"Lo siento, creo que no podemos hacer nada con esta URL: '%s'");
 define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"No puede eliminar la carpeta " . LBL_HOME_FOLDER);
-define ('LBL_ADMIN_CANT_RENAME',"No puede renombrar esta carpeta '%s' porque la otra ya existe.");
+define ('LBL_ADMIN_CANT_RENAME',"No puede renombrar esta tema '%s' porque la otra ya existe.");
 define ('LBL_ADMIN_ERROR_CANT_CREATE',"Ahora tiene una carpeta llamada '%s'!");
 
 define ('LBL_TAG_TAGS','Tags');

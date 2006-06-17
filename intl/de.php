@@ -190,7 +190,7 @@ define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Ung&uuml;ltige Bereinigungsperiode');
 define ('LBL_ADMIN_ERROR_NO_PERIOD','Oops, kein Zeitraum angegeben');
 define ('LBL_ADMIN_BAD_RSS_URL',"Entschuldige, ich kann diese URL nicht verarbeiten: '%s'");
 define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Du kannst den " . LBL_HOME_FOLDER . " Ordner nicht l&ouml;schen");
-define ('LBL_ADMIN_CANT_RENAME',"Du kannst den Ordner '%s' nicht umbenennen, da ein solcher schon existiert.");
+define ('LBL_ADMIN_CANT_RENAME',"Du kannst den Artikel '%s' nicht umbenennen, da ein solcher schon existiert.");
 define('LBL_ADMIN_ERROR_CANT_CREATE',"Der Ordner '%s' existiert schon!");
 
 define ('LBL_TAG_TAGS','Markierungen');

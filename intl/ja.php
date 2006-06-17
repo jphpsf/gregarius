@@ -198,7 +198,7 @@ define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','日付が無効です');
 define ('LBL_ADMIN_ERROR_NO_PERIOD','日付が指定されていません');
 define ('LBL_ADMIN_BAD_RSS_URL',"I'm sorry, I don't think I can handle this URL: '%s'");
 define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"You can't delete the " . LBL_HOME_FOLDER . " folder");
-define ('LBL_ADMIN_CANT_RENAME',"You can't rename this folder '%s' because such a folder already exists.");
+define ('LBL_ADMIN_CANT_RENAME',"You can't rename this item '%s' because such an item already exists.");
 define('LBL_ADMIN_ERROR_CANT_CREATE',"Looks like you already have a folder called '%s'!");
 
 define ('LBL_TAG_TAGS','Tags');

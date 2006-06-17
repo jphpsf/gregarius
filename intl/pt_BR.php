@@ -189,7 +189,7 @@ define ('LBL_ADMIN_ERROR_PRUNING_PERIOD','Per&iacute;odo de exclus&atilde;o inv&
 define ('LBL_ADMIN_ERROR_NO_PERIOD','oops, n&atilde;o foi especificado um per&iacute;odo');
 define ('LBL_ADMIN_BAD_RSS_URL',"Sinto muito, eu acho que n&atilde;o posso tratar esta URL: '%s'");
 define ('LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER',"Voc&ecirc; n&atilde;o pode excluir a pasta " . LBL_HOME_FOLDER . "");
-define ('LBL_ADMIN_CANT_RENAME',"Voc&ecirc; n&atilde;o pode renomear a pasta '%s' porque tal pasta j&aacute; existe.");
+define ('LBL_ADMIN_CANT_RENAME',"Voc&ecirc; n&atilde;o pode renomear a &iacute;ten '%s' porque tal &iacute;ten j&aacute; existe.");
 define('LBL_ADMIN_ERROR_CANT_CREATE',"Parace que voc&ecirc; j&aacute; tem uma pasta chamada '%s'!");
 
 define ('LBL_TAG_TAGS','Etiquetas');
