@@ -88,8 +88,8 @@ function __exp__getFromDelicious($id) {
     $durl = "http://del.icio.us/url/" . md5($url);
     $bfr = getUrl($durl,2000);
     if ($bfr) {
-			define ('RX','|<a href="/tag/([^"]+)">\\1</a>|U');
-			if ($bfr && preg_match_all(RX,$bfr,$hits,PREG_SET_ORDER)) {
+			define ('DLSRX','|<a href="/tag/([^"]+)".*>\\1</a>|U');
+			if ($bfr && preg_match_all(DLSRX,$bfr,$hits,PREG_SET_ORDER)) {
 					$hits=array_slice($hits,0,MAX_TAGS_PER_ITEM);
 					foreach($hits as $hit) {
 						$ret[] = $hit[1];
