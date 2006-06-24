@@ -139,7 +139,7 @@ function checkSchemaColumns($column) {
 		case 'c.daterefreshed':
 		case 'daterefreshed':
 			// date feed was last refreshed, added in 0.5.3
-			rss_query('alter table ' .getTable('channels') .' add column daterefreshed datetime null');
+			rss_query('alter table ' .getTable('channels') .' add column daterefreshed datetime null default 1');
 			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
 				$updated++;
 				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
