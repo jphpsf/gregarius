@@ -204,7 +204,7 @@ if (array_key_exists('act',$_REQUEST)) {
 			echo " htmlUrl=\"$siteurl_\"";
 		}
 		if (isset($cats[$id]) && count($cats[$id])) {
-			echo " categories=\"" . implode(",",$cats[$id]) ."\"";
+			echo " category=\"" . implode(",",$cats[$id]) ."\"";
 		}
 		echo " xmlUrl=\"$url_\" />\n";
     }
