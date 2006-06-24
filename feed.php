@@ -61,7 +61,6 @@ if (
 ) {
     $sqlid = sanitize($_REQUEST['channel'], RSS_SANITIZER_SIMPLE_SQL | RSS_SANITIZER_NO_SPACES);
     $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
-
     if (hidePrivate()) {
         $sql .=" and not(mode & " . RSS_MODE_PRIVATE_STATE .") ";
     }
@@ -70,7 +69,7 @@ if (
 
     $res =  rss_query( $sql );
     //echo $sql;
-    if ( rss_num_rows ( $res ) == 1) {
+    if ( rss_num_rows ( $res ) >= 1) {
         list($cid) = rss_fetch_row($res);
     } else {
         $cid = "";
