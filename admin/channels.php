@@ -511,17 +511,21 @@ function channel_admin() {
                               trim($opml[$folder][$i]['TITLE']):$title_;
                     $descr_ = isset($opml[$folder][$i]['DESCRIPTION'])?
                               trim($opml[$folder][$i]['DESCRIPTION']):null;
-                              
+                    $cats_  = isset($opml[$folder][$i]['CATEGORY'])?
+                              trim($opml[$folder][$i]['CATEGORY']):"";
                     $t__ = strip_tags($title_);
                     $d__ = strip_tags($descr_);
                     $f__ = strip_tags($prev_folder);
                     $u__ = sanitize($url_,RSS_SANITIZER_URL);
-
+					$c__ = preg_replace(ALLOWED_TAGS_REGEXP,' ',$cats_);
                     if ($u__) {
 
                         echo "<li><p>" . sprintf(LBL_ADMIN_OPML_IMPORT_FEED_INFO,$t__,$f__);
                         flush();
                         list($retcde, $retmsg) = add_channel($u__, $fid, $t__, $d__);
+                        if ($retcde && count($c__)) {
+                        	__exp__submitTag($retcde,$c__,"'channel'");
+                        }
                         echo ($retcde<0 ?$retmsg:" OK")."</p></li>\n";
                         flush();
                     }
