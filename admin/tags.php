@@ -65,7 +65,27 @@ function tags(){
 			rss_invalidate_cache();
 		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
 			// nop;
+		} elseif (array_key_exists('me_delete', $_REQUEST)) {
+			if(array_key_exists('me_do_delete', $_REQUEST) && "1" == $_REQUEST['me_do_delete']) {
+				$ids = array();
+				foreach($_REQUEST as $key => $val) {
+					if(preg_match('/^tcb([0-9]+)$/', $key, $match)) {
+						if(($id = (int) $_REQUEST[$key]) > 0) {
+							$ids[] = $id;
+						}
+					}
+				}
+
+				if(count($ids) > 0)  {
+					$sql = "delete from " . getTable("tag") . " where id in (".implode(',', $ids) . ")";
+					rss_query($sql);
+					$sql = "delete from " . getTable("metatag") . " where tid in (".implode(',', $ids) . ")";
+					rss_query($sql);
+					rss_invalidate_cache();
+				}
+			}
 		} else {
+
 			list($tname) = rss_fetch_row(rss_query("select tag from " .getTable("tag") ." where id = $tid"));
 
 			echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
@@ -100,11 +120,23 @@ function tags(){
 	default:
 		break;
 	}
+  echo "<script type=\"text/javascript\">\n"
+    ."//<!--\n"
+    ."function cbtoggle() {\n"
+    ."var c=document.getElementById('mastercb').checked;\n"
+    ."var cs=document.getElementById('tagtable').getElementsByTagName('input');\n"
+    ."for(i=0;i<cs.length;i++) {\n"
+    ."if (cs[i].type == 'checkbox') cs[i].checked = c;\n"
+    ."}\n"  
+    ."}\n" 
+		."</script>\n";
 
-	echo "<h2 class=\"trigger\">".LBL_TAG_TAGS."</h2>\n"
+	echo "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">\n"
+	."<h2 class=\"trigger\">".LBL_TAG_TAGS."</h2>\n"
 	."<div id=\"admin_tags\" class=\"trigger\">"
 	."<table id=\"tagtable\">\n"
 	."<tr>\n"
+  ."\t<th><input type=\"checkbox\" id=\"mastercb\" onclick=\"cbtoggle();\" /></th>\n"
 	."\t<th class=\"cntr\">". LBL_TAG_TAGS ."</th>\n"
 	."\t<th>". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
 	."</tr>\n";
@@ -115,6 +147,7 @@ function tags(){
 	while (list($id, $tag) = rss_fetch_row($res)) {
 		$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 		echo "<tr class=\"$class_\">\n"
+    ."\t<td><input type=\"checkbox\" name=\"tcb$id\" value=\"$id\" id=\"scb_$id\" /></td>\n"
 		."\t<td>$tag</td>\n"
 		."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_TAGS
 		."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;id=$id\">" . LBL_ADMIN_EDIT
@@ -124,7 +157,18 @@ function tags(){
 		."</td>\n"
 		."</tr>\n";
 	}
-	echo "</table></div>\n";
+	echo "</table>\n";
+	echo "<fieldset>\n"
+	."<legend>Selected...</legend>\n"
+	."<p>\n"
+	."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".LBL_ADMIN_DELETE2."\" />\n"
+	."<input type=\"checkbox\" name=\"me_do_delete\" id=\"me_do_delete\" value=\"1\" />\n"
+	."<label for=\"me_do_delete\">".LBL_ADMIN_IM_SURE."</label>\n"
+	."<input type=\"hidden\" name=\"action\" value=\"".CST_ADMIN_DELETE_ACTION."\" />\n"
+	."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_TAGS."\" />\n"
+	."</fieldset>\n"
+	."</form>\n"
+	."</div>\n";
 }
 
 function tag_edit($tid){
