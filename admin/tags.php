@@ -148,7 +148,7 @@ function tags(){
 		$class_ = (($cntr++ % 2 == 0)?"even":"odd");
 		echo "<tr class=\"$class_\">\n"
     ."\t<td><input type=\"checkbox\" name=\"tcb$id\" value=\"$id\" id=\"scb_$id\" /></td>\n"
-		."\t<td>$tag</td>\n"
+		."\t<td><label for=\"scb_$id\">$tag</label></td>\n"
 		."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_TAGS
 		."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;id=$id\">" . LBL_ADMIN_EDIT
 		."</a>\n"
