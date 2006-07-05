@@ -104,6 +104,9 @@ class Update {
                           ." and id not in (".implode(",", $newIds).")");
             }
         }
+        
+        setProperty('__meta__','meta.lastupdate','misc',time());
+        
         if (count($newIds) > 0) {
             rss_invalidate_cache();
         }
@@ -166,6 +169,8 @@ class HTTPServerPushUpdate extends Update {
         $GLOBALS['rss']->header->options |= HDR_NO_OUPUTBUFFERING;
         rss_set_hook('rss.plugins.bodystart', "pushHeaderCallBack");
         rss_set_hook('rss.plugins.bodyend', "pushFooterCallBack");
+        
+        ob_implicit_flush();
     }
 
     function render() {
@@ -395,6 +400,7 @@ function pushHeaderCallBack() {
     echo "WARNING: YOUR BROWSER DOESN'T SUPPORT THIS SERVER-PUSH TECHNOLOGY.";
     echo "\n".PUSH_BOUNDARY."\n";
     echo "Content-Type: text/html\n\n";
+    flush();
 }
 
 function pushFooterCallBack() {
@@ -411,6 +417,8 @@ function pushFooterCallBack() {
 
     echo "\n".PUSH_BOUNDARY."\n";
     echo "WARNING: YOUR BROWSER DOESN'T SUPPORT THIS SERVER-PUSH TECHNOLOGY.\n";
+    
+    flush();
 }
 
 /**

@@ -29,12 +29,7 @@
 
 
 function getLastModif() {
-    static $ret;
-    if ($ret == 0) {
-        $res = rss_query("select unix_timestamp(max(added)) as max_added from ".getTable("item"));
-        list ($ret) = rss_fetch_row($res);
-    }
-    return $ret;
+	return getProperty('__meta__','meta.lastupdate');
 }
 
 function getETag() {
