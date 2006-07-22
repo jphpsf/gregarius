@@ -252,9 +252,9 @@ function install_main() {
     . "</html>\n";
 }
 
-if(file_exists(DBINIT) && empty($_POST['process'])) {
+if(file_exists(DBINIT)) {
     print("The dbinit.php file already exists in the Gregarius directory! Please remove it if you would like to use this installer.");
-} else if(1 == $_POST['process']) {
+} else if(!empty($_POST['process']) && 1 == $_POST['process']) {
         if(empty($_POST['server']) ||
             empty($_POST['database']) ||
             empty($_POST['username']) ||
