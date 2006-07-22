@@ -469,7 +469,8 @@ function setDefaults($key) {
 		"rss.output.title"			=> array('Gregarius','Gregarius','string','Sets the title of this feedreader.',NULL),
 		"rss.config.ajaxparallelsize"			=> array('3','3','num','Sets the number of feeds to update in parallel. Remember to set rss.config.serverpush to false.',NULL),
 		"rss.config.ajaxbatchsize"			=> array('3','3','num','Sets the number of feeds in a batch when using the ajax updater. Remember to set rss.config.serverpush to false.',NULL),
-		"rss.config.defaultdashboard"	  		=> array('true','true','boolean','If the first page seen when entering the admin section should be the dashboard',NULL)
+		"rss.config.defaultdashboard"	  		=> array('true','true','boolean','If the first page seen when entering the admin section should be the dashboard',NULL),
+		"rss.config.deadthreshhold"	=>	array('24', '24', 'num', 'Sets the threshold for when a feed is marked as dead, in hours', NULL)
 	);
 	
 	

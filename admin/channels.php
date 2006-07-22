@@ -96,7 +96,7 @@ function channels() {
     ."</tr>\n";
 
     $sql = "select "
-           ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon, c.mode "
+           ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon, c.mode, c.daterefreshed "
            ." from " .getTable("channels") ." c, " . getTable("folders") ." d "
            ." where d.id = c.parent ";
 
@@ -108,7 +108,7 @@ function channels() {
 
     $res = rss_query($sql);
     $cntr = 0;
-    while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon,$mode) = rss_fetch_row($res)) {
+    while (list($id, $title, $url, $siteurl, $parent, $descr, $pid, $icon, $mode, $daterefreshed) = rss_fetch_row($res)) {
 
         if (getConfig('rss.output.usemodrewrite')) {
             $outUrl = getPath() . preg_replace("/[^A-Za-z0-9\.]/","_","$title") ."/";
@@ -134,6 +134,12 @@ function channels() {
                 $tags .= "<a href=\"".getPath()."feed.php?vfolder=$id_\">$name_</a> ";
             }
         }
+        
+				if(NULL == $daterefreshed) {
+					$dead = true;
+				} else {
+					$dead = (time() - strtotime($daterefreshed) > getConfig('rss.config.deadthreshhold')*60 ? true : false);
+				}
 
         $fmode = array();
         if ($mode & RSS_MODE_PRIVATE_STATE) {
@@ -141,7 +147,9 @@ function channels() {
         }
         if ($mode & RSS_MODE_DELETED_STATE) {
             $fmode[] = "D";
+						$dead = false;
         }
+
         $slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
         if ($icon && substr($icon,0,5) == 'blob:') {
             $icon = getPath() . "extlib/favicon.php?url=" .rss_real_escape_string(substr($icon,5));
@@ -151,7 +159,7 @@ function channels() {
         ."\t<td>"
         .((getConfig('rss.output.showfavicons') && $icon != "")?
           "<img src=\"$icon\" class=\"favicon\" alt=\"\" width=\"16\" height=\"16\" />":"")
-        ."<label for=\"scb_$id\">$title</label>"
+        ."<label for=\"scb_$id\">".($dead ? "<strike>" : "").$title.($dead ? "</strike>" : "")."</label>"
         ."</td>\n"
         ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
         ."\t<td>$descr</td>\n"
