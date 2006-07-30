@@ -155,8 +155,11 @@ class CatList extends FeedList {
 
 		$sql .= " and not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
-		$sql .= " order by t.tag asc"; 
+		$sql .= " order by t.tag asc";
 		
+		if(!getConfig("rss.config.absoluteordering")){
+			 $sql .= ", c.title asc";
+		}
 		
 		$res = rss_query($sql);
 		$this -> taggedFeedCnt = rss_num_rows($res);
