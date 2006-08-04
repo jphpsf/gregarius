@@ -138,7 +138,7 @@ function channels() {
 				if(NULL == $daterefreshed) {
 					$dead = true;
 				} else {
-					$dead = (time() - strtotime($daterefreshed) > getConfig('rss.config.deadthreshhold')*60 ? true : false);
+					$dead = (time() - strtotime($daterefreshed) > getConfig('rss.config.deadthreshhold')*60*60 ? true : false);
 				}
 
         $fmode = array();
