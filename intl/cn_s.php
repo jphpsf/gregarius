@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
 # Copyright (C) 2003 - 2006 Marco Bonetti
