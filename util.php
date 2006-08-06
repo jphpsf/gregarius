@@ -973,7 +973,7 @@ function rss_getallheaders() {
 
 // moved from ajax.php
 function __exp__submitTag($id,$tags,$type = "'item'") {
-    $ftags = preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags));
+    $ftags = utf8_encode( preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags)));
     $tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
     $ftags = implode(" ",__priv__updateTags($id,$tarr,$type));
     return "$id,". $ftags;

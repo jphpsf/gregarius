@@ -35,8 +35,8 @@ AddDefaultCharset utf-8
 
   #tag view
   RewriteRule	^tags?\/?$			tags.php?alltags [L,QSA]
-  RewriteRule	^tag\/([a-zA-Z0-9_\.\+]+)$  	tags.php?tag=$1 [L,QSA]
-  RewriteRule	^tag\/([a-zA-Z0-9_\.\+]+)\/rss\/?$  tags.php?tag=$1&rss [L,QSA]
+  RewriteRule	^tag\/(.+)$  	tags.php?tag=$1 [L,QSA]
+  RewriteRule	^tag\/(.+)\/rss\/?$  tags.php?tag=$1&rss [L,QSA]
   
   #state view
   RewriteRule ^state/(.+)/?$ state.php?state=$1 [L,QSA]

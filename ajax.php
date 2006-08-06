@@ -195,7 +195,8 @@ function setTags(id,tagss) {
 }
 
 function submit_tag_cb(ret) {
-    data= ret.replace(/[^a-zA-Z0-9\ _\.,]/gi,"").split(',');
+    data= ret.split(',');
+    //replace(/[^a-zA-Z0-9\ _\.,]/gi,"")
     id=data[0];
     tags=data[1];
     setTags(id,tags);
@@ -217,7 +218,8 @@ function _et(id) {
        var isIE=document.all?true:false;
        // the tag container
        var tc=document.getElementById("t"+id);
-        var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,"").replace(<?php echo ALLOWED_TAGS_REGEXP ?>gi,"");
+        var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,""); 
+        //.replace(<?php echo ALLOWED_TAGS_REGEXP ?>gi,"");
         // submit link
         toggle.innerHTML="<?php echo  LBL_TAG_SUBMIT ?>";
         // cancel link

@@ -163,7 +163,7 @@ define('MAX_TAGS_PER_ITEM', 5);
 // This regexp is used both in php and javascript, basically
 // it is used to filter out everything but the allowed tag
 // characters, plus a whitespace
-define('ALLOWED_TAGS_REGEXP', '/[^a-zA-Z0-9\ _\.]/');
+define('ALLOWED_TAGS_REGEXP', '//');
 
 // Sanitizer constants
 define ('RSS_SANITIZER_SIMPLE_SQL', 0x01);
