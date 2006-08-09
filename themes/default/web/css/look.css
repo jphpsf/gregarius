@@ -128,6 +128,7 @@ li.item.even, tr.even,div#alltags { background-color: #f9f9f9; }
 li.item.odd, tr.odd { background-color: #f4f4f4; }
 tr.active td { font-weight:900; background-color:#f8f8ff; }
 tr.hilite td { font-weight:900; background-color:#f0fff0; }
+.themeframe.hilite span,.themeframe.hilite:hover span { background-color:#f0fff0; }
 
 h3.collapsed {
  border: 1px solid #ddd;
@@ -403,6 +404,8 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 	text-align:left;
 }
 
+.themeframe h5 a.update { color: #447; font-weight: 900 !important; }
+
 .themeframe .bookmarklet {
 	float:right;
 	padding: 0 0.2em;
@@ -419,7 +422,7 @@ span.vr { border-left:2px solid #ccc;margin: 0 1em; }
 
 	
 .themeframe span:hover, .themeframe.active span { 
- border-color: #eef;
+ border-color: #dde;
  background-color: #f8f8ff;
  }
  

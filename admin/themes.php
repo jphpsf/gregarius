@@ -44,6 +44,14 @@ function themes() {
     }    else {
         $active_theme= getConfig('rss.output.theme');
     }
+
+		echo "<form style=\"float:right\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
+		  . "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_THEMES."\" />\n"
+	  	."<input type=\"submit\" name=\"admin_themes_check_for_updates\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p>\n"
+	  	. "</form>\n";
+		if (isset($_POST['admin_themes_check_for_updates'])) {
+			theme_getThemesUpdate(&$themes);
+		}
     
     echo "<h2 class=\"trigger\">".LBL_ADMIN_THEMES."</h2>\n"
     ."<div id=\"admin_themes\" >\n";
@@ -60,6 +68,7 @@ function themes() {
             $author = "<a href=\"$url\">$author</a>";
         }
         $active = ($entry ==  $active_theme);
+        $updateAvailable = isset($theme['updateVersion']);
         if ($screenshot) {
             $screenshotURL = "<img src=\"". getPath() . RSS_THEME_DIR . "/$fsname/$screenshot\"  />";
         } else {
@@ -67,12 +76,16 @@ function themes() {
         }
         $h4="$name"; 
         $h5="By&nbsp;$author | Version:&nbsp;$version";
+        if ($updateAvailable) {
+        	$h5 .= ' | <a class="update" href="'.$theme['updateUrl'].'">Update to version ' .$theme['updateVersion'] .'</a>';
+        }
+        
         if ($htmltheme) {
             $seturl = "index.php?view=themes&amp;theme=$entry";
         } else {
             $seturl = "";
         }
-        echo "<div class=\"themeframe".($active?" active":"")."\"><span>";
+        echo "<div class=\"themeframe".($active?" active":""). ($updateAvailable?" hilite":"")."\"><span>";
         if (!$active && $htmltheme) {
             echo "<a href=\"$seturl\" class=\"bookmarklet\">".LBL_ADMIN_USE_THIS_THEME."</a>";
         } elseif($active) {
@@ -396,6 +409,48 @@ function rss_theme_options_form_class($value=null) {
 
 function rss_theme_options_is_submit() {
     return array_key_exists("admin_theme_options_submit_changes", $_REQUEST);
+}
+
+function theme_getThemesUpdate(&$themes) {
+	  $themesxml = array();
+    global $themesxml;
+    $xml = getUrl('http://themes.gregarius.net/api.php');
+    $xml = str_replace("\r", '', $xml);
+    $xml = str_replace("\n", '', $xml);
+
+    $xp = xml_parser_create() or rss_error("couldn't create parser");
+
+    xml_set_element_handler($xp, 'themes_xml_startElement', 'themes_xml_endElement')
+    or rss_error("couldnt set XML handlers");
+
+    xml_parse($xp, $xml, true) or rss_error("failed parsing xml");
+    xml_parser_free($xp) or rss_error("failed freeing the parser");
+    if (is_array($themesxml)) {
+    	foreach($themesxml as $theme => $data) {
+    		list($tversion,$turl) = $data;
+    		if (isset($themes[$theme]) && $themes[$theme]['version'] < $tversion) {
+    			$themes[$theme]['updateVersion'] = $tversion;
+    			$themes[$theme]['updateUrl'] = $turl;
+    		}
+    	}
+    }
+}
+
+function themes_xml_startElement($xp, $element, $attr) {
+    global $themesxml;
+
+    if ($element == 'THEME' &&
+            array_key_exists('PID',$attr) &&
+            array_key_exists('URL',$attr) &&
+            array_key_exists('VERSION',$attr)) {
+
+        $themesxml[$attr['PID']] = array($attr['VERSION'],$attr['URL']);
+    }
+}
+
+function themes_xml_endElement($xp, $element) {
+    ///global $pluginsxml;
+    return;
 }
 
 ?>
