@@ -25,6 +25,8 @@
 #
 ###############################################################################
 
+rss_require('cls/wrappers/toolkit.php');
+
 /**
  * renders the pruneing form
  */
@@ -44,6 +46,9 @@ function items() {
     . "<option>" . LBL_ADMIN_PRUNE_MONTHS . "</option>\n"
     . "<option>" . LBL_ADMIN_PRUNE_YEARS . "</option>\n"
     . "</select></p>\n"
+    . "<p>\n"
+		. rss_toolkit_channels_combo("prune_channel") . "\n"
+    . "</p>\n"
     . "<p><label for=\"prune_include_sticky\">".LBL_ADMIN_PRUNE_INCLUDE_STICKY."</label>\n"
     . "<input type=\"checkbox\" id=\"prune_include_sticky\" name=\"prune_include_sticky\" value=\"1\"/></p>\n"
     . "<p><label for=\"prune_exclude_tags\">".LBL_ADMIN_PRUNE_EXCLUDE_TAGS."</label>\n"
@@ -90,8 +95,14 @@ function item_admin() {
                 return CST_ADMIN_DOMAIN_ITEM;
                 break;
             }
-            $sql = " from ".getTable('item') ." i, " .getTable('channels') . " c "
+            $sql = " from ".getTable('item') ." i INNER JOIN " .getTable('channels') . " c ON c.id=i.cid "
                    ." where 1=1 ";
+
+            if (array_key_exists('prune_channel', $_REQUEST)) {
+                if(ALL_CHANNELS_ID != $_REQUEST['prune_channel']) {
+                    $sql .= " and c.id = " . $_REQUEST['prune_channel'] . "";
+                }
+            }
 
             if ($prune_older > 0) {
                 $prune_older_date=date("Y-m-d H:i:s",strtotime("-${prune_older} ${period}"));
@@ -134,7 +145,6 @@ function item_admin() {
                     $sql .= " and i.id not in (" . implode(",",$fids) .") ";
                 }
             }
-
 
             if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST)) {
                 //echo "<pre>\n";

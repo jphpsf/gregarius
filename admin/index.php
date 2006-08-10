@@ -42,6 +42,7 @@ require_once('users.php');
 require_once('plugins.php');
 require_once('themes.php');
 require_once('tags.php');
+require_once('../cls/wrappers/toolkit.php');
 
 define ('CST_ADMIN_DOMAIN','domain');
 define ('CST_ADMIN_DOMAIN_NONE','none');

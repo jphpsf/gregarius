@@ -34,7 +34,6 @@ define ('QUERY_RESULTS','rss_query_res_per_page');
 define ('QUERY_CURRENT_PAGE','rss_query_current_page');
 define ('HIT_BEFORE',"<span class=\"searchhit\">");
 define ('HIT_AFTER',"</span>");
-define ('ALL_CHANNELS_ID', -1);
 
 define ('QUERY_ORDER_BY','rss_order');
 define ('QUERY_ORDER_BY_DATE','date');

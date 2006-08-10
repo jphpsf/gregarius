@@ -44,7 +44,7 @@ function channels() {
     echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" onmouseover=\"clearOnHover(this);\" onfocus=\"this.select()\" />\n";
 
     echo "<label for=\"add_channel_to_folder\">". LBL_ADMIN_IN_FOLDER . "</label>\n";
-    folder_combo('add_channel_to_folder');
+    echo rss_toolkit_folders_combo('add_channel_to_folder');
 	echo "<label for=\"channel_tags\">" . LBL_TAG_FOLDERS . ":</label>\n";
 	echo "<input type=\"text\" name=\"channel_tags\" id=\"channel_tags\" />\n";
     echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_ADD\" />\n";
@@ -186,8 +186,8 @@ function channels() {
     echo "<fieldset>\n"
     ."<legend>Selected...</legend>\n"
     ."<p>\n"
-    ."<label for=\"me_folder\">".LBL_ADMIN_CHANNEL_FOLDER."</label>\n";
-    folder_combo('me_folder',null);
+    ."<label for=\"me_folder\">".LBL_ADMIN_CHANNEL_FOLDER."</label>\n"
+    .rss_toolkit_folders_combo('me_folder',null);
 
     echo
     "<input type=\"submit\" id=\"me_move_to_folder\" name=\"me_move_to_folder\" value=\"".LBL_ADMIN_CHANNELS_HEADING_MOVE."\" />\n"
@@ -784,10 +784,10 @@ function channel_edit_form($cid) {
     ."<input type=\"text\" id=\"c_siteurl\" name=\"c_siteurl\" value=\"$siteurl\" /></p>"
 
     // Folder
-    ."<p><label for=\"c_parent\">". LBL_ADMIN_CHANNEL_FOLDER ."</label>\n";
+    ."<p><label for=\"c_parent\">". LBL_ADMIN_CHANNEL_FOLDER ."</label>\n"
 
-    folder_combo('c_parent',$parent);
-    echo "</p>\n";
+    .rss_toolkit_folders_combo('c_parent',$parent)
+    ."</p>\n";
 
     // Tags
     echo "<p><label for=\"c_tags\">". LBL_TAG_FOLDERS . ":</label>\n"

@@ -67,13 +67,12 @@ function opml() {
 
 
     ."<p style=\"padding-left:1em;\"><input type=\"radio\" id=\"opml_import_option_folder\" name=\"opml_import_option\" value=\"".CST_ADMIN_OPML_IMPORT_FOLDER."\" />\n"
-    ."<label for=\"opml_import_option_folder\" >".LBL_ADMIN_OPML_IMPORT_FOLDER."</label>";
-    folder_combo('opml_import_to_folder',null);
-    echo "</p>\n"
+    ."<label for=\"opml_import_option_folder\" >".LBL_ADMIN_OPML_IMPORT_FOLDER."</label>"
+    .rss_toolkit_folders_combo('opml_import_to_folder',null)
+    ."</p>\n"
 
     ."<p style=\"padding-left:1em;\"><input type=\"radio\" id=\"opml_import_option_wipe\" name=\"opml_import_option\" value=\"".CST_ADMIN_OPML_IMPORT_WIPE."\" />\n"
     ."<label for=\"opml_import_option_wipe\" >".LBL_ADMIN_OPML_IMPORT_WIPE."</label></p>\n"
-
 
     ."";
 

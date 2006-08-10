@@ -128,24 +128,6 @@ function folder_edit($fid) {
 
 }
 
-function folder_combo($name, $selected = -1) {
-    echo "\n<select name=\"$name\" id=\"$name\">\n";
-    if (getConfig('rss.config.absoluteordering')) {
-        $sql = " order by position asc";
-    } else {
-        $sql = " order by name asc";
-    }
-    $res = rss_query("select id, name from " .getTable("folders") . $sql);
-    while (list($id, $name) = rss_fetch_row($res)) {
-        echo "\t<option value=\"$id\""
-        .($selected > -1 && $selected == $id ? " selected=\"selected\"":"")
-        .">" .	(($name == "")?LBL_HOME_FOLDER:$name)  ."</option>\n";
-    }
-    echo "</select>\n";
-}
-
-
-
 function folder_admin() {
 
     // Fix for #16: Admin (et al.) should not rely on l10n labels for actions:

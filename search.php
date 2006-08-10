@@ -29,6 +29,7 @@
 require_once("init.php");
 rss_require('cls/search.php');
 rss_require('cls/wrappers/searchform.php');
+rss_require('cls/wrappers/toolkit.php');
 
 $GLOBALS['rss'] -> feedList = new FeedList(false);
 $items = new SearchItemList();

@@ -19,7 +19,7 @@
 
 	<p>
 		<label for="<?php echo QUERY_CHANNEL ?>"><?php echo LBL_SEARCH_CHANNELS ?></label>
-		<?php echo rss_search_channels_combo(QUERY_CHANNEL); ?>
+		<?php echo rss_toolkit_channels_combo(QUERY_CHANNEL, ALL_CHANNELS_ID, (array_key_exists(QUERY_CHANNEL, $_REQUEST) ? $_REQUEST[QUERY_CHANNEL] : 0)); ?>
 	</p>
 
 	<p>
