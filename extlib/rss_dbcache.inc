@@ -147,8 +147,10 @@ class RSSdbCache {
             $this -> translateUrltoCid[$url] = $cid;
             return $cid; // should always be positive
         } else {
+        	if ( MAGPIE_DEBUG ) {
             $this->error("Cache unable translate to cid: $url");
-            return 0;
+          }
+          return 0;
         }
     }
 
