@@ -298,4 +298,5 @@ define ('LBL_MARK_FOLDER_READ', "Marquer ce r&eacute;pertoire comme lu");
 define ('LBL_MARK_CHANNEL_READ_ALL', "Marquer ce canal comme lu");
 define ('LBL_MARK_FOLDER_READ_ALL',"Marquer ce r&eacute;pertoire comme lu");
 define ('LBL_MARK_CATEGORY_READ_ALL',"Marquer cette cat&eacute;gorie comme lu");
+define ('LBL_ADDED', 'Added');
 ?>

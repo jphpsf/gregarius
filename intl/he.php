@@ -299,5 +299,6 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 
 define ('LBL_STATE_FLAG','אחר כך (סמן רשומה לקריאה אחר כך)');
 define ('LBL_FLAG','אחר כך');
+define ('LBL_ADDED', 'Added');
 
 ?>

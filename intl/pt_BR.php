@@ -297,4 +297,5 @@ define ('LBL_MARK_FOLDER_READ',"Marcar esta pasta como lida");
 define ('LBL_MARK_CHANNEL_READ_ALL', "Marcar este feed como lido");
 define ('LBL_MARK_FOLDER_READ_ALL',"Marcar esta pasta como lida");
 define ('LBL_MARK_CATEGORY_READ_ALL',"Marcar esta categoria como lida");
+define ('LBL_ADDED', 'Added');
 ?>

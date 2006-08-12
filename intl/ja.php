@@ -303,5 +303,6 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 
 define ('LBL_STATE_FLAG','フラグ(後で読むために記事にフラグをつける)');
 define ('LBL_FLAG','フラグがついています');
+define ('LBL_ADDED', 'Added');
 
 ?>

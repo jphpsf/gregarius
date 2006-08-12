@@ -294,4 +294,5 @@ define ('LBL_MARK_FOLDER_READ',"Den Ordner als gelesen markieren");
 define ('LBL_MARK_CHANNEL_READ_ALL', "Markiere diesen Feed als gelesen");
 define ('LBL_MARK_FOLDER_READ_ALL',"Markiere diesen Ordner als gelesen");
 define ('LBL_MARK_CATEGORY_READ_ALL',"Markiere diese Kategorie als gelesen");
+define ('LBL_ADDED', 'Added');
 ?>

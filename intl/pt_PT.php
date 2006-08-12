@@ -310,5 +310,6 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 
 define ('LBL_STATE_FLAG','Marcar (Marca um item para leitura posterior)');
 define ('LBL_FLAG','Marcado');
+define ('LBL_ADDED', 'Added');
 
 ?>

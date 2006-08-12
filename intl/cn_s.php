@@ -303,5 +303,5 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 
 define ('LBL_STATE_FLAG','标记 (为最后阅读的条目做)');
 define ('LBL_FLAG','已标记');
-
+define ('LBL_ADDED', 'Added');
 ?>

@@ -303,4 +303,5 @@ define ('LBL_MARK_FOLDER_READ',"Marca questa cartella come letta");
 define ('LBL_MARK_CHANNEL_READ_ALL', "Marca tutti gli elementi di questo feed come letti");
 define ('LBL_MARK_FOLDER_READ_ALL',"Marca tutti gli elementi di questa cartella come letti");
 define ('LBL_MARK_CATEGORY_READ_ALL',"Marca tutti gli elementi di questa categoria come letti");
+define ('LBL_ADDED', 'Added');
 ?>

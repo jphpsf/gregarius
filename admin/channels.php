@@ -746,9 +746,9 @@ function channel_admin() {
 }
 
 function channel_edit_form($cid) {
-    $sql = "select id, title, url, siteurl, parent, descr, icon, mode from " .getTable("channels") ." where id=$cid";
+    $sql = "select id, title, url, siteurl, parent, descr, icon, mode, daterefreshed, dateadded from " .getTable("channels") ." where id=$cid";
     $res = rss_query($sql);
-    list ($id, $title, $url, $siteurl, $parent, $descr, $icon,$mode) = rss_fetch_row($res);
+    list ($id, $title, $url, $siteurl, $parent, $descr, $icon, $mode, $daterefreshed, $dateadded) = rss_fetch_row($res);
     // get tags
     $sql = "select t.tag from " . getTable('tag')." t, " . getTable('metatag')
            . " m where t.id = m.tid and m.ttype = 'channel' and m.fid = $cid";
@@ -762,10 +762,17 @@ function channel_edit_form($cid) {
     echo "\n\n<h2>".LBL_ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."#fa$cid\" id=\"channeledit\">\n";
-    echo "<fieldset id=\"channeleditfs\">"
-    ."<p>";
+    echo "<fieldset id=\"channeleditfs\">";
+    // Timestamps
+    if(!empty($daterefreshed)) {
+      echo "<p><label>" . LBL_ADDED . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
+					."<p><label>" . LBL_LAST_UPDATE . ": ".date("M-d-Y H:i", strtotime($daterefreshed))."</label></p>\n";
+    } else {
+      echo "<p><label>" . LBL_ADDED . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
+					."<p><label>" . LBL_LAST_UPDATE . ": " . LBL_FOOTER_LAST_MODIF_NEVER . "</label></p>\n";
+    }
     // Item name
-    echo "<label for=\"c_name\">". LBL_ADMIN_CHANNEL_NAME ."</label>\n"
+    echo "<p><label for=\"c_name\">". LBL_ADMIN_CHANNEL_NAME ."</label>\n"
     ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\" />"
     ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
     ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_SUBMIT_EDIT ."\" />\n"

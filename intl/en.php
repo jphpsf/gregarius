@@ -292,7 +292,7 @@ define ('LBL_ADMIN_PLUGINS_GET_MORE', '<p style="font-size:small">'
 .'More plugins can be downloaded at the <a style="text-decoration:underline" '
 .' href="http://plugins.gregarius.net/">Plugin Repository</a>.</p>');
 
-define ('LBL_LAST_UPDATE','Last update');
+define ('LBL_LAST_UPDATE','Last Update');
 define ('LBL_ADMIN_DOMAIN_THEMES_LBL','themes');
 define ('LBL_ADMIN_THEMES','Themes');
 
@@ -303,5 +303,6 @@ define ('LBL_ADMIN_THEMES_GET_MORE', '<p style="font-size:small">'
 
 define ('LBL_STATE_FLAG','Flag (Flags an item for later reading)');
 define ('LBL_FLAG','Flagged');
+define ('LBL_ADDED', 'Added');
 
 ?>
