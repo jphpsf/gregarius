@@ -519,7 +519,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
             
             $sql = "insert into ".getTable("channels")
                    ." (title, url, siteurl, parent, descr, dateadded, icon, position, mode, daterefreshed)"
-                   ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np, $mode, 1)";
+                   ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np, $mode, '0000-00-00 00:00:00')";
 
             rss_query($sql);
             $newid = rss_insert_id();
