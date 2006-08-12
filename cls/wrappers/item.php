@@ -71,7 +71,7 @@ function rss_item_url() {
   if (substr($url,0,4) == 'http') {
     return $url;
   }
-  return rss_item_pl_url();
+  return "http://" . $_SERVER['HTTP_HOST'] . rss_item_pl_url();
 }
 
 function rss_item_title() {
