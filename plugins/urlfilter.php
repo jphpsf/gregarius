@@ -30,7 +30,7 @@
 /// Name: Url filter
 /// Author: Marco Bonetti
 /// Description: This plugin will try to make ugly URL links look better
-/// Version: 1.7
+/// Version: 1.8
 
 /**
  * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
@@ -39,7 +39,7 @@
 function __urlfilter_filter($in) {
     $match = '#<a[^>]+?href="(.*?)">\\1</a>#im';
     // matches non-linkified URLs
-    $match2 = '#[^>"\'](http[^\s$]+)[\s$]?#im';
+    $match2 = '#[^>"\'/=\?](http[^\s$]+)[\s$]?#im';
     $ret= preg_replace_callback($match, '__filter_callback', $in);
     $ret2= preg_replace_callback($match2,'__filter_callback', $ret);
     return $ret2;
