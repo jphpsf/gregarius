@@ -65,8 +65,9 @@ function blOPML() {
 
     $sql = "select "
            ." c.id, c.title, c.url, c.siteurl, f.name "
-           ." from ".getTable("channels")." c, "
-           .getTable("folders")." f "." where f.id = c.parent";
+           ." from ".getTable("channels")." c "
+           ." inner join " . getTable("folders")." f "
+           ."  on f.id = c.parent";
 
     if (hidePrivate()) {
         $sql .= " and not(c.mode & ".RSS_MODE_PRIVATE_STATE.") ";
@@ -134,8 +135,10 @@ function blGetItems($cid,$date,$markread) {
     $sql = "select i.title as ititle, i.description as idescr, c.title as ctitle, "
            ." c.descr as cdescr, c.url as curl, i.author as iauth, i.url as iurl, "
            ." unix_timestamp(ifnull(i.pubdate, i.added)) as idate ,i.id as iid"
-           ." from ".getTable('item')." i, ".getTable('channels') ." c "
-           ." where i.cid=c.id and i.unread & ". RSS_MODE_UNREAD_STATE ." and c.id=$cid";
+           ." from ".getTable('item')." i "
+           ." inner join " .getTable('channels') ." c "
+           ."  on c.id = i.cid "
+           ." where i.unread & ". RSS_MODE_UNREAD_STATE ." and c.id=$cid";
 
     if ($date) {
         $sql .= " and ifnull(i.pubdate, i.added) > $date ";

@@ -75,10 +75,9 @@ class Update {
     }
 
     function populate($updatePrivateAlso = false) {
-        $sql = "select c.id, c.url, c.title from ".getTable("channels") . " c, "
-               . getTable('folders') . " f ";
-        $sql .= " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
-        $sql .= " and c.parent = f.id ";
+        $sql = "select c.id, c.url, c.title from ".getTable("channels") . " c "
+             . " inner join " . getTable('folders') . " f on f.id = c.parent "
+             . " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
         if (hidePrivate() && !$updatePrivateAlso) {
             $sql .= " and not(mode & ".RSS_MODE_PRIVATE_STATE.") ";

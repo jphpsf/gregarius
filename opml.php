@@ -121,9 +121,9 @@ function _xml_endElement($xp, $element) {
 // Output should be valid xml. (*fingers crossed*)
 if (array_key_exists('act',$_REQUEST)) {
 
-	$rs = rss_query( "select fid,tag from " .getTable('tag') 
-    	." t, " .getTable('metatag') ." mt "
-    	." where mt.tid=t.id and ttype='channel'");
+	$rs = rss_query( "select fid,tag from " .getTable('tag') ." t "
+                   ."inner join " .getTable('metatag') ." mt on mt.tid = t.id "
+                   ." where ttype='channel'");
     $cats=array();
     while(list($cid,$tag) = rss_fetch_row($rs)) {
     	if (!isset($cats[$cid])) {
@@ -135,12 +135,11 @@ if (array_key_exists('act',$_REQUEST)) {
 
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.descr "
-      ." from ". getTable("channels") . " c, " .getTable("folders") ." d "
-      ." where d.id = c.parent";
-      
+      ." from ". getTable("channels") . " c "
+      ." inner join " . getTable("folders") ." d on d.id = c.parent ";
       
 	if (hidePrivate()) {
-		$sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";	      
+		$sql .=" where not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";	      
 	}
 	
 	// note: should we export deprecated feeds?
@@ -150,9 +149,6 @@ if (array_key_exists('act',$_REQUEST)) {
     } else {
 		$sql .=" order by d.name asc, c.title asc";
     }
-    
-    
-    
     
     $res = rss_query($sql);
 

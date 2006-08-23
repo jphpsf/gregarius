@@ -882,10 +882,10 @@ function getUnreadCount($cid, $fid) {
         return $_uccache[$key_];
     }
 
-    $sql = "select count(*) from "
-           .getTable("item")    ."i, ".getTable('channels')."c "
+    $sql = "select count(*) from " . getTable("item") ."i "
+           ."inner join " . getTable('channels')." c on c.id = i.cid "
            ." where i.unread & ".RSS_MODE_UNREAD_STATE. " and not(i.unread & " .
-           RSS_MODE_DELETED_STATE .") and i.cid=c.id "
+           RSS_MODE_DELETED_STATE .") "
            ." and not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
     if (hidePrivate()) {

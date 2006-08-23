@@ -35,8 +35,8 @@ function relatedTags($tags) {
 	}
 	$twhere .= "1=0";
 
-	$sql = "select fid,tid,m.tdate from ".getTable('metatag')
-	." m, ".getTable('tag')." t  where m.tid=t.id and m.ttype = 'item'"
+	$sql = "select fid,tid,m.tdate from ".getTable('metatag') ." m "
+  ."inner join " . getTable('tag') . " t on t.id = m.tid  where m.ttype = 'item'"
 	." and ($twhere)";
 
 	//echo $sql;
@@ -53,9 +53,9 @@ function relatedTags($tags) {
 	$rtags = array ();
 	if (count($fids)) {
 		$sql = "select t.tag, count(*) as cnt from ".getTable('metatag')
-		." m left join ".getTable('item')." i on (m.fid=i.id), "
-		.getTable('tag')." t "
-		." where m.tid=t.id and m.fid in (".implode(",", $fids).")"
+		." m left join ".getTable('item')." i on (m.fid=i.id) "
+		." inner join " . getTable('tag')." t on (t.id = m.tid) "
+		." where m.fid in (".implode(",", $fids).")"
 		." and t.id not in (".implode(",", $tids).")";
 
 		if (hidePrivate()) {
@@ -86,10 +86,9 @@ if (array_key_exists('tag', $_GET)) {
 	}
 	$twhere .= " 1=0";
 
-	$sql = "select fid, count(*) as cnt from "
-	.getTable('metatag')." m, "
-	.getTable('tag')." t "
-	." where m.tid=t.id and ($twhere) "
+	$sql = "select fid, count(*) as cnt from " . getTable('metatag')." m "
+	."inner join " . getTable('tag')." t on t.id = m.tid "
+	." where ($twhere) "
 	." and m.ttype = 'item'"
 	." group by fid order by 2 desc";
 

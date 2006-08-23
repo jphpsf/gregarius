@@ -75,9 +75,9 @@ if (
         $cid = "";
 
         // is this a folder?
-        $sql = "select c.id, c.parent from ". getTable('channels')." c, "
-               . getTable('folders') . " f "
-               ." where c.parent=f.id and f.name like '$sqlid' and f.id > 0";
+        $sql = "select c.id, c.parent from ". getTable('channels')." c "
+               ." inner join " . getTable('folders') . " f on f.id = c.parent "
+               ." where f.name like '$sqlid' and f.id > 0";
 
         if (hidePrivate()) {
             $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
@@ -93,9 +93,10 @@ if (
             }
         } else {
             // maybe it's a virtual folder?
-            $sql = "select c.id, m.tid from ". getTable('channels')." c, "
-                   . getTable('metatag') . " m, " . getTable('tag') . " t "
-                   . "where c.id = m.fid and m.ttype = 'channel' and m.tid = t.id "
+            $sql = "select c.id, m.tid from ". getTable('channels')." c "
+                   ."inner join " . getTable('metatag') . " m on m.fid = c.id "
+                   ."inner join " . getTable('tag') . " t on t.id = m.tid "
+                   . "where m.ttype = 'channel' "
                    . "and t.tag like '$sqlid'";
 
             if (hidePrivate()) {
@@ -193,9 +194,10 @@ elseif (array_key_exists('channel',$_REQUEST) || array_key_exists('folder',$_REQ
         }
     }
     elseif ($vfid) {
-        $sql = "select c.id, m.tid from ". getTable('channels')." c, "
-               . getTable('metatag') . " m, " . getTable('tag') . " t "
-               . "where c.id = m.fid and m.ttype = 'channel' and m.tid = t.id ";
+        $sql = "select c.id, m.tid from ". getTable('channels')." c "
+               ."inner join " . getTable('metatag') . " m on m.fid = c.id "
+               ."inner join " . getTable('tag') . " t on t.id = m.tid "
+               . "where m.ttype = 'channel'";
         // $vfid can be numeric (t.id) or alphabetic (t.tag)
         if(is_numeric($vfid)) {
             $sql .= "and t.id = $vfid";
@@ -342,12 +344,10 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
 
             // 1: build a list of all feeds:
             $feeds = array();
-            $sql = "select c.id from "
-                   . getTable('channels') . " c, "
-                   . getTable('folders') . " f "
-                   . "where c.parent=f.id "
-                   ." and not (c.mode & " . RSS_MODE_DELETED_STATE .") "
-                   ;
+            $sql = "select c.id from " . getTable('channels') . " c "
+                   ."inner join " . getTable('folders') . " f on f.id = c.parent "
+                   . "where not (c.mode & " . RSS_MODE_DELETED_STATE .") ";
+
             if (hidePrivate()) {
                 $sql .= " and not (c.mode & " . RSS_MODE_PRIVATE_STATE . ") ";
             }
@@ -448,10 +448,9 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
             }
 			
 			if( $found || !$first_fid ) {
-				$sql = "select count(*) from "
-					   .getTable('item') ." i, "
-					   .getTable('channels') ." c "
-					   ." where i.unread & " .RSS_MODE_UNREAD_STATE ." and i.cid = c.id and c.parent = $fid__";
+				$sql = "select count(*) from " . getTable('item') ." i "
+					   ."inner join " . getTable('channels') ." c on c.id = i.cid "
+					   ." where i.unread & " .RSS_MODE_UNREAD_STATE ." and c.parent = $fid__";
 				if (hidePrivate()) {
 					$sql .= " and not(i.unread & " . RSS_MODE_PRIVATE_STATE . ")";
 				}
@@ -512,7 +511,8 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         // find next virtual folder to redirect to
         $next_vfid = $first_vfid = 0;
         $found = false;
-        $res = rss_query("select distinct tid from " .getTable('metatag') ." m," .getTable('tag') ."t where m.tid = t.id order by t.tag asc");
+        $res = rss_query("select distinct tid from " .getTable('metatag') ." m "
+             . "inner join " . getTable('tag') ."t on t.id = m.tid order by t.tag asc");
         while (list($tid__) = rss_fetch_row($res)) {
             if ($tid__ == $vfid) {
                 $found = true;
@@ -680,8 +680,8 @@ if ($iid == "") {
     $GLOBALS['rss'] -> header = new Header( rss_htmlspecialchars( $title ) . $dtitle,0,$cidfid,"", HDR_NONE, $links);
 } else {
     // "item mode"
-    $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c, "
-                      .getTable("item") ." i where c.id = $cid and i.cid=c.id and i.id=$iid"
+    $res = rss_query ("select c.title, c.icon, i.title from " . getTable("channels") ." c "
+                      ."inner join " . getTable("item") ." i on i.cid = c.id where c.id = $cid and i.id=$iid"
                       ." and not(i.unread & " . RSS_MODE_DELETED_STATE  .") "
                      );
 
@@ -1172,16 +1172,14 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 	
             $sql = "select "
                    ." c.id, c.title "
-                   ." from "
-                   .getTable("channels") ." c, "
-                   . getTable("folders") ." d "
-                   ." where d.id = c.parent ";
+                   ." from " . getTable("channels") ." c "
+                   ." inner join " . getTable("folders") ." d "
+                   ."   on d.id = c.parent ";
 
-
+            $sql .= " where not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
             if (hidePrivate()) {
                 $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
             }
-            $sql .= " and not(c.mode & " .  RSS_MODE_DELETED_STATE .") ";
 
             if (getConfig('rss.config.absoluteordering')) {
                 $sql .=" order by d.position asc, c.position asc";
@@ -1228,9 +1226,9 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 
         case 'cat':
             $res = rss_query(" select t.tag,t.id from  "
-                             .getTable('metatag') ." m, "
-                             .getTable('tag') . "t "
-                             ." where  m.ttype = 'channel' and m.tid = t.id  "
+                             .getTable('metatag') ." m "
+                             ."inner join " . getTable('tag') . "t on t.id = m.tid "
+                             ." where  m.ttype = 'channel' "
                              ." order by t.tag asc");
 
             $pp = null;
@@ -1277,10 +1275,9 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
             break;
 
         case 'folder':
-            $sql = "select  f.id, f.name, count(*) from "
-                   . getTable('channels') . " c, "
-                   . getTable('folders') . " f "
-                   ." where c.parent=f.id and f.name != '' ";
+            $sql = "select  f.id, f.name, count(*) from " . getTable('channels') . " c "
+                   ."inne join " . getTable('folders') . " f on f.id = c.parent "
+                   ." where f.name != '' ";
 
             if (hidePrivate()) {
                 $sql .= " and not (c.mode & ".RSS_MODE_PRIVATE_STATE.")";

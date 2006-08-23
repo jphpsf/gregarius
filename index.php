@@ -170,14 +170,12 @@ function readItems($limit) {
 		}
   	$sql = "select "
           ." c.id"
-          ." from " 
-            .getTable("channels") . " c, " 
-            .getTable("folders") ." f "
-          ." where c.parent = f.id ";
+          ." from " . getTable("channels") . " c " 
+          ." inner join " . getTable("folders") ." f on f.id = c.parent ";
           
     	 // $sql .= $sqlWhereHidden;
     
-        $sql .= " and not(c.mode & " . RSS_MODE_DELETED_STATE  .") ";
+        $sql .= " where not(c.mode & " . RSS_MODE_DELETED_STATE  .") ";
         
         if (getConfig('rss.config.absoluteordering')) {
         	$sql .= " order by f.position asc, c.position asc";

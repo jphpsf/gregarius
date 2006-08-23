@@ -168,11 +168,11 @@ class FeedList {
 		_pf(' ... done: unreadCount');		
 
 		_pf(' ... totalCount');		
-		$sql = 
-		"select count(*) from ".getTable("item") . "i , " . getTable('channels') . " c "
-			
-			." where i.cid=c.id and not(i.unread & ".RSS_MODE_DELETED_STATE.") "
-			." and not (c.mode & " .RSS_MODE_DELETED_STATE.")"
+		$sql ="select count(*) from ".getTable("item") . "i " 
+			   ."inner join " . getTable('channels') . " c "
+         ."  on c.id = i.cid "
+				 ." where not(i.unread & ".RSS_MODE_DELETED_STATE.") "
+			   ." and not (c.mode & " .RSS_MODE_DELETED_STATE.")"
 			. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
 			
 			//echo $sql;
@@ -217,18 +217,16 @@ class FeedList {
 	
 			//get unread count per folder                                                                        
 			$sql = "select f.id, f.name, count(*) as cnt "
-			." from "
-			.getTable('item') ." i, "
-			.getTable('channels') . " c, "
-			.getTable('folders') ." f "
+			." from " .getTable('item') ." i "
+			." inner join " . getTable('channels') . " c on c.id = i.cid "
+			." inner join " . getTable('folders') ." f on f.id = c.parent "
 			." where i.unread & ". RSS_MODE_UNREAD_STATE
 			." and not(i.unread & ". RSS_MODE_DELETED_STATE .")";
 			if (hidePrivate()) {
 				$sql .=" and not(unread & " . RSS_MODE_PRIVATE_STATE .") ";
 			}
 			$sql .= " and not(c.mode & " . RSS_MODE_DELETED_STATE .") ";
-			$sql .= " and i.cid=c.id and c.parent=f.id "
-			." group by f.id"; 
+			$sql .= " group by f.id";
 	        _pf('query');
 			$res = rss_query($sql);
 	        _pf('ok');	
@@ -248,8 +246,8 @@ class FeedList {
 
 	function populate() {
 		_pf('FeedList->populate() ...');
-		$sql = "select "." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr, c.mode "." from ".getTable("channels")." c, "
-		.getTable("folders")." f "." where f.id = c.parent";
+		$sql = "select "." c.id, c.title, c.url, c.siteurl, f.name, c.parent, c.icon, c.descr, c.mode "." from ".getTable("channels")." c "
+		."inner join " . getTable("folders")." f on f.id = c.parent";
 
 		if (hidePrivate()) {
 			$sql .= " and not(c.mode & ".RSS_MODE_PRIVATE_STATE.") ";

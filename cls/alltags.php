@@ -76,12 +76,12 @@ class Tags {
 			.getTable('metatag');
 		if($this -> type == 'channel'){
 			$sql .= " left join " . getTable('channels') . " c on (fid=c.id),"
-				.getTable('tag')." t "." where tid=t.id "
-				. " and ttype = 'channel'";
+				."inner join " . getTable('tag')." t "." on tid=t.id "
+				. " where ttype = 'channel'";
 		}else{
 			$sql .= " left join ".getTable('item')." i on (fid=i.id),"
-				.getTable('tag')." t "." where tid=t.id "
-				." and ttype = 'item'";
+				."inner join " . getTable('tag')." t "." on tid=t.id "
+				." where ttype = 'item'";
 		}
 
 
@@ -120,8 +120,6 @@ class Tags {
 
 			$cntr ++;
 		}
-
-
 	}
 	
 	/**

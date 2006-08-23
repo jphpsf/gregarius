@@ -54,8 +54,9 @@ function rss_toolkit_channels_combo($id, $all_channels_id = ALL_CHANNELS_ID, $se
 
   $sql = "select "
          ." c.id, c.title, f.name, f.id  "
-         ." from " . getTable("channels") ." c, " . getTable("folders"). " f "
-         ." where f.id=c.parent ";
+         ." from " . getTable("channels") ." c " 
+         ." inner join " . getTable("folders"). " f "
+         ."   on f.id = c.parent ";
 
   if (hidePrivate()) {
     $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";

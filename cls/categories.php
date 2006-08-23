@@ -108,18 +108,16 @@ class CatList extends FeedList {
 
 			//get unread count per folder
 			$sql = "select m.tid, t.tag, count(*) as cnt "
-			." from "
-			.getTable('item') ." i, "
-			.getTable('channels') . " c, "
-			.getTable('metatag') ." m, "
-			.getTable('tag') . " t"
+			." from " . getTable('item') ." i "
+			." inner join " . getTable('channels') . " c on c.id = i.cid "
+			." inner join " . getTable('metatag') ." m on m.fid = c.id "
+			." inner join " . getTable('tag') . " t on t.id = m.tid "
 			." where i.unread & ". RSS_MODE_UNREAD_STATE
 			." and not(i.unread & ". RSS_MODE_DELETED_STATE .")";
 			if (hidePrivate()) {
 				$sql .=" and not(unread & " . RSS_MODE_PRIVATE_STATE .") ";
 			}
 			$sql .= " and not(c.mode & " . RSS_MODE_DELETED_STATE .") ";
-			$sql .= " and i.cid=c.id and c.id=m.fid and m.tid=t.id"
 			." group by m.tid";
 			_pf('query');
 			$res = rss_query($sql);
@@ -141,13 +139,10 @@ class CatList extends FeedList {
 		_pf('CatList->populate() ...');
 		$sql = "select "
 		 ." c.id, c.title, c.url, c.siteurl, t.tag, c.parent, c.icon, c.descr, c.mode, t.id "
-		 ." from "
-		 .getTable('channels') ." c, "
-		 .getTable('metatag') ." m, "
-		 .getTable('tag') . " t "
-		 ." where m.fid = c.id and m.ttype = 'channel' "
-		 ." and m.tid = t.id ";
-
+		 ." from " . getTable('channels') ." c "
+		 ." inner join " . getTable('metatag') ." m m.fid = c.id "
+		 ." inner join " . getTable('tag') . " t on t.id = m.tid "
+		 ." where m.ttype = 'channel' "
 
 		if (hidePrivate()) {
 			$sql .= " and not(c.mode & ".RSS_MODE_PRIVATE_STATE.") ";

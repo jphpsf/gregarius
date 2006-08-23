@@ -26,7 +26,6 @@
 #
 ###############################################################################
 
-
 function rss_search_title() {
 	if (isset($GLOBALS['rss'] -> searchFormTitle)) {
 		return $GLOBALS['rss'] -> searchFormTitle;
@@ -98,8 +97,9 @@ function rss_search_channels_combo($id) {
 
 	$sql = "select "
 		     ." c.id, c.title, f.name, f.id  "
-		     ." from " . getTable("channels") ." c, " . getTable("folders"). " f "
-		     ." where f.id=c.parent ";
+		     ." from " . getTable("channels") ." c " 
+         ." inner join " . getTable("folders"). " f "
+		     ."   on f.id = c.parent ";
 		      
 	if (hidePrivate()) {
 		$sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";	      
