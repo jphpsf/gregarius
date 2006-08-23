@@ -95,7 +95,7 @@ function item_admin() {
                 return CST_ADMIN_DOMAIN_ITEM;
                 break;
             }
-            $sql = " from ".getTable('item') ." i INNER JOIN " .getTable('channels') . " c ON c.id=i.cid "
+            $sql = " from ".getTable('item') ." i inner join " .getTable('channels') . " c on c.id=i.cid "
                    ." where 1=1 ";
 
             if (array_key_exists('prune_channel', $_REQUEST)) {
@@ -130,9 +130,10 @@ function item_admin() {
                         }
                     }
 
-                    $tsql = " select distinct fid from ". getTable('metatag') . " m, "
-                            . getTable('tag') . " t"
-                            ." where m.tid=t.id and t.tag in ('"
+                    $tsql = " select distinct fid from ". getTable('metatag') . " m "
+                            . " inner join " . getTable('tag') . " t"
+                            . "   on t.id = m.tid "
+                            . " where t.tag in ('"
                             . implode("', '", $trimmed_exclude_tags) ."')";
                 }
                 $tres = rss_query($tsql);
@@ -150,7 +151,7 @@ function item_admin() {
                 //echo "<pre>\n";
                 //delete the tags for these items
                 $sqlids = "select distinct i.id,i.cid " . $sql
-                          . " and i.cid=c.id order by i.cid, i.id desc";
+                          . " order by i.cid, i.id desc";
 
 
                 $rs = rss_query($sqlids);

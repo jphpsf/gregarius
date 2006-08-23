@@ -97,8 +97,9 @@ function channels() {
 
     $sql = "select "
            ." c.id, c.title, c.url, c.siteurl, d.name, c.descr, c.parent, c.icon, c.mode, c.daterefreshed "
-           ." from " .getTable("channels") ." c, " . getTable("folders") ." d "
-           ." where d.id = c.parent ";
+           ." from " .getTable("channels") ." c "
+           ." inner join " . getTable("folders") ." d "
+           ."   on d.id = c.parent ";
 
     if (getConfig('rss.config.absoluteordering')) {
         $sql .=" order by d.position asc, c.position asc";
@@ -122,9 +123,10 @@ function channels() {
 
         // get feed's tags
         $tags = "";
-        $sql2 = "select t.id, t.tag from " . getTable('tag') . " t, "
-                . getTable('metatag') . " m where t.id = m.tid "
-                . "and m.ttype = 'channel' and m.fid = $id";
+        $sql2 = "select t.id, t.tag from " . getTable('tag') . " t "
+                . "inner join " . getTable('metatag') . " m "
+                . "  on m.tid = t.id "
+                . "where m.ttype = 'channel' and m.fid = $id";
         $res2 = rss_query($sql2);
 
         while(list ($id_, $name_) = rss_fetch_row($res2)) {
@@ -750,8 +752,10 @@ function channel_edit_form($cid) {
     $res = rss_query($sql);
     list ($id, $title, $url, $siteurl, $parent, $descr, $icon, $mode, $daterefreshed, $dateadded) = rss_fetch_row($res);
     // get tags
-    $sql = "select t.tag from " . getTable('tag')." t, " . getTable('metatag')
-           . " m where t.id = m.tid and m.ttype = 'channel' and m.fid = $cid";
+    $sql = "select t.tag from " . getTable('tag')." t " 
+         . "  inner join " . getTable('metatag') . " m "
+         . "    on m.tid = t.id "
+         . "where m.ttype = 'channel' and m.fid = $cid";
     $res = rss_query($sql);
     $tags = "";
     while($r = rss_fetch_assoc($res)) {
