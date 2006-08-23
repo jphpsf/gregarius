@@ -287,16 +287,12 @@ class ItemList {
 			." unix_timestamp(ifnull(i.pubdate,i.added)) as ts, "
 			." i.pubdate is not null as ispubdate, i.id, r.rating  ";
 		$this -> _sqlActualFrom = 	getTable("item") ." i "
-			." left join "
-			. getTable("rating") ." r on (i.id = r.iid), "
-			.getTable("channels")." c, "
-			.getTable("folders") ." f ";
+			." left join " . getTable("rating") ." r on (i.id = r.iid) "
+			." inner join " . getTable("channels")." c on (c.id = i.cid) "
+			." inner join " . getTable("folders") ." f on (f.id = c.parent) ";
 
-		$this -> _sqlActualWhere = " i.cid = c.id and "
-			." f.id=c.parent and ". (false == $includeDeprecated ? " not(c.mode & ".RSS_MODE_DELETED_STATE.") and " : "")
+		$this -> _sqlActualWhere = (false == $includeDeprecated ? " not(c.mode & ".RSS_MODE_DELETED_STATE.") and " : "")
 			." not(i.unread & ".RSS_MODE_DELETED_STATE.") and ";
-			
-
 
 		if (hidePrivate()) {
 			$this -> _sqlActualWhere .= " not(i.unread & ".RSS_MODE_PRIVATE_STATE.") and ";
@@ -412,12 +408,13 @@ class ItemList {
 		// Tags!
 		if (count($this -> iids)) {
 			// fetch the tags for the items;
-			$sql = "select t.tag,m.fid,i.cid "
-			." from "
-			.getTable('tag')." t, "
-			.getTable('metatag')." m, "
-			.getTable('item')." i "
-			." where m.tid = t.id and i.id=m.fid and m.ttype = 'item' and m.fid in (".implode(",", $this -> iids).")";
+			$sql = "select t.tag, m.fid, i.cid "
+			." from " . getTable('tag')." t "
+			." inner join " . getTable('metatag') . " m "
+			."   on m.tid = t.id "
+			." inner join " . getTable('item')." i "
+			."   on i.id = m.fid "
+			." where m.ttype = 'item' and m.fid in (".implode(",", $this -> iids).")";
 			
 			$res = $GLOBALS['rss_db']->rss_query($sql);
 			while (list ($tag_, $iid_, $cid_) = $GLOBALS['rss_db']->rss_fetch_row($res)) {
