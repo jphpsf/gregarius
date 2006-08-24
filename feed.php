@@ -60,6 +60,7 @@ if (
     && !is_numeric($_REQUEST['channel'])
 ) {
     $sqlid = sanitize($_REQUEST['channel'], RSS_SANITIZER_SIMPLE_SQL | RSS_SANITIZER_NO_SPACES);
+
     $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
     if (hidePrivate()) {
         $sql .=" and not(mode & " . RSS_MODE_PRIVATE_STATE .") ";
@@ -1276,7 +1277,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 
         case 'folder':
             $sql = "select  f.id, f.name, count(*) from " . getTable('channels') . " c "
-                   ."inne join " . getTable('folders') . " f on f.id = c.parent "
+                   ."inner join " . getTable('folders') . " f on f.id = c.parent "
                    ." where f.name != '' ";
 
             if (hidePrivate()) {
