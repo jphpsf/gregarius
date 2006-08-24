@@ -214,7 +214,7 @@ function _et(id) {
         var fld = document.getElementById("tfield" + id);
       toggle.innerHTML="<?php echo  LBL_TAG_SUBMITTING ?>";
         submit_tag(id,fld.value);
-    } else if (toggle.innerHTML == "<?php echo  LBL_TAG_EDIT ?>") {
+    } else if (toggle.innerHTML == "<?php echo LBL_TAG_EDIT ?>") {
        var isIE=document.all?true:false;
        // the tag container
        var tc=document.getElementById("t"+id);

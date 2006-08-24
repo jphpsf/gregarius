@@ -90,7 +90,7 @@ function opml() {
 
     // export
     opml_export_form();
-
+	dump_export_form();
     echo "</div>\n";
 }
 
@@ -108,6 +108,21 @@ function opml_export_form() {
     echo "<form method=\"$method\" action=\"$action\">\n"
     ."<p><label for=\"action\">". LBL_ADMIN_OPML_EXPORT_OPML. "</label>\n"
     ."<input type=\"submit\" name=\"act\" id=\"action\" value=\"". LBL_ADMIN_EXPORT ."\" />"
+    ."</p>\n</form>\n"
+    ."</fieldset>\n";
+}
+
+
+/***** DUMP ******/
+
+function dump_export_form() {
+
+    echo "<fieldset style=\"vertical-align:top\">\n<legend>".__('XML Dump:')."</legend>\n";
+    echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n"
+    ."<p><label for=\"action\">". __('Dump your Gregarius installation to XML'). "</label>\n"
+    ."<input type=\"submit\" name=\"dumpact\" id=\"action\" value=\"".__('Dump!')."\" />"
+	."<input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN ."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\"/>\n"
+	."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"dump\"/>\n"
     ."</p>\n</form>\n"
     ."</fieldset>\n";
 }

@@ -37,20 +37,7 @@ function checkSchema() {
 	
 	$missing_tables = array();
 	$actual_tables=array();
-	$expected_tables = array (
-		"channels" => trim(getTable("channels")),
-		"config" => trim(getTable("config")),
-		"folders" => trim(getTable("folders")),
-		"item" => trim(getTable("item")),
-		"metatag" => trim(getTable("metatag")),
-		"tag" => trim(getTable("tag")),
-		"rating" => trim(getTable("rating")),
-		"cache" => trim(getTable("cache")),
-		"users" => trim(getTable("users")),		
-		"dashboard" => trim(getTable("dashboard")),
-		"properties" => trim(getTable("properties")),
-
-	);
+	$expected_tables = getExpectedTables();
 	
 	$rs = rss_query( "show tables", true, true );
 	while(list($tbl) = rss_fetch_row($rs)) {
@@ -91,6 +78,23 @@ function checkSchema() {
 	return $updated;
 }
 
+function getExpectedTables() {
+$expected_tables = array (
+		"channels" => trim(getTable("channels")),
+		"config" => trim(getTable("config")),
+		"folders" => trim(getTable("folders")),
+		"item" => trim(getTable("item")),
+		"metatag" => trim(getTable("metatag")),
+		"tag" => trim(getTable("tag")),
+		"rating" => trim(getTable("rating")),
+		"cache" => trim(getTable("cache")),
+		"users" => trim(getTable("users")),		
+		"dashboard" => trim(getTable("dashboard")),
+		"properties" => trim(getTable("properties")),
+
+	);
+	return $expected_tables;
+}
 function rss_query_wrapper($query, $dieOnError=true, $preventRecursion=false) {
 	global $out;
 
