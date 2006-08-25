@@ -740,42 +740,55 @@ function channel_admin() {
         rss_invalidate_cache();
         break;
 
-	case 'dump':
-		// Make sure this is a POST
-		if(!isset($_POST['dumpact'])) {
-			die('Sorry, you can\'t access this via a GET');
-		}
-		$tbl = array('"','&quot;');
-		error_reporting(E_ALL);
-		rss_require('schema.php');
-		$tables=getExpectedTables();
-		unset($tables['cache']);
-		//$tables=array('channels','tag','config');
-		$bfr='';
-		$bfr .= '<'.'?xml version="1.0" encoding="UTF-8"?'.'>'."\n";
-		$bfr .= '<dump prefix="'.getTable('').'" date="'.date('r').'">'."\n";
-		foreach($tables as $table => $prefixed) {
-			$rs = rss_query("select * from $prefixed");
-			$bfr .="<$table>\n";
-			while($row=rss_fetch_assoc($rs)) {
-				$r="<row ";
-				foreach($row as $key => $val) {
-					$val=htmlspecialchars($val);
-					$r.=" $key=\"$val\" ";
-				}
-				$r .= "/>\n";
-				$bfr .=$r;
+		case 'dump':
+			// Make sure this is a POST
+			if(!isset($_POST['dumpact'])) {
+				die('Sorry, you can\'t access this via a GET');
 			}
-			$bfr .="</$table>\n";
-		}
-		$bfr .='</dump>'."\n";
-		$gzdata = gzencode($bfr, 9);
-		$tempfname=tempnam("/tmp", "rss.dump").'.xml.gz';
-		$df=fopen($tempfname,'w');
-		fwrite($df, $gzdata);
-		fclose($df);
-		die($tempfname);
-		break;
+			$tbl = array('"','&quot;');
+			error_reporting(E_ALL);
+			rss_require('schema.php');
+			$tables=getExpectedTables();
+			unset($tables['cache']);
+			//$tables=array('channels','tag','config');
+			$bfr='';
+			$bfr .= '<'.'?xml version="1.0" encoding="UTF-8"?'.'>'."\n";
+			$bfr .= '<dump prefix="'.getTable('').'" date="'.date('r').'">'."\n";
+			foreach($tables as $table => $prefixed) {
+				$rs = rss_query("select * from $prefixed");
+				$bfr .="<$table>\n";
+				while($row=rss_fetch_assoc($rs)) {
+					$r="<row ";
+					foreach($row as $key => $val) {
+						$val=htmlspecialchars($val);
+						$r.=" $key=\"$val\" ";
+					}
+					$r .= "/>\n";
+					$bfr .=$r;
+				}
+				$bfr .="</$table>\n";
+			}
+			$bfr .='</dump>'."\n";
+			$gzdata = gzencode($bfr, 9);
+
+
+			// Delete the output buffer. This is probably a bad thing to do, if the ob'ing is turned off.
+			// e.g. data was already sent to the brwoser.
+			while (@ob_end_clean());
+
+			// Send the dump to the browser:
+			header("Pragma: public"); // required
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Connection: close");
+			header("Content-Transfer-Encoding: binary");
+			header("Content-Length: " . strlen($gzdata));
+			header('Content-type: application/x-gzip');
+			header('Content-disposition: inline; filename="gregarius.dump.'.date('MjSY').'.xml.gz"');
+
+			die($gzdata);
+
+			break;
     default:
         break;
     }
