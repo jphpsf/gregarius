@@ -142,7 +142,7 @@ class CatList extends FeedList {
 		 ." from " . getTable('channels') ." c "
 		 ." inner join " . getTable('metatag') ." m on m.fid = c.id "
 		 ." inner join " . getTable('tag') . " t on t.id = m.tid "
-		 ." where m.ttype = 'channel' "
+		 ." where m.ttype = 'channel' ";
 
 		if (hidePrivate()) {
 			$sql .= " and not(c.mode & ".RSS_MODE_PRIVATE_STATE.") ";
