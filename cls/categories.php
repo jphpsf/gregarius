@@ -117,7 +117,7 @@ class CatList extends FeedList {
 			if (hidePrivate()) {
 				$sql .=" and not(unread & " . RSS_MODE_PRIVATE_STATE .") ";
 			}
-			$sql .= " and not(c.mode & " . RSS_MODE_DELETED_STATE .") ";
+			$sql .= " and not(c.mode & " . RSS_MODE_DELETED_STATE .") "
 			." group by m.tid";
 			_pf('query');
 			$res = rss_query($sql);
@@ -140,7 +140,7 @@ class CatList extends FeedList {
 		$sql = "select "
 		 ." c.id, c.title, c.url, c.siteurl, t.tag, c.parent, c.icon, c.descr, c.mode, t.id "
 		 ." from " . getTable('channels') ." c "
-		 ." inner join " . getTable('metatag') ." m m.fid = c.id "
+		 ." inner join " . getTable('metatag') ." m on m.fid = c.id "
 		 ." inner join " . getTable('tag') . " t on t.id = m.tid "
 		 ." where m.ttype = 'channel' "
 
