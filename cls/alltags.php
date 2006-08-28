@@ -66,6 +66,8 @@ class Tags {
 	}
 	
 	
+	
+	
 	/**
 	 * Fills the instance data for this object: gets a hold 
 	 * of all tags defined in the system.
@@ -75,11 +77,11 @@ class Tags {
 		$sql = "select t.id, tag, count(*) as cnt from "
 			.getTable('metatag');
 		if($this -> type == 'channel'){
-			$sql .= " left join " . getTable('channels') . " c on (fid=c.id),"
+			$sql .= " left join " . getTable('channels') . " c on (fid=c.id) "
 				."inner join " . getTable('tag')." t "." on tid=t.id "
 				. " where ttype = 'channel'";
 		}else{
-			$sql .= " left join ".getTable('item')." i on (fid=i.id),"
+			$sql .= " left join ".getTable('item')." i on (fid=i.id) "
 				."inner join " . getTable('tag')." t "." on tid=t.id "
 				." where ttype = 'item'";
 		}
@@ -90,7 +92,7 @@ class Tags {
 			$sql .= " and not(i.unread & ".RSS_MODE_PRIVATE_STATE.") ";
 		}
 		
-		$sql .= "group by tid order by tag";
+		$sql .= " group by tid order by tag";
 
 		
 		$res = rss_query($sql);
@@ -160,7 +162,7 @@ class Tags {
 			foreach ($this->allTags as $tag => $cnt) {
 				$taglink = $this -> makeTagLink($tag);
 				$ret .= "\t<a href=\"$taglink\" title=\"$cnt "
-					. ($cnt > 1 || $cnt == 0 ? LBL_ITEMS : LBL_ITEM)."\" style=\"font-size: "
+					. ($cnt > 1 || $cnt == 0 ? __('items') : __('item'))."\" style=\"font-size: "
 					. (SMALLEST + ($cnt / $fontstep)).UNIT.";\">$tag</a> \n";
 			}
 		} else {
