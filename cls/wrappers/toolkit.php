@@ -46,7 +46,7 @@ function rss_toolkit_folders_combo($name, $selected = -1) {
 		return $ret;
 }
 
-function rss_toolkit_channels_combo($id, $all_channels_id = ALL_CHANNELS_ID, $selected = 0) {
+function rss_toolkit_channels_combo($id, $all_channels_id = ALL_CHANNELS_ID, $selected = 0, $showDeprecated = false) {
   $ret = "\t\t<select name=\"$id\" id=\"$id\">\n"
       ."\t\t\t<option value=\"". $all_channels_id ."\""
       .(0 == $selected?" selected=\"selected\"":"")
@@ -62,7 +62,9 @@ function rss_toolkit_channels_combo($id, $all_channels_id = ALL_CHANNELS_ID, $se
     $sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";
   }
 
-  $sql .=" and not(c.mode & " . RSS_MODE_DELETED_STATE .") ";
+  if(false == $showDeprecated) {
+	  $sql .=" and not(c.mode & " . RSS_MODE_DELETED_STATE .") ";
+	}
 
   $sql .= " order by "
        .((getConfig('rss.config.absoluteordering'))?"f.position asc, c.position asc":"f.name asc, c.title asc");
