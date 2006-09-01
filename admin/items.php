@@ -46,7 +46,7 @@ function items() {
     . "<option>" . LBL_ADMIN_PRUNE_MONTHS . "</option>\n"
     . "<option>" . LBL_ADMIN_PRUNE_YEARS . "</option>\n"
     . "</select></p>\n"
-    . "<p>\n"
+    . "<p><label for=\"prune_channel\">".__('...from these feeds').":</label>\n"
 		. rss_toolkit_channels_combo("prune_channel", ALL_CHANNELS_ID, 0, true) . "\n"
     . "</p>\n"
     . "<p><label for=\"prune_include_sticky\">".LBL_ADMIN_PRUNE_INCLUDE_STICKY."</label>\n"
