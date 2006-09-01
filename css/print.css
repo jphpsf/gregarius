@@ -1,6 +1,6 @@
-form,ul.navlist,#channels,#footer,span.readmore,h3.collapsed,a.plink,ul#sidemenu,.readmore { display: none }
+form,ul.navlist,#channels,#footer,span.readmore,h3.collapsed,a.plink,ul#sidemenu,div.readmore,.readmore,#loginfo { display: none }
 li.item { border-bottom: 1px solid #000 }
 li,ul,h4 { margin: 0; padding: 0}
 div#items,div#search { margin-left: 0 }
 h4,div.frame,li.item { border: none }
-body { background-color: white; padding: 2em; margin:0 }
+body { background-color: white; padding:0; margin:0 }
