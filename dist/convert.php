@@ -29,7 +29,7 @@
 
 					if(is_array($matches)) {
 						foreach($matches as $match) {
-							preg_replace($match, '__(' . eval('echo ' . $match . ';') . ')', $line);
+							preg_replace($match, '__("' . eval('echo ' . $match . ';') . '")', $line);
 						}
 					}
 
