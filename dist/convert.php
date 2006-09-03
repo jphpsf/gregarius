@@ -1,38 +1,52 @@
 <?php
 	include_once('intl/en.php');
 
+	$EXCLUDE = array('intl', 'extlib');
+
 	function Convert($dir)
 	{
-		if(!is_dir($dir) || "intl" == $dir) {
+		global $EXCLUDE;
+
+		if(!is_dir($dir) || in_array($dir, $EXCLUDE)) {
 			return;
 		}
 
 		$baseDir = opendir($dir);
 		while($file = readdir($baseDir)) {
-			if("." == $file ||
-				 ".." == $file) {
+			if('.' == $file ||
+				 '..' == $file) {
 				continue;
 			}
 
 			if(is_dir($file)) {
 				Convert($file);
 			} else {
-				$fp = fopen($file, 'w+');
+				$old = fopen($file, 'r');
+				$new = fopen($file . '.new', 'w');
 
-				while(($line = fread($fp) != feof()) {
+				while(($line = fread($old)) != feof($old)) {
+					preg_match('/\.*.LBL_*.\.', $line, $matches);
 
+					if(is_array($matches)) {
+						foreach($matches as $match) {
+							preg_replace($match, eval('echo ' . $match . ';'), $line);
+						}
+					}
 
+					fwrite($new, $line);
 				}
-				flush($fp);
-				fclose($fp);
 
-#				define('A', "Hello, World");
-#				$con = "A";
-#				$val = eval('echo ' . $con . ';');
-#				echo $val;
+				flush($new);
+				fclose($old);
+				fclose($new);
+
+				rename($old, $old . '.old');
+				rename($new, $old);
+
+				echo "Completed .. " . $old . "\n";
 			}
 		}
 	}
 
-	Convert(".");
+	Convert('.');
 ?>
