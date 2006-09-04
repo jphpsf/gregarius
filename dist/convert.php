@@ -1,7 +1,7 @@
 <?php
 	include_once('intl/en.php');
 
-	$EXCLUDE = array('intl', 'extlib');
+	$EXCLUDE = '#(intl|extlib|dist)#';
 
 	Convert('.');
 
@@ -18,13 +18,12 @@
 	{
 		global $EXCLUDE;
 
-		if(!is_dir($dir) || in_array($dir, $EXCLUDE)) {
-			return;
-		}
 		$files=array_keys(preg_find('/\.php$/',$dir,PREG_FIND_RECURSIVE | PREG_FIND_FULLPATH));
-		var_dump($files);
 		foreach($files as  $file) {
-
+			if (preg_match($EXCLUDE,$file)) {
+				echo "Skiping $file\n";
+				continue;
+			}
 			echo "Now handling $file ... ";
 	
 			$oldfile=$file;
