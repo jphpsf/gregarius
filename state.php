@@ -33,13 +33,13 @@ $items -> setRenderOptions(IL_NO_COLLAPSE);
 
 if(array_key_exists('state', $_GET) && RSS_STATE_FLAG == $_GET['state']) {
     $items -> populate( "i.unread & " . RSS_MODE_FLAG_STATE	);
-    $GLOBALS['rss'] -> header = new Header(LBL_FLAG . " " . LBL_ITEMS);
+    $GLOBALS['rss'] -> header = new Header(__('Flagged') . " " . __('items'));
 } else if (array_key_exists('state', $_GET) && RSS_STATE_STICKY == $_GET['state']) {
     $items -> populate( "i.unread & " . RSS_MODE_STICKY_STATE	);
-    $GLOBALS['rss'] -> header = new Header(LBL_STICKY . " " . LBL_ITEMS);
+    $GLOBALS['rss'] -> header = new Header(__('Sticky') . " " . __('items'));
 } else {
     $items -> populate( "i.unread & " . RSS_MODE_FLAG_STATE	. " OR i.unread & " . RSS_MODE_STICKY_STATE );
-    $GLOBALS['rss'] -> header = new Header(LBL_ITEMS);
+    $GLOBALS['rss'] -> header = new Header(__('items'));
 }
 
 $GLOBALS['rss'] -> feedList = new FeedList(false);

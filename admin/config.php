@@ -28,7 +28,7 @@
 /*************** Config management ************/
 
 function config() {
-    echo "<h2 class=\"trigger\">".LBL_ADMIN_CONFIG."</h2>\n"
+    echo "<h2 class=\"trigger\">".__('Configuration:')."</h2>\n"
     ."<div id=\"admin_config\" class=\"trigger\">\n";
 
     config_table_header();
@@ -64,10 +64,10 @@ function config_table_header($caption=null) {
         echo "<caption>$caption</caption>\n";
     }
     echo "<tr>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_KEY ."</th>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_VALUE ."</th>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
-    ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+    ."\t<th>". __('Key') ."</th>\n"
+    ."\t<th>". __('Value') ."</th>\n"
+    ."\t<th>". __('Description') ."</th>\n"
+    ."\t<th class=\"cntr\">". __('Action') ."</th>\n"
     ."</tr>\n";
 }
 
@@ -153,14 +153,14 @@ function config_table_row($row, $class_, $adminDomain, $extraLinkText='') {
     ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". $adminDomain
     ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;key=".$row['key_']
     ."&amp;".CST_ADMIN_VIEW."=". $adminDomain
-    ."$extraLinkText\">" . LBL_ADMIN_EDIT
+    ."$extraLinkText\">" . __('edit')
     ."</a>";
 
     if ($row['value_'] != $row['default_'] && $row['key_'] != 'rss.config.plugins') {
         echo "|"
 
         ."<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". $adminDomain
-        ."&amp;action=". CST_ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."$extraLinkText\">" . LBL_ADMIN_DEFAULT
+        ."&amp;action=". CST_ADMIN_DEFAULT_ACTION. "&amp;key=".$row['key_']."$extraLinkText\">" . __('default')
         ."</a>";
     }
 
@@ -197,11 +197,11 @@ function config_admin() {
             break;
         }
 
-        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == __('Yes')) {
             rss_query("update " . getTable('config') ." set value_=default_ where key_='$key'" );
             rss_invalidate_cache();
         }
-        elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
+        elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == __('No')) {
             //nop
         }
         else {
@@ -227,11 +227,11 @@ function config_admin() {
         config_edit_form($key,$value,$default,$type,$desc,$export,$onclickaction);
 
         echo "<p style=\"display:inline\">\n";
-        echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_PREVIEW_CHANGES ."\""
+        echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". __('Preview') ."\""
       .($onclickaction?" onclick=\"$onclickaction\"":"") ." />\n":"");
         echo "<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"ACT_ADMIN_SUBMIT_CHANGES\" />";
 
-        echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\""
+        echo "<input type=\"submit\" name=\"action\" value=\"". __('Submit Changes') ."\""
         .($onclickaction?" onclick=\"$onclickaction\"":"")
         ." /><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG ."\"/>\n</p></form>\n";
 
@@ -239,18 +239,18 @@ function config_admin() {
         echo "<form style=\"display:inline\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
         ."<p style=\"display:inline\">\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG ."\"/>\n"
         ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"ACT_ADMIN_SUBMIT_CANCEL\" />"
-        ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/></p></form>\n"
+        ."<input type=\"submit\" name=\"action\" value=\"". __('Cancel') ."\"/></p></form>\n"
         ."\n\n</div>\n";
 
         $ret__ = CST_ADMIN_DOMAIN_NONE;
         break;
 
-    case LBL_ADMIN_PREVIEW_CHANGES:
+    case __('Preview'):
     case 'ACT_ADMIN_PREVIEW_CHANGES':
         rss_error('fixme: preview not yet implemented', RSS_ERROR_ERROR,true);
         break;
 
-    case LBL_ADMIN_SUBMIT_CHANGES:
+    case __('Submit Changes'):
     case 'ACT_ADMIN_SUBMIT_CHANGES':
 
         $key = sanitize($_POST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
@@ -324,12 +324,12 @@ function config_admin() {
                 $sql = "update " . getTable('config') . " set value_='$value' where key_='$key'";
                 break;
             case 'boolean':
-                if ($value != LBL_ADMIN_TRUE && $value != LBL_ADMIN_FALSE) {
+                if ($value != __('True') && $value != __('False')) {
                     rss_error('Oops, invalid value for ' . $key .": " . $value, RSS_ERROR_ERROR,true);
                     break;
                 }
                 $sql = "update " . getTable('config') . " set value_='"
-                       .($value == LBL_ADMIN_TRUE ? 'true':'false') ."'"
+                       .($value == __('True') ? 'true':'false') ."'"
                        ." where key_='$key'";
                 break;
             case 'enum':
@@ -434,7 +434,7 @@ function config_edit_form($key,$value,$default,$type,$desc,$export, & $onclickac
         $active_lang = getConfig('rss.output.lang');
 
 
-        echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
+        echo "<label for=\"c_value\">". __('Value for') ." $key:</label>\n"
         ."\t\t<select name=\"value\" id=\"c_value\">\n";
         $cntr = 0;
         $value = "";
@@ -454,25 +454,25 @@ function config_edit_form($key,$value,$default,$type,$desc,$export, & $onclickac
         switch ($type) {
         case 'string':
         case 'num':
-            echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
+            echo "<label for=\"c_value\">". __('Value for') ." $key:</label>\n"
             ."<input type=\"text\" id=\"c_value\" name=\"value\" value=\"$value\"/>";
             break;
         case 'boolean':
-            echo LBL_ADMIN_CONFIG_VALUE ." $key:</p><p>";
+            echo __('Value for') ." $key:</p><p>";
             echo "<input type=\"radio\" id=\"c_value_true\" name=\"value\""
             .($value == 'true' ? " checked=\"checked\"":"") .""
-            ." value=\"".LBL_ADMIN_TRUE."\" "
+            ." value=\"".__('True')."\" "
             ."/>\n"
-            ."<label for=\"c_value_true\">" . LBL_ADMIN_TRUE . "</label>\n";
+            ."<label for=\"c_value_true\">" . __('True') . "</label>\n";
 
             echo "<input type=\"radio\" id=\"c_value_false\" name=\"value\""
             .($value != 'true' ? " checked=\"checked\"":"") .""
-            ." value=\"".LBL_ADMIN_FALSE."\" "
+            ." value=\"".__('False')."\" "
             ."/>\n"
-            ."<label for=\"c_value_false\">" . LBL_ADMIN_FALSE . "</label>\n";
+            ."<label for=\"c_value_false\">" . __('False') . "</label>\n";
             break;
         case 'enum':
-            echo "<label for=\"c_value\">". LBL_ADMIN_CONFIG_VALUE ." $key:</label>\n"
+            echo "<label for=\"c_value\">". __('Value for') ." $key:</label>\n"
             ."\t\t<select name=\"value\" id=\"c_value\">\n";
             $arr = explode(',',$value);
             $idx = array_pop($arr);
@@ -504,10 +504,10 @@ function config_default_form($key, $type, $default, $adminDomain) {
     }
 
     echo "<p class=\"error\">";
-    printf(LBL_ADMIN_ARE_YOU_SURE_DEFAULT,$key,$html_default);
+    printf(__("Are you sure you wish to reset the value for %s to its default '%s'?"),$key,$html_default);
     echo "</p>\n"
-    ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
-    ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
+    ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('No') ."\"/>\n"
+    ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('Yes') ."\"/>\n"
     ."<input type=\"hidden\" name=\"key\" value=\"$key\"/>\n"
     ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".$adminDomain."\"/>\n"
     ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DEFAULT_ACTION ."\"/>\n"

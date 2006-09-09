@@ -140,7 +140,7 @@ function unreadItems($show_what) {
 	
 	$ret = $unreadItems -> unreadCount;
 	 
-	 $unreadItems -> setTitle(sprintf(LBL_H2_UNREAD_ITEMS , $ret));
+	 $unreadItems -> setTitle(sprintf(__('Unread items (<strong id="ucnt">%d</strong>)') , $ret));
 	 $unreadItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 	 $GLOBALS['rss'] -> appendContentObject($unreadItems);	
      _pf('appended unread items');
@@ -206,7 +206,7 @@ function readItems($limit) {
 	}
 
 		
-	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
+	$readItems -> setTitle(__('Recent items'));
 	
 	$GLOBALS['rss'] -> appendContentObject($readItems);	
 	_pf('end read items');
@@ -223,7 +223,7 @@ function markAllReadForm() {
 	}	
 	
    echo "<form action=\"". getPath() ."\" method=\"post\">\n"
-      ."<p><input accesskey=\"m\" type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>\n"
+      ."<p><input accesskey=\"m\" type=\"submit\" name=\"action\" value=\"". __('Mark These Items as Read') ." \"/></p>\n"
       ."<p><input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_READ\"/>\n"
       ."<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
       ."</p></form>\n";

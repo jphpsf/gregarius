@@ -89,7 +89,7 @@ function __stickyflag_Config() {
     }
 
     print ("<fieldset>\n");
-    print ("  <legend>" . LBL_STICKY . " " . LBL_ITEMS . "</legend>\n");
+    print ("  <legend>" . __('Sticky') . " " . __('items') . "</legend>\n");
     print ("   <p><input id='ui_sm' type='checkbox' value='1' name='ui_sm'" . ($options & STICKYFLAG_ENABLE_STICKY_MENU ? "checked='1'" : "") . ">" 
                . "<label for='ui_sm'>Show Menu Item</label></br></p>\n");
     print ("   <p><input id='ui_ss' type='checkbox' value='1' name='ui_ss'" . ($options & STICKYFLAG_ENABLE_STICKY_SHORTCUT ? "checked='1'" : "") . ">" 
@@ -97,7 +97,7 @@ function __stickyflag_Config() {
     print ("   <p>&nbsp;</p>\n");
     print ("</fieldset>\n");
     print ("<fieldset>\n");
-    print ("  <legend>" . LBL_FLAG . " " . LBL_ITEMS . "</legend>\n");
+    print ("  <legend>" . __('Flagged') . " " . __('items') . "</legend>\n");
     print ("    <p><input id='ui_fm' type='checkbox' value='1' name='ui_fm'" . ($options & STICKYFLAG_ENABLE_FLAG_MENU ? "checked='1'" : "") . ">"
                 . "<label for='ui_fm'>Show Menu Item</label></br></p>\n");
     print ("    <p><input id='ui_fs' type='checkbox' value='1' name='ui_fs'" . ($options & STICKYFLAG_ENABLE_FLAG_SHORTCUT ? "checked='1'" : "") . ">"

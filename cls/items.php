@@ -484,7 +484,7 @@ class ItemList {
 class ItemListNavigation {
 	var $_parent;
 	var $pages;
-	function ItemListNavigation($il) {
+	function ItemListNavigation(&$il) {
 		$this -> _parent = $il;
 		$this -> pages = array();
 		$base = $_SERVER["REQUEST_URI"];
@@ -534,7 +534,7 @@ class PaginatedItemList extends ItemList {
 			. " where "
 			. $this -> _sqlActualWhere;
 		list($this -> numItems) = rss_fetch_row(rss_query($sql));
-		$this -> navigation = new ItemListNavigation(& $this);
+		$this -> navigation = new ItemListNavigation($this);
 	}
 }
 ?>

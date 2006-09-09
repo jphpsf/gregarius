@@ -866,10 +866,10 @@ function showViewForm($curValue) {
     // post back to self, we should be able to handle the request, shouldn't we.
     echo "\n<form action=\"".$_SERVER['REQUEST_URI']
     ."\" method=\"post\" id=\"frmShow\">\n"
-    ."<p><label for=\"".SHOW_WHAT."\">".LBL_SHOW_UNREAD_ALL_SHOW."</label>\n"
+    ."<p><label for=\"".SHOW_WHAT."\">".__('Show items: ')."</label>\n"
     ."<select name=\"".SHOW_WHAT."\" id=\"".SHOW_WHAT."\" "." onchange=\"document.getElementById('frmShow').submit();\">\n"
-    ."\t<option value=\"".SHOW_UNREAD_ONLY."\"$unreadOnlySelected>".LBL_SHOW_UNREAD_ALL_UNREAD_ONLY."</option>\n"
-    ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"$readAndUndredaSelected>".LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD."</option>\n"
+    ."\t<option value=\"".SHOW_UNREAD_ONLY."\"$unreadOnlySelected>".__('Unread only')."</option>\n"
+    ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"$readAndUndredaSelected>".__('Read and unread')."</option>\n"
     ."</select></p>\n</form>\n";
 }
 

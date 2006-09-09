@@ -66,7 +66,7 @@ class TagList extends FeedList{
 	
 	function TagList() {
 		$this -> populate();
-		$this -> 	columnTitle = LBL_TAG_TAGS;
+		$this -> 	columnTitle = __('Tags');
 		$GLOBALS['rss']-> feedList = $this;
 	}
 	
@@ -83,7 +83,7 @@ class TagList extends FeedList{
 	}
 	
 	function getStats() {
-		return sprintf(LBL_TAGCOUNT_PF, $this -> countTaggedItems, $this->tagCount);
+		return sprintf(__('<strong>%d</strong> tagged items, in <strong>%d</strong> tags'), $this -> countTaggedItems, $this->tagCount);
 	}
 	
 }

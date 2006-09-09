@@ -78,7 +78,7 @@ function __exp__getFeedContent($cid) {
 	$readItems = new ItemList();
 
 	$readItems -> populate(" not(i.unread & ". RSS_MODE_UNREAD_STATE  .") and i.cid= $cid", "", 0, 2, ITEM_SORT_HINT_READ);
-	$readItems -> setTitle(LBL_H2_RECENT_ITEMS);
+	$readItems -> setTitle(__('Recent items'));
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 	foreach ($readItems -> feeds[0] -> items as $item) {
 		$item -> render();
@@ -191,7 +191,7 @@ function setTags(id,tagss) {
   fld.innerHTML = html;
 
   var aspan=document.getElementById("ta" + id);
-  aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?php echo  LBL_TAG_EDIT ?></a>";
+  aspan.innerHTML = "<a href=\"#\" onclick=\"_et(" +id +"); return false;\"><?php echo  __('edit') ?></a>";
 }
 
 function submit_tag_cb(ret) {
@@ -210,22 +210,22 @@ function submit_tag(id,tags) {
 function _et(id) {
    var actionSpan = document.getElementById("ta" + id);
     var toggle = actionSpan.firstChild;
-    if (toggle.innerHTML == "<?php echo  LBL_TAG_SUBMIT ?>") {
+    if (toggle.innerHTML == "<?php echo  __('submit') ?>") {
         var fld = document.getElementById("tfield" + id);
-      toggle.innerHTML="<?php echo  LBL_TAG_SUBMITTING ?>";
+      toggle.innerHTML="<?php echo  __('...') ?>";
         submit_tag(id,fld.value);
-    } else if (toggle.innerHTML == "<?php echo LBL_TAG_EDIT ?>") {
+    } else if (toggle.innerHTML == "<?php echo __('edit') ?>") {
        var isIE=document.all?true:false;
        // the tag container
        var tc=document.getElementById("t"+id);
         var tags = tc.innerHTML.replace(/<\/?a[^>]*>(\ $)?/gi,""); 
         //.replace(<?php echo ALLOWED_TAGS_REGEXP ?>gi,"");
         // submit link
-        toggle.innerHTML="<?php echo  LBL_TAG_SUBMIT ?>";
+        toggle.innerHTML="<?php echo  __('submit') ?>";
         // cancel link
         cancel = document.createElement("a");
         cancel.style.margin="0 0 0 0.5em";
-        cancel.innerHTML = "<?php echo  LBL_TAG_CANCEL ?>";
+        cancel.innerHTML = "<?php echo  __('cancel') ?>";
         cancel.setAttribute("href","#");
         if (isIE) {
             // the IE sucky way
@@ -514,23 +514,23 @@ function _es(id, state, cid) {
    		+ '<p><input type="checkbox" id="sf' + id + 'u" value="1"'
    		+ (tmpState & <?php echo  RSS_MODE_UNREAD_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 'u"><?php echo  LBL_STATE_UNREAD ?></label></p>'
+		+ '<label for="sf' + id + 'u"><?php echo  __("Unread (Set this item\'s read/unread state)") ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 's" value="1"'
    		+ (tmpState & <?php echo  RSS_MODE_STICKY_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 's"><?php echo  LBL_STATE_STICKY ?></label></p>'
+		+ '<label for="sf' + id + 's"><?php echo  __("Sticky (Won\'t be deleted when you prune items)") ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 'p" value="1"'
    		+ (tmpState & <?php echo  RSS_MODE_PRIVATE_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-		+ '<label for="sf' + id + 'p"><?php echo  LBL_STATE_PRIVATE ?></label></p>'
+		+ '<label for="sf' + id + 'p"><?php echo  __("Private (Only administrators can see private items)") ?></label></p>'
    		+ '<p><input type="checkbox" id="sf' + id + 'f" value="1"'
    		+ (tmpState & <?php echo  RSS_MODE_FLAG_STATE ?> ?' checked="checked"':'')
    		+ ' />'
-    + '<label for="sf' + id + 'f"><?php echo  LBL_STATE_FLAG ?></label></p>'
+    + '<label for="sf' + id + 'f"><?php echo  __("Flag (Flags an item for later reading)") ?></label></p>'
 		+ extraCode
 		+ '<p class="sbm">'
-		+ '<a id="ess'+id+'ok" href="#" onclick="'+onOk+'"><?php echo  LBL_ADMIN_OK ?></a>'
-		+ '<a href="#" onclick="'+onCancel+'"><?php echo  LBL_ADMIN_CANCEL ?></a></p>'
+		+ '<a id="ess'+id+'ok" href="#" onclick="'+onOk+'"><?php echo  __("OK") ?></a>'
+		+ '<a href="#" onclick="'+onCancel+'"><?php echo  __("Cancel") ?></a></p>'
    		+ '</form>';
 
     div.className = 'ief';

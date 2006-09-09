@@ -38,7 +38,7 @@ if (!$ra) {
 	exit;
 }
 
-$t = ucfirst(LBL_ITEMS) . " " . LBL_BY . " " . $ra;
+$t = ucfirst(__('items')) . " " . __(' by ') . " " . $ra;
 $GLOBALS['rss']->header = new Header($t);
 $GLOBALS['rss']->feedList = new FeedList(false);
 $authorItems = new ItemList();

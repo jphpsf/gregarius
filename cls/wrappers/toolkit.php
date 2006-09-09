@@ -39,7 +39,7 @@ function rss_toolkit_folders_combo($name, $selected = -1) {
     while (list($id, $name) = rss_fetch_row($res)) {
         $ret .= "\t<option value=\"$id\""
         .($selected > -1 && $selected == $id ? " selected=\"selected\"":"")
-        .">" .  (($name == "")?LBL_HOME_FOLDER:$name)  ."</option>\n";
+        .">" .  (($name == "")?__('Root'):$name)  ."</option>\n";
     }
     $ret .= "</select>\n";
 
@@ -50,7 +50,7 @@ function rss_toolkit_channels_combo($id, $all_channels_id = ALL_CHANNELS_ID, $se
   $ret = "\t\t<select name=\"$id\" id=\"$id\">\n"
       ."\t\t\t<option value=\"". $all_channels_id ."\""
       .(0 == $selected?" selected=\"selected\"":"")
-    .">" . LBL_ALL  . "</option>\n";
+    .">" . __('All')  . "</option>\n";
 
   $sql = "select "
          ." c.id, c.title, f.name, f.id  "
@@ -78,7 +78,7 @@ function rss_toolkit_channels_combo($id, $all_channels_id = ALL_CHANNELS_ID, $se
         $ret .="\t\t\t</optgroup>\n";
       }
       if ($parent_ == "") {
-        $parent_ = LBL_HOME_FOLDER;
+        $parent_ = __('Root');
       }
       $ret .= "\t\t\t<optgroup label=\"$parent_ /\">\n";
       $prev_parent = $parent_id_;

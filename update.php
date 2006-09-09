@@ -56,7 +56,7 @@ $newsonly = array_key_exists('newsonly', $_GET) || ($cline && in_array('--newson
 $mobile = array_key_exists('mobile',$_GET);
 
 $GLOBALS['rss'] -> header = new Header(
-			LBL_TITLE_UPDATING, 
+			__('Updating'), 
 			LOCATION_UPDATE, 
 			null, 
 			"", 

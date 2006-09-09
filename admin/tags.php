@@ -57,13 +57,13 @@ function tags(){
 		break;
 
 	case CST_ADMIN_DELETE_ACTION:
-		if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+		if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == __('Yes')) {
 			$sql = "delete from " . getTable("tag") ." where id=$tid";
 			rss_query($sql);
 			$sql = "delete from " . getTable("metatag") ." where tid=$tid";
 			rss_query($sql);
 			rss_invalidate_cache();
-		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
+		} elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == __('No')) {
 			// nop;
 		} elseif (array_key_exists('me_delete', $_REQUEST)) {
 			if(array_key_exists('me_do_delete', $_REQUEST) && "1" == $_REQUEST['me_do_delete']) {
@@ -90,10 +90,10 @@ function tags(){
 
 			echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 			."<p class=\"error\">";
-			printf(LBL_ADMIN_ARE_YOU_SURE,$tname);
+			printf(__("Are you sure you wish to delete '%s'?"),$tname);
 			echo "</p>\n"
-			."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
-			."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
+			."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('No') ."\"/>\n"
+			."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('Yes') ."\"/>\n"
 			."<input type=\"hidden\" name=\"id\" value=\"$tid\"/>\n"
 			."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_TAGS."\"/>\n"
 			."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\"/>\n"
@@ -110,7 +110,7 @@ function tags(){
 			$res = rss_query("select count(*) as cnt from " . getTable("tag") ." where binary tag='$new_label'");
 			list($cnt) = rss_fetch_row($res);
 			if ($cnt > 0) {
-				rss_error(sprintf(LBL_ADMIN_CANT_RENAME,$new_label), RSS_ERROR_ERROR,true);
+				rss_error(sprintf(__("You can't rename this item '%s' because such an item already exists."),$new_label), RSS_ERROR_ERROR,true);
 				break;
 			}
 			rss_query("update " .getTable("tag") ." set tag='$new_label' where id=$tid");
@@ -132,13 +132,13 @@ function tags(){
 		."</script>\n";
 
 	echo "<form method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">\n"
-	."<h2 class=\"trigger\">".LBL_TAG_TAGS."</h2>\n"
+	."<h2 class=\"trigger\">".__('Tags')."</h2>\n"
 	."<div id=\"admin_tags\" class=\"trigger\">"
 	."<table id=\"tagtable\">\n"
 	."<tr>\n"
   ."\t<th><input type=\"checkbox\" id=\"mastercb\" onclick=\"cbtoggle();\" /></th>\n"
-	."\t<th class=\"cntr\">". LBL_TAG_TAGS ."</th>\n"
-	."\t<th>". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+	."\t<th class=\"cntr\">". __('Tags') ."</th>\n"
+	."\t<th>". __('Action') ."</th>\n"
 	."</tr>\n";
 
 	$sql = "select id,tag from " .getTable("tag") . " order by tag asc";
@@ -150,10 +150,10 @@ function tags(){
     ."\t<td><input type=\"checkbox\" name=\"tcb$id\" value=\"$id\" id=\"scb_$id\" /></td>\n"
 		."\t<td><label for=\"scb_$id\">$tag</label></td>\n"
 		."\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_TAGS
-		."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;id=$id\">" . LBL_ADMIN_EDIT
+		."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;id=$id\">" . __('edit')
 		."</a>\n"
 		."|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_TAGS
-		."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;id=$id\">" . LBL_ADMIN_DELETE ."</a>\n"
+		."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;id=$id\">" . __('delete') ."</a>\n"
 		."</td>\n"
 		."</tr>\n";
 	}
@@ -161,9 +161,9 @@ function tags(){
 	echo "<fieldset>\n"
 	."<legend>Selected...</legend>\n"
 	."<p>\n"
-	."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".LBL_ADMIN_DELETE2."\" />\n"
+	."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".__('Delete')."\" />\n"
 	."<input type=\"checkbox\" name=\"me_do_delete\" id=\"me_do_delete\" value=\"1\" />\n"
-	."<label for=\"me_do_delete\">".LBL_ADMIN_IM_SURE."</label>\n"
+	."<label for=\"me_do_delete\">".__("I'm sure!")."</label>\n"
 	."<input type=\"hidden\" name=\"action\" value=\"".CST_ADMIN_DELETE_ACTION."\" />\n"
 	."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_TAGS."\" />\n"
 	."</fieldset>\n"
@@ -183,8 +183,8 @@ function tag_edit($tid){
 	."<div style=\"inline\"><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_TAGS."\"/>\n"
 	."<input type=\"hidden\" name=\"action\" value=\"".CST_ADMIN_SUBMIT_EDIT."\"/>\n"
 	."<input type=\"hidden\" name=\"id\" value=\"$tid\"/>\n"
-	."<label for=\"t_name\">". LBL_ADMIN_RENAME ."</label>\n"
+	."<label for=\"t_name\">". __('Rename to...') ."</label>\n"
 	."<input type=\"text\" id=\"t_name\" name=\"t_name\" value=\"$tag\"/>\n"
-	."<input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\"/></div>"
+	."<input type=\"submit\" name=\"action_\" value=\"". __('Submit Changes') ."\"/></div>"
 	."</form></div>\n";
 }

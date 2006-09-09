@@ -36,20 +36,20 @@ define ('CST_ADMIN_MULTIEDIT','multiedit');
 
 
 function channels() {
-    echo "<h2>". LBL_ADMIN_CHANNELS ."</h2>\n";
+    echo "<h2>". __('Feeds:') ."</h2>\n";
     echo "<div id=\"admin_channels\">\n";
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\" />\n";
-    echo "<label for=\"new_channel\">". LBL_ADMIN_CHANNELS_ADD ."</label>\n";
+    echo "<label for=\"new_channel\">". __('Add a feed:') ."</label>\n";
     echo "<input type=\"text\" name=\"new_channel\" id=\"new_channel\" value=\"http://\" onmouseover=\"clearOnHover(this);\" onfocus=\"this.select()\" />\n";
 
-    echo "<label for=\"add_channel_to_folder\">". LBL_ADMIN_IN_FOLDER . "</label>\n";
+    echo "<label for=\"add_channel_to_folder\">". __('to folder:') . "</label>\n";
     echo rss_toolkit_folders_combo('add_channel_to_folder');
-	echo "<label for=\"channel_tags\">" . LBL_TAG_FOLDERS . ":</label>\n";
+	echo "<label for=\"channel_tags\">" . __('Categories') . ":</label>\n";
 	echo "<input type=\"text\" name=\"channel_tags\" id=\"channel_tags\" />\n";
     echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_ADD\" />\n";
-    echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\" /></p>\n";
-    echo "<p style=\"font-size:small\">".LBL_ADMIN_ADD_CHANNEL_EXPL."</p>";
+    echo "<input type=\"submit\" name=\"action\" value=\"". __('Add') ."\" /></p>\n";
+    echo "<p style=\"font-size:small\">".__('(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)')."</p>";
     echo "</form>\n\n";
 
     // bookmarklet
@@ -59,7 +59,7 @@ function channels() {
     $bookmarklet = "javascript:void(document.location = "
                    ."('$b_url'.concat(escape(document.location).replace(/\s/,'%2520'))))";
 
-    echo "<p style=\"font-size:small\">" . LBL_ADMIN_BOOKMARKET_LABEL . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".LBL_ADMIN_BOOKMARKLET_TITLE."</a></p>\n";
+    echo "<p style=\"font-size:small\">" . __('Subscription bookmarklet [<a href="http://www.squarefree.com/bookmarklets/">?</a>]:') . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".__('Subscribe in Gregarius!')."</a></p>\n";
 
     // feeds
 
@@ -82,17 +82,17 @@ function channels() {
     echo "<table id=\"channeltable\">\n"
     ."<tr>\n"
     ."\t<th><input type=\"checkbox\" id=\"mastercb\" onclick=\"cbtoggle();\" /></th>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_TITLE ."</th>\n"
-    ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_FOLDER ."</th>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_DESCR ."</th>\n"
-    ."\t<th>". LBL_TAG_FOLDERS."</th>\n"
-    ."\t<th>". LBL_ADMIN_CHANNELS_HEADING_FLAGS."</th>\n";
+    ."\t<th>". __('Title') ."</th>\n"
+    ."\t<th class=\"cntr\">". __('Folder') ."</th>\n"
+    ."\t<th>". __('Description') ."</th>\n"
+    ."\t<th>". __('Categories')."</th>\n"
+    ."\t<th>". __('Flags')."</th>\n";
 
     if (getConfig('rss.config.absoluteordering')) {
-        echo "\t<th>".LBL_ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
+        echo "\t<th>".__('Move')."</th>\n";
     }
 
-    echo "\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+    echo "\t<th class=\"cntr\">". __('Action') ."</th>\n"
     ."</tr>\n";
 
     $sql = "select "
@@ -117,7 +117,7 @@ function channels() {
             $outUrl = getPath() . "feed.php?channel=$id";
         }
 
-        $parentLabel = $parent == ''? LBL_HOME_FOLDER:$parent;
+        $parentLabel = $parent == ''? __('Root'):$parent;
 
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
@@ -170,16 +170,16 @@ function channels() {
 
         if (getConfig('rss.config.absoluteordering')) {
             echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-            ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". LBL_ADMIN_MOVE_UP
+            ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;cid=$id\">". __('&uarr;')
             ."</a>&nbsp;-&nbsp;<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
-            ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".LBL_ADMIN_MOVE_DOWN ."</a></td>\n";
+            ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;cid=$id\">".__('&darr;') ."</a></td>\n";
         }
         echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
         ."&amp;".CST_ADMIN_VIEW."=". CST_ADMIN_DOMAIN_CHANNEL
-        ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . LBL_ADMIN_EDIT
+        ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . __('edit')
         ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
         ."&amp;".CST_ADMIN_VIEW."=". CST_ADMIN_DOMAIN_CHANNEL
-        ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . LBL_ADMIN_DELETE ."</a></td>\n"
+        ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . __('delete') ."</a></td>\n"
         ."</tr>\n";
     }
 
@@ -188,28 +188,28 @@ function channels() {
     echo "<fieldset>\n"
     ."<legend>Selected...</legend>\n"
     ."<p>\n"
-    ."<label for=\"me_folder\">".LBL_ADMIN_CHANNEL_FOLDER."</label>\n"
+    ."<label for=\"me_folder\">".__('In folder:')."</label>\n"
     .rss_toolkit_folders_combo('me_folder',null);
 
     echo
-    "<input type=\"submit\" id=\"me_move_to_folder\" name=\"me_move_to_folder\" value=\"".LBL_ADMIN_CHANNELS_HEADING_MOVE."\" />\n"
+    "<input type=\"submit\" id=\"me_move_to_folder\" name=\"me_move_to_folder\" value=\"".__('Move')."\" />\n"
 
     ."<span class=\"vr\">&nbsp;</span>"
 
-    ."<label>".LBL_ADMIN_STATE."</label>\n"
+    ."<label>".__('State:')."</label>\n"
     ."<input type=\"checkbox\" name=\"me_deprecated\" id=\"me_deprecated\" value=\"".RSS_MODE_DELETED_STATE."\" />\n"
-    ."<label for=\"me_deprecated\">".LBL_DEPRECATED."</label>\n"
+    ."<label for=\"me_deprecated\">".__('Deprecated')."</label>\n"
 
     ."<input type=\"checkbox\" name=\"me_private\" id=\"me_private\" value=\"".RSS_MODE_PRIVATE_STATE."\" />\n"
-    ."<label for=\"me_private\">".LBL_PRIVATE."</label>\n"
+    ."<label for=\"me_private\">".__('Private')."</label>\n"
 
-    ."<input type=\"submit\" id=\"me_state\" name=\"me_state\" value=\"".LBL_ADMIN_STATE_SET."\" />\n"
+    ."<input type=\"submit\" id=\"me_state\" name=\"me_state\" value=\"".__('Set')."\" />\n"
 
     ."<span class=\"vr\">&nbsp;</span>"
 
-    ."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".LBL_ADMIN_DELETE2."\" />\n"
+    ."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".__('Delete')."\" />\n"
     ."<input type=\"checkbox\" name=\"me_do_delete\" id=\"me_do_delete\" value=\"1\" />\n"
-    ."<label for=\"me_do_delete\">".LBL_ADMIN_IM_SURE."</label>\n"
+    ."<label for=\"me_do_delete\">".__("I'm sure!")."</label>\n"
 
 
     ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
@@ -248,7 +248,7 @@ function channel_admin() {
     $ret__ = CST_ADMIN_DOMAIN_NONE;
     switch ($__action__) {
 
-    case LBL_ADMIN_ADD:
+    case __('Add'):
     case 'ACT_ADMIN_ADD':
     case 'Add':
 
@@ -278,12 +278,12 @@ function channel_admin() {
                 // feedback
                 $newCid = $ret[0];
                 rss_error(sprintf(
-                              LBL_ADMIN_OPML_IMPORT_FEED_INFO,
+                              __('Adding %s to %s... '),
                               htmlentities($label),"/$flabel")
-                          . LBL_ADMIN_OK
+                          . __('OK')
                           . "&nbsp;[<a href=\"".getPath()."admin/index.php?domain=".CST_ADMIN_DOMAIN_CHANNEL
                           ."&amp;action=edit&amp;cid=$newCid\">"
-                          . LBL_ADMIN_EDIT
+                          . __('edit')
                           ."</a>]",
                           RSS_ERROR_ERROR,true);
                 $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
@@ -306,13 +306,13 @@ function channel_admin() {
                             // feedback
                             $newCid = $ret[0];
                             rss_error(sprintf(
-                                          LBL_ADMIN_OPML_IMPORT_FEED_INFO,
+                                          __('Adding %s to %s... '),
                                           htmlentities($label),"/$flabel")
-                                      . LBL_ADMIN_OK
+                                      . __('OK')
                                       . "&nbsp;[<a href=\"".getPath()."admin/index.php?domain="
                                       .CST_ADMIN_DOMAIN_CHANNEL
                                       ."&amp;action=edit&amp;cid=$newCid\">"
-                                      . LBL_ADMIN_EDIT
+                                      . __('edit')
                                       ."</a>]",
                                       RSS_ERROR_ERROR,true);
 
@@ -326,7 +326,7 @@ function channel_admin() {
                     } else {
                         // multiple feeds in the channel
                         echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
-                        ."<p>".sprintf(LBL_ADMIN_FEEDS,$label,$label)."</p>\n";
+                        ."<p>".sprintf(__('The following feeds were found in <a href="%s">%s</a>, which one would you like to subscribe?'),$label,$label)."</p>\n";
                         $cnt = 0;
                         while(list($id,$feedarr) = each($feeds)) {
                             // we need an URL
@@ -366,7 +366,7 @@ function channel_admin() {
                         echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\" />\n"
                         ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
                         ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"ACT_ADMIN_ADD\" />\n"
-                        ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\" />\n"
+                        ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". __('Add') ."\" />\n"
                         ."</p>\n</form>\n\n";
                     }
                 }
@@ -376,11 +376,11 @@ function channel_admin() {
                 $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
             }
             else {
-                rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$label), RSS_ERROR_ERROR,true);
+                rss_error(sprintf(__("I'm sorry, I don't think I can handle this URL: '%s'"),$label), RSS_ERROR_ERROR,true);
                 $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
             }
         } else {
-            rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$label), RSS_ERROR_ERROR,true);
+            rss_error(sprintf(__("I'm sorry, I don't think I can handle this URL: '%s'"),$label), RSS_ERROR_ERROR,true);
             $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
         }
         break;
@@ -393,7 +393,7 @@ function channel_admin() {
 
     case CST_ADMIN_DELETE_ACTION:
         $id = sanitize($_REQUEST['cid'],RSS_SANITIZER_NUMERIC);
-        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == __('Yes')) {
             $rs = rss_query("select distinct id from " .getTable("item") . " where cid=$id");
             $ids = array();
             while (list($did) = rss_fetch_row($rs)) {
@@ -418,7 +418,7 @@ function channel_admin() {
 
             $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
         }
-        elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
+        elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == __('No')) {
             $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
         }
         else {
@@ -426,10 +426,10 @@ function channel_admin() {
 
             echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
             ."<p class=\"error\">";
-            printf(LBL_ADMIN_ARE_YOU_SURE,$cname);
+            printf(__("Are you sure you wish to delete '%s'?"),$cname);
             echo "</p>\n"
-            ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\" />\n"
-            ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\" />\n"
+            ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('No') ."\" />\n"
+            ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('Yes') ."\" />\n"
             ."<input type=\"hidden\" name=\"cid\" value=\"$id\" />\n"
             ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
             ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\" />\n"
@@ -439,7 +439,7 @@ function channel_admin() {
 
 
 
-    case LBL_ADMIN_IMPORT:
+    case __('Import'):
     case 'ACT_ADMIN_IMPORT':
 
 
@@ -498,7 +498,7 @@ function channel_admin() {
                                                  ." where id= $opmlfid "));
 
             } else {
-                $prev_folder = LBL_HOME_FOLDER;
+                $prev_folder = __('Root');
                 $fid = 0;
             }
 
@@ -530,7 +530,7 @@ function channel_admin() {
 					$c__ = preg_replace(ALLOWED_TAGS_REGEXP,' ',$cats_);
                     if ($u__) {
 
-                        echo "<li><p>" . sprintf(LBL_ADMIN_OPML_IMPORT_FEED_INFO,$t__,$f__);
+                        echo "<li><p>" . sprintf(__('Adding %s to %s... '),$t__,$f__);
                         flush();
                         list($retcde, $retmsg) = add_channel($u__, $fid, $t__, $d__);
                         if ($retcde && count($c__)) {
@@ -542,7 +542,7 @@ function channel_admin() {
                 }
             }
 
-            echo "</ul>\n<p><b>".LBL_TITLE_UPDATING ."...</b></p>\n";
+            echo "</ul>\n<p><b>".__('Updating') ."...</b></p>\n";
             echo "</div>\n";
             flush();
 
@@ -614,7 +614,7 @@ function channel_admin() {
 
 
         if ($url == '' || substr($url,0,4) != "http") {
-            rss_error(sprintf(LBL_ADMIN_BAD_RSS_URL,$url), RSS_ERROR_ERROR,true);
+            rss_error(sprintf(__("I'm sorry, I don't think I can handle this URL: '%s'"),$url), RSS_ERROR_ERROR,true);
             $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
             break;
         }
@@ -811,20 +811,20 @@ function channel_edit_form($cid) {
     }
 
     echo "<div>\n";
-    echo "\n\n<h2>".LBL_ADMIN_CHANNEL_EDIT_CHANNEL." '$title'</h2>\n";
+    echo "\n\n<h2>".__('Edit the feed ')." '$title'</h2>\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."#fa$cid\" id=\"channeledit\">\n";
     echo "<fieldset id=\"channeleditfs\">";
     // Timestamps
     if(!empty($daterefreshed)) {
-      echo "<p><label>" . LBL_ADDED . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
-					."<p><label>" . LBL_LAST_UPDATE . ": ".date("M-d-Y H:i", strtotime($daterefreshed))."</label></p>\n";
+      echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
+					."<p><label>" . __('Last Update') . ": ".date("M-d-Y H:i", strtotime($daterefreshed))."</label></p>\n";
     } else {
-      echo "<p><label>" . LBL_ADDED . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
-					."<p><label>" . LBL_LAST_UPDATE . ": " . LBL_FOOTER_LAST_MODIF_NEVER . "</label></p>\n";
+      echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
+					."<p><label>" . __('Last Update') . ": " . __('Never') . "</label></p>\n";
     }
     // Item name
-    echo "<p><label for=\"c_name\">". LBL_ADMIN_CHANNEL_NAME ."</label>\n"
+    echo "<p><label for=\"c_name\">". __('Title:') ."</label>\n"
     ."<input type=\"text\" id=\"c_name\" name=\"c_name\" value=\"$title\" />"
     ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
     ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_SUBMIT_EDIT ."\" />\n"
@@ -833,23 +833,23 @@ function channel_edit_form($cid) {
 
 
     // RSS URL
-    ."<p><label for=\"c_url\">". LBL_ADMIN_CHANNEL_RSS_URL ."</label>\n"
-    ."<a href=\"$url\">" . LBL_VISIT . "</a>\n"
+    ."<p><label for=\"c_url\">". __('RSS URL:') ."</label>\n"
+    ."<a href=\"$url\">" . __('(visit)') . "</a>\n"
     ."<input type=\"text\" id=\"c_url\" name=\"c_url\" value=\"$url\" /></p>"
 
     // Site URL
-    ."<p><label for=\"c_siteurl\">". LBL_ADMIN_CHANNEL_SITE_URL ."</label>\n"
-    ."<a href=\"$siteurl\">" . LBL_VISIT . "</a>\n"
+    ."<p><label for=\"c_siteurl\">". __('Site URL:') ."</label>\n"
+    ."<a href=\"$siteurl\">" . __('(visit)') . "</a>\n"
     ."<input type=\"text\" id=\"c_siteurl\" name=\"c_siteurl\" value=\"$siteurl\" /></p>"
 
     // Folder
-    ."<p><label for=\"c_parent\">". LBL_ADMIN_CHANNEL_FOLDER ."</label>\n"
+    ."<p><label for=\"c_parent\">". __('In folder:') ."</label>\n"
 
     .rss_toolkit_folders_combo('c_parent',$parent)
     ."</p>\n";
 
     // Tags
-    echo "<p><label for=\"c_tags\">". LBL_TAG_FOLDERS . ":</label>\n"
+    echo "<p><label for=\"c_tags\">". __('Categories') . ":</label>\n"
     ."<input type=\"text\" id=\"c_tags\" name=\"c_tags\" value=\"$tags\" /></p>";
 
     // Items state
@@ -873,7 +873,7 @@ function channel_edit_form($cid) {
     echo "<p>\n"
     ."<input style=\"display:inline\" type=\"checkbox\" id=\"c_private\" "
     ." name=\"c_private\" value=\"1\"$pchk />\n"
-    ."<label for=\"c_private\">". LBL_ADMIN_CHANNEL_PRIVATE ."</label>\n"
+    ."<label for=\"c_private\">". __('This feed is <strong>private</strong>, only admins see it.') ."</label>\n"
     ."<input type=\"hidden\" name=\"old_priv\" value=\"$old_priv\" />\n"
     ."</p>\n";
 
@@ -881,26 +881,26 @@ function channel_edit_form($cid) {
     echo "<p>\n"
     ."<input style=\"display:inline\" type=\"checkbox\" id=\"c_deleted\" "
     ." name=\"c_deleted\" value=\"1\"$dchk />\n"
-    ."<label for=\"c_deleted\">". LBL_ADMIN_CHANNEL_DELETED ."</label>\n"
+    ."<label for=\"c_deleted\">". __("This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column.") ."</label>\n"
     ."<input type=\"hidden\" name=\"old_del\" value=\"$old_del\" />\n"
     ."</p>\n";
 
 
     // Description
     $descr = strip_tags($descr);
-    echo "<p><label for=\"c_descr\">". LBL_ADMIN_CHANNEL_DESCR ."</label>\n"
+    echo "<p><label for=\"c_descr\">". __('Description:') ."</label>\n"
     ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\" /></p>\n";
 
     // Icon
     if (getConfig('rss.output.showfavicons')) {
-        echo "<p><label for=\"c_icon\">" . LBL_ADMIN_CHANNEL_ICON ."</label>\n";
+        echo "<p><label for=\"c_icon\">" . __('Shown favicon:') ."</label>\n";
 
         if (trim($icon) != "") {
             if (substr($icon,0,5) == 'blob:') {
                 $icon = substr($icon,5);
             }
             echo "<img src=\"$icon\" alt=\"$title\" class=\"favicon\" width=\"16\" height=\"16\" />\n";
-            echo "<span>" . LBL_CLEAR_FOR_NONE ."</span>";
+            echo "<span>" . __('(Leave blank for no icon)') ."</span>";
         }
 
         echo "<input type=\"text\" id=\"c_icon\" name=\"c_icon\" value=\"$icon\" /></p>\n";
@@ -955,7 +955,7 @@ function channel_edit_form($cid) {
     echo "</fieldset>\n";
 
 
-    echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\" /></p>";
+    echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". __('Submit Changes') ."\" /></p>";
 
     echo "</form></div>\n";
 }

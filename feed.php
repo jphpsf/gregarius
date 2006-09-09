@@ -485,7 +485,7 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
             rss_redirect();
         }
         break;
-        // virtual folder - code extremely similar to LBL_MARK_FOLDER_READ
+        // virtual folder - code extremely similar to __('Mark These Items as Read')
     case 'ACT_MARK_VFOLDER_READ':
         $vfid = sanitize($_REQUEST['vfolder'],RSS_SANITIZER_NUMERIC);
         
@@ -828,15 +828,15 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
         if (!$severalFeeds) {
             $items -> preRender[] = array("markReadForm",$cid);
-            $title .= " " .sprintf(LBL_UNREAD_PF, "ucnt","",$items -> unreadCount);
+            $title .= " " .sprintf(__('<strong id="%s" style="%s">(%d unread)</strong>'), "ucnt","",$items -> unreadCount);
         } else {
             if(!$vfid) {
                 list($fid) = rss_fetch_row(rss_query('select parent from ' .getTable('channels') . 'where id = ' .$cids[0]));
-                $title .= " " .sprintf(LBL_UNREAD_PF, "ucnt","",$items -> unreadCount);
+                $title .= " " .sprintf(__('<strong id="%s" style="%s">(%d unread)</strong>'), "ucnt","",$items -> unreadCount);
                 $items -> preRender[] = array("markFolderReadForm",$fid);
             } else {
                 list($fid) = $vfid;
-                $title .= " " .sprintf(LBL_UNREAD_PF, "ucnt","",$items -> unreadCount);
+                $title .= " " .sprintf(__('<strong id="%s" style="%s">(%d unread)</strong>'), "ucnt","",$items -> unreadCount);
                 $items -> preRender[] = array("markVirtualFolderReadForm",$vfid);
             }
         }
@@ -1016,7 +1016,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                                     'cnt' => $row['cnt_'],
                                     'ts' => $row['ts_'],
                                     'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-                                    'lbl' => rss_locale_date('%B %e',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
+                                    'lbl' => rss_locale_date('%B %e',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? __('items'):__('item')) .")"
                                 );
                     }
                 }
@@ -1028,7 +1028,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                                     'cnt' => $row['cnt_'],
                                     'ts' => $row['ts_'],
                                     'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-                                    'lbl' => rss_locale_date('%B %Y',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:ITEM) .")"
+                                    'lbl' => rss_locale_date('%B %Y',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? __('items'):ITEM) .")"
                                 );
                     }
 
@@ -1046,7 +1046,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                                     'cnt' => $row['cnt_'],
                                     'ts' => $row['ts_'],
                                     'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-                                    'lbl' => rss_locale_date('%B %e',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
+                                    'lbl' => rss_locale_date('%B %e',$row['ts_']) . " (".$row['cnt_']." " . ($row['cnt_'] > 1? __('items'):__('item')) .")"
                                 );
                     }
                 }
@@ -1058,7 +1058,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                                     'cnt' => $row['cnt_'],
                                     'ts' => $row['ts_'],
                                     'url' =>  makeArchiveUrl($row['ts_'],$escaped_title,$cid,($currentView == 'day')),
-                                    'lbl' => rss_locale_date('%B %Y',$row['ts_']) . " (".$row['cnt_']." ". ($row['cnt_'] > 1? LBL_ITEMS:LBL_ITEM) .")"
+                                    'lbl' => rss_locale_date('%B %Y',$row['ts_']) . " (".$row['cnt_']." ". ($row['cnt_'] > 1? __('items'):__('item')) .")"
                                 );
                     }
                 }
@@ -1356,7 +1356,7 @@ function markReadForm($cid) {
         define ('MARK_READ_FEED_FORM',$cid);
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
-    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
+    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". __('Mark These Items as Read') ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_CHANNEL_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
@@ -1372,7 +1372,7 @@ function markFolderReadForm($fid) {
         define ('MARK_READ_FOLDER_FORM',$fid);
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
-    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
+    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". __('Mark These Items as Read') ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_FOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
@@ -1389,7 +1389,7 @@ function markVirtualFolderReadForm($vfid) {
         define ('MARK_READ_VFOLDER_FORM',$vfid);
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
-    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
+    ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". __('Mark These Items as Read') ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_VFOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"

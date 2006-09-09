@@ -115,19 +115,19 @@ class Update {
     function magpieError($error) {
         if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
             if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
-                $label = LBL_UPDATE_NOT_MODIFIED;
+                $label = __('OK (304 Not modified)');
                 $cls = ERROR_NOERROR;
             }
             elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
-                $label = LBL_UPDATE_CACHE_TIMEOUT;
+                $label = __('HTTP Timeout (Local cache)');
                 $cls = ERROR_WARNING;
             }
             elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
-                $label = LBL_UPDATE_STATUS_CACHED;
+                $label = __('OK (Local cache)');
                 $cls = ERROR_NOERROR;
             }
             elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
-                $label = LBL_UPDATE_NOT_FOUND;
+                $label = __('404 Not Found (Local cache)');
                 $cls = ERROR_ERROR;
             }
             else {
@@ -136,12 +136,12 @@ class Update {
             }
         }
         elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_200) {
-            $label = LBL_UPDATE_STATUS_OK;
+            $label = __('OK (HTTP 200)');
             $cls = ERROR_NOERROR;
         }
         else {
             if (is_numeric($error)) {
-                $label = LBL_UPDATE_STATUS_ERROR;
+                $label = __('ERROR');
                 $cls = ERROR_ERROR;
             } else {
                 // shoud contain MagpieError at this point
@@ -176,12 +176,12 @@ class HTTPServerPushUpdate extends Update {
         $newIds = array ();
 
         echo
-        "<h2>".sprintf(LBL_UPDATE_H2, count($this -> chans))."</h2>\n"
+        "<h2>".sprintf(__('Updating %d Feeds...'), count($this -> chans))."</h2>\n"
         ."<table id=\"updatetable\">\n"
         ."<tr>\n"
-        ."<th class=\"lc\">".LBL_UPDATE_CHANNEL."</th>\n"
-        ."<th class=\"mc\">".LBL_UPDATE_STATUS."</th>\n"
-        ."<th class=\"rc\">".LBL_UPDATE_UNREAD."</th>\n"
+        ."<th class=\"lc\">".__('Feed')."</th>\n"
+        ."<th class=\"mc\">".__('Status')."</th>\n"
+        ."<th class=\"rc\">".__('New Items')."</th>\n"
         ."</tr>";
 
         foreach ($this->chans as $chan) {
@@ -238,13 +238,13 @@ class AJAXUpdate extends Update {
 
     function render() {
 
-        echo "<h2 style=\"margin-bottom:1em;\">". sprintf(LBL_UPDATE_H2,count($this -> chans)) ."</h2>\n";
+        echo "<h2 style=\"margin-bottom:1em;\">". sprintf(__('Updating %d Feeds...'),count($this -> chans)) ."</h2>\n";
 
         echo "<table id=\"updatetable\">\n"
         ."<tr>\n"
-        ."<th class=\"lc\">".LBL_UPDATE_CHANNEL."</th>\n"
-        ."<th class=\"mc\">".LBL_UPDATE_STATUS."</th>\n"
-        ."<th class=\"rc\">".LBL_UPDATE_UNREAD."</th>\n"
+        ."<th class=\"lc\">".__('Feed')."</th>\n"
+        ."<th class=\"mc\">".__('Status')."</th>\n"
+        ."<th class=\"rc\">".__('New Items')."</th>\n"
         ."</tr>\n";
 
 
@@ -295,7 +295,7 @@ class CommandLineUpdate extends Update {
             $unread = count($unreadIds);
 
             list($label,$cls) = parent::magpieError($error);
-            echo "\n$label, $unread " . LBL_UPDATE_UNREAD . "\n\n";
+            echo "\n$label, $unread " . __('New Items') . "\n\n";
             flush();
 
         }
@@ -324,7 +324,7 @@ class MobileUpdate extends Update {
 			}
 			$unread = count($unreadIds);
 			list($label,$cls) = parent::magpieError($error);
-			echo "\n$label, $unread " . LBL_UPDATE_UNREAD . "<br />";
+			echo "\n$label, $unread " . __('New Items') . "<br />";
 			flush();
     }
 	}
@@ -356,7 +356,7 @@ class CommandLineUpdateNews extends CommandLineUpdate {
                         if (($cls != ERROR_NOERROR) || ($unread > 0)) {
                                 echo "$title ...\t";
                                 flush();
-                                echo "\n$label, $unread " . LBL_UPDATE_UNREAD . "\n\n";
+                                echo "\n$label, $unread " . __('New Items') . "\n\n";
                                 flush();
                         }
                 }

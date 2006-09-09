@@ -78,7 +78,7 @@ if (array_key_exists('tag', $_GET)) {
 	$tag = strip_tags($_GET['tag']);
 	$twhere = "";
 	$tarr = explode(" ", $tag);
-	$hrTag = implode(" ".LBL_AND." ", $tarr);
+	$hrTag = implode(" ".__('and')." ", $tarr);
 	$urlTag = implode("+", $tarr);
 
 	foreach ($tarr as $ttkn) {
@@ -114,7 +114,7 @@ if (array_key_exists('tag', $_GET)) {
 
 			$relPlus = array_key_exists($rtag, $taggedItems->allTags);
 			if ($relPlus) {
-				$relLbl .= "&nbsp;[<a "."title=\"$cnt ". ($cnt > 1 ? LBL_ITEMS : LBL_ITEM)." ". ($cnt > 1 || $cnt == 0 ? LBL_TAG_TAGGEDP : LBL_TAG_TAGGED)." '".$hrTag." ".LBL_AND." $rtag'\" "."href=\"".getPath()."". (getConfig('rss.output.usemodrewrite') ? "tag/$rtag" : "tags.php?tag=$rtag").""."+".$urlTag."\">+</a>]";
+				$relLbl .= "&nbsp;[<a "."title=\"$cnt ". ($cnt > 1 ? __('items') : __('item'))." ". ($cnt > 1 || $cnt == 0 ? __('tagged') : __('tagged'))." '".$hrTag." ".__('and')." $rtag'\" "."href=\"".getPath()."". (getConfig('rss.output.usemodrewrite') ? "tag/$rtag" : "tags.php?tag=$rtag").""."+".$urlTag."\">+</a>]";
 			}
 			$idx = ($relPlus ? $taggedItems->allTags[$rtag] : 0);
 			$related["$idx"."_"."$rtag"] = $relLbl."";
@@ -126,7 +126,7 @@ if (array_key_exists('tag', $_GET)) {
 	if (array_key_exists('rss', $_REQUEST)) {
 		rss_require('cls/rdf.php');
 		// RSS view
-		$title = _TITLE_." - ".LBL_TAG_TAGS." - ".$hrTag;
+		$title = _TITLE_." - ".__('Tags')." - ".$hrTag;
 		$baselink = guessTransportProto().$_SERVER['HTTP_HOST'].getPath()
 		. (getConfig('rss.output.usemodrewrite') ? "tag/" : "tags.php?tag=");
 
@@ -149,12 +149,12 @@ if (array_key_exists('tag', $_GET)) {
 
 		if ($gotsome) {
 
-			$title = $taggedItems->itemCount." ". ($taggedItems->itemCount > 1 ? LBL_ITEMS : LBL_ITEM)." "
-			. ($taggedItems->itemCount > 1 || $taggedItems->itemCount == 0 ? LBL_TAG_TAGGEDP : LBL_TAG_TAGGED)
+			$title = $taggedItems->itemCount." ". ($taggedItems->itemCount > 1 ? __('items') : __('item'))." "
+			. ($taggedItems->itemCount > 1 || $taggedItems->itemCount == 0 ? __('tagged') : __('tagged'))
 			.""." \"".$hrTag."\"";
 
 			if (count($related)) {
-				$taggedItems->beforeList = "\n<p>".LBL_TAG_RELATED."\n".implode(", \n", $related)."\n</p>\n";
+				$taggedItems->beforeList = "\n<p>".__('Related tags: ')."\n".implode(", \n", $related)."\n</p>\n";
 			}
 
 			$taggedItems->setTitle($title);
@@ -165,7 +165,7 @@ if (array_key_exists('tag', $_GET)) {
 
 		} else {
 			echo "<p style=\"height: 10em; text-align:center\">";
-			printf(LBL_TAG_ERROR_NO_TAG, $hrTag);
+			printf(__('Oops! No items tagged &laquo;%s&raquo; were found.'), $hrTag);
 			echo "</p>";
 		}
 		//echo "</div>\n";
@@ -175,7 +175,7 @@ if (array_key_exists('tag', $_GET)) {
 } elseif (array_key_exists('alltags', $_GET)) {
 	rss_require('cls/alltags.php');
 
-	$GLOBALS['rss']->header = new Header("Tags ".TITLE_SEP." ".LBL_TAG_ALL_TAGS);
+	$GLOBALS['rss']->header = new Header("Tags ".TITLE_SEP." ".__('All Tags'));
 	$GLOBALS['rss']->feedList = new FeedList(false);
 	$allTags = new Tags();
 	$allTags->setRenderOptions(IL_TITLE_NO_ESCAPE);

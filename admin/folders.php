@@ -28,28 +28,28 @@
 /*************** Folder management ************/
 
 function folders() {
-    echo "<h2 class=\"trigger\">".LBL_ADMIN_FOLDERS."</h2>\n"
+    echo "<h2 class=\"trigger\">".__('Folders:')."</h2>\n"
     ."<div id=\"admin_folders\" class=\"trigger\">\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
 
     echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_FOLDER."\"/>\n";
 
-    echo "<label for=\"new_folder\">".LBL_ADMIN_FOLDERS_ADD."</label>\n"
+    echo "<label for=\"new_folder\">".__('Add a folder:')."</label>\n"
     ."<input type=\"text\" id=\"new_folder\" name=\"new_folder\" value=\"\" />"
     ."<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_ADD\"/>\n"
-    ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/>\n"
+    ."<input type=\"submit\" name=\"action\" value=\"". __('Add') ."\"/>\n"
     ."</p></form>\n\n";
 
     echo "<table id=\"foldertable\">\n"
     ."<tr>\n"
-    ."\t<th class=\"cntr\">". LBL_ADMIN_CHANNELS_HEADING_TITLE ."</th>\n";
+    ."\t<th class=\"cntr\">". __('Title') ."</th>\n";
 
     if (getConfig('rss.config.absoluteordering')) {
-        echo "\t<th>".LBL_ADMIN_CHANNELS_HEADING_MOVE."</th>\n";
+        echo "\t<th>".__('Move')."</th>\n";
     }
 
-    echo "\t<th>". LBL_ADMIN_CHANNELS_HEADING_ACTION ."</th>\n"
+    echo "\t<th>". __('Action') ."</th>\n"
     ."</tr>\n";
 
     $sql = "select id,name from " .getTable("folders");
@@ -64,7 +64,7 @@ function folders() {
     $cntr = 0;
     while (list($id, $name) = rss_fetch_row($res)) {
 
-        $name = $name == ''? LBL_HOME_FOLDER:$name;
+        $name = $name == ''? __('Root'):$name;
 
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
@@ -77,11 +77,11 @@ function folders() {
             if ($id > 0) {
                 if ($cntr > 2) {
                     echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-                    ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;fid=$id\">". LBL_ADMIN_MOVE_UP
+                    ."&amp;action=". CST_ADMIN_MOVE_UP_ACTION. "&amp;fid=$id\">". __('&uarr;')
                     ."</a>&nbsp;-&nbsp;";
                 }
                 echo "<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-                ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;fid=$id\">".LBL_ADMIN_MOVE_DOWN ."</a>";
+                ."&amp;action=". CST_ADMIN_MOVE_DOWN_ACTION ."&amp;fid=$id\">".__('&darr;') ."</a>";
             } else {
                 echo "&nbsp;";
             }
@@ -89,11 +89,11 @@ function folders() {
             echo "</td>\n";
         }
         echo "\t<td><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-        ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;fid=$id\">" . LBL_ADMIN_EDIT
+        ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;fid=$id\">" . __('edit')
         ."</a>";
         if ($id > 0) {
             echo "|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_FOLDER
-            ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;fid=$id\">" . LBL_ADMIN_DELETE ."</a>";
+            ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;fid=$id\">" . __('delete') ."</a>";
         }
         echo "</td>\n"
         ."</tr>\n";
@@ -120,10 +120,10 @@ function folder_edit($fid) {
     ."<input type=\"hidden\" name=\"fid\" value=\"$id\"/>\n"
 
     // Item name
-    ."<label for=\"f_name\">". LBL_ADMIN_FOLDER_NAME ."</label>\n"
+    ."<label for=\"f_name\">". __('Folder name:') ."</label>\n"
     ."<input type=\"text\" id=\"f_name\" name=\"f_name\" value=\"$name\"/></p>";
 
-    echo "<p><input type=\"submit\" name=\"action_\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\"/></p>"
+    echo "<p><input type=\"submit\" name=\"action_\" value=\"". __('Submit Changes') ."\"/></p>"
     ."</form></div>\n";
 
 }
@@ -161,18 +161,18 @@ function folder_admin() {
 
 
         if ($fid == 0) {
-            rss_error(LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER, RSS_ERROR_ERROR,true);
+            rss_error(__("You can't delete the Root folder"), RSS_ERROR_ERROR,true);
             break;
         }
 
-        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+        if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == __('Yes')) {
             $sql = "delete from " . getTable("folders") ." where id=$fid";
             rss_query($sql);
             $sql = "update " . getTable("channels") ." set parent=" . getRootFolder() . " where parent=$fid";
             rss_query($sql);
             rss_invalidate_cache();
         }
-        elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_NO) {
+        elseif (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST) && $_REQUEST[CST_ADMIN_CONFIRMED] == __('No')) {
             // nop;
         }
         else {
@@ -180,10 +180,10 @@ function folder_admin() {
 
             echo "<form class=\"box\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
             ."<p class=\"error\">";
-            printf(LBL_ADMIN_ARE_YOU_SURE,$fname);
+            printf(__("Are you sure you wish to delete '%s'?"),$fname);
             echo "</p>\n"
-            ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_NO ."\"/>\n"
-            ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". LBL_ADMIN_YES ."\"/>\n"
+            ."<p><input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('No') ."\"/>\n"
+            ."<input type=\"submit\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"". __('Yes') ."\"/>\n"
             ."<input type=\"hidden\" name=\"fid\" value=\"$fid\"/>\n"
             ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_FOLDER."\"/>\n"
             ."<input type=\"hidden\" name=\"action\" value=\"". CST_ADMIN_DELETE_ACTION ."\"/>\n"
@@ -201,7 +201,7 @@ function folder_admin() {
             $res = rss_query("select count(*) as cnt from " . getTable("folders") ." where binary name='$new_label'");
             list($cnt) = rss_fetch_row($res);
             if ($cnt > 0) {
-                rss_error(sprintf(LBL_ADMIN_CANT_RENAME,$new_label), RSS_ERROR_ERROR,true);
+                rss_error(sprintf(__("You can't rename this item '%s' because such an item already exists."),$new_label), RSS_ERROR_ERROR,true);
                 break;
             }
             rss_query("update " .getTable("folders") ." set name='$new_label' where id=$fid");
@@ -209,7 +209,7 @@ function folder_admin() {
         }
         break;
 
-    case LBL_ADMIN_ADD:
+    case __('Add'):
     case 'ACT_ADMIN_ADD':
         $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_URL);
         $new_label = rss_real_escape_string($new_label);
@@ -278,7 +278,7 @@ function create_folder($label, $complainonerror=true) {
     list($exists) = rss_fetch_row($res);
 
     if ($exists > 0 && $complainonerror) {
-        rss_error(sprintf(LBL_ADMIN_ERROR_CANT_CREATE, $label), RSS_ERROR_ERROR,true);
+        rss_error(sprintf(__("Looks like you already have a folder called '%s'!"), $label), RSS_ERROR_ERROR,true);
         return;
     }
     elseif ($exists == 0) {

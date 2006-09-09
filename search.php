@@ -40,7 +40,7 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
     $cnt = $items->itemCount;
     $humanReadableQuery = $items->humanReadableQuery;
     $title = sprintf((($cnt > 1 || $cnt == 0) ?
-                      LBL_H2_SEARCH_RESULTS_FOR : LBL_H2_SEARCH_RESULT_FOR), $cnt, "'".$humanReadableQuery."'");
+                      __('%d matches for %s') : __('%d match for %s')), $cnt, "'".$humanReadableQuery."'");
 
     $items->setTitle($title);
 } else {
@@ -48,8 +48,8 @@ if (array_key_exists(QUERY_PRM,$_REQUEST) && strlen($_REQUEST[QUERY_PRM]) > 1) {
                                          . " where "
                                          .   " not(unread & " . RSS_MODE_DELETED_STATE  .") "
                                         ));
-    $items->setTitle(sprintf(LBL_H2_SEARCH, $cnt));
-    $GLOBALS['rss'] -> header = new Header(LBL_TITLE_SEARCH,LOCATION_SEARCH,null,"document.getElementById('".QUERY_PRM."').focus()");
+    $items->setTitle(sprintf(__('Search %d items'), $cnt));
+    $GLOBALS['rss'] -> header = new Header(__('Search'),LOCATION_SEARCH,null,"document.getElementById('".QUERY_PRM."').focus()");
 }
 $GLOBALS['rss'] -> appendContentObject($items);
 $GLOBALS['rss'] -> renderWithTemplate('index.php');

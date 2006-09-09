@@ -59,7 +59,10 @@ function rss_feeds_folder_link() {
 	return $GLOBALS['rss']->currentFeedsFolder->rlink;
 }
 
-function rss_feeds_folders_unread_count($label=LBL_UNREAD_PF) {
+function rss_feeds_folders_unread_count($label=null) {
+	if ($label === null) {
+		$label=__('<strong id="%s" style="%s">(%d unread)</strong>');
+	}
 	if (array_key_exists($GLOBALS['rss']->currentFeedsFolder->id,$GLOBALS['rss']->feedList->collapsed_folders)) { 
 		$sCls = ($GLOBALS['rss']->currentFeedsFolder->isCollapsed?"display:inline":"display:none");
 		$ret = sprintf($label, "fs".$GLOBALS['rss']->currentFeedsFolder->id, 
@@ -67,10 +70,10 @@ function rss_feeds_folders_unread_count($label=LBL_UNREAD_PF) {
 			$GLOBALS['rss']->feedList->collapsed_folders[$GLOBALS['rss']->currentFeedsFolder->id]);
 
 		switch( $GLOBALS['rss']->feedList -> columnTitle ) {
-			case LBL_TAG_FOLDERS:
+			case __('Categories'):
 				$ret = rss_plugin_hook("rss.plugins.sidemenu.categoryunreadlabel", $ret);
 				break;
-			case LBL_H2_CHANNELS:
+			case __('Feeds'):
 				$ret = rss_plugin_hook("rss.plugins.sidemenu.folderunreadlabel", $ret);
 				break;
 		}

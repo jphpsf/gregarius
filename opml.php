@@ -48,7 +48,7 @@ function parse_weblogsDotCom($url) {
      */
 
     global $blogs,$folder,$inOpmlfolder, $inOpmlItem;
-    $folder = LBL_HOME_FOLDER;
+    $folder = __('Root');
     
     $inOpmlfolder = $inOpmlItem = false;
     $opml = getUrl($url);
@@ -101,7 +101,7 @@ function _xml_endElement($xp, $element) {
 			//echo "end of folder $folder\n";
 			// end of folder element!
 			$inOpmlfolder = false;
-			$folder = LBL_HOME_FOLDER;
+			$folder = __('Root');
 		} else {
 			// end of item element
 			$inOpmlItem = false;

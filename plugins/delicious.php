@@ -61,7 +61,7 @@ function getFromDelicious_cb(ret) {
   }
  }
  if (html == '') {
-  html = '<?php echo  LBL_TAG_SUGGESTIONS_NONE ?>';
+  html = '<?php echo  __('no suggestions') ?>';
  }
  span.innerHTML = '(' + html + ')';
 }
@@ -105,7 +105,7 @@ function __delicious_edittag_js($dummy) {
         newspan = document.createElement("span");
         newspan.setAttribute("id","dt" + id);
         newspan.style.margin="0 0 0 0.5em";
-        newspan.innerHTML = "<?php echo  LBL_TAG_SUGGESTIONS ?>: (...) ]";
+        newspan.innerHTML = "<?php echo  __('suggestions') ?>: (...) ]";
         actionSpan.appendChild(newspan);
         get_from_delicious(id);
 <?php

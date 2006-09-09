@@ -50,7 +50,7 @@ function set_admin_pass($uname=null,$pass=null) {
 			pass=document.getElementById('password').value;
 			pass2=document.getElementById('password2').value;
 			if(pass !== pass2){
-				msg = '<?php echo LBL_ADMIN_PASS_NO_MATCH ?>';
+				msg = '<?php echo __('Passwords do not match!') ?>';
 				document.getElementById('admin_match_result').innerHTML = msg;
 				document.getElementById('password').value = '';
 				document.getElementById('password2').value = '';
@@ -66,17 +66,17 @@ function set_admin_pass($uname=null,$pass=null) {
 	<?php
   echo "\n<div id=\"channel_admin\" class=\"frame\">";
 	echo "<h2></h2>\n"
-		. LBL_ADMIN_MUST_SET_PASS;
+		. __('<p>No Administrator has been specified yet!</p><p>Please provide an Administrator username and password now!</p>');
 	
 	echo "<form action=\"".$_SERVER['PHP_SELF'] . "\" onsubmit=\"return on_submit_password_match();\" method=\"post\">\n"
 	."<fieldset style=\"width:400px;\">"
-	."<p><label style=\"display:block\" for=\"username\">".LBL_USERNAME.":</label>\n"
+	."<p><label style=\"display:block\" for=\"username\">".__('Username').":</label>\n"
 	."<input type=\"text\" id=\"username\" name=\"username\" /></p>\n"
-	."<p><label style=\"display:block\" for=\"password\">".LBL_PASSWORD.":</label>\n"
+	."<p><label style=\"display:block\" for=\"password\">".__('Password').":</label>\n"
 	."<input type=\"password\" id=\"password\" name=\"password\" /></p>\n"
-	."<p><label style=\"display:block\" for=\"password2\">".LBL_PASSWORD2.":</label>\n"
+	."<p><label style=\"display:block\" for=\"password2\">".__('Password (again)').":</label>\n"
 	."<input type=\"password\" id=\"password2\" name=\"password2\" /></p>\n"
-	."<p><input type=\"submit\" value=\"".LBL_ADMIN_OK."\" /></p>\n"
+	."<p><input type=\"submit\" value=\"".__('OK')."\" /></p>\n"
 	."<div style=\"display:inline;\" id=\"admin_match_result\"></div>\n"
 	."</fieldset>\n"
 	."</form>\n";
@@ -94,12 +94,12 @@ function rss_login_form($uname=null,$pass=null) {
 	echo "<form id=\"admin_login\" onsubmit=\"return loginHandler();\" 
 		style=\"text-align:center\" action=\"".$_SERVER['PHP_SELF'] ."\" method=\"post\">\n"
 	."<fieldset>"
-	."<legend>" . LBL_ADMIN_LOGIN . "</legend>\n"
-	."<p><label style=\"display:block\" for=\"username\">".LBL_USERNAME.":</label>\n"
+	."<legend>" . __('Please log in') . "</legend>\n"
+	."<p><label style=\"display:block\" for=\"username\">".__('Username').":</label>\n"
 	."<input type=\"text\" id=\"username\" name=\"username\" /></p>\n"
-	."<p><label style=\"display:block\" for=\"password\">".LBL_PASSWORD.":</label>\n"
+	."<p><label style=\"display:block\" for=\"password\">".__('Password').":</label>\n"
 	."<input type=\"password\" id=\"password\" name=\"password\" /></p>\n"
-	."<p id=\"admin_login_submit\"><input type=\"submit\" value=\"".LBL_LOG_IN."\" /></p>\n"
+	."<p id=\"admin_login_submit\"><input type=\"submit\" value=\"".__('Login')."\" /></p>\n"
 	."<span style=\"display:inline;\" id=\"admin_login_result\"></span>\n"
 	."</fieldset>\n"
 	."</form>\n";

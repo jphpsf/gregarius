@@ -199,7 +199,10 @@ function admin_main($authorised) {
         echo "\n<div class=\"clearer\"></div>\n";
 
     } else {
-        rss_error(sprintf(LBL_ADMIN_ERROR_NOT_AUTHORIZED,getPath()), RSS_ERROR_ERROR,true);
+        rss_error(sprintf(__('<h1>Not Authorized!</h1>
+You are not authorized to access the administration interface.
+Please follow <a href="%s">this link</a> back to the main page.
+Have  a nice day!'),getPath()), RSS_ERROR_ERROR,true);
     }
     echo "</div>\n";
 }
@@ -216,22 +219,22 @@ function admin_menu() {
     echo "\n<ul class=\"navlist\">\n";
     foreach (array (
                  /* url/id -- internationalized label, defined in intl/* */
-                 array (CST_ADMIN_DOMAIN_DASHBOARD, LBL_ADMIN_DASHBOARD),
-                 array (CST_ADMIN_DOMAIN_CHANNEL, LBL_ADMIN_DOMAIN_CHANNEL_LBL),
-                 array (CST_ADMIN_DOMAIN_ITEM, LBL_ADMIN_DOMAIN_ITEM_LBL),
-                 array (CST_ADMIN_DOMAIN_CONFIG, LBL_ADMIN_DOMAIN_CONFIG_LBL),
-                 array (CST_ADMIN_DOMAIN_PLUGINS, LBL_ADMIN_DOMAIN_PLUGINS_LBL),
-                 array (CST_ADMIN_DOMAIN_THEMES, LBL_ADMIN_DOMAIN_THEMES_LBL),
-                 array (CST_ADMIN_DOMAIN_FOLDER, LBL_ADMIN_DOMAIN_FOLDER_LBL),
-                 array (CST_ADMIN_DOMAIN_OPML, LBL_ADMIN_DOMAIN_LBL_OPML_LBL),
-                 array (CST_ADMIN_DOMAIN_TAGS, LBL_TAG_TAGS)) as $item) {
+                 array (CST_ADMIN_DOMAIN_DASHBOARD, __('Dashboard')),
+                 array (CST_ADMIN_DOMAIN_CHANNEL, __('feeds')),
+                 array (CST_ADMIN_DOMAIN_ITEM, __('items')),
+                 array (CST_ADMIN_DOMAIN_CONFIG, __('config')),
+                 array (CST_ADMIN_DOMAIN_PLUGINS, __('plugins')),
+                 array (CST_ADMIN_DOMAIN_THEMES, __('themes')),
+                 array (CST_ADMIN_DOMAIN_FOLDER, __('folders')),
+                 array (CST_ADMIN_DOMAIN_OPML, __('opml')),
+                 array (CST_ADMIN_DOMAIN_TAGS, __('Tags'))) as $item) {
 
         $link = "index.php?view=".$item[0];
         $lbl = $item[1];
         $cls = ($item[0] == $active ? " class=\"active\"" : "");
         echo "\t<li$cls><a href=\"".getPath()."admin/$link\">".ucfirst($lbl)."</a></li>\n";
     }
-    echo "\t<li><a href=\"".getPath()."?logout\">".LBL_ADMIN_LOGOUT."</a></li>\n";
+    echo "\t<li><a href=\"".getPath()."?logout\">".__('Logout')."</a></li>\n";
     echo "</ul>\n";
 }
 

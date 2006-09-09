@@ -1,189 +1,163 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-20 15:39+0200\n"
+"POT-Creation-Date: 2006-09-09 14:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin/channels.php:119 admin/channels.php:491 admin/folders.php:67
 #: admin/folders.php:142 cls/wrappers/searchform.php:122 opml.php:51
-#: opml.php:104 admin/channels.php:119 admin/channels.php:491
-#: admin/folders.php:67 admin/folders.php:142 cls/wrappers/searchform.php:122
-#: opml.php:51 opml.php:104
+#: opml.php:104
 msgid "Root"
 msgstr ""
 
-#: admin/channels.php:531 update.php:59 admin/channels.php:531 update.php:59
+#: admin/channels.php:531 update.php:59
 msgid "Updating"
 msgstr ""
 
-#: admin/channels.php:766 admin/channels.php:771 admin/channels.php:766
-#: admin/channels.php:771
+#: admin/channels.php:766 admin/channels.php:771
 msgid "(visit)"
 msgstr ""
 
 #: author.php:41 cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049
-#: feed.php:1061 intl/en.php:187 plugins/stickyflag/stickyflag.php:92
-#: plugins/stickyflag/stickyflag.php:100 state.php:36 state.php:39
-#: state.php:42 tags.php:118 tags.php:153 intl/en.php:186 author.php:41
-#: cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049 feed.php:1061
-#: intl/en.php:186 plugins/stickyflag/stickyflag.php:92
-#: plugins/stickyflag/stickyflag.php:100 state.php:36 state.php:39
-#: state.php:42 tags.php:118 tags.php:153
+#: feed.php:1061 intl/en.php:186 intl/en.php:187
+#: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
+#: state.php:36 state.php:39 state.php:42 tags.php:118 tags.php:153
 msgid "items"
 msgstr ""
 
-#: author.php:41 cls/wrappers/item.php:222 author.php:41
-#: cls/wrappers/item.php:222
+#: author.php:41 cls/wrappers/item.php:222
 msgid " by "
 msgstr ""
 
 #: cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049 feed.php:1061
-#: tags.php:118 tags.php:153 cls/alltags.php:165 feed.php:1019 feed.php:1031
-#: feed.php:1049 feed.php:1061 tags.php:118 tags.php:153
+#: tags.php:118 tags.php:153
 msgid "item"
 msgstr ""
 
 #: cls/channels.php:99 cls/wrappers/feeds.php:64 feed.php:831 feed.php:835
-#: feed.php:839 cls/channels.php:99 cls/wrappers/feeds.php:64 feed.php:831
-#: feed.php:835 feed.php:839
-#, php-format
+#: feed.php:839
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
 msgstr ""
 
 #: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
-#: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
-#: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
 msgid "Feeds"
 msgstr ""
 
-#: cls/channels.php:194 themes/milsi/feeds.php:4 cls/channels.php:194
-#: themes/milsi/feeds.php:4
-#, php-format
-msgid "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds"
+#: cls/channels.php:194 themes/milsi/feeds.php:4
+msgid ""
+"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
+"strong> feeds"
 msgstr ""
 
-#: cls/header.php:62 cls/header.php:62
+#: cls/header.php:62
 msgid "unread"
 msgstr ""
 
-#: cls/nav.php:62 cls/nav.php:62
+#: cls/nav.php:62
 msgid "<span>H</span>ome"
 msgstr ""
 
-#: cls/nav.php:63 themes/default/mobile/nav.php:5 cls/nav.php:63
-#: themes/default/mobile/nav.php:5
+#: cls/nav.php:63 themes/default/mobile/nav.php:5
 msgid "<span>R</span>efresh"
 msgstr ""
 
-#: cls/nav.php:64 cls/nav.php:64
+#: cls/nav.php:64
 msgid "<span>S</span>earch"
 msgstr ""
 
-#: cls/nav.php:65 cls/nav.php:65
+#: cls/nav.php:65
 msgid "A<span>d</span>min"
 msgstr ""
 
-#: cls/search.php:214 cls/search.php:214
+#: cls/search.php:214
 msgid "Results: "
 msgstr ""
 
-#: cls/taglist.php:86 cls/taglist.php:86
-#, php-format
+#: cls/taglist.php:86
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
 msgstr ""
 
-#: cls/update.php:116 cls/update.php:116
+#: cls/update.php:116
 msgid "OK (304 Not modified)"
 msgstr ""
 
-#: cls/update.php:120 cls/update.php:120
+#: cls/update.php:120
 msgid "HTTP Timeout (Local cache)"
 msgstr ""
 
-#: cls/update.php:124 cls/update.php:124
+#: cls/update.php:124
 msgid "OK (Local cache)"
 msgstr ""
 
-#: cls/update.php:128 cls/update.php:128
+#: cls/update.php:128
 msgid "404 Not Found (Local cache)"
 msgstr ""
 
-#: cls/update.php:137 cls/update.php:137
+#: cls/update.php:137
 msgid "OK (HTTP 200)"
 msgstr ""
 
-#: cls/update.php:142 cls/update.php:142
+#: cls/update.php:142
 msgid "ERROR"
 msgstr ""
 
-#: cls/update.php:175 cls/update.php:237 cls/update.php:175 cls/update.php:237
-#, php-format
+#: cls/update.php:175 cls/update.php:237
 msgid "Updating %d Feeds..."
 msgstr ""
 
-#: cls/update.php:178 cls/update.php:241 cls/update.php:178 cls/update.php:241
+#: cls/update.php:178 cls/update.php:241
 msgid "Feed"
 msgstr ""
 
-#: cls/update.php:179 cls/update.php:242 cls/update.php:179 cls/update.php:242
+#: cls/update.php:179 cls/update.php:242
 msgid "Status"
 msgstr ""
 
 #: cls/update.php:180 cls/update.php:243 cls/update.php:294 cls/update.php:323
-#: cls/update.php:355 cls/update.php:180 cls/update.php:243 cls/update.php:294
-#: cls/update.php:323 cls/update.php:355
+#: cls/update.php:355
 msgid "New Items"
 msgstr ""
 
-#: cls/wrappers/item.php:45 cls/wrappers/item.php:45
+#: cls/wrappers/item.php:45
 msgid "Permalink for "
 msgstr ""
 
-#: cls/wrappers/item.php:201 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201
 msgid "Posted: "
 msgstr ""
 
-#: cls/wrappers/item.php:201 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201
 msgid "Fetched: "
 msgstr ""
 
 #: cls/wrappers/searchform.php:88 cls/wrappers/searchform.php:97
-#: cls/wrappers/searchform.php:88 cls/wrappers/searchform.php:97
 msgid "All"
 msgstr ""
 
-#: index.php:143 index.php:143
-#, php-format
+#: index.php:143
 msgid "Unread items (<span id=\"ucnt\">%d</span>)"
 msgstr ""
 
-#: intl/en.php:98 intl/en.php:207 admin/channels.php:169
-#: admin/channels.php:276 admin/channels.php:305 admin/config.php:156
-#: admin/folders.php:92 admin/plugins.php:149 admin/tags.php:120
-#: intl/en.php:206 admin/channels.php:169 admin/channels.php:276
-#: admin/channels.php:305 admin/config.php:156 admin/folders.php:92
-#: admin/plugins.php:149 admin/tags.php:120 intl/en.php:206
+#: admin/channels.php:169 admin/channels.php:276 admin/channels.php:305
+#: admin/config.php:156 admin/folders.php:92 admin/plugins.php:149
+#: admin/tags.php:120 intl/en.php:98 intl/en.php:206 intl/en.php:207
 msgid "edit"
 msgstr ""
 
-#: intl/en.php:99 admin/channels.php:172 admin/channels.php:200
-#: admin/folders.php:96 admin/items.php:52 admin/items.php:65
-#: admin/items.php:225 admin/tags.php:123 admin/channels.php:172
-#: admin/channels.php:200 admin/folders.php:96 admin/items.php:52
-#: admin/items.php:65 admin/items.php:225 admin/tags.php:123
+#: admin/channels.php:172 admin/channels.php:200 admin/folders.php:96
+#: admin/items.php:52 admin/items.php:65 admin/items.php:225
+#: admin/tags.php:123 intl/en.php:99
 msgid "delete"
 msgstr ""
 
@@ -191,622 +165,622 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: intl/en.php:101 admin/tags.php:142 admin/tags.php:142
+#: admin/tags.php:142 intl/en.php:101
 msgid "Rename to..."
 msgstr ""
 
-#: intl/en.php:102 intl/en.php:101 intl/en.php:101
+#: intl/en.php:101 intl/en.php:102
 msgid "Create"
 msgstr ""
 
-#: intl/en.php:103 intl/en.php:119 intl/en.php:102 intl/en.php:118
-#: intl/en.php:102 intl/en.php:118
+#: intl/en.php:102 intl/en.php:103 intl/en.php:118 intl/en.php:119
 msgid "Import"
 msgstr ""
 
-#: intl/en.php:104 intl/en.php:120 intl/en.php:103 intl/en.php:119
-#: intl/en.php:103 intl/en.php:119
+#: intl/en.php:103 intl/en.php:104 intl/en.php:119 intl/en.php:120
 msgid "Export"
 msgstr ""
 
-#: intl/en.php:105 intl/en.php:104 intl/en.php:104
+#: intl/en.php:104 intl/en.php:105
 msgid "default"
 msgstr ""
 
-#: intl/en.php:106 intl/en.php:105 intl/en.php:105
+#: intl/en.php:105 intl/en.php:106
 msgid "Add"
 msgstr ""
 
-#: intl/en.php:107 intl/en.php:106 intl/en.php:106
+#: intl/en.php:106 intl/en.php:107
 msgid "Yes"
 msgstr ""
 
-#: intl/en.php:108 intl/en.php:107 intl/en.php:107
+#: intl/en.php:107 intl/en.php:108
 msgid "No"
 msgstr ""
 
-#: intl/en.php:109 intl/en.php:108 intl/en.php:108
+#: intl/en.php:108 intl/en.php:109
 msgid "Folders:"
 msgstr ""
 
-#: intl/en.php:110 intl/en.php:109 intl/en.php:109
+#: intl/en.php:109 intl/en.php:110
 msgid "Feeds:"
 msgstr ""
 
-#: intl/en.php:111 intl/en.php:110 intl/en.php:110
+#: intl/en.php:110 intl/en.php:111
 msgid "OPML:"
 msgstr ""
 
-#: intl/en.php:112 intl/en.php:111 intl/en.php:111
+#: intl/en.php:111 intl/en.php:112
 msgid "Items:"
 msgstr ""
 
-#: intl/en.php:113 intl/en.php:112 intl/en.php:112
+#: intl/en.php:112 intl/en.php:113
 msgid "Configuration:"
 msgstr ""
 
-#: intl/en.php:114 intl/en.php:113 intl/en.php:113
+#: intl/en.php:113 intl/en.php:114
 msgid "OK"
 msgstr ""
 
-#: intl/en.php:115 intl/en.php:114 intl/en.php:114
+#: intl/en.php:114 intl/en.php:115
 msgid "Cancel"
 msgstr ""
 
-#: intl/en.php:116 intl/en.php:237 intl/en.php:115 intl/en.php:236
-#: intl/en.php:115 intl/en.php:236
+#: intl/en.php:115 intl/en.php:116 intl/en.php:236 intl/en.php:237
 msgid "Logout"
 msgstr ""
 
-#: intl/en.php:117 intl/en.php:116 intl/en.php:116
+#: intl/en.php:116 intl/en.php:117
 msgid "Configure"
 msgstr ""
 
-#: intl/en.php:121 intl/en.php:120 intl/en.php:120
+#: intl/en.php:120 intl/en.php:121
 msgid "Import OPML:"
 msgstr ""
 
-#: intl/en.php:122 intl/en.php:121 intl/en.php:121
+#: intl/en.php:121 intl/en.php:122
 msgid "Export OPML:"
 msgstr ""
 
-#: intl/en.php:123 intl/en.php:122 intl/en.php:122
+#: intl/en.php:122 intl/en.php:123
 msgid "... from URL:"
 msgstr ""
 
-#: intl/en.php:124 intl/en.php:123 intl/en.php:123
+#: intl/en.php:123 intl/en.php:124
 msgid "... from File:"
 msgstr ""
 
-#: intl/en.php:125 intl/en.php:124 intl/en.php:124
+#: intl/en.php:124 intl/en.php:125
 msgid "Import file"
 msgstr ""
 
-#: intl/en.php:127 intl/en.php:126 intl/en.php:126
+#: intl/en.php:126 intl/en.php:127
 msgid "to folder:"
 msgstr ""
 
-#: intl/en.php:128 intl/en.php:127 intl/en.php:127
+#: intl/en.php:127 intl/en.php:128
 msgid "Submit Changes"
 msgstr ""
 
-#: intl/en.php:129 intl/en.php:128 intl/en.php:128
+#: intl/en.php:128 intl/en.php:129
 msgid "Preview"
 msgstr ""
 
-#: intl/en.php:130 intl/en.php:129 intl/en.php:129
+#: intl/en.php:129 intl/en.php:130
 msgid "Title"
 msgstr ""
 
-#: intl/en.php:131 intl/en.php:130 intl/en.php:130
+#: intl/en.php:130 intl/en.php:131
 msgid "Folder"
 msgstr ""
 
-#: intl/en.php:132 intl/en.php:148 intl/en.php:131 intl/en.php:147
-#: intl/en.php:131 intl/en.php:147
+#: intl/en.php:131 intl/en.php:132 intl/en.php:147 intl/en.php:148
 msgid "Description"
 msgstr ""
 
-#: intl/en.php:133 intl/en.php:132 intl/en.php:132
+#: intl/en.php:132 intl/en.php:133
 msgid "Move"
 msgstr ""
 
-#: intl/en.php:134 intl/en.php:133 intl/en.php:133
+#: intl/en.php:133 intl/en.php:134
 msgid "Action"
 msgstr ""
 
-#: intl/en.php:135 intl/en.php:134 intl/en.php:134
+#: intl/en.php:134 intl/en.php:135
 msgid "Flags"
 msgstr ""
 
-#: intl/en.php:136 intl/en.php:135 intl/en.php:135
+#: intl/en.php:135 intl/en.php:136
 msgid "Key"
 msgstr ""
 
-#: intl/en.php:137 intl/en.php:136 intl/en.php:136
+#: intl/en.php:136 intl/en.php:137
 msgid "Value"
 msgstr ""
 
-#: intl/en.php:138 intl/en.php:137 intl/en.php:137
+#: intl/en.php:137 intl/en.php:138
 msgid "Add a feed:"
 msgstr ""
 
-#: intl/en.php:139 intl/en.php:138 intl/en.php:138
+#: intl/en.php:138 intl/en.php:139
 msgid "Add a folder:"
 msgstr ""
 
-#: intl/en.php:140 intl/en.php:139 intl/en.php:139
+#: intl/en.php:139 intl/en.php:140
 msgid "Shown favicon:"
 msgstr ""
 
-#: intl/en.php:141 intl/en.php:140 intl/en.php:140
+#: intl/en.php:140 intl/en.php:141
 msgid "(Leave blank for no icon)"
 msgstr ""
 
-#: intl/en.php:143 intl/en.php:142 intl/en.php:142
+#: intl/en.php:142 intl/en.php:143
 msgid "Value for"
 msgstr ""
 
-#: intl/en.php:145 intl/en.php:144 intl/en.php:144
+#: intl/en.php:144 intl/en.php:145
 msgid "Name"
 msgstr ""
 
-#: intl/en.php:146 intl/en.php:145 intl/en.php:145
+#: intl/en.php:145 intl/en.php:146
 msgid "Author"
 msgstr ""
 
-#: intl/en.php:147 intl/en.php:146 intl/en.php:146
+#: intl/en.php:146 intl/en.php:147
 msgid "Version"
 msgstr ""
 
-#: intl/en.php:149 intl/en.php:148 intl/en.php:148
+#: intl/en.php:148 intl/en.php:149
 msgid "Active"
 msgstr ""
 
-#: intl/en.php:150 intl/en.php:149 intl/en.php:149
+#: intl/en.php:149 intl/en.php:150
 msgid "Options"
 msgstr ""
 
-#: intl/en.php:151 intl/en.php:150 intl/en.php:150
+#: intl/en.php:150 intl/en.php:151
 msgid "Plugin Options"
 msgstr ""
 
-#: intl/en.php:152 intl/en.php:151 intl/en.php:151
+#: intl/en.php:151 intl/en.php:152
 msgid "Theme Options"
 msgstr ""
 
-#: intl/en.php:155 intl/en.php:154 intl/en.php:154
+#: intl/en.php:154 intl/en.php:155
 msgid "Edit the feed "
 msgstr ""
 
-#: intl/en.php:156 intl/en.php:155 intl/en.php:155
+#: intl/en.php:155 intl/en.php:156
 msgid "Title:"
 msgstr ""
 
-#: intl/en.php:157 intl/en.php:156 intl/en.php:156
+#: intl/en.php:156 intl/en.php:157
 msgid "RSS URL:"
 msgstr ""
 
-#: intl/en.php:158 intl/en.php:157 intl/en.php:157
+#: intl/en.php:157 intl/en.php:158
 msgid "Site URL:"
 msgstr ""
 
-#: intl/en.php:159 intl/en.php:158 intl/en.php:158
+#: intl/en.php:158 intl/en.php:159
 msgid "In folder:"
 msgstr ""
 
-#: intl/en.php:160 intl/en.php:159 intl/en.php:159
+#: intl/en.php:159 intl/en.php:160
 msgid "Description:"
 msgstr ""
 
-#: intl/en.php:161 intl/en.php:160 intl/en.php:160
+#: intl/en.php:160 intl/en.php:161
 msgid "Folder name:"
 msgstr ""
 
-#: intl/en.php:162 intl/en.php:161 intl/en.php:161
+#: intl/en.php:161 intl/en.php:162
 msgid "This feed is <strong>private</strong>, only admins see it."
 msgstr ""
 
-#: intl/en.php:163 intl/en.php:162 intl/en.php:162
-msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
+#: intl/en.php:162 intl/en.php:163
+msgid ""
+"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
+"won't be visible in the feeds column."
 msgstr ""
 
-#: intl/en.php:165 intl/en.php:164 intl/en.php:164
-#, php-format
+#: intl/en.php:164 intl/en.php:165
 msgid "Are you sure you wish to delete '%s'?"
 msgstr ""
 
-#: intl/en.php:166 intl/en.php:165 intl/en.php:165
-#, php-format
+#: intl/en.php:165 intl/en.php:166
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
 msgstr ""
 
-#: intl/en.php:167 intl/en.php:166 intl/en.php:166
+#: intl/en.php:166 intl/en.php:167
 msgid "True"
 msgstr ""
 
-#: intl/en.php:168 intl/en.php:167 intl/en.php:167
+#: intl/en.php:167 intl/en.php:168
 msgid "False"
 msgstr ""
 
-#: intl/en.php:169 intl/en.php:168 intl/en.php:168
+#: intl/en.php:168 intl/en.php:169
 msgid "&uarr;"
 msgstr ""
 
-#: intl/en.php:170 intl/en.php:169 intl/en.php:169
+#: intl/en.php:169 intl/en.php:170
 msgid "&darr;"
 msgstr ""
 
-#: intl/en.php:171 intl/en.php:170 intl/en.php:170
-msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
+#: intl/en.php:170 intl/en.php:171
+msgid ""
+"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
+"subscribe to)"
 msgstr ""
 
-#: intl/en.php:172 intl/en.php:171 intl/en.php:171
-#, php-format
-msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
+#: intl/en.php:171 intl/en.php:172
+msgid ""
+"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
+"like to subscribe?"
 msgstr ""
 
-#: intl/en.php:174 intl/en.php:173 intl/en.php:173
+#: intl/en.php:173 intl/en.php:174
 msgid "Delete items older than "
 msgstr ""
 
-#: intl/en.php:175 intl/en.php:174 intl/en.php:174
+#: intl/en.php:174 intl/en.php:175
 msgid "days"
 msgstr ""
 
-#: intl/en.php:176 intl/en.php:175 intl/en.php:175
+#: intl/en.php:175 intl/en.php:176
 msgid "months"
 msgstr ""
 
-#: intl/en.php:177 intl/en.php:176 intl/en.php:176
+#: intl/en.php:176 intl/en.php:177
 msgid "years"
 msgstr ""
 
-#: intl/en.php:178 intl/en.php:177 intl/en.php:177
+#: intl/en.php:177 intl/en.php:178
 msgid "Keep the most recent items: "
 msgstr ""
 
-#: intl/en.php:179 intl/en.php:178 intl/en.php:178
+#: intl/en.php:178 intl/en.php:179
 msgid "Delete Sticky items too: "
 msgstr ""
 
-#: intl/en.php:180 intl/en.php:179 intl/en.php:179
+#: intl/en.php:179 intl/en.php:180
 msgid "Do not delete items tagged... "
 msgstr ""
 
-#: intl/en.php:181 intl/en.php:180 intl/en.php:180
+#: intl/en.php:180 intl/en.php:181
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
 msgstr ""
 
-#: intl/en.php:183 intl/en.php:182 intl/en.php:182
-#, php-format
+#: intl/en.php:182 intl/en.php:183
 msgid "Warning: you are about to delete %s items (of %s)"
 msgstr ""
 
-#: intl/en.php:184 intl/en.php:183 intl/en.php:183
+#: intl/en.php:183 intl/en.php:184
 msgid "Pruning"
 msgstr ""
 
-#: intl/en.php:185 intl/en.php:184 intl/en.php:184
+#: admin/folders.php:207 intl/en.php:184 intl/en.php:185
 msgid "folders"
 msgstr ""
 
-#: intl/en.php:186 intl/en.php:185 intl/en.php:185
+#: intl/en.php:185 intl/en.php:186
 msgid "feeds"
 msgstr ""
 
-#: intl/en.php:188 intl/en.php:187 intl/en.php:187
+#: intl/en.php:187 intl/en.php:188
 msgid "config"
 msgstr ""
 
-#: intl/en.php:189 intl/en.php:188 intl/en.php:188
+#: intl/en.php:188 intl/en.php:189
 msgid "opml"
 msgstr ""
 
-#: intl/en.php:190 intl/en.php:189 intl/en.php:189
-msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+#: intl/en.php:189 intl/en.php:190
+msgid ""
+"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
+"\">?</a>]:"
 msgstr ""
 
-#: intl/en.php:191 intl/en.php:190 intl/en.php:190
+#: intl/en.php:190 intl/en.php:191
 msgid "Subscribe in Gregarius!"
 msgstr ""
 
-#: intl/en.php:194 intl/en.php:193 intl/en.php:193
+#: intl/en.php:193 intl/en.php:194
 msgid ""
 "<h1>Not Authorized!</h1>\n"
 "You are not authorized to access the administration interface.\n"
 msgstr ""
 
-#: intl/en.php:195 intl/en.php:194 intl/en.php:194
-#, php-format
+#: intl/en.php:194 intl/en.php:195
 msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 msgstr ""
 
-#: intl/en.php:196 intl/en.php:195 intl/en.php:195
+#: intl/en.php:195 intl/en.php:196
 msgid "Have  a nice day!"
 msgstr ""
 
-#: intl/en.php:206 intl/en.php:205 intl/en.php:205
+#: intl/en.php:205 intl/en.php:206
 msgid "Tags"
 msgstr ""
 
-#: intl/en.php:208 intl/en.php:207 intl/en.php:207
+#: intl/en.php:207 intl/en.php:208
 msgid "submit"
 msgstr ""
 
-#: intl/en.php:209 intl/en.php:208 intl/en.php:208
+#: intl/en.php:208 intl/en.php:209
 msgid "cancel"
 msgstr ""
 
-#: intl/en.php:210 intl/en.php:209 intl/en.php:209
+#: intl/en.php:209 intl/en.php:210
 msgid "..."
 msgstr ""
 
-#: intl/en.php:211 intl/en.php:210 intl/en.php:210
-#, php-format
+#: intl/en.php:210 intl/en.php:211
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
 msgstr ""
 
-#: intl/en.php:212 intl/en.php:211 intl/en.php:211
+#: intl/en.php:211 intl/en.php:212
 msgid "All Tags"
 msgstr ""
 
-#: intl/en.php:213 intl/en.php:214 intl/en.php:212 intl/en.php:212
-#: intl/en.php:213
+#: intl/en.php:212 intl/en.php:213 intl/en.php:214
 msgid "tagged"
 msgstr ""
 
-#: intl/en.php:215 intl/en.php:214 intl/en.php:214
+#: intl/en.php:214 intl/en.php:215
 msgid "suggestions"
 msgstr ""
 
-#: intl/en.php:216 intl/en.php:215 intl/en.php:215
+#: intl/en.php:215 intl/en.php:216
 msgid "no suggestions"
 msgstr ""
 
-#: intl/en.php:217 intl/en.php:216 intl/en.php:216
+#: intl/en.php:216 intl/en.php:217
 msgid "Related tags: "
 msgstr ""
 
-#: intl/en.php:219 intl/en.php:218 intl/en.php:218
+#: intl/en.php:218 intl/en.php:219
 msgid "Show items: "
 msgstr ""
 
-#: intl/en.php:220 intl/en.php:219 intl/en.php:219
+#: intl/en.php:219 intl/en.php:220
 msgid "Unread only"
 msgstr ""
 
-#: intl/en.php:221 intl/en.php:220 intl/en.php:220
+#: intl/en.php:220 intl/en.php:221
 msgid "Read and unread"
 msgstr ""
 
-#: intl/en.php:223 intl/en.php:222 intl/en.php:222
+#: intl/en.php:222 intl/en.php:223
 msgid "Unread (Set this item\\'s read/unread state)"
 msgstr ""
 
-#: intl/en.php:224 intl/en.php:223 intl/en.php:223
+#: intl/en.php:223 intl/en.php:224
 msgid "Sticky (Won\\'t be deleted when you prune items)"
 msgstr ""
 
-#: intl/en.php:225 intl/en.php:224 intl/en.php:224
+#: intl/en.php:224 intl/en.php:225
 msgid "Private (Only administrators can see private items)"
 msgstr ""
 
-#: intl/en.php:226 intl/en.php:225 intl/en.php:225
+#: intl/en.php:225 intl/en.php:226
 msgid "Sticky"
 msgstr ""
 
-#: intl/en.php:227 intl/en.php:226 intl/en.php:226
+#: intl/en.php:226 intl/en.php:227
 msgid "Deprecated"
 msgstr ""
 
-#: intl/en.php:228 intl/en.php:227 intl/en.php:227
+#: intl/en.php:227 intl/en.php:228
 msgid "Private"
 msgstr ""
 
-#: intl/en.php:229 intl/en.php:228 intl/en.php:228
+#: intl/en.php:228 intl/en.php:229
 msgid "State:"
 msgstr ""
 
-#: intl/en.php:230 intl/en.php:229 intl/en.php:229
+#: intl/en.php:229 intl/en.php:230
 msgid "Set"
 msgstr ""
 
-#: intl/en.php:231 intl/en.php:230 intl/en.php:230
+#: intl/en.php:230 intl/en.php:231
 msgid "I'm sure!"
 msgstr ""
 
-#: intl/en.php:235 intl/en.php:234 intl/en.php:234
-#, php-format
+#: intl/en.php:234 intl/en.php:235
 msgid "Logged in as <strong>%s</strong>"
 msgstr ""
 
-#: intl/en.php:236 intl/en.php:235 intl/en.php:235
+#: intl/en.php:235 intl/en.php:236
 msgid "Not logged in"
 msgstr ""
 
-#: intl/en.php:238 intl/en.php:237 intl/en.php:237
+#: intl/en.php:237 intl/en.php:238
 msgid "Login"
 msgstr ""
 
-#: intl/en.php:240 intl/en.php:239 intl/en.php:239
+#: intl/en.php:239 intl/en.php:240
 msgid "Import new feeds and:"
 msgstr ""
 
-#: intl/en.php:241 intl/en.php:240 intl/en.php:240
+#: intl/en.php:240 intl/en.php:241
 msgid "... replace all existing feeds and items."
 msgstr ""
 
-#: intl/en.php:242 intl/en.php:241 intl/en.php:241
+#: intl/en.php:241 intl/en.php:242
 msgid "... add them to the folder:"
 msgstr ""
 
-#: intl/en.php:243 intl/en.php:242 intl/en.php:242
+#: intl/en.php:242 intl/en.php:243
 msgid "... merge them with the existing ones."
 msgstr ""
 
-#: intl/en.php:245 intl/en.php:244 intl/en.php:244
-#, php-format
+#: intl/en.php:244 intl/en.php:245
 msgid "Adding %s to %s... "
 msgstr ""
 
-#: intl/en.php:247 intl/en.php:246 intl/en.php:246
+#: intl/en.php:246 intl/en.php:247
 msgid "Categories"
 msgstr ""
 
-#: intl/en.php:248 intl/en.php:247 intl/en.php:247
-#, php-format
+#: intl/en.php:247 intl/en.php:248
 msgid "(%d items)"
 msgstr ""
 
-#: intl/en.php:249 intl/en.php:248 intl/en.php:248
-#, php-format
+#: intl/en.php:248 intl/en.php:249
 msgid "(%d unread in %d feeds)"
 msgstr ""
 
-#: intl/en.php:250 intl/en.php:249 intl/en.php:249
-#, php-format
+#: intl/en.php:249 intl/en.php:250
 msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
 msgstr ""
 
-#: intl/en.php:252 intl/en.php:251 intl/en.php:251
+#: intl/en.php:251 intl/en.php:252
 msgid "Rating:"
 msgstr ""
 
-#: intl/en.php:256 intl/en.php:255 intl/en.php:255
+#: intl/en.php:255 intl/en.php:256
 msgid "Enclosure:"
 msgstr ""
 
-#: intl/en.php:257 intl/en.php:256 intl/en.php:256
+#: intl/en.php:256 intl/en.php:257
 msgid "download"
 msgstr ""
 
-#: intl/en.php:258 intl/en.php:257 intl/en.php:257
+#: intl/en.php:257 intl/en.php:258
 msgid "play"
 msgstr ""
 
-#: intl/en.php:260 intl/en.php:261 intl/en.php:262 intl/en.php:259
-#: intl/en.php:259 intl/en.php:260 intl/en.php:261
+#: intl/en.php:259 intl/en.php:260 intl/en.php:261 intl/en.php:262
 msgid "Mark These Items as Read"
 msgstr ""
 
-#: intl/en.php:264 intl/en.php:263 intl/en.php:263
+#: intl/en.php:263 intl/en.php:264
 msgid "Mark This Feed as Read"
 msgstr ""
 
-#: intl/en.php:265 intl/en.php:264 intl/en.php:264
+#: intl/en.php:264 intl/en.php:265
 msgid "Mark This Folder as Read"
 msgstr ""
 
-#: intl/en.php:266 intl/en.php:265 intl/en.php:265
+#: intl/en.php:265 intl/en.php:266
 msgid "Mark This Category as Read"
 msgstr ""
 
-#: intl/en.php:269 intl/en.php:268 intl/en.php:268
+#: intl/en.php:268 intl/en.php:269
 msgid "Never"
 msgstr ""
 
-#: intl/en.php:270 intl/en.php:269 intl/en.php:269
+#: intl/en.php:269 intl/en.php:270
 msgid "Dashboard"
 msgstr ""
 
-#: intl/en.php:272 intl/en.php:271 intl/en.php:271
-msgid "<p>No Administrator has been specified yet!</p><p>Please provide an Administrator username and password now!</p>"
+#: intl/en.php:271 intl/en.php:272
+msgid ""
+"<p>No Administrator has been specified yet!</p><p>Please provide an "
+"Administrator username and password now!</p>"
 msgstr ""
 
-#: intl/en.php:273 intl/en.php:272 intl/en.php:272
+#: intl/en.php:272 intl/en.php:273
 msgid "Username"
 msgstr ""
 
-#: intl/en.php:274 intl/en.php:273 intl/en.php:273
+#: intl/en.php:273 intl/en.php:274
 msgid "Password"
 msgstr ""
 
-#: intl/en.php:275 intl/en.php:274 intl/en.php:274
+#: intl/en.php:274 intl/en.php:275
 msgid "Password (again)"
 msgstr ""
 
-#: intl/en.php:276 intl/en.php:275 intl/en.php:275
+#: intl/en.php:275 intl/en.php:276
 msgid "Please log in"
 msgstr ""
 
-#: intl/en.php:277 intl/en.php:276 intl/en.php:276
+#: intl/en.php:276 intl/en.php:277
 msgid "Passwords do not match!"
 msgstr ""
 
-#: intl/en.php:279 intl/en.php:278 intl/en.php:278
+#: intl/en.php:278 intl/en.php:279
 msgid "Plugins"
 msgstr ""
 
-#: intl/en.php:280 intl/en.php:279 intl/en.php:279
+#: intl/en.php:279 intl/en.php:280
 msgid "plugins"
 msgstr ""
 
-#: intl/en.php:281 intl/en.php:280 intl/en.php:280
+#: intl/en.php:280 intl/en.php:281
 msgid "Update Available"
 msgstr ""
 
-#: intl/en.php:282 intl/en.php:281 intl/en.php:281
+#: intl/en.php:281 intl/en.php:282
 msgid "Check for Updates"
 msgstr ""
 
-#: intl/en.php:283 intl/en.php:282 intl/en.php:282
+#: intl/en.php:282 intl/en.php:283
 msgid "<strong>Oops!</strong> Bad login/password"
 msgstr ""
 
-#: intl/en.php:284 intl/en.php:283 intl/en.php:283
-#, php-format
-msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
+#: intl/en.php:283 intl/en.php:284
+msgid ""
+"<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t "
+"have administration privileges. Log in again with administration privileges "
+"or follow your way <a href=\"..\">home</a>"
 msgstr ""
 
-#: intl/en.php:286 intl/en.php:285 intl/en.php:285
+#: intl/en.php:285 intl/en.php:286
 msgid "Active Theme"
 msgstr ""
 
-#: intl/en.php:287 intl/en.php:286 intl/en.php:286
+#: intl/en.php:286 intl/en.php:287
 msgid "Use this Theme"
 msgstr ""
 
-#: intl/en.php:289 intl/en.php:288 intl/en.php:288
-msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+#: intl/en.php:288 intl/en.php:289
+msgid ""
+"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
+"extended functionalities. More plugins can be downloaded at the <a style="
+"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
+"Repository</a>.</p>"
 msgstr ""
 
-#: intl/en.php:291 intl/en.php:290 intl/en.php:290
+#: intl/en.php:290 intl/en.php:291
 msgid "Last update"
 msgstr ""
 
-#: intl/en.php:292 intl/en.php:291 intl/en.php:291
+#: intl/en.php:291 intl/en.php:292
 msgid "themes"
 msgstr ""
 
-#: intl/en.php:293 intl/en.php:292 intl/en.php:292
+#: intl/en.php:292 intl/en.php:293
 msgid "Themes"
 msgstr ""
 
-#: intl/en.php:295 intl/en.php:294 intl/en.php:294
-msgid "<p style=\"font-size:small\">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
+#: intl/en.php:294 intl/en.php:295
+msgid ""
+"<p style=\"font-size:small\">Themes are made of a set of template files "
+"which specify how your Gregarius installation looks.<br />More themes can be "
+"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
+"themes.gregarius.net/\">Themes Repository</a>.</p>"
 msgstr ""
 
-#: intl/en.php:297 intl/en.php:296 intl/en.php:296
+#: intl/en.php:296 intl/en.php:297
 msgid "Flag (Flags an item for later reading)"
 msgstr ""
 
-#: intl/en.php:298 intl/en.php:297 intl/en.php:297
+#: intl/en.php:297 intl/en.php:298
 msgid "Flagged"
 msgstr ""
 
-#: search.php:42 search.php:42
-#, php-format
+#: search.php:42
 msgid "%d matches for %s"
 msgstr ""
 
-#: search.php:42 search.php:42
-#, php-format
+#: search.php:42
 msgid "%d match for %s"
 msgstr ""
 
-#: search.php:50 search.php:50
-#, php-format
+#: search.php:50
 msgid "Search %d items"
 msgstr ""
 
@@ -816,31 +790,19 @@ msgstr ""
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39 search.php:51
-#: themes/3panes/searchform.php:5 themes/3panes/searchform.php:25
-#: themes/default/mobile/searchform.php:5
-#: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
-#: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
-#: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
-#: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
 #: themes/planet/searchform.php:39
 msgid "Search"
 msgstr ""
 
-#: tags.php:81 tags.php:118 tags.php:81 tags.php:118
+#: tags.php:81 tags.php:118
 msgid "and"
 msgstr ""
 
 #: themes/3panes/footer.php:5 themes/default/web/footer.php:6
 #: themes/milsi/footer.php:4 themes/planet/footer.php:5
-#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
-#: themes/milsi/footer.php:4 themes/planet/footer.php:5
 msgid " powered by "
 msgstr ""
 
-#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
-#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
-#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
 #: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
 #: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
 #: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
@@ -850,15 +812,9 @@ msgstr ""
 #: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
-#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
-#: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
-#: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 msgid "Some terms (OR)"
 msgstr ""
 
-#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
-#: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
-#: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 #: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
@@ -868,15 +824,9 @@ msgstr ""
 #: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
-#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
-#: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
-#: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 msgid "Exact match"
 msgstr ""
 
-#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
-#: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
-#: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 #: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
@@ -886,15 +836,9 @@ msgstr ""
 #: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
-#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
-#: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
-#: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 msgid "Order by date, feed"
 msgstr ""
 
-#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
-#: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
-#: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 #: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
@@ -904,8 +848,169 @@ msgstr ""
 #: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
-#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
-#: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
-#: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 msgid "Results per page:"
+msgstr ""
+
+#: admin/channels.php:215 admin/tags.php:168
+msgid "<input type=\"hidden\" name=\""
+msgstr ""
+
+#: admin/channels.php:215 admin/tags.php:168
+msgid "\" value=\""
+msgstr ""
+
+#: admin/channels.php:215 admin/channels.php:216 admin/tags.php:167
+#: admin/tags.php:168
+msgid "\" />\n"
+msgstr ""
+
+#: admin/channels.php:216 admin/tags.php:167
+msgid "<input type=\"hidden\" name=\"action\" value=\""
+msgstr ""
+
+#: admin/channels.php:217
+msgid "</p>\n"
+msgstr ""
+
+#: admin/channels.php:218 admin/tags.php:169
+msgid "</fieldset>\n"
+msgstr ""
+
+#: admin/channels.php:222
+msgid ""
+"</form></div>\n"
+"\n"
+"\n"
+msgstr ""
+
+#: admin/folders.php:207 admin/tags.php:116
+msgid "update "
+msgstr ""
+
+#: admin/folders.php:207
+msgid " set name='$new_label' where id=$fid"
+msgstr ""
+
+#: admin/index.php:204
+#, c-format
+msgid "%s"
+msgstr ""
+
+#: admin/index.php:207 admin/tags.php:171
+msgid "</div>\n"
+msgstr ""
+
+#: admin/tags.php:116 admin/tags.php:144 admin/tags.php:175
+msgid "tag"
+msgstr ""
+
+#: admin/tags.php:116
+msgid " set tag='$new_label' where id=$tid"
+msgstr ""
+
+#: admin/tags.php:123
+msgid "<script type=\"text/javascript\">\n"
+msgstr ""
+
+#: admin/tags.php:124
+msgid "//<!--\n"
+msgstr ""
+
+#: admin/tags.php:125
+msgid "function cbtoggle() {\n"
+msgstr ""
+
+#: admin/tags.php:126
+msgid "var c=document.getElementById('mastercb').checked;\n"
+msgstr ""
+
+#: admin/tags.php:127
+msgid ""
+"var cs=document.getElementById('tagtable').getElementsByTagName('input');\n"
+msgstr ""
+
+#: admin/tags.php:128
+msgid "for(i=0;i<cs.length;i++) {\n"
+msgstr ""
+
+#: admin/tags.php:129
+msgid "if (cs[i].type == 'checkbox') cs[i].checked = c;\n"
+msgstr ""
+
+#: admin/tags.php:130 admin/tags.php:131
+msgid "}\n"
+msgstr ""
+
+#: admin/tags.php:132
+msgid "</script>\n"
+msgstr ""
+
+#: admin/tags.php:134
+msgid "<form method=\"post\" action=\""
+msgstr ""
+
+#: admin/tags.php:134
+msgid "\">\n"
+msgstr ""
+
+#: admin/tags.php:135
+msgid "<h2 class=\"trigger\">"
+msgstr ""
+
+#: admin/tags.php:135
+msgid "</h2>\n"
+msgstr ""
+
+#: admin/tags.php:136
+msgid "<div id=\"admin_tags\" class=\"trigger\">"
+msgstr ""
+
+#: admin/tags.php:137
+msgid "<table id=\"tagtable\">\n"
+msgstr ""
+
+#: admin/tags.php:138
+msgid "<tr>\n"
+msgstr ""
+
+#: admin/tags.php:139
+msgid ""
+"\t<th><input type=\"checkbox\" id=\"mastercb\" onclick=\"cbtoggle();\" /></"
+"th>\n"
+msgstr ""
+
+#: admin/tags.php:140
+msgid "\t<th class=\"cntr\">"
+msgstr ""
+
+#: admin/tags.php:140 admin/tags.php:141
+msgid "</th>\n"
+msgstr ""
+
+#: admin/tags.php:141
+msgid "\t<th>"
+msgstr ""
+
+#: admin/tags.php:142
+msgid "</tr>\n"
+msgstr ""
+
+#: admin/tags.php:144
+msgid "select id,tag from "
+msgstr ""
+
+#: admin/tags.php:144
+msgid " order by tag asc"
+msgstr ""
+
+#: admin/tags.php:170
+msgid "</form>\n"
+msgstr ""
+
+#: admin/tags.php:175
+msgid "select id, tag from "
+msgstr ""
+
+#: admin/tags.php:175
+msgid " where id=$tid"
 msgstr ""

@@ -41,8 +41,8 @@
 			fclose($old);
 			fclose($new);
 
-			//rename($old, $old . '.old');
-			//rename($new, $old);
+			rename($oldfile, $oldfile . '.old');
+			rename($newfile, $oldfile);
 
 			echo "\tdone!\n";
 		}

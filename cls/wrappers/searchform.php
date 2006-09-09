@@ -84,7 +84,7 @@ function rss_search_results_per_page_combo($id) {
 
     ."\t\t\t<option value=\"".INFINE_RESULTS."\""
     .((array_key_exists(QUERY_RESULTS,$_REQUEST) && $_REQUEST[QUERY_RESULTS] == INFINE_RESULTS?" selected=\"selected\"":""))
-	.">".LBL_ALL."</option>\n"
+	.">".__('All')."</option>\n"
     ."\t\t</select>";
 }
 
@@ -93,7 +93,7 @@ function rss_search_channels_combo($id) {
 	$ret = "\t\t<select name=\"$id\" id=\"$id\">\n"
       ."\t\t\t<option value=\"". ALL_CHANNELS_ID ."\""
       .((!array_key_exists(QUERY_CHANNEL,$_REQUEST) || $_REQUEST[QUERY_CHANNEL] == ALL_CHANNELS_ID)?" selected=\"selected\"":"")
-	  .">" . LBL_ALL  . "</option>\n";
+	  .">" . __('All')  . "</option>\n";
 
 	$sql = "select "
 		     ." c.id, c.title, f.name, f.id  "
@@ -119,7 +119,7 @@ function rss_search_channels_combo($id) {
 				$ret .="\t\t\t</optgroup>\n";
 			}
 			if ($parent_ == "") {
-				$parent_ = LBL_HOME_FOLDER;
+				$parent_ = __('Root');
 			}
 			$ret .= "\t\t\t<optgroup label=\"$parent_ /\">\n";
 			$prev_parent = $parent_id_;

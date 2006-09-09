@@ -47,15 +47,15 @@ function themes() {
 
 		echo "<form style=\"float:right\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
 		  . "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_THEMES."\" />\n"
-	  	."<input type=\"submit\" name=\"admin_themes_check_for_updates\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p>\n"
+	  	."<input type=\"submit\" name=\"admin_themes_check_for_updates\" value=\"".__('Check for Updates')."\" /></p>\n"
 	  	. "</form>\n";
 		if (isset($_POST['admin_themes_check_for_updates'])) {
-			theme_getThemesUpdate(&$themes);
+			theme_getThemesUpdate($themes);
 		}
     
-    echo "<h2 class=\"trigger\">".LBL_ADMIN_THEMES."</h2>\n"
+    echo "<h2 class=\"trigger\">".__('Themes')."</h2>\n"
     ."<div id=\"admin_themes\" >\n";
-    echo LBL_ADMIN_THEMES_GET_MORE;
+    echo __('<p style="font-size:small">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style="text-decoration:underline"  href="http://themes.gregarius.net/">Themes Repository</a>.</p>');
 
 
     foreach ($themes as $entry => $theme) {
@@ -87,9 +87,9 @@ function themes() {
         }
         echo "<div class=\"themeframe".($active?" active":""). ($updateAvailable?" hilite":"")."\"><span>";
         if (!$active && $htmltheme) {
-            echo "<a href=\"$seturl\" class=\"bookmarklet\">".LBL_ADMIN_USE_THIS_THEME."</a>";
+            echo "<a href=\"$seturl\" class=\"bookmarklet\">".__('Use this Theme')."</a>";
         } elseif($active) {
-            echo "<p class=\"bookmarklet\">".LBL_ADMIN_ACTIVE_THEME."</p>";
+            echo "<p class=\"bookmarklet\">".__('Active Theme')."</p>";
         }
         echo "<h4>$h4</h4>\n";
         if( file_exists( "../" . RSS_THEME_DIR . "/$fsname/config.php" ) )
@@ -97,7 +97,7 @@ function themes() {
                     CST_ADMIN_DOMAIN_THEME_OPTIONS
                     ."&amp;theme=".$entry
                     ."&amp;" .CST_ADMIN_VIEW ."=" .CST_ADMIN_DOMAIN_THEME_OPTIONS
-                    ."\">" . LBL_ADMIN_CONFIGURE . "</a>";
+                    ."\">" . __('Configure') . "</a>";
         echo "<h5>$h5</h5>\n"
             ."<p class=\"themescreenshot\">$screenshotURL</p>"
             ."<p>$description</p>&nbsp;"            
@@ -149,7 +149,7 @@ function theme_options() {
         }
         if ($theme_output) { // Let us set up a form
             echo "<h2
-            class=\"trigger\">".LBL_ADMIN_THEME_OPTIONS." ".TITLE_SEP." ". $name. "</h2>\n"
+            class=\"trigger\">".__('Theme Options')." ".TITLE_SEP." ". $name. "</h2>\n"
             ."<div id=\"admin_theme_options\">\n";
             echo "<form method=\"post\" ";
             if( rss_theme_options_form_class() !== null ) {
@@ -170,9 +170,9 @@ function theme_options() {
             if( !rss_theme_options_rendered_buttons() )
             {
                 echo "<input type=\"submit\" name=\"admin_theme_options_submit_changes\" value=\""
-                .LBL_ADMIN_SUBMIT_CHANGES."\" />\n";
+                .__('Submit Changes')."\" />\n";
                 echo "<input type=\"submit\" name=\"admin_theme_options_cancel_changes\"
-                value=\"".LBL_ADMIN_CANCEL."\" />\n";
+                value=\"".__('Cancel')."\" />\n";
             }
             echo "</p></form>\n";
             echo "</div>";
@@ -272,7 +272,7 @@ function rss_theme_options_configure_overrides($theme, $media, $config_items) {
 	}
 	
 	if( isset( $_REQUEST['mediaparam'] ) && $media === sanitize($_REQUEST['mediaparam'], RSS_SANITIZER_CHARACTERS) ) {
-		if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == LBL_ADMIN_YES) {
+		if (array_key_exists(CST_ADMIN_CONFIRMED,$_POST) && $_POST[CST_ADMIN_CONFIRMED] == __('Yes')) {
 			if (!array_key_exists('key',$_REQUEST)) {
 				rss_error('Invalid config key specified.', RSS_ERROR_ERROR,true);
 			} else {
@@ -282,7 +282,7 @@ function rss_theme_options_configure_overrides($theme, $media, $config_items) {
 			$action = null; //redirect to our theme's admin page
 		} else if( rss_theme_options_is_submit() ) {
 			switch ($action) {
-			case LBL_ADMIN_SUBMIT_CHANGES:
+			case __('Submit Changes'):
 			case 'ACT_ADMIN_SUBMIT_CHANGES':
 				if (!array_key_exists('key',$_REQUEST)) {
 					rss_error('Invalid config key specified.', RSS_ERROR_ERROR,true);

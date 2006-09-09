@@ -33,28 +33,28 @@ rss_require('cls/wrappers/toolkit.php');
 function items() {
 
     echo  ""
-    . "<h2 class=\"trigger\">". LBL_ADMIN_ITEM ."</h2>\n"
+    . "<h2 class=\"trigger\">". __('Items:') ."</h2>\n"
     . "<div id=\"admin_items\">\n"
     . "<form method=\"get\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
     . "<fieldset class=\"prune\">\n"
-    . "<legend>".LBL_ADMIN_PRUNING."</legend>\n"
+    . "<legend>".__('Pruning')."</legend>\n"
     . "<p><input type=\"hidden\" name=\"". CST_ADMIN_DOMAIN ."\" value=\"".CST_ADMIN_DOMAIN_ITEM."\"/>\n"
-    . "<label for=\"prune_older\">" . LBL_ADMIN_PRUNE_OLDER ."</label>\n"
+    . "<label for=\"prune_older\">" . __('Delete items older than ') ."</label>\n"
     . "<input type=\"text\" size=\"5\" name=\"prune_older\" id=\"prune_older\" value=\"\" />\n"
     . "<select name=\"prune_period\" id=\"prune_period\">\n"
-    . "<option>" . LBL_ADMIN_PRUNE_DAYS . "</option>\n"
-    . "<option>" . LBL_ADMIN_PRUNE_MONTHS . "</option>\n"
-    . "<option>" . LBL_ADMIN_PRUNE_YEARS . "</option>\n"
+    . "<option>" . __('days') . "</option>\n"
+    . "<option>" . __('months') . "</option>\n"
+    . "<option>" . __('years') . "</option>\n"
     . "</select></p>\n"
     . "<p><label for=\"prune_channel\">".__('...from these feeds').":</label>\n"
 		. rss_toolkit_channels_combo("prune_channel", ALL_CHANNELS_ID, 0, true) . "\n"
     . "</p>\n"
-    . "<p><label for=\"prune_include_sticky\">".LBL_ADMIN_PRUNE_INCLUDE_STICKY."</label>\n"
+    . "<p><label for=\"prune_include_sticky\">".__('Delete Sticky items too: ')."</label>\n"
     . "<input type=\"checkbox\" id=\"prune_include_sticky\" name=\"prune_include_sticky\" value=\"1\"/></p>\n"
-    . "<p><label for=\"prune_exclude_tags\">".LBL_ADMIN_PRUNE_EXCLUDE_TAGS."</label>\n"
+    . "<p><label for=\"prune_exclude_tags\">".__('Do not delete items tagged... ')."</label>\n"
     . "<input type=\"text\" id=\"prune_exclude_tags\" name=\"prune_exclude_tags\" value=\"\"/></p>\n"
-    . "<p style=\"font-size:small; padding:0;margin:0\">".LBL_ADMIN_ALLTAGS_EXPL."</p>\n"
-    . "<p class=\"cntr\"><input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_DELETE2 ."\"/></p>\n"
+    . "<p style=\"font-size:small; padding:0;margin:0\">".__('(Enter <strong>*</strong> to keep all tagged items)')."</p>\n"
+    . "<p class=\"cntr\"><input type=\"submit\" name=\"action\" value=\"". __('Delete') ."\"/></p>\n"
     . "</fieldset>\n"
     . "</form>\n"
     . "</div>\n"
@@ -67,7 +67,7 @@ function items() {
 function item_admin() {
     $ret__ = CST_ADMIN_DOMAIN_NONE;
     switch ($_REQUEST['action']) {
-    case LBL_ADMIN_DELETE2:
+    case __('Delete'):
             $req = rss_query('select count(*) as cnt from ' .getTable('item')
                              ." where not(unread & " . RSS_MODE_DELETED_STATE  .")"
                             );
@@ -78,20 +78,20 @@ function item_admin() {
                 strlen($_REQUEST['prune_older']) &&
                 is_numeric($_REQUEST['prune_older'])) 	{
             switch ($_REQUEST['prune_period']) {
-            case LBL_ADMIN_PRUNE_DAYS:
+            case __('days'):
                 $period = 'day';
                 break;
 
-            case LBL_ADMIN_PRUNE_MONTHS:
+            case __('months'):
                 $period = 'month';
                 break;
 
-            case LBL_ADMIN_PRUNE_YEARS:
+            case __('years'):
                 $period = 'year';
                 break;
 
             default:
-                rss_error(LBL_ADMIN_ERROR_PRUNING_PERIOD, RSS_ERROR_ERROR,true);
+                rss_error(__('Invalid pruning period'), RSS_ERROR_ERROR,true);
                 return CST_ADMIN_DOMAIN_ITEM;
                 break;
             }
@@ -226,20 +226,20 @@ function item_admin() {
                 list($cnt_d) = rss_fetch_row(rss_query("select count(distinct(i.id)) as cnt " . $sql
                                                        . " and not(i.unread & " . RSS_MODE_DELETED_STATE .")"
                                                       ));
-                rss_error(sprintf(LBL_ADMIN_ABOUT_TO_DELETE,$cnt_d,$cnt), RSS_ERROR_ERROR,true);
+                rss_error(sprintf(__('Warning: you are about to delete %s items (of %s)'),$cnt_d,$cnt), RSS_ERROR_ERROR,true);
 
                 echo "<form action=\"\" method=\"post\">\n"
                 ."<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_ITEM."\" />\n"
                 ."<input type=\"hidden\" name=\"prune_older\" value=\"".$_REQUEST['prune_older']."\" />\n"
                 ."<input type=\"hidden\" name=\"prune_period\" value=\"".$_REQUEST['prune_period']."\" />\n"
                 ."<input type=\"hidden\" name=\"".CST_ADMIN_CONFIRMED."\" value=\"1\" />\n"
-                ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_DELETE2 ."\" />\n"
-                ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/>\n"
+                ."<input type=\"submit\" name=\"action\" value=\"". __('Delete') ."\" />\n"
+                ."<input type=\"submit\" name=\"action\" value=\"". __('Cancel') ."\"/>\n"
                 ."</p>\n"
                 ."</form>\n";
             }
         } else {
-            rss_error(LBL_ADMIN_ERROR_NO_PERIOD, RSS_ERROR_ERROR,true);
+            rss_error(__('oops, no period specified'), RSS_ERROR_ERROR,true);
             $ret__ = CST_ADMIN_DOMAIN_ITEM;
         }
 

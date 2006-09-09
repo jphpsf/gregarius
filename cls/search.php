@@ -210,7 +210,7 @@ class SearchItemList extends ItemList {
 
         if ($this->resultsPerPage != INFINE_RESULTS && $this->itemCount >  $this->resultsPerPage) {
             $nav .= "<div class=\"readmore\">";
-            $nav .= LBL_SEARCH_RESULTS;
+            $nav .= __('Results: ');
 
             // first page
             $fp = 0;

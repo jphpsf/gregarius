@@ -83,23 +83,23 @@ function plugins() {
 
 
     // Rendering
-    echo "<h2 class=\"trigger\">".LBL_ADMIN_PLUGINS."</h2>\n"
+    echo "<h2 class=\"trigger\">".__('Plugins')."</h2>\n"
     ."<div id=\"admin_plugins\">\n";
 
 
-    echo LBL_ADMIN_PLUGINS_GET_MORE;
+    echo __('<p style="font-size:small">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style="text-decoration:underline"  href="http://plugins.gregarius.net/">Plugin Repository</a>.</p>');
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_PLUGINS."\" /></p>\n";
     echo "\n<table id=\"plugintable\">\n<tr>\n"
-    ."<th>".LBL_ADMIN_PLUGINS_HEADING_ACTION."</th>\n"
-    ."<th>".LBL_ADMIN_PLUGINS_HEADING_NAME."</th>\n"
-    ."<th>".LBL_ADMIN_PLUGINS_HEADING_VERSION."</th>\n"
-    ."<th>".LBL_ADMIN_PLUGINS_HEADING_AUTHOR."</th>\n"
-    ."<th>".LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION."</th>\n"
-    ."<th>".LBL_ADMIN_PLUGINS_HEADING_OPTIONS."</th>\n";
+    ."<th>".__('Active')."</th>\n"
+    ."<th>".__('Name')."</th>\n"
+    ."<th>".__('Version')."</th>\n"
+    ."<th>".__('Author')."</th>\n"
+    ."<th>".__('Description')."</th>\n"
+    ."<th>".__('Options')."</th>\n";
     if ($doUpdates) {
-        echo "<th>".LBL_ADMIN_PLUGINS_HEADING_UPDATES."</th>\n";
+        echo "<th>".__('Update Available')."</th>\n";
     }
 
     echo "</tr>\n";
@@ -146,7 +146,7 @@ function plugins() {
                     CST_ADMIN_DOMAIN_PLUGIN_OPTIONS
                     ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;plugin_name=".$escaped_plugin_name
                     ."&amp;" .CST_ADMIN_VIEW ."=" .CST_ADMIN_DOMAIN_PLUGIN_OPTIONS
-                    ."\">" . LBL_ADMIN_EDIT
+                    ."\">" . __('edit')
                     ."</a>";
                 } else {
                     echo "&nbsp;";
@@ -167,8 +167,8 @@ function plugins() {
     }
     echo "</table>\n";
     echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_SUBMIT_CHANGES\"/>\n";
-    echo "<input type=\"submit\" name=\"admin_plugin_submit_changes\" value=\"".LBL_ADMIN_SUBMIT_CHANGES."\" />\n";
-    echo "<input type=\"submit\" name=\"admin_plugin_check_for_updates\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p></form>\n";
+    echo "<input type=\"submit\" name=\"admin_plugin_submit_changes\" value=\"".__('Submit Changes')."\" />\n";
+    echo "<input type=\"submit\" name=\"admin_plugin_check_for_updates\" value=\"".__('Check for Updates')."\" /></p></form>\n";
     echo "</div>";
 }
 
@@ -199,7 +199,7 @@ function plugin_options() {
         }
         if ($plugin_output) { // Let us set up a form
             echo "<h2
-            class=\"trigger\">".LBL_ADMIN_PLUGINS_OPTIONS." ".TITLE_SEP." ". $plugin_info['name']. "</h2>\n"
+            class=\"trigger\">".__('Plugin Options')." ".TITLE_SEP." ". $plugin_info['name']. "</h2>\n"
             ."<div id=\"admin_plugin_options\">\n";
             echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
             echo "<p><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN
@@ -209,9 +209,9 @@ function plugin_options() {
             echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION
             ."\" value=\"ACT_ADMIN_SUBMIT_CHANGES\"/>\n";
             echo "<input type=\"submit\" name=\"admin_plugin_options_submit_changes\" value=\""
-            .LBL_ADMIN_SUBMIT_CHANGES."\" />\n";
+            .__('Submit Changes')."\" />\n";
             echo "<input type=\"submit\" name=\"admin_plugin_options_cancel_changes\"
-            value=\"".LBL_ADMIN_CANCEL."\" /></p></form>\n";
+            value=\"".__('Cancel')."\" /></p></form>\n";
             echo "</div>";
         } else {
             plugins();

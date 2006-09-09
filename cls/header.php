@@ -59,7 +59,7 @@ class Header {
 		if (getConfig("rss.output.titleunreadcnt") && 
 			is_array($cidfid) && 
 			($uc = getUnreadCount($cidfid['cid'], $cidfid['fid']))) {
-			$this->docTitle .= " ($uc ".LBL_UNREAD.")";
+			$this->docTitle .= " ($uc ".__('unread').")";
 		}
 
 		
@@ -94,9 +94,9 @@ class Header {
 
 		
 		$GLOBALS['rss'] -> sideMenu = new SideMenu();
-		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_H2_CHANNELS,'FeedList' , "_side('FeedList')");
-		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_TAG_FOLDERS, 'CatList', "_side('CatList')");
-		$GLOBALS['rss'] -> sideMenu -> addMenu(LBL_TAG_TAGS, 'TagList', "_side('TagList')");
+		$GLOBALS['rss'] -> sideMenu -> addMenu(__('Feeds'),'FeedList' , "_side('FeedList')");
+		$GLOBALS['rss'] -> sideMenu -> addMenu(__('Categories'), 'CatList', "_side('CatList')");
+		$GLOBALS['rss'] -> sideMenu -> addMenu(__('Tags'), 'TagList', "_side('TagList')");
 	}
 
 	function appendHeader($hdr) {

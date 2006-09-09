@@ -40,8 +40,10 @@ function rss_item_css_class() {
 	return "item " . (($GLOBALS['rss'] -> cntr % 2 == 0)?"even":"odd");
 }
 
-function rss_item_pl_title($label=LBL_PL_FOR) {
-	
+function rss_item_pl_title($label=null){
+	if (null === $label) {
+		$label = __('Permalink for ');
+	}
 	if (getConfig('rss.output.usepermalinks')) {
 		list ($ply, $plm, $pld) = explode(":", rss_date("Y:m:d", $GLOBALS['rss'] -> currentItem -> date, false));
 		$ptitle = ($label."'".$GLOBALS['rss'] -> currentItem -> parent -> escapedTitle
@@ -196,7 +198,7 @@ function rss_item_date() {
 			$date_lbl = str_replace($dlbl, "<a href=\"$durl\">$dlbl</a>", $date_lbl);
 		}		
 */
-		return (($GLOBALS['rss']->currentItem->isPubDate?LBL_POSTED:LBL_FETCHED). $date_lbl);			
+		return (($GLOBALS['rss']->currentItem->isPubDate?__('Posted: '):__('Fetched: ')). $date_lbl);			
 	}
 }
 
@@ -217,7 +219,7 @@ function rss_item_author() {
 		} else {
 			$a = "<a href=\"".getPath() ."author.php?author=$ea\">$a</a>";
 		}
-  	return LBL_BY . $a;
+  	return __(' by ') . $a;
   }
 }
 

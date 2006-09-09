@@ -9,10 +9,10 @@
 ?></a></h4>
 <h5><?php echo rss_item_date(); ?><?php echo rss_item_author(); ?></h5>
 <?php if (rss_item_has_enclosure()) { ?>
-<h5><?php echo LBL_ENCLOSURE; ?>&nbsp;[<a href="<?php echo rss_item_enclosure(); ?>"><?php echo LBL_DOWNLOAD; ?></a>]</h5>
+<h5><?php echo __('Enclosure:'); ?>&nbsp;[<a href="<?php echo rss_item_enclosure(); ?>"><?php echo __('download'); ?></a>]</h5>
 <?php } ?>
 <?php	if (rss_item_display_tags() && count($GLOBALS['rss']->currentItem->tags)) { ?>
-<h5><a href="<?php echo rss_item_tagslink(); ?>"><?php echo LBL_TAG_TAGS; ?></a>:&nbsp;<span><?php echo rss_item_tags(); ?></h5>
+<h5><a href="<?php echo rss_item_tagslink(); ?>"><?php echo __('Tags'); ?></a>:&nbsp;<span><?php echo rss_item_tags(); ?></h5>
 <?php } ?>
 <br />
 <div class="content">

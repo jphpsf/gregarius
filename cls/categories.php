@@ -57,7 +57,7 @@ class CatList extends FeedList {
 		//parent::FeedList(null);
 		$this->loadCollapsedState();
 		$this -> populate();
-		$this -> 	columnTitle = LBL_TAG_FOLDERS;
+		$this -> 	columnTitle = __('Categories');
 		$GLOBALS['rss']-> feedList = $this;
 	}
 	
@@ -84,7 +84,7 @@ class CatList extends FeedList {
 	
 	
 	function getStats() {
-		return sprintf(LBL_CATCNT_PF, $this -> taggedFeedCnt, $this -> tagCnt, 0);
+		return sprintf(__('<strong>%d</strong> feeds in <strong>%d</strong> categories'), $this -> taggedFeedCnt, $this -> tagCnt, 0);
 	}
 	
 	function loadCollapsedState() {

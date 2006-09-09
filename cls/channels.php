@@ -96,7 +96,7 @@ class FeedListItem {
 
 
 		if ($unreadCount > 0) {
-			$this->rdLbl= sprintf(LBL_UNREAD_PF, "cid$id","",$unreadCount);
+			$this->rdLbl= sprintf(__('<strong id="%s" style="%s">(%d unread)</strong>'), "cid$id","",$unreadCount);
 			$this->class_= "feed title unread";
 		} else {
 			$this->rdLbl= "";
@@ -150,11 +150,12 @@ class FeedList {
 	var $folders = array ();
 	var $activeId;
 	var $feedCount = 0;
-	var $columnTitle = LBL_H2_CHANNELS;
+	var $columnTitle;
 	var $stats;
 	
 	function FeedList($activeId) {
 		_pf('FeedList() ctor');
+		$this ->columnTitle= __('Feeds');
 		$this->activeId = $activeId;
 		$this->loadCollapsedState();
 		$this->populate();
@@ -190,7 +191,7 @@ class FeedList {
 		list ($channelcount) = rss_fetch_row($res);
 		_pf(' ... done: feedsCount');				
 		
-		$this ->stats = sprintf(LBL_ITEMCOUNT_PF, $total, $unread, $channelcount);
+		$this ->stats = sprintf(__('<strong>%d</strong> items (<strong id="fucnt">%d</strong> unread) in <strong>%d</strong> feeds'), $total, $unread, $channelcount);
 		_pf('done: getStats()');
 		return $this -> stats;
 	}
