@@ -229,7 +229,7 @@ function config_admin() {
         echo "<p style=\"display:inline\">\n";
         echo (isset($preview)?"<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_PREVIEW_CHANGES ."\""
       .($onclickaction?" onclick=\"$onclickaction\"":"") ." />\n":"");
-        echo "<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\" />";
+        echo "<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"ACT_ADMIN_SUBMIT_CHANGES\" />";
 
         echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_SUBMIT_CHANGES ."\""
         .($onclickaction?" onclick=\"$onclickaction\"":"")
@@ -238,7 +238,7 @@ function config_admin() {
 
         echo "<form style=\"display:inline\" method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n"
         ."<p style=\"display:inline\">\n<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_CONFIG ."\"/>\n"
-        ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_SUBMIT_CANCEL\" />"
+        ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"ACT_ADMIN_SUBMIT_CANCEL\" />"
         ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_CANCEL ."\"/></p></form>\n"
         ."\n\n</div>\n";
 
@@ -246,12 +246,12 @@ function config_admin() {
         break;
 
     case LBL_ADMIN_PREVIEW_CHANGES:
-    case 'LBL_ADMIN_PREVIEW_CHANGES':
+    case 'ACT_ADMIN_PREVIEW_CHANGES':
         rss_error('fixme: preview not yet implemented', RSS_ERROR_ERROR,true);
         break;
 
     case LBL_ADMIN_SUBMIT_CHANGES:
-    case 'LBL_ADMIN_SUBMIT_CHANGES':
+    case 'ACT_ADMIN_SUBMIT_CHANGES':
 
         $key = sanitize($_POST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
         $type = sanitize($_POST['type'],RSS_SANITIZER_CHARACTERS);

@@ -43,7 +43,7 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 
 if (array_key_exists('metaaction', $_POST)
     && $_POST['metaaction'] != ""
-    && trim($_POST['metaaction']) == trim('LBL_MARK_READ') 
+    && trim($_POST['metaaction']) == trim('ACT_MARK_READ') 
     && !hidePrivate()) {
     
     $sql = "update " .getTable("item") . " set unread=unread & "
@@ -224,7 +224,7 @@ function markAllReadForm() {
 	
    echo "<form action=\"". getPath() ."\" method=\"post\">\n"
       ."<p><input accesskey=\"m\" type=\"submit\" name=\"action\" value=\"". LBL_MARK_READ ." \"/></p>\n"
-      ."<p><input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_READ\"/>\n"
+      ."<p><input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_READ\"/>\n"
       ."<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
       ."</p></form>\n";
 }

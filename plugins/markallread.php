@@ -28,7 +28,7 @@
 /// Name: Mark All Read
 /// Author: Keith D. Zimmerman
 /// Description: Display "Mark All Read" buttons and links in many places
-/// Version: 0.4
+/// Version: 0.5
 /// Configuration: __markallread_config
 
 /**
@@ -38,6 +38,7 @@
  * 0.2	initial public release
  * 0.3	support for i18n
  * 0.4  Fixed a couple validation issues
+ * 0.5  Adapted for new l10n method
  */
 
 define ('MARKALLREAD_CONFIG_OPTIONS', 'markallread.options');
@@ -60,7 +61,7 @@ function __markallread_sidemenu_categoryunreadlabel( $existingText ) {
 
 	$options = rss_plugins_get_option( MARKALLREAD_CONFIG_OPTIONS );
 	if( $options & MARKALLREAD_OPTION_LINK_CATEGORY )
-		return "<a title='".LBL_MARK_CATEGORY_READ_ALL."' href='". getPath() ."feed.php?metaaction=LBL_MARK_VFOLDER_READ&vfolder=" . rss_feeds_folder_id() . "' onclick='javascript: return _markallread(this,\"category\",\"" . rss_feeds_folder_name() . "\");'>" . $existingText . '</a>';
+		return "<a title='".LBL_MARK_CATEGORY_READ_ALL."' href='". getPath() ."feed.php?metaaction=ACT_MARK_VFOLDER_READ&vfolder=" . rss_feeds_folder_id() . "' onclick='javascript: return _markallread(this,\"category\",\"" . rss_feeds_folder_name() . "\");'>" . $existingText . '</a>';
 	else
 		return $existingText;
 }
@@ -71,7 +72,7 @@ function __markallread_sidemenu_folderunreadlabel( $existingText ) {
 
 	$options = rss_plugins_get_option( MARKALLREAD_CONFIG_OPTIONS );
 	if( $options & MARKALLREAD_OPTION_LINK_FOLDER )
-		return "<a title='".LBL_MARK_FOLDER_READ_ALL."' href='". getPath() ."feed.php?metaaction=LBL_MARK_FOLDER_READ&amp;folder=" . rss_feeds_folder_id() . "' onclick='javascript: return _markallread(this,\"folder\",\"" . rss_feeds_folder_name() . "\");'>" . $existingText . '</a>';
+		return "<a title='".LBL_MARK_FOLDER_READ_ALL."' href='". getPath() ."feed.php?metaaction=ACT_MARK_FOLDER_READ&amp;folder=" . rss_feeds_folder_id() . "' onclick='javascript: return _markallread(this,\"folder\",\"" . rss_feeds_folder_name() . "\");'>" . $existingText . '</a>';
 	else
 		return $existingText;
 }
@@ -82,7 +83,7 @@ function __markallread_sidemenu_feedunreadlabel( $existingText ) {
 
 	$options = rss_plugins_get_option( MARKALLREAD_CONFIG_OPTIONS );
 	if( $options & MARKALLREAD_OPTION_LINK_FEED )
-		return "<a title='".LBL_MARK_CHANNEL_READ_ALL."' href='". getPath() ."feed.php?metaaction=LBL_MARK_CHANNEL_READ&amp;channel=" . $GLOBALS['rss']->currentFeedsFeed-> id . "' onclick='javascript: return _markallread(this,\"feed\",\"" . rss_feeds_feed_title() . "\");'>" . $existingText . '</a>';
+		return "<a title='".LBL_MARK_CHANNEL_READ_ALL."' href='". getPath() ."feed.php?metaaction=ACT_MARK_CHANNEL_READ&amp;channel=" . $GLOBALS['rss']->currentFeedsFeed-> id . "' onclick='javascript: return _markallread(this,\"feed\",\"" . rss_feeds_feed_title() . "\");'>" . $existingText . '</a>';
 	else
 		return $existingText;
 }
@@ -92,19 +93,19 @@ function __markallread_buttondisplay() {
 	$safety = '';
 
 	if(defined('MARK_READ_FEED_FORM')) {
-			$metaaction = "LBL_MARK_CHANNEL_READ";
+			$metaaction = "ACT_MARK_CHANNEL_READ";
 			$id = 'name="channel" value="' . MARK_READ_FEED_FORM . '"';
 			$text = LBL_MARK_CHANNEL_READ_ALL;
 			if( $options & MARKALLREAD_OPTION_CONFIIRM )
 				$safety = ' onclick=\'javascript: return _confirmmarkallread("feed", "");\'';
 	} elseif(defined('MARK_READ_FOLDER_FORM')) {
-			$metaaction = "LBL_MARK_FOLDER_READ";
+			$metaaction = "ACT_MARK_FOLDER_READ";
 			$id = 'name="folder" value="' . MARK_READ_FOLDER_FORM . '"';
 			$text = LBL_MARK_FOLDER_READ_ALL;
 			if( $options & MARKALLREAD_OPTION_CONFIIRM )
 				$safety = ' onclick=\'javascript: return _confirmmarkallread("folder", "");\'';
 	} elseif(defined('MARK_READ_VFOLDER_FORM')){
-			$metaaction = "LBL_MARK_VFOLDER_READ";
+			$metaaction = "ACT_MARK_VFOLDER_READ";
 			$id = 'name="vfolder" value="' . MARK_READ_VFOLDER_FORM . '"';
 			$text = LBL_MARK_CATEGORY_READ_ALL;
 			if( $options & MARKALLREAD_OPTION_CONFIIRM )

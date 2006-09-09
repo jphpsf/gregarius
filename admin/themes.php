@@ -161,7 +161,7 @@ function theme_options() {
             echo $theme_output;
             echo "<p><input type=\"hidden\" name=\"theme\" value=\"".$theme."\"/>\n";
             echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION
-                   ."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\"/>\n";
+                   ."\" value=\"ACT_ADMIN_SUBMIT_CHANGES\"/>\n";
             if( isset( $_REQUEST['mediaparam'] ) ) //pass it along
             {
                 $mediaparam = sanitize($_REQUEST['mediaparam'], RSS_SANITIZER_CHARACTERS);
@@ -283,7 +283,7 @@ function rss_theme_options_configure_overrides($theme, $media, $config_items) {
 		} else if( rss_theme_options_is_submit() ) {
 			switch ($action) {
 			case LBL_ADMIN_SUBMIT_CHANGES:
-			case 'LBL_ADMIN_SUBMIT_CHANGES':
+			case 'ACT_ADMIN_SUBMIT_CHANGES':
 				if (!array_key_exists('key',$_REQUEST)) {
 					rss_error('Invalid config key specified.', RSS_ERROR_ERROR,true);
 					break;

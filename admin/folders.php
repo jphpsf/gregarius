@@ -37,7 +37,7 @@ function folders() {
 
     echo "<label for=\"new_folder\">".LBL_ADMIN_FOLDERS_ADD."</label>\n"
     ."<input type=\"text\" id=\"new_folder\" name=\"new_folder\" value=\"\" />"
-    ."<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_ADD\"/>\n"
+    ."<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_ADD\"/>\n"
     ."<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\"/>\n"
     ."</p></form>\n\n";
 
@@ -210,7 +210,7 @@ function folder_admin() {
         break;
 
     case LBL_ADMIN_ADD:
-    case 'LBL_ADMIN_ADD':
+    case 'ACT_ADMIN_ADD':
         $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_URL);
         $new_label = rss_real_escape_string($new_label);
         assert(strlen($label) > 0);

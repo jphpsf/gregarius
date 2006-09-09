@@ -77,7 +77,7 @@ function opml() {
     ."";
 
 
-    echo "<p style=\"text-align:center\"><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_IMPORT\" />\n";
+    echo "<p style=\"text-align:center\"><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_IMPORT\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_OPML_IMPORT ."\" /></p>\n";
 
 

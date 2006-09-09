@@ -30,8 +30,8 @@
 require_once('init.php');
 rss_require('extlib/rss_fetch.inc');
 
-define ('LBL_NAV_PREV_PREFIX','&larr;&nbsp;');
-define ('LBL_NAV_SUCC_POSTFIX','&nbsp;&rarr;');
+define ('ACT_NAV_PREV_PREFIX','&larr;&nbsp;');
+define ('ACT_NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
 
 
@@ -302,7 +302,7 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
     }
     switch ($_REQUEST['metaaction']) {
 
-    case  'LBL_MARK_CHANNEL_READ':
+    case  'ACT_MARK_CHANNEL_READ':
 
         /** mark channel as read **/
         $sql = "update " .getTable("item")
@@ -415,7 +415,7 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         break;
 
         // folder
-    case 'LBL_MARK_FOLDER_READ':
+    case 'ACT_MARK_FOLDER_READ':
         $fid = sanitize($_REQUEST['folder'],RSS_SANITIZER_NUMERIC);
         $rs  = rss_query("select id from " .getTable('channels') . " where parent=$fid");
         $cids_ = array();
@@ -486,7 +486,7 @@ if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
         }
         break;
         // virtual folder - code extremely similar to LBL_MARK_FOLDER_READ
-    case 'LBL_MARK_VFOLDER_READ':
+    case 'ACT_MARK_VFOLDER_READ':
         $vfid = sanitize($_REQUEST['vfolder'],RSS_SANITIZER_NUMERIC);
         
         $rs  = rss_query(
@@ -868,7 +868,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
             } elseif (strlen($lbl) > 40) {
                 $lbl = substr($lbl,0,37) . "...";
             }
-            $readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".LBL_NAV_PREV_PREFIX ."$lbl</a>\n";
+            $readMoreNav .= "<a href=\"".$prev['url']."\" class=\"fl\">".ACT_NAV_PREV_PREFIX ."$lbl</a>\n";
         }
 
         if($succ != null) {
@@ -878,7 +878,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
             } elseif (strlen($lbl) > 40) {
                 $lbl = substr($lbl,0,37) . "...";
             }
-            $readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">$lbl".LBL_NAV_SUCC_POSTFIX."</a>\n";
+            $readMoreNav .= "<a href=\"".$succ['url']."\" class=\"fr\">$lbl".ACT_NAV_SUCC_POSTFIX."</a>\n";
         }
 
         if ($readMoreNav != "") {
@@ -1357,7 +1357,7 @@ function markReadForm($cid) {
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
     ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_CHANNEL_READ ."\"/>\n"
-    ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_CHANNEL_READ\"/>\n"
+    ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_CHANNEL_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
     ."</p>\n</form>";
@@ -1373,7 +1373,7 @@ function markFolderReadForm($fid) {
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
     ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
-    ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_FOLDER_READ\"/>\n"
+    ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_FOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
     ."</p></form>";
@@ -1390,7 +1390,7 @@ function markVirtualFolderReadForm($vfid) {
     }
     echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
     ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". LBL_MARK_FOLDER_READ ."\"/>\n"
-    ."\t<input type=\"hidden\" name=\"metaaction\" value=\"LBL_MARK_VFOLDER_READ\"/>\n"
+    ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_VFOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/>\n"
     ."\t<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
     ."</p>\n</form>";

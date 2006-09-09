@@ -166,7 +166,7 @@ function plugins() {
         }
     }
     echo "</table>\n";
-    echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\"/>\n";
+    echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_SUBMIT_CHANGES\"/>\n";
     echo "<input type=\"submit\" name=\"admin_plugin_submit_changes\" value=\"".LBL_ADMIN_SUBMIT_CHANGES."\" />\n";
     echo "<input type=\"submit\" name=\"admin_plugin_check_for_updates\" value=\"".LBL_ADMIN_CHECK_FOR_UPDATES."\" /></p></form>\n";
     echo "</div>";
@@ -207,7 +207,7 @@ function plugin_options() {
             echo $plugin_output;
             echo "<p><input type=\"hidden\" name=\"plugin_name\" value=\"".$plugin_filename."\"/>\n";
             echo "<p><input type=\"hidden\" name=\"". CST_ADMIN_METAACTION
-            ."\" value=\"LBL_ADMIN_SUBMIT_CHANGES\"/>\n";
+            ."\" value=\"ACT_ADMIN_SUBMIT_CHANGES\"/>\n";
             echo "<input type=\"submit\" name=\"admin_plugin_options_submit_changes\" value=\""
             .LBL_ADMIN_SUBMIT_CHANGES."\" />\n";
             echo "<input type=\"submit\" name=\"admin_plugin_options_cancel_changes\"

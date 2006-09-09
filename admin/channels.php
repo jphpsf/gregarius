@@ -47,7 +47,7 @@ function channels() {
     echo rss_toolkit_folders_combo('add_channel_to_folder');
 	echo "<label for=\"channel_tags\">" . LBL_TAG_FOLDERS . ":</label>\n";
 	echo "<input type=\"text\" name=\"channel_tags\" id=\"channel_tags\" />\n";
-    echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"LBL_ADMIN_ADD\" />\n";
+    echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_ADD\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\" /></p>\n";
     echo "<p style=\"font-size:small\">".LBL_ADMIN_ADD_CHANNEL_EXPL."</p>";
     echo "</form>\n\n";
@@ -249,7 +249,7 @@ function channel_admin() {
     switch ($__action__) {
 
     case LBL_ADMIN_ADD:
-    case 'LBL_ADMIN_ADD':
+    case 'ACT_ADMIN_ADD':
     case 'Add':
 
         $label 	= trim(sanitize($_REQUEST['new_channel'], RSS_SANITIZER_URL));
@@ -365,7 +365,7 @@ function channel_admin() {
 
                         echo "<p><input type=\"hidden\" name=\"add_channel_to_folder\" value=\"$fid\" />\n"
                         ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
-                        ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"LBL_ADMIN_ADD\" />\n"
+                        ."<input type=\"hidden\" name=\"".CST_ADMIN_METAACTION."\" value=\"ACT_ADMIN_ADD\" />\n"
                         ."<input type=\"submit\" class=\"indent\" name=\"action\" value=\"". LBL_ADMIN_ADD ."\" />\n"
                         ."</p>\n</form>\n\n";
                     }
@@ -440,7 +440,7 @@ function channel_admin() {
 
 
     case LBL_ADMIN_IMPORT:
-    case 'LBL_ADMIN_IMPORT':
+    case 'ACT_ADMIN_IMPORT':
 
 
         if (array_key_exists('opml',$_POST) && strlen(trim($_POST['opml'])) > 7) {
