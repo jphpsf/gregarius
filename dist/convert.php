@@ -4,7 +4,8 @@
 	$EXCLUDE = '#(intl|extlib|dist)#';
 
 	//Convert('.');
-	buildPOs();
+	// buildPOs();
+	
 	function __callback__($matches) {
 		if (defined($matches[1])) {
 			return '__(\''.constant($matches[1]) .'\')';
