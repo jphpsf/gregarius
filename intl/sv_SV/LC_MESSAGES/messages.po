@@ -1,0 +1,835 @@
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gregarius 0.5.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: LBL_ITEM
+msgid "item"
+msgstr "inl&auml;gg"
+
+#: LBL_ITEMS
+msgid "items"
+msgstr "inl&auml;gg"
+
+#: LBL_H2_SEARCH_RESULTS_FOR
+msgid "%d matches for %s"
+msgstr "%d tr&auml;ffar f&ouml;r %s"
+
+#: LBL_H2_SEARCH_RESULT_FOR
+msgid "%d match for %s"
+msgstr "%d tr&auml;ff f&ouml;r %s"
+
+#: LBL_H2_SEARCH
+msgid "Search %d items"
+msgstr "S&ouml;k bland %d inl&auml;gg"
+
+#: LBL_SEARCH_SEARCH_QUERY
+msgid "Search terms:"
+msgstr "S&ouml;kord:"
+
+#: LBL_SEARCH_MATCH_OR
+msgid "Some terms (OR)"
+msgstr "N&aring;got av orden (OR)"
+
+#: LBL_SEARCH_MATCH_AND
+msgid "All terms (AND)"
+msgstr "Alla orden (AND)"
+
+#: LBL_SEARCH_MATCH_EXACT
+msgid "Exact match"
+msgstr "Den exakta frasen"
+
+#: LBL_SEARCH_CHANNELS
+msgid "Feed:"
+msgstr "Fl&ouml;de:"
+
+#: LBL_SEARCH_ORDER_DATE_CHANNEL
+msgid "Order by date, feed"
+msgstr "Ordna efter datum, fl&ouml;de"
+
+#: LBL_SEARCH_ORDER_CHANNEL_DATE
+msgid "Order by feed, date"
+msgstr "Ordna efter fl&ouml;de, datum"
+
+#: LBL_SEARCH_RESULTS_PER_PAGE
+msgid "Results per page:"
+msgstr "Resultat per sida:"
+
+#: LBL_SEARCH_RESULTS
+msgid "Results: "
+msgstr "Resultat: "
+
+#: LBL_H2_UNREAD_ITEMS
+msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
+msgstr "Ol&auml;sta inl&auml;gg (<strong id=\"ucnt\">%d</strong>)"
+
+#: LBL_H2_RECENT_ITEMS
+msgid "Recent items"
+msgstr "Senast l&auml;sta inl&auml;gg"
+
+#: LBL_H2_CHANNELS
+msgid "Feeds"
+msgstr "Fl&ouml;den"
+
+#: LBL_H5_READ_UNREAD_STATS
+msgid "%d items, %d unread"
+msgstr "%d inl&auml;gg, %d ol&auml;sta"
+
+#: LBL_ITEMCOUNT_PF
+msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> inl&auml;gg (<strong id=\"fucnt\">%d</strong> ol&auml;sta) i <strong>%d</strong> fl&ouml;den"
+
+#: LBL_TAGCOUNT_PF
+msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
+msgstr "<strong>%d</strong> taggade inl&auml;gg, <strong>%d</strong> taggar"
+
+#: LBL_UNREAD_PF
+msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
+msgstr "<strong id=\"%s\" style=\"%s\">(%d ol&auml;sta)</strong>"
+
+#: LBL_UNREAD
+msgid "unread"
+msgstr "ol&auml;sta"
+
+#: LBL_FTR_POWERED_BY
+msgid " powered by "
+msgstr " drivs med hj&auml;lp av "
+
+#: LBL_ALL
+msgid "All"
+msgstr "Alla"
+
+#: LBL_NAV_HOME
+msgid "<span>H</span>ome"
+msgstr "<span>H</span>em"
+
+#: LBL_NAV_UPDATE
+msgid "<span>R</span>efresh"
+msgstr "<span>U</span>ppdatera"
+
+#: LBL_NAV_CHANNEL_ADMIN
+msgid "A<span>d</span>min"
+msgstr "A<span>d</span>min"
+
+#: LBL_NAV_SEARCH
+msgid "<span>S</span>earch"
+msgstr "<span>S</span>&ouml;k"
+
+#: LBL_SEARCH_GO
+msgid "Search"
+msgstr "S&ouml;k"
+
+#: LBL_POSTED
+msgid "Posted: "
+msgstr "Postad: "
+
+#: LBL_FETCHED
+msgid "Fetched: "
+msgstr "H&auml;mtad: "
+
+#: LBL_BY
+msgid " by "
+msgstr " af "
+
+#: LBL_AND
+msgid "and"
+msgstr "och"
+
+#: LBL_TITLE_UPDATING
+msgid "Updating"
+msgstr "Uppdaterar"
+
+#: LBL_TITLE_SEARCH
+msgid "Search"
+msgstr "S&ouml;k"
+
+#: LBL_HOME_FOLDER
+msgid "Root"
+msgstr "Root"
+
+#: LBL_VISIT
+msgid "(visit)"
+msgstr "(&ouml;ppna)"
+
+#: LBL_COLLAPSE
+msgid "[-] collapse"
+msgstr "[-] Kollapsa"
+
+#: LBL_EXPAND
+msgid "[+] expand"
+msgstr "[+] Expandera"
+
+#: LBL_PL_FOR
+msgid "Permalink for "
+msgstr "Permalink till "
+
+#: LBL_UPDATE_CHANNEL
+msgid "Feed"
+msgstr "Fl&ouml;de"
+
+#: LBL_UPDATE_STATUS
+msgid "Status"
+msgstr "Status"
+
+#: LBL_UPDATE_UNREAD
+msgid "New Items"
+msgstr "New Items"
+
+#: LBL_UPDATE_STATUS_OK
+msgid "OK (HTTP 200)"
+msgstr "OK (HTTP 200)"
+
+#: LBL_UPDATE_STATUS_CACHED
+msgid "OK (Local cache)"
+msgstr "OK (Lokal cache)"
+
+#: LBL_UPDATE_STATUS_ERROR
+msgid "ERROR"
+msgstr "ERROR"
+
+#: LBL_UPDATE_H2
+msgid "Updating %d Feeds..."
+msgstr "Uppdaterar %d fl&ouml;den..."
+
+#: LBL_UPDATE_CACHE_TIMEOUT
+msgid "HTTP Timeout (Local cache)"
+msgstr "HTTP Timeout (Local cache)"
+
+#: LBL_UPDATE_NOT_MODIFIED
+msgid "OK (304 Not modified)"
+msgstr "OK (304 Not modified)"
+
+#: LBL_UPDATE_NOT_FOUND
+msgid "404 Not Found (Local cache)"
+msgstr "404 Not Found (Lokal cache)"
+
+#: LBL_ADMIN_EDIT
+msgid "edit"
+msgstr "editera"
+
+#: LBL_ADMIN_DELETE
+msgid "delete"
+msgstr "radera"
+
+#: LBL_ADMIN_DELETE2
+msgid "Delete"
+msgstr "Radera"
+
+#: LBL_ADMIN_RENAME
+msgid "Rename to..."
+msgstr "Byt namn till..."
+
+#: LBL_ADMIN_CREATE
+msgid "Create"
+msgstr "Skapa"
+
+#: LBL_ADMIN_IMPORT
+msgid "Import"
+msgstr "Importera"
+
+#: LBL_ADMIN_EXPORT
+msgid "Export"
+msgstr "Exportera"
+
+#: LBL_ADMIN_DEFAULT
+msgid "default"
+msgstr "default"
+
+#: LBL_ADMIN_ADD
+msgid "Add"
+msgstr "L&auml;gg till"
+
+#: LBL_ADMIN_YES
+msgid "Yes"
+msgstr "Ja"
+
+#: LBL_ADMIN_NO
+msgid "No"
+msgstr "Nej"
+
+#: LBL_ADMIN_FOLDERS
+msgid "Folders:"
+msgstr "Foldrar:"
+
+#: LBL_ADMIN_CHANNELS
+msgid "Feeds:"
+msgstr "Fl&ouml;den:"
+
+#: LBL_ADMIN_OPML
+msgid "OPML:"
+msgstr "OPML:"
+
+#: LBL_ADMIN_ITEM
+msgid "Items:"
+msgstr "Inl&auml;gg:"
+
+#: LBL_ADMIN_CONFIG
+msgid "Configuration:"
+msgstr "Konfiguration:"
+
+#: LBL_ADMIN_OK
+msgid "OK"
+msgstr "OK"
+
+#: LBL_ADMIN_CANCEL
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: LBL_ADMIN_LOGOUT
+msgid "Logout"
+msgstr "Logga ut"
+
+#: LBL_ADMIN_OPML_IMPORT
+msgid "Import"
+msgstr "Importera"
+
+#: LBL_ADMIN_OPML_EXPORT
+msgid "Export"
+msgstr "Export"
+
+#: LBL_ADMIN_OPML_IMPORT_OPML
+msgid "Import OPML:"
+msgstr "Importera OPML:"
+
+#: LBL_ADMIN_OPML_EXPORT_OPML
+msgid "Export OPML:"
+msgstr "Exportera till OPML:"
+
+#: LBL_ADMIN_OPML_IMPORT_FROM_URL
+msgid "... from URL:"
+msgstr "... fr&aring;n URL:"
+
+#: LBL_ADMIN_OPML_IMPORT_FROM_FILE
+msgid "... from File:"
+msgstr "... fr&aring;n fil:"
+
+#: LBL_ADMIN_IN_FOLDER
+msgid "to folder:"
+msgstr "till foldern:"
+
+#: LBL_ADMIN_SUBMIT_CHANGES
+msgid "Submit Changes"
+msgstr "Uppdatera"
+
+#: LBL_ADMIN_PREVIEW_CHANGES
+msgid "Preview"
+msgstr "F&ouml;rhandsgranska"
+
+#: LBL_ADMIN_CHANNELS_HEADING_TITLE
+msgid "Title"
+msgstr "Rubrik"
+
+#: LBL_ADMIN_CHANNELS_HEADING_FOLDER
+msgid "Folder"
+msgstr "Folder"
+
+#: LBL_ADMIN_CHANNELS_HEADING_DESCR
+msgid "Description"
+msgstr "Beskrivning"
+
+#: LBL_ADMIN_CHANNELS_HEADING_MOVE
+msgid "Move"
+msgstr "Flytta"
+
+#: LBL_ADMIN_CHANNELS_HEADING_FLAGS
+msgid "Flags"
+msgstr "Flaggor"
+
+#: LBL_ADMIN_CHANNELS_HEADING_KEY
+msgid "Key"
+msgstr "Nyckel"
+
+#: LBL_ADMIN_CHANNELS_HEADING_VALUE
+msgid "Value"
+msgstr "V&auml;rde"
+
+#: LBL_ADMIN_CHANNELS_ADD
+msgid "Add a feed:"
+msgstr "L&auml;gg till ett fl&ouml;de:"
+
+#: LBL_ADMIN_FOLDERS_ADD
+msgid "Add a folder:"
+msgstr "Skapa en folder:"
+
+#: LBL_ADMIN_CHANNEL_ICON
+msgid "Shown favicon:"
+msgstr "Visa favicon:"
+
+#: LBL_CLEAR_FOR_NONE
+msgid "(Leave blank for no icon)"
+msgstr "(L&auml;mna tom f&ouml;r att inte visa n&aring;n ikon)"
+
+#: LBL_ADMIN_CONFIG_VALUE
+msgid "Value for"
+msgstr "V&auml;rde"
+
+#: LBL_ADMIN_FILE_IMPORT
+msgid "Import file"
+msgstr "Importera"
+
+#: LBL_ADMIN_PLUGINS_HEADING_NAME
+msgid "Name"
+msgstr "Namn"
+
+#: LBL_ADMIN_PLUGINS_HEADING_AUTHOR
+msgid "Author"
+msgstr "Postad av"
+
+#: LBL_ADMIN_PLUGINS_HEADING_VERSION
+msgid "Version"
+msgstr "Version"
+
+#: LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION
+msgid "Description"
+msgstr "Beskrivning"
+
+#: LBL_ADMIN_PLUGINS_HEADING_ACTION
+msgid "Active"
+msgstr "Aktiv"
+
+#: LBL_ADMIN_CHANNEL_EDIT_CHANNEL
+msgid "Edit the feed "
+msgstr "Redigera fl&ouml;de "
+
+#: LBL_ADMIN_CHANNEL_NAME
+msgid "Title:"
+msgstr "Rubrik:"
+
+#: LBL_ADMIN_CHANNEL_RSS_URL
+msgid "RSS URL:"
+msgstr "RSS URL:"
+
+#: LBL_ADMIN_CHANNEL_SITE_URL
+msgid "Site URL:"
+msgstr "Sidans URL:"
+
+#: LBL_ADMIN_CHANNEL_FOLDER
+msgid "In folder:"
+msgstr "Till foldern:"
+
+#: LBL_ADMIN_CHANNEL_DESCR
+msgid "Description:"
+msgstr "Beskrivning:"
+
+#: LBL_ADMIN_FOLDER_NAME
+msgid "Folder name:"
+msgstr "Foldernamn:"
+
+#: LBL_ADMIN_CHANNEL_PRIVATE
+msgid "This feed is <strong>private</strong>, only admins see it."
+msgstr "Detta fl&ouml;de &auml;r <strong>privat</strong> och kan endast ses av admin."
+
+#: LBL_ADMIN_ARE_YOU_SURE
+msgid "Are you sure you wish to delete '%s'?"
+msgstr "&Auml;r du s&auml;ker p&aring; att du vill ta bort '%s'?"
+
+#: LBL_ADMIN_ARE_YOU_SURE_DEFAULT
+msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
+msgstr "&Auml;r du s&auml;ker p&aring; att du vill &aring;terst&auml;lla %s till standardv&auml;rdet '%s'?"
+
+#: LBL_ADMIN_TRUE
+msgid "True"
+msgstr "Sant"
+
+#: LBL_ADMIN_FALSE
+msgid "False"
+msgstr "Falskt"
+
+#: LBL_ADMIN_MOVE_UP
+msgid "&uarr;"
+msgstr "&uarr;"
+
+#: LBL_ADMIN_MOVE_DOWN
+msgid "&darr;"
+msgstr "&darr;"
+
+#: LBL_ADMIN_ADD_CHANNEL_EXPL
+msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
+msgstr "(Ange URL:en direkt till ett RSS-fl&ouml;de eller till den webbsida du vill prenumerera p&aring;)"
+
+#: LBL_ADMIN_FEEDS
+msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
+msgstr "F&ouml;ljande fl&ouml;den hittades p&aring; <a href=\"%s\">%s</a>, vilken vill du prenumerera p&aring;?"
+
+#: LBL_ADMIN_PRUNE_OLDER
+msgid "Delete items older than "
+msgstr "Radera inl&auml;gg &auml;ldre &auml;n "
+
+#: LBL_ADMIN_PRUNE_DAYS
+msgid "days"
+msgstr "dagar"
+
+#: LBL_ADMIN_PRUNE_MONTHS
+msgid "months"
+msgstr "m&aring;nader"
+
+#: LBL_ADMIN_PRUNE_YEARS
+msgid "years"
+msgstr "&aring;r"
+
+#: LBL_ADMIN_PRUNE_KEEP
+msgid "Keep the most recent items: "
+msgstr "Keep the most recent items: "
+
+#: LBL_ADMIN_PRUNE_INCLUDE_STICKY
+msgid "Delete Sticky items too: "
+msgstr "Radera &auml;ven inl&auml;gg markerade som Sticky: "
+
+#: LBL_ADMIN_PRUNE_EXCLUDE_TAGS
+msgid "Do not delete items tagged... "
+msgstr "Radera inte inl&auml;gg taggade med: "
+
+#: LBL_ADMIN_ALLTAGS_EXPL
+msgid "(Enter <strong>*</strong> to keep all tagged items)"
+msgstr "(Ange <strong>*</strong> f&ouml;r att spara alla inl&auml;gg som har taggar)"
+
+#: LBL_ADMIN_ABOUT_TO_DELETE
+msgid "Warning: you are about to delete %s items (of %s)"
+msgstr "Warning: you are about to delete %s items (of %s)"
+
+#: LBL_ADMIN_PRUNING
+msgid "Pruning"
+msgstr "St&auml;da"
+
+#: LBL_ADMIN_DOMAIN_FOLDER_LBL
+msgid "folders"
+msgstr "foldrar"
+
+#: LBL_ADMIN_DOMAIN_CHANNEL_LBL
+msgid "feeds"
+msgstr "fl&ouml;den"
+
+#: LBL_ADMIN_DOMAIN_ITEM_LBL
+msgid "items"
+msgstr "inl&auml;gg"
+
+#: LBL_ADMIN_DOMAIN_CONFIG_LBL
+msgid "config"
+msgstr "konfiguration"
+
+#: LBL_ADMIN_DOMAIN_LBL_OPML_LBL
+msgid "opml"
+msgstr "opml"
+
+#: LBL_ADMIN_BOOKMARKET_LABEL
+msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr "Bookmarklet f&ouml;r att l&auml;gga till en sida i Gregarius [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+
+#: LBL_ADMIN_BOOKMARKLET_TITLE
+msgid "Subscribe in Gregarius!"
+msgstr "L&auml;gg till i Gregarius!"
+
+#: LBL_ADMIN_CONFIGURE
+msgid "Configure"
+msgstr "Configure"
+
+#: LBL_ADMIN_ERROR_PRUNING_PERIOD
+msgid "Invalid pruning period"
+msgstr "Felaktig period"
+
+#: LBL_ADMIN_ERROR_NO_PERIOD
+msgid "oops, no period specified"
+msgstr "du angav ingen period"
+
+#: LBL_ADMIN_BAD_RSS_URL
+msgid "I'm sorry, I don't think I can handle this URL: '%s'"
+msgstr "Tyv&auml;rr kunde inte f&ouml;ljande URL anv&auml;ndas: '%s'"
+
+#: LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER
+msgid "You can't delete the Root folder"
+msgstr "Du kan inte radera foldern \" . LBL_HOME_FOLDER . \"!"
+
+#: LBL_ADMIN_CANT_RENAME
+msgid "You can't rename this item '%s' because such an item already exists."
+msgstr "Du kan inte &auml;ndra folderns namn till '%s', namnet &auml;r redan upptaget."
+
+#: LBL_ADMIN_ERROR_CANT_CREATE
+msgid "Looks like you already have a folder called '%s'!"
+msgstr "Det finns redan en folder som heter '%s'!"
+
+#: LBL_TAG_TAGS
+msgid "Tags"
+msgstr "Taggar"
+
+#: LBL_TAG_EDIT
+msgid "edit"
+msgstr "aendra"
+
+#: LBL_TAG_SUBMIT
+msgid "submit"
+msgstr "skicka"
+
+#: LBL_TAG_CANCEL
+msgid "cancel"
+msgstr "avbryt"
+
+#: LBL_TAG_SUBMITTING
+msgid "..."
+msgstr "..."
+
+#: LBL_TAG_ERROR_NO_TAG
+msgid "Oops! No items tagged &laquo;%s&raquo; were found."
+msgstr "Ojd&aring;! Hittade inga inl&auml;gg med taggen &laquo;%s&raquo;."
+
+#: LBL_TAG_ALL_TAGS
+msgid "All Tags"
+msgstr "Alla Taggar"
+
+#: LBL_TAG_TAGGED
+msgid "tagged"
+msgstr "taggad"
+
+#: LBL_TAG_TAGGEDP
+msgid "tagged"
+msgstr "taggad"
+
+#: LBL_TAG_SUGGESTIONS
+msgid "suggestions"
+msgstr "f&ouml;rslag"
+
+#: LBL_TAG_SUGGESTIONS_NONE
+msgid "no suggestions"
+msgstr "inga f&ouml;rslag"
+
+#: LBL_TAG_RELATED
+msgid "Related tags: "
+msgstr "Relaterade taggar: "
+
+#: LBL_SHOW_UNREAD_ALL_SHOW
+msgid "Show items: "
+msgstr "Visa: "
+
+#: LBL_SHOW_UNREAD_ALL_UNREAD_ONLY
+msgid "Unread only"
+msgstr "Ol&auml;sta"
+
+#: LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD
+msgid "Read and unread"
+msgstr "L&auml;sta och ol&auml;sta"
+
+#: LBL_STATE_UNREAD
+msgid "Unread (Set this item's read/unread state)"
+msgstr "Ol&auml;st (Markera inl&auml;gget som l&auml;st/ol&auml;st)"
+
+#: LBL_STATE_STICKY
+msgid "Sticky (Won't be deleted when you prune items)"
+msgstr "Sticky (Spara inl&auml;gget n&auml;r du st&auml;dar bland inl&auml;ggen)"
+
+#: LBL_STATE_PRIVATE
+msgid "Private (Only administrators can see private items)"
+msgstr "Privat (Visa endast f&ouml;r admin)"
+
+#: LBL_STICKY
+msgid "Sticky"
+msgstr "Sticky"
+
+#: LBL_DEPRECATED
+msgid "Deprecated"
+msgstr "Ur bruk"
+
+#: LBL_PRIVATE
+msgid "Private"
+msgstr "Privat"
+
+#: LBL_ADMIN_STATE
+msgid "State:"
+msgstr "Status:"
+
+#: LBL_ADMIN_STATE_SET
+msgid "Set"
+msgstr "Utf&ouml;r"
+
+#: LBL_ADMIN_IM_SURE
+msgid "I'm sure!"
+msgstr "Bekr&auml;fta!"
+
+#: LBL_LOGGED_IN_AS
+msgid "Logged in as <strong>%s</strong>"
+msgstr "Inloggad som <strong>%s</strong>"
+
+#: LBL_NOT_LOGGED_IN
+msgid "Not logged in"
+msgstr "Du &auml;r inte inloggad"
+
+#: LBL_LOG_OUT
+msgid "Logout"
+msgstr "Logga ut"
+
+#: LBL_LOG_IN
+msgid "Login"
+msgstr "Logga in"
+
+#: LBL_ADMIN_OPML_IMPORT_AND
+msgid "Import new feeds and:"
+msgstr "Importera nya fl&ouml;den och:"
+
+#: LBL_ADMIN_OPML_IMPORT_WIPE
+msgid "... replace all existing feeds and items."
+msgstr "... ers&auml;tt alla existerande fl&ouml;den och inl&auml;gg."
+
+#: LBL_ADMIN_OPML_IMPORT_FOLDER
+msgid "... add them to the folder:"
+msgstr "... l&auml;gg dem i mappen:"
+
+#: LBL_ADMIN_OPML_IMPORT_MERGE
+msgid "... merge them with the existing ones."
+msgstr "... f&ouml;rena dem med nuvarande."
+
+#: LBL_ADMIN_OPML_IMPORT_FEED_INFO
+msgid "Adding %s to %s... "
+msgstr "L&auml;gger %s till %s... "
+
+#: LBL_TAG_FOLDERS
+msgid "Categories"
+msgstr "Kategorier"
+
+#: LBL_SIDE_ITEMS
+msgid "(%d items)"
+msgstr "(%d inl&auml;gg)"
+
+#: LBL_SIDE_UNREAD_FEEDS
+msgid "(%d unread in %d feeds)"
+msgstr "(%d olästa i %d fl&ouml;den)"
+
+#: LBL_CATCNT_PF
+msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
+msgstr "<strong>%d</strong> fl&ouml;den i <strong>%d</strong> kategorier"
+
+#: LBL_RATING
+msgid "Rating:"
+msgstr "V&auml;rdering:"
+
+#: LBL_ENCLOSURE
+msgid "Enclosure:"
+msgstr "Bilaga:"
+
+#: LBL_DOWNLOAD
+msgid "download"
+msgstr "ladda ned"
+
+#: LBL_PLAY
+msgid "play"
+msgstr "spela upp"
+
+#: LBL_FOOTER_LAST_MODIF_NEVER
+msgid "Never"
+msgstr "Never"
+
+#: LBL_ADMIN_DASHBOARD
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: LBL_USERNAME
+msgid "Username"
+msgstr "Username"
+
+#: LBL_PASSWORD
+msgid "Password"
+msgstr "Password"
+
+#: LBL_PASSWORD2
+msgid "Password (again)"
+msgstr "Password (again)"
+
+#: LBL_ADMIN_LOGIN
+msgid "Please log in"
+msgstr "Please log in"
+
+#: LBL_ADMIN_PASS_NO_MATCH
+msgid "Passwords do not match!"
+msgstr "Passwords do not match!"
+
+#: LBL_ADMIN_PLUGINS
+msgid "Plugins"
+msgstr "Plugins"
+
+#: LBL_ADMIN_DOMAIN_PLUGINS_LBL
+msgid "plugins"
+msgstr "plugins"
+
+#: LBL_ADMIN_PLUGINS_HEADING_OPTIONS
+msgid "Options"
+msgstr "Options"
+
+#: LBL_ADMIN_PLUGINS_OPTIONS
+msgid "Plugin Options"
+msgstr "Plugin Options"
+
+#: LBL_ADMIN_CHECK_FOR_UPDATES
+msgid "Check for Updates"
+msgstr "Check for Updates"
+
+#: LBL_ADMIN_LOGIN_BAD_LOGIN
+msgid "<strong>Oops!</strong> Bad login/password"
+msgstr "<strong>Oops!</strong> Bad login/password"
+
+#: LBL_LAST_UPDATE
+msgid "Last Update"
+msgstr "Last update"
+
+#: LBL_ADMIN_DOMAIN_THEMES_LBL
+msgid "themes"
+msgstr "themes"
+
+#: LBL_ADMIN_THEMES
+msgid "Themes"
+msgstr "Themes"
+
+#: LBL_ADMIN_ACTIVE_THEME
+msgid "Active Theme"
+msgstr "Active Theme"
+
+#: LBL_ADMIN_USE_THIS_THEME
+msgid "Use this Theme"
+msgstr "Use this Theme"
+
+#: LBL_ADMIN_THEME_OPTIONS
+msgid "Theme Options"
+msgstr "Theme Options"
+
+#: LBL_STATE_FLAG
+msgid "Flag (Flags an item for later reading)"
+msgstr "Flag (Flags an item for later reading)"
+
+#: LBL_FLAG
+msgid "Flagged"
+msgstr "Flagged"
+
+#: LBL_MARK_READ
+msgid "Mark These Items as Read"
+msgstr "Markera alla inl&auml;gg som l&auml;sta"
+
+#: LBL_MARK_CHANNEL_READ
+msgid "Mark These Items as Read"
+msgstr "Markera detta fl&ouml;de som l&auml;st"
+
+#: LBL_MARK_FOLDER_READ
+msgid "Mark These Items as Read"
+msgstr "Markera foldern som l&auml;st"
+
+#: LBL_MARK_CHANNEL_READ_ALL
+msgid "Mark This Feed as Read"
+msgstr "Mark This Feed as Read"
+
+#: LBL_MARK_FOLDER_READ_ALL
+msgid "Mark This Folder as Read"
+msgstr "Mark This Folder as Read"
+
+#: LBL_MARK_CATEGORY_READ_ALL
+msgid "Mark This Category as Read"
+msgstr "Mark This Category as Read"
+
+#: LBL_ADDED
+msgid "Added"
+msgstr "Added"
+
+#### END Automatic translation - Sat, 09 Sep 2006 18:17:48 +0200 #

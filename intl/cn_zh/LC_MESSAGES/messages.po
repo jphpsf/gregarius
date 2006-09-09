@@ -1,0 +1,835 @@
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gregarius 0.5.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: LBL_ITEM
+msgid "item"
+msgstr "條目"
+
+#: LBL_ITEMS
+msgid "items"
+msgstr "條目"
+
+#: LBL_H2_SEARCH_RESULTS_FOR
+msgid "%d matches for %s"
+msgstr "%d 匹配為 %s"
+
+#: LBL_H2_SEARCH_RESULT_FOR
+msgid "%d match for %s"
+msgstr "%d 匹配為 %s"
+
+#: LBL_H2_SEARCH
+msgid "Search %d items"
+msgstr "搜過 %d 條目"
+
+#: LBL_SEARCH_SEARCH_QUERY
+msgid "Search terms:"
+msgstr "搜索:"
+
+#: LBL_SEARCH_MATCH_OR
+msgid "Some terms (OR)"
+msgstr "部分匹配 (或)"
+
+#: LBL_SEARCH_MATCH_AND
+msgid "All terms (AND)"
+msgstr "全部匹配 (和)"
+
+#: LBL_SEARCH_MATCH_EXACT
+msgid "Exact match"
+msgstr "精確匹配"
+
+#: LBL_SEARCH_CHANNELS
+msgid "Feed:"
+msgstr "Feed:"
+
+#: LBL_SEARCH_ORDER_DATE_CHANNEL
+msgid "Order by date, feed"
+msgstr "日期, feed排序"
+
+#: LBL_SEARCH_ORDER_CHANNEL_DATE
+msgid "Order by feed, date"
+msgstr "feed, 日期排序"
+
+#: LBL_SEARCH_RESULTS_PER_PAGE
+msgid "Results per page:"
+msgstr "每頁結果:"
+
+#: LBL_SEARCH_RESULTS
+msgid "Results: "
+msgstr "結果: "
+
+#: LBL_H2_UNREAD_ITEMS
+msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
+msgstr "未讀條目 (<strong id=\"ucnt\">%d</strong>)"
+
+#: LBL_H2_RECENT_ITEMS
+msgid "Recent items"
+msgstr "最近條目"
+
+#: LBL_H2_CHANNELS
+msgid "Feeds"
+msgstr "Feeds"
+
+#: LBL_H5_READ_UNREAD_STATS
+msgid "%d items, %d unread"
+msgstr "%d 條, %d 未讀"
+
+#: LBL_ITEMCOUNT_PF
+msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> 條 (<strong id=\"fucnt\">%d</strong> 未讀) 共 <strong>%d</strong> feeds"
+
+#: LBL_TAGCOUNT_PF
+msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
+msgstr "<strong>%d</strong> tagged items, 共 <strong>%d</strong> tags"
+
+#: LBL_UNREAD_PF
+msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
+msgstr "<strong id=\"%s\" style=\"%s\">(%d 未讀)</strong>"
+
+#: LBL_UNREAD
+msgid "unread"
+msgstr "未讀"
+
+#: LBL_FTR_POWERED_BY
+msgid " powered by "
+msgstr " powered by "
+
+#: LBL_ALL
+msgid "All"
+msgstr "所有"
+
+#: LBL_NAV_HOME
+msgid "<span>H</span>ome"
+msgstr "<span>首頁</span>"
+
+#: LBL_NAV_UPDATE
+msgid "<span>R</span>efresh"
+msgstr "<span>刷新</span>"
+
+#: LBL_NAV_CHANNEL_ADMIN
+msgid "A<span>d</span>min"
+msgstr "<span>管理</span>"
+
+#: LBL_NAV_SEARCH
+msgid "<span>S</span>earch"
+msgstr "<span>搜索</span>"
+
+#: LBL_SEARCH_GO
+msgid "Search"
+msgstr "搜索"
+
+#: LBL_POSTED
+msgid "Posted: "
+msgstr "提交: "
+
+#: LBL_FETCHED
+msgid "Fetched: "
+msgstr "采集: "
+
+#: LBL_BY
+msgid " by "
+msgstr " 由 "
+
+#: LBL_AND
+msgid "and"
+msgstr "和"
+
+#: LBL_TITLE_UPDATING
+msgid "Updating"
+msgstr "更新"
+
+#: LBL_TITLE_SEARCH
+msgid "Search"
+msgstr "搜索"
+
+#: LBL_HOME_FOLDER
+msgid "Root"
+msgstr "Root"
+
+#: LBL_VISIT
+msgid "(visit)"
+msgstr "(visit)"
+
+#: LBL_COLLAPSE
+msgid "[-] collapse"
+msgstr "[-] collapse"
+
+#: LBL_EXPAND
+msgid "[+] expand"
+msgstr "[+] expand"
+
+#: LBL_PL_FOR
+msgid "Permalink for "
+msgstr "Permalink for "
+
+#: LBL_UPDATE_CHANNEL
+msgid "Feed"
+msgstr "Feed"
+
+#: LBL_UPDATE_STATUS
+msgid "Status"
+msgstr "狀態"
+
+#: LBL_UPDATE_UNREAD
+msgid "New Items"
+msgstr "新條目"
+
+#: LBL_UPDATE_STATUS_OK
+msgid "OK (HTTP 200)"
+msgstr "OK (HTTP 200)"
+
+#: LBL_UPDATE_STATUS_CACHED
+msgid "OK (Local cache)"
+msgstr "OK (Local cache)"
+
+#: LBL_UPDATE_STATUS_ERROR
+msgid "ERROR"
+msgstr "ERROR"
+
+#: LBL_UPDATE_H2
+msgid "Updating %d Feeds..."
+msgstr "更新 %d Feeds中..."
+
+#: LBL_UPDATE_CACHE_TIMEOUT
+msgid "HTTP Timeout (Local cache)"
+msgstr "HTTP Timeout (Local cache)"
+
+#: LBL_UPDATE_NOT_MODIFIED
+msgid "OK (304 Not modified)"
+msgstr "OK (304 Not modified)"
+
+#: LBL_UPDATE_NOT_FOUND
+msgid "404 Not Found (Local cache)"
+msgstr "404 Not Found (Local cache)"
+
+#: LBL_ADMIN_EDIT
+msgid "edit"
+msgstr "編輯"
+
+#: LBL_ADMIN_DELETE
+msgid "delete"
+msgstr "刪除"
+
+#: LBL_ADMIN_DELETE2
+msgid "Delete"
+msgstr "刪除"
+
+#: LBL_ADMIN_RENAME
+msgid "Rename to..."
+msgstr "重命名為..."
+
+#: LBL_ADMIN_CREATE
+msgid "Create"
+msgstr "創建"
+
+#: LBL_ADMIN_IMPORT
+msgid "Import"
+msgstr "導入"
+
+#: LBL_ADMIN_EXPORT
+msgid "Export"
+msgstr "導出"
+
+#: LBL_ADMIN_DEFAULT
+msgid "default"
+msgstr "默認"
+
+#: LBL_ADMIN_ADD
+msgid "Add"
+msgstr "添加"
+
+#: LBL_ADMIN_YES
+msgid "Yes"
+msgstr "是"
+
+#: LBL_ADMIN_NO
+msgid "No"
+msgstr "否"
+
+#: LBL_ADMIN_FOLDERS
+msgid "Folders:"
+msgstr "組:"
+
+#: LBL_ADMIN_CHANNELS
+msgid "Feeds:"
+msgstr "Feeds:"
+
+#: LBL_ADMIN_OPML
+msgid "OPML:"
+msgstr "OPML:"
+
+#: LBL_ADMIN_ITEM
+msgid "Items:"
+msgstr "Items:"
+
+#: LBL_ADMIN_CONFIG
+msgid "Configuration:"
+msgstr "配置:"
+
+#: LBL_ADMIN_OK
+msgid "OK"
+msgstr "確定"
+
+#: LBL_ADMIN_CANCEL
+msgid "Cancel"
+msgstr "取消"
+
+#: LBL_ADMIN_LOGOUT
+msgid "Logout"
+msgstr "注銷"
+
+#: LBL_ADMIN_OPML_IMPORT
+msgid "Import"
+msgstr "導入"
+
+#: LBL_ADMIN_OPML_EXPORT
+msgid "Export"
+msgstr "導出"
+
+#: LBL_ADMIN_OPML_IMPORT_OPML
+msgid "Import OPML:"
+msgstr "導入 OPML:"
+
+#: LBL_ADMIN_OPML_EXPORT_OPML
+msgid "Export OPML:"
+msgstr "導出 OPML:"
+
+#: LBL_ADMIN_OPML_IMPORT_FROM_URL
+msgid "... from URL:"
+msgstr "... 從 URL:"
+
+#: LBL_ADMIN_OPML_IMPORT_FROM_FILE
+msgid "... from File:"
+msgstr "... 從 文件:"
+
+#: LBL_ADMIN_FILE_IMPORT
+msgid "Import file"
+msgstr "導入 文件"
+
+#: LBL_ADMIN_IN_FOLDER
+msgid "to folder:"
+msgstr "到組:"
+
+#: LBL_ADMIN_SUBMIT_CHANGES
+msgid "Submit Changes"
+msgstr "提交修改"
+
+#: LBL_ADMIN_PREVIEW_CHANGES
+msgid "Preview"
+msgstr "預覽"
+
+#: LBL_ADMIN_CHANNELS_HEADING_TITLE
+msgid "Title"
+msgstr "標題"
+
+#: LBL_ADMIN_CHANNELS_HEADING_FOLDER
+msgid "Folder"
+msgstr "組"
+
+#: LBL_ADMIN_CHANNELS_HEADING_DESCR
+msgid "Description"
+msgstr "描述"
+
+#: LBL_ADMIN_CHANNELS_HEADING_MOVE
+msgid "Move"
+msgstr "移動"
+
+#: LBL_ADMIN_CHANNELS_HEADING_ACTION
+msgid "Action"
+msgstr "行為"
+
+#: LBL_ADMIN_CHANNELS_HEADING_FLAGS
+msgid "Flags"
+msgstr "Flags"
+
+#: LBL_ADMIN_CHANNELS_HEADING_KEY
+msgid "Key"
+msgstr "關鍵詞"
+
+#: LBL_ADMIN_CHANNELS_HEADING_VALUE
+msgid "Value"
+msgstr "值"
+
+#: LBL_ADMIN_CHANNELS_ADD
+msgid "Add a feed:"
+msgstr "添加 feed:"
+
+#: LBL_ADMIN_FOLDERS_ADD
+msgid "Add a folder:"
+msgstr "添加組"
+
+#: LBL_ADMIN_CHANNEL_ICON
+msgid "Shown favicon:"
+msgstr "favicon.icon:"
+
+#: LBL_CLEAR_FOR_NONE
+msgid "(Leave blank for no icon)"
+msgstr "(留空為沒有favicon.icon)"
+
+#: LBL_ADMIN_CONFIG_VALUE
+msgid "Value for"
+msgstr "Value for"
+
+#: LBL_ADMIN_PLUGINS_HEADING_NAME
+msgid "Name"
+msgstr "名字"
+
+#: LBL_ADMIN_PLUGINS_HEADING_AUTHOR
+msgid "Author"
+msgstr "作者"
+
+#: LBL_ADMIN_PLUGINS_HEADING_VERSION
+msgid "Version"
+msgstr "版本"
+
+#: LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION
+msgid "Description"
+msgstr "描述"
+
+#: LBL_ADMIN_PLUGINS_HEADING_ACTION
+msgid "Active"
+msgstr "動作"
+
+#: LBL_ADMIN_PLUGINS_HEADING_OPTIONS
+msgid "Options"
+msgstr "選項"
+
+#: LBL_ADMIN_PLUGINS_OPTIONS
+msgid "Plugin Options"
+msgstr "擴展 選項"
+
+#: LBL_ADMIN_THEME_OPTIONS
+msgid "Theme Options"
+msgstr "風格 選項"
+
+#: LBL_ADMIN_CHANNEL_EDIT_CHANNEL
+msgid "Edit the feed "
+msgstr "編輯 feed "
+
+#: LBL_ADMIN_CHANNEL_NAME
+msgid "Title:"
+msgstr "標題:"
+
+#: LBL_ADMIN_CHANNEL_RSS_URL
+msgid "RSS URL:"
+msgstr "RSS URL:"
+
+#: LBL_ADMIN_CHANNEL_SITE_URL
+msgid "Site URL:"
+msgstr "站點 URL:"
+
+#: LBL_ADMIN_CHANNEL_FOLDER
+msgid "In folder:"
+msgstr "所在組:"
+
+#: LBL_ADMIN_CHANNEL_DESCR
+msgid "Description:"
+msgstr "描述:"
+
+#: LBL_ADMIN_FOLDER_NAME
+msgid "Folder name:"
+msgstr "組名:"
+
+#: LBL_ADMIN_CHANNEL_PRIVATE
+msgid "This feed is <strong>private</strong>, only admins see it."
+msgstr "這個 feed 是 <strong>被保護的</strong>, 只允許管理員察看."
+
+#: LBL_ADMIN_CHANNEL_DELETED
+msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
+msgstr "這個 feed 是 <strong>被限制的</strong>, 不允許更新及察看."
+
+#: LBL_ADMIN_ARE_YOU_SURE
+msgid "Are you sure you wish to delete '%s'?"
+msgstr "您確定刪除 '%s'?"
+
+#: LBL_ADMIN_ARE_YOU_SURE_DEFAULT
+msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
+msgstr "您確定設定 %s 為默認t '%s'?"
+
+#: LBL_ADMIN_TRUE
+msgid "True"
+msgstr "確定"
+
+#: LBL_ADMIN_FALSE
+msgid "False"
+msgstr "失敗"
+
+#: LBL_ADMIN_MOVE_UP
+msgid "&uarr;"
+msgstr "&uarr;"
+
+#: LBL_ADMIN_MOVE_DOWN
+msgid "&darr;"
+msgstr "&darr;"
+
+#: LBL_ADMIN_ADD_CHANNEL_EXPL
+msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
+msgstr "(輸入目標RSS的URL[以http://開頭])"
+
+#: LBL_ADMIN_FEEDS
+msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
+msgstr "找到以下feeds<a href=\"%s\">%s</a>, 您會訂閱哪一個?"
+
+#: LBL_ADMIN_PRUNE_OLDER
+msgid "Delete items older than "
+msgstr "刪除比此日期早的條目:"
+
+#: LBL_ADMIN_PRUNE_DAYS
+msgid "days"
+msgstr "天"
+
+#: LBL_ADMIN_PRUNE_MONTHS
+msgid "months"
+msgstr "月"
+
+#: LBL_ADMIN_PRUNE_YEARS
+msgid "years"
+msgstr "年"
+
+#: LBL_ADMIN_PRUNE_KEEP
+msgid "Keep the most recent items: "
+msgstr "保留最近的條目: "
+
+#: LBL_ADMIN_PRUNE_INCLUDE_STICKY
+msgid "Delete Sticky items too: "
+msgstr "Sticky條目一起刪除: "
+
+#: LBL_ADMIN_PRUNE_EXCLUDE_TAGS
+msgid "Do not delete items tagged... "
+msgstr "不刪除條目TAG... "
+
+#: LBL_ADMIN_ALLTAGS_EXPL
+msgid "(Enter <strong>*</strong> to keep all tagged items)"
+msgstr "(輸入 <strong>*</strong> 為所有標記條目)"
+
+#: LBL_ADMIN_ABOUT_TO_DELETE
+msgid "Warning: you are about to delete %s items (of %s)"
+msgstr "注意: 您將要刪除 %s 條 (of %s)"
+
+#: LBL_ADMIN_PRUNING
+msgid "Pruning"
+msgstr "修剪"
+
+#: LBL_ADMIN_DOMAIN_FOLDER_LBL
+msgid "folders"
+msgstr "組"
+
+#: LBL_ADMIN_DOMAIN_CHANNEL_LBL
+msgid "feeds"
+msgstr "feeds"
+
+#: LBL_ADMIN_DOMAIN_ITEM_LBL
+msgid "items"
+msgstr "條目"
+
+#: LBL_ADMIN_DOMAIN_CONFIG_LBL
+msgid "config"
+msgstr "配置"
+
+#: LBL_ADMIN_DOMAIN_LBL_OPML_LBL
+msgid "opml"
+msgstr "opml"
+
+#: LBL_ADMIN_BOOKMARKET_LABEL
+msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr "捐助bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+
+#: LBL_ADMIN_BOOKMARKLET_TITLE
+msgid "Subscribe in Gregarius!"
+msgstr "訂閱  Gregarius!"
+
+#: LBL_ADMIN_ERROR_PRUNING_PERIOD
+msgid "Invalid pruning period"
+msgstr "Invalid pruning period"
+
+#: LBL_ADMIN_ERROR_NO_PERIOD
+msgid "oops, no period specified"
+msgstr "no period specified"
+
+#: LBL_ADMIN_BAD_RSS_URL
+msgid "I'm sorry, I don't think I can handle this URL: '%s'"
+msgstr "對不起,不能處理這個URL: '%s'"
+
+#: LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER
+msgid "You can't delete the Root folder"
+msgstr "您不能刪除 \" . LBL_HOME_FOLDER . \" 組"
+
+#: LBL_ADMIN_CANT_RENAME
+msgid "You can't rename this item '%s' because such an item already exists."
+msgstr "重命名失敗,組名'%s'已經存在."
+
+#: LBL_ADMIN_ERROR_CANT_CREATE
+msgid "Looks like you already have a folder called '%s'!"
+msgstr "組名 '%s'重復!"
+
+#: LBL_TAG_TAGS
+msgid "Tags"
+msgstr "Tags"
+
+#: LBL_TAG_EDIT
+msgid "edit"
+msgstr "編輯"
+
+#: LBL_TAG_SUBMIT
+msgid "submit"
+msgstr "提交"
+
+#: LBL_TAG_CANCEL
+msgid "cancel"
+msgstr "取消"
+
+#: LBL_TAG_SUBMITTING
+msgid "..."
+msgstr "..."
+
+#: LBL_TAG_ERROR_NO_TAG
+msgid "Oops! No items tagged &laquo;%s&raquo; were found."
+msgstr "嘎嘎~沒有發現被標記的條目 &laquo;%s&raquo; "
+
+#: LBL_TAG_ALL_TAGS
+msgid "All Tags"
+msgstr "所有 Tags"
+
+#: LBL_TAG_TAGGED
+msgid "tagged"
+msgstr "已標記"
+
+#: LBL_TAG_TAGGEDP
+msgid "tagged"
+msgstr "已標記"
+
+#: LBL_TAG_SUGGESTIONS
+msgid "suggestions"
+msgstr "建議"
+
+#: LBL_TAG_SUGGESTIONS_NONE
+msgid "no suggestions"
+msgstr "無建議"
+
+#: LBL_TAG_RELATED
+msgid "Related tags: "
+msgstr "最近 tags: "
+
+#: LBL_SHOW_UNREAD_ALL_SHOW
+msgid "Show items: "
+msgstr "顯示條目: "
+
+#: LBL_SHOW_UNREAD_ALL_UNREAD_ONLY
+msgid "Unread only"
+msgstr "只顯示未讀"
+
+#: LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD
+msgid "Read and unread"
+msgstr "已讀和未讀"
+
+#: LBL_STATE_UNREAD
+msgid "Unread (Set this item's read/unread state)"
+msgstr "未讀 (設置本條目 已讀/未讀 狀態)"
+
+#: LBL_STATE_STICKY
+msgid "Sticky (Won't be deleted when you prune items)"
+msgstr "Sticky (當修剪條目時不會被刪除)"
+
+#: LBL_STATE_PRIVATE
+msgid "Private (Only administrators can see private items)"
+msgstr "保護 (只允許管理員察看)"
+
+#: LBL_STICKY
+msgid "Sticky"
+msgstr "Sticky"
+
+#: LBL_DEPRECATED
+msgid "Deprecated"
+msgstr "限制"
+
+#: LBL_PRIVATE
+msgid "Private"
+msgstr "保護"
+
+#: LBL_ADMIN_IM_SURE
+msgid "I'm sure!"
+msgstr "我確定!"
+
+#: LBL_LOGGED_IN_AS
+msgid "Logged in as <strong>%s</strong>"
+msgstr "登錄為 <strong>%s</strong>"
+
+#: LBL_NOT_LOGGED_IN
+msgid "Not logged in"
+msgstr "未登錄"
+
+#: LBL_LOG_OUT
+msgid "Logout"
+msgstr "注銷"
+
+#: LBL_LOG_IN
+msgid "Login"
+msgstr "登陸"
+
+#: LBL_ADMIN_OPML_IMPORT_AND
+msgid "Import new feeds and:"
+msgstr "導入新的 feed 和:"
+
+#: LBL_ADMIN_OPML_IMPORT_WIPE
+msgid "... replace all existing feeds and items."
+msgstr "... 替換所有現有的feed和條目."
+
+#: LBL_ADMIN_OPML_IMPORT_FOLDER
+msgid "... add them to the folder:"
+msgstr "... 添加到組:"
+
+#: LBL_ADMIN_OPML_IMPORT_MERGE
+msgid "... merge them with the existing ones."
+msgstr "... 與現有的部分合並."
+
+#: LBL_ADMIN_OPML_IMPORT_FEED_INFO
+msgid "Adding %s to %s... "
+msgstr "添加 %s 到 %s... "
+
+#: LBL_TAG_FOLDERS
+msgid "Categories"
+msgstr "分類"
+
+#: LBL_SIDE_ITEMS
+msgid "(%d items)"
+msgstr "(%d 條)"
+
+#: LBL_SIDE_UNREAD_FEEDS
+msgid "(%d unread in %d feeds)"
+msgstr "(%d 未讀, 共 %d feed)"
+
+#: LBL_CATCNT_PF
+msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
+msgstr "<strong>%d</strong> feed, 共 <strong>%d</strong> 分類"
+
+#: LBL_RATING
+msgid "Rating:"
+msgstr "規定值:"
+
+#: LBL_ENCLOSURE
+msgid "Enclosure:"
+msgstr "附錄:"
+
+#: LBL_DOWNLOAD
+msgid "download"
+msgstr "下載"
+
+#: LBL_PLAY
+msgid "play"
+msgstr "play"
+
+#: LBL_MARK_READ
+msgid "Mark These Items as Read"
+msgstr "標記這些條目為已讀"
+
+#: LBL_MARK_CHANNEL_READ
+msgid "Mark These Items as Read"
+msgstr "標記這些條目為已讀"
+
+#: LBL_MARK_FOLDER_READ
+msgid "Mark These Items as Read"
+msgstr "標記這些條目為已讀"
+
+#: LBL_MARK_CHANNEL_READ_ALL
+msgid "Mark This Feed as Read"
+msgstr "標記這些Feed為已讀"
+
+#: LBL_MARK_FOLDER_READ_ALL
+msgid "Mark This Folder as Read"
+msgstr "標記這些目錄為已讀"
+
+#: LBL_MARK_CATEGORY_READ_ALL
+msgid "Mark This Category as Read"
+msgstr "標記這些分類為已讀"
+
+#: LBL_FOOTER_LAST_MODIF_NEVER
+msgid "Never"
+msgstr "從未"
+
+#: LBL_ADMIN_DASHBOARD
+msgid "Dashboard"
+msgstr "控制面板"
+
+#: LBL_USERNAME
+msgid "Username"
+msgstr "用戶名"
+
+#: LBL_PASSWORD
+msgid "Password"
+msgstr "密碼"
+
+#: LBL_PASSWORD2
+msgid "Password (again)"
+msgstr "驗證密碼"
+
+#: LBL_ADMIN_LOGIN
+msgid "Please log in"
+msgstr "請登陸"
+
+#: LBL_ADMIN_PASS_NO_MATCH
+msgid "Passwords do not match!"
+msgstr "密碼不符!"
+
+#: LBL_ADMIN_PLUGINS
+msgid "Plugins"
+msgstr "擴展"
+
+#: LBL_ADMIN_DOMAIN_PLUGINS_LBL
+msgid "plugins"
+msgstr "擴展"
+
+#: LBL_ADMIN_PLUGINS_HEADING_UPDATES
+msgid "Update Available"
+msgstr "昇級可用"
+
+#: LBL_ADMIN_CHECK_FOR_UPDATES
+msgid "Check for Updates"
+msgstr "檢查新版本"
+
+#: LBL_ADMIN_LOGIN_BAD_LOGIN
+msgid "<strong>Oops!</strong> Bad login/password"
+msgstr "<strong>噢噢!</strong> 用戶名或密碼錯誤"
+
+#: LBL_ADMIN_ACTIVE_THEME
+msgid "Active Theme"
+msgstr "可用風格"
+
+#: LBL_ADMIN_USE_THIS_THEME
+msgid "Use this Theme"
+msgstr "使用此風格"
+
+#: LBL_LAST_UPDATE
+msgid "Last Update"
+msgstr "最後昇級"
+
+#: LBL_ADMIN_DOMAIN_THEMES_LBL
+msgid "themes"
+msgstr "風格"
+
+#: LBL_ADMIN_THEMES
+msgid "Themes"
+msgstr "風格"
+
+#: LBL_STATE_FLAG
+msgid "Flag (Flags an item for later reading)"
+msgstr "標記 (為最後閱讀的條目做)"
+
+#: LBL_FLAG
+msgid "Flagged"
+msgstr "已標記"
+
+#: LBL_ADDED
+msgid "Added"
+msgstr "Added"
+
+#### END Automatic translation - Sat, 09 Sep 2006 18:17:48 +0200 #

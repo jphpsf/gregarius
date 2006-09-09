@@ -1,0 +1,847 @@
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gregarius 0.5.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: LBL_ITEM
+msgid "item"
+msgstr "アイテム"
+
+#: LBL_ITEMS
+msgid "items"
+msgstr "アイテム"
+
+#: LBL_H2_SEARCH_RESULTS_FOR
+msgid "%d matches for %s"
+msgstr "%d件ヒット %s"
+
+#: LBL_H2_SEARCH_RESULT_FOR
+msgid "%d match for %s"
+msgstr "%d件ヒット %s"
+
+#: LBL_H2_SEARCH
+msgid "Search %d items"
+msgstr "現在の記事 %d件"
+
+#: LBL_SEARCH_SEARCH_QUERY
+msgid "Search terms:"
+msgstr "検索語:"
+
+#: LBL_SEARCH_MATCH_OR
+msgid "Some terms (OR)"
+msgstr "OR"
+
+#: LBL_SEARCH_MATCH_AND
+msgid "All terms (AND)"
+msgstr "AND"
+
+#: LBL_SEARCH_MATCH_EXACT
+msgid "Exact match"
+msgstr "完全一致"
+
+#: LBL_SEARCH_CHANNELS
+msgid "Feed:"
+msgstr "フィード:"
+
+#: LBL_SEARCH_ORDER_DATE_CHANNEL
+msgid "Order by date, feed"
+msgstr "日付、フィードの順に並べる"
+
+#: LBL_SEARCH_ORDER_CHANNEL_DATE
+msgid "Order by feed, date"
+msgstr "フィード、日付の順に並べる"
+
+#: LBL_SEARCH_RESULTS_PER_PAGE
+msgid "Results per page:"
+msgstr "表示件数:"
+
+#: LBL_SEARCH_RESULTS
+msgid "Results: "
+msgstr "検索結果: "
+
+#: LBL_H2_UNREAD_ITEMS
+msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
+msgstr "未読記事 (<strong id=\"ucnt\">%d</strong>)"
+
+#: LBL_H2_RECENT_ITEMS
+msgid "Recent items"
+msgstr "最近の記事"
+
+#: LBL_H2_CHANNELS
+msgid "Feeds"
+msgstr "フィード"
+
+#: LBL_H5_READ_UNREAD_STATS
+msgid "%d items, %d unread"
+msgstr "%d 件, %d 未読"
+
+#: LBL_ITEMCOUNT_PF
+msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong>件の記事 (未読<strong id=\"fucnt\">%d</strong>件) <strong>%d</strong>フィード"
+
+#: LBL_TAGCOUNT_PF
+msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
+msgstr "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
+
+#: LBL_UNREAD_PF
+msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
+msgstr "<strong id=\"%s\" style=\"%s\">(%d)</strong>"
+
+#: LBL_UNREAD
+msgid "unread"
+msgstr "unread"
+
+#: LBL_FTR_POWERED_BY
+msgid " powered by "
+msgstr " powered by "
+
+#: LBL_ALL
+msgid "All"
+msgstr "All"
+
+#: LBL_NAV_HOME
+msgid "<span>H</span>ome"
+msgstr "<span>ホーム</span>"
+
+#: LBL_NAV_UPDATE
+msgid "<span>R</span>efresh"
+msgstr "<span>更新</span>"
+
+#: LBL_NAV_CHANNEL_ADMIN
+msgid "A<span>d</span>min"
+msgstr "<span>管理</span>"
+
+#: LBL_NAV_SEARCH
+msgid "<span>S</span>earch"
+msgstr "<span>検索</span>"
+
+#: LBL_SEARCH_GO
+msgid "Search"
+msgstr "検索"
+
+#: LBL_POSTED
+msgid "Posted: "
+msgstr "Posted: "
+
+#: LBL_FETCHED
+msgid "Fetched: "
+msgstr "Fetched: "
+
+#: LBL_BY
+msgid " by "
+msgstr " by "
+
+#: LBL_AND
+msgid "and"
+msgstr "and"
+
+#: LBL_TITLE_UPDATING
+msgid "Updating"
+msgstr "更新中"
+
+#: LBL_TITLE_SEARCH
+msgid "Search"
+msgstr "検索"
+
+#: LBL_HOME_FOLDER
+msgid "Root"
+msgstr "ルート"
+
+#: LBL_VISIT
+msgid "(visit)"
+msgstr "(visit)"
+
+#: LBL_COLLAPSE
+msgid "[-] collapse"
+msgstr "[-] 折りたたみ"
+
+#: LBL_EXPAND
+msgid "[+] expand"
+msgstr "[+] 展開"
+
+#: LBL_PL_FOR
+msgid "Permalink for "
+msgstr "Permalink for "
+
+#: LBL_UPDATE_CHANNEL
+msgid "Feed"
+msgstr "フィード"
+
+#: LBL_UPDATE_STATUS
+msgid "Status"
+msgstr "ステータス"
+
+#: LBL_UPDATE_UNREAD
+msgid "New Items"
+msgstr "新しい記事"
+
+#: LBL_UPDATE_STATUS_OK
+msgid "OK (HTTP 200)"
+msgstr "OK (HTTP 200)"
+
+#: LBL_UPDATE_STATUS_CACHED
+msgid "OK (Local cache)"
+msgstr "OK (Local cache)"
+
+#: LBL_UPDATE_STATUS_ERROR
+msgid "ERROR"
+msgstr "ERROR"
+
+#: LBL_UPDATE_H2
+msgid "Updating %d Feeds..."
+msgstr "%d 個のフィードを更新中"
+
+#: LBL_UPDATE_CACHE_TIMEOUT
+msgid "HTTP Timeout (Local cache)"
+msgstr "HTTP Timeout (Local cache)"
+
+#: LBL_UPDATE_NOT_MODIFIED
+msgid "OK (304 Not modified)"
+msgstr "OK (304 Not modified)"
+
+#: LBL_UPDATE_NOT_FOUND
+msgid "404 Not Found (Local cache)"
+msgstr "404 Not Found (Local cache)"
+
+#: LBL_ADMIN_EDIT
+msgid "edit"
+msgstr "編集"
+
+#: LBL_ADMIN_DELETE
+msgid "delete"
+msgstr "削除"
+
+#: LBL_ADMIN_DELETE2
+msgid "Delete"
+msgstr "削除"
+
+#: LBL_ADMIN_RENAME
+msgid "Rename to..."
+msgstr "名前変更"
+
+#: LBL_ADMIN_CREATE
+msgid "Create"
+msgstr "作成"
+
+#: LBL_ADMIN_IMPORT
+msgid "Import"
+msgstr "インポート"
+
+#: LBL_ADMIN_EXPORT
+msgid "Export"
+msgstr "エクスポート"
+
+#: LBL_ADMIN_DEFAULT
+msgid "default"
+msgstr "デフォルト"
+
+#: LBL_ADMIN_ADD
+msgid "Add"
+msgstr "追加"
+
+#: LBL_ADMIN_YES
+msgid "Yes"
+msgstr "はい"
+
+#: LBL_ADMIN_NO
+msgid "No"
+msgstr "いいえ"
+
+#: LBL_ADMIN_FOLDERS
+msgid "Folders:"
+msgstr "フォルダ:"
+
+#: LBL_ADMIN_CHANNELS
+msgid "Feeds:"
+msgstr "フィード:"
+
+#: LBL_ADMIN_OPML
+msgid "OPML:"
+msgstr "OPML:"
+
+#: LBL_ADMIN_ITEM
+msgid "Items:"
+msgstr "記事:"
+
+#: LBL_ADMIN_CONFIG
+msgid "Configuration:"
+msgstr "設定:"
+
+#: LBL_ADMIN_OK
+msgid "OK"
+msgstr "OK"
+
+#: LBL_ADMIN_CANCEL
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: LBL_ADMIN_LOGOUT
+msgid "Logout"
+msgstr "ログアウト"
+
+#: LBL_ADMIN_CONFIGURE
+msgid "Configure"
+msgstr "設定"
+
+#: LBL_ADMIN_OPML_IMPORT
+msgid "Import"
+msgstr "インポート"
+
+#: LBL_ADMIN_OPML_EXPORT
+msgid "Export"
+msgstr "エクスポート"
+
+#: LBL_ADMIN_OPML_IMPORT_OPML
+msgid "Import OPML:"
+msgstr "OPMLをインポート:"
+
+#: LBL_ADMIN_OPML_EXPORT_OPML
+msgid "Export OPML:"
+msgstr "OPMLをエクスポート:"
+
+#: LBL_ADMIN_OPML_IMPORT_FROM_URL
+msgid "... from URL:"
+msgstr "URL指定:"
+
+#: LBL_ADMIN_OPML_IMPORT_FROM_FILE
+msgid "... from File:"
+msgstr "ファイル指定:"
+
+#: LBL_ADMIN_FILE_IMPORT
+msgid "Import file"
+msgstr "ファイルをインポート"
+
+#: LBL_ADMIN_IN_FOLDER
+msgid "to folder:"
+msgstr "次のフォルダへ:"
+
+#: LBL_ADMIN_SUBMIT_CHANGES
+msgid "Submit Changes"
+msgstr "変更を適応"
+
+#: LBL_ADMIN_PREVIEW_CHANGES
+msgid "Preview"
+msgstr "プレビュー"
+
+#: LBL_ADMIN_CHANNELS_HEADING_TITLE
+msgid "Title"
+msgstr "タイトル"
+
+#: LBL_ADMIN_CHANNELS_HEADING_FOLDER
+msgid "Folder"
+msgstr "フォルダ"
+
+#: LBL_ADMIN_CHANNELS_HEADING_DESCR
+msgid "Description"
+msgstr "詳細"
+
+#: LBL_ADMIN_CHANNELS_HEADING_MOVE
+msgid "Move"
+msgstr "移動"
+
+#: LBL_ADMIN_CHANNELS_HEADING_ACTION
+msgid "Action"
+msgstr "アクション"
+
+#: LBL_ADMIN_CHANNELS_HEADING_FLAGS
+msgid "Flags"
+msgstr "フラグ"
+
+#: LBL_ADMIN_CHANNELS_HEADING_KEY
+msgid "Key"
+msgstr "キー"
+
+#: LBL_ADMIN_CHANNELS_HEADING_VALUE
+msgid "Value"
+msgstr "値"
+
+#: LBL_ADMIN_CHANNELS_ADD
+msgid "Add a feed:"
+msgstr "フィード追加:"
+
+#: LBL_ADMIN_FOLDERS_ADD
+msgid "Add a folder:"
+msgstr "フォルダ追加:"
+
+#: LBL_ADMIN_CHANNEL_ICON
+msgid "Shown favicon:"
+msgstr "favicon:"
+
+#: LBL_CLEAR_FOR_NONE
+msgid "(Leave blank for no icon)"
+msgstr "(空白にするとアイコン無し)"
+
+#: LBL_ADMIN_CONFIG_VALUE
+msgid "Value for"
+msgstr "Value for"
+
+#: LBL_ADMIN_PLUGINS_HEADING_NAME
+msgid "Name"
+msgstr "名前"
+
+#: LBL_ADMIN_PLUGINS_HEADING_AUTHOR
+msgid "Author"
+msgstr "著者"
+
+#: LBL_ADMIN_PLUGINS_HEADING_VERSION
+msgid "Version"
+msgstr "バージョン"
+
+#: LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION
+msgid "Description"
+msgstr "詳細"
+
+#: LBL_ADMIN_PLUGINS_HEADING_ACTION
+msgid "Active"
+msgstr "アクティブ"
+
+#: LBL_ADMIN_PLUGINS_HEADING_OPTIONS
+msgid "Options"
+msgstr "オプション"
+
+#: LBL_ADMIN_PLUGINS_OPTIONS
+msgid "Plugin Options"
+msgstr "プラグインオプション"
+
+#: LBL_ADMIN_THEME_OPTIONS
+msgid "Theme Options"
+msgstr "テーマオプション"
+
+#: LBL_ADMIN_CHANNEL_EDIT_CHANNEL
+msgid "Edit the feed "
+msgstr "フィードを編集"
+
+#: LBL_ADMIN_CHANNEL_NAME
+msgid "Title:"
+msgstr "タイトル:"
+
+#: LBL_ADMIN_CHANNEL_RSS_URL
+msgid "RSS URL:"
+msgstr "RSS URL:"
+
+#: LBL_ADMIN_CHANNEL_SITE_URL
+msgid "Site URL:"
+msgstr "サイト URL:"
+
+#: LBL_ADMIN_CHANNEL_FOLDER
+msgid "In folder:"
+msgstr "フォルダ:"
+
+#: LBL_ADMIN_CHANNEL_DESCR
+msgid "Description:"
+msgstr "詳細:"
+
+#: LBL_ADMIN_FOLDER_NAME
+msgid "Folder name:"
+msgstr "フォルダ名:"
+
+#: LBL_ADMIN_CHANNEL_PRIVATE
+msgid "This feed is <strong>private</strong>, only admins see it."
+msgstr "このフィードは <strong>プライベート</strong>です。管理者のみ閲覧可能です。"
+
+#: LBL_ADMIN_CHANNEL_DELETED
+msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
+msgstr "このフィードは <strong>無効</strong>です。RSS取得は行われません。また、フィード一覧にも表示されません。"
+
+#: LBL_ADMIN_ARE_YOU_SURE
+msgid "Are you sure you wish to delete '%s'?"
+msgstr "本当に削除してもよろしいですか '%s'?"
+
+#: LBL_ADMIN_ARE_YOU_SURE_DEFAULT
+msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
+msgstr "本当にリセットしてもよろしいですか？ %s デフォルト値は '%s'です。"
+
+#: LBL_ADMIN_TRUE
+msgid "True"
+msgstr "True"
+
+#: LBL_ADMIN_FALSE
+msgid "False"
+msgstr "False"
+
+#: LBL_ADMIN_MOVE_UP
+msgid "&uarr;"
+msgstr "&uarr;"
+
+#: LBL_ADMIN_MOVE_DOWN
+msgid "&darr;"
+msgstr "&darr;"
+
+#: LBL_ADMIN_ADD_CHANNEL_EXPL
+msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
+msgstr "RSSフィードのURLまたは、ウェブサイトのURLを入力してください。"
+
+#: LBL_ADMIN_FEEDS
+msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
+msgstr "いかのフィードがみつかりました。 <a href=\"%s\">%s</a> どのフィードを追加しますか？"
+
+#: LBL_ADMIN_PRUNE_OLDER
+msgid "Delete items older than "
+msgstr "以下より古い記事を削除： "
+
+#: LBL_ADMIN_PRUNE_DAYS
+msgid "days"
+msgstr "日"
+
+#: LBL_ADMIN_PRUNE_MONTHS
+msgid "months"
+msgstr "月"
+
+#: LBL_ADMIN_PRUNE_YEARS
+msgid "years"
+msgstr "年"
+
+#: LBL_ADMIN_PRUNE_KEEP
+msgid "Keep the most recent items: "
+msgstr "一番最近の記事は保存: "
+
+#: LBL_ADMIN_PRUNE_INCLUDE_STICKY
+msgid "Delete Sticky items too: "
+msgstr "Sticky記事も削除: "
+
+#: LBL_ADMIN_PRUNE_EXCLUDE_TAGS
+msgid "Do not delete items tagged... "
+msgstr "以下のタグの付いた記事は削除しない... "
+
+#: LBL_ADMIN_ALLTAGS_EXPL
+msgid "(Enter <strong>*</strong> to keep all tagged items)"
+msgstr "(<strong>*</strong> を入力すると全てのタグの付いた記事が保存されます。)"
+
+#: LBL_ADMIN_ABOUT_TO_DELETE
+msgid "Warning: you are about to delete %s items (of %s)"
+msgstr "Warning: %s個の記事が削除されます (トータル %s記事)"
+
+#: LBL_ADMIN_PRUNING
+msgid "Pruning"
+msgstr "Pruning"
+
+#: LBL_ADMIN_DOMAIN_FOLDER_LBL
+msgid "folders"
+msgstr "フォルダ"
+
+#: LBL_ADMIN_DOMAIN_CHANNEL_LBL
+msgid "feeds"
+msgstr "フィード"
+
+#: LBL_ADMIN_DOMAIN_ITEM_LBL
+msgid "items"
+msgstr "記事"
+
+#: LBL_ADMIN_DOMAIN_CONFIG_LBL
+msgid "config"
+msgstr "設定"
+
+#: LBL_ADMIN_DOMAIN_LBL_OPML_LBL
+msgid "opml"
+msgstr "opml"
+
+#: LBL_ADMIN_BOOKMARKET_LABEL
+msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr "ブックマークレット： [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+
+#: LBL_ADMIN_BOOKMARKLET_TITLE
+msgid "Subscribe in Gregarius!"
+msgstr "Gregariusに追加！！"
+
+#: LBL_ADMIN_ERROR_PRUNING_PERIOD
+msgid "Invalid pruning period"
+msgstr "日付が無効です"
+
+#: LBL_ADMIN_ERROR_NO_PERIOD
+msgid "oops, no period specified"
+msgstr "日付が指定されていません"
+
+#: LBL_ADMIN_BAD_RSS_URL
+msgid "I'm sorry, I don't think I can handle this URL: '%s'"
+msgstr "I'm sorry, I don't think I can handle this URL: '%s'"
+
+#: LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER
+msgid "You can't delete the Root folder"
+msgstr "You can't delete the \" . LBL_HOME_FOLDER . \" folder"
+
+#: LBL_ADMIN_CANT_RENAME
+msgid "You can't rename this item '%s' because such an item already exists."
+msgstr "You can't rename this item '%s' because such an item already exists."
+
+#: LBL_ADMIN_ERROR_CANT_CREATE
+msgid "Looks like you already have a folder called '%s'!"
+msgstr "Looks like you already have a folder called '%s'!"
+
+#: LBL_TAG_TAGS
+msgid "Tags"
+msgstr "Tags"
+
+#: LBL_TAG_EDIT
+msgid "edit"
+msgstr "編集"
+
+#: LBL_TAG_SUBMIT
+msgid "submit"
+msgstr "OK"
+
+#: LBL_TAG_CANCEL
+msgid "cancel"
+msgstr "キャンセル"
+
+#: LBL_TAG_SUBMITTING
+msgid "..."
+msgstr "..."
+
+#: LBL_TAG_ERROR_NO_TAG
+msgid "Oops! No items tagged &laquo;%s&raquo; were found."
+msgstr "Oops! No items tagged &laquo;%s&raquo; were found."
+
+#: LBL_TAG_ALL_TAGS
+msgid "All Tags"
+msgstr "All Tags"
+
+#: LBL_TAG_TAGGED
+msgid "tagged"
+msgstr "tagged"
+
+#: LBL_TAG_TAGGEDP
+msgid "tagged"
+msgstr "tagged"
+
+#: LBL_TAG_SUGGESTIONS
+msgid "suggestions"
+msgstr "おすすめタグ"
+
+#: LBL_TAG_SUGGESTIONS_NONE
+msgid "no suggestions"
+msgstr "おすすめタグはありません"
+
+#: LBL_TAG_RELATED
+msgid "Related tags: "
+msgstr "関連タグ: "
+
+#: LBL_SHOW_UNREAD_ALL_SHOW
+msgid "Show items: "
+msgstr "表示する記事: "
+
+#: LBL_SHOW_UNREAD_ALL_UNREAD_ONLY
+msgid "Unread only"
+msgstr "未読のみ"
+
+#: LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD
+msgid "Read and unread"
+msgstr "すべて"
+
+#: LBL_STATE_UNREAD
+msgid "Unread (Set this item's read/unread state)"
+msgstr "未読 (チェックすると未読)"
+
+#: LBL_STATE_STICKY
+msgid "Sticky (Won't be deleted when you prune items)"
+msgstr "Sticky (自動削除の対象にしない)"
+
+#: LBL_STATE_PRIVATE
+msgid "Private (Only administrators can see private items)"
+msgstr "プライベート (管理者のみ閲覧可)"
+
+#: LBL_STICKY
+msgid "Sticky"
+msgstr "Sticky"
+
+#: LBL_DEPRECATED
+msgid "Deprecated"
+msgstr "無効"
+
+#: LBL_PRIVATE
+msgid "Private"
+msgstr "プライベート"
+
+#: LBL_ADMIN_STATE
+msgid "State:"
+msgstr "状態:"
+
+#: LBL_ADMIN_STATE_SET
+msgid "Set"
+msgstr "適応"
+
+#: LBL_ADMIN_IM_SURE
+msgid "I'm sure!"
+msgstr "確認"
+
+#: LBL_LOGGED_IN_AS
+msgid "Logged in as <strong>%s</strong>"
+msgstr "<strong>%s</strong> でログイン中"
+
+#: LBL_NOT_LOGGED_IN
+msgid "Not logged in"
+msgstr "ログインしていません"
+
+#: LBL_LOG_OUT
+msgid "Logout"
+msgstr "ログアウト"
+
+#: LBL_LOG_IN
+msgid "Login"
+msgstr "ログイン"
+
+#: LBL_ADMIN_OPML_IMPORT_AND
+msgid "Import new feeds and:"
+msgstr "インポートするフィードは:"
+
+#: LBL_ADMIN_OPML_IMPORT_WIPE
+msgid "... replace all existing feeds and items."
+msgstr "全てのフィードを一旦削除しインポートする。"
+
+#: LBL_ADMIN_OPML_IMPORT_FOLDER
+msgid "... add them to the folder:"
+msgstr "以下のフォルダに入れる:"
+
+#: LBL_ADMIN_OPML_IMPORT_MERGE
+msgid "... merge them with the existing ones."
+msgstr "既存のフィードとマージする"
+
+#: LBL_ADMIN_OPML_IMPORT_FEED_INFO
+msgid "Adding %s to %s... "
+msgstr "追加 %s to %s... "
+
+#: LBL_TAG_FOLDERS
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: LBL_SIDE_ITEMS
+msgid "(%d items)"
+msgstr "(%d 記事)"
+
+#: LBL_SIDE_UNREAD_FEEDS
+msgid "(%d unread in %d feeds)"
+msgstr "(%d unread in %d feeds)"
+
+#: LBL_CATCNT_PF
+msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
+msgstr "<strong>%d</strong>個のフィードが<strong>%d</strong>カテゴリーにあります。"
+
+#: LBL_RATING
+msgid "Rating:"
+msgstr "レーティング:"
+
+#: LBL_ENCLOSURE
+msgid "Enclosure:"
+msgstr "Enclosure:"
+
+#: LBL_DOWNLOAD
+msgid "download"
+msgstr "ダウンロード"
+
+#: LBL_PLAY
+msgid "play"
+msgstr "プレイ"
+
+#: LBL_MARK_READ
+msgid "Mark These Items as Read"
+msgstr "記事を既読にする"
+
+#: LBL_MARK_CHANNEL_READ
+msgid "Mark These Items as Read"
+msgstr "記事を既読にする"
+
+#: LBL_MARK_FOLDER_READ
+msgid "Mark These Items as Read"
+msgstr "記事を既読にする"
+
+#: LBL_MARK_CHANNEL_READ_ALL
+msgid "Mark This Feed as Read"
+msgstr "このフィードを既読にする"
+
+#: LBL_MARK_FOLDER_READ_ALL
+msgid "Mark This Folder as Read"
+msgstr "このフォルダを既読に"
+
+#: LBL_MARK_CATEGORY_READ_ALL
+msgid "Mark This Category as Read"
+msgstr "このカテゴリを既読に"
+
+#: LBL_FOOTER_LAST_MODIF_NEVER
+msgid "Never"
+msgstr "Never"
+
+#: LBL_ADMIN_DASHBOARD
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: LBL_USERNAME
+msgid "Username"
+msgstr "ユーザー名"
+
+#: LBL_PASSWORD
+msgid "Password"
+msgstr "パスワード"
+
+#: LBL_PASSWORD2
+msgid "Password (again)"
+msgstr "パスワード(再入力)"
+
+#: LBL_ADMIN_LOGIN
+msgid "Please log in"
+msgstr "ログインしてください"
+
+#: LBL_ADMIN_PASS_NO_MATCH
+msgid "Passwords do not match!"
+msgstr "パスワードが一致しません"
+
+#: LBL_ADMIN_PLUGINS
+msgid "Plugins"
+msgstr "プラグイン"
+
+#: LBL_ADMIN_DOMAIN_PLUGINS_LBL
+msgid "plugins"
+msgstr "プラグイン"
+
+#: LBL_ADMIN_PLUGINS_HEADING_UPDATES
+msgid "Update Available"
+msgstr "アップデート情報"
+
+#: LBL_ADMIN_CHECK_FOR_UPDATES
+msgid "Check for Updates"
+msgstr "アップデートを確認"
+
+#: LBL_ADMIN_LOGIN_BAD_LOGIN
+msgid "<strong>Oops!</strong> Bad login/password"
+msgstr "<strong>Oops!</strong> Bad login/password"
+
+#: LBL_ADMIN_ACTIVE_THEME
+msgid "Active Theme"
+msgstr "現在のテーマ"
+
+#: LBL_ADMIN_USE_THIS_THEME
+msgid "Use this Theme"
+msgstr "このテーマにする"
+
+#: LBL_LAST_UPDATE
+msgid "Last Update"
+msgstr "最終更新日"
+
+#: LBL_ADMIN_DOMAIN_THEMES_LBL
+msgid "themes"
+msgstr "テーマ"
+
+#: LBL_ADMIN_THEMES
+msgid "Themes"
+msgstr "テーマ"
+
+#: LBL_STATE_FLAG
+msgid "Flag (Flags an item for later reading)"
+msgstr "フラグ(後で読むために記事にフラグをつける)"
+
+#: LBL_FLAG
+msgid "Flagged"
+msgstr "フラグがついています"
+
+#: LBL_ADDED
+msgid "Added"
+msgstr "Added"
+
+#### END Automatic translation - Sat, 09 Sep 2006 18:17:48 +0200 #
