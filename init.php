@@ -115,7 +115,8 @@ rss_require('tags.php');
 // Localization
 //
 require_once('cls/l10n.php');
-$GLOBALS['rssl10n'] = new RSSl10n('de_CH');
+$GLOBALS['rssl10n'] = new RSSl10n();
+
 
 $lang = getConfig('rss.output.lang');
 if (!preg_match('#^[a-zA-Z_]+$#', $lang)) {

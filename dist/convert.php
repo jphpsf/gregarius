@@ -3,8 +3,8 @@
 
 	$EXCLUDE = '#(intl|extlib|dist)#';
 
-	Convert('.');
-
+	//Convert('.');
+	buildPOs();
 	function __callback__($matches) {
 		if (defined($matches[1])) {
 			return '__(\''.constant($matches[1]) .'\')';
@@ -13,6 +13,68 @@
 		}
 	}
 	
+	function buildPOs() {
+		$files=array_keys(preg_find('/\.php$/','intl',PREG_FIND_RECURSIVE | PREG_FIND_FULLPATH|PREG_FIND_DIRONLY));
+		if (($i=array_search('intl/en.php',$files)) !== FALSE) {
+			unset($files[$i]);
+		}
+		foreach($files as $file) {
+			echo "Now handling $file ...";
+			$translations = array();
+			$content = file_get_contents($file);
+			if(preg_match_all('#define\s*\([\'"](LOCALE_LINUX)[\'"][^,]*,\s*[\'"](.+)[\'"]\s*\);#',$content,$matches,PREG_SET_ORDER)) {
+				$locale = $matches[0][2];
+				if (!file_exists("intl/$locale/LC_MESSAGES")) {
+					mkdir("intl/$locale",0755);
+					mkdir("intl/$locale/LC_MESSAGES",0755);
+				}
+				$fp = fopen("intl/$locale/LC_MESSAGES/messages.po",'w');
+				if(!$fp) {
+					echo "\tERROR, Couldn't create output file!\n";
+					continue;
+				}
+				$poheader=''
+.'#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gregarius 0.5.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+';
+				fwrite($fp,$poheader."\n");
+			} else {
+				echo "\tERROR, Unknown locale!\n";
+				continue;
+			}
+			
+			if (preg_match_all('#define\s*\([\'"](LBL_[^\'"]+)[\'"][^,]*,\s*[\'"](.+)[\'"]\s*\);#',$content,$matches,PREG_SET_ORDER)) {
+				foreach($matches as $match) {
+					if (defined($match[1])) {
+						
+						fwrite($fp,"#: $match[1]\n");
+						$en=str_replace('"','\"',stripslashes(stripslashes(constant($match[1]))));
+						$intl=str_replace('"','\"',stripslashes(stripslashes($match[2])));
+						fwrite($fp,"msgid \"$en\"\n");
+						fwrite($fp,"msgstr \"$intl\"\n\n");
+					}
+				}
+				fwrite($fp,"#### END Automatic translation - ". date('r')." #\n");
+				echo "\tdone!\n";
+			} else {
+				echo "\tERROR, couldn't extract labels\n";
+			}
+			if ($fp) {
+				@fclose($fp);
+			}
+		}
+	}
 	
 	function Convert($dir)
 	{
