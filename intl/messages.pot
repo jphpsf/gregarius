@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2006-09-09 14:41+0200\n"
+"POT-Creation-Date: 2006-09-10 10:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -377,17 +377,20 @@ msgstr ""
 msgid "This feed is <strong>private</strong>, only admins see it."
 msgstr ""
 
-#: intl/en.php:162 intl/en.php:163
+#: admin/channels.php:884 intl/en.php:162 intl/en.php:163
 msgid ""
 "This feed is <strong>deprecated</strong>, it won't be updated anymore and "
 "won't be visible in the feeds column."
 msgstr ""
 
+#: admin/channels.php:429 admin/folders.php:183 admin/tags.php:93
 #: intl/en.php:164 intl/en.php:165
+#, c-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr ""
 
-#: intl/en.php:165 intl/en.php:166
+#: admin/config.php:507 intl/en.php:165 intl/en.php:166
+#, c-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
 msgstr ""
 
@@ -583,7 +586,7 @@ msgstr ""
 msgid "Set"
 msgstr ""
 
-#: intl/en.php:230 intl/en.php:231
+#: admin/channels.php:212 admin/tags.php:166 intl/en.php:230 intl/en.php:231
 msgid "I'm sure!"
 msgstr ""
 
@@ -891,12 +894,12 @@ msgstr ""
 msgid " set name='$new_label' where id=$fid"
 msgstr ""
 
-#: admin/index.php:204
+#: admin/index.php:204 admin/index.php:204
 #, c-format
 msgid "%s"
 msgstr ""
 
-#: admin/index.php:207 admin/tags.php:171
+#: admin/index.php:207 admin/index.php:207 admin/tags.php:171
 msgid "</div>\n"
 msgstr ""
 
@@ -1013,4 +1016,23 @@ msgstr ""
 
 #: admin/tags.php:175
 msgid " where id=$tid"
+msgstr ""
+
+#: admin/channels.php:379 admin/channels.php:383 admin/channels.php:617
+#, c-format
+msgid "I'm sorry, I don't think I can handle this URL: '%s'"
+msgstr ""
+
+#: admin/folders.php:164
+msgid "You can't delete the Root folder"
+msgstr ""
+
+#: admin/folders.php:204 admin/tags.php:113
+#, c-format
+msgid "You can't rename this item '%s' because such an item already exists."
+msgstr ""
+
+#: admin/folders.php:281
+#, c-format
+msgid "Looks like you already have a folder called '%s'!"
 msgstr ""
