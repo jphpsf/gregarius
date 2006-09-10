@@ -297,6 +297,7 @@ function config_admin() {
 
         case 'rss.output.lang':
             $langs = getLanguages();
+
             $codes = array_keys($langs);
             $out_val = implode(',',$codes);
             $cntr = 0;

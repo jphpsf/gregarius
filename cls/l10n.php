@@ -34,6 +34,21 @@ class RSSl10n {
 	var $cache;
 	
 	function RSSl10n($locale) {
+		$locale = preg_replace('#[^a-zA-Z_]#','',$locale);
+		if (function_exists('version_compare') && version_compare("4.2.0",PHP_VERSION, "<=") && preg_match('#([a-z]{2})_([A-Z]{2})#',$locale,$m)) {
+			$locales=array(
+				$m[0].'UTF-8',
+				$m[0].'utf-8',
+				$m[0],
+				$m[1].'_'.strtoupper($m[1]),
+				$m[1],
+				$m[2]
+			);
+			setlocale(LC_ALL, $locales);	
+		} else {
+			setlocale(LC_ALL, $locale);
+		}
+		
 		$path = GREGARIUS_HOME .'/intl/' . $locale . '/LC_MESSAGES/messages.mo';
 		$streamer = new FileReader($path);
 		$this -> l10n = new gettext_reader($streamer);

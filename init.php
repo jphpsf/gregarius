@@ -114,14 +114,15 @@ rss_require('tags.php');
 ////////////////////////////////////////////////////////////////////////////////
 // Localization
 //
-require_once('cls/l10n.php');
-$GLOBALS['rssl10n'] = new RSSl10n();
-
-
 $lang = getConfig('rss.output.lang');
 if (!preg_match('#^[a-zA-Z_]+$#', $lang)) {
 	die('woopsie, bad lang: ' .$lang);
 }
+
+require_once('cls/l10n.php');
+$GLOBALS['rssl10n'] = new RSSl10n($lang);
+
+
 
 if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
     rss_require("intl/$lang.php");
@@ -145,7 +146,7 @@ if (file_exists(getThemePath(GREGARIUS_HOME)."overrides.php")) {
 	rss_require(getThemePath('')."overrides.php");
 }
 
-
+/*
 // Load the right locale
 if (defined('OVERRIDE_LOCALE')) {
     setlocale(LC_TIME,constant("OVERRIDE_LOCALE"));
@@ -165,7 +166,7 @@ else {
         setlocale(LC_TIME,"");
     }
 }
-
+*/
 
 
 _pf('done');

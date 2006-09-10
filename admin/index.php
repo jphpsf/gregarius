@@ -257,17 +257,11 @@ function getLanguages() {
     $files = array();
     $ret = array();
     $activeIdx = "0";
+	$ret['en_US']='en_US';
     while (false !== ($entry = $d->read())) {
-        if (
-            $entry != "CVS" &&
-            substr($entry,0,1) != "."
-        ) {
-            $info = getLanguageInfo($entry);
-            if (count($info) && array_key_exists('language',$info)) {
-                $shortL=  preg_replace('|\.php.*$|','',$entry);
-                $ret[$shortL] = $info['language'];
-            }
-        }
+        if (preg_match('#^[a-z]{2}_[A-Z]{2}$#',$entry)) {
+        	$ret[$entry]=$entry;
+        } 
     }
     $d->close();
     return $ret;
