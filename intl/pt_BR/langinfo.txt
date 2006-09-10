@@ -1,0 +1,4 @@
+Language: Portugu&ecirc;s (Brazil)
+Locale: pt_BR
+Windows-locale: ptb
+Author: eminetto at gmail dot com 

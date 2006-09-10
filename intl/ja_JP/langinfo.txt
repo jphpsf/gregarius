@@ -1,0 +1,4 @@
+Language: 日本語 
+Locale: ja_JP
+Windows-locale: Japanese
+Author: 

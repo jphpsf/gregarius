@@ -105,7 +105,11 @@ function config_table_row($row, $class_, $adminDomain, $extraLinkText='') {
 
     case 'rss.output.lang':
         $arr = getLanguages();
-        echo $arr[getConfig('rss.output.lang')];
+        if (isset($arr[getConfig('rss.output.lang')]['language'])) {
+        	echo $arr[getConfig('rss.output.lang')]['language'];
+        } else {
+        	echo getConfig('rss.output.lang');
+        }
         break;
     case 'rss.config.tzoffset':
         echo $value
@@ -440,12 +444,17 @@ function config_edit_form($key,$value,$default,$type,$desc,$export, & $onclickac
         $cntr = 0;
         $value = "";
         $langs = getLanguages();
-        foreach ($langs as $code => $name) {
+        foreach ($langs as $code => $info) {
+        	if (isset($info['language'])) {
+        		$l=$info['language'];
+        	} else {
+        		$l=$code;
+        	}
             echo "<option value=\"$code\"";
             if ($code == $active_lang)   {
                 echo " selected=\"selected\"";
             }
-            echo ">".$langs[$code]."</option>\n";
+            echo ">$l</option>\n";
         }
         echo "</select>\n";
         break;

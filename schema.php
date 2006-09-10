@@ -446,7 +446,7 @@ function setDefaults($key) {
 		"rss.output.channelcollapsedefault"=>	array("false","false","boolean","Collapse the channels on the main page by default",NULL),
 		"rss.output.usepermalinks"	=>		array("true","true","boolean","Display a permalink icon and allow linking a given item directly.",NULL),
 		"rss.config.markreadonupdate"=>	array("false","false","boolean","Mark all old unread feeds as read when updating if new unread feeds are found.",NULL),
-		"rss.output.lang"			=>		array("en,es,fr,dk,it,pt_BR,se,0","en,es,fr,dk,it,pt_BR,se,0","enum","Language pack to use.",NULL),
+		"rss.output.lang"			=>		array("en_US,cn_ZH,de_DE,dk_DK,es_ES,fr_FR,he_IL,it_IT,ja_JP,pt_BR,pt_PT,ru_RU,sv_SV,0","en_US,cn_ZH,de_DE,dk_DK,es_ES,fr_FR,he_IL,it_IT,ja_JP,pt_BR,pt_PT,ru_RU,sv_SV,0","enum","Language pack to use.",NULL),
 		"rss.config.absoluteordering"=>	array("true","true","boolean","Allow feeds and folders to be ordered by their order in the admin section. If this option is set to false, channels and folders will be organized alphabetically by their titles.",NULL),
 		"rss.config.robotsmeta"		=>		array("noindex,follow","noindex,follow","string","How should spiders crawl us? (see http://www.robotstxt.org/wc/meta-user.html for more info).",NULL),
 		"rss.config.serverpush"		=>		array("true","true","boolean","Use the server push method when updating your feeds in the browser. The browsers that support this (Mozilla and Opera) will be autodetected. Turn this option off if you do not use one of these browsers or if you would like to use the Ajax update method",NULL),

@@ -1,0 +1,5 @@
+Language: Chinese simplified
+Locale: cn_ZH
+Windows-locale: chinese
+Author: 
+

@@ -1,0 +1,5 @@
+Language: Русский
+Locale: ru_RU
+Windows-locale: rus
+Author: skorobogatov at gmail dot com
+

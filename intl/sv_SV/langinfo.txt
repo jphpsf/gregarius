@@ -1,0 +1,5 @@
+Language: Svenska
+Locale: sv_SV
+Windows-locale: sve
+Author: David Hardne - dh at tx dot se
+

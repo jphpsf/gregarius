@@ -257,10 +257,13 @@ function getLanguages() {
     $files = array();
     $ret = array();
     $activeIdx = "0";
-	$ret['en_US']='en_US';
+	$ret['en_US']=array(
+		'language'=>'English',
+		'windows-locale'=>'english'
+	);
     while (false !== ($entry = $d->read())) {
         if (preg_match('#^[a-z]{2}_[A-Z]{2}$#',$entry)) {
-        	$ret[$entry]=$entry;
+        	$ret[$entry]=getLanguageInfo($entry);
         } 
     }
     $d->close();
@@ -269,9 +272,9 @@ function getLanguages() {
 
 
 
-function getLanguageInfo($file) {
+function getLanguageInfo($dir) {
     $info = array();
-    $path = "../intl/$file";
+    $path = "../intl/$dir/langinfo.txt";
     if (file_exists($path)) {
         $f = @fopen($path,'r');
         $contents = "";
@@ -282,14 +285,10 @@ function getLanguageInfo($file) {
             $contents = "";
         }
 
-        if ($contents && preg_match_all("/\/\/\/\s?([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
+        if ($contents && preg_match_all("/([^:]+):(.*)/",$contents,$matches,PREG_SET_ORDER)) {
             foreach($matches as $match) {
                 $key = trim(strtolower($match[1]));
                 $val = trim($match[2]);
-                if ($key == 'version') {
-                    $val=preg_replace('/[^0-9\.]+/','',$val);
-                }
-
                 $info[$key] = $val;
             }
         }

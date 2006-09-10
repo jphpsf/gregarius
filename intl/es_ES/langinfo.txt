@@ -1,0 +1,4 @@
+Language: Espa&ntilde;ol
+Locale: es_ES
+Windows-locale: esp
+Author: godsea at gmail dot com - http://godsea.dsland.org

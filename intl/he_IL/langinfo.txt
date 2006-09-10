@@ -1,0 +1,4 @@
+Language: עברית
+Locale: he_IL
+Windows-locale: hebrew
+Author: omry at firefang.net - http://firefang.net/blog

@@ -1,0 +1,4 @@
+Language: Italiano
+Locale: it_IT
+Windows-locale: ita
+Author: mbonetti at gmail dot com
