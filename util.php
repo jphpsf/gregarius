@@ -626,7 +626,7 @@ function parse_iso8601($date_str) {
  * http://host.com/thing/ -> "/thing/"
  * http://host.com/ -> "/"
  */
-function getPath() {
+function getPath($path='') {
     static $ret;
     if ($ret === NULL) {
         $ret = dirname($_SERVER['PHP_SELF']);
@@ -640,7 +640,7 @@ function getPath() {
             $ret .= "/";
         }
     }
-    return $ret;
+    return $ret . $path;
 
 }
 $dummy = getPath();
