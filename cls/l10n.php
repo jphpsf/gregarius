@@ -57,17 +57,17 @@ class RSSl10n {
 		$this -> cache = array();
 	}
 	
-	function translate($msg) {
-		if (isset($this -> cache[$msg])) {
-			return $this -> cache[$msg];
+	function translate($msg, $cnt = null) {
+		if (isset($this -> cache[$msg . $cnt])) {
+			return $this -> cache[$msg . $cnt];
 		} 
-		$ret = $this -> l10n -> translate($msg);
-		$this -> cache[$msg] = $ret;
+		$ret = $this -> l10n -> translate($msg, $cnt);
+		$this -> cache[$msg . $cnt] = $ret;
 		return $ret;
 	}
 }
 
-function __($msg) {
-	return $GLOBALS['rssl10n'] -> translate($msg);
+function __($msg, $cnt = null) {
+	return $GLOBALS['rssl10n'] -> translate($msg, $cnt);
 }
 ?>
