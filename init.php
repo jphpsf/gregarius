@@ -114,7 +114,12 @@ rss_require('tags.php');
 ////////////////////////////////////////////////////////////////////////////////
 // Localization
 //
-$lang = getConfig('rss.output.lang');
+if (isset($_GET['lang']) && preg_match('#^[a-z]{2}_[A-Z]{2}$#',$_GET['lang'])) {
+    $lang=$_GET['lang'];
+}else {
+    $lang = getConfig('rss.output.lang');
+}
+
 if (!preg_match('#^[a-zA-Z_]+$#', $lang)) {
 	die('woopsie, bad lang: ' .$lang);
 }

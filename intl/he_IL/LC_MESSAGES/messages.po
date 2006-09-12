@@ -565,10 +565,10 @@ msgid "Subscribe in Gregarius!"
 msgstr "הוסף לגרגריוס"
 
 #: LBL_ADMIN_ERROR_NOT_AUTHORIZED
-msgid "<h1>Not Authorized!</h1>
-You are not authorized to access the administration interface.
-Please follow <a href=\"%s\">this link</a> back to the main page.
-Have  a nice day!"
+msgid "<h1>Not Authorized!</h1>"
+"You are not authorized to access the administration interface."
+"Please follow <a href=\"%s\">this link</a> back to the main page."
+"Have  a nice day!"
 msgstr "אתה לא מורשה לגשת למסך הניהול, אנא <a href=\"%s\">חזור</a>  למסך הראשי"
 
 #: LBL_ADMIN_ERROR_PRUNING_PERIOD

@@ -336,7 +336,7 @@ function admin_footer() {
 }
 
 function admin_title() {
-	$title = array("Admin");
+	$title = array(__("Admin"));
     if (array_key_exists(CST_ADMIN_VIEW,$_REQUEST)) {
     	$title[] = ucwords(
     		preg_replace('#[^a-zA-Z]#',' ',$_REQUEST[CST_ADMIN_VIEW])
