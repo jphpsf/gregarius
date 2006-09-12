@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-11 10:24+0200\n"
+"POT-Creation-Date: 2006-09-12 08:56+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -730,7 +730,7 @@ msgid "download"
 msgstr "t&eacute;l&eacute;charger"
 
 #: intl/en.php:257 intl/en.php:258 plugins/encplayer.php:46
-#: plugins/encplayeralt.php:44
+#: plugins/encplayeralt.php:44 plugins/encplayeralt.php:45
 msgid "play"
 msgstr "jouer"
 

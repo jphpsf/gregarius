@@ -123,13 +123,13 @@ require_once('cls/l10n.php');
 $GLOBALS['rssl10n'] = new RSSl10n($lang);
 
 
-
+/*
 if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
     rss_require("intl/$lang.php");
 } else {
     rss_require('intl/en.php');
 }
-
+*/
 // Theme  specific l10n handling
 list($theme,$media) = getActualTheme();
 

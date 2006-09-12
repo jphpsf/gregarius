@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2006-09-12 09:07+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,824 +12,1192 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: LBL_ITEM
-msgid "item"
-msgstr "inl&auml;gg"
-
-#: LBL_ITEMS
-msgid "items"
-msgstr "inl&auml;gg"
-
-#: LBL_H2_SEARCH_RESULTS_FOR
-msgid "%d matches for %s"
-msgstr "%d tr&auml;ffar f&ouml;r %s"
-
-#: LBL_H2_SEARCH_RESULT_FOR
-msgid "%d match for %s"
-msgstr "%d tr&auml;ff f&ouml;r %s"
-
-#: LBL_H2_SEARCH
-msgid "Search %d items"
-msgstr "S&ouml;k bland %d inl&auml;gg"
-
-#: LBL_SEARCH_SEARCH_QUERY
-msgid "Search terms:"
-msgstr "S&ouml;kord:"
-
-#: LBL_SEARCH_MATCH_OR
-msgid "Some terms (OR)"
-msgstr "N&aring;got av orden (OR)"
-
-#: LBL_SEARCH_MATCH_AND
-msgid "All terms (AND)"
-msgstr "Alla orden (AND)"
-
-#: LBL_SEARCH_MATCH_EXACT
-msgid "Exact match"
-msgstr "Den exakta frasen"
-
-#: LBL_SEARCH_CHANNELS
-msgid "Feed:"
-msgstr "Fl&ouml;de:"
-
-#: LBL_SEARCH_ORDER_DATE_CHANNEL
-msgid "Order by date, feed"
-msgstr "Ordna efter datum, fl&ouml;de"
-
-#: LBL_SEARCH_ORDER_CHANNEL_DATE
-msgid "Order by feed, date"
-msgstr "Ordna efter fl&ouml;de, datum"
-
-#: LBL_SEARCH_RESULTS_PER_PAGE
-msgid "Results per page:"
-msgstr "Resultat per sida:"
-
-#: LBL_SEARCH_RESULTS
-msgid "Results: "
-msgstr "Resultat: "
-
-#: LBL_H2_UNREAD_ITEMS
-msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
-msgstr "Ol&auml;sta inl&auml;gg (<strong id=\"ucnt\">%d</strong>)"
-
-#: LBL_H2_RECENT_ITEMS
-msgid "Recent items"
-msgstr "Senast l&auml;sta inl&auml;gg"
-
-#: LBL_H2_CHANNELS
-msgid "Feeds"
-msgstr "Fl&ouml;den"
-
-#: LBL_H5_READ_UNREAD_STATS
-msgid "%d items, %d unread"
-msgstr "%d inl&auml;gg, %d ol&auml;sta"
-
-#: LBL_ITEMCOUNT_PF
-msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
-msgstr "<strong>%d</strong> inl&auml;gg (<strong id=\"fucnt\">%d</strong> ol&auml;sta) i <strong>%d</strong> fl&ouml;den"
-
-#: LBL_TAGCOUNT_PF
-msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr "<strong>%d</strong> taggade inl&auml;gg, <strong>%d</strong> taggar"
-
-#: LBL_UNREAD_PF
-msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
-msgstr "<strong id=\"%s\" style=\"%s\">(%d ol&auml;sta)</strong>"
-
-#: LBL_UNREAD
-msgid "unread"
-msgstr "ol&auml;sta"
-
-#: LBL_FTR_POWERED_BY
-msgid " powered by "
-msgstr " drivs med hj&auml;lp av "
-
-#: LBL_ALL
-msgid "All"
-msgstr "Alla"
-
-#: LBL_NAV_HOME
-msgid "<span>H</span>ome"
-msgstr "<span>H</span>em"
-
-#: LBL_NAV_UPDATE
-msgid "<span>R</span>efresh"
-msgstr "<span>U</span>ppdatera"
-
-#: LBL_NAV_CHANNEL_ADMIN
-msgid "A<span>d</span>min"
-msgstr "A<span>d</span>min"
-
-#: LBL_NAV_SEARCH
-msgid "<span>S</span>earch"
-msgstr "<span>S</span>&ouml;k"
-
-#: LBL_SEARCH_GO
-msgid "Search"
-msgstr "S&ouml;k"
-
-#: LBL_POSTED
-msgid "Posted: "
-msgstr "Postad: "
-
-#: LBL_FETCHED
-msgid "Fetched: "
-msgstr "H&auml;mtad: "
-
-#: LBL_BY
-msgid " by "
-msgstr " af "
-
-#: LBL_AND
-msgid "and"
-msgstr "och"
-
-#: LBL_TITLE_UPDATING
-msgid "Updating"
-msgstr "Uppdaterar"
-
-#: LBL_TITLE_SEARCH
-msgid "Search"
-msgstr "S&ouml;k"
-
-#: LBL_HOME_FOLDER
+#: admin/channels.php:119 admin/channels.php:491 admin/folders.php:67
+#: admin/folders.php:142 cls/wrappers/searchform.php:122 opml.php:51
+#: opml.php:104 admin/channels.php:120 admin/channels.php:501
+#: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81
 msgid "Root"
 msgstr "Root"
 
-#: LBL_VISIT
+#: admin/channels.php:531 update.php:59 admin/channels.php:545
+msgid "Updating"
+msgstr "Uppdaterar"
+
+#: admin/channels.php:766 admin/channels.php:771 admin/channels.php:837
+#: admin/channels.php:842
 msgid "(visit)"
 msgstr "(&ouml;ppna)"
 
-#: LBL_COLLAPSE
-msgid "[-] collapse"
-msgstr "[-] Kollapsa"
-
-#: LBL_EXPAND
-msgid "[+] expand"
-msgstr "[+] Expandera"
-
-#: LBL_PL_FOR
-msgid "Permalink for "
-msgstr "Permalink till "
-
-#: LBL_UPDATE_CHANNEL
-msgid "Feed"
-msgstr "Fl&ouml;de"
-
-#: LBL_UPDATE_STATUS
-msgid "Status"
-msgstr "Status"
-
-#: LBL_UPDATE_UNREAD
-msgid "New Items"
-msgstr "New Items"
-
-#: LBL_UPDATE_STATUS_OK
-msgid "OK (HTTP 200)"
-msgstr "OK (HTTP 200)"
-
-#: LBL_UPDATE_STATUS_CACHED
-msgid "OK (Local cache)"
-msgstr "OK (Lokal cache)"
-
-#: LBL_UPDATE_STATUS_ERROR
-msgid "ERROR"
-msgstr "ERROR"
-
-#: LBL_UPDATE_H2
-msgid "Updating %d Feeds..."
-msgstr "Uppdaterar %d fl&ouml;den..."
-
-#: LBL_UPDATE_CACHE_TIMEOUT
-msgid "HTTP Timeout (Local cache)"
-msgstr "HTTP Timeout (Local cache)"
-
-#: LBL_UPDATE_NOT_MODIFIED
-msgid "OK (304 Not modified)"
-msgstr "OK (304 Not modified)"
-
-#: LBL_UPDATE_NOT_FOUND
-msgid "404 Not Found (Local cache)"
-msgstr "404 Not Found (Lokal cache)"
-
-#: LBL_ADMIN_EDIT
-msgid "edit"
-msgstr "editera"
-
-#: LBL_ADMIN_DELETE
-msgid "delete"
-msgstr "radera"
-
-#: LBL_ADMIN_DELETE2
-msgid "Delete"
-msgstr "Radera"
-
-#: LBL_ADMIN_RENAME
-msgid "Rename to..."
-msgstr "Byt namn till..."
-
-#: LBL_ADMIN_CREATE
-msgid "Create"
-msgstr "Skapa"
-
-#: LBL_ADMIN_IMPORT
-msgid "Import"
-msgstr "Importera"
-
-#: LBL_ADMIN_EXPORT
-msgid "Export"
-msgstr "Exportera"
-
-#: LBL_ADMIN_DEFAULT
-msgid "default"
-msgstr "default"
-
-#: LBL_ADMIN_ADD
-msgid "Add"
-msgstr "L&auml;gg till"
-
-#: LBL_ADMIN_YES
-msgid "Yes"
-msgstr "Ja"
-
-#: LBL_ADMIN_NO
-msgid "No"
-msgstr "Nej"
-
-#: LBL_ADMIN_FOLDERS
-msgid "Folders:"
-msgstr "Foldrar:"
-
-#: LBL_ADMIN_CHANNELS
-msgid "Feeds:"
-msgstr "Fl&ouml;den:"
-
-#: LBL_ADMIN_OPML
-msgid "OPML:"
-msgstr "OPML:"
-
-#: LBL_ADMIN_ITEM
-msgid "Items:"
-msgstr "Inl&auml;gg:"
-
-#: LBL_ADMIN_CONFIG
-msgid "Configuration:"
-msgstr "Konfiguration:"
-
-#: LBL_ADMIN_OK
-msgid "OK"
-msgstr "OK"
-
-#: LBL_ADMIN_CANCEL
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: LBL_ADMIN_LOGOUT
-msgid "Logout"
-msgstr "Logga ut"
-
-#: LBL_ADMIN_OPML_IMPORT
-msgid "Import"
-msgstr "Importera"
-
-#: LBL_ADMIN_OPML_EXPORT
-msgid "Export"
-msgstr "Export"
-
-#: LBL_ADMIN_OPML_IMPORT_OPML
-msgid "Import OPML:"
-msgstr "Importera OPML:"
-
-#: LBL_ADMIN_OPML_EXPORT_OPML
-msgid "Export OPML:"
-msgstr "Exportera till OPML:"
-
-#: LBL_ADMIN_OPML_IMPORT_FROM_URL
-msgid "... from URL:"
-msgstr "... fr&aring;n URL:"
-
-#: LBL_ADMIN_OPML_IMPORT_FROM_FILE
-msgid "... from File:"
-msgstr "... fr&aring;n fil:"
-
-#: LBL_ADMIN_IN_FOLDER
-msgid "to folder:"
-msgstr "till foldern:"
-
-#: LBL_ADMIN_SUBMIT_CHANGES
-msgid "Submit Changes"
-msgstr "Uppdatera"
-
-#: LBL_ADMIN_PREVIEW_CHANGES
-msgid "Preview"
-msgstr "F&ouml;rhandsgranska"
-
-#: LBL_ADMIN_CHANNELS_HEADING_TITLE
-msgid "Title"
-msgstr "Rubrik"
-
-#: LBL_ADMIN_CHANNELS_HEADING_FOLDER
-msgid "Folder"
-msgstr "Folder"
-
-#: LBL_ADMIN_CHANNELS_HEADING_DESCR
-msgid "Description"
-msgstr "Beskrivning"
-
-#: LBL_ADMIN_CHANNELS_HEADING_MOVE
-msgid "Move"
-msgstr "Flytta"
-
-#: LBL_ADMIN_CHANNELS_HEADING_FLAGS
-msgid "Flags"
-msgstr "Flaggor"
-
-#: LBL_ADMIN_CHANNELS_HEADING_KEY
-msgid "Key"
-msgstr "Nyckel"
-
-#: LBL_ADMIN_CHANNELS_HEADING_VALUE
-msgid "Value"
-msgstr "V&auml;rde"
-
-#: LBL_ADMIN_CHANNELS_ADD
-msgid "Add a feed:"
-msgstr "L&auml;gg till ett fl&ouml;de:"
-
-#: LBL_ADMIN_FOLDERS_ADD
-msgid "Add a folder:"
-msgstr "Skapa en folder:"
-
-#: LBL_ADMIN_CHANNEL_ICON
-msgid "Shown favicon:"
-msgstr "Visa favicon:"
-
-#: LBL_CLEAR_FOR_NONE
-msgid "(Leave blank for no icon)"
-msgstr "(L&auml;mna tom f&ouml;r att inte visa n&aring;n ikon)"
-
-#: LBL_ADMIN_CONFIG_VALUE
-msgid "Value for"
-msgstr "V&auml;rde"
-
-#: LBL_ADMIN_FILE_IMPORT
-msgid "Import file"
-msgstr "Importera"
-
-#: LBL_ADMIN_PLUGINS_HEADING_NAME
-msgid "Name"
-msgstr "Namn"
-
-#: LBL_ADMIN_PLUGINS_HEADING_AUTHOR
-msgid "Author"
-msgstr "Postad av"
-
-#: LBL_ADMIN_PLUGINS_HEADING_VERSION
-msgid "Version"
-msgstr "Version"
-
-#: LBL_ADMIN_PLUGINS_HEADING_DESCRIPTION
-msgid "Description"
-msgstr "Beskrivning"
-
-#: LBL_ADMIN_PLUGINS_HEADING_ACTION
-msgid "Active"
-msgstr "Aktiv"
-
-#: LBL_ADMIN_CHANNEL_EDIT_CHANNEL
-msgid "Edit the feed "
-msgstr "Redigera fl&ouml;de "
-
-#: LBL_ADMIN_CHANNEL_NAME
-msgid "Title:"
-msgstr "Rubrik:"
-
-#: LBL_ADMIN_CHANNEL_RSS_URL
-msgid "RSS URL:"
-msgstr "RSS URL:"
-
-#: LBL_ADMIN_CHANNEL_SITE_URL
-msgid "Site URL:"
-msgstr "Sidans URL:"
-
-#: LBL_ADMIN_CHANNEL_FOLDER
-msgid "In folder:"
-msgstr "Till foldern:"
-
-#: LBL_ADMIN_CHANNEL_DESCR
-msgid "Description:"
-msgstr "Beskrivning:"
-
-#: LBL_ADMIN_FOLDER_NAME
-msgid "Folder name:"
-msgstr "Foldernamn:"
-
-#: LBL_ADMIN_CHANNEL_PRIVATE
-msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr "Detta fl&ouml;de &auml;r <strong>privat</strong> och kan endast ses av admin."
-
-#: LBL_ADMIN_ARE_YOU_SURE
-msgid "Are you sure you wish to delete '%s'?"
-msgstr "&Auml;r du s&auml;ker p&aring; att du vill ta bort '%s'?"
-
-#: LBL_ADMIN_ARE_YOU_SURE_DEFAULT
-msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
-msgstr "&Auml;r du s&auml;ker p&aring; att du vill &aring;terst&auml;lla %s till standardv&auml;rdet '%s'?"
-
-#: LBL_ADMIN_TRUE
-msgid "True"
-msgstr "Sant"
-
-#: LBL_ADMIN_FALSE
-msgid "False"
-msgstr "Falskt"
-
-#: LBL_ADMIN_MOVE_UP
-msgid "&uarr;"
-msgstr "&uarr;"
-
-#: LBL_ADMIN_MOVE_DOWN
-msgid "&darr;"
-msgstr "&darr;"
-
-#: LBL_ADMIN_ADD_CHANNEL_EXPL
-msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
-msgstr "(Ange URL:en direkt till ett RSS-fl&ouml;de eller till den webbsida du vill prenumerera p&aring;)"
-
-#: LBL_ADMIN_FEEDS
-msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
-msgstr "F&ouml;ljande fl&ouml;den hittades p&aring; <a href=\"%s\">%s</a>, vilken vill du prenumerera p&aring;?"
-
-#: LBL_ADMIN_PRUNE_OLDER
-msgid "Delete items older than "
-msgstr "Radera inl&auml;gg &auml;ldre &auml;n "
-
-#: LBL_ADMIN_PRUNE_DAYS
-msgid "days"
-msgstr "dagar"
-
-#: LBL_ADMIN_PRUNE_MONTHS
-msgid "months"
-msgstr "m&aring;nader"
-
-#: LBL_ADMIN_PRUNE_YEARS
-msgid "years"
-msgstr "&aring;r"
-
-#: LBL_ADMIN_PRUNE_KEEP
-msgid "Keep the most recent items: "
-msgstr "Keep the most recent items: "
-
-#: LBL_ADMIN_PRUNE_INCLUDE_STICKY
-msgid "Delete Sticky items too: "
-msgstr "Radera &auml;ven inl&auml;gg markerade som Sticky: "
-
-#: LBL_ADMIN_PRUNE_EXCLUDE_TAGS
-msgid "Do not delete items tagged... "
-msgstr "Radera inte inl&auml;gg taggade med: "
-
-#: LBL_ADMIN_ALLTAGS_EXPL
-msgid "(Enter <strong>*</strong> to keep all tagged items)"
-msgstr "(Ange <strong>*</strong> f&ouml;r att spara alla inl&auml;gg som har taggar)"
-
-#: LBL_ADMIN_ABOUT_TO_DELETE
-msgid "Warning: you are about to delete %s items (of %s)"
-msgstr "Warning: you are about to delete %s items (of %s)"
-
-#: LBL_ADMIN_PRUNING
-msgid "Pruning"
-msgstr "St&auml;da"
-
-#: LBL_ADMIN_DOMAIN_FOLDER_LBL
-msgid "folders"
-msgstr "foldrar"
-
-#: LBL_ADMIN_DOMAIN_CHANNEL_LBL
-msgid "feeds"
-msgstr "fl&ouml;den"
-
-#: LBL_ADMIN_DOMAIN_ITEM_LBL
+#: author.php:41 cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049
+#: feed.php:1061 intl/en.php:186 intl/en.php:187
+#: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
+#: state.php:36 state.php:39 state.php:42 tags.php:118 tags.php:153
+#: admin/index.php:224 tags.php:117 tags.php:152
 msgid "items"
 msgstr "inl&auml;gg"
 
-#: LBL_ADMIN_DOMAIN_CONFIG_LBL
-msgid "config"
-msgstr "konfiguration"
+#: author.php:41 cls/wrappers/item.php:222
+msgid " by "
+msgstr " af "
 
-#: LBL_ADMIN_DOMAIN_LBL_OPML_LBL
-msgid "opml"
-msgstr "opml"
+#: cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049 feed.php:1061
+#: tags.php:118 tags.php:153 tags.php:117 tags.php:152
+msgid "item"
+msgstr "inl&auml;gg"
 
-#: LBL_ADMIN_BOOKMARKET_LABEL
-msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
-msgstr "Bookmarklet f&ouml;r att l&auml;gga till en sida i Gregarius [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+#: cls/channels.php:99 cls/wrappers/feeds.php:64 feed.php:831 feed.php:835
+#: feed.php:839
+#, php-format
+msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
+msgstr "<strong id=\"%s\" style=\"%s\">(%d ol&auml;sta)</strong>"
 
-#: LBL_ADMIN_BOOKMARKLET_TITLE
-msgid "Subscribe in Gregarius!"
-msgstr "L&auml;gg till i Gregarius!"
+#: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
+#: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
+msgid "Feeds"
+msgstr "Fl&ouml;den"
 
-#: LBL_ADMIN_CONFIGURE
-msgid "Configure"
-msgstr "Configure"
+#: cls/channels.php:194 themes/milsi/feeds.php:4
+#, fuzzy, php-format
+msgid ""
+"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
+"strong> feeds"
+msgstr ""
+"<strong>%d</strong> inl&auml;gg (<strong id=\"fucnt\">%d</strong> ol&auml;"
+"sta) i <strong>%d</strong> fl&ouml;den"
 
-#: LBL_ADMIN_ERROR_PRUNING_PERIOD
-msgid "Invalid pruning period"
-msgstr "Felaktig period"
+#: cls/header.php:62
+msgid "unread"
+msgstr "ol&auml;sta"
 
-#: LBL_ADMIN_ERROR_NO_PERIOD
-msgid "oops, no period specified"
-msgstr "du angav ingen period"
+#: cls/nav.php:62
+msgid "<span>H</span>ome"
+msgstr "<span>H</span>em"
 
-#: LBL_ADMIN_BAD_RSS_URL
-msgid "I'm sorry, I don't think I can handle this URL: '%s'"
-msgstr "Tyv&auml;rr kunde inte f&ouml;ljande URL anv&auml;ndas: '%s'"
+#: cls/nav.php:63 themes/default/mobile/nav.php:5
+msgid "<span>R</span>efresh"
+msgstr "<span>U</span>ppdatera"
 
-#: LBL_ADMIN_ERROR_CANT_DELETE_HOME_FOLDER
-msgid "You can't delete the Root folder"
-msgstr "Du kan inte radera foldern \" . LBL_HOME_FOLDER . \"!"
+#: cls/nav.php:64
+msgid "<span>S</span>earch"
+msgstr "<span>S</span>&ouml;k"
 
-#: LBL_ADMIN_CANT_RENAME
-msgid "You can't rename this item '%s' because such an item already exists."
-msgstr "Du kan inte &auml;ndra folderns namn till '%s', namnet &auml;r redan upptaget."
+#: cls/nav.php:65
+msgid "A<span>d</span>min"
+msgstr "A<span>d</span>min"
 
-#: LBL_ADMIN_ERROR_CANT_CREATE
-msgid "Looks like you already have a folder called '%s'!"
-msgstr "Det finns redan en folder som heter '%s'!"
+#: cls/search.php:214 cls/search.php:213
+msgid "Results: "
+msgstr "Resultat: "
 
-#: LBL_TAG_TAGS
-msgid "Tags"
-msgstr "Taggar"
+#: cls/taglist.php:86
+#, php-format
+msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
+msgstr "<strong>%d</strong> taggade inl&auml;gg, <strong>%d</strong> taggar"
 
-#: LBL_TAG_EDIT
+#: cls/update.php:116 cls/update.php:118
+msgid "OK (304 Not modified)"
+msgstr "OK (304 Not modified)"
+
+#: cls/update.php:120 cls/update.php:122
+msgid "HTTP Timeout (Local cache)"
+msgstr "HTTP Timeout (Local cache)"
+
+#: cls/update.php:124 cls/update.php:126
+msgid "OK (Local cache)"
+msgstr "OK (Lokal cache)"
+
+#: cls/update.php:128 cls/update.php:130
+msgid "404 Not Found (Local cache)"
+msgstr "404 Not Found (Lokal cache)"
+
+#: cls/update.php:137 cls/update.php:139
+msgid "OK (HTTP 200)"
+msgstr "OK (HTTP 200)"
+
+#: cls/update.php:142 cls/update.php:144
+msgid "ERROR"
+msgstr "ERROR"
+
+#: cls/update.php:175 cls/update.php:237 cls/update.php:179 cls/update.php:241
+#, php-format
+msgid "Updating %d Feeds..."
+msgstr "Uppdaterar %d fl&ouml;den..."
+
+#: cls/update.php:178 cls/update.php:241 cls/update.php:182 cls/update.php:245
+msgid "Feed"
+msgstr "Fl&ouml;de"
+
+#: cls/update.php:179 cls/update.php:242 cls/update.php:183 cls/update.php:246
+msgid "Status"
+msgstr "Status"
+
+#: cls/update.php:180 cls/update.php:243 cls/update.php:294 cls/update.php:323
+#: cls/update.php:355 cls/update.php:184 cls/update.php:247 cls/update.php:298
+#: cls/update.php:327 cls/update.php:359
+msgid "New Items"
+msgstr "New Items"
+
+#: cls/wrappers/item.php:45
+msgid "Permalink for "
+msgstr "Permalink till "
+
+#: cls/wrappers/item.php:201
+msgid "Posted: "
+msgstr "Postad: "
+
+#: cls/wrappers/item.php:201
+msgid "Fetched: "
+msgstr "H&auml;mtad: "
+
+#: cls/wrappers/searchform.php:88 cls/wrappers/searchform.php:97
+#: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
+#: cls/wrappers/toolkit.php:53
+msgid "All"
+msgstr "Alla"
+
+#: index.php:143
+#, fuzzy
+msgid "Unread items (<span id=\"ucnt\">%d</span>)"
+msgstr "Ol&auml;sta inl&auml;gg (<strong id=\"ucnt\">%d</strong>)"
+
+#: admin/channels.php:169 admin/channels.php:276 admin/channels.php:305
+#: admin/config.php:156 admin/folders.php:92 admin/plugins.php:149
+#: admin/tags.php:120 intl/en.php:98 intl/en.php:206 intl/en.php:207
+#: admin/channels.php:179 admin/channels.php:286 admin/channels.php:315
+#: admin/config.php:160 admin/tags.php:153 ajax.php:194 ajax.php:217
+#: themes/default/web/item.php:31 themes/lilina/web/item.php:55
+#: themes/lilina/web/item.php:111
 msgid "edit"
-msgstr "aendra"
+msgstr "editera"
 
-#: LBL_TAG_SUBMIT
-msgid "submit"
-msgstr "skicka"
+#: admin/channels.php:172 admin/channels.php:200 admin/folders.php:96
+#: admin/items.php:52 admin/items.php:65 admin/items.php:225
+#: admin/tags.php:123 intl/en.php:99 admin/channels.php:182 admin/tags.php:156
+msgid "delete"
+msgstr "radera"
 
-#: LBL_TAG_CANCEL
-msgid "cancel"
-msgstr "avbryt"
+#: intl/en.php:100 admin/channels.php:210 admin/items.php:57
+#: admin/items.php:70 admin/items.php:236 admin/tags.php:164
+msgid "Delete"
+msgstr "Radera"
 
-#: LBL_TAG_SUBMITTING
-msgid "..."
-msgstr "..."
+#: admin/tags.php:142 intl/en.php:101 admin/tags.php:186
+msgid "Rename to..."
+msgstr "Byt namn till..."
 
-#: LBL_TAG_ERROR_NO_TAG
-msgid "Oops! No items tagged &laquo;%s&raquo; were found."
-msgstr "Ojd&aring;! Hittade inga inl&auml;gg med taggen &laquo;%s&raquo;."
+#: intl/en.php:101 intl/en.php:102
+msgid "Create"
+msgstr "Skapa"
 
-#: LBL_TAG_ALL_TAGS
-msgid "All Tags"
-msgstr "Alla Taggar"
+#: intl/en.php:102 intl/en.php:103 intl/en.php:118 intl/en.php:119
+#: admin/channels.php:442 admin/opml.php:81
+msgid "Import"
+msgstr "Importera"
 
-#: LBL_TAG_TAGGED
-msgid "tagged"
-msgstr "taggad"
+#: intl/en.php:103 intl/en.php:104 intl/en.php:119 intl/en.php:120
+#: admin/opml.php:110
+msgid "Export"
+msgstr "Exportera"
 
-#: LBL_TAG_TAGGEDP
-msgid "tagged"
-msgstr "taggad"
+#: intl/en.php:104 intl/en.php:105 admin/config.php:167
+msgid "default"
+msgstr "default"
 
-#: LBL_TAG_SUGGESTIONS
-msgid "suggestions"
-msgstr "f&ouml;rslag"
+#: intl/en.php:105 intl/en.php:106 admin/channels.php:51
+#: admin/channels.php:251 admin/channels.php:369 admin/folders.php:41
+#: admin/folders.php:212
+msgid "Add"
+msgstr "L&auml;gg till"
 
-#: LBL_TAG_SUGGESTIONS_NONE
-msgid "no suggestions"
-msgstr "inga f&ouml;rslag"
+#: intl/en.php:106 intl/en.php:107 admin/channels.php:396
+#: admin/channels.php:432 admin/config.php:204 admin/config.php:520
+#: admin/folders.php:168 admin/folders.php:186 admin/tags.php:60
+#: admin/tags.php:96 admin/themes.php:275
+msgid "Yes"
+msgstr "Ja"
 
-#: LBL_TAG_RELATED
-msgid "Related tags: "
-msgstr "Relaterade taggar: "
+#: intl/en.php:107 intl/en.php:108 admin/channels.php:421
+#: admin/channels.php:431 admin/config.php:208 admin/config.php:519
+#: admin/folders.php:175 admin/folders.php:185 admin/tags.php:66
+#: admin/tags.php:95
+msgid "No"
+msgstr "Nej"
 
-#: LBL_SHOW_UNREAD_ALL_SHOW
-msgid "Show items: "
-msgstr "Visa: "
+#: intl/en.php:108 intl/en.php:109 admin/folders.php:31
+msgid "Folders:"
+msgstr "Foldrar:"
 
-#: LBL_SHOW_UNREAD_ALL_UNREAD_ONLY
-msgid "Unread only"
-msgstr "Ol&auml;sta"
+#: intl/en.php:109 intl/en.php:110 admin/channels.php:39
+msgid "Feeds:"
+msgstr "Fl&ouml;den:"
 
-#: LBL_SHOW_UNREAD_ALL_READ_AND_UNREAD
-msgid "Read and unread"
-msgstr "L&auml;sta och ol&auml;sta"
+#: intl/en.php:110 intl/en.php:111 admin/opml.php:38
+msgid "OPML:"
+msgstr "OPML:"
 
-#: LBL_STATE_UNREAD
-msgid "Unread (Set this item's read/unread state)"
-msgstr "Ol&auml;st (Markera inl&auml;gget som l&auml;st/ol&auml;st)"
+#: intl/en.php:111 intl/en.php:112 admin/items.php:36
+msgid "Items:"
+msgstr "Inl&auml;gg:"
 
-#: LBL_STATE_STICKY
-msgid "Sticky (Won't be deleted when you prune items)"
-msgstr "Sticky (Spara inl&auml;gget n&auml;r du st&auml;dar bland inl&auml;ggen)"
+#: intl/en.php:112 intl/en.php:113 admin/config.php:31
+msgid "Configuration:"
+msgstr "Konfiguration:"
 
-#: LBL_STATE_PRIVATE
-msgid "Private (Only administrators can see private items)"
-msgstr "Privat (Visa endast f&ouml;r admin)"
+#: intl/en.php:113 intl/en.php:114 admin/channels.php:283
+#: admin/channels.php:311 admin/users.php:79 ajax.php:532
+msgid "OK"
+msgstr "OK"
 
-#: LBL_STICKY
-msgid "Sticky"
-msgstr "Sticky"
+#: intl/en.php:114 intl/en.php:115 admin/config.php:246 admin/items.php:237
+#: admin/plugins.php:214 admin/themes.php:175 ajax.php:533
+msgid "Cancel"
+msgstr "Avbryt"
 
-#: LBL_DEPRECATED
-msgid "Deprecated"
-msgstr "Ur bruk"
-
-#: LBL_PRIVATE
-msgid "Private"
-msgstr "Privat"
-
-#: LBL_ADMIN_STATE
-msgid "State:"
-msgstr "Status:"
-
-#: LBL_ADMIN_STATE_SET
-msgid "Set"
-msgstr "Utf&ouml;r"
-
-#: LBL_ADMIN_IM_SURE
-msgid "I'm sure!"
-msgstr "Bekr&auml;fta!"
-
-#: LBL_LOGGED_IN_AS
-msgid "Logged in as <strong>%s</strong>"
-msgstr "Inloggad som <strong>%s</strong>"
-
-#: LBL_NOT_LOGGED_IN
-msgid "Not logged in"
-msgstr "Du &auml;r inte inloggad"
-
-#: LBL_LOG_OUT
+#: intl/en.php:115 intl/en.php:116 intl/en.php:236 intl/en.php:237
+#: admin/index.php:237 cls/wrappers/header.php:143
 msgid "Logout"
 msgstr "Logga ut"
 
-#: LBL_LOG_IN
-msgid "Login"
-msgstr "Logga in"
+#: intl/en.php:116 intl/en.php:117 admin/themes.php:100
+msgid "Configure"
+msgstr "Configure"
 
-#: LBL_ADMIN_OPML_IMPORT_AND
-msgid "Import new feeds and:"
-msgstr "Importera nya fl&ouml;den och:"
+#: intl/en.php:120 intl/en.php:121 admin/opml.php:42
+msgid "Import OPML:"
+msgstr "Importera OPML:"
 
-#: LBL_ADMIN_OPML_IMPORT_WIPE
-msgid "... replace all existing feeds and items."
-msgstr "... ers&auml;tt alla existerande fl&ouml;den och inl&auml;gg."
+#: intl/en.php:121 intl/en.php:122 admin/opml.php:107 admin/opml.php:109
+msgid "Export OPML:"
+msgstr "Exportera till OPML:"
 
-#: LBL_ADMIN_OPML_IMPORT_FOLDER
-msgid "... add them to the folder:"
-msgstr "... l&auml;gg dem i mappen:"
+#: intl/en.php:122 intl/en.php:123 admin/opml.php:46
+msgid "... from URL:"
+msgstr "... fr&aring;n URL:"
 
-#: LBL_ADMIN_OPML_IMPORT_MERGE
-msgid "... merge them with the existing ones."
-msgstr "... f&ouml;rena dem med nuvarande."
+#: intl/en.php:123 intl/en.php:124 admin/opml.php:52
+msgid "... from File:"
+msgstr "... fr&aring;n fil:"
 
-#: LBL_ADMIN_OPML_IMPORT_FEED_INFO
-msgid "Adding %s to %s... "
-msgstr "L&auml;gger %s till %s... "
+#: intl/en.php:124 intl/en.php:125
+msgid "Import file"
+msgstr "Importera"
 
-#: LBL_TAG_FOLDERS
-msgid "Categories"
-msgstr "Kategorier"
+#: intl/en.php:126 intl/en.php:127 admin/channels.php:46
+msgid "to folder:"
+msgstr "till foldern:"
 
-#: LBL_SIDE_ITEMS
-msgid "(%d items)"
-msgstr "(%d inl&auml;gg)"
+#: intl/en.php:127 intl/en.php:128 admin/channels.php:958 admin/config.php:238
+#: admin/config.php:257 admin/folders.php:126 admin/plugins.php:170
+#: admin/plugins.php:212 admin/tags.php:188 admin/themes.php:173
+#: admin/themes.php:285
+msgid "Submit Changes"
+msgstr "Uppdatera"
 
-#: LBL_SIDE_UNREAD_FEEDS
-msgid "(%d unread in %d feeds)"
-msgstr "(%d olästa i %d fl&ouml;den)"
+#: intl/en.php:128 intl/en.php:129 admin/config.php:234 admin/config.php:252
+msgid "Preview"
+msgstr "F&ouml;rhandsgranska"
 
-#: LBL_CATCNT_PF
-msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
-msgstr "<strong>%d</strong> fl&ouml;den i <strong>%d</strong> kategorier"
+#: intl/en.php:129 intl/en.php:130 admin/channels.php:85 admin/folders.php:46
+msgid "Title"
+msgstr "Rubrik"
 
-#: LBL_RATING
-msgid "Rating:"
-msgstr "V&auml;rdering:"
+#: intl/en.php:130 intl/en.php:131 admin/channels.php:86
+msgid "Folder"
+msgstr "Folder"
 
-#: LBL_ENCLOSURE
-msgid "Enclosure:"
-msgstr "Bilaga:"
+#: intl/en.php:131 intl/en.php:132 intl/en.php:147 intl/en.php:148
+#: admin/channels.php:87 admin/config.php:69 admin/plugins.php:99
+msgid "Description"
+msgstr "Beskrivning"
 
-#: LBL_DOWNLOAD
-msgid "download"
-msgstr "ladda ned"
+#: intl/en.php:132 intl/en.php:133 admin/channels.php:92
+#: admin/channels.php:195 admin/folders.php:49
+msgid "Move"
+msgstr "Flytta"
 
-#: LBL_PLAY
-msgid "play"
-msgstr "spela upp"
+#: intl/en.php:133 intl/en.php:134 admin/channels.php:95 admin/config.php:70
+#: admin/folders.php:52 admin/tags.php:141
+#, fuzzy
+msgid "Action"
+msgstr "Aktiv"
 
-#: LBL_FOOTER_LAST_MODIF_NEVER
-msgid "Never"
-msgstr "Never"
+#: intl/en.php:134 intl/en.php:135 admin/channels.php:89
+msgid "Flags"
+msgstr "Flaggor"
 
-#: LBL_ADMIN_DASHBOARD
-msgid "Dashboard"
-msgstr "Dashboard"
+#: intl/en.php:135 intl/en.php:136 admin/config.php:67
+msgid "Key"
+msgstr "Nyckel"
 
-#: LBL_USERNAME
-msgid "Username"
-msgstr "Username"
+#: intl/en.php:136 intl/en.php:137 admin/config.php:68
+msgid "Value"
+msgstr "V&auml;rde"
 
-#: LBL_PASSWORD
-msgid "Password"
-msgstr "Password"
+#: intl/en.php:137 intl/en.php:138 admin/channels.php:43
+msgid "Add a feed:"
+msgstr "L&auml;gg till ett fl&ouml;de:"
 
-#: LBL_PASSWORD2
-msgid "Password (again)"
-msgstr "Password (again)"
+#: intl/en.php:138 intl/en.php:139 admin/folders.php:38
+msgid "Add a folder:"
+msgstr "Skapa en folder:"
 
-#: LBL_ADMIN_LOGIN
-msgid "Please log in"
-msgstr "Please log in"
+#: intl/en.php:139 intl/en.php:140 admin/channels.php:896
+msgid "Shown favicon:"
+msgstr "Visa favicon:"
 
-#: LBL_ADMIN_PASS_NO_MATCH
-msgid "Passwords do not match!"
-msgstr "Passwords do not match!"
+#: intl/en.php:140 intl/en.php:141 admin/channels.php:903
+msgid "(Leave blank for no icon)"
+msgstr "(L&auml;mna tom f&ouml;r att inte visa n&aring;n ikon)"
 
-#: LBL_ADMIN_PLUGINS
-msgid "Plugins"
-msgstr "Plugins"
+#: intl/en.php:142 intl/en.php:143 admin/config.php:442 admin/config.php:467
+#: admin/config.php:471 admin/config.php:485
+msgid "Value for"
+msgstr "V&auml;rde"
 
-#: LBL_ADMIN_DOMAIN_PLUGINS_LBL
-msgid "plugins"
-msgstr "plugins"
+#: intl/en.php:144 intl/en.php:145 admin/plugins.php:96
+msgid "Name"
+msgstr "Namn"
 
-#: LBL_ADMIN_PLUGINS_HEADING_OPTIONS
+#: intl/en.php:145 intl/en.php:146 admin/plugins.php:98
+msgid "Author"
+msgstr "Postad av"
+
+#: intl/en.php:146 intl/en.php:147 admin/plugins.php:97
+msgid "Version"
+msgstr "Version"
+
+#: intl/en.php:148 intl/en.php:149 admin/plugins.php:95
+msgid "Active"
+msgstr "Aktiv"
+
+#: intl/en.php:149 intl/en.php:150 admin/plugins.php:100
 msgid "Options"
 msgstr "Options"
 
-#: LBL_ADMIN_PLUGINS_OPTIONS
+#: intl/en.php:150 intl/en.php:151 admin/plugins.php:202
 msgid "Plugin Options"
 msgstr "Plugin Options"
 
-#: LBL_ADMIN_CHECK_FOR_UPDATES
-msgid "Check for Updates"
-msgstr "Check for Updates"
-
-#: LBL_ADMIN_LOGIN_BAD_LOGIN
-msgid "<strong>Oops!</strong> Bad login/password"
-msgstr "<strong>Oops!</strong> Bad login/password"
-
-#: LBL_LAST_UPDATE
-msgid "Last Update"
-msgstr "Last update"
-
-#: LBL_ADMIN_DOMAIN_THEMES_LBL
-msgid "themes"
-msgstr "themes"
-
-#: LBL_ADMIN_THEMES
-msgid "Themes"
-msgstr "Themes"
-
-#: LBL_ADMIN_ACTIVE_THEME
-msgid "Active Theme"
-msgstr "Active Theme"
-
-#: LBL_ADMIN_USE_THIS_THEME
-msgid "Use this Theme"
-msgstr "Use this Theme"
-
-#: LBL_ADMIN_THEME_OPTIONS
+#: intl/en.php:151 intl/en.php:152 admin/themes.php:152
 msgid "Theme Options"
 msgstr "Theme Options"
 
-#: LBL_STATE_FLAG
-msgid "Flag (Flags an item for later reading)"
-msgstr "Flag (Flags an item for later reading)"
+#: intl/en.php:154 intl/en.php:155 admin/channels.php:814
+msgid "Edit the feed "
+msgstr "Redigera fl&ouml;de "
 
-#: LBL_FLAG
-msgid "Flagged"
-msgstr "Flagged"
+#: intl/en.php:155 intl/en.php:156 admin/channels.php:827
+msgid "Title:"
+msgstr "Rubrik:"
 
-#: LBL_MARK_READ
+#: intl/en.php:156 intl/en.php:157 admin/channels.php:836
+msgid "RSS URL:"
+msgstr "RSS URL:"
+
+#: intl/en.php:157 intl/en.php:158 admin/channels.php:841
+msgid "Site URL:"
+msgstr "Sidans URL:"
+
+#: intl/en.php:158 intl/en.php:159 admin/channels.php:191
+#: admin/channels.php:846
+msgid "In folder:"
+msgstr "Till foldern:"
+
+#: intl/en.php:159 intl/en.php:160 admin/channels.php:891
+msgid "Description:"
+msgstr "Beskrivning:"
+
+#: intl/en.php:160 intl/en.php:161 admin/folders.php:123
+msgid "Folder name:"
+msgstr "Foldernamn:"
+
+#: intl/en.php:161 intl/en.php:162 admin/channels.php:876
+msgid "This feed is <strong>private</strong>, only admins see it."
+msgstr ""
+"Detta fl&ouml;de &auml;r <strong>privat</strong> och kan endast ses av admin."
+
+#: admin/channels.php:884 intl/en.php:162 intl/en.php:163
+#, fuzzy
+msgid ""
+"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
+"won't be visible in the feeds column."
+msgstr ""
+"Detta fl&ouml;de &auml;r <strong>privat</strong> och kan endast ses av admin."
+
+#: admin/channels.php:429 admin/folders.php:183 admin/tags.php:93
+#: intl/en.php:164 intl/en.php:165
+#, c-format, php-format
+msgid "Are you sure you wish to delete '%s'?"
+msgstr "&Auml;r du s&auml;ker p&aring; att du vill ta bort '%s'?"
+
+#: admin/config.php:507 intl/en.php:165 intl/en.php:166 admin/config.php:517
+#, c-format, php-format
+msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
+msgstr ""
+"&Auml;r du s&auml;ker p&aring; att du vill &aring;terst&auml;lla %s till "
+"standardv&auml;rdet '%s'?"
+
+#: intl/en.php:166 intl/en.php:167 admin/config.php:332 admin/config.php:337
+#: admin/config.php:474 admin/config.php:476
+msgid "True"
+msgstr "Sant"
+
+#: intl/en.php:167 intl/en.php:168 admin/config.php:332 admin/config.php:480
+#: admin/config.php:482
+msgid "False"
+msgstr "Falskt"
+
+#: intl/en.php:168 intl/en.php:169 admin/channels.php:173 admin/folders.php:80
+msgid "&uarr;"
+msgstr "&uarr;"
+
+#: intl/en.php:169 intl/en.php:170 admin/channels.php:175 admin/folders.php:84
+msgid "&darr;"
+msgstr "&darr;"
+
+#: intl/en.php:170 intl/en.php:171 admin/channels.php:52
+msgid ""
+"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
+"subscribe to)"
+msgstr ""
+"(Ange URL:en direkt till ett RSS-fl&ouml;de eller till den webbsida du vill "
+"prenumerera p&aring;)"
+
+#: intl/en.php:171 intl/en.php:172 admin/channels.php:329
+#, php-format
+msgid ""
+"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
+"like to subscribe?"
+msgstr ""
+"F&ouml;ljande fl&ouml;den hittades p&aring; <a href=\"%s\">%s</a>, vilken "
+"vill du prenumerera p&aring;?"
+
+#: intl/en.php:173 intl/en.php:174 admin/items.php:42
+msgid "Delete items older than "
+msgstr "Radera inl&auml;gg &auml;ldre &auml;n "
+
+#: intl/en.php:174 intl/en.php:175 admin/items.php:45 admin/items.php:81
+msgid "days"
+msgstr "dagar"
+
+#: intl/en.php:175 intl/en.php:176 admin/items.php:46 admin/items.php:85
+msgid "months"
+msgstr "m&aring;nader"
+
+#: intl/en.php:176 intl/en.php:177 admin/items.php:47 admin/items.php:89
+msgid "years"
+msgstr "&aring;r"
+
+#: intl/en.php:177 intl/en.php:178
+msgid "Keep the most recent items: "
+msgstr "Keep the most recent items: "
+
+#: intl/en.php:178 intl/en.php:179 admin/items.php:52
+msgid "Delete Sticky items too: "
+msgstr "Radera &auml;ven inl&auml;gg markerade som Sticky: "
+
+#: intl/en.php:179 intl/en.php:180 admin/items.php:54
+msgid "Do not delete items tagged... "
+msgstr "Radera inte inl&auml;gg taggade med: "
+
+#: intl/en.php:180 intl/en.php:181 admin/items.php:56
+msgid "(Enter <strong>*</strong> to keep all tagged items)"
+msgstr ""
+"(Ange <strong>*</strong> f&ouml;r att spara alla inl&auml;gg som har taggar)"
+
+#: intl/en.php:182 intl/en.php:183 admin/items.php:229
+#, php-format
+msgid "Warning: you are about to delete %s items (of %s)"
+msgstr "Warning: you are about to delete %s items (of %s)"
+
+#: intl/en.php:183 intl/en.php:184 admin/items.php:40
+msgid "Pruning"
+msgstr "St&auml;da"
+
+#: admin/folders.php:207 intl/en.php:184 intl/en.php:185 admin/index.php:228
+msgid "folders"
+msgstr "foldrar"
+
+#: intl/en.php:185 intl/en.php:186 admin/index.php:223
+msgid "feeds"
+msgstr "fl&ouml;den"
+
+#: intl/en.php:187 intl/en.php:188 admin/index.php:225
+msgid "config"
+msgstr "konfiguration"
+
+#: intl/en.php:188 intl/en.php:189 admin/index.php:229
+msgid "opml"
+msgstr "opml"
+
+#: intl/en.php:189 intl/en.php:190 admin/channels.php:62
+msgid ""
+"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
+"\">?</a>]:"
+msgstr ""
+"Bookmarklet f&ouml;r att l&auml;gga till en sida i Gregarius [<a href="
+"\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+
+#: intl/en.php:190 intl/en.php:191 admin/channels.php:62
+msgid "Subscribe in Gregarius!"
+msgstr "L&auml;gg till i Gregarius!"
+
+#: intl/en.php:193 intl/en.php:194
+msgid ""
+"<h1>Not Authorized!</h1>\n"
+"You are not authorized to access the administration interface.\n"
+msgstr ""
+
+#: intl/en.php:194 intl/en.php:195
+msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
+msgstr ""
+
+#: intl/en.php:195 intl/en.php:196
+msgid "Have  a nice day!"
+msgstr ""
+
+#: intl/en.php:205 intl/en.php:206 admin/index.php:230 admin/tags.php:135
+#: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
+#: themes/default/mobile/item.php:15 themes/default/web/item.php:28
+#: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
+msgid "Tags"
+msgstr "Taggar"
+
+#: intl/en.php:207 intl/en.php:208 ajax.php:213 ajax.php:224
+msgid "submit"
+msgstr "skicka"
+
+#: intl/en.php:208 intl/en.php:209 ajax.php:228
+msgid "cancel"
+msgstr "avbryt"
+
+#: intl/en.php:209 intl/en.php:210 ajax.php:215
+msgid "..."
+msgstr "..."
+
+#: intl/en.php:210 intl/en.php:211 tags.php:168
+#, php-format
+msgid "Oops! No items tagged &laquo;%s&raquo; were found."
+msgstr "Ojd&aring;! Hittade inga inl&auml;gg med taggen &laquo;%s&raquo;."
+
+#: intl/en.php:211 intl/en.php:212 tags.php:178
+msgid "All Tags"
+msgstr "Alla Taggar"
+
+#: intl/en.php:212 intl/en.php:213 intl/en.php:214 tags.php:117 tags.php:153
+msgid "tagged"
+msgstr "taggad"
+
+#: intl/en.php:214 intl/en.php:215 plugins/delicious.php:108
+msgid "suggestions"
+msgstr "f&ouml;rslag"
+
+#: intl/en.php:215 intl/en.php:216 plugins/delicious.php:64
+msgid "no suggestions"
+msgstr "inga f&ouml;rslag"
+
+#: intl/en.php:216 intl/en.php:217 tags.php:157
+msgid "Related tags: "
+msgstr "Relaterade taggar: "
+
+#: intl/en.php:218 intl/en.php:219 util.php:869
+msgid "Show items: "
+msgstr "Visa: "
+
+#: intl/en.php:219 intl/en.php:220 util.php:871
+msgid "Unread only"
+msgstr "Ol&auml;sta"
+
+#: intl/en.php:220 intl/en.php:221 util.php:872
+msgid "Read and unread"
+msgstr "L&auml;sta och ol&auml;sta"
+
+#: intl/en.php:222 intl/en.php:223 ajax.php:517
+#, fuzzy
+msgid "Unread (Set this item\\'s read/unread state)"
+msgstr "Ol&auml;st (Markera inl&auml;gget som l&auml;st/ol&auml;st)"
+
+#: intl/en.php:223 intl/en.php:224 ajax.php:521
+#, fuzzy
+msgid "Sticky (Won\\'t be deleted when you prune items)"
+msgstr ""
+"Sticky (Spara inl&auml;gget n&auml;r du st&auml;dar bland inl&auml;ggen)"
+
+#: intl/en.php:224 intl/en.php:225 ajax.php:525
+msgid "Private (Only administrators can see private items)"
+msgstr "Privat (Visa endast f&ouml;r admin)"
+
+#: intl/en.php:225 intl/en.php:226 plugins/stickyflag/stickyflag.php:92
+#: state.php:39
+msgid "Sticky"
+msgstr "Sticky"
+
+#: intl/en.php:226 intl/en.php:227 admin/channels.php:201
+msgid "Deprecated"
+msgstr "Ur bruk"
+
+#: intl/en.php:227 intl/en.php:228 admin/channels.php:204
+msgid "Private"
+msgstr "Privat"
+
+#: intl/en.php:228 intl/en.php:229 admin/channels.php:199
+msgid "State:"
+msgstr "Status:"
+
+#: intl/en.php:229 intl/en.php:230 admin/channels.php:206
+msgid "Set"
+msgstr "Utf&ouml;r"
+
+#: admin/channels.php:212 admin/tags.php:166 intl/en.php:230 intl/en.php:231
+msgid "I'm sure!"
+msgstr "Bekr&auml;fta!"
+
+#: intl/en.php:234 intl/en.php:235 cls/wrappers/header.php:142
+#, php-format
+msgid "Logged in as <strong>%s</strong>"
+msgstr "Inloggad som <strong>%s</strong>"
+
+#: intl/en.php:235 intl/en.php:236 cls/wrappers/header.php:145
+msgid "Not logged in"
+msgstr "Du &auml;r inte inloggad"
+
+#: intl/en.php:237 intl/en.php:238 admin/users.php:102
+#: cls/wrappers/header.php:146 cls/wrappers/header.php:151
+msgid "Login"
+msgstr "Logga in"
+
+#: intl/en.php:239 intl/en.php:240 admin/opml.php:63
+msgid "Import new feeds and:"
+msgstr "Importera nya fl&ouml;den och:"
+
+#: intl/en.php:240 intl/en.php:241 admin/opml.php:75
+msgid "... replace all existing feeds and items."
+msgstr "... ers&auml;tt alla existerande fl&ouml;den och inl&auml;gg."
+
+#: intl/en.php:241 intl/en.php:242 admin/opml.php:70
+msgid "... add them to the folder:"
+msgstr "... l&auml;gg dem i mappen:"
+
+#: intl/en.php:242 intl/en.php:243 admin/opml.php:66
+msgid "... merge them with the existing ones."
+msgstr "... f&ouml;rena dem med nuvarande."
+
+#: intl/en.php:244 intl/en.php:245 admin/channels.php:281
+#: admin/channels.php:309 admin/channels.php:533
+#, php-format
+msgid "Adding %s to %s... "
+msgstr "L&auml;gger %s till %s... "
+
+#: intl/en.php:246 intl/en.php:247 admin/channels.php:48 admin/channels.php:88
+#: admin/channels.php:852 cls/categories.php:60 cls/header.php:98
+#: cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
+msgid "Categories"
+msgstr "Kategorier"
+
+#: intl/en.php:247 intl/en.php:248
+msgid "(%d items)"
+msgstr "(%d inl&auml;gg)"
+
+#: intl/en.php:248 intl/en.php:249
+msgid "(%d unread in %d feeds)"
+msgstr "(%d ol&auml;sta i %d fl&ouml;den)"
+
+#: intl/en.php:249 intl/en.php:250 cls/categories.php:87
+#, php-format
+msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
+msgstr "<strong>%d</strong> fl&ouml;den i <strong>%d</strong> kategorier"
+
+#: intl/en.php:251 intl/en.php:252 themes/default/web/item.php:18
+#: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
+msgid "Rating:"
+msgstr "V&auml;rdering:"
+
+#: intl/en.php:255 intl/en.php:256 themes/default/mobile/item.php:12
+#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
+#: themes/lilina/web/item.php:104
+msgid "Enclosure:"
+msgstr "Bilaga:"
+
+#: intl/en.php:256 intl/en.php:257 themes/default/mobile/item.php:12
+#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
+#: themes/lilina/web/item.php:104
+msgid "download"
+msgstr "ladda ned"
+
+#: intl/en.php:257 intl/en.php:258 plugins/encplayer.php:46
+#: plugins/encplayeralt.php:44 plugins/encplayeralt.php:45
+msgid "play"
+msgstr "spela upp"
+
+#: intl/en.php:259 intl/en.php:260 intl/en.php:261 intl/en.php:262
+#: feed.php:1359 feed.php:1375 feed.php:1392 index.php:226
 msgid "Mark These Items as Read"
 msgstr "Markera alla inl&auml;gg som l&auml;sta"
 
-#: LBL_MARK_CHANNEL_READ
-msgid "Mark These Items as Read"
-msgstr "Markera detta fl&ouml;de som l&auml;st"
-
-#: LBL_MARK_FOLDER_READ
-msgid "Mark These Items as Read"
-msgstr "Markera foldern som l&auml;st"
-
-#: LBL_MARK_CHANNEL_READ_ALL
+#: intl/en.php:263 intl/en.php:264 plugins/markallread.php:86
+#: plugins/markallread.php:98
 msgid "Mark This Feed as Read"
 msgstr "Mark This Feed as Read"
 
-#: LBL_MARK_FOLDER_READ_ALL
+#: intl/en.php:264 intl/en.php:265 plugins/markallread.php:75
+#: plugins/markallread.php:104
 msgid "Mark This Folder as Read"
 msgstr "Mark This Folder as Read"
 
-#: LBL_MARK_CATEGORY_READ_ALL
+#: intl/en.php:265 intl/en.php:266 plugins/markallread.php:64
+#: plugins/markallread.php:110
 msgid "Mark This Category as Read"
 msgstr "Mark This Category as Read"
 
-#: LBL_ADDED
+#: intl/en.php:268 intl/en.php:269 admin/channels.php:824
+#: cls/wrappers/header.php:134
+msgid "Never"
+msgstr "Never"
+
+#: intl/en.php:269 intl/en.php:270 admin/index.php:222
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: intl/en.php:271 intl/en.php:272 admin/users.php:69
+msgid ""
+"<p>No Administrator has been specified yet!</p><p>Please provide an "
+"Administrator username and password now!</p>"
+msgstr ""
+
+#: intl/en.php:272 intl/en.php:273 admin/users.php:73 admin/users.php:98
+msgid "Username"
+msgstr "Username"
+
+#: intl/en.php:273 intl/en.php:274 admin/users.php:75 admin/users.php:100
+msgid "Password"
+msgstr "Password"
+
+#: intl/en.php:274 intl/en.php:275 admin/users.php:77
+msgid "Password (again)"
+msgstr "Password (again)"
+
+#: intl/en.php:275 intl/en.php:276 admin/users.php:97
+msgid "Please log in"
+msgstr "Please log in"
+
+#: intl/en.php:276 intl/en.php:277 admin/users.php:53
+msgid "Passwords do not match!"
+msgstr "Passwords do not match!"
+
+#: intl/en.php:278 intl/en.php:279 admin/plugins.php:86
+msgid "Plugins"
+msgstr "Plugins"
+
+#: intl/en.php:279 intl/en.php:280 admin/index.php:226
+msgid "plugins"
+msgstr "plugins"
+
+#: intl/en.php:280 intl/en.php:281 admin/plugins.php:102
+msgid "Update Available"
+msgstr ""
+
+#: intl/en.php:281 intl/en.php:282 admin/plugins.php:171 admin/themes.php:50
+msgid "Check for Updates"
+msgstr "Check for Updates"
+
+#: intl/en.php:282 intl/en.php:283
+msgid "<strong>Oops!</strong> Bad login/password"
+msgstr "<strong>Oops!</strong> Bad login/password"
+
+#: intl/en.php:283 intl/en.php:284
+msgid ""
+"<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t "
+"have administration privileges. Log in again with administration privileges "
+"or follow your way <a href=\"..\">home</a>"
+msgstr ""
+
+#: intl/en.php:285 intl/en.php:286 admin/themes.php:92
+msgid "Active Theme"
+msgstr "Active Theme"
+
+#: intl/en.php:286 intl/en.php:287 admin/themes.php:90
+msgid "Use this Theme"
+msgstr "Use this Theme"
+
+#: intl/en.php:288 intl/en.php:289
+msgid ""
+"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
+"extended functionalities. More plugins can be downloaded at the <a style="
+"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
+"Repository</a>.</p>"
+msgstr ""
+
+#: intl/en.php:290 intl/en.php:291
+#, fuzzy
+msgid "Last update"
+msgstr "Last update"
+
+#: intl/en.php:291 intl/en.php:292 admin/index.php:227
+msgid "themes"
+msgstr "themes"
+
+#: intl/en.php:292 intl/en.php:293 admin/themes.php:56
+msgid "Themes"
+msgstr "Themes"
+
+#: intl/en.php:294 intl/en.php:295 admin/themes.php:58
+msgid ""
+"<p style=\"font-size:small\">Themes are made of a set of template files "
+"which specify how your Gregarius installation looks.<br />More themes can be "
+"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
+"themes.gregarius.net/\">Themes Repository</a>.</p>"
+msgstr ""
+
+#: intl/en.php:296 intl/en.php:297 ajax.php:529
+msgid "Flag (Flags an item for later reading)"
+msgstr "Flag (Flags an item for later reading)"
+
+#: intl/en.php:297 intl/en.php:298 plugins/stickyflag/stickyflag.php:100
+#: state.php:36
+msgid "Flagged"
+msgstr "Flagged"
+
+#: search.php:42 search.php:43
+#, php-format
+msgid "%d matches for %s"
+msgstr "%d tr&auml;ffar f&ouml;r %s"
+
+#: search.php:42 search.php:43
+#, php-format
+msgid "%d match for %s"
+msgstr "%d tr&auml;ff f&ouml;r %s"
+
+#: search.php:50 search.php:51
+#, php-format
+msgid "Search %d items"
+msgstr "S&ouml;k bland %d inl&auml;gg"
+
+#: search.php:51 themes/3panes/searchform.php:5
+#: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
+#: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
+#: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
+#: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
+#: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
+#: themes/planet/searchform.php:39 search.php:52
+msgid "Search"
+msgstr "S&ouml;k"
+
+#: tags.php:81 tags.php:118 tags.php:117
+msgid "and"
+msgstr "och"
+
+#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
+#: themes/milsi/footer.php:4 themes/planet/footer.php:5
+msgid " powered by "
+msgstr " drivs med hj&auml;lp av "
+
+#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
+#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
+#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
+msgid "Search terms:"
+msgstr "S&ouml;kord:"
+
+#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
+#: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
+#: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
+msgid "Some terms (OR)"
+msgstr "N&aring;got av orden (OR)"
+
+#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
+#: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
+#: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
+msgid "All terms (AND)"
+msgstr "Alla orden (AND)"
+
+#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
+#: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
+#: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
+msgid "Exact match"
+msgstr "Den exakta frasen"
+
+#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
+#: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
+#: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
+msgid "Feed:"
+msgstr "Fl&ouml;de:"
+
+#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
+#: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
+#: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
+msgid "Order by date, feed"
+msgstr "Ordna efter datum, fl&ouml;de"
+
+#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
+#: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
+#: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
+msgid "Order by feed, date"
+msgstr "Ordna efter fl&ouml;de, datum"
+
+#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
+#: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
+#: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
+msgid "Results per page:"
+msgstr "Resultat per sida:"
+
+#: admin/channels.php:215 admin/tags.php:168
+msgid "<input type=\"hidden\" name=\""
+msgstr ""
+
+#: admin/channels.php:215 admin/tags.php:168
+msgid "\" value=\""
+msgstr ""
+
+#: admin/channels.php:215 admin/channels.php:216 admin/tags.php:167
+#: admin/tags.php:168
+msgid "\" />\n"
+msgstr ""
+
+#: admin/channels.php:216 admin/tags.php:167
+msgid "<input type=\"hidden\" name=\"action\" value=\""
+msgstr ""
+
+#: admin/channels.php:217
+msgid "</p>\n"
+msgstr ""
+
+#: admin/channels.php:218 admin/tags.php:169
+msgid "</fieldset>\n"
+msgstr ""
+
+#: admin/channels.php:222
+msgid ""
+"</form></div>\n"
+"\n"
+"\n"
+msgstr ""
+
+#: admin/folders.php:207 admin/tags.php:116
+msgid "update "
+msgstr ""
+
+#: admin/folders.php:207
+msgid " set name='$new_label' where id=$fid"
+msgstr ""
+
+#: admin/index.php:204
+#, c-format
+msgid "%s"
+msgstr ""
+
+#: admin/index.php:207 admin/tags.php:171
+msgid "</div>\n"
+msgstr ""
+
+#: admin/tags.php:116 admin/tags.php:144 admin/tags.php:175
+#, fuzzy
+msgid "tag"
+msgstr "taggad"
+
+#: admin/tags.php:116
+msgid " set tag='$new_label' where id=$tid"
+msgstr ""
+
+#: admin/tags.php:123
+msgid "<script type=\"text/javascript\">\n"
+msgstr ""
+
+#: admin/tags.php:124
+msgid "//<!--\n"
+msgstr ""
+
+#: admin/tags.php:125
+msgid "function cbtoggle() {\n"
+msgstr ""
+
+#: admin/tags.php:126
+msgid "var c=document.getElementById('mastercb').checked;\n"
+msgstr ""
+
+#: admin/tags.php:127
+msgid ""
+"var cs=document.getElementById('tagtable').getElementsByTagName('input');\n"
+msgstr ""
+
+#: admin/tags.php:128
+msgid "for(i=0;i<cs.length;i++) {\n"
+msgstr ""
+
+#: admin/tags.php:129
+msgid "if (cs[i].type == 'checkbox') cs[i].checked = c;\n"
+msgstr ""
+
+#: admin/tags.php:130 admin/tags.php:131
+msgid "}\n"
+msgstr ""
+
+#: admin/tags.php:132
+msgid "</script>\n"
+msgstr ""
+
+#: admin/tags.php:134
+msgid "<form method=\"post\" action=\""
+msgstr ""
+
+#: admin/tags.php:134
+msgid "\">\n"
+msgstr ""
+
+#: admin/tags.php:135
+msgid "<h2 class=\"trigger\">"
+msgstr ""
+
+#: admin/tags.php:135
+msgid "</h2>\n"
+msgstr ""
+
+#: admin/tags.php:136
+msgid "<div id=\"admin_tags\" class=\"trigger\">"
+msgstr ""
+
+#: admin/tags.php:137
+msgid "<table id=\"tagtable\">\n"
+msgstr ""
+
+#: admin/tags.php:138
+msgid "<tr>\n"
+msgstr ""
+
+#: admin/tags.php:139
+msgid ""
+"\t<th><input type=\"checkbox\" id=\"mastercb\" onclick=\"cbtoggle();\" /></"
+"th>\n"
+msgstr ""
+
+#: admin/tags.php:140
+msgid "\t<th class=\"cntr\">"
+msgstr ""
+
+#: admin/tags.php:140 admin/tags.php:141
+msgid "</th>\n"
+msgstr ""
+
+#: admin/tags.php:141
+msgid "\t<th>"
+msgstr ""
+
+#: admin/tags.php:142
+msgid "</tr>\n"
+msgstr ""
+
+#: admin/tags.php:144
+msgid "select id,tag from "
+msgstr ""
+
+#: admin/tags.php:144
+msgid " order by tag asc"
+msgstr ""
+
+#: admin/tags.php:170
+msgid "</form>\n"
+msgstr ""
+
+#: admin/tags.php:175
+msgid "select id, tag from "
+msgstr ""
+
+#: admin/tags.php:175
+msgid " where id=$tid"
+msgstr ""
+
+#: admin/channels.php:379 admin/channels.php:383 admin/channels.php:617
+#, c-format, php-format
+msgid "I'm sorry, I don't think I can handle this URL: '%s'"
+msgstr "Tyv&auml;rr kunde inte f&ouml;ljande URL anv&auml;ndas: '%s'"
+
+#: admin/folders.php:164
+msgid "You can't delete the Root folder"
+msgstr "Du kan inte radera foldern \" . LBL_HOME_FOLDER . \"!"
+
+#: admin/folders.php:204 admin/tags.php:113
+#, c-format, php-format
+msgid "You can't rename this item '%s' because such an item already exists."
+msgstr ""
+"Du kan inte &auml;ndra folderns namn till '%s', namnet &auml;r redan "
+"upptaget."
+
+#: admin/folders.php:281
+#, c-format, php-format
+msgid "Looks like you already have a folder called '%s'!"
+msgstr "Det finns redan en folder som heter '%s'!"
+
+#: admin/channels.php:820 admin/channels.php:823
 msgid "Added"
 msgstr "Added"
 
-#### END Automatic translation - Sat, 09 Sep 2006 18:17:48 +0200 #
+#: admin/channels.php:821 admin/channels.php:824
+#: themes/default/web/footer.php:17
+msgid "Last Update"
+msgstr "Last update"
+
+#: admin/index.php:202
+#, php-format
+msgid ""
+"<h1>Not Authorized!</h1>\n"
+"You are not authorized to access the administration interface.\n"
+"Please follow <a href=\"%s\">this link</a> back to the main page.\n"
+"Have  a nice day!"
+msgstr ""
+
+#: admin/items.php:49
+msgid "...from these feeds"
+msgstr ""
+
+#: admin/items.php:94
+msgid "Invalid pruning period"
+msgstr "Felaktig period"
+
+#: admin/items.php:242
+msgid "oops, no period specified"
+msgstr "du angav ingen period"
+
+#: admin/opml.php:120
+msgid "XML Dump:"
+msgstr ""
+
+#: admin/opml.php:122
+msgid "Dump your Gregarius installation to XML"
+msgstr ""
+
+#: admin/opml.php:123
+msgid "Dump!"
+msgstr ""
+
+#: admin/plugins.php:90
+msgid ""
+"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
+"extended functionalities. More plugins can be downloaded at the <a style="
+"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
+"Repository</a>.</p>"
+msgstr ""
+
+#: ajax.php:81 index.php:209
+msgid "Recent items"
+msgstr "Senast l&auml;sta inl&auml;gg"
+
+#: cls/channels.php:194
+#, php-format
+msgid ""
+"<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
+"<strong>%d</strong> feeds"
+msgstr ""
+"<strong>%d</strong> inl&auml;gg (<strong id=\"fucnt\">%d</strong> ol&auml;"
+"sta) i <strong>%d</strong> fl&ouml;den"
+
+#: index.php:143
+#, php-format
+msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
+msgstr "Ol&auml;sta inl&auml;gg (<strong id=\"ucnt\">%d</strong>)"
+
+#~ msgid "%d items, %d unread"
+#~ msgstr "%d inl&auml;gg, %d ol&auml;sta"
+
+#~ msgid "[-] collapse"
+#~ msgstr "[-] Kollapsa"
+
+#~ msgid "[+] expand"
+#~ msgstr "[+] Expandera"
