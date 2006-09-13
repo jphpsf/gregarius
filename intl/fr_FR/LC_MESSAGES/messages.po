@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-12 08:56+0200\n"
+"POT-Creation-Date: 2006-09-13 10:36+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1199,6 +1199,10 @@ msgstr ""
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr "&Eacute;l&eacute;ments non lus (<strong id=\"ucnt\">%d</strong>)"
+
+#: admin/index.php:339
+msgid "Admin"
+msgstr ""
 
 #~ msgid "%d items, %d unread"
 #~ msgstr "%d &eacute;l&eacute;ments , %d non lus"
