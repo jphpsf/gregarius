@@ -113,28 +113,13 @@ rss_require('tags.php');
 
 ////////////////////////////////////////////////////////////////////////////////
 // Localization
-//
-if (isset($_GET['lang']) && preg_match('#^[a-z]{2}_[A-Z]{2}$#',$_GET['lang'])) {
-    $lang=$_GET['lang'];
-}else {
-    $lang = getConfig('rss.output.lang');
-}
-
-if (!preg_match('#^[a-zA-Z_]+$#', $lang)) {
-	die('woopsie, bad lang: ' .$lang);
-}
+_pf('Loading l10n...');
 
 require_once('cls/l10n.php');
-$GLOBALS['rssl10n'] = new RSSl10n($lang);
+$GLOBALS['rssl10n'] = new RSSl10n();
+$lang = $GLOBALS['rssl10n']->getLocale();
+_pf('done');
 
-
-/*
-if ($lang && file_exists(dirname(__FILE__) . "/" . "intl/$lang.php")) {
-    rss_require("intl/$lang.php");
-} else {
-    rss_require('intl/en.php');
-}
-*/
 // Theme  specific l10n handling
 list($theme,$media) = getActualTheme();
 

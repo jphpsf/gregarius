@@ -27,7 +27,7 @@
 
 rss_require('extlib/l10n/streams.php');
 rss_require('extlib/l10n/gettext.php');
-
+define('RSS_LOCALE_COOKIE','rss_preferred_locale');
 class RSSl10n {
 	
 	var $l10n;
@@ -35,9 +35,8 @@ class RSSl10n {
 	var $locale;
 	
 	function RSSl10n($locale) {
-		$locale = preg_replace('#[^a-zA-Z_]#','',$locale);
-		$this -> locale = $locale;
-		if (function_exists('version_compare') && version_compare("4.3.0",PHP_VERSION, "<=") && preg_match('#([a-z]{2})_([A-Z]{2})#',$locale,$m)) {
+		$this -> locale = preg_replace('#[^a-zA-Z_]#','',$this -> __detectUserLang());
+		if (function_exists('version_compare') && version_compare("4.3.0",PHP_VERSION, "<=") && preg_match('#([a-z]{2})_([A-Z]{2})#',$this -> locale,$m)) {
 			$locales=array(
 				$m[0].'UTF-8',
 				$m[0].'utf-8',
@@ -48,10 +47,10 @@ class RSSl10n {
 			);
 			setlocale(LC_ALL, $locales);	
 		} else {
-			setlocale(LC_ALL, $locale);
+			setlocale(LC_ALL, $this -> locale);
 		}
 	
-		$path = GREGARIUS_HOME .'/intl/' . $locale . '/LC_MESSAGES/messages.mo';
+		$path = GREGARIUS_HOME .'/intl/' . $this -> locale . '/LC_MESSAGES/messages.mo';
 		$streamer = new FileReader($path);
 		$this -> l10n = new gettext_reader($streamer);
 		$this -> cache = array();
@@ -65,7 +64,58 @@ class RSSl10n {
 		$this -> cache[$msg . $cnt] = $ret;
 		return $ret;
 	}
+	
+	function getLocale() {
+		return $this -> locale;
+	}
+    /**
+     * Detect users preferred language. Losely based on http://grep.be/data/accept-to-gettext.inc
+     */
+	function __detectUserLang() {
+       if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_[A-Z]{2}$#',$_REQUEST['lang']) && file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang'])) {
+            return  $_REQUEST['lang'];
+        } elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
+            return trim($_COOKIE[RSS_LOCALE_COOKIE]);
+       } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            $alparts=@preg_split("/,/",$_SERVER['HTTP_ACCEPT_LANGUAGE']);
+            foreach($alparts as $part) {
+                $part=trim($part);
+                if(preg_match("/;/", $part)) {
+                    $lang=@preg_split("/;/",$part);
+                    $ll = $lang[0];
+                } else {
+                    $ll = $part;
+                }
+
+                if (preg_match('#^([a-z]{2})[\-_]?([a-z]{2})?$#i',$ll,$pm)) {
+                	$ret =null;
+                	if (isset($pm[2])){
+                		if (file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[2]))) {
+                			// xx-yy -> xx_YY
+                			$ret= $pm[1] ."_".strtoupper($pm[2]);
+                		} elseif(file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[1]))) {
+                			// xx-yy -> xx_XX
+                			$ret= $pm[1] ."_".strtoupper($pm[1]);
+                		}
+                	} elseif(file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[1]))) {
+                		// xx  -> xx_XX
+                		$ret= $pm[1] ."_".strtoupper($pm[1]);
+                	}
+                	if ($ret) {
+                		// remember the detected locale for a couple hours
+                		setcookie(RSS_LOCALE_COOKIE,$ret,time()+3600*6,getPath());
+                		return $ret;
+                	}
+                }
+                
+            }
+        }
+        // If everything fails, return the user selected language
+        return getConfig('rss.output.lang');
+    }
 }
+	
+
 
 function __($msg, $cnt = null) {
 	return $GLOBALS['rssl10n'] -> translate($msg, $cnt);
