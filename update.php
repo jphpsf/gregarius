@@ -27,6 +27,10 @@
 
 define ('RSS_NO_CACHE',true);
 require_once('init.php');
+$cline = isset($argv) && !$_REQUEST && isset($argc) && $argc;
+if (!$cline && getConfig('rss.config.restrictrefresh')) {
+	die(__('Sorry, updating from the web is currently not allowed.'));
+}
 rss_require("cls/update.php");
 rss_require("extlib/browser.php");
 
@@ -49,8 +53,6 @@ if (array_key_exists('js',$_GET)) {
 
 
 $browser = new Browser();
-
-$cline = isset($argv) && !$_REQUEST && isset($argc) && $argc;
 $silent = array_key_exists('silent', $_GET) || ($cline && in_array('--silent',$argv));
 $newsonly = array_key_exists('newsonly', $_GET) || ($cline && in_array('--newsonly', $argv));
 $mobile = array_key_exists('mobile',$_GET);

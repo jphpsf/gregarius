@@ -475,7 +475,8 @@ function setDefaults($key) {
 		"rss.config.ajaxbatchsize"			=> array('3','3','num','Sets the number of feeds in a batch when using the ajax updater. Remember to set rss.config.serverpush to false.',NULL),
 		"rss.config.defaultdashboard"	  		=> array('true','true','boolean','If the first page seen when entering the admin section should be the dashboard',NULL),
 		"rss.config.deadthreshhold"	=>	array('24', '24', 'num', 'Sets the threshold for when a feed is marked as dead, in hours', NULL),
-		"rss.search.maxitems" => array(500, 500, 'num', 'Sets the maximum number of items returned on a search', NULL)
+		"rss.search.maxitems" => array(500, 500, 'num', 'Sets the maximum number of items returned on a search', NULL),
+		"rss.config.restrictrefresh"    => array("false","false","boolean","Restrict refresh to command line only (eg php -f update.php). Useful for busy sites with multiple users.",NULL),
 	);
 	
 	

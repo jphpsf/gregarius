@@ -60,7 +60,9 @@ class Navigation {
     function Navigation() {
     
         $this->appendNavItem(getPath(),__('<span>H</span>ome'),LOCATION_HOME);
-        $this->appendNavItem(getPath().'update.php',__('<span>R</span>efresh'),LOCATION_UPDATE);
+        if (!getConfig("rss.config.restrictrefresh")) {
+        	$this->appendNavItem(getPath().'update.php',__('<span>R</span>efresh'),LOCATION_UPDATE);
+        }
         $this->appendNavItem(getPath().'search.php',__('<span>S</span>earch'),LOCATION_SEARCH);
         $this->appendNavItem(getPath().'admin/',__('A<span>d</span>min'),LOCATION_ADMIN);
         
