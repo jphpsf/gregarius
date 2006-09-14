@@ -64,7 +64,7 @@ function checkSchema() {
 		}
 		
 		if ($updated == count($missing_tables)) {
-			rss_error("Successfully created $updated of $updated database tables!", RSS_ERROR_NOTICE);
+			rss_error(__("Successfully created $updated of $updated database tables!"), RSS_ERROR_NOTICE);
 		} else {
 			rss_error(
 				(count($missing_tables) - $updated) . " out of "

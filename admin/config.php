@@ -187,7 +187,7 @@ function config_admin() {
     case CST_ADMIN_DEFAULT_ACTION:
     case 'CST_ADMIN_DEFAULT_ACTION':
         if (!array_key_exists('key',$_REQUEST)) {
-            rss_error('Invalid config key specified.', RSS_ERROR_ERROR,true);
+            rss_error(__('Invalid config key specified.'), RSS_ERROR_ERROR,true);
             break;
         }
         $key = sanitize($_REQUEST['key'],RSS_SANITIZER_NO_SPACES|RSS_SANITIZER_SIMPLE_SQL);
@@ -197,7 +197,7 @@ function config_admin() {
         $default = real_strip_slashes($default);
 
         if ($value == $default) {
-            rss_error("The value for '$key' is the same as its default value!", RSS_ERROR_ERROR,true);
+            rss_error(__("The value for '$key' is the same as its default value!"), RSS_ERROR_ERROR,true);
             break;
         }
 
@@ -323,14 +323,14 @@ function config_admin() {
                 break;
             case 'num':
                 if (!is_numeric($value)) {
-                    rss_error("Oops, I was expecting a numeric value, got '$value' instead!", RSS_ERROR_ERROR,true);
+                    rss_error(__("Oops, I was expecting a numeric value, got '$value' instead!"), RSS_ERROR_ERROR,true);
                     break;
                 }
                 $sql = "update " . getTable('config') . " set value_='$value' where key_='$key'";
                 break;
             case 'boolean':
                 if ($value != __('True') && $value != __('False')) {
-                    rss_error('Oops, invalid value for ' . $key .": " . $value, RSS_ERROR_ERROR,true);
+                    rss_error(__("Oops, invalid value for $key : $value"), RSS_ERROR_ERROR,true);
                     break;
                 }
                 $sql = "update " . getTable('config') . " set value_='"
@@ -342,7 +342,7 @@ function config_admin() {
                 list($oldvalue) = rss_fetch_row($res);
 
                 if (strstr($oldvalue,$value) === FALSE) {
-                    rss_error("Oops, invalid value '$value' for this config key", RSS_ERROR_ERROR,true);
+                    rss_error(__("Oops, invalid value '$value' for this config key"), RSS_ERROR_ERROR,true);
                     break;
                 }
 
@@ -361,11 +361,11 @@ function config_admin() {
                            .implode(',',$arr) ."'"
                            ." where key_='$key'";
                 } else {
-                    rss_error("Oops, invalid value '$value' for this config key", RSS_ERROR_ERROR,true);
+                    rss_error(__("Oops, invalid value '$value' for this config key"), RSS_ERROR_ERROR,true);
                 }
                 break;
             default:
-                rss_error('Ooops, unknown config type: ' . $type, RSS_ERROR_ERROR,true);
+                rss_error(__('Ooops, unknown config type: ') . $type, RSS_ERROR_ERROR,true);
                 //var_dump($_REQUEST);
                 break;
             }

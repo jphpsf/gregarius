@@ -159,7 +159,7 @@ function tags(){
 	}
 	echo "</table>\n";
 	echo "<fieldset>\n"
-	."<legend>Selected...</legend>\n"
+	."<legend>".__('Selected')."...</legend>\n"
 	."<p>\n"
 	."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".__('Delete')."\" />\n"
 	."<input type=\"checkbox\" name=\"me_do_delete\" id=\"me_do_delete\" value=\"1\" />\n"
@@ -177,7 +177,7 @@ function tag_edit($tid){
 	list ($id, $tag) = rss_fetch_row($res);
 
 	echo "<div>\n"
-	."<h2>Edit '$tag'</h2>\n"
+	."<h2>".ucfirst(__('edit'))." '$tag'</h2>\n"
 	."<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\" id=\"tagedit\">\n"
 
 	."<div style=\"inline\"><input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"". CST_ADMIN_DOMAIN_TAGS."\"/>\n"

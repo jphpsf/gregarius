@@ -73,6 +73,7 @@ class RSSl10n {
      */
 	function __detectUserLang() {
        if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_[A-Z]{2}$#',$_REQUEST['lang']) && file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang'])) {
+       		setcookie(RSS_LOCALE_COOKIE,$_REQUEST['lang'],time()+3600*6,getPath());
             return  $_REQUEST['lang'];
         } elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
             return trim($_COOKIE[RSS_LOCALE_COOKIE]);
