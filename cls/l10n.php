@@ -34,7 +34,7 @@ class RSSl10n {
 	var $cache;
 	var $locale;
 	
-	function RSSl10n($locale) {
+	function RSSl10n() {
 		$this -> locale = preg_replace('#[^a-zA-Z_]#','',$this -> __detectUserLang());
 		if (function_exists('version_compare') && version_compare("4.3.0",PHP_VERSION, "<=") && preg_match('#([a-z]{2})_([A-Z]{2})#',$this -> locale,$m)) {
 			$locales=array(

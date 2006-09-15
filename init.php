@@ -116,7 +116,7 @@ rss_require('tags.php');
 _pf('Loading l10n...');
 
 require_once('cls/l10n.php');
-$GLOBALS['rssl10n'] = new RSSl10n(null);
+$GLOBALS['rssl10n'] = new RSSl10n();
 $lang = $GLOBALS['rssl10n']->getLocale();
 _pf('done');
 
