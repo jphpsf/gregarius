@@ -33,9 +33,14 @@ class RSSl10n {
 	var $l10n;
 	var $cache;
 	var $locale;
+	var $isolang;
 	
 	function RSSl10n() {
 		$this -> locale = preg_replace('#[^a-zA-Z_]#','',$this -> __detectUserLang());
+		
+		$ll=explode('_',$this -> locale);
+		$this->isloang=$ll[0].'-'.strtoupper($ll[1]);
+		
 		if (function_exists('version_compare') && version_compare("4.3.0",PHP_VERSION, "<=") && preg_match('#([a-z]{2})_([A-Z]{2})#',$this -> locale,$m)) {
 			$locales=array(
 				$m[0].'UTF-8',
@@ -67,6 +72,9 @@ class RSSl10n {
 	
 	function getLocale() {
 		return $this -> locale;
+	}
+	function getISOLang() {
+		return $this ->isloang;
 	}
     /**
      * Detect users preferred language. Losely based on http://grep.be/data/accept-to-gettext.inc
@@ -101,6 +109,10 @@ class RSSl10n {
                 	} elseif(file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[1]))) {
                 		// xx  -> xx_XX
                 		$ret= $pm[1] ."_".strtoupper($pm[1]);
+                	} elseif($pm[1] == 'en') {
+                		// ugly: a better way would be to look up all the available locales
+                		// and match against that list
+                		$ret='en_US';
                 	}
                 	if ($ret) {
                 		// remember the detected locale for a couple hours

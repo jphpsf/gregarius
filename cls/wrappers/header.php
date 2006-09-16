@@ -156,4 +156,7 @@ function rss_header_logininfo() {
     return $ret;
 }
 
+function rss_header_doclang() {
+	return isset($GLOBALS['rssl10n']) && $GLOBALS['rssl10n']->getISOLang() ? $GLOBALS['rssl10n']->getISOLang():'en';
+}
 ?>
