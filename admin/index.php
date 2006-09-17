@@ -262,7 +262,7 @@ function getLanguages() {
 		'windows-locale'=>'english'
 	);
     while (false !== ($entry = $d->read())) {
-        if (preg_match('#^[a-z]{2}_[A-Z]{2}$#',$entry)) {
+        if (preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$entry)) {
         	$ret[$entry]=getLanguageInfo($entry);
         } 
     }

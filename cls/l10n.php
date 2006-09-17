@@ -37,18 +37,15 @@ class RSSl10n {
 	
 	function RSSl10n() {
 		$this -> locale = preg_replace('#[^a-zA-Z_]#','',$this -> __detectUserLang());
-		
-		$ll=explode('_',$this -> locale);
-		$this->isloang=$ll[0].'-'.strtoupper($ll[1]);
-		
-		if (function_exists('version_compare') && version_compare("4.3.0",PHP_VERSION, "<=") && preg_match('#([a-z]{2})_([A-Z]{2})#',$this -> locale,$m)) {
+		$this -> isolang=str_replace('_','-',$this -> locale);
+		if (function_exists('version_compare') && version_compare("4.3.0",PHP_VERSION, "<=") && preg_match('#([a-z]{2})_?([A-Z]{2})?#',$this -> locale,$m)) {
 			$locales=array(
-				$m[0].'UTF-8',
-				$m[0].'utf-8',
+				$m[0].'.UTF-8',
+				$m[0].'.utf-8',
 				$m[0],
-				$m[1].'_'.strtoupper($m[1]),
-				$m[1],
-				$m[2]
+				$m[1],				
+				$m[1].'_'.strtoupper($m[1])
+				//$m[2]
 			);
 			setlocale(LC_ALL, $locales);	
 		} else {
@@ -80,7 +77,7 @@ class RSSl10n {
      * Detect users preferred language. Losely based on http://grep.be/data/accept-to-gettext.inc
      */
 	function __detectUserLang() {
-       if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_[A-Z]{2}$#',$_REQUEST['lang']) && file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang'])) {
+       if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$_REQUEST['lang']) && file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang'])) {
        		setcookie(RSS_LOCALE_COOKIE,$_REQUEST['lang'],time()+3600*6,getPath());
             return  $_REQUEST['lang'];
         } elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
@@ -102,13 +99,10 @@ class RSSl10n {
                 		if (file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[2]))) {
                 			// xx-yy -> xx_YY
                 			$ret= $pm[1] ."_".strtoupper($pm[2]);
-                		} elseif(file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[1]))) {
-                			// xx-yy -> xx_XX
-                			$ret= $pm[1] ."_".strtoupper($pm[1]);
                 		}
-                	} elseif(file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[1]))) {
-                		// xx  -> xx_XX
-                		$ret= $pm[1] ."_".strtoupper($pm[1]);
+                	} elseif(file_exists(GREGARIUS_HOME .'intl/'.$pm[1] )) {
+                		// xx  -> xx
+                		$ret= $pm[1];
                 	} elseif($pm[1] == 'en') {
                 		// ugly: a better way would be to look up all the available locales
                 		// and match against that list
