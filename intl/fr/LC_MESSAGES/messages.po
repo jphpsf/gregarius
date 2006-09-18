@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-18 09:28+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2006-09-18 10:55+0200\n"
+"PO-Revision-Date: 2006-09-18 08:41+0000\n"
+"Last-Translator: mbi <mbonetti@gmail.com>\n"
+"Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr "Racine"
 
 #: admin/channels.php:531 update.php:59 admin/channels.php:545 update.php:61
 msgid "Updating"
-msgstr "Mise &agrave; jour"
+msgstr "Mise à jour"
 
 #: admin/channels.php:766 admin/channels.php:771 admin/channels.php:837
 #: admin/channels.php:842
@@ -34,7 +34,7 @@ msgstr "(visiter)"
 #: state.php:36 state.php:39 state.php:42 tags.php:118 tags.php:153
 #: admin/index.php:224 tags.php:117 tags.php:152
 msgid "items"
-msgstr "&eacute;l&eacute;ments"
+msgstr "éléments"
 
 #: author.php:41 cls/wrappers/item.php:222
 msgid " by "
@@ -43,7 +43,7 @@ msgstr " par "
 #: cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049 feed.php:1061
 #: tags.php:118 tags.php:153 tags.php:117 tags.php:152
 msgid "item"
-msgstr "&eacute;l&eacute;ment"
+msgstr "élément"
 
 #: cls/channels.php:99 cls/wrappers/feeds.php:64 feed.php:831 feed.php:835
 #: feed.php:839
@@ -57,13 +57,13 @@ msgid "Feeds"
 msgstr "Canaux"
 
 #: cls/channels.php:194 themes/milsi/feeds.php:4
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
 "strong> feeds"
 msgstr ""
-"<strong>%d</strong> &eacute;l&eacute;ments (<strong id=\"fucnt\">%d</strong> "
-"non lus) dans <strong>%d</strong> canaux"
+"<strong>%d</strong> éléments (<strong id=\"fucnt\">%d</strong> non lus) dans "
+"<strong>%d</strong> canaux"
 
 #: cls/header.php:62
 msgid "unread"
@@ -87,7 +87,7 @@ msgstr "A<span>d</span>ministration"
 
 #: cls/search.php:214 cls/search.php:213
 msgid "Results: "
-msgstr "R&eacute;sultats: "
+msgstr "Résultats: "
 
 #: cls/taglist.php:86
 #, php-format
@@ -123,7 +123,7 @@ msgstr "ERREUR"
 #: cls/update.php:175 cls/update.php:237 cls/update.php:179 cls/update.php:241
 #, php-format
 msgid "Updating %d Feeds..."
-msgstr "Mise &agrave; jour de %d Canaux..."
+msgstr "Mise à jour de %d Canaux..."
 
 #: cls/update.php:178 cls/update.php:241 cls/update.php:182 cls/update.php:245
 msgid "Feed"
@@ -131,13 +131,13 @@ msgstr "Canal"
 
 #: cls/update.php:179 cls/update.php:242 cls/update.php:183 cls/update.php:246
 msgid "Status"
-msgstr "Etat"
+msgstr "État"
 
 #: cls/update.php:180 cls/update.php:243 cls/update.php:294 cls/update.php:323
 #: cls/update.php:355 cls/update.php:184 cls/update.php:247 cls/update.php:298
 #: cls/update.php:327 cls/update.php:359
 msgid "New Items"
-msgstr "Nouveaux &eacute;l&eacute;ments"
+msgstr "Nouveaux éléments"
 
 #: cls/wrappers/item.php:45
 msgid "Permalink for "
@@ -149,7 +149,7 @@ msgstr "Publi&eacute;: "
 
 #: cls/wrappers/item.php:201
 msgid "Fetched: "
-msgstr "R&eacute;cup&eacute;r&eacute;: "
+msgstr "Récupéré: "
 
 #: cls/wrappers/searchform.php:88 cls/wrappers/searchform.php:97
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
@@ -158,9 +158,8 @@ msgid "All"
 msgstr "Tous"
 
 #: index.php:143
-#, fuzzy
 msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-msgstr "&Eacute;l&eacute;ments non lus (<strong id=\"ucnt\">%d</strong>)"
+msgstr "Éléments non lus (<strong id=\"ucnt\">%d</strong>)"
 
 #: admin/channels.php:169 admin/channels.php:276 admin/channels.php:305
 #: admin/config.php:156 admin/folders.php:92 admin/plugins.php:149
@@ -498,7 +497,7 @@ msgstr "Effacer les &eacute;l&eacute;ments Persistants aussi: "
 
 #: intl/en.php:179 intl/en.php:180 admin/items.php:54
 msgid "Do not delete items tagged... "
-msgstr "Ne pas effacer les &eacute;l&eacute;ments tagg&eacute;s ..."
+msgstr "Ne pas effacer les &eacute;l&eacute;ments tagg&eacute;s ... "
 
 #: intl/en.php:180 intl/en.php:181 admin/items.php:56
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
@@ -548,14 +547,18 @@ msgid ""
 "<h1>Not Authorized!</h1>\n"
 "You are not authorized to access the administration interface.\n"
 msgstr ""
+"<h1>Non Autorisé</h1>\n"
+"Vous n'êtes pas autorisé à accéder a l'interface d'administration.\n"
 
 #: intl/en.php:194 intl/en.php:195
 msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 msgstr ""
+"Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir à la page "
+"principale.\n"
 
 #: intl/en.php:195 intl/en.php:196
 msgid "Have  a nice day!"
-msgstr ""
+msgstr "Bonne journée!"
 
 #: intl/en.php:205 intl/en.php:206 admin/index.php:230 admin/tags.php:135
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
@@ -616,15 +619,12 @@ msgid "Read and unread"
 msgstr "Lus et non lus"
 
 #: intl/en.php:222 intl/en.php:223 ajax.php:517
-#, fuzzy
 msgid "Unread (Set this item\\'s read/unread state)"
-msgstr ""
-"Non lu (Sp&eacute;cifie l'&eacute;tat lu/non lu de cet &eacute;l&eacute;ment)"
+msgstr "Non lu (Spécifie l'état lu/non lu de cet élément)"
 
 #: intl/en.php:223 intl/en.php:224 ajax.php:521
-#, fuzzy
 msgid "Sticky (Won\\'t be deleted when you prune items)"
-msgstr "Persistant (L'&eacute;l&eacute;ment ne sera pas effac&eacute;)"
+msgstr "Persistant (L'élément ne sera pas effacé)"
 
 #: intl/en.php:224 intl/en.php:225 ajax.php:525
 msgid "Private (Only administrators can see private items)"
@@ -768,6 +768,8 @@ msgid ""
 "<p>No Administrator has been specified yet!</p><p>Please provide an "
 "Administrator username and password now!</p>"
 msgstr ""
+"<p>Aucun mot de passe administrateur n'a été spécifié</p><p>Veuillez "
+"spécifier un nom d'utilisateur et un mot de passe pour l'administrateur!</p>"
 
 #: intl/en.php:272 intl/en.php:273 admin/users.php:73 admin/users.php:98
 msgid "Username"
@@ -799,7 +801,7 @@ msgstr "plugins"
 
 #: intl/en.php:280 intl/en.php:281 admin/plugins.php:102
 msgid "Update Available"
-msgstr ""
+msgstr "Mise à jour disponible"
 
 #: intl/en.php:281 intl/en.php:282 admin/plugins.php:171 admin/themes.php:50
 msgid "Check for Updates"
@@ -815,6 +817,10 @@ msgid ""
 "have administration privileges. Log in again with administration privileges "
 "or follow your way <a href=\"..\">home</a>"
 msgstr ""
+"<strong>Oops!</strong> Vous êtes connecté en tant que %s, mais vous n'avez "
+"pas de privilège administrateur. Veuillez vous reconnecter avec un compte "
+"utilisateur ayant des droits d'administration, ou revenez à la <a href=\".."
+"\">racine</a>"
 
 #: intl/en.php:285 intl/en.php:286 admin/themes.php:92
 msgid "Active Theme"
@@ -831,11 +837,14 @@ msgid ""
 "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Les plugins sont des scripts qui offrent des "
+"fonctionnalités ajoutées. D'autres plugins peuvent être téléchargés depuis "
+"le <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius."
+"net/?lang=fr\">Répertoire de plugins</a>.</p>"
 
 #: intl/en.php:290 intl/en.php:291
-#, fuzzy
 msgid "Last update"
-msgstr "Derni&egrave;re mise &agrave; jour"
+msgstr "Dernière mise à jour"
 
 #: intl/en.php:291 intl/en.php:292 admin/index.php:227
 msgid "themes"
@@ -852,6 +861,11 @@ msgid ""
 "downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
 "themes.gregarius.net/\">Themes Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Les thèmes sont composés d'un ensemble de "
+"fichiers qui spécifient comment Gregarius se présente.<br />D'avantage de "
+"thèmes peuvent être téléchargés depuis le <a style=\"text-decoration:"
+"underline\" href=\"http://themes.gregarius.net/?lang=fr\">Répertoire de "
+"thèmes</a>.</p>"
 
 #: intl/en.php:296 intl/en.php:297 ajax.php:529
 msgid "Flag (Flags an item for later reading)"
@@ -984,10 +998,14 @@ msgid ""
 "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 "Have  a nice day!"
 msgstr ""
+"<h1>Non autorisé!</h1>\n"
+"Vous n'êtes pas autorisé à accéder à l'interface d'administration.\n"
+"Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir à la racine.\n"
+"Bonne journée!"
 
 #: admin/items.php:49
 msgid "...from these feeds"
-msgstr ""
+msgstr "... depuis ces canaux"
 
 #: admin/items.php:94
 msgid "Invalid pruning period"
@@ -999,15 +1017,15 @@ msgstr "Aucune p&eacute;riode sp&eacute;cifi&eacute;e!"
 
 #: admin/opml.php:120
 msgid "XML Dump:"
-msgstr ""
+msgstr "Dump XML:"
 
 #: admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
-msgstr ""
+msgstr "Exportez votre installation Gregarius dans un fichier XML"
 
 #: admin/opml.php:123
 msgid "Dump!"
-msgstr ""
+msgstr "Exporter!"
 
 #: admin/plugins.php:90
 msgid ""
@@ -1016,6 +1034,10 @@ msgid ""
 "\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Les plugins sont des petits scripts PHP qui "
+"offrent des fonctionnalités ajoutées. D'avantage de plugins peuvent être "
+"téléchargés depuis le <a style=\"text-decoration:underline\" href=\"http://"
+"plugins.gregarius.net/?lang=fr\">Répértoire de plugins</a>.</p>"
 
 #: ajax.php:81 index.php:209
 msgid "Recent items"
@@ -1037,25 +1059,23 @@ msgstr "&Eacute;l&eacute;ments non lus (<strong id=\"ucnt\">%d</strong>)"
 
 #: admin/index.php:339
 msgid "Admin"
-msgstr ""
+msgstr "Administrateur"
 
 #: admin/config.php:190
-#, fuzzy
 msgid "Invalid config key specified."
-msgstr "P&eacute;riode d'effacement non valide"
+msgstr "Clé de configuration invalide"
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
-msgstr ""
+msgstr "Ooops, type de configuration inconni: "
 
 #: admin/tags.php:162
-#, fuzzy
 msgid "Selected"
-msgstr "effacer"
+msgstr "Sélectionné"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr ""
+msgstr "Désolé, les mises à jour depuis le Web ne sont pas autorisées"
 
 #, fuzzy
 #~ msgid "tag"
