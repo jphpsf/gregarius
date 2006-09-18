@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-13 10:57+0200\n"
+"POT-Creation-Date: 2006-09-18 09:28+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Root"
 msgstr "Ra&iacute;z"
 
-#: admin/channels.php:531 update.php:59 admin/channels.php:545
+#: admin/channels.php:531 update.php:59 admin/channels.php:545 update.php:61
 msgid "Updating"
 msgstr "Actualizando"
 
@@ -73,15 +73,15 @@ msgstr "sin leer"
 msgid "<span>H</span>ome"
 msgstr "<span>I</span>nicio"
 
-#: cls/nav.php:63 themes/default/mobile/nav.php:5
+#: cls/nav.php:63 themes/default/mobile/nav.php:5 cls/nav.php:64
 msgid "<span>R</span>efresh"
 msgstr "<span>A</span>ctualizar"
 
-#: cls/nav.php:64
+#: cls/nav.php:64 cls/nav.php:66
 msgid "<span>S</span>earch"
 msgstr "Bu<span>s</span>cador"
 
-#: cls/nav.php:65
+#: cls/nav.php:65 cls/nav.php:67
 msgid "A<span>d</span>min"
 msgstr "A<span>d</span>ministrar"
 
@@ -166,7 +166,7 @@ msgstr "temas sin leer (<strong id=\"ucnt\">%d</strong>)"
 #: admin/channels.php:179 admin/channels.php:286 admin/channels.php:315
 #: admin/config.php:160 admin/tags.php:153 ajax.php:194 ajax.php:217
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
-#: themes/lilina/web/item.php:111
+#: themes/lilina/web/item.php:111 admin/tags.php:180
 msgid "edit"
 msgstr "editar"
 
@@ -936,171 +936,6 @@ msgstr "Ordenar por tema, fecha"
 msgid "Results per page:"
 msgstr "Resultados por pagina:"
 
-#: admin/channels.php:215 admin/tags.php:168
-msgid "<input type=\"hidden\" name=\""
-msgstr ""
-
-#: admin/channels.php:215 admin/tags.php:168
-msgid "\" value=\""
-msgstr ""
-
-#: admin/channels.php:215 admin/channels.php:216 admin/tags.php:167
-#: admin/tags.php:168
-msgid "\" />\n"
-msgstr ""
-
-#: admin/channels.php:216 admin/tags.php:167
-msgid "<input type=\"hidden\" name=\"action\" value=\""
-msgstr ""
-
-#: admin/channels.php:217
-msgid "</p>\n"
-msgstr ""
-
-#: admin/channels.php:218 admin/tags.php:169
-msgid "</fieldset>\n"
-msgstr ""
-
-#: admin/channels.php:222
-msgid ""
-"</form></div>\n"
-"\n"
-"\n"
-msgstr ""
-
-#: admin/folders.php:207 admin/tags.php:116
-msgid "update "
-msgstr ""
-
-#: admin/folders.php:207
-msgid " set name='$new_label' where id=$fid"
-msgstr ""
-
-#: admin/index.php:204
-#, c-format
-msgid "%s"
-msgstr ""
-
-#: admin/index.php:207 admin/tags.php:171
-msgid "</div>\n"
-msgstr ""
-
-#: admin/tags.php:116 admin/tags.php:144 admin/tags.php:175
-#, fuzzy
-msgid "tag"
-msgstr "tagged"
-
-#: admin/tags.php:116
-msgid " set tag='$new_label' where id=$tid"
-msgstr ""
-
-#: admin/tags.php:123
-msgid "<script type=\"text/javascript\">\n"
-msgstr ""
-
-#: admin/tags.php:124
-msgid "//<!--\n"
-msgstr ""
-
-#: admin/tags.php:125
-msgid "function cbtoggle() {\n"
-msgstr ""
-
-#: admin/tags.php:126
-msgid "var c=document.getElementById('mastercb').checked;\n"
-msgstr ""
-
-#: admin/tags.php:127
-msgid ""
-"var cs=document.getElementById('tagtable').getElementsByTagName('input');\n"
-msgstr ""
-
-#: admin/tags.php:128
-msgid "for(i=0;i<cs.length;i++) {\n"
-msgstr ""
-
-#: admin/tags.php:129
-msgid "if (cs[i].type == 'checkbox') cs[i].checked = c;\n"
-msgstr ""
-
-#: admin/tags.php:130 admin/tags.php:131
-msgid "}\n"
-msgstr ""
-
-#: admin/tags.php:132
-msgid "</script>\n"
-msgstr ""
-
-#: admin/tags.php:134
-msgid "<form method=\"post\" action=\""
-msgstr ""
-
-#: admin/tags.php:134
-msgid "\">\n"
-msgstr ""
-
-#: admin/tags.php:135
-msgid "<h2 class=\"trigger\">"
-msgstr ""
-
-#: admin/tags.php:135
-msgid "</h2>\n"
-msgstr ""
-
-#: admin/tags.php:136
-msgid "<div id=\"admin_tags\" class=\"trigger\">"
-msgstr ""
-
-#: admin/tags.php:137
-msgid "<table id=\"tagtable\">\n"
-msgstr ""
-
-#: admin/tags.php:138
-msgid "<tr>\n"
-msgstr ""
-
-#: admin/tags.php:139
-msgid ""
-"\t<th><input type=\"checkbox\" id=\"mastercb\" onclick=\"cbtoggle();\" /></"
-"th>\n"
-msgstr ""
-
-#: admin/tags.php:140
-msgid "\t<th class=\"cntr\">"
-msgstr ""
-
-#: admin/tags.php:140 admin/tags.php:141
-msgid "</th>\n"
-msgstr ""
-
-#: admin/tags.php:141
-msgid "\t<th>"
-msgstr ""
-
-#: admin/tags.php:142
-msgid "</tr>\n"
-msgstr ""
-
-#: admin/tags.php:144
-msgid "select id,tag from "
-msgstr ""
-
-#: admin/tags.php:144
-msgid " order by tag asc"
-msgstr ""
-
-#: admin/tags.php:170
-msgid "</form>\n"
-msgstr ""
-
-#: admin/tags.php:175
-msgid "select id, tag from "
-msgstr ""
-
-#: admin/tags.php:175
-msgid " where id=$tid"
-msgstr ""
-
 #: admin/channels.php:379 admin/channels.php:383 admin/channels.php:617
 #, c-format, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
@@ -1191,6 +1026,28 @@ msgstr "temas sin leer (<strong id=\"ucnt\">%d</strong>)"
 #: admin/index.php:339
 msgid "Admin"
 msgstr ""
+
+#: admin/config.php:190
+#, fuzzy
+msgid "Invalid config key specified."
+msgstr "Periodo de limpieza no v&aacute;lido"
+
+#: admin/config.php:368
+msgid "Ooops, unknown config type: "
+msgstr ""
+
+#: admin/tags.php:162
+#, fuzzy
+msgid "Selected"
+msgstr "eliminar"
+
+#: update.php:32
+msgid "Sorry, updating from the web is currently not allowed."
+msgstr ""
+
+#, fuzzy
+#~ msgid "tag"
+#~ msgstr "tagged"
 
 #~ msgid "%d items, %d unread"
 #~ msgstr "%d temas, %d sin leer"
