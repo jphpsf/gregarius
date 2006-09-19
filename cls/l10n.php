@@ -77,7 +77,7 @@ class RSSl10n {
      * Detect users preferred language. Losely based on http://grep.be/data/accept-to-gettext.inc
      */
 	function __detectUserLang() {
-       if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$_REQUEST['lang']) && file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang'])) {
+       if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$_REQUEST['lang']) && ($_REQUEST['lang'] == 'en' || file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang']))) {
        		setcookie(RSS_LOCALE_COOKIE,$_REQUEST['lang'],time()+3600*6,getPath());
             return  $_REQUEST['lang'];
         } elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
