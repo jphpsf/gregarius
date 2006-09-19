@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-18 09:28+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2006-09-19 17:00+0200\n"
+"PO-Revision-Date: 2006-09-19 14:55+0000\n"
+"Last-Translator: mbi <mbonetti@gmail.com>\n"
+"Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +57,7 @@ msgid "Feeds"
 msgstr "Feeds"
 
 #: cls/channels.php:194 themes/milsi/feeds.php:4
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
 "strong> feeds"
@@ -156,7 +156,6 @@ msgid "All"
 msgstr "Tutti"
 
 #: index.php:143
-#, fuzzy
 msgid "Unread items (<span id=\"ucnt\">%d</span>)"
 msgstr "<strong id=\"ucnt\">%d</strong> elementi non letti"
 
@@ -470,7 +469,7 @@ msgstr ""
 
 #: intl/en.php:173 intl/en.php:174 admin/items.php:42
 msgid "Delete items older than "
-msgstr "Cancella elementi pi&ugrave; vecchi che..."
+msgstr "Cancella elementi pi&ugrave; vecchi che... "
 
 #: intl/en.php:174 intl/en.php:175 admin/items.php:45 admin/items.php:81
 msgid "days"
@@ -542,14 +541,19 @@ msgid ""
 "<h1>Not Authorized!</h1>\n"
 "You are not authorized to access the administration interface.\n"
 msgstr ""
+"<h1>Non autorizzato!</h1>\n"
+"Spiacente, non siete autorizzato ad accedere all'interfaccia "
+"d'amministrazione.\n"
 
 #: intl/en.php:194 intl/en.php:195
 msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 msgstr ""
+"Vogliate seguire <a href=\"%s\">questo link</a> per tornare alla pagina "
+"principale.\n"
 
 #: intl/en.php:195 intl/en.php:196
 msgid "Have  a nice day!"
-msgstr ""
+msgstr "Buona giornata!"
 
 #: intl/en.php:205 intl/en.php:206 admin/index.php:230 admin/tags.php:135
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
@@ -608,12 +612,10 @@ msgid "Read and unread"
 msgstr "Letti e non letti"
 
 #: intl/en.php:222 intl/en.php:223 ajax.php:517
-#, fuzzy
 msgid "Unread (Set this item\\'s read/unread state)"
 msgstr "Non letto (Definisce lo stato letto/non letto di questo elemento)"
 
 #: intl/en.php:223 intl/en.php:224 ajax.php:521
-#, fuzzy
 msgid "Sticky (Won\\'t be deleted when you prune items)"
 msgstr "Sticky (Non sar&agrave; eliminato quando eliminerai degli elementi)"
 
@@ -757,6 +759,8 @@ msgid ""
 "<p>No Administrator has been specified yet!</p><p>Please provide an "
 "Administrator username and password now!</p>"
 msgstr ""
+"<p>Amministratore non specificato!</p><p>Vogliate specificare un nome "
+"d'utente e una passaword dell'amministratore.</p>"
 
 #: intl/en.php:272 intl/en.php:273 admin/users.php:73 admin/users.php:98
 msgid "Username"
@@ -788,7 +792,7 @@ msgstr "plugins"
 
 #: intl/en.php:280 intl/en.php:281 admin/plugins.php:102
 msgid "Update Available"
-msgstr ""
+msgstr "Aggiornamento disponibilie"
 
 #: intl/en.php:281 intl/en.php:282 admin/plugins.php:171 admin/themes.php:50
 msgid "Check for Updates"
@@ -804,6 +808,9 @@ msgid ""
 "have administration privileges. Log in again with administration privileges "
 "or follow your way <a href=\"..\">home</a>"
 msgstr ""
+"<strong>Oops!</strong> Siete connessi in quanto %s, ma non avete privilegi "
+"d'amministrazione. Vogliate riconnettervi con un conto amministratore, "
+"oppure seguite <a href=\"..\">questo link</a> per tornare indietro."
 
 #: intl/en.php:285 intl/en.php:286 admin/themes.php:92
 msgid "Active Theme"
@@ -820,9 +827,12 @@ msgid ""
 "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Plugins sono degli script che offrono delle "
+"funzionalità aggiuntive. Altri plugins possono essere scaricati dal <a style="
+"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/?lang=ir"
+"\">Repository di plugins</a>.</p>"
 
 #: intl/en.php:290 intl/en.php:291
-#, fuzzy
 msgid "Last update"
 msgstr "Ultimo aggiornamento"
 
@@ -841,6 +851,10 @@ msgid ""
 "downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
 "themes.gregarius.net/\">Themes Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Temi sono composti da un insieme di templates "
+"che definiscono come Gregarius si presenta a voi.<br />Altri temi possono "
+"essere scaricati dal <a style=\"text-decoration:underline\" href=\"http://"
+"themes.gregarius.net/?lang=it\">Repository di Temi</a>.</p>"
 
 #: intl/en.php:296 intl/en.php:297 ajax.php:529
 msgid "Flag (Flags an item for later reading)"
@@ -940,7 +954,7 @@ msgstr "Spiacente, non so cosa fare con questa URL: '%s'"
 
 #: admin/folders.php:164
 msgid "You can't delete the Root folder"
-msgstr ""
+msgstr "Impossibile cancellare la cartella radice."
 
 #: admin/folders.php:204 admin/tags.php:113
 #, c-format, php-format
@@ -971,10 +985,15 @@ msgid ""
 "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 "Have  a nice day!"
 msgstr ""
+"<h1>Non autorizzato!</h1>\n"
+"Non siete autorizzati ad accedere all'interfaccia d'amministrazione.\n"
+"Vogliate seguire <a href=\"%s\">questo link</a> per tornare alla pagina "
+"iniziale.\n"
+"Buona giornata!"
 
 #: admin/items.php:49
 msgid "...from these feeds"
-msgstr ""
+msgstr "... da questi feeds"
 
 #: admin/items.php:94
 msgid "Invalid pruning period"
@@ -986,15 +1005,15 @@ msgstr "Non avete specificato nessun periodo"
 
 #: admin/opml.php:120
 msgid "XML Dump:"
-msgstr ""
+msgstr "Dump XML:"
 
 #: admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
-msgstr ""
+msgstr "Scarica la tua installazione Gregarius in XML"
 
 #: admin/opml.php:123
 msgid "Dump!"
-msgstr ""
+msgstr "Scarica!"
 
 #: admin/plugins.php:90
 msgid ""
@@ -1003,6 +1022,10 @@ msgid ""
 "\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Plugins sono degli scripts che offrono delle "
+"funzionalità aggiuntive. Altri plugins possono essere scaricati dal <a style="
+"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/?lang=it"
+"\">Repository di Plugins</a>.</p>"
 
 #: ajax.php:81 index.php:209
 msgid "Recent items"
@@ -1024,25 +1047,23 @@ msgstr "<strong id=\"ucnt\">%d</strong> elementi non letti"
 
 #: admin/index.php:339
 msgid "Admin"
-msgstr ""
+msgstr "Amministrazione"
 
 #: admin/config.php:190
-#, fuzzy
 msgid "Invalid config key specified."
-msgstr "Periodo invalido"
+msgstr "Chiave di configurazione invalida"
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
-msgstr ""
+msgstr "Ooops, tipo di configurazione sconosciuto: "
 
 #: admin/tags.php:162
-#, fuzzy
 msgid "Selected"
-msgstr "cancella"
+msgstr "Selezionato"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr ""
+msgstr "Spiacente, aggiornamenti dal web non sono autorizzati."
 
 #, fuzzy
 #~ msgid "tag"
