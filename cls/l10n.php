@@ -78,7 +78,7 @@ class RSSl10n {
      */
 	function __detectUserLang() {
        if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$_REQUEST['lang']) && ($_REQUEST['lang'] == 'en' || file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang']))) {
-       		setcookie(RSS_LOCALE_COOKIE,$_REQUEST['lang'],time()+3600*6,getPath());
+			$this -> __setLocaleCookie($_REQUEST['lang']);
             return  $_REQUEST['lang'];
         } elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
             return trim($_COOKIE[RSS_LOCALE_COOKIE]);
@@ -95,11 +95,9 @@ class RSSl10n {
 
                 if (preg_match('#^([a-z]{2})[\-_]?([a-z]{2})?$#i',$ll,$pm)) {
                 	$ret =null;
-                	if (isset($pm[2])){
-                		if (file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[2]))) {
-                			// xx-yy -> xx_YY
-                			$ret= $pm[1] ."_".strtoupper($pm[2]);
-                		}
+                	if (isset($pm[2]) && file_exists(GREGARIUS_HOME .'intl/'.$pm[1] ."_".strtoupper($pm[2]))) {
+                		// xx-yy -> xx_YY
+               			$ret= $pm[1] ."_".strtoupper($pm[2]);
                 	} elseif(file_exists(GREGARIUS_HOME .'intl/'.$pm[1] )) {
                 		// xx  -> xx
                 		$ret= $pm[1];
@@ -110,7 +108,7 @@ class RSSl10n {
                 	}
                 	if ($ret) {
                 		// remember the detected locale for a couple hours
-                		setcookie(RSS_LOCALE_COOKIE,$ret,time()+3600*6,getPath());
+						$this -> __setLocaleCookie($ret);
                 		return $ret;
                 	}
                 }
@@ -120,6 +118,10 @@ class RSSl10n {
         // If everything fails, return the user selected language
         return getConfig('rss.output.lang');
     }
+
+	function __setLocaleCookie($value) {
+		setcookie(RSS_LOCALE_COOKIE,$value,time()+3600*6,getPath());
+	}
 }
 	
 
