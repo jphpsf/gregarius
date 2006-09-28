@@ -276,7 +276,7 @@ function update($id) {
                 $author = "";
             }
 
-            $author = strip_tags($author);
+            $author = trim(strip_tags($author));
 
             // pubdate
             $cDate = -1;
