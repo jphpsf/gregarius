@@ -1,0 +1,5 @@
+Language: Indonesian
+Locale: id
+Windows-locale: id
+Author: Aryo
+
