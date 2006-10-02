@@ -458,8 +458,12 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
         if ($title_) {
             $title = rss_real_escape_string($title_);
         }
-        elseif (is_object($rss) && array_key_exists('title', $rss->channel)) {
-            $title = rss_real_escape_string($rss->channel['title']);
+        elseif (is_object($rss) && array_key_exists('title#', $rss->channel)) {
+        	if (array_key_exists('title', $rss->channel)) {
+            	$title = rss_real_escape_string($rss->channel['title']);
+            } else {
+            	$title = " ";
+            }
         }
         else {
             $title = "";
