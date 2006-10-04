@@ -51,6 +51,8 @@ function items() {
     . "</p>\n"
     . "<p><label for=\"prune_include_sticky\">".__('Delete Sticky items too: ')."</label>\n"
     . "<input type=\"checkbox\" id=\"prune_include_sticky\" name=\"prune_include_sticky\" value=\"1\"/></p>\n"
+	. "<p><label for=\"prune_include_unread\">".__('Delete Unread items too: ')."</label>\n"
+	. "<input type=\"checkbox\" id=\"prune_include_unread\" name=\"prune_include_unread\" value=\"1\"/></p>\n"
     . "<p><label for=\"prune_exclude_tags\">".__('Do not delete items tagged... ')."</label>\n"
     . "<input type=\"text\" id=\"prune_exclude_tags\" name=\"prune_exclude_tags\" value=\"\"/></p>\n"
     . "<p style=\"font-size:small; padding:0;margin:0\">".__('(Enter <strong>*</strong> to keep all tagged items)')."</p>\n"
@@ -111,12 +113,16 @@ function item_admin() {
 
             if (!array_key_exists('prune_include_sticky', $_REQUEST)
                     || $_REQUEST['prune_include_sticky'] != '1') {
-
                 $sql .= " and not(unread & " .RSS_MODE_STICKY_STATE .") ";
             }
 
-            if (array_key_exists('prune_exclude_tags', $_REQUEST)
-                    && trim($_REQUEST['prune_exclude_tags'])) {
+
+			if (!array_key_exists('prune_include_unread', $_REQUEST) 
+					|| $_REQUEST['prune_include_unread'] != '1') {
+			 	$sql .= " and not(unread & " .RSS_MODE_UNREAD_STATE .") "; 
+			}
+			
+			 if (array_key_exists('prune_exclude_tags', $_REQUEST) && trim($_REQUEST['prune_exclude_tags'])) {
 
                 if ( trim($_REQUEST['prune_exclude_tags']) == '*') {
                     $tsql = " select distinct fid from ". getTable('metatag');
