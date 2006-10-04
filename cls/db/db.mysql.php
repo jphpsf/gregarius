@@ -30,6 +30,8 @@ require_once(dirname(__FILE__) . '/db.php');
 
 class MysqlDB extends DB {
 
+	var $resource;
+
 	function  MysqlDB() {
 		parent::DB();
 	}
@@ -40,7 +42,9 @@ class MysqlDB extends DB {
 	//// in here.
 	
 	function DBConnect($dbserver, $dbuname, $dbpass) {
-		 if (!mysql_connect($dbserver, $dbuname, $dbpass)) {
+    $this -> resource = mysql_connect($dbserver, $dbuname, $dbpass);
+
+		if(!$this -> resource) {
 			  die( "<h1>Error connecting to the database!</h1>\n"
 					 ."<p>Have you edited dbinit.php and correctly defined "
 					 ."the database username and password?</p>\n" );		  
@@ -48,7 +52,7 @@ class MysqlDB extends DB {
 	}
 	
 	function DBSelectDB($dbname) {
-		if (!mysql_select_db($dbname)) {
+		if (!mysql_select_db($dbname, $this -> resource)) {
 			  die( "<h1>Error selecting the database!</h1>\n"
 					 ."<p>Does your database exist?"
 					 . "Have you edited dbinit.php and correctly defined "
@@ -59,7 +63,7 @@ class MysqlDB extends DB {
 	}
 	
 	function rss_query ($query, $dieOnError=true, $preventRecursion=false) {
-		 $ret =  mysql_query($query);
+		 $ret =  mysql_query($query, $this -> resource);
 	
 		 if ($error = $this -> rss_sql_error()) {
 			  $errorString = $this -> rss_sql_error_message();
@@ -100,15 +104,15 @@ class MysqlDB extends DB {
 	}
 	
 	function rss_sql_error() {
-		 return mysql_errno();
+		 return mysql_errno($this -> resource);
 	}
 	
 	function rss_sql_error_message () {
-		 return mysql_error();
+		 return mysql_error($this -> resource);
 	}
 	
 	function rss_insert_id() {
-		return mysql_insert_id();
+		return mysql_insert_id($this -> resource);
 	}
 	
 	function rss_real_escape_string($string) {
@@ -124,10 +128,10 @@ class MysqlDB extends DB {
 	function rss_is_sql_error($kind) {
 		switch ($kind) {
 			case RSS_SQL_ERROR_NO_ERROR:
-				return (mysql_errno() == 0);
+				return (mysql_errno($this -> resource) == 0);
 				break;
 			case RSS_SQL_ERROR_DUPLICATE_ROW:
-				return (mysql_errno() == 1062);
+				return (mysql_errno($this -> resource) == 1062);
 				break;
 			default:
 				return false;
