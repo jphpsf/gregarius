@@ -28,7 +28,7 @@
 
 /// Name: del.icio.us Tags
 /// Author: Marco Bonetti
-/// Description: Fetches tag suggestiongs from del.icio.us
+/// Description: Fetches tag suggestions from del.icio.us
 /// Version: 0.5
 
 
