@@ -71,7 +71,7 @@ class RSSl10n {
 		return $this -> locale;
 	}
 	function getISOLang() {
-		return $this ->isloang;
+		return $this ->isolang;
 	}
     /**
      * Detect users preferred language. Losely based on http://grep.be/data/accept-to-gettext.inc
