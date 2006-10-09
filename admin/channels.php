@@ -60,6 +60,18 @@ function channels() {
                    ."('$b_url'.concat(escape(document.location).replace(/\s/,'%2520'))))";
 
     echo "<p style=\"font-size:small\">" . __('Subscription bookmarklet [<a href="http://www.squarefree.com/bookmarklets/">?</a>]:') . " <a class=\"bookmarklet\" href=\"$bookmarklet\">".__('Subscribe in Gregarius!')."</a></p>\n";
+    // feed handler - similar to bookmarklet, but with %s
+    $feedhandler_url = "javascript:navigator.registerContentHandler(\'application/vnd.mozilla.maybe.feed\',\'$b_url%s\',\'Gregarius\');";
+    echo "<script type=\"text/javascript\">\n"
+    ."//<!--\n"
+    ."if (navigator && typeof(navigator.registerContentHandler) == 'function'){\n"
+    ."\tdocument.write('<p style=\"font-size:small\">" 
+    . __('Register as Feed Handler [<a href="http://www.bengoodger.com/software/mb/feeds/feed-handling.html">?</a>]:') 
+    . " <a class=\"bookmarklet\" href=\"$feedhandler_url\">"
+    .__('Register Gregarius!')."</a></p>');\n"
+    ."}\n"
+    ."// -->\n"
+    ."</script>\n";
 
     // feeds
 
