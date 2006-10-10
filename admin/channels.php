@@ -173,7 +173,7 @@ function channels() {
         ."\t<td>"
         .((getConfig('rss.output.showfavicons') && $icon != "")?
           "<img src=\"$icon\" class=\"favicon\" alt=\"\" width=\"16\" height=\"16\" />":"")
-        ."<label for=\"scb_$id\">".($dead ? "<strike>" : "").$title.($dead ? "</strike>" : "")."</label>"
+        ."<label for=\"scb_$id\"".($dead ? ' style="text-decoration:line-through">' : ">").$title."</label>"
         ."</td>\n"
         ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
         ."\t<td>$descr</td>\n"
