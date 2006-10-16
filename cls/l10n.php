@@ -79,6 +79,7 @@ class RSSl10n {
 	function __detectUserLang() {
        if (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$_REQUEST['lang']) && ($_REQUEST['lang'] == 'en' || file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang']))) {
 			$this -> __setLocaleCookie($_REQUEST['lang']);
+			rss_invalidate_cache();
             return  $_REQUEST['lang'];
         } elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
             return trim($_COOKIE[RSS_LOCALE_COOKIE]);
