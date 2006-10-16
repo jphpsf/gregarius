@@ -102,16 +102,16 @@ class gettext_reader {
     // Caching can be turned off
     $this->enable_cache = $enable_cache;
 
-    // $MAGIC1 = (int)0x950412de; //bug in PHP 5
+    $MAGIC1_alt = (int)0x950412de; //bug in PHP 5
     $MAGIC1 = (int) - 1794895138;
-    // $MAGIC2 = (int)0xde120495; //bug
+    $MAGIC2_alt = (int)0xde120495; //bug
     $MAGIC2 = (int) - 569244523;
 
     $this->STREAM = $Reader;
     $magic = $this->readint();
-    if ($magic == $MAGIC1) {
+    if ($magic == $MAGIC1 || $magic == $MAGIC1_alt) {
       $this->BYTEORDER = 0;
-    } elseif ($magic == $MAGIC2) {
+    } elseif ($magic == $MAGIC2 || $magic == $MAGIC2_alt) {
       $this->BYTEORDER = 1;
     } else {
       $this->error = 1; // not MO file
