@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-18 09:28+0200\n"
+"POT-Creation-Date: 2006-10-16 09:14+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,15 +16,17 @@ msgstr ""
 #: admin/folders.php:142 cls/wrappers/searchform.php:122 opml.php:51
 #: opml.php:104 admin/channels.php:120 admin/channels.php:501
 #: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81
+#: admin/channels.php:132 admin/channels.php:513
 msgid "Root"
 msgstr "Root"
 
 #: admin/channels.php:531 update.php:59 admin/channels.php:545 update.php:61
+#: admin/channels.php:557
 msgid "Updating"
 msgstr "Aktualisiere"
 
 #: admin/channels.php:766 admin/channels.php:771 admin/channels.php:837
-#: admin/channels.php:842
+#: admin/channels.php:842 admin/channels.php:849 admin/channels.php:854
 msgid "(visit)"
 msgstr "(besuchen)"
 
@@ -32,11 +34,11 @@ msgstr "(besuchen)"
 #: feed.php:1061 intl/en.php:186 intl/en.php:187
 #: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
 #: state.php:36 state.php:39 state.php:42 tags.php:118 tags.php:153
-#: admin/index.php:224 tags.php:117 tags.php:152
+#: admin/index.php:224 tags.php:117 tags.php:152 author.php:42
 msgid "items"
 msgstr "Artikel"
 
-#: author.php:41 cls/wrappers/item.php:222
+#: author.php:41 cls/wrappers/item.php:222 author.php:42
 msgid " by "
 msgstr " by "
 
@@ -166,18 +168,22 @@ msgstr "Ungelesene Artikel (<strong id=\"ucnt\">%d</strong>)"
 #: admin/channels.php:179 admin/channels.php:286 admin/channels.php:315
 #: admin/config.php:160 admin/tags.php:153 ajax.php:194 ajax.php:217
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
-#: themes/lilina/web/item.php:111 admin/tags.php:180
+#: themes/lilina/web/item.php:111 admin/tags.php:180 admin/channels.php:191
+#: admin/channels.php:298 admin/channels.php:327
 msgid "edit"
 msgstr "bearbeiten"
 
 #: admin/channels.php:172 admin/channels.php:200 admin/folders.php:96
 #: admin/items.php:52 admin/items.php:65 admin/items.php:225
 #: admin/tags.php:123 intl/en.php:99 admin/channels.php:182 admin/tags.php:156
+#: admin/channels.php:194
 msgid "delete"
 msgstr "l&ouml;schen"
 
 #: intl/en.php:100 admin/channels.php:210 admin/items.php:57
 #: admin/items.php:70 admin/items.php:236 admin/tags.php:164
+#: admin/channels.php:222 admin/items.php:59 admin/items.php:72
+#: admin/items.php:242
 msgid "Delete"
 msgstr "L&ouml;schen"
 
@@ -190,7 +196,7 @@ msgid "Create"
 msgstr "Erstellen"
 
 #: intl/en.php:102 intl/en.php:103 intl/en.php:118 intl/en.php:119
-#: admin/channels.php:442 admin/opml.php:81
+#: admin/channels.php:442 admin/opml.php:81 admin/channels.php:454
 msgid "Import"
 msgstr "Import"
 
@@ -205,21 +211,22 @@ msgstr "Standard"
 
 #: intl/en.php:105 intl/en.php:106 admin/channels.php:51
 #: admin/channels.php:251 admin/channels.php:369 admin/folders.php:41
-#: admin/folders.php:212
+#: admin/folders.php:212 admin/channels.php:263 admin/channels.php:381
 msgid "Add"
 msgstr "Hinzuf&uuml;gen"
 
 #: intl/en.php:106 intl/en.php:107 admin/channels.php:396
 #: admin/channels.php:432 admin/config.php:204 admin/config.php:520
 #: admin/folders.php:168 admin/folders.php:186 admin/tags.php:60
-#: admin/tags.php:96 admin/themes.php:275
+#: admin/tags.php:96 admin/themes.php:275 admin/channels.php:408
+#: admin/channels.php:444
 msgid "Yes"
 msgstr "Ja"
 
 #: intl/en.php:107 intl/en.php:108 admin/channels.php:421
 #: admin/channels.php:431 admin/config.php:208 admin/config.php:519
 #: admin/folders.php:175 admin/folders.php:185 admin/tags.php:66
-#: admin/tags.php:95
+#: admin/tags.php:95 admin/channels.php:433 admin/channels.php:443
 msgid "No"
 msgstr "Nein"
 
@@ -245,11 +252,12 @@ msgstr "Konfiguration:"
 
 #: intl/en.php:113 intl/en.php:114 admin/channels.php:283
 #: admin/channels.php:311 admin/users.php:79 ajax.php:532
+#: admin/channels.php:295 admin/channels.php:323
 msgid "OK"
 msgstr "OK"
 
 #: intl/en.php:114 intl/en.php:115 admin/config.php:246 admin/items.php:237
-#: admin/plugins.php:214 admin/themes.php:175 ajax.php:533
+#: admin/plugins.php:214 admin/themes.php:175 ajax.php:533 admin/items.php:243
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -289,7 +297,7 @@ msgstr "zu Ordner:"
 #: intl/en.php:127 intl/en.php:128 admin/channels.php:958 admin/config.php:238
 #: admin/config.php:257 admin/folders.php:126 admin/plugins.php:170
 #: admin/plugins.php:212 admin/tags.php:188 admin/themes.php:173
-#: admin/themes.php:285
+#: admin/themes.php:285 admin/channels.php:970
 msgid "Submit Changes"
 msgstr "Aenderungen aktivieren"
 
@@ -298,29 +306,33 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: intl/en.php:129 intl/en.php:130 admin/channels.php:85 admin/folders.php:46
+#: admin/channels.php:97
 msgid "Title"
 msgstr "Titel"
 
-#: intl/en.php:130 intl/en.php:131 admin/channels.php:86
+#: intl/en.php:130 intl/en.php:131 admin/channels.php:86 admin/channels.php:98
 msgid "Folder"
 msgstr "Ordner"
 
 #: intl/en.php:131 intl/en.php:132 intl/en.php:147 intl/en.php:148
 #: admin/channels.php:87 admin/config.php:69 admin/plugins.php:99
+#: admin/channels.php:99
 msgid "Description"
 msgstr "Beschreibung"
 
 #: intl/en.php:132 intl/en.php:133 admin/channels.php:92
-#: admin/channels.php:195 admin/folders.php:49
+#: admin/channels.php:195 admin/folders.php:49 admin/channels.php:104
+#: admin/channels.php:207
 msgid "Move"
 msgstr "Bewegen"
 
 #: intl/en.php:133 intl/en.php:134 admin/channels.php:95 admin/config.php:70
-#: admin/folders.php:52 admin/tags.php:141
+#: admin/folders.php:52 admin/tags.php:141 admin/channels.php:107
 msgid "Action"
 msgstr "Aktion"
 
 #: intl/en.php:134 intl/en.php:135 admin/channels.php:89
+#: admin/channels.php:101
 msgid "Flags"
 msgstr "Flags"
 
@@ -341,10 +353,12 @@ msgid "Add a folder:"
 msgstr "Ordner hinzuf&uuml;gen:"
 
 #: intl/en.php:139 intl/en.php:140 admin/channels.php:896
+#: admin/channels.php:908
 msgid "Shown favicon:"
 msgstr "Gezeigte Favoriten-Zeichen:"
 
 #: intl/en.php:140 intl/en.php:141 admin/channels.php:903
+#: admin/channels.php:915
 msgid "(Leave blank for no icon)"
 msgstr "(Leer lassen f&uuml;r kein Icon)"
 
@@ -383,27 +397,32 @@ msgid "Theme Options"
 msgstr "Themenoptionen"
 
 #: intl/en.php:154 intl/en.php:155 admin/channels.php:814
+#: admin/channels.php:826
 msgid "Edit the feed "
 msgstr "Den Feed bearbeiten "
 
 #: intl/en.php:155 intl/en.php:156 admin/channels.php:827
+#: admin/channels.php:839
 msgid "Title:"
 msgstr "Titel:"
 
 #: intl/en.php:156 intl/en.php:157 admin/channels.php:836
+#: admin/channels.php:848
 msgid "RSS URL:"
 msgstr "RSS URL:"
 
 #: intl/en.php:157 intl/en.php:158 admin/channels.php:841
+#: admin/channels.php:853
 msgid "Site URL:"
 msgstr "Seiten URL:"
 
 #: intl/en.php:158 intl/en.php:159 admin/channels.php:191
-#: admin/channels.php:846
+#: admin/channels.php:846 admin/channels.php:203 admin/channels.php:858
 msgid "In folder:"
 msgstr "In Ordner:"
 
 #: intl/en.php:159 intl/en.php:160 admin/channels.php:891
+#: admin/channels.php:903
 msgid "Description:"
 msgstr "Beschreibung:"
 
@@ -412,10 +431,12 @@ msgid "Folder name:"
 msgstr "Ordnername:"
 
 #: intl/en.php:161 intl/en.php:162 admin/channels.php:876
+#: admin/channels.php:888
 msgid "This feed is <strong>private</strong>, only admins see it."
 msgstr "Dieser Feed ist <strong>privat</strong>, nur Admins sehen ihn."
 
 #: admin/channels.php:884 intl/en.php:162 intl/en.php:163
+#: admin/channels.php:896
 msgid ""
 "This feed is <strong>deprecated</strong>, it won't be updated anymore and "
 "won't be visible in the feeds column."
@@ -424,7 +445,7 @@ msgstr ""
 "und wird nicht mehr in der Feedspalte sichtbar sein."
 
 #: admin/channels.php:429 admin/folders.php:183 admin/tags.php:93
-#: intl/en.php:164 intl/en.php:165
+#: intl/en.php:164 intl/en.php:165 admin/channels.php:441
 #, c-format, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr "Wollen sie den Ordner '%s' wirklich l&ouml;schen?"
@@ -447,10 +468,12 @@ msgid "False"
 msgstr "Falsch"
 
 #: intl/en.php:168 intl/en.php:169 admin/channels.php:173 admin/folders.php:80
+#: admin/channels.php:185
 msgid "&uarr;"
 msgstr "&uarr;"
 
 #: intl/en.php:169 intl/en.php:170 admin/channels.php:175 admin/folders.php:84
+#: admin/channels.php:187
 msgid "&darr;"
 msgstr "&darr;"
 
@@ -463,6 +486,7 @@ msgstr ""
 "nschten Feed enth&auml;lt )"
 
 #: intl/en.php:171 intl/en.php:172 admin/channels.php:329
+#: admin/channels.php:341
 #, php-format
 msgid ""
 "The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
@@ -476,14 +500,17 @@ msgid "Delete items older than "
 msgstr "L&ouml;sche Artikel &auml;lter als "
 
 #: intl/en.php:174 intl/en.php:175 admin/items.php:45 admin/items.php:81
+#: admin/items.php:83
 msgid "days"
 msgstr "Tage"
 
 #: intl/en.php:175 intl/en.php:176 admin/items.php:46 admin/items.php:85
+#: admin/items.php:87
 msgid "months"
 msgstr "Monate"
 
 #: intl/en.php:176 intl/en.php:177 admin/items.php:47 admin/items.php:89
+#: admin/items.php:91
 msgid "years"
 msgstr "Jahre"
 
@@ -495,15 +522,15 @@ msgstr "Behalte die neuesten Artikel: "
 msgid "Delete Sticky items too: "
 msgstr "L&ouml;sche auch Sticky Artikel: "
 
-#: intl/en.php:179 intl/en.php:180 admin/items.php:54
+#: intl/en.php:179 intl/en.php:180 admin/items.php:54 admin/items.php:56
 msgid "Do not delete items tagged... "
 msgstr "Markierte Artikel nicht l&ouml;schen... "
 
-#: intl/en.php:180 intl/en.php:181 admin/items.php:56
+#: intl/en.php:180 intl/en.php:181 admin/items.php:56 admin/items.php:58
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
 msgstr "(Trage <strong>*</strong> ein, um alle markierten Artikel zu behalten)"
 
-#: intl/en.php:182 intl/en.php:183 admin/items.php:229
+#: intl/en.php:182 intl/en.php:183 admin/items.php:229 admin/items.php:235
 #, php-format
 msgid "Warning: you are about to delete %s items (of %s)"
 msgstr "Achtung: es werden %s Artikel (von %s) gel&ouml;scht"
@@ -598,15 +625,15 @@ msgstr "keine Vorschl&auml;ge"
 msgid "Related tags: "
 msgstr "&Auml;hnliche Markierungen: "
 
-#: intl/en.php:218 intl/en.php:219 util.php:869
+#: intl/en.php:218 intl/en.php:219 util.php:869 util.php:873
 msgid "Show items: "
 msgstr "Artikel anzeigen: "
 
-#: intl/en.php:219 intl/en.php:220 util.php:871
+#: intl/en.php:219 intl/en.php:220 util.php:871 util.php:875
 msgid "Unread only"
 msgstr "Nur Ungelesene"
 
-#: intl/en.php:220 intl/en.php:221 util.php:872
+#: intl/en.php:220 intl/en.php:221 util.php:872 util.php:876
 msgid "Read and unread"
 msgstr "Gelesene und Ungelesene"
 
@@ -630,22 +657,27 @@ msgid "Sticky"
 msgstr "Sticky"
 
 #: intl/en.php:226 intl/en.php:227 admin/channels.php:201
+#: admin/channels.php:213
 msgid "Deprecated"
 msgstr "Veraltet"
 
 #: intl/en.php:227 intl/en.php:228 admin/channels.php:204
+#: admin/channels.php:216
 msgid "Private"
 msgstr "Privat"
 
 #: intl/en.php:228 intl/en.php:229 admin/channels.php:199
+#: admin/channels.php:211
 msgid "State:"
 msgstr "Status:"
 
 #: intl/en.php:229 intl/en.php:230 admin/channels.php:206
+#: admin/channels.php:218
 msgid "Set"
 msgstr "&Auml;ndern"
 
 #: admin/channels.php:212 admin/tags.php:166 intl/en.php:230 intl/en.php:231
+#: admin/channels.php:224
 msgid "I'm sure!"
 msgstr "Ich bin sicher!"
 
@@ -680,7 +712,8 @@ msgid "... merge them with the existing ones."
 msgstr "... verbinde diese mit den existierenden Ordnern."
 
 #: intl/en.php:244 intl/en.php:245 admin/channels.php:281
-#: admin/channels.php:309 admin/channels.php:533
+#: admin/channels.php:309 admin/channels.php:533 admin/channels.php:293
+#: admin/channels.php:321 admin/channels.php:545
 #, php-format
 msgid "Adding %s to %s... "
 msgstr "F&uuml;ge %s zu %s... "
@@ -688,6 +721,7 @@ msgstr "F&uuml;ge %s zu %s... "
 #: intl/en.php:246 intl/en.php:247 admin/channels.php:48 admin/channels.php:88
 #: admin/channels.php:852 cls/categories.php:60 cls/header.php:98
 #: cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
+#: admin/channels.php:100 admin/channels.php:864
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -747,7 +781,7 @@ msgid "Mark This Category as Read"
 msgstr "Markiere diese Kategorie als gelesen"
 
 #: intl/en.php:268 intl/en.php:269 admin/channels.php:824
-#: cls/wrappers/header.php:134
+#: cls/wrappers/header.php:134 admin/channels.php:836
 msgid "Never"
 msgstr "noch nicht"
 
@@ -937,6 +971,7 @@ msgid "Results per page:"
 msgstr "Resultate pro Seite:"
 
 #: admin/channels.php:379 admin/channels.php:383 admin/channels.php:617
+#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:629
 #, c-format, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
 msgstr "Entschuldige, ich kann diese URL nicht verarbeiten: '%s'"
@@ -956,12 +991,14 @@ msgstr ""
 msgid "Looks like you already have a folder called '%s'!"
 msgstr "Der Ordner '%s' existiert schon!"
 
-#: admin/channels.php:820 admin/channels.php:823
+#: admin/channels.php:820 admin/channels.php:823 admin/channels.php:832
+#: admin/channels.php:835
 msgid "Added"
 msgstr "Added"
 
 #: admin/channels.php:821 admin/channels.php:824
-#: themes/default/web/footer.php:17
+#: themes/default/web/footer.php:17 admin/channels.php:833
+#: admin/channels.php:836
 msgid "Last Update"
 msgstr "Letzte Aktualisierung"
 
@@ -978,11 +1015,11 @@ msgstr ""
 msgid "...from these feeds"
 msgstr ""
 
-#: admin/items.php:94
+#: admin/items.php:94 admin/items.php:96
 msgid "Invalid pruning period"
 msgstr "Ung&uuml;ltige Bereinigungsperiode"
 
-#: admin/items.php:242
+#: admin/items.php:242 admin/items.php:248
 msgid "oops, no period specified"
 msgstr "Oops, kein Zeitraum angegeben"
 
@@ -1045,6 +1082,22 @@ msgstr "l&ouml;schen"
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
+
+#: admin/channels.php:69
+msgid ""
+"Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
+"feeds/feed-handling.html\">?</a>]:"
+msgstr ""
+
+#: admin/channels.php:71
+#, fuzzy
+msgid "Register Gregarius!"
+msgstr "Gregarius abonnieren!"
+
+#: admin/items.php:54
+#, fuzzy
+msgid "Delete Unread items too: "
+msgstr "L&ouml;sche auch Sticky Artikel: "
 
 #, fuzzy
 #~ msgid "tag"

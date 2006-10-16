@@ -1,0 +1,4 @@
+Language: Vietnamese
+Locale: vi
+Windows-locale: vi
+Author: Khoa Huynh

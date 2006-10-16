@@ -1,0 +1,4 @@
+Language: Dutch
+Locale: nl
+Windows-locale: nl
+Author: Albert de Klein - adeklein at gmail dot com
