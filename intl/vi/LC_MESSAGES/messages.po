@@ -89,7 +89,7 @@ msgstr "<span>T</span>ìm"
 
 #: cls/nav.php:65 cls/nav.php:67
 msgid "A<span>d</span>min"
-msgstr "Q<span>u/span>ản trị"
+msgstr "Q<span>u</span>ản trị"
 
 #: cls/search.php:214 cls/search.php:213
 msgid "Results: "
