@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-16 09:14+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2006-10-23 09:38+0200\n"
+"PO-Revision-Date: 2006-10-23 05:28+0000\n"
+"Last-Translator: mbi <mbonetti@gmail.com>\n"
+"Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -382,7 +382,7 @@ msgstr "Version"
 #: intl/en.php:148 intl/en.php:149 admin/plugins.php:95
 #, fuzzy
 msgid "Active"
-msgstr "Aktion"
+msgstr "Aktiviert"
 
 #: intl/en.php:149 intl/en.php:150 admin/plugins.php:100
 msgid "Options"
@@ -572,14 +572,17 @@ msgid ""
 "<h1>Not Authorized!</h1>\n"
 "You are not authorized to access the administration interface.\n"
 msgstr ""
+"<h1>Nicht autorisiert!</h1>\n"
+"Sie sind nicht berechtigt, auf das Administrations-Interface zuzugreifen.\n"
 
 #: intl/en.php:194 intl/en.php:195
 msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 msgstr ""
+"Bitte folgen Sie <a href=\"%s\">diesem Link<a> zurück zur Startseite.\n"
 
 #: intl/en.php:195 intl/en.php:196
 msgid "Have  a nice day!"
-msgstr ""
+msgstr "Schönen Tag noch!"
 
 #: intl/en.php:205 intl/en.php:206 admin/index.php:230 admin/tags.php:135
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
@@ -794,6 +797,8 @@ msgid ""
 "<p>No Administrator has been specified yet!</p><p>Please provide an "
 "Administrator username and password now!</p>"
 msgstr ""
+"<p>Es wurde noch kein Administrator festgelegt!</p><p>Bitte geben Sie einen "
+"Benutzernamen und ein Passwort für den Administrator an!</p>"
 
 #: intl/en.php:272 intl/en.php:273 admin/users.php:73 admin/users.php:98
 msgid "Username"
@@ -825,7 +830,7 @@ msgstr "Plugins"
 
 #: intl/en.php:280 intl/en.php:281 admin/plugins.php:102
 msgid "Update Available"
-msgstr ""
+msgstr "Aktualisierung vorhanden"
 
 #: intl/en.php:281 intl/en.php:282 admin/plugins.php:171 admin/themes.php:50
 msgid "Check for Updates"
@@ -1013,7 +1018,7 @@ msgstr ""
 
 #: admin/items.php:49
 msgid "...from these feeds"
-msgstr ""
+msgstr "...aus diesen Feeds."
 
 #: admin/items.php:94 admin/items.php:96
 msgid "Invalid pruning period"
@@ -1025,15 +1030,15 @@ msgstr "Oops, kein Zeitraum angegeben"
 
 #: admin/opml.php:120
 msgid "XML Dump:"
-msgstr ""
+msgstr "XML Dump:"
 
 #: admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
-msgstr ""
+msgstr "Diese Gregarius-Installation als XML Dump speichern"
 
 #: admin/opml.php:123
 msgid "Dump!"
-msgstr ""
+msgstr "Dump!"
 
 #: admin/plugins.php:90
 msgid ""
@@ -1063,25 +1068,23 @@ msgstr "Ungelesene Artikel (<strong id=\"ucnt\">%d</strong>)"
 
 #: admin/index.php:339
 msgid "Admin"
-msgstr ""
+msgstr "Administrator"
 
 #: admin/config.php:190
-#, fuzzy
 msgid "Invalid config key specified."
-msgstr "Ung&uuml;ltige Bereinigungsperiode"
+msgstr "Ungültiger Konfigurationswert angegeben."
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
-msgstr ""
+msgstr "Ups, unbekannter Konfigurationswert: "
 
 #: admin/tags.php:162
-#, fuzzy
 msgid "Selected"
-msgstr "l&ouml;schen"
+msgstr "Ausgewählt"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr ""
+msgstr "Sorry, Updates aus dem Internet sind momentan nicht zugelassen."
 
 #: admin/channels.php:69
 msgid ""
@@ -1090,14 +1093,12 @@ msgid ""
 msgstr ""
 
 #: admin/channels.php:71
-#, fuzzy
 msgid "Register Gregarius!"
-msgstr "Gregarius abonnieren!"
+msgstr ""
 
 #: admin/items.php:54
-#, fuzzy
 msgid "Delete Unread items too: "
-msgstr "L&ouml;sche auch Sticky Artikel: "
+msgstr ""
 
 #, fuzzy
 #~ msgid "tag"

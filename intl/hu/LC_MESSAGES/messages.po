@@ -1,186 +1,169 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hungarian translation for gregarius
+# Copyright (c) 2006 Rosetta Contributors and Canonical Ltd 2006
+# This file is distributed under the same license as the gregarius package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-23 09:38+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-10-21 22:29+0000\n"
+"Last-Translator: kobak <balazs.koren@gmail.com>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin/channels.php:119 admin/channels.php:491 admin/folders.php:67
 #: admin/folders.php:142 cls/wrappers/searchform.php:122 opml.php:51
 #: opml.php:104 admin/channels.php:120 admin/channels.php:501
 #: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81
-#: admin/channels.php:132 admin/channels.php:513 admin/channels.php:132
-#: admin/channels.php:513 admin/folders.php:67 cls/wrappers/searchform.php:122
-#: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81 opml.php:51
-#: opml.php:104
+#: admin/channels.php:132 admin/channels.php:513
 msgid "Root"
-msgstr ""
+msgstr "Főkönyvtár"
 
 #: admin/channels.php:531 update.php:59 admin/channels.php:545 update.php:61
-#: admin/channels.php:557 admin/channels.php:557 update.php:61
+#: admin/channels.php:557
 msgid "Updating"
-msgstr ""
+msgstr "fríssítés"
 
 #: admin/channels.php:766 admin/channels.php:771 admin/channels.php:837
 #: admin/channels.php:842 admin/channels.php:849 admin/channels.php:854
-#: admin/channels.php:849 admin/channels.php:854
 msgid "(visit)"
-msgstr ""
+msgstr "(megnéz)"
 
 #: author.php:41 cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049
 #: feed.php:1061 intl/en.php:186 intl/en.php:187
 #: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
 #: state.php:36 state.php:39 state.php:42 tags.php:118 tags.php:153
 #: admin/index.php:224 tags.php:117 tags.php:152 author.php:42
-#: admin/index.php:224 author.php:42 cls/alltags.php:165 feed.php:1019
-#: feed.php:1031 feed.php:1049 feed.php:1061
-#: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
-#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
 msgid "items"
-msgstr ""
+msgstr "bejegyzés"
 
-#: author.php:41 cls/wrappers/item.php:222 author.php:42 author.php:42
-#: cls/wrappers/item.php:222
+#: author.php:41 cls/wrappers/item.php:222 author.php:42
 msgid " by "
-msgstr ""
+msgstr " írta "
 
 #: cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049 feed.php:1061
-#: tags.php:118 tags.php:153 tags.php:117 tags.php:152 cls/alltags.php:165
-#: feed.php:1019 feed.php:1049 feed.php:1061 tags.php:117 tags.php:152
+#: tags.php:118 tags.php:153 tags.php:117 tags.php:152
 msgid "item"
-msgstr ""
+msgstr "bejegyzés"
 
 #: cls/channels.php:99 cls/wrappers/feeds.php:64 feed.php:831 feed.php:835
-#: feed.php:839 cls/channels.php:99 cls/wrappers/feeds.php:64 feed.php:831
-#: feed.php:835 feed.php:839
+#: feed.php:839
 #, php-format
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
-msgstr ""
+msgstr "﻿<strong id=\"%s\" style=\"%s\">(%d olvasatlan)</strong>"
 
-#: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
-#: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
 #: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
 msgid "Feeds"
-msgstr ""
+msgstr "Feedek"
 
-#: cls/channels.php:194 themes/milsi/feeds.php:4 themes/milsi/feeds.php:4
+#: cls/channels.php:194 themes/milsi/feeds.php:4
 #, php-format
 msgid ""
 "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
 "strong> feeds"
 msgstr ""
+"﻿<strong>%d</strong> bejegyzés (<strong>%d</strong> olvasatlan) <strong>%d</"
+"strong> feed"
 
-#: cls/header.php:62 cls/header.php:62
+#: cls/header.php:62
 msgid "unread"
-msgstr ""
+msgstr "olvasatlan"
 
-#: cls/nav.php:62 cls/nav.php:62
+#: cls/nav.php:62
 msgid "<span>H</span>ome"
-msgstr ""
+msgstr "﻿<span>H</span>ome"
 
 #: cls/nav.php:63 themes/default/mobile/nav.php:5 cls/nav.php:64
-#: cls/nav.php:64 themes/default/mobile/nav.php:5
 msgid "<span>R</span>efresh"
-msgstr ""
+msgstr "﻿<span>F</span>rissítés"
 
-#: cls/nav.php:64 cls/nav.php:66 cls/nav.php:66
+#: cls/nav.php:64 cls/nav.php:66
 msgid "<span>S</span>earch"
-msgstr ""
+msgstr "﻿<span>K</span>eresés"
 
-#: cls/nav.php:65 cls/nav.php:67 cls/nav.php:67
+#: cls/nav.php:65 cls/nav.php:67
 msgid "A<span>d</span>min"
-msgstr ""
+msgstr "﻿A<span>d</span>min"
 
-#: cls/search.php:214 cls/search.php:213 cls/search.php:213
+#: cls/search.php:214 cls/search.php:213
 msgid "Results: "
-msgstr ""
+msgstr "Találatok: "
 
-#: cls/taglist.php:86 cls/taglist.php:86
+#: cls/taglist.php:86
 #, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr ""
+msgstr "﻿<strong>%d</strong> taggel ellátott bejegyzés, <strong>%d</strong> tag"
 
-#: cls/update.php:116 cls/update.php:118 cls/update.php:118
+#: cls/update.php:116 cls/update.php:118
 msgid "OK (304 Not modified)"
-msgstr ""
+msgstr "OK (304 Nincs módosítás)"
 
-#: cls/update.php:120 cls/update.php:122 cls/update.php:122
+#: cls/update.php:120 cls/update.php:122
 msgid "HTTP Timeout (Local cache)"
-msgstr ""
+msgstr "HTTP időtúllépés (helyi cache)"
 
-#: cls/update.php:124 cls/update.php:126 cls/update.php:126
+#: cls/update.php:124 cls/update.php:126
 msgid "OK (Local cache)"
-msgstr ""
+msgstr "OK (helyi cache)"
 
-#: cls/update.php:128 cls/update.php:130 cls/update.php:130
+#: cls/update.php:128 cls/update.php:130
 msgid "404 Not Found (Local cache)"
-msgstr ""
+msgstr "404 Nem találtam (helyi cache)"
 
-#: cls/update.php:137 cls/update.php:139 cls/update.php:139
+#: cls/update.php:137 cls/update.php:139
 msgid "OK (HTTP 200)"
-msgstr ""
+msgstr "﻿OK (HTTP 200)"
 
-#: cls/update.php:142 cls/update.php:144 cls/update.php:144
+#: cls/update.php:142 cls/update.php:144
 msgid "ERROR"
-msgstr ""
+msgstr "HIBA"
 
 #: cls/update.php:175 cls/update.php:237 cls/update.php:179 cls/update.php:241
-#: cls/update.php:179 cls/update.php:241
 #, php-format
 msgid "Updating %d Feeds..."
-msgstr ""
+msgstr "%d feed frissítése"
 
 #: cls/update.php:178 cls/update.php:241 cls/update.php:182 cls/update.php:245
-#: cls/update.php:182 cls/update.php:245
 msgid "Feed"
-msgstr ""
+msgstr "Feed"
 
 #: cls/update.php:179 cls/update.php:242 cls/update.php:183 cls/update.php:246
-#: cls/update.php:183 cls/update.php:246
 msgid "Status"
-msgstr ""
+msgstr "Státusz"
 
 #: cls/update.php:180 cls/update.php:243 cls/update.php:294 cls/update.php:323
 #: cls/update.php:355 cls/update.php:184 cls/update.php:247 cls/update.php:298
-#: cls/update.php:327 cls/update.php:359 cls/update.php:184 cls/update.php:247
-#: cls/update.php:298 cls/update.php:327 cls/update.php:359
+#: cls/update.php:327 cls/update.php:359
 msgid "New Items"
-msgstr ""
+msgstr "Új bejegyzés"
 
-#: cls/wrappers/item.php:45 cls/wrappers/item.php:45
+#: cls/wrappers/item.php:45
 msgid "Permalink for "
-msgstr ""
+msgstr "Állandó link: "
 
-#: cls/wrappers/item.php:201 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201
 msgid "Posted: "
-msgstr ""
+msgstr "Beküldve: "
 
-#: cls/wrappers/item.php:201 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201
 msgid "Fetched: "
-msgstr ""
+msgstr "Leszedve: "
 
 #: cls/wrappers/searchform.php:88 cls/wrappers/searchform.php:97
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
-#: cls/wrappers/toolkit.php:53 cls/wrappers/searchform.php:87
-#: cls/wrappers/searchform.php:96 cls/wrappers/toolkit.php:53
+#: cls/wrappers/toolkit.php:53
 msgid "All"
-msgstr ""
+msgstr "Minden"
 
 #: index.php:143
 msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-msgstr ""
+msgstr "Olvasatlan bejegyzések ﻿(<span id=\"ucnt\">%d</span>)"
 
 #: admin/channels.php:169 admin/channels.php:276 admin/channels.php:305
 #: admin/config.php:156 admin/folders.php:92 admin/plugins.php:149
@@ -189,625 +172,584 @@ msgstr ""
 #: admin/config.php:160 admin/tags.php:153 ajax.php:194 ajax.php:217
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111 admin/tags.php:180 admin/channels.php:191
-#: admin/channels.php:298 admin/channels.php:327 admin/channels.php:191
-#: admin/channels.php:298 admin/channels.php:327 admin/config.php:160
-#: admin/folders.php:92 admin/plugins.php:149 admin/tags.php:153
-#: admin/tags.php:180 ajax.php:194 ajax.php:217 themes/default/web/item.php:31
-#: themes/lilina/web/item.php:55 themes/lilina/web/item.php:111
+#: admin/channels.php:298 admin/channels.php:327
 msgid "edit"
-msgstr ""
+msgstr "javít"
 
 #: admin/channels.php:172 admin/channels.php:200 admin/folders.php:96
 #: admin/items.php:52 admin/items.php:65 admin/items.php:225
 #: admin/tags.php:123 intl/en.php:99 admin/channels.php:182 admin/tags.php:156
-#: admin/channels.php:194 admin/channels.php:194 admin/folders.php:96
-#: admin/tags.php:156
+#: admin/channels.php:194
 msgid "delete"
-msgstr ""
+msgstr "töröl"
 
 #: intl/en.php:100 admin/channels.php:210 admin/items.php:57
 #: admin/items.php:70 admin/items.php:236 admin/tags.php:164
 #: admin/channels.php:222 admin/items.php:59 admin/items.php:72
-#: admin/items.php:242 admin/channels.php:222 admin/items.php:59
-#: admin/items.php:72 admin/items.php:242 admin/tags.php:164
+#: admin/items.php:242
 msgid "Delete"
-msgstr ""
+msgstr "Töröl"
 
-#: admin/tags.php:142 intl/en.php:101 admin/tags.php:186 admin/tags.php:186
+#: admin/tags.php:142 intl/en.php:101 admin/tags.php:186
 msgid "Rename to..."
-msgstr ""
+msgstr "Átnevezés..."
 
 #: intl/en.php:101 intl/en.php:102
 msgid "Create"
-msgstr ""
+msgstr "Létrehoz"
 
 #: intl/en.php:102 intl/en.php:103 intl/en.php:118 intl/en.php:119
 #: admin/channels.php:442 admin/opml.php:81 admin/channels.php:454
-#: admin/channels.php:454 admin/opml.php:81
 msgid "Import"
-msgstr ""
+msgstr "Importálás"
 
 #: intl/en.php:103 intl/en.php:104 intl/en.php:119 intl/en.php:120
-#: admin/opml.php:110 admin/opml.php:110
+#: admin/opml.php:110
 msgid "Export"
-msgstr ""
+msgstr "Exportálás"
 
-#: intl/en.php:104 intl/en.php:105 admin/config.php:167 admin/config.php:167
+#: intl/en.php:104 intl/en.php:105 admin/config.php:167
 msgid "default"
-msgstr ""
+msgstr "alapértelmezett"
 
 #: intl/en.php:105 intl/en.php:106 admin/channels.php:51
 #: admin/channels.php:251 admin/channels.php:369 admin/folders.php:41
 #: admin/folders.php:212 admin/channels.php:263 admin/channels.php:381
-#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
-#: admin/folders.php:41 admin/folders.php:212
 msgid "Add"
-msgstr ""
+msgstr "Hozzáad"
 
 #: intl/en.php:106 intl/en.php:107 admin/channels.php:396
 #: admin/channels.php:432 admin/config.php:204 admin/config.php:520
 #: admin/folders.php:168 admin/folders.php:186 admin/tags.php:60
 #: admin/tags.php:96 admin/themes.php:275 admin/channels.php:408
-#: admin/channels.php:444 admin/channels.php:408 admin/channels.php:444
-#: admin/config.php:204 admin/config.php:520 admin/folders.php:168
-#: admin/folders.php:186 admin/tags.php:60 admin/tags.php:96
-#: admin/themes.php:275
+#: admin/channels.php:444
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: intl/en.php:107 intl/en.php:108 admin/channels.php:421
 #: admin/channels.php:431 admin/config.php:208 admin/config.php:519
 #: admin/folders.php:175 admin/folders.php:185 admin/tags.php:66
 #: admin/tags.php:95 admin/channels.php:433 admin/channels.php:443
-#: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
-#: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
-#: admin/tags.php:66 admin/tags.php:95
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
-#: intl/en.php:108 intl/en.php:109 admin/folders.php:31 admin/folders.php:31
+#: intl/en.php:108 intl/en.php:109 admin/folders.php:31
 msgid "Folders:"
-msgstr ""
+msgstr "Könyvtárak:"
 
-#: intl/en.php:109 intl/en.php:110 admin/channels.php:39 admin/channels.php:39
+#: intl/en.php:109 intl/en.php:110 admin/channels.php:39
 msgid "Feeds:"
-msgstr ""
+msgstr "Feedek:"
 
-#: intl/en.php:110 intl/en.php:111 admin/opml.php:38 admin/opml.php:38
+#: intl/en.php:110 intl/en.php:111 admin/opml.php:38
 msgid "OPML:"
-msgstr ""
+msgstr "OPML:"
 
-#: intl/en.php:111 intl/en.php:112 admin/items.php:36 admin/items.php:36
+#: intl/en.php:111 intl/en.php:112 admin/items.php:36
 msgid "Items:"
-msgstr ""
+msgstr "Bejegyzések:"
 
-#: intl/en.php:112 intl/en.php:113 admin/config.php:31 admin/config.php:31
+#: intl/en.php:112 intl/en.php:113 admin/config.php:31
 msgid "Configuration:"
-msgstr ""
+msgstr "Beállítás:"
 
 #: intl/en.php:113 intl/en.php:114 admin/channels.php:283
 #: admin/channels.php:311 admin/users.php:79 ajax.php:532
-#: admin/channels.php:295 admin/channels.php:323 admin/channels.php:295
-#: admin/channels.php:323 admin/users.php:79 ajax.php:532
+#: admin/channels.php:295 admin/channels.php:323
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: intl/en.php:114 intl/en.php:115 admin/config.php:246 admin/items.php:237
 #: admin/plugins.php:214 admin/themes.php:175 ajax.php:533 admin/items.php:243
-#: admin/config.php:246 admin/items.php:243 admin/plugins.php:214
-#: admin/themes.php:175 ajax.php:533
 msgid "Cancel"
-msgstr ""
+msgstr "Mégse"
 
 #: intl/en.php:115 intl/en.php:116 intl/en.php:236 intl/en.php:237
-#: admin/index.php:237 cls/wrappers/header.php:143 admin/index.php:237
-#: cls/wrappers/header.php:143
+#: admin/index.php:237 cls/wrappers/header.php:143
 msgid "Logout"
-msgstr ""
+msgstr "Kilépés"
 
-#: intl/en.php:116 intl/en.php:117 admin/themes.php:100 admin/themes.php:100
+#: intl/en.php:116 intl/en.php:117 admin/themes.php:100
 msgid "Configure"
-msgstr ""
+msgstr "Beállít"
 
-#: intl/en.php:120 intl/en.php:121 admin/opml.php:42 admin/opml.php:42
+#: intl/en.php:120 intl/en.php:121 admin/opml.php:42
 msgid "Import OPML:"
-msgstr ""
+msgstr "OPML importálása:"
 
 #: intl/en.php:121 intl/en.php:122 admin/opml.php:107 admin/opml.php:109
-#: admin/opml.php:107 admin/opml.php:109
 msgid "Export OPML:"
-msgstr ""
+msgstr "OPML exportálása:"
 
-#: intl/en.php:122 intl/en.php:123 admin/opml.php:46 admin/opml.php:46
+#: intl/en.php:122 intl/en.php:123 admin/opml.php:46
 msgid "... from URL:"
-msgstr ""
+msgstr "...a következő címről (URL):"
 
-#: intl/en.php:123 intl/en.php:124 admin/opml.php:52 admin/opml.php:52
+#: intl/en.php:123 intl/en.php:124 admin/opml.php:52
 msgid "... from File:"
-msgstr ""
+msgstr "...fájlból:"
 
 #: intl/en.php:124 intl/en.php:125
 msgid "Import file"
-msgstr ""
+msgstr "file importálása"
 
-#: intl/en.php:126 intl/en.php:127 admin/channels.php:46 admin/channels.php:46
+#: intl/en.php:126 intl/en.php:127 admin/channels.php:46
 msgid "to folder:"
-msgstr ""
+msgstr "könyvtárba:"
 
 #: intl/en.php:127 intl/en.php:128 admin/channels.php:958 admin/config.php:238
 #: admin/config.php:257 admin/folders.php:126 admin/plugins.php:170
 #: admin/plugins.php:212 admin/tags.php:188 admin/themes.php:173
-#: admin/themes.php:285 admin/channels.php:970 admin/channels.php:970
-#: admin/config.php:238 admin/config.php:257 admin/folders.php:126
-#: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
-#: admin/themes.php:173 admin/themes.php:285
+#: admin/themes.php:285 admin/channels.php:970
 msgid "Submit Changes"
-msgstr ""
+msgstr "Változások mentése"
 
 #: intl/en.php:128 intl/en.php:129 admin/config.php:234 admin/config.php:252
-#: admin/config.php:234 admin/config.php:252
 msgid "Preview"
-msgstr ""
+msgstr "Előnézet"
 
 #: intl/en.php:129 intl/en.php:130 admin/channels.php:85 admin/folders.php:46
-#: admin/channels.php:97 admin/channels.php:97 admin/folders.php:46
+#: admin/channels.php:97
 msgid "Title"
-msgstr ""
+msgstr "Cím"
 
 #: intl/en.php:130 intl/en.php:131 admin/channels.php:86 admin/channels.php:98
-#: admin/channels.php:98
 msgid "Folder"
-msgstr ""
+msgstr "Könyvtár"
 
 #: intl/en.php:131 intl/en.php:132 intl/en.php:147 intl/en.php:148
 #: admin/channels.php:87 admin/config.php:69 admin/plugins.php:99
-#: admin/channels.php:99 admin/channels.php:99 admin/config.php:69
-#: admin/plugins.php:99
+#: admin/channels.php:99
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: intl/en.php:132 intl/en.php:133 admin/channels.php:92
 #: admin/channels.php:195 admin/folders.php:49 admin/channels.php:104
-#: admin/channels.php:207 admin/channels.php:104 admin/channels.php:207
-#: admin/folders.php:49
+#: admin/channels.php:207
 msgid "Move"
-msgstr ""
+msgstr "Áthelyez"
 
 #: intl/en.php:133 intl/en.php:134 admin/channels.php:95 admin/config.php:70
 #: admin/folders.php:52 admin/tags.php:141 admin/channels.php:107
-#: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
-#: admin/tags.php:141
 msgid "Action"
-msgstr ""
+msgstr "Művelet"
 
 #: intl/en.php:134 intl/en.php:135 admin/channels.php:89
-#: admin/channels.php:101 admin/channels.php:101
+#: admin/channels.php:101
 msgid "Flags"
-msgstr ""
+msgstr "Kapcsolók"
 
-#: intl/en.php:135 intl/en.php:136 admin/config.php:67 admin/config.php:67
+#: intl/en.php:135 intl/en.php:136 admin/config.php:67
+#, fuzzy
 msgid "Key"
-msgstr ""
+msgstr "Kulcs"
 
-#: intl/en.php:136 intl/en.php:137 admin/config.php:68 admin/config.php:68
+#: intl/en.php:136 intl/en.php:137 admin/config.php:68
 msgid "Value"
-msgstr ""
+msgstr "Érték"
 
-#: intl/en.php:137 intl/en.php:138 admin/channels.php:43 admin/channels.php:43
+#: intl/en.php:137 intl/en.php:138 admin/channels.php:43
 msgid "Add a feed:"
-msgstr ""
+msgstr "Feed hozzáadása:"
 
-#: intl/en.php:138 intl/en.php:139 admin/folders.php:38 admin/folders.php:38
+#: intl/en.php:138 intl/en.php:139 admin/folders.php:38
 msgid "Add a folder:"
-msgstr ""
+msgstr "Könyvtár létrehozása:"
 
 #: intl/en.php:139 intl/en.php:140 admin/channels.php:896
-#: admin/channels.php:908 admin/channels.php:908
+#: admin/channels.php:908
 msgid "Shown favicon:"
-msgstr ""
+msgstr "Mutassa a favicont:"
 
 #: intl/en.php:140 intl/en.php:141 admin/channels.php:903
-#: admin/channels.php:915 admin/channels.php:915
+#: admin/channels.php:915
 msgid "(Leave blank for no icon)"
-msgstr ""
+msgstr "(hagyd üresen, ha nincs ikon)"
 
 #: intl/en.php:142 intl/en.php:143 admin/config.php:442 admin/config.php:467
-#: admin/config.php:471 admin/config.php:485 admin/config.php:442
-#: admin/config.php:467 admin/config.php:471 admin/config.php:485
+#: admin/config.php:471 admin/config.php:485
 msgid "Value for"
 msgstr ""
 
-#: intl/en.php:144 intl/en.php:145 admin/plugins.php:96 admin/plugins.php:96
+#: intl/en.php:144 intl/en.php:145 admin/plugins.php:96
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
-#: intl/en.php:145 intl/en.php:146 admin/plugins.php:98 admin/plugins.php:98
+#: intl/en.php:145 intl/en.php:146 admin/plugins.php:98
 msgid "Author"
-msgstr ""
+msgstr "Szerző"
 
-#: intl/en.php:146 intl/en.php:147 admin/plugins.php:97 admin/plugins.php:97
+#: intl/en.php:146 intl/en.php:147 admin/plugins.php:97
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
-#: intl/en.php:148 intl/en.php:149 admin/plugins.php:95 admin/plugins.php:95
+#: intl/en.php:148 intl/en.php:149 admin/plugins.php:95
 msgid "Active"
-msgstr ""
+msgstr "Aktív"
 
-#: intl/en.php:149 intl/en.php:150 admin/plugins.php:100 admin/plugins.php:100
+#: intl/en.php:149 intl/en.php:150 admin/plugins.php:100
 msgid "Options"
-msgstr ""
+msgstr "Beállítások"
 
-#: intl/en.php:150 intl/en.php:151 admin/plugins.php:202 admin/plugins.php:202
+#: intl/en.php:150 intl/en.php:151 admin/plugins.php:202
 msgid "Plugin Options"
-msgstr ""
+msgstr "Plugin beállítások"
 
-#: intl/en.php:151 intl/en.php:152 admin/themes.php:152 admin/themes.php:152
+#: intl/en.php:151 intl/en.php:152 admin/themes.php:152
 msgid "Theme Options"
-msgstr ""
+msgstr "Téma beállítások"
 
 #: intl/en.php:154 intl/en.php:155 admin/channels.php:814
-#: admin/channels.php:826 admin/channels.php:826
+#: admin/channels.php:826
 msgid "Edit the feed "
-msgstr ""
+msgstr "Javítom ezt a feedet "
 
 #: intl/en.php:155 intl/en.php:156 admin/channels.php:827
-#: admin/channels.php:839 admin/channels.php:839
+#: admin/channels.php:839
 msgid "Title:"
-msgstr ""
+msgstr "Cím:"
 
 #: intl/en.php:156 intl/en.php:157 admin/channels.php:836
-#: admin/channels.php:848 admin/channels.php:848
+#: admin/channels.php:848
 msgid "RSS URL:"
-msgstr ""
+msgstr "RSS cím(url):"
 
 #: intl/en.php:157 intl/en.php:158 admin/channels.php:841
-#: admin/channels.php:853 admin/channels.php:853
+#: admin/channels.php:853
 msgid "Site URL:"
-msgstr ""
+msgstr "Oldal cím(url):"
 
 #: intl/en.php:158 intl/en.php:159 admin/channels.php:191
 #: admin/channels.php:846 admin/channels.php:203 admin/channels.php:858
-#: admin/channels.php:203 admin/channels.php:858
+#, fuzzy
 msgid "In folder:"
-msgstr ""
+msgstr "Mappa:"
 
 #: intl/en.php:159 intl/en.php:160 admin/channels.php:891
-#: admin/channels.php:903 admin/channels.php:903
+#: admin/channels.php:903
 msgid "Description:"
-msgstr ""
+msgstr "Leírás:"
 
-#: intl/en.php:160 intl/en.php:161 admin/folders.php:123 admin/folders.php:123
+#: intl/en.php:160 intl/en.php:161 admin/folders.php:123
 msgid "Folder name:"
-msgstr ""
+msgstr "Mappanév:"
 
 #: intl/en.php:161 intl/en.php:162 admin/channels.php:876
-#: admin/channels.php:888 admin/channels.php:888
+#: admin/channels.php:888
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr ""
+msgstr "Ez a feed <strong>privát<strong>, csak az admin(ok) számára látható."
 
 #: admin/channels.php:884 intl/en.php:162 intl/en.php:163
-#: admin/channels.php:896 admin/channels.php:896
+#: admin/channels.php:896
+#, fuzzy
 msgid ""
 "This feed is <strong>deprecated</strong>, it won't be updated anymore and "
 "won't be visible in the feeds column."
 msgstr ""
+"Ez a feed ﻿<strong>elavult</strong> (nem működik). Emiatt nem frissítem, s a "
+"listában se fog megjelenni."
 
 #: admin/channels.php:429 admin/folders.php:183 admin/tags.php:93
 #: intl/en.php:164 intl/en.php:165 admin/channels.php:441
-#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
 #, c-format, php-format
 msgid "Are you sure you wish to delete '%s'?"
-msgstr ""
+msgstr "Biztosan törlöd: ﻿'%s'?"
 
 #: admin/config.php:507 intl/en.php:165 intl/en.php:166 admin/config.php:517
-#: admin/config.php:517
 #, c-format, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
-msgstr ""
+msgstr "Biztosan törlöd ﻿%s értékét és visszaállítod az eredeti '%s' értékre?"
 
 #: intl/en.php:166 intl/en.php:167 admin/config.php:332 admin/config.php:337
-#: admin/config.php:474 admin/config.php:476 admin/config.php:332
-#: admin/config.php:337 admin/config.php:474 admin/config.php:476
+#: admin/config.php:474 admin/config.php:476
 msgid "True"
-msgstr ""
+msgstr "Igaz"
 
 #: intl/en.php:167 intl/en.php:168 admin/config.php:332 admin/config.php:480
-#: admin/config.php:482 admin/config.php:332 admin/config.php:480
 #: admin/config.php:482
 msgid "False"
-msgstr ""
+msgstr "Hamis"
 
 #: intl/en.php:168 intl/en.php:169 admin/channels.php:173 admin/folders.php:80
-#: admin/channels.php:185 admin/channels.php:185 admin/folders.php:80
+#: admin/channels.php:185
 msgid "&uarr;"
-msgstr ""
+msgstr "﻿&uarr;"
 
 #: intl/en.php:169 intl/en.php:170 admin/channels.php:175 admin/folders.php:84
-#: admin/channels.php:187 admin/channels.php:187 admin/folders.php:84
+#: admin/channels.php:187
 msgid "&darr;"
-msgstr ""
+msgstr "﻿&darr;"
 
-#: intl/en.php:170 intl/en.php:171 admin/channels.php:52 admin/channels.php:52
+#: intl/en.php:170 intl/en.php:171 admin/channels.php:52
 msgid ""
 "(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
 "subscribe to)"
 msgstr ""
+"(Vagy a weboldal, vagy az RSS címét add meg annak az oldalnak, aminek a "
+"feedjére fel szeretnél iratkozni)"
 
 #: intl/en.php:171 intl/en.php:172 admin/channels.php:329
-#: admin/channels.php:341 admin/channels.php:341
+#: admin/channels.php:341
 #, php-format
 msgid ""
 "The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
 "like to subscribe?"
 msgstr ""
+"﻿<a href=\"%s\">%s</a> oldalon az alábbi feedeket találtuk. Melyikre "
+"szeretnél feliratkozni?"
 
-#: intl/en.php:173 intl/en.php:174 admin/items.php:42 admin/items.php:42
+#: intl/en.php:173 intl/en.php:174 admin/items.php:42
 msgid "Delete items older than "
-msgstr ""
+msgstr "Törölj minden elemet, ami régebbi, mint "
 
 #: intl/en.php:174 intl/en.php:175 admin/items.php:45 admin/items.php:81
-#: admin/items.php:83 admin/items.php:45 admin/items.php:83
+#: admin/items.php:83
 msgid "days"
-msgstr ""
+msgstr "nap"
 
 #: intl/en.php:175 intl/en.php:176 admin/items.php:46 admin/items.php:85
-#: admin/items.php:87 admin/items.php:46 admin/items.php:87
+#: admin/items.php:87
 msgid "months"
-msgstr ""
+msgstr "hónap"
 
 #: intl/en.php:176 intl/en.php:177 admin/items.php:47 admin/items.php:89
-#: admin/items.php:91 admin/items.php:47 admin/items.php:91
+#: admin/items.php:91
 msgid "years"
-msgstr ""
+msgstr "év"
 
 #: intl/en.php:177 intl/en.php:178
+#, fuzzy
 msgid "Keep the most recent items: "
-msgstr ""
+msgstr "Legutóbbi bejegyzéseket tartsd meg: "
 
-#: intl/en.php:178 intl/en.php:179 admin/items.php:52 admin/items.php:52
+#: intl/en.php:178 intl/en.php:179 admin/items.php:52
 msgid "Delete Sticky items too: "
-msgstr ""
+msgstr "Ragadós elemeket is töröld: "
 
 #: intl/en.php:179 intl/en.php:180 admin/items.php:54 admin/items.php:56
-#: admin/items.php:56
 msgid "Do not delete items tagged... "
-msgstr ""
+msgstr "Ne töröld a következő tagekkel rendelkező bejegyzéseket... "
 
 #: intl/en.php:180 intl/en.php:181 admin/items.php:56 admin/items.php:58
-#: admin/items.php:58
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
-msgstr ""
+msgstr "(Írj <strong>*</strong>-ot minden taggelt elem megtartására)"
 
 #: intl/en.php:182 intl/en.php:183 admin/items.php:229 admin/items.php:235
-#: admin/items.php:235
 #, php-format
 msgid "Warning: you are about to delete %s items (of %s)"
-msgstr ""
+msgstr "Figyelem: %s Bejegyzést akarsz törölni ( %s db-ból)."
 
-#: intl/en.php:183 intl/en.php:184 admin/items.php:40 admin/items.php:40
+#: intl/en.php:183 intl/en.php:184 admin/items.php:40
 msgid "Pruning"
-msgstr ""
+msgstr "Tisztogatás"
 
 #: admin/folders.php:207 intl/en.php:184 intl/en.php:185 admin/index.php:228
-#: admin/index.php:228
 msgid "folders"
-msgstr ""
+msgstr "mappák"
 
-#: intl/en.php:185 intl/en.php:186 admin/index.php:223 admin/index.php:223
+#: intl/en.php:185 intl/en.php:186 admin/index.php:223
 msgid "feeds"
-msgstr ""
+msgstr "feedek"
 
-#: intl/en.php:187 intl/en.php:188 admin/index.php:225 admin/index.php:225
+#: intl/en.php:187 intl/en.php:188 admin/index.php:225
 msgid "config"
-msgstr ""
+msgstr "konfig"
 
-#: intl/en.php:188 intl/en.php:189 admin/index.php:229 admin/index.php:229
+#: intl/en.php:188 intl/en.php:189 admin/index.php:229
 msgid "opml"
-msgstr ""
+msgstr "opml"
 
-#: intl/en.php:189 intl/en.php:190 admin/channels.php:62 admin/channels.php:62
+#: intl/en.php:189 intl/en.php:190 admin/channels.php:62
+#, fuzzy
 msgid ""
 "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
 "\">?</a>]:"
 msgstr ""
+"Feliratkozó bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
+"\">?</a>]:"
 
-#: intl/en.php:190 intl/en.php:191 admin/channels.php:62 admin/channels.php:62
+#: intl/en.php:190 intl/en.php:191 admin/channels.php:62
 msgid "Subscribe in Gregarius!"
-msgstr ""
+msgstr "Gregariusba vele!"
 
 #: intl/en.php:193 intl/en.php:194
 msgid ""
 "<h1>Not Authorized!</h1>\n"
 "You are not authorized to access the administration interface.\n"
 msgstr ""
+"﻿<h1>Nem vagy azonosítva!﻿</h1>\n"
+"Nem vagy jogosult az adminisztrációs rész elérésére.\n"
 
 #: intl/en.php:194 intl/en.php:195
 msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-msgstr ""
+msgstr "Kattints ﻿<a href=\"%s\">ide</a> a főoldalra való visszatéréshez.\n"
 
 #: intl/en.php:195 intl/en.php:196
 msgid "Have  a nice day!"
-msgstr ""
+msgstr "Szép napot!"
 
 #: intl/en.php:205 intl/en.php:206 admin/index.php:230 admin/tags.php:135
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
 #: themes/default/mobile/item.php:15 themes/default/web/item.php:28
 #: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
-#: admin/index.php:230 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
-#: cls/taglist.php:69 tags.php:129 themes/default/mobile/item.php:15
-#: themes/default/web/item.php:28 themes/lilina/web/item.php:52
-#: themes/lilina/web/item.php:108
 msgid "Tags"
-msgstr ""
+msgstr "Tagek"
 
-#: intl/en.php:207 intl/en.php:208 ajax.php:213 ajax.php:224 ajax.php:213
-#: ajax.php:224
+#: intl/en.php:207 intl/en.php:208 ajax.php:213 ajax.php:224
 msgid "submit"
-msgstr ""
+msgstr "elküld"
 
-#: intl/en.php:208 intl/en.php:209 ajax.php:228 ajax.php:228
+#: intl/en.php:208 intl/en.php:209 ajax.php:228
 msgid "cancel"
-msgstr ""
+msgstr "mégse"
 
-#: intl/en.php:209 intl/en.php:210 ajax.php:215 ajax.php:215
+#: intl/en.php:209 intl/en.php:210 ajax.php:215
 msgid "..."
-msgstr ""
+msgstr "..."
 
-#: intl/en.php:210 intl/en.php:211 tags.php:168 tags.php:168
+#: intl/en.php:210 intl/en.php:211 tags.php:168
 #, php-format
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
-msgstr ""
+msgstr "Hoppá! ﻿&laquo;%s&raquo; taggel ellátott bejegyzést nem találtam."
 
-#: intl/en.php:211 intl/en.php:212 tags.php:178 tags.php:178
+#: intl/en.php:211 intl/en.php:212 tags.php:178
 msgid "All Tags"
-msgstr ""
+msgstr "Minden tag"
 
 #: intl/en.php:212 intl/en.php:213 intl/en.php:214 tags.php:117 tags.php:153
-#: tags.php:117 tags.php:153
 msgid "tagged"
-msgstr ""
+msgstr "taggelve"
 
 #: intl/en.php:214 intl/en.php:215 plugins/delicious.php:108
-#: plugins/delicious.php:108
 msgid "suggestions"
-msgstr ""
+msgstr "javaslatok"
 
 #: intl/en.php:215 intl/en.php:216 plugins/delicious.php:64
-#: plugins/delicious.php:64
 msgid "no suggestions"
-msgstr ""
+msgstr "nincs javaslat"
 
-#: intl/en.php:216 intl/en.php:217 tags.php:157 tags.php:157
+#: intl/en.php:216 intl/en.php:217 tags.php:157
 msgid "Related tags: "
-msgstr ""
+msgstr "kapcsolódó tagek: "
 
-#: intl/en.php:218 intl/en.php:219 util.php:869 util.php:873 util.php:873
+#: intl/en.php:218 intl/en.php:219 util.php:869 util.php:873
 msgid "Show items: "
-msgstr ""
+msgstr "Következő bejegyzések mutatása: "
 
-#: intl/en.php:219 intl/en.php:220 util.php:871 util.php:875 util.php:875
+#: intl/en.php:219 intl/en.php:220 util.php:871 util.php:875
 msgid "Unread only"
-msgstr ""
+msgstr "Csak olvasatlanok"
 
-#: intl/en.php:220 intl/en.php:221 util.php:872 util.php:876 util.php:876
+#: intl/en.php:220 intl/en.php:221 util.php:872 util.php:876
 msgid "Read and unread"
-msgstr ""
+msgstr "Olvasott és olvasatlan"
 
-#: intl/en.php:222 intl/en.php:223 ajax.php:517 ajax.php:517
+#: intl/en.php:222 intl/en.php:223 ajax.php:517
 msgid "Unread (Set this item\\'s read/unread state)"
-msgstr ""
+msgstr "Olvasatlan (Ennek az elemnek az olvasott/olvasatlan állapota)"
 
-#: intl/en.php:223 intl/en.php:224 ajax.php:521 ajax.php:521
+#: intl/en.php:223 intl/en.php:224 ajax.php:521
 msgid "Sticky (Won\\'t be deleted when you prune items)"
-msgstr ""
+msgstr "Ragadós (Nem törlődik tisztogatáskor)"
 
-#: intl/en.php:224 intl/en.php:225 ajax.php:525 ajax.php:525
+#: intl/en.php:224 intl/en.php:225 ajax.php:525
 msgid "Private (Only administrators can see private items)"
-msgstr ""
+msgstr "Privát (csak adminisztrátorok látják a privát elemeket)"
 
 #: intl/en.php:225 intl/en.php:226 plugins/stickyflag/stickyflag.php:92
-#: state.php:39 plugins/stickyflag/stickyflag.php:92 state.php:39
+#: state.php:39
 msgid "Sticky"
-msgstr ""
+msgstr "Ragadós"
 
 #: intl/en.php:226 intl/en.php:227 admin/channels.php:201
-#: admin/channels.php:213 admin/channels.php:213
+#: admin/channels.php:213
 msgid "Deprecated"
-msgstr ""
+msgstr "Elavult"
 
 #: intl/en.php:227 intl/en.php:228 admin/channels.php:204
-#: admin/channels.php:216 admin/channels.php:216
+#: admin/channels.php:216
 msgid "Private"
-msgstr ""
+msgstr "Privát"
 
 #: intl/en.php:228 intl/en.php:229 admin/channels.php:199
-#: admin/channels.php:211 admin/channels.php:211
+#: admin/channels.php:211
 msgid "State:"
-msgstr ""
+msgstr "Állapot:"
 
 #: intl/en.php:229 intl/en.php:230 admin/channels.php:206
-#: admin/channels.php:218 admin/channels.php:218
+#: admin/channels.php:218
 msgid "Set"
-msgstr ""
+msgstr "Beállít"
 
 #: admin/channels.php:212 admin/tags.php:166 intl/en.php:230 intl/en.php:231
-#: admin/channels.php:224 admin/channels.php:224 admin/tags.php:166
+#: admin/channels.php:224
 msgid "I'm sure!"
-msgstr ""
+msgstr "Biztos vagyok benne!"
 
 #: intl/en.php:234 intl/en.php:235 cls/wrappers/header.php:142
-#: cls/wrappers/header.php:142
 #, php-format
 msgid "Logged in as <strong>%s</strong>"
-msgstr ""
+msgstr "﻿<strong>%s</strong> néven belépve"
 
 #: intl/en.php:235 intl/en.php:236 cls/wrappers/header.php:145
-#: cls/wrappers/header.php:145
 msgid "Not logged in"
-msgstr ""
+msgstr "Nem vagy belépve"
 
 #: intl/en.php:237 intl/en.php:238 admin/users.php:102
-#: cls/wrappers/header.php:146 cls/wrappers/header.php:151 admin/users.php:102
 #: cls/wrappers/header.php:146 cls/wrappers/header.php:151
 msgid "Login"
-msgstr ""
+msgstr "Belépés"
 
-#: intl/en.php:239 intl/en.php:240 admin/opml.php:63 admin/opml.php:63
+#: intl/en.php:239 intl/en.php:240 admin/opml.php:63
 msgid "Import new feeds and:"
-msgstr ""
+msgstr "Új feedek importálása és"
 
-#: intl/en.php:240 intl/en.php:241 admin/opml.php:75 admin/opml.php:75
+#: intl/en.php:240 intl/en.php:241 admin/opml.php:75
 msgid "... replace all existing feeds and items."
-msgstr ""
+msgstr "...az összes eddigi feed és bejegyzés cseréje."
 
-#: intl/en.php:241 intl/en.php:242 admin/opml.php:70 admin/opml.php:70
+#: intl/en.php:241 intl/en.php:242 admin/opml.php:70
 msgid "... add them to the folder:"
-msgstr ""
+msgstr "...hozzáadása a következő mappához:"
 
-#: intl/en.php:242 intl/en.php:243 admin/opml.php:66 admin/opml.php:66
+#: intl/en.php:242 intl/en.php:243 admin/opml.php:66
 msgid "... merge them with the existing ones."
-msgstr ""
+msgstr "...összefésülése az eddigiekkel."
 
 #: intl/en.php:244 intl/en.php:245 admin/channels.php:281
 #: admin/channels.php:309 admin/channels.php:533 admin/channels.php:293
-#: admin/channels.php:321 admin/channels.php:545 admin/channels.php:293
 #: admin/channels.php:321 admin/channels.php:545
 #, php-format
 msgid "Adding %s to %s... "
-msgstr ""
+msgstr "%s hozzáadva %s "
 
 #: intl/en.php:246 intl/en.php:247 admin/channels.php:48 admin/channels.php:88
 #: admin/channels.php:852 cls/categories.php:60 cls/header.php:98
 #: cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
-#: admin/channels.php:100 admin/channels.php:864 admin/channels.php:48
-#: admin/channels.php:100 admin/channels.php:864 cls/categories.php:60
-#: cls/header.php:98 cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
+#: admin/channels.php:100 admin/channels.php:864
 msgid "Categories"
-msgstr ""
+msgstr "Kategóriák"
 
 #: intl/en.php:247 intl/en.php:248
 msgid "(%d items)"
-msgstr ""
+msgstr "(%d bejegyzés)"
 
 #: intl/en.php:248 intl/en.php:249
+#, fuzzy
 msgid "(%d unread in %d feeds)"
-msgstr ""
+msgstr "﻿%d olvasatlan; %d feed)"
 
-#: intl/en.php:249 intl/en.php:250 cls/categories.php:87 cls/categories.php:87
+#: intl/en.php:249 intl/en.php:250 cls/categories.php:87
 #, php-format
 msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
-msgstr ""
+msgstr "﻿<strong>%d</strong> feed összesen ﻿<strong>%d</strong> kategóriában"
 
 #: intl/en.php:251 intl/en.php:252 themes/default/web/item.php:18
 #: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
-#: themes/default/web/item.php:18 themes/lilina/web/item.php:42
-#: themes/lilina/web/item.php:98
 msgid "Rating:"
-msgstr ""
+msgstr "Értékelés:"
 
 #: intl/en.php:255 intl/en.php:256 themes/default/mobile/item.php:12
-#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
 #: themes/lilina/web/item.php:104
 msgid "Enclosure:"
@@ -815,115 +757,110 @@ msgstr ""
 
 #: intl/en.php:256 intl/en.php:257 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:12
-#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
 #: themes/lilina/web/item.php:104
 msgid "download"
-msgstr ""
+msgstr "letöltés"
 
 #: intl/en.php:257 intl/en.php:258 plugins/encplayer.php:46
 #: plugins/encplayeralt.php:44 plugins/encplayeralt.php:45
-#: plugins/encplayer.php:46 plugins/encplayeralt.php:45
 msgid "play"
-msgstr ""
+msgstr "lejátszás"
 
 #: intl/en.php:259 intl/en.php:260 intl/en.php:261 intl/en.php:262
-#: feed.php:1359 feed.php:1375 feed.php:1392 index.php:226 feed.php:1359
-#: feed.php:1375 feed.php:1392 index.php:226
+#: feed.php:1359 feed.php:1375 feed.php:1392 index.php:226
 msgid "Mark These Items as Read"
-msgstr ""
+msgstr "Ezeket a bejegyzéseket olvasottá jelölöm"
 
 #: intl/en.php:263 intl/en.php:264 plugins/markallread.php:86
-#: plugins/markallread.php:98 plugins/markallread.php:86
 #: plugins/markallread.php:98
 msgid "Mark This Feed as Read"
-msgstr ""
+msgstr "Ezt a feedet olvasottá jelölöm"
 
 #: intl/en.php:264 intl/en.php:265 plugins/markallread.php:75
-#: plugins/markallread.php:104 plugins/markallread.php:75
 #: plugins/markallread.php:104
 msgid "Mark This Folder as Read"
-msgstr ""
+msgstr "﻿Ezt a mappát olvasottá jelölöm"
 
 #: intl/en.php:265 intl/en.php:266 plugins/markallread.php:64
-#: plugins/markallread.php:110 plugins/markallread.php:64
 #: plugins/markallread.php:110
 msgid "Mark This Category as Read"
-msgstr ""
+msgstr "﻿Ezt a kategóriát olvasottá jelölöm"
 
 #: intl/en.php:268 intl/en.php:269 admin/channels.php:824
-#: cls/wrappers/header.php:134 admin/channels.php:836 admin/channels.php:836
-#: cls/wrappers/header.php:134
+#: cls/wrappers/header.php:134 admin/channels.php:836
 msgid "Never"
-msgstr ""
+msgstr "Soha"
 
-#: intl/en.php:269 intl/en.php:270 admin/index.php:222 admin/index.php:222
+#: intl/en.php:269 intl/en.php:270 admin/index.php:222
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
-#: intl/en.php:271 intl/en.php:272 admin/users.php:69 admin/users.php:69
+#: intl/en.php:271 intl/en.php:272 admin/users.php:69
 msgid ""
 "<p>No Administrator has been specified yet!</p><p>Please provide an "
 "Administrator username and password now!</p>"
 msgstr ""
+"﻿<p>Nem jelöltél ki adminisztrátort!﻿</p>﻿<p>﻿Kérlek adj meg egy "
+"felhasználónevet és jelszót</p>"
 
 #: intl/en.php:272 intl/en.php:273 admin/users.php:73 admin/users.php:98
-#: admin/users.php:73 admin/users.php:98
 msgid "Username"
-msgstr ""
+msgstr "Név"
 
 #: intl/en.php:273 intl/en.php:274 admin/users.php:75 admin/users.php:100
-#: admin/users.php:75 admin/users.php:100
 msgid "Password"
-msgstr ""
+msgstr "Jelszó"
 
-#: intl/en.php:274 intl/en.php:275 admin/users.php:77 admin/users.php:77
+#: intl/en.php:274 intl/en.php:275 admin/users.php:77
 msgid "Password (again)"
-msgstr ""
+msgstr "Jelszó (újra)"
 
-#: intl/en.php:275 intl/en.php:276 admin/users.php:97 admin/users.php:97
+#: intl/en.php:275 intl/en.php:276 admin/users.php:97
 msgid "Please log in"
-msgstr ""
+msgstr "Kérlek lépj be"
 
-#: intl/en.php:276 intl/en.php:277 admin/users.php:53 admin/users.php:53
+#: intl/en.php:276 intl/en.php:277 admin/users.php:53
 msgid "Passwords do not match!"
-msgstr ""
+msgstr "Nem egyezik a jelszó!"
 
-#: intl/en.php:278 intl/en.php:279 admin/plugins.php:86 admin/plugins.php:86
+#: intl/en.php:278 intl/en.php:279 admin/plugins.php:86
 msgid "Plugins"
-msgstr ""
+msgstr "Pluginek"
 
-#: intl/en.php:279 intl/en.php:280 admin/index.php:226 admin/index.php:226
+#: intl/en.php:279 intl/en.php:280 admin/index.php:226
 msgid "plugins"
-msgstr ""
+msgstr "pluginek"
 
-#: intl/en.php:280 intl/en.php:281 admin/plugins.php:102 admin/plugins.php:102
+#: intl/en.php:280 intl/en.php:281 admin/plugins.php:102
 msgid "Update Available"
-msgstr ""
+msgstr "Frissítés elérhető"
 
 #: intl/en.php:281 intl/en.php:282 admin/plugins.php:171 admin/themes.php:50
-#: admin/plugins.php:171 admin/themes.php:50
 msgid "Check for Updates"
-msgstr ""
+msgstr "Frissítések keresése"
 
 #: intl/en.php:282 intl/en.php:283
 msgid "<strong>Oops!</strong> Bad login/password"
-msgstr ""
+msgstr "﻿<strong>Hoppá!</strong> Hibás név, vagy jelszó"
 
 #: intl/en.php:283 intl/en.php:284
+#, fuzzy
 msgid ""
 "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t "
 "have administration privileges. Log in again with administration privileges "
 "or follow your way <a href=\"..\">home</a>"
 msgstr ""
+"﻿<strong>Hoppá!</strong> Sikeresen beléptél %s néven, de nincs adminisztrátor "
+"jogod. Lépj be újra adminisztrátorként, vagy kattints a  <a href=\".."
+"\">home</a> gombra!"
 
-#: intl/en.php:285 intl/en.php:286 admin/themes.php:92 admin/themes.php:92
+#: intl/en.php:285 intl/en.php:286 admin/themes.php:92
 msgid "Active Theme"
-msgstr ""
+msgstr "Aktív téma"
 
-#: intl/en.php:286 intl/en.php:287 admin/themes.php:90 admin/themes.php:90
+#: intl/en.php:286 intl/en.php:287 admin/themes.php:90
 msgid "Use this Theme"
-msgstr ""
+msgstr "Ezt a témát használom"
 
 #: intl/en.php:288 intl/en.php:289
 msgid ""
@@ -932,50 +869,58 @@ msgid ""
 "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"﻿<p style=\"font-size:small\">Pluginek külsős készítők által írott scriptek, "
+"amik extra funkciókkal bővítik a programot. A ﻿<a style=\"text-decoration:"
+"underline\" href=\"http://plugins.gregarius.net/\">Plugin Gyüjtőhelyről</a> "
+"további plugineket tölthetsz le.﻿</p>"
 
 #: intl/en.php:290 intl/en.php:291
 msgid "Last update"
-msgstr ""
+msgstr "Utolsó frissítés"
 
-#: intl/en.php:291 intl/en.php:292 admin/index.php:227 admin/index.php:227
+#: intl/en.php:291 intl/en.php:292 admin/index.php:227
 msgid "themes"
-msgstr ""
+msgstr "témák"
 
-#: intl/en.php:292 intl/en.php:293 admin/themes.php:56 admin/themes.php:56
+#: intl/en.php:292 intl/en.php:293 admin/themes.php:56
 msgid "Themes"
-msgstr ""
+msgstr "Témák"
 
-#: intl/en.php:294 intl/en.php:295 admin/themes.php:58 admin/themes.php:58
+#: intl/en.php:294 intl/en.php:295 admin/themes.php:58
 msgid ""
 "<p style=\"font-size:small\">Themes are made of a set of template files "
 "which specify how your Gregarius installation looks.<br />More themes can be "
 "downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
 "themes.gregarius.net/\">Themes Repository</a>.</p>"
 msgstr ""
+"﻿<p style=\"font-size:small\">A témák template fájlokból készülnek, melyek a "
+"Gregariusod működéséért felelősek.<br />További témák letölthetőek a <a "
+"style=\"text-decoration:underline\" href=\"http://themes.gregarius.net/"
+"\">themes.gregarius.net</a> oldalról.</p>"
 
-#: intl/en.php:296 intl/en.php:297 ajax.php:529 ajax.php:529
+#: intl/en.php:296 intl/en.php:297 ajax.php:529
 msgid "Flag (Flags an item for later reading)"
-msgstr ""
+msgstr "Megjelölés (Megjelöl egy bejegyzést késöbbi olvasásra)"
 
 #: intl/en.php:297 intl/en.php:298 plugins/stickyflag/stickyflag.php:100
-#: state.php:36 plugins/stickyflag/stickyflag.php:100 state.php:36
+#: state.php:36
 msgid "Flagged"
-msgstr ""
+msgstr "Megjelölve"
 
-#: search.php:42 search.php:43 search.php:43
+#: search.php:42 search.php:43
 #, php-format
 msgid "%d matches for %s"
-msgstr ""
+msgstr "%d találat a(z) %s kifejezésre"
 
-#: search.php:42 search.php:43 search.php:43
+#: search.php:42 search.php:43
 #, php-format
 msgid "%d match for %s"
-msgstr ""
+msgstr "﻿%d találat a(z) %s kifejezésre"
 
-#: search.php:50 search.php:51 search.php:51
+#: search.php:50 search.php:51
 #, php-format
 msgid "Search %d items"
-msgstr ""
+msgstr "%d elem keresése"
 
 #: search.php:51 themes/3panes/searchform.php:5
 #: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
@@ -983,135 +928,99 @@ msgstr ""
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39 search.php:52 search.php:52
-#: themes/3panes/searchform.php:5 themes/3panes/searchform.php:25
-#: themes/default/mobile/searchform.php:5
-#: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
-#: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
-#: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
-#: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39
+#: themes/planet/searchform.php:39 search.php:52
 msgid "Search"
-msgstr ""
+msgstr "Keresés"
 
-#: tags.php:81 tags.php:118 tags.php:117 tags.php:81 tags.php:117
+#: tags.php:81 tags.php:118 tags.php:117
 msgid "and"
-msgstr ""
+msgstr "és"
 
-#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
-#: themes/milsi/footer.php:4 themes/planet/footer.php:5
 #: themes/3panes/footer.php:5 themes/default/web/footer.php:6
 #: themes/milsi/footer.php:4 themes/planet/footer.php:5
 msgid " powered by "
-msgstr ""
+msgstr " powered by "
 
-#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
-#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
-#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
 #: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
 #: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
 #: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
 msgid "Search terms:"
-msgstr ""
+msgstr "Keresendő kifejezések:"
 
-#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
-#: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
-#: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 #: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 msgid "Some terms (OR)"
-msgstr ""
+msgstr "Néhány elem (VAGY)"
 
-#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
-#: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
-#: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 #: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 msgid "All terms (AND)"
-msgstr ""
+msgstr "Minden elem (ÉS)"
 
-#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
-#: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
-#: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 #: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 msgid "Exact match"
-msgstr ""
+msgstr "Pontos egyezés"
 
-#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
-#: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
-#: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 #: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 msgid "Feed:"
-msgstr ""
+msgstr "Feed:"
 
-#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
-#: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
-#: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 #: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 msgid "Order by date, feed"
-msgstr ""
+msgstr "dátum, feed szerinti rendezés"
 
-#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
-#: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
-#: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 #: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 msgid "Order by feed, date"
-msgstr ""
+msgstr "feed, dátum szerinti rendezés"
 
-#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
-#: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
-#: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 #: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 msgid "Results per page:"
-msgstr ""
+msgstr "Oldalankénti találatok száma:"
 
 #: admin/channels.php:379 admin/channels.php:383 admin/channels.php:617
 #: admin/channels.php:391 admin/channels.php:395 admin/channels.php:629
-#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:629
 #, c-format, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
-msgstr ""
+msgstr "Sajnálom, de azt hiszem nem tudom kezelni a következő címet: ﻿'%s﻿'"
 
-#: admin/folders.php:164 admin/folders.php:164
+#: admin/folders.php:164
 msgid "You can't delete the Root folder"
-msgstr ""
+msgstr "Nem törölheted a gyökérkönyvtárat"
 
-#: admin/folders.php:204 admin/tags.php:113 admin/folders.php:204
-#: admin/tags.php:113
+#: admin/folders.php:204 admin/tags.php:113
 #, c-format, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
-msgstr ""
+msgstr "Nem tudod átnevezni ﻿'%s' névre, mert az már létezik."
 
-#: admin/folders.php:281 admin/folders.php:281
+#: admin/folders.php:281
 #, c-format, php-format
 msgid "Looks like you already have a folder called '%s'!"
-msgstr ""
+msgstr "Úgy tűnik, már van ﻿'%s' nevű könyvárad!"
 
 #: admin/channels.php:820 admin/channels.php:823 admin/channels.php:832
-#: admin/channels.php:835 admin/channels.php:832 admin/channels.php:835
+#: admin/channels.php:835
 msgid "Added"
-msgstr ""
+msgstr "Hozzáadva"
 
 #: admin/channels.php:821 admin/channels.php:824
 #: themes/default/web/footer.php:17 admin/channels.php:833
-#: admin/channels.php:836 admin/channels.php:833 admin/channels.php:836
-#: themes/default/web/footer.php:17
+#: admin/channels.php:836
 msgid "Last Update"
-msgstr ""
+msgstr "Utolsó frissítés"
 
-#: admin/index.php:202 admin/index.php:202
+#: admin/index.php:202
 #, php-format
 msgid ""
 "<h1>Not Authorized!</h1>\n"
@@ -1119,85 +1028,100 @@ msgid ""
 "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 "Have  a nice day!"
 msgstr ""
+"﻿<h1>Nem igazoltad Magad!</h1>\n"
+"Amíg nem igazolod Magad, addig nem vagy jogosult az adminisztrációs felület "
+"használatához.\n"
+"Kérlek kövesd <a href=\"%s\">ezt a linket</a> vissza a főoldalra.\n"
+"További szép napot!"
 
-#: admin/items.php:49 admin/items.php:49
+#: admin/items.php:49
+#, fuzzy
 msgid "...from these feeds"
-msgstr ""
+msgstr "...ezekből a feedekből"
 
-#: admin/items.php:94 admin/items.php:96 admin/items.php:96
+#: admin/items.php:94 admin/items.php:96
 msgid "Invalid pruning period"
-msgstr ""
+msgstr "Érvénytelen tisztogatási periódus"
 
-#: admin/items.php:242 admin/items.php:248 admin/items.php:248
+#: admin/items.php:242 admin/items.php:248
 msgid "oops, no period specified"
-msgstr ""
+msgstr "Hoppá, nem adtál meg periódust"
 
-#: admin/opml.php:120 admin/opml.php:120
+#: admin/opml.php:120
 msgid "XML Dump:"
-msgstr ""
+msgstr "XML mentés:"
 
-#: admin/opml.php:122 admin/opml.php:122
+#: admin/opml.php:122
+#, fuzzy
 msgid "Dump your Gregarius installation to XML"
-msgstr ""
+msgstr "Mentsd el a Gregariusodat XML fileba"
 
-#: admin/opml.php:123 admin/opml.php:123
+#: admin/opml.php:123
 msgid "Dump!"
-msgstr ""
+msgstr "Mentés!"
 
-#: admin/plugins.php:90 admin/plugins.php:90
+#: admin/plugins.php:90
 msgid ""
 "<p style=\"font-size:small\">Plugins are third-party scripts that offer "
 "extended functionalities. More plugins can be downloaded at the <a style="
 "\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"﻿<p style=\"font-size:small\">Pluginek külső scriptek, melyek extra "
+"funkciókat biztosítanak. További pluginek letölthetők a <a style=\"text-"
+"decoration:underline\" href=\"http://plugins.gregarius.net/\">﻿plugins."
+"gregarius.net</a> oldalról.</p>"
 
-#: ajax.php:81 index.php:209 ajax.php:81 index.php:209
+#: ajax.php:81 index.php:209
 msgid "Recent items"
-msgstr ""
+msgstr "Legutóbbi bejegyzések"
 
-#: cls/channels.php:194 cls/channels.php:194
+#: cls/channels.php:194
 #, php-format
 msgid ""
 "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
 "<strong>%d</strong> feeds"
 msgstr ""
+"﻿<strong>%d</strong> bejegyzés (<strong id=\"fucnt\">%d</strong> olvasatlan), "
+"<strong>%d</strong> feed"
 
-#: index.php:143 index.php:143
+#: index.php:143
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
-msgstr ""
+msgstr "Olvasatlan bejegyzések ﻿(<strong id=\"ucnt\">%d</strong>)"
 
-#: admin/index.php:339 admin/index.php:339
+#: admin/index.php:339
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
-#: admin/config.php:190 admin/config.php:190
+#: admin/config.php:190
+#, fuzzy
 msgid "Invalid config key specified."
-msgstr ""
+msgstr "Érvénytelen konfigurációs kulcsot adtál meg."
 
-#: admin/config.php:368 admin/config.php:368
+#: admin/config.php:368
+#, fuzzy
 msgid "Ooops, unknown config type: "
-msgstr ""
+msgstr "Hoppá, ismeretlen konfigurációs típus: "
 
-#: admin/tags.php:162 admin/tags.php:162
+#: admin/tags.php:162
 msgid "Selected"
-msgstr ""
+msgstr "Kiválasztva"
 
-#: update.php:32 update.php:32
+#: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr ""
+msgstr "Sajnálom, de jelenleg a webről való frissítés nem engedélyezett."
 
-#: admin/channels.php:69 admin/channels.php:69
+#: admin/channels.php:69
 msgid ""
 "Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
 "feeds/feed-handling.html\">?</a>]:"
 msgstr ""
 
-#: admin/channels.php:71 admin/channels.php:71
+#: admin/channels.php:71
 msgid "Register Gregarius!"
 msgstr ""
 
-#: admin/items.php:54 admin/items.php:54
+#: admin/items.php:54
 msgid "Delete Unread items too: "
 msgstr ""

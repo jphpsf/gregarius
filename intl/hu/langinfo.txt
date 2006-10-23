@@ -1,0 +1,6 @@
+Language: Hungarian
+Locale: hu
+Windows-locale: hu
+Author: kobak - http://kobak.org
+
+
