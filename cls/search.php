@@ -42,6 +42,8 @@ define ('QUERY_MATCH_OR','or');
 define ('QUERY_MATCH_AND','and');
 define ('QUERY_MATCH_EXACT','exact');
 
+// This is needed for some constants
+rss_require('cls/wrappers/toolkit.php');
 
 class SearchItemList extends ItemList {
 
@@ -50,15 +52,34 @@ class SearchItemList extends ItemList {
     var $regMatch = "";
 
     var $currentPage;
-    var $resultsPerPage;
+    var $resultsPerPage = 0;
     var $startItem;
     var $endItem;
     var $orderBy;
     var $query = "";
     var $logicSep;
 
-    function SearchItemList() {
+    function SearchItemList($query=null,$results=0) {
         parent::ItemList();
+		if ($query) {
+			$this -> query=$query;
+		} elseif(isset($_REQUEST[QUERY_PRM])) {
+			$this->query = $_REQUEST[QUERY_PRM];
+		}else{
+			$this -> query = null;
+		}
+		
+		
+		// Sanitize the query parameters:
+		// fixme: this probably breaks on queries with weird characters, depending
+		// on the locale. 
+		// see: http://php.benscom.com/manual/en/reference.pcre.pattern.syntax.php
+		if ($this -> query) {
+      		$this -> query = trim(preg_replace('#[^\w\s\x80-\xff]#','',$this -> query));
+		}
+		
+		$this->resultsPerPage = (int) $results;
+		
         $this -> populate();
 
         $this->humanReadableQuery = implode(" ".strtoupper($this->logicSep)." ", $this->searchTerms);
@@ -100,14 +121,6 @@ class SearchItemList extends ItemList {
     }
 
     function populate() {
-        if (!isset($_REQUEST[QUERY_PRM])) {
-            return;
-        }
-
-				// fixme: this probably breaks on queries with weird characters, depending
-				// on the locale. 
-				// see: http://php.benscom.com/manual/en/reference.pcre.pattern.syntax.php
-        $this->query = trim(preg_replace('#[^\w\s\x80-\xff]#','',$_REQUEST[QUERY_PRM]));
         
         if (!$this->query) {
             return;
@@ -121,10 +134,12 @@ class SearchItemList extends ItemList {
         	((array_key_exists(QUERY_CHANNEL, $_REQUEST)) ? $_REQUEST[QUERY_CHANNEL] : ALL_CHANNELS_ID),
         	RSS_SANITIZER_NUMERIC);
 
-        $this->resultsPerPage = sanitize(
-        	((array_key_exists(QUERY_RESULTS, $_REQUEST)) ? $_REQUEST[QUERY_RESULTS] : INFINE_RESULTS),
-        	RSS_SANITIZER_NUMERIC);
-        
+		if (!$this->resultsPerPage) {
+        	$this->resultsPerPage = sanitize(
+        		((array_key_exists(QUERY_RESULTS, $_REQUEST)) ? $_REQUEST[QUERY_RESULTS] : INFINE_RESULTS),
+        		RSS_SANITIZER_NUMERIC);
+        }
+
         $this->currentPage = sanitize(
         	(array_key_exists(QUERY_CURRENT_PAGE, $_REQUEST) ? $_REQUEST[QUERY_CURRENT_PAGE] : 0),
         	RSS_SANITIZER_NUMERIC);

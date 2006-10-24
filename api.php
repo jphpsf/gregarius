@@ -48,7 +48,20 @@ if (isset($_REQUEST['method'])) {
 
         blGetItems($cid,$date,$markread);
         break;
+	case 'search':
+		rss_require('extlib/JSON.php');
+		$json = new Services_JSON();
+		$query = sanitize(@$_REQUEST['q'], RSS_SANITIZER_WORDS);
+		if ($query) {
+			$res = osSearch($query);
+		} else {
+			$res = array($query,array());
+		}
+		header('Content-Type: application/json');
+		die ($json->encode($res));
+		break;
     }
+
 }
 
 
@@ -193,5 +206,17 @@ function blGetItems($cid,$date,$markread) {
         rss_invalidate_cache();
     }
 
+}
+
+function osSearch($q) {
+	rss_require('cls/search.php');
+	$sil = new SearchItemList($q,5);
+	$results = array();
+	foreach($sil -> feeds as $feed) {
+		foreach($feed -> items as $item) {
+			$results[] = $item -> title;
+		}
+	}
+	return array($q,$results);
 }
 ?>
