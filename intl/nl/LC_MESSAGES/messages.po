@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-16 09:14+0200\n"
+"POT-Creation-Date: 2006-10-30 16:21+0100\n"
 "PO-Revision-Date: 2006-10-14 19:36+0000\n"
 "Last-Translator: Albert <adeklein@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -91,7 +91,7 @@ msgstr "<span>Z</span>oeken"
 msgid "A<span>d</span>min"
 msgstr "<span>B</span>eheer"
 
-#: cls/search.php:214 cls/search.php:213
+#: cls/search.php:214 cls/search.php:213 cls/search.php:228
 msgid "Results: "
 msgstr "Resultaten: "
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-16 09:14+0200\n"
+"POT-Creation-Date: 2006-10-30 16:21+0100\n"
 "PO-Revision-Date: 2006-09-30 04:46+0000\n"
 "Last-Translator: Aryo <aryo.sanjaya@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -91,7 +91,7 @@ msgstr "<span>C</span>ari"
 msgid "A<span>d</span>min"
 msgstr "A<span>d</span>min"
 
-#: cls/search.php:214 cls/search.php:213
+#: cls/search.php:214 cls/search.php:213 cls/search.php:228
 msgid "Results: "
 msgstr "Hasil: "
 

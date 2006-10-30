@@ -17,7 +17,7 @@ POXFILE=messages.pox
 for PO in $POS; do
 	echo "Updating $PO/$POFILE"
 	touch $PO/$POFILE
-	msgmerge -v --update $PO/$POFILE $POT
+	msgmerge -N -v --update $PO/$POFILE $POT
 	echo "Building $PO/$MOFILE"	
 	msgfmt -o $PO/$MOFILE $PO/$POFILE
 	echo 

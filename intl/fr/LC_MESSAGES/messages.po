@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-16 09:14+0200\n"
-"PO-Revision-Date: 2006-09-18 08:41+0000\n"
-"Last-Translator: mbi <mbonetti@gmail.com>\n"
+"POT-Creation-Date: 2006-10-30 16:21+0100\n"
+"PO-Revision-Date: 2006-10-27 21:50+0000\n"
+"Last-Translator: Antoine Martin <toine@antonus.org>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -23,7 +23,7 @@ msgstr "Racine"
 #: admin/channels.php:531 update.php:59 admin/channels.php:545 update.php:61
 #: admin/channels.php:557
 msgid "Updating"
-msgstr "Mise à jour"
+msgstr "Mise à jour en cours"
 
 #: admin/channels.php:766 admin/channels.php:771 admin/channels.php:837
 #: admin/channels.php:842 admin/channels.php:849 admin/channels.php:854
@@ -56,7 +56,7 @@ msgstr "<strong id=\"%s\" style=\"%s\">(%d non lus)</strong>"
 #: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
 msgid "Feeds"
-msgstr "Canaux"
+msgstr "Fils"
 
 #: cls/channels.php:194 themes/milsi/feeds.php:4
 #, php-format
@@ -87,9 +87,9 @@ msgstr "<span>R</span>echerche"
 msgid "A<span>d</span>min"
 msgstr "A<span>d</span>ministration"
 
-#: cls/search.php:214 cls/search.php:213
+#: cls/search.php:214 cls/search.php:213 cls/search.php:228
 msgid "Results: "
-msgstr "Résultats: "
+msgstr "Résultats : "
 
 #: cls/taglist.php:86
 #, php-format
@@ -647,11 +647,11 @@ msgstr "Lus et non lus"
 
 #: intl/en.php:222 intl/en.php:223 ajax.php:517
 msgid "Unread (Set this item\\'s read/unread state)"
-msgstr "Non lu (Spécifie l'état lu/non lu de cet élément)"
+msgstr "Non lu (Spécifie l\\'état lu/non lu de cet élément)"
 
 #: intl/en.php:223 intl/en.php:224 ajax.php:521
 msgid "Sticky (Won\\'t be deleted when you prune items)"
-msgstr "Persistant (L'élément ne sera pas effacé)"
+msgstr "Persistant (L\\'élément ne sera pas effacé)"
 
 #: intl/en.php:224 intl/en.php:225 ajax.php:525
 msgid "Private (Only administrators can see private items)"
@@ -1121,14 +1121,12 @@ msgid ""
 msgstr ""
 
 #: admin/channels.php:71
-#, fuzzy
 msgid "Register Gregarius!"
-msgstr "Ajouter &agrave; Gregarius!"
+msgstr ""
 
 #: admin/items.php:54
-#, fuzzy
 msgid "Delete Unread items too: "
-msgstr "Effacer les &eacute;l&eacute;ments Persistants aussi: "
+msgstr ""
 
 #, fuzzy
 #~ msgid "tag"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-23 09:38+0200\n"
+"POT-Creation-Date: 2006-10-30 16:21+0100\n"
 "PO-Revision-Date: 2006-10-23 05:28+0000\n"
 "Last-Translator: mbi <mbonetti@gmail.com>\n"
 "Language-Team:\n"
@@ -87,7 +87,7 @@ msgstr "<span>S</span>uchen"
 msgid "A<span>d</span>min"
 msgstr "A<span>d</span>min"
 
-#: cls/search.php:214 cls/search.php:213
+#: cls/search.php:214 cls/search.php:213 cls/search.php:228
 msgid "Results: "
 msgstr "Resultate: "
 

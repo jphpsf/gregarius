@@ -4,10 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-16 09:14+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2006-10-30 16:21+0100\n"
+"PO-Revision-Date: 2006-10-25 08:24+0000\n"
+"Last-Translator: Tiago Dias Bugarin <tiagobugarin@gmail.com>\n"
+"Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,7 +59,7 @@ msgid "Feeds"
 msgstr "Feeds"
 
 #: cls/channels.php:194 themes/milsi/feeds.php:4
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
 "strong> feeds"
@@ -87,7 +87,7 @@ msgstr "<span>B</span>usca"
 msgid "A<span>d</span>min"
 msgstr "A<span>d</span>min"
 
-#: cls/search.php:214 cls/search.php:213
+#: cls/search.php:214 cls/search.php:213 cls/search.php:228
 msgid "Results: "
 msgstr "Resultados: "
 
@@ -160,7 +160,6 @@ msgid "All"
 msgstr "All"
 
 #: index.php:143
-#, fuzzy
 msgid "Unread items (<span id=\"ucnt\">%d</span>)"
 msgstr "&Iacute;tens n&atilde;o lidos(<strong id=\"ucnt\">%d</strong>)"
 
@@ -577,14 +576,18 @@ msgid ""
 "<h1>Not Authorized!</h1>\n"
 "You are not authorized to access the administration interface.\n"
 msgstr ""
+"<h1>Não autorizado!</h1>\n"
+"Voçê não tem autorização para acessar a interface de administração\n"
 
 #: intl/en.php:194 intl/en.php:195
 msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 msgstr ""
+"Por favor siga <a href=\"%s\">este link</a> para voltar para a página "
+"inicial\n"
 
 #: intl/en.php:195 intl/en.php:196
 msgid "Have  a nice day!"
-msgstr ""
+msgstr "Tenha um bom dia!"
 
 #: intl/en.php:205 intl/en.php:206 admin/index.php:230 admin/tags.php:135
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
@@ -643,13 +646,11 @@ msgid "Read and unread"
 msgstr "Lidos e n&atilde;o lidos"
 
 #: intl/en.php:222 intl/en.php:223 ajax.php:517
-#, fuzzy
 msgid "Unread (Set this item\\'s read/unread state)"
 msgstr ""
 "N&atilde;o lido (Altere o estado deste &iacute;tem para lido/n&atilde;o lido)"
 
 #: intl/en.php:223 intl/en.php:224 ajax.php:521
-#, fuzzy
 msgid "Sticky (Won\\'t be deleted when you prune items)"
 msgstr "Pregado (N&atilde;o excluir quando limpando &iacute;tens)"
 
@@ -800,6 +801,8 @@ msgid ""
 "<p>No Administrator has been specified yet!</p><p>Please provide an "
 "Administrator username and password now!</p>"
 msgstr ""
+"<p>Nenhum adiministrador foi especificado ainda!</p><p>Por favor forneça um "
+"usuário e senha de Administrador agora!</p>"
 
 #: intl/en.php:272 intl/en.php:273 admin/users.php:73 admin/users.php:98
 msgid "Username"
@@ -831,7 +834,7 @@ msgstr "plugins"
 
 #: intl/en.php:280 intl/en.php:281 admin/plugins.php:102
 msgid "Update Available"
-msgstr ""
+msgstr "Atualização Disponível"
 
 #: intl/en.php:281 intl/en.php:282 admin/plugins.php:171 admin/themes.php:50
 msgid "Check for Updates"
@@ -847,6 +850,9 @@ msgid ""
 "have administration privileges. Log in again with administration privileges "
 "or follow your way <a href=\"..\">home</a>"
 msgstr ""
+"<strong>Oops!</strong> Você autenticou com sucesso coo %s, mas você não tem "
+"privilégios administrativos. Autentique-se novamente com privilégios "
+"administrativos ou siga seu caminho para <a href=\"..\">casa</a>"
 
 #: intl/en.php:285 intl/en.php:286 admin/themes.php:92
 msgid "Active Theme"
@@ -863,11 +869,14 @@ msgid ""
 "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Plugins são roteiros de terceiros que oferecem "
+"funcionalidades extendidas. Mais plugins podem ser obtitidos no<a style="
+"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
+"\">Repositório de Plugin</a>.</p>"
 
 #: intl/en.php:290 intl/en.php:291
-#, fuzzy
 msgid "Last update"
-msgstr "&Uacute;ltima atualiza&ccedil;&atilde;o"
+msgstr "Última atualização"
 
 #: intl/en.php:291 intl/en.php:292 admin/index.php:227
 msgid "themes"
@@ -884,6 +893,10 @@ msgid ""
 "downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
 "themes.gregarius.net/\">Themes Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Temas são compostos por um conjunto de arquivos "
+"de modelo que especificam como sua instalação do Gregarius será exibida.<br /"
+">Mais temas podem ser obtidos a partir do<a style=\"text-decoration:underline"
+"\" href=\"http://themes.gregarius.net/\">Repositório de Temas</a>.</p>"
 
 #: intl/en.php:296 intl/en.php:297 ajax.php:529
 msgid "Flag (Flags an item for later reading)"
@@ -1017,10 +1030,14 @@ msgid ""
 "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 "Have  a nice day!"
 msgstr ""
+"<h1>Não Autorizado!</h1>\n"
+"Você não está autorizado a acessar a interface de administração.\n"
+"Por favor <a href=\"%s\">volte</a> para a página principal.\n"
+"Tenha um bom dia!"
 
 #: admin/items.php:49
 msgid "...from these feeds"
-msgstr ""
+msgstr "... destes feeds"
 
 #: admin/items.php:94 admin/items.php:96
 msgid "Invalid pruning period"
@@ -1032,15 +1049,15 @@ msgstr "oops, n&atilde;o foi especificado um per&iacute;odo"
 
 #: admin/opml.php:120
 msgid "XML Dump:"
-msgstr ""
+msgstr "XML Dump:"
 
 #: admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
-msgstr ""
+msgstr "Faça um Dump da sua instalação do Gregarius para XML"
 
 #: admin/opml.php:123
 msgid "Dump!"
-msgstr ""
+msgstr "Dump!"
 
 #: admin/plugins.php:90
 msgid ""
@@ -1049,6 +1066,10 @@ msgid ""
 "\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
+"<p style=\"font-size:small\">Plugins são roteiros de terceiros que oferecem "
+"funcionalidades extendidas. Mais plugins podem ser obtitidos no<a style="
+"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
+"\">Repositório de Plugin</a>.</p>"
 
 #: ajax.php:81 index.php:209
 msgid "Recent items"
@@ -1070,25 +1091,23 @@ msgstr "&Iacute;tens n&atilde;o lidos(<strong id=\"ucnt\">%d</strong>)"
 
 #: admin/index.php:339
 msgid "Admin"
-msgstr ""
+msgstr "Administrador"
 
 #: admin/config.php:190
-#, fuzzy
 msgid "Invalid config key specified."
-msgstr "Per&iacute;odo de exclus&atilde;o inv&aacute;lido"
+msgstr "A chave de configuração especificada é inválida"
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
-msgstr ""
+msgstr "Ooops, tipo de configuração desconhecido: "
 
 #: admin/tags.php:162
-#, fuzzy
 msgid "Selected"
-msgstr "excluir"
+msgstr "Selecionado"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr ""
+msgstr "Sinto muito, atualização pela internet não é permitido no momento"
 
 #: admin/channels.php:69
 msgid ""
@@ -1097,14 +1116,12 @@ msgid ""
 msgstr ""
 
 #: admin/channels.php:71
-#, fuzzy
 msgid "Register Gregarius!"
-msgstr "Assinar Gregarius!"
+msgstr ""
 
 #: admin/items.php:54
-#, fuzzy
 msgid "Delete Unread items too: "
-msgstr "Excluir &iacute;tens Pregados também: "
+msgstr ""
 
 #, fuzzy
 #~ msgid "tag"
