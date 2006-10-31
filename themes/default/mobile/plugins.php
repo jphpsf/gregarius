@@ -4,7 +4,7 @@
 require_once('mobileconstants.php');
 
 function __mobile_strip_images($i) {
-    static $allowed;
+	static $allowed;
     if (!$allowed) {
 			$allowed = getConfig('rss.input.allowed');
 			if(isset($allowed['img'])) {
@@ -12,12 +12,18 @@ function __mobile_strip_images($i) {
 			}
     }
     $i -> description = kses($i -> description ,$allowed);
-    return $i;
+	
+	return $i;
 }
+
+
+
 
 function __mobile_truncate_content($i) {
 	$ml = rss_theme_config_override_option('rss.output.maxlength',DEFAULT_MOBILE_OUTPUT_MAXLENGTH);
-	$i -> description =  html_substr($i -> description, $ml) ;
+	if ($ml) {
+		$i -> description =  html_substr($i -> description, $ml) ;
+	}
 	return $i;
 }
 
@@ -29,10 +35,6 @@ if (rss_theme_config_override_option('rss.output.maxlength',DEFAULT_MOBILE_OUTPU
 	rss_set_hook('rss.plugins.items.beforerender','__mobile_truncate_content');
 }
 
-
-/*else {
-setProperty('rss.prop.theme.default.mobile','rss.content.strip.images','theme',true) ;
-}*/
 
 function mobileLoginForm() {
 ?>

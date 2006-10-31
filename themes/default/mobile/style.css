@@ -1,7 +1,28 @@
-img {  border: 0px; }
-h4,h5 { display:block;margin:0;padding:0 }
-div.mobileform {
-  border: 1px dashed black; 
-  margin: 0 13px 13px 0;
-  display:block;
+body {
+background-color:white;
+padding: 0 2px;
+margin:0;
+font: normal xx-small Verdana, Arial, "MS Trebuchet", sans-serif;
 }
+input,select,option{font-size:xx-small;}
+div,p,h4,h5,ul {margin:0;padding:0;}
+div.item { border: 1px solid #ccc; margin: 1em 0; padding: 0 ;}
+div.item.e { background-color: #efefef;}
+div.item.o { background-color: #f6f6f6;}
+div.item .content { padding: 1em 4px; }
+a {color:#c16; text-decoration:none;}
+img {border: 0px;}
+h1,h2 {
+	background-color: #eee;
+	padding: 5px 0 2px 0;
+	margin:0;
+}
+h4 { background-color: #ddd; font-weight:bold; display:block; padding: 3px 0;}
+h5 { font-weight:normal;}
+div.mobileform { display:block; border-top: 1px solid #eee; padding:0; margin:0;}
+div.mobileform p { margin:0; padding:0;}
+#footer {
+	margin-top:1em;
+	background-color: #eee;
+}
+#footer span {font-weight:bold;}

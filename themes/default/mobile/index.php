@@ -19,9 +19,6 @@ else { ?>
  	<?php rss_main_object(); ?>
 </div>
 <?php } ?>
-<?php echo rss_nav() ?>
-<div id="ftr">
-	<?php rss_main_footer(); ?>
-</div>
+<?php rss_main_footer(); ?>
 </body>
 </html>
