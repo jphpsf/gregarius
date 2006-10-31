@@ -3,10 +3,10 @@
 <?php if(hidePrivate()) { ?>
 	<p>(<a href="<?php echo getPath(); ?>?mobilelogin&amp;media=mobile">Login</a> to mark items read)</p>
 <?php } ?>
-<form method="POST" style="display: inline;">
+<form method="post" action="<?= getPath(); ?>">
 <?php } rss_itemlist_feeds(); ?>
 <?php if( !isMobileDevice() ) { ?>
 <input type='hidden' name='mobile' />
 <?php } ?>
-<input type='submit' value='next' />
+<p><input type='submit' value='next' /></p>
 </form>

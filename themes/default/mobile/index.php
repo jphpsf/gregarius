@@ -3,8 +3,7 @@
 <head>
 <?php rss_main_header(); ?>
 </head>
-<body>
-<a name="top"></a>
+<body id="top">
 <?php 
 if( array_key_exists('feeds',$_REQUEST) ) {
 	$GLOBALS['rss']->sideMenu->activeElement = 'FeedList';

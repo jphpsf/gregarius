@@ -12,6 +12,7 @@ div.item.o { background-color: #f6f6f6;}
 div.item .content { padding: 1em 4px; }
 a {color:#c16; text-decoration:none;}
 img {border: 0px;}
+h1,h2,h3,h4,h5 {display:block;}
 h1,h2 {
 	background-color: #eee;
 	padding: 5px 0 2px 0;

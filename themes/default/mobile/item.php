@@ -19,7 +19,7 @@ $cls = $GLOBALS['__item__idx__']++ % 2 ? 'e':'o';
 <h5><?php echo __('Enclosure:'); ?>&nbsp;[<a href="<?php echo rss_item_enclosure(); ?>"><?php echo __('download'); ?></a>]</h5>
 <?php } ?>
 <?php	if (rss_item_display_tags() && count($GLOBALS['rss']->currentItem->tags)) { ?>
-<h5><a href="<?php echo rss_item_tagslink(); ?>"><?php echo __('Tags'); ?></a>:&nbsp;<span><?php echo rss_item_tags(); ?></h5>
+<h5><a href="<?php echo rss_item_tagslink(); ?>"><?php echo __('Tags'); ?></a>:&nbsp;<span><?php echo rss_item_tags(); ?></span></h5>
 <?php } ?>
 <br />
 <div class="content">
@@ -27,8 +27,8 @@ $cls = $GLOBALS['__item__idx__']++ % 2 ? 'e':'o';
 
 <?php if(!hidePrivate()) { ?>
 <div class="mobileform">
-<label for="">State:</label>
-<select name="<?= rss_item_id(); ?>">
+<label for="it_<?= rss_item_id(); ?>">State:</label>
+<select id="it_<?= rss_item_id(); ?>" name="<?= rss_item_id(); ?>">
 	<option value="mobile_read" <?php 
 		if( !$GLOBALS['rss'] -> currentItem -> isUnread && !$GLOBALS['rss'] -> currentItem -> isSticky ) { 
 			echo "selected=\"selected\""; 
