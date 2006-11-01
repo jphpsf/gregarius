@@ -13,8 +13,7 @@ div.item.o { background-color: #f6f6f6;}
 div.item .content { padding: 1em 4px; }
 a {color:#d54; text-decoration:none;}
 img {border: 0px;}
-h1 {font-size:140%;}
-h2,h3 {font-size:120%;}
+h2,h3 {font-size:110%;}
 h4,h5 {font-size:100%;}
 h1,h2,h3,h4,h5 {display:block;}
 h1,h2 {
