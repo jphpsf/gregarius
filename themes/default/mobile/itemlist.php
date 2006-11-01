@@ -10,3 +10,4 @@
 <?php } ?>
 <p id="nextitems"><input type='submit' value='Next  &raquo;&raquo;' /></p>
 </form>
+<?php rss_plugin_hook('rss.plugins.bodyend.media', getThemeMedia()); ?>
