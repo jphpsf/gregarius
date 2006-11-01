@@ -8,5 +8,5 @@
 <?php if( !isMobileDevice() ) { ?>
 <input type='hidden' name='mobile' />
 <?php } ?>
-<p id="nextitems"><input type='submit' value='next' /></p>
+<p id="nextitems"><input type='submit' value='Next  &raquo;&raquo;' /></p>
 </form>
