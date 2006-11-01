@@ -21,7 +21,6 @@ $cls = $GLOBALS['__item__idx__']++ % 2 ? 'e':'o';
 <?php	if (rss_item_display_tags() && count($GLOBALS['rss']->currentItem->tags)) { ?>
 <h5><a href="<?php echo rss_item_tagslink(); ?>"><?php echo __('Tags'); ?></a>:&nbsp;<span><?php echo rss_item_tags(); ?></span></h5>
 <?php } ?>
-<br />
 <div class="content">
 <?php echo rss_item_content(); ?>
 
@@ -30,19 +29,15 @@ $cls = $GLOBALS['__item__idx__']++ % 2 ? 'e':'o';
 <label for="it_<?= rss_item_id(); ?>">State:</label>
 <select id="it_<?= rss_item_id(); ?>" name="<?= rss_item_id(); ?>">
 	<option value="mobile_read" <?php 
-		if( !$GLOBALS['rss'] -> currentItem -> isUnread && !$GLOBALS['rss'] -> currentItem -> isSticky ) { 
+		if(!$GLOBALS['rss'] -> currentItem -> isSticky ) { 
 			echo "selected=\"selected\""; 
-		} ?>>Read</option>
-	<option value="mobile_unread" 	<?php
-		  if( $GLOBALS['rss'] -> currentItem -> isUnread ) {
-			echo "selected=\"selected\""; 
-		  }
-		?>>Unread</option>
+		} ?>><?= __('Read'); ?></option>
+	<option value="mobile_unread"><?= __('Unread'); ?></option>
 	<option value="mobile_sticky" 	<?php
 		  if( $GLOBALS['rss'] -> currentItem -> isSticky ) {
 			echo "selected=\"selected\""; 
 		  }
-		?>>Sticky</option>
+		?>><?= __('Sticky'); ?></option>
 </select>
 </div>
 <?php } ?>

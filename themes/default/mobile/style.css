@@ -1,8 +1,8 @@
 body {
 background-color:white;
-padding: 0 2px;
+padding: 0;
 margin:0;
-font: normal xx-small Verdana, Arial, "MS Trebuchet", sans-serif;
+font: normal x-small Verdana, Arial, "MS Trebuchet", sans-serif;
 }
 input,select,option{font-size:xx-small;}
 div,p,h4,h5,ul {margin:0;padding:0;}
@@ -10,7 +10,7 @@ div.item { border: 1px solid #ccc; margin: 1em 0; padding: 0 ;}
 div.item.e { background-color: #efefef;}
 div.item.o { background-color: #f6f6f6;}
 div.item .content { padding: 1em 4px; }
-a {color:#c16; text-decoration:none;}
+a {color:#d54; text-decoration:none;}
 img {border: 0px;}
 h1,h2,h3,h4,h5 {display:block;}
 h1,h2 {
@@ -27,3 +27,5 @@ div.mobileform p { margin:0; padding:0;}
 	background-color: #eee;
 }
 #footer span {font-weight:bold;}
+.favicon { vertical-align:bottom; margin-right: 0.5em;}
+#nextitems{text-align:right;padding-right:2em}
