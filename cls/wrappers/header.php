@@ -134,14 +134,14 @@ function rss_footer_last_modif() {
     return ($ts ? rss_locale_date ("%c", $ts) : __('Never'));
 }
 
-function rss_header_logininfo() {
+function rss_header_logininfo($showLoginBox = true) {
 
     $ret = "<div id=\"loginfo\">\n";
     
     if (rss_user_level() > RSS_USER_LEVEL_NOLEVEL) {
         $ret .= sprintf(__('Logged in as <strong>%s</strong>'), rss_user_name())
                 ."&nbsp;|&nbsp;<a href=\"".getPath()."?logout\">".__('Logout')."</a>\n";
-    } else {
+    } else if(true == $showLoginBox) {
         $ret .= __('Not logged in')
                 ."&nbsp;|&nbsp;<a href=\"#\" onclick=\"miniloginform(); return false;\">".__('Login')."</a>";
         $ret .= "<div style=\"display:none\" id=\"loginformcontainer\">"
