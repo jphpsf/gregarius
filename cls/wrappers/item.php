@@ -45,11 +45,10 @@ function rss_item_pl_title($label=null){
 		$label = __('Permalink for ');
 	}
 	if (getConfig('rss.output.usepermalinks')) {
-		list ($ply, $plm, $pld) = explode(":", rss_date("Y:m:d", $GLOBALS['rss'] -> currentItem -> date, false));
-		$ptitle = ($label."'".$GLOBALS['rss'] -> currentItem -> parent -> escapedTitle
-			."/$ply/$plm/$pld/".$GLOBALS['rss'] -> currentItem -> escapedTitle."'");
+		//list ($ply, $plm, $pld) = explode(":", rss_date("Y:m:d", $GLOBALS['rss'] -> currentItem -> date, false));
+		$ptitle = ($label."'". htmlentities($GLOBALS['rss'] -> currentItem -> title,ENT_QUOTES	,'UTF-8') ."'");
 	}
-	return $ptitle;
+	return @$ptitle;
 }
 
 function rss_item_pl_url() {

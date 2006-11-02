@@ -5,8 +5,8 @@
 	</a>
 	<?php } ?>
 	<?php if(!hidePrivate()) { ?>
-	<a id="sa<?php echo rss_item_id(); ?>" href="#" onclick="_es(<?php echo rss_item_id(); ?>,<?php echo rss_item_flags(); ?>,<?php echo rss_item_cid(); ?>); return false;">
-		<img src="<?php echo getExternalThemeFile('media/edit.gif'); ?>" alt="edit" />
+	<a title="<?php echo __('Edit Item Properties'); ?>" id="sa<?php echo rss_item_id(); ?>" href="#" onclick="_es(<?php echo rss_item_id(); ?>,<?php echo rss_item_flags(); ?>,<?php echo rss_item_cid(); ?>); return false;">
+		<img src="<?php echo getExternalThemeFile('media/edit.gif'); ?>" alt="<?php echo __('Edit Item Properties'); ?>" />
 	</a>
 	<?php } ?>
 	<?php rss_plugin_hook("rss.plugins.items.beforetitle", rss_item_id()); ?>
