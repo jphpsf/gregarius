@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-30 16:21+0100\n"
+"POT-Creation-Date: 2006-11-07 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,8 +50,8 @@ msgstr ""
 msgid "items"
 msgstr ""
 
-#: author.php:41 cls/wrappers/item.php:222 author.php:42 author.php:42
-#: cls/wrappers/item.php:222
+#: author.php:41 cls/wrappers/item.php:222 author.php:42
+#: cls/wrappers/item.php:221 author.php:42 cls/wrappers/item.php:221
 msgid " by "
 msgstr ""
 
@@ -70,8 +70,9 @@ msgstr ""
 
 #: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
-#: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
-#: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
+#: themes/default/mobile/nav.php:2 cls/channels.php:158 cls/header.php:97
+#: cls/wrappers/feeds.php:76 themes/default/mobile/nav.php:2
+#: themes/milsi/feeds.php:1
 msgid "Feeds"
 msgstr ""
 
@@ -91,7 +92,7 @@ msgid "<span>H</span>ome"
 msgstr ""
 
 #: cls/nav.php:63 themes/default/mobile/nav.php:5 cls/nav.php:64
-#: cls/nav.php:64 themes/default/mobile/nav.php:5
+#: cls/nav.php:64
 msgid "<span>R</span>efresh"
 msgstr ""
 
@@ -103,7 +104,7 @@ msgstr ""
 msgid "A<span>d</span>min"
 msgstr ""
 
-#: cls/search.php:214 cls/search.php:213 cls/search.php:228
+#: cls/search.php:214 cls/search.php:213 cls/search.php:228 cls/search.php:228
 msgid "Results: "
 msgstr ""
 
@@ -128,34 +129,35 @@ msgstr ""
 msgid "404 Not Found (Local cache)"
 msgstr ""
 
-#: cls/update.php:137 cls/update.php:139 cls/update.php:139
+#: cls/update.php:137 cls/update.php:139 cls/update.php:143 cls/update.php:143
 msgid "OK (HTTP 200)"
 msgstr ""
 
-#: cls/update.php:142 cls/update.php:144 cls/update.php:144
+#: cls/update.php:142 cls/update.php:144 cls/update.php:148 cls/update.php:148
 msgid "ERROR"
 msgstr ""
 
 #: cls/update.php:175 cls/update.php:237 cls/update.php:179 cls/update.php:241
-#: cls/update.php:179 cls/update.php:241
+#: cls/update.php:183 cls/update.php:245 cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
 msgstr ""
 
 #: cls/update.php:178 cls/update.php:241 cls/update.php:182 cls/update.php:245
-#: cls/update.php:182 cls/update.php:245
+#: cls/update.php:186 cls/update.php:249 cls/update.php:186 cls/update.php:249
 msgid "Feed"
 msgstr ""
 
 #: cls/update.php:179 cls/update.php:242 cls/update.php:183 cls/update.php:246
-#: cls/update.php:183 cls/update.php:246
+#: cls/update.php:187 cls/update.php:250 cls/update.php:187 cls/update.php:250
 msgid "Status"
 msgstr ""
 
 #: cls/update.php:180 cls/update.php:243 cls/update.php:294 cls/update.php:323
 #: cls/update.php:355 cls/update.php:184 cls/update.php:247 cls/update.php:298
-#: cls/update.php:327 cls/update.php:359 cls/update.php:184 cls/update.php:247
-#: cls/update.php:298 cls/update.php:327 cls/update.php:359
+#: cls/update.php:327 cls/update.php:359 cls/update.php:188 cls/update.php:251
+#: cls/update.php:302 cls/update.php:331 cls/update.php:363 cls/update.php:188
+#: cls/update.php:251 cls/update.php:302 cls/update.php:331 cls/update.php:363
 msgid "New Items"
 msgstr ""
 
@@ -163,11 +165,13 @@ msgstr ""
 msgid "Permalink for "
 msgstr ""
 
-#: cls/wrappers/item.php:201 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201 cls/wrappers/item.php:200
+#: cls/wrappers/item.php:200
 msgid "Posted: "
 msgstr ""
 
-#: cls/wrappers/item.php:201 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201 cls/wrappers/item.php:200
+#: cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr ""
 
@@ -633,10 +637,10 @@ msgstr ""
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
 #: themes/default/mobile/item.php:15 themes/default/web/item.php:28
 #: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
-#: admin/index.php:230 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
-#: cls/taglist.php:69 tags.php:129 themes/default/mobile/item.php:15
-#: themes/default/web/item.php:28 themes/lilina/web/item.php:52
-#: themes/lilina/web/item.php:108
+#: themes/default/mobile/item.php:22 admin/index.php:230 admin/tags.php:135
+#: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
+#: themes/default/mobile/item.php:22 themes/default/web/item.php:28
+#: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
 msgid "Tags"
 msgstr ""
 
@@ -706,7 +710,9 @@ msgid "Private (Only administrators can see private items)"
 msgstr ""
 
 #: intl/en.php:225 intl/en.php:226 plugins/stickyflag/stickyflag.php:92
-#: state.php:39 plugins/stickyflag/stickyflag.php:92 state.php:39
+#: state.php:39 themes/default/mobile/item.php:40
+#: plugins/stickyflag/stickyflag.php:92 state.php:39
+#: themes/default/mobile/item.php:40
 msgid "Sticky"
 msgstr ""
 
@@ -779,9 +785,10 @@ msgstr ""
 #: intl/en.php:246 intl/en.php:247 admin/channels.php:48 admin/channels.php:88
 #: admin/channels.php:852 cls/categories.php:60 cls/header.php:98
 #: cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
-#: admin/channels.php:100 admin/channels.php:864 admin/channels.php:48
+#: admin/channels.php:100 admin/channels.php:864
+#: themes/default/mobile/nav.php:3 admin/channels.php:48
 #: admin/channels.php:100 admin/channels.php:864 cls/categories.php:60
-#: cls/header.php:98 cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
+#: cls/header.php:98 cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr ""
 
@@ -807,17 +814,17 @@ msgstr ""
 
 #: intl/en.php:255 intl/en.php:256 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:12
-#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:19
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "Enclosure:"
 msgstr ""
 
 #: intl/en.php:256 intl/en.php:257 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:12
-#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:19
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "download"
 msgstr ""
 
@@ -1200,4 +1207,25 @@ msgstr ""
 
 #: admin/items.php:54 admin/items.php:54
 msgid "Delete Unread items too: "
+msgstr ""
+
+#: themes/default/mobile/item.php:34 themes/default/mobile/item.php:34
+msgid "Read"
+msgstr ""
+
+#: themes/default/mobile/item.php:35 themes/default/mobile/item.php:35
+msgid "Unread"
+msgstr ""
+
+#: themes/default/mobile/nav.php:4 themes/default/mobile/nav.php:4
+msgid "Refresh"
+msgstr ""
+
+#: themes/default/web/item.php:8 themes/default/web/item.php:9
+#: themes/default/web/item.php:8 themes/default/web/item.php:9
+msgid "Edit Item Properties"
+msgstr ""
+
+#: cls/update.php:134 cls/update.php:134
+msgid "403 Forbidden (Local cache)"
 msgstr ""

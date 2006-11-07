@@ -280,7 +280,7 @@ function channel_admin() {
         }
 
         if ($label != 'http://' &&	substr($label, 0,4) == "http") {
-            $tags = $_REQUEST['channel_tags'];
+            $tags = @$_REQUEST['channel_tags'];
             $ret = add_channel($label,$fid,null,null,$tags);
             //var_dump($ret);
             if (is_array($ret) && $ret[0] > -1) {
@@ -899,7 +899,7 @@ function channel_edit_form($cid) {
 
 
     // Description
-    $descr = strip_tags($descr);
+    $descr = trim(strip_tags($descr));
     echo "<p><label for=\"c_descr\">". __('Description:') ."</label>\n"
     ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\" /></p>\n";
 

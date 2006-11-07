@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-30 16:21+0100\n"
+"POT-Creation-Date: 2006-11-07 14:25+0100\n"
 "PO-Revision-Date: 2006-10-14 19:36+0000\n"
 "Last-Translator: Albert <adeklein@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -43,6 +43,7 @@ msgid "items"
 msgstr "items"
 
 #: author.php:41 cls/wrappers/item.php:222 author.php:42
+#: cls/wrappers/item.php:221
 msgid " by "
 msgstr " door "
 
@@ -59,6 +60,7 @@ msgstr "<strong id=\"%s\" style=\"%s\">(%d ongelezen)</strong>"
 
 #: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
+#: themes/default/mobile/nav.php:2
 msgid "Feeds"
 msgstr "Feeds"
 
@@ -116,30 +118,34 @@ msgstr "OK (Lokale cache)"
 msgid "404 Not Found (Local cache)"
 msgstr "404 Niet Gevonden (Lokale cache)"
 
-#: cls/update.php:137 cls/update.php:139
+#: cls/update.php:137 cls/update.php:139 cls/update.php:143
 msgid "OK (HTTP 200)"
 msgstr "OK (HTTP 200)"
 
-#: cls/update.php:142 cls/update.php:144
+#: cls/update.php:142 cls/update.php:144 cls/update.php:148
 msgid "ERROR"
 msgstr "FOUT"
 
 #: cls/update.php:175 cls/update.php:237 cls/update.php:179 cls/update.php:241
+#: cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
 msgstr "Bijwerken van %d Feeds..."
 
 #: cls/update.php:178 cls/update.php:241 cls/update.php:182 cls/update.php:245
+#: cls/update.php:186 cls/update.php:249
 msgid "Feed"
 msgstr "Feed"
 
 #: cls/update.php:179 cls/update.php:242 cls/update.php:183 cls/update.php:246
+#: cls/update.php:187 cls/update.php:250
 msgid "Status"
 msgstr "Status"
 
 #: cls/update.php:180 cls/update.php:243 cls/update.php:294 cls/update.php:323
 #: cls/update.php:355 cls/update.php:184 cls/update.php:247 cls/update.php:298
-#: cls/update.php:327 cls/update.php:359
+#: cls/update.php:327 cls/update.php:359 cls/update.php:188 cls/update.php:251
+#: cls/update.php:302 cls/update.php:331 cls/update.php:363
 msgid "New Items"
 msgstr "Nieuwe Items"
 
@@ -147,11 +153,11 @@ msgstr "Nieuwe Items"
 msgid "Permalink for "
 msgstr "Permanente koppeling voor "
 
-#: cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201 cls/wrappers/item.php:200
 msgid "Posted: "
 msgstr "Geplaatst: "
 
-#: cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201 cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr "Opgehaald: "
 
@@ -591,6 +597,7 @@ msgstr "Een prettige dag!"
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
 #: themes/default/mobile/item.php:15 themes/default/web/item.php:28
 #: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
+#: themes/default/mobile/item.php:22
 msgid "Tags"
 msgstr "Labels"
 
@@ -656,7 +663,7 @@ msgid "Private (Only administrators can see private items)"
 msgstr "Privé (Alleen beheerders kunnen privé items bekijken)"
 
 #: intl/en.php:225 intl/en.php:226 plugins/stickyflag/stickyflag.php:92
-#: state.php:39
+#: state.php:39 themes/default/mobile/item.php:40
 msgid "Sticky"
 msgstr "Vastgeplakt"
 
@@ -726,6 +733,7 @@ msgstr "Voeg %s toe aan %s... "
 #: admin/channels.php:852 cls/categories.php:60 cls/header.php:98
 #: cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
 #: admin/channels.php:100 admin/channels.php:864
+#: themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr "Categorieën"
 
@@ -749,13 +757,13 @@ msgstr "Waardering:"
 
 #: intl/en.php:255 intl/en.php:256 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:19
 msgid "Enclosure:"
 msgstr "Bijlage:"
 
 #: intl/en.php:256 intl/en.php:257 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:19
 msgid "download"
 msgstr "download"
 
@@ -1120,3 +1128,23 @@ msgstr "Abonneer in Gregarius!"
 #, fuzzy
 msgid "Delete Unread items too: "
 msgstr "Ook de Sticky items verwijderen: "
+
+#: themes/default/mobile/item.php:34
+msgid "Read"
+msgstr ""
+
+#: themes/default/mobile/item.php:35
+msgid "Unread"
+msgstr ""
+
+#: themes/default/mobile/nav.php:4
+msgid "Refresh"
+msgstr ""
+
+#: themes/default/web/item.php:8 themes/default/web/item.php:9
+msgid "Edit Item Properties"
+msgstr ""
+
+#: cls/update.php:134
+msgid "403 Forbidden (Local cache)"
+msgstr ""

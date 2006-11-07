@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-30 16:21+0100\n"
+"POT-Creation-Date: 2006-11-07 14:25+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,6 +39,7 @@ msgid "items"
 msgstr "inl&auml;gg"
 
 #: author.php:41 cls/wrappers/item.php:222 author.php:42
+#: cls/wrappers/item.php:221
 msgid " by "
 msgstr " af "
 
@@ -55,6 +56,7 @@ msgstr "<strong id=\"%s\" style=\"%s\">(%d ol&auml;sta)</strong>"
 
 #: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:3 themes/milsi/feeds.php:1
+#: themes/default/mobile/nav.php:2
 msgid "Feeds"
 msgstr "Fl&ouml;den"
 
@@ -112,30 +114,34 @@ msgstr "OK (Lokal cache)"
 msgid "404 Not Found (Local cache)"
 msgstr "404 Not Found (Lokal cache)"
 
-#: cls/update.php:137 cls/update.php:139
+#: cls/update.php:137 cls/update.php:139 cls/update.php:143
 msgid "OK (HTTP 200)"
 msgstr "OK (HTTP 200)"
 
-#: cls/update.php:142 cls/update.php:144
+#: cls/update.php:142 cls/update.php:144 cls/update.php:148
 msgid "ERROR"
 msgstr "ERROR"
 
 #: cls/update.php:175 cls/update.php:237 cls/update.php:179 cls/update.php:241
+#: cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
 msgstr "Uppdaterar %d fl&ouml;den..."
 
 #: cls/update.php:178 cls/update.php:241 cls/update.php:182 cls/update.php:245
+#: cls/update.php:186 cls/update.php:249
 msgid "Feed"
 msgstr "Fl&ouml;de"
 
 #: cls/update.php:179 cls/update.php:242 cls/update.php:183 cls/update.php:246
+#: cls/update.php:187 cls/update.php:250
 msgid "Status"
 msgstr "Status"
 
 #: cls/update.php:180 cls/update.php:243 cls/update.php:294 cls/update.php:323
 #: cls/update.php:355 cls/update.php:184 cls/update.php:247 cls/update.php:298
-#: cls/update.php:327 cls/update.php:359
+#: cls/update.php:327 cls/update.php:359 cls/update.php:188 cls/update.php:251
+#: cls/update.php:302 cls/update.php:331 cls/update.php:363
 msgid "New Items"
 msgstr "New Items"
 
@@ -143,11 +149,11 @@ msgstr "New Items"
 msgid "Permalink for "
 msgstr "Permalink till "
 
-#: cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201 cls/wrappers/item.php:200
 msgid "Posted: "
 msgstr "Postad: "
 
-#: cls/wrappers/item.php:201
+#: cls/wrappers/item.php:201 cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr "H&auml;mtad: "
 
@@ -587,6 +593,7 @@ msgstr ""
 #: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
 #: themes/default/mobile/item.php:15 themes/default/web/item.php:28
 #: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
+#: themes/default/mobile/item.php:22
 msgid "Tags"
 msgstr "Taggar"
 
@@ -655,7 +662,7 @@ msgid "Private (Only administrators can see private items)"
 msgstr "Privat (Visa endast f&ouml;r admin)"
 
 #: intl/en.php:225 intl/en.php:226 plugins/stickyflag/stickyflag.php:92
-#: state.php:39
+#: state.php:39 themes/default/mobile/item.php:40
 msgid "Sticky"
 msgstr "Sticky"
 
@@ -725,6 +732,7 @@ msgstr "L&auml;gger %s till %s... "
 #: admin/channels.php:852 cls/categories.php:60 cls/header.php:98
 #: cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:4
 #: admin/channels.php:100 admin/channels.php:864
+#: themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -748,13 +756,13 @@ msgstr "V&auml;rdering:"
 
 #: intl/en.php:255 intl/en.php:256 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:19
 msgid "Enclosure:"
 msgstr "Bilaga:"
 
 #: intl/en.php:256 intl/en.php:257 themes/default/mobile/item.php:12
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/lilina/web/item.php:104 themes/default/mobile/item.php:19
 msgid "download"
 msgstr "ladda ned"
 
@@ -1102,6 +1110,26 @@ msgstr "L&auml;gg till i Gregarius!"
 #, fuzzy
 msgid "Delete Unread items too: "
 msgstr "Radera &auml;ven inl&auml;gg markerade som Sticky: "
+
+#: themes/default/mobile/item.php:34
+msgid "Read"
+msgstr ""
+
+#: themes/default/mobile/item.php:35
+msgid "Unread"
+msgstr ""
+
+#: themes/default/mobile/nav.php:4
+msgid "Refresh"
+msgstr ""
+
+#: themes/default/web/item.php:8 themes/default/web/item.php:9
+msgid "Edit Item Properties"
+msgstr ""
+
+#: cls/update.php:134
+msgid "403 Forbidden (Local cache)"
+msgstr ""
 
 #, fuzzy
 #~ msgid "tag"

@@ -49,6 +49,8 @@ define ('MAGPIE_FEED_ORIGIN_HTTP_404', 16);
 define ('MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT', 32);
 // Not fetched because age < MAGPIE_CACHE_AGE
 define ('MAGPIE_FEED_ORIGIN_NOT_FETCHED', 64);
+// 403 Forbidden
+define ('MAGPIE_FEED_ORIGIN_HTTP_403', 128);
 
 /*
  * CONSTANTS - redefine these in your script to change the
@@ -238,6 +240,9 @@ function fetch_rss ($url) {
                 case '404':
                         $rss -> rss_origin |= MAGPIE_FEED_ORIGIN_HTTP_404;
                     break;
+				case '403':
+						$rss -> rss_origin |= MAGPIE_FEED_ORIGIN_HTTP_403;
+						break;
                 default:
                     $rss -> rss_origin |= MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT;
                     break;

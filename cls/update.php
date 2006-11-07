@@ -64,7 +64,7 @@ class Update {
     var $chans = array ();
 
     function Update($doPopulate = true, $updatePrivateAlso = false) {
-	rss_plugin_hook('rss.plugins.updates.before', null);
+        rss_plugin_hook('rss.plugins.updates.before', null);
         if($doPopulate) {
             $this->populate($updatePrivateAlso);
         }
@@ -76,8 +76,8 @@ class Update {
 
     function populate($updatePrivateAlso = false) {
         $sql = "select c.id, c.url, c.title from ".getTable("channels") . " c "
-             . " inner join " . getTable('folders') . " f on f.id = c.parent "
-             . " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
+               . " inner join " . getTable('folders') . " f on f.id = c.parent "
+               . " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
 
         if (hidePrivate() && !$updatePrivateAlso) {
             $sql .= " and not(mode & ".RSS_MODE_PRIVATE_STATE.") ";
@@ -103,24 +103,24 @@ class Update {
                           ." and id not in (".implode(",", $newIds).")");
             }
         }
-        
+
         setProperty('__meta__','meta.lastupdate','misc',time());
-        
+
         if (count($newIds) > 0) {
             rss_invalidate_cache();
         }
-	rss_plugin_hook('rss.plugins.updates.after', null);
+        rss_plugin_hook('rss.plugins.updates.after', null);
     }
 
     function magpieError($error) {
-        if ($error & MAGPIE_FEED_ORIGIN_CACHE) {
+        if (is_numeric($error) && ($error & MAGPIE_FEED_ORIGIN_CACHE)) {
             if ($error & MAGPIE_FEED_ORIGIN_HTTP_304) {
                 $label = __('OK (304 Not modified)');
                 $cls = ERROR_NOERROR;
             }
             elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_TIMEOUT) {
                 $label = __('HTTP Timeout (Local cache)');
-                $cls = ERROR_WARNING;
+                $cls = ERROR_ERROR;
             }
             elseif ($error & MAGPIE_FEED_ORIGIN_NOT_FETCHED) {
                 $label = __('OK (Local cache)');
@@ -128,6 +128,10 @@ class Update {
             }
             elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_404) {
                 $label = __('404 Not Found (Local cache)');
+                $cls = ERROR_ERROR;
+            }
+            elseif ($error & MAGPIE_FEED_ORIGIN_HTTP_403) {
+                $label = __('403 Forbidden (Local cache)');
                 $cls = ERROR_ERROR;
             }
             else {
@@ -141,7 +145,7 @@ class Update {
         }
         else {
             if (is_numeric($error)) {
-                $label = __('ERROR');
+                $label = __('ERROR') ." $error";
                 $cls = ERROR_ERROR;
             } else {
                 // shoud contain MagpieError at this point
@@ -168,7 +172,7 @@ class HTTPServerPushUpdate extends Update {
         $GLOBALS['rss']->header->options |= HDR_NO_OUPUTBUFFERING;
         rss_set_hook('rss.plugins.bodystart', "pushHeaderCallBack");
         rss_set_hook('rss.plugins.bodyend', "pushFooterCallBack");
-        
+
         ob_implicit_flush();
     }
 
@@ -259,14 +263,14 @@ class AJAXUpdate extends Update {
 
         echo "</table>\n";
         echo "<script type=\"text/javascript\">\n";
-		echo "function runAjaxUpdate() { \n";
+        echo "function runAjaxUpdate() { \n";
         echo "    for (k =0; k < " . AJAX_PARALLEL_SIZE . "; k++){\n";
-		echo "    doUpdate();\n";
-		echo "    }\n";
-		echo "}\n";
-		// Fix for IE's stupid "Operation Aborted" Error
-		echo "   if (window.addEventListener) window.addEventListener(\"load\",runAjaxUpdate,false); else if (window.attachEvent) window.attachEvent(\"onload\",runAjaxUpdate);\n";
-		echo "</script>\n";
+        echo "    doUpdate();\n";
+        echo "    }\n";
+        echo "}\n";
+        // Fix for IE's stupid "Operation Aborted" Error
+        echo "   if (window.addEventListener) window.addEventListener(\"load\",runAjaxUpdate,false); else if (window.attachEvent) window.attachEvent(\"onload\",runAjaxUpdate);\n";
+        echo "</script>\n";
     }
 }
 
@@ -304,67 +308,67 @@ class CommandLineUpdate extends Update {
 }
 
 class MobileUpdate extends Update {
-	function MobileUpdate() {
-		parent::Update($doPopulate = true);
-	}
-	function render() {
-		$newIds = array();
-    foreach ($this->chans as $chan) {
-			list ($cid, $url, $title) = $chan;
-			echo "$title ...\t";
-			flush();
-			$ret = update($cid);
-
-			if (is_array($ret)) {
-					list ($error, $unreadIds) = $ret;
-					$newIds = array_merge($newIds, $unreadIds);
-			} else {
-					$error = 0;
-					$unreadIds = array ();
-			}
-			$unread = count($unreadIds);
-			list($label,$cls) = parent::magpieError($error);
-			echo "\n$label, $unread " . __('New Items') . "<br />";
-			flush();
+    function MobileUpdate() {
+        parent::Update($doPopulate = true);
     }
-	}
+    function render() {
+        $newIds = array();
+        foreach ($this->chans as $chan) {
+            list ($cid, $url, $title) = $chan;
+            echo "$title ...\t";
+            flush();
+            $ret = update($cid);
+
+            if (is_array($ret)) {
+                list ($error, $unreadIds) = $ret;
+                $newIds = array_merge($newIds, $unreadIds);
+            } else {
+                $error = 0;
+                $unreadIds = array ();
+            }
+            $unread = count($unreadIds);
+            list($label,$cls) = parent::magpieError($error);
+            echo "\n$label, $unread " . __('New Items') . "<br />";
+            flush();
+        }
+    }
 }
 
-	
+
 /**
  * CommandLineUpdateNews updates the feeds and displays only feeds with
  * errors or new items.
  */
 class CommandLineUpdateNews extends CommandLineUpdate {
-        function render() {
-                $newIds = array();
-                foreach ($this->chans as $chan) {
-                        list ($cid, $url, $title) = $chan;
-                        $ret = update($cid);
+    function render() {
+        $newIds = array();
+        foreach ($this->chans as $chan) {
+            list ($cid, $url, $title) = $chan;
+            $ret = update($cid);
 
-                        if (is_array($ret)) {
-                                list ($error, $unreadIds) = $ret;
-                                $newIds = array_merge($newIds, $unreadIds);
-                        } else {
-                                $error = 0;
-                                $unreadIds = array();
-                        }
-                        $unread = count($unreadIds);
+            if (is_array($ret)) {
+                list ($error, $unreadIds) = $ret;
+                $newIds = array_merge($newIds, $unreadIds);
+            } else {
+                $error = 0;
+                $unreadIds = array();
+            }
+            $unread = count($unreadIds);
 
-                        list($label, $cls) = parent::magpieError($error);
+            list($label, $cls) = parent::magpieError($error);
 
-                        if (($cls != ERROR_NOERROR) || ($unread > 0)) {
-                                echo "$title ...\t";
-                                flush();
-                                echo "\n$label, $unread " . __('New Items') . "\n\n";
-                                flush();
-                        }
-                }
-
-                if (!hidePrivate()) {
-                        parent::cleanUp($newIds);
-                }
+            if (($cls != ERROR_NOERROR) || ($unread > 0)) {
+                echo "$title ...\t";
+                flush();
+                echo "\n$label, $unread " . __('New Items') . "\n\n";
+                flush();
+            }
         }
+
+        if (!hidePrivate()) {
+            parent::cleanUp($newIds);
+        }
+    }
 }
 
 
@@ -416,7 +420,7 @@ function pushFooterCallBack() {
 
     echo "\n".PUSH_BOUNDARY."\n";
     echo "WARNING: YOUR BROWSER DOESN'T SUPPORT THIS SERVER-PUSH TECHNOLOGY.\n";
-    
+
     flush();
 }
 

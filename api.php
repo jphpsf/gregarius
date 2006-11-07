@@ -51,13 +51,13 @@ if (isset($_REQUEST['method'])) {
 	case 'search':
 		rss_require('extlib/JSON.php');
 		$json = new Services_JSON();
-		$query = sanitize(@$_REQUEST['q'], RSS_SANITIZER_WORDS);
+		$query = preg_replace('#[^a-z0-9\s]#','',@$_REQUEST['q']);
 		if ($query) {
 			$res = osSearch($query);
 		} else {
-			$res = array($query,array());
+			$res = array($query,array(),array(),array());
 		}
-		header('Content-Type: application/json');
+		header('Content-Type: text/plain');
 		die ($json->encode($res));
 		break;
     }
@@ -217,6 +217,6 @@ function osSearch($q) {
 			$results[] = $item -> title;
 		}
 	}
-	return array($q,$results);
+	return array($q,$results,array(),array());
 }
 ?>
