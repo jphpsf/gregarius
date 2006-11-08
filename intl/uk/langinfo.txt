@@ -1,0 +1,4 @@
+Language: Ukranian
+Locale: uk
+Windows-locale: uk
+Author: Ailandar - https://launchpad.net/people/ailandar
