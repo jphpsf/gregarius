@@ -716,6 +716,7 @@ function getUrl($url, $maxlen = 0) {
  * @return array Array of feed URLs
  */
 function extractFeeds($url) {
+    rss_require('extlib/uri_util.php');
     $cnt = getUrl($url);
     $ret = array ();
     //find all link tags
@@ -731,22 +732,8 @@ function extractFeeds($url) {
                     $attr = strtolower(trim($match2[1]));
                     $val = trim($match2[2]);
                     // make sure we have absolute URI's
-                    if (($attr == "href") && strcasecmp(substr($val, 0, 4), "http") != 0) {
-                        // Check to see if the relative url starts with "//"
-                        if(substr($val,0,2) == "//") {
-                            $val = preg_replace('/\/\/.*/', $val, $url);
-                        } else {
-                            $urlParts = parse_url($url);
-                            if ($urlParts && is_array($urlParts) && strlen($val)) {
-                                if ($val[0] != '/') {
-                                    $val = '/'.$val;
-                                }
-                                $val = $urlParts['scheme'] . '://'
-                                       .$urlParts['host'] . $val;
-                            } else {
-                                $val = ($url.$val);
-                            }
-                        }
+                    if ($attr == "href") {
+                        $val = absolute_uri($val, $url);
                     }
                     $tmp[$attr] = $val;
                 }
