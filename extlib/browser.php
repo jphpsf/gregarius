@@ -1,10 +1,12 @@
 <?php
 /*****************************************************************
- * File name: browser.php Author: Gary White
- * Last modified: November 10, 2003
+ * File name: browser.php
+ * Author: Gary White & Damien Raude-Morvan
+ * Last modified: December 10, 2006
  *
  **************************************************************
  * Copyright (C) 2003  Gary White
+ * Copyright (C) 2006  Damien Raude-Morvan <drazzib@drazzib.com>
  *
  This program is free software; you can redistribute it and/or
  modify it under the terms of the GNU General Public License
@@ -16,7 +18,9 @@
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details at:
  http://www.gnu.org/copyleft/gpl.html
- *
+ */
+
+/**
  **************************************************************
  *
  Browser class
@@ -58,7 +62,6 @@
  Safari
  WebTV
  *****************************************************************/
-
 class browser {
 
     var $Name = "Unknown";
@@ -69,6 +72,7 @@ class browser {
     var $isMoz = false;
     var $isOpera = false;
     var $isSafari = false;
+    var $isKonqueror = false;
     var $isIE = false;
 
     function browser() {
@@ -173,6 +177,8 @@ class browser {
             $bd['browser'] = $val[0];
             $bd['version'] = $val[1];
 
+            $this->isKonqueror = true;
+
             // test for iCab
         }
         elseif (eregi("icab", $agent)) {
@@ -248,9 +254,10 @@ class browser {
 
             // test for Safari
         }
-        elseif (eregi("safari", $agent)) {
+        elseif (eregi("AppleWebKit", $agent)) {
             $bd['browser'] = "Safari";
-            $bd['version'] = "";
+            $val = explode("/", $agent);
+            $bd['version'] = $val[3];
             $this -> isSafari = true;
 
             // remaining two tests are for Netscape
@@ -305,12 +312,64 @@ class browser {
         return $this->isOpera;
     }
 
+    /** Support of multipart/x-mixed-replace complete and stable :
+      * o in Safari 2.0.2 (http://webkit.org/blog/?p=32)
+      *     (http://developer.apple.com/internet/safari/uamatrix.html)
+      * o in Konqueror at least 3.4.3
+      *     (http://websvn.kde.org/trunk/KDE/kdelibs/khtml/kmultipart/kmultipart.cpp/)
+      */
     function supportsServerPush() {
-        return ($this->isMoz || $this->isOpera);
+        return  ($this->isMoz
+             ||  $this->isOpera
+             || ($this->isSafari && $this->compareBrowserVersion("416", $this->Version))
+             || ($this->isKonqueror && $this->compareBrowserVersion("3.4.3", $this->Version))
+                );
     }
 
+    /** Support of XMLHTTPRequest complete and stable :
+      * o in Konqueror at least 3.4 (since 2004 -
+      *     http://websvn.kde.org/trunk/KDE/kdelibs/khtml/ecma/xmlhttprequest.cpp/)
+      */
     function supportsAJAX() {
-        return ($this->isMoz || $this->isOpera || $this->isSafari || ($this -> isIE && $this -> Version > 5));
+        return  ($this->isMoz
+             ||  $this->isOpera
+             ||  $this->isSafari
+             || ($this->isIE && $this->compareBrowserVersion("5", $this->Version))
+             || ($this->isKonqueror && $this->compareBrowserVersion("3.4", $this->Version))
+                );
+    }
+
+    /**
+     * Compare two version strings of browser.
+     * @param $requiredVersion minimal version number required for feature
+     * @param $browserVersion current detected browser version
+     * @return true if $browserVersion is greater than $requiredVersion
+     */
+    function compareBrowserVersion($requiredVersion, $browserVersion) {
+        // Standardise versions
+        $requiredVersion = preg_replace('/([^0-9\.]+)/', '.$1.', $requiredVersion);
+        $requiredVersion = trim($requiredVersion);
+        $v1 = explode('.', $requiredVersion);
+
+        $browserVersion = preg_replace('/([^0-9\.]+)/', '.$1.', $browserVersion);
+        $browserVersion = trim($browserVersion);
+        $v2 = explode('.', $browserVersion);
+
+        $compare = 0;
+        for ($i = 0, $x = min(count($v1), count($v2)); $i < $x; $i++) {
+            if ($v1[$i] == $v2[$i]) {
+                continue;
+            }
+
+            $i1 = $v1[$i];
+            $i2 = $v2[$i];
+
+            if (is_numeric($i1) && is_numeric($i2)) {
+                $compare = ($i1 < $i2) ? -1 : 1;
+            }
+        }
+
+        return (bool) ($compare <= 0);
     }
 }
 ?>
