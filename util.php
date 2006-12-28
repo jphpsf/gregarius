@@ -964,6 +964,7 @@ function rss_getallheaders() {
 
 // moved from ajax.php
 function __exp__submitTag($id,$tags,$type = "'item'") {
+	$tags = strip_tags($tags);
     $ftags = utf8_encode( preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags)));
     $tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
     $ftags = implode(" ",__priv__updateTags($id,$tarr,$type));
@@ -979,6 +980,10 @@ function __priv__updateTags($fid,$tags,$type) {
         if ($ttag == "" || in_array($ttag,$ret)) {
             continue;
         }
+		$ttag = sanitize($ttag,
+			RSS_SANITIZER_NO_SPACES | RSS_SANITIZER_SIMPLE_SQL
+		);
+		
         rss_query( "insert into ". getTable('tag')
                    . " (tag) values ('$ttag')", false );
         $tid = 0;

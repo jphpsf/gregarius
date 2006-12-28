@@ -129,12 +129,18 @@ class FeedFolder {
 		$this->name = $name;
 		$this->id = $id;
 		if (getConfig('rss.output.usemodrewrite')) {
-			$this->rlink = getPath().preg_replace("/[^a-zA-Z0-9_]/", "_", $name)."/";
+			$this->rlink = $this -> makeFolderUrl($name); // getPath().preg_replace("/[^a-zA-Z0-9_]/", "_", $name)."/";
 		} else {
 			$this->rlink = getPath()."feed.php?folder=$id";
 		}
 		$this->isRootFolder = ($id == 0);
 		$this->rootList = $rootList;
+	}
+	
+	function makeFolderUrl($fn) {
+		return getPath(
+			preg_replace('#\s#','_',sanitize($fn,RSS_SANITIZER_URL))
+		) .'/';
 	}
 	
 	function render() {		

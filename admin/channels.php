@@ -546,7 +546,7 @@ function channel_admin() {
                         flush();
                         list($retcde, $retmsg) = add_channel($u__, $fid, $t__, $d__);
                         if ($retcde && count($c__)) {
-                        	__exp__submitTag($retcde,$c__,"'channel'");
+                        	__exp__submitTag($retcde,utf_encode($c__),"'channel'");
                         }
                         echo ($retcde<0 ?$retmsg:" OK")."</p></li>\n";
                         flush();
@@ -641,7 +641,7 @@ function channel_admin() {
                ." $mode where id=$cid";
 
         rss_query($sql);
-        __exp__submitTag($cid,$tags,"'channel'");
+        __exp__submitTag($cid,utf8_decode($tags),"'channel'");
         rss_invalidate_cache();
         $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
         break;
