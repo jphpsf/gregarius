@@ -107,13 +107,13 @@ function tags(){
 		// also replace whitespaces
 		$new_label = str_replace(' ','',$new_label);
 		if (is_numeric($tid) && strlen($new_label) > 0) {
-			$res = rss_query("select count(*) as cnt from " . getTable("tag") ." where binary tag='$new_label'");
+			$res = rss_query("select count(*) as cnt from " . getTable("tag") ." where binary tag='".rss_real_escape_string($new_label)."'");
 			list($cnt) = rss_fetch_row($res);
 			if ($cnt > 0) {
 				rss_error(sprintf(__("You can't rename this item '%s' because such an item already exists."),$new_label), RSS_ERROR_ERROR,true);
 				break;
 			}
-			rss_query("update " .getTable("tag") ." set tag='$new_label' where id=$tid");
+			rss_query("update " .getTable("tag") ." set tag='".rss_real_escape_string($new_label)."' where id=$tid");
 			rss_invalidate_cache();
 		}
 		break;

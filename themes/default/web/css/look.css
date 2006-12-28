@@ -170,7 +170,7 @@ th {
  font-weight: bold; 
 }
 
-table#plugintable,table#channeltable,table#foldertable,table#updatetable,table#configtable,.content table {
+table#plugintable,table#channeltable,table#foldertable,table#updatetable,table#configtable,table#tagtable,.content table {
  border: 1px solid #ddd;
  font-size: small;
 }
