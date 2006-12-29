@@ -1,0 +1,5 @@
+Language: Turkish
+Locale: tr
+Windows-locale: tr
+Author: https://launchpad.net/people/ozcanbaris
+
