@@ -91,6 +91,7 @@ class Tags {
 		if (hidePrivate()) {
 			$sql .= " and not(i.unread & ".RSS_MODE_PRIVATE_STATE.") ";
 		}
+		$sql .= " and not (i.unread & ".RSS_MODE_DELETED_STATE.") ";
 		
 		$sql .= " group by tid order by tag";
 
