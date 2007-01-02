@@ -72,7 +72,8 @@ class Item {
 		if (!$this->title) {
 			$this->title = "[nt]";
 		}
-		$this->escapedTitle = preg_replace("/[^A-Za-z0-9%\.]/", "_", utf8_uri_encode($title));
+		$this->escapedTitle = rss_uri($title); //preg_replace("/[^A-Za-z0-9%\.]/", "_", utf8_uri_encode($title));
+		
 		$this->url = trim($url);
 		$this->enclosure = $enclosure;
 		$this->feed = $parent;
@@ -135,7 +136,8 @@ class Feed {
 		} else {
 			$this->iconUrl = $icon;
 		}
-		$this->escapedTitle = preg_replace("/[^A-Za-z0-9\.]/", "_", $title);
+		//$this->escapedTitle = preg_replace("/[^A-Za-z0-9\.]/", "_", $title);
+		$this->escapedTitle = rss_uri($title);
 	} 
 	
 	function setCollapseState($options) {

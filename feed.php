@@ -913,7 +913,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
     $currentView = null;
     $prev = $succ = $up = null;
     if (isset($_REQUEST['channel'])) {
-        $escaped_title = preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
+        $escaped_title = rss_uri($_REQUEST['channel']); //preg_replace("/[^A-Za-z0-9\.]/","_",$_REQUEST['channel']);
     } else {
         $escaped_title = null;
     }
@@ -1124,7 +1124,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                                     'ts' => $pts_,
                                     'url' =>  makeArchiveUrl($pts_,$escaped_title,$cid,true)
                                            . (getConfig('rss.output.usemodrewrite') ?
-                                              preg_replace("/[^A-Za-z0-9\.%]/","_",utf8_uri_encode($ptitle_)):
+                                              rss_uri($ptitle_):
                                               "&amp;iid=$piid_"),
                                     'lbl' => htmlentities( $ptitle_,ENT_COMPAT,"UTF-8" )
                                 );
@@ -1142,7 +1142,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                                     'ts' => $ts_,
                                     'url' =>  makeArchiveUrl($ts_,$escaped_title,$cid,true)
                                            . (getConfig('rss.output.usemodrewrite') ?
-                                              preg_replace("/[^A-Za-z0-9\.%]/","_",utf8_uri_encode($title_)) :
+                                              rss_uri($title_) :
                                               "&amp;iid=$iid_"),
                                     'lbl' => htmlentities($title_,ENT_COMPAT,"UTF-8")
                                 );
@@ -1205,7 +1205,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                     $succ = array(
                                 'url' => getPath().
                                        ( getConfig('rss.output.usemodrewrite') ?
-                                         preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/"
+                                         rss_uri($title_) ."/"
                                          :"feed.php?channel=$cid_") ,
                                 'lbl' => htmlentities( $title_,ENT_COMPAT,"UTF-8" )
                             );
@@ -1215,7 +1215,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                     $prev = array(
                                 'url' => getPath().
                                        ( getConfig('rss.output.usemodrewrite') ?
-                                         preg_replace("/[^A-Za-z0-9\.]/","_",$title_) ."/"
+                                         rss_uri($title_) ."/"
                                          :"feed.php?channel=$cid_") ,
                                 'lbl' => htmlentities( $title_,ENT_COMPAT,"UTF-8" )
                             );
@@ -1254,7 +1254,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                 $prev = array(
                             'url' => getPath().
                                    ( getConfig('rss.output.usemodrewrite') ?
-                                     preg_replace("/[^A-Za-z0-9\.]/","_",$vftitle_) ."/"
+                                     rss_uri($vftitle_) ."/"
                                      :"feed.php?vfolder=$vfid_") ,
                             'lbl' => htmlentities( $vftitle_,ENT_COMPAT,"UTF-8" )
                         );
@@ -1266,7 +1266,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                 $succ = array(
                             'url' => getPath().
                                    ( getConfig('rss.output.usemodrewrite') ?
-                                     preg_replace("/[^A-Za-z0-9\.]/","_",$vftitle_) ."/"
+                                     rss_uri($vftitle_) ."/"
                                      :"feed.php?vfolder=$vfid_") ,
                             'lbl' => htmlentities( $vftitle_,ENT_COMPAT,"UTF-8" )
                         );
@@ -1317,7 +1317,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                 $prev = array(
                             'url' => getPath().
                                    ( getConfig('rss.output.usemodrewrite') ?
-                                     preg_replace("/[^A-Za-z0-9\.]/","_",$ftitle__) ."/"
+                                     rss_uri($ftitle__) ."/"
                                      :"feed.php?folder=$fid__") ,
                             'lbl' => htmlentities( $ftitle__,ENT_COMPAT,"UTF-8" )
                         );
@@ -1329,7 +1329,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
                 $succ = array(
                             'url' => getPath().
                                    ( getConfig('rss.output.usemodrewrite') ?
-                                     preg_replace("/[^A-Za-z0-9\.]/","_",$ftitle__) ."/"
+                                    rss_uri($ftitle__) ."/"
                                      :"feed.php?folder=$fid__") ,
                             'lbl' => htmlentities( $ftitle__,ENT_COMPAT,"UTF-8" )
                         );
