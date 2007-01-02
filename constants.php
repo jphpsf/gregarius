@@ -174,6 +174,11 @@ define ('RSS_SANITIZER_CHARACTERS_EXT',0x10);
 define ('RSS_SANITIZER_WORDS',0x20);
 define ('RSS_SANITIZER_URL',0x40);
 
+
+// Character separating uri elements (for e.g. permalinks)
+define('RSS_URI_SEPARATOR','_');
+
+
 // Profiling 
 //  - The profiling information is "html commented out" at the end of every html page
 //define('PROFILING', 1);

@@ -59,7 +59,9 @@ if (
     // this is nasty because a numeric feed title could break it
     && !is_numeric($_REQUEST['channel'])
 ) {
-    $sqlid = sanitize($_REQUEST['channel'], RSS_SANITIZER_SIMPLE_SQL | RSS_SANITIZER_NO_SPACES);
+	$sqlid = preg_replace('#'.RSS_URI_SEPARATOR.'#','_',
+		sanitize($_REQUEST['channel'] , RSS_SANITIZER_SIMPLE_SQL )
+		);
 
     $sql = "select id from " . getTable("channels") ." where title like '$sqlid'";
     if (hidePrivate()) {
@@ -69,6 +71,7 @@ if (
     // don't hide deprecated items becuase we want items of deprecated feeds to be accessible
     // $sql .= " and not(mode & " . RSS_MODE_DELETED_STATE . ") ";
 
+//	die($sql);
     $res =  rss_query( $sql );
     //echo $sql;
     if ( rss_num_rows ( $res ) >= 1) {

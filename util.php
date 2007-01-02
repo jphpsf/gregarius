@@ -1155,7 +1155,7 @@ function rss_404() {
 	echo "404 Page Not Found\n";
 }
 
-function rss_uri($title, $sep='_') {
-	return utf8_uri_encode(preg_replace('#[	\#%\s&/\+\'"\?]#',$sep,$title));
+function rss_uri($title, $sep=RSS_URI_SEPARATOR) {
+	return utf8_uri_encode(preg_replace('#[ \#%&/\+\'"\?]#',$sep,$title));
 }
 ?>

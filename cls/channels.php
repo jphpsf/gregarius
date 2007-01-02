@@ -87,8 +87,6 @@ class FeedListItem {
 		$this->mode = $mode;
 
 		if (getConfig('rss.output.usemodrewrite')) {
-			//$this->rlink = getPath().preg_replace("/[^a-zA-Z0-9_]/", "_", $title)."/";
-			/* EXPERIMENTAL! */
 			$this->rlink = getPath(rss_uri($title)) . "/";
 		} else {
 			$this->rlink = getPath()."feed.php?channel=$id";
