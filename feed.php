@@ -65,6 +65,7 @@ if (
     if (hidePrivate()) {
         $sql .=" and not(mode & " . RSS_MODE_PRIVATE_STATE .") ";
     }
+
     // don't hide deprecated items becuase we want items of deprecated feeds to be accessible
     // $sql .= " and not(mode & " . RSS_MODE_DELETED_STATE . ") ";
 
@@ -140,7 +141,7 @@ if (
     // lets see if theres an item id as well
     $iid = "";
     if ($cid != "" && array_key_exists('iid',$_REQUEST) && $_REQUEST['iid'] != "") {
-        $sqlid =  preg_replace("/[^A-Za-z0-9\.]/","%",$_REQUEST['iid']);
+        $sqlid =  preg_replace("/[_';]/","%",sanitize($_REQUEST['iid'],RSS_SANITIZER_SIMPLE_SQL|RSS_SANITIZER_NO_SPACES));
         $sql = "select id from " .getTable("item") ." i where i.title like '$sqlid' and i.cid=$cid";
         if ($m > 0 && $y > 0) {
             $sql .= " and month(ifnull(i.pubdate,i.added))= $m "

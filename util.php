@@ -1156,6 +1156,6 @@ function rss_404() {
 }
 
 function rss_uri($title, $sep='_') {
-	return utf8_uri_encode(preg_replace('#[\s&/\+\'"\?]#',$sep,$title));
+	return utf8_uri_encode(preg_replace('#[	\#%\s&/\+\'"\?]#',$sep,$title));
 }
 ?>
