@@ -598,7 +598,7 @@ msgstr "Markierungen"
 
 #: ajax.php:213 ajax.php:224 intl/en.php:207 intl/en.php:208
 msgid "submit"
-msgstr "Ausl&ouml;sen"
+msgstr "Auslösen"
 
 #: ajax.php:228 intl/en.php:208 intl/en.php:209
 msgid "cancel"
