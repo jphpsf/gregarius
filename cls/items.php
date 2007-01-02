@@ -515,15 +515,18 @@ class PaginatedItemList extends ItemList {
 	var $navigation;
 	var $itemsPerPage = 0;
 	var $numItems = 0;
-	function PaginatedItemList() { 
+	function PaginatedItemList($itemsPerPage=null) { 
 		parent::ItemList();	
 		if (isset($_REQUEST['page'])) {
 			$this -> page = sanitize($_REQUEST['page'], RSS_SANITIZER_NUMERIC);
 		} else {
 			$this -> page = 0;
 		}
-		
-		$this ->  itemsPerPage = getConfig('rss.output.frontpage.numitems');
+		if ($itemsPerPage === null) {
+			$this ->  itemsPerPage = getConfig('rss.output.frontpage.numitems');
+		} else {
+			$this ->  itemsPerPage = $itemsPerPage;
+		}
 	}
 	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED, $includeDeprecated = false) {
 
@@ -536,7 +539,10 @@ class PaginatedItemList extends ItemList {
 			. " where "
 			. $this -> _sqlActualWhere;
 		list($this -> numItems) = rss_fetch_row(rss_query($sql));
-		$this -> navigation = new ItemListNavigation($this);
+		
+		if ($this -> numItems >= $this -> itemsPerPage) {
+			$this -> navigation = new ItemListNavigation($this);			
+		}
 	}
 }
 ?>
