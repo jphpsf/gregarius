@@ -540,7 +540,7 @@ class PaginatedItemList extends ItemList {
 			. $this -> _sqlActualWhere;
 		list($this -> numItems) = rss_fetch_row(rss_query($sql));
 		
-		if ($this -> numItems >= $this -> itemsPerPage) {
+		if ($this -> numItems > $this -> itemsPerPage) {
 			$this -> navigation = new ItemListNavigation($this);			
 		}
 	}
