@@ -45,8 +45,8 @@ function channels() {
 
     echo "<label for=\"add_channel_to_folder\">". __('to folder:') . "</label>\n";
     echo rss_toolkit_folders_combo('add_channel_to_folder');
-	echo "<label for=\"channel_tags\">" . __('Categories') . ":</label>\n";
-	echo "<input type=\"text\" name=\"channel_tags\" id=\"channel_tags\" />\n";
+    echo "<label for=\"channel_tags\">" . __('Categories') . ":</label>\n";
+    echo "<input type=\"text\" name=\"channel_tags\" id=\"channel_tags\" />\n";
     echo "<input type=\"hidden\" name=\"". CST_ADMIN_METAACTION ."\" value=\"ACT_ADMIN_ADD\" />\n";
     echo "<input type=\"submit\" name=\"action\" value=\"". __('Add') ."\" /></p>\n";
     echo "<p style=\"font-size:small\">".__('(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)')."</p>";
@@ -65,8 +65,8 @@ function channels() {
     echo "<script type=\"text/javascript\">\n"
     ."//<!--\n"
     ."if (navigator && typeof(navigator.registerContentHandler) == 'function'){\n"
-    ."\tdocument.write('<p style=\"font-size:small\">" 
-    . __('Register as Feed Handler [<a href="http://www.bengoodger.com/software/mb/feeds/feed-handling.html">?</a>]:') 
+    ."\tdocument.write('<p style=\"font-size:small\">"
+    . __('Register as Feed Handler [<a href="http://www.bengoodger.com/software/mb/feeds/feed-handling.html">?</a>]:')
     . " <a class=\"bookmarklet\" href=\"$feedhandler_url\">"
     .__('Register Gregarius!')."</a></p>');\n"
     ."}\n"
@@ -148,12 +148,12 @@ function channels() {
                 $tags .= "<a href=\"".getPath()."feed.php?vfolder=$id_\">$name_</a> ";
             }
         }
-        
-				if(NULL == $daterefreshed) {
-					$dead = true;
-				} else {
-					$dead = (time() - strtotime($daterefreshed) > getConfig('rss.config.deadthreshhold')*60*60 ? true : false);
-				}
+
+        if(NULL == $daterefreshed) {
+            $dead = true;
+        } else {
+            $dead = (time() - strtotime($daterefreshed) > getConfig('rss.config.deadthreshhold')*60*60 ? true : false);
+        }
 
         $fmode = array();
         if ($mode & RSS_MODE_PRIVATE_STATE) {
@@ -161,7 +161,7 @@ function channels() {
         }
         if ($mode & RSS_MODE_DELETED_STATE) {
             $fmode[] = "D";
-						$dead = false;
+            $dead = false;
         }
 
         $slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
@@ -261,16 +261,16 @@ function channel_admin() {
     switch ($__action__) {
 
     case __('Add'):
-    case 'ACT_ADMIN_ADD':
-    case 'Add':
+                case 'ACT_ADMIN_ADD':
+                    case 'Add':
 
-        $label 	= trim(sanitize($_REQUEST['new_channel'], RSS_SANITIZER_URL));
+                            $label 	= trim(sanitize($_REQUEST['new_channel'], RSS_SANITIZER_URL));
         $fid 		= trim(sanitize($_REQUEST['add_channel_to_folder'], RSS_SANITIZER_NUMERIC));
         list($flabel) = rss_fetch_row(rss_query(
-          "select name from " . getTable('folders') . " where id=$fid"));
+                                          "select name from " . getTable('folders') . " where id=$fid"));
 
         // handle "feed:" urls
-        if (substr($label, 0,5) == 'feed:') {
+if (substr($label, 0,5) == 'feed:') {
 
             if (substr($label, 0, 11 ) == "feed://http") {
                 $label = substr($label,5);
@@ -452,12 +452,12 @@ function channel_admin() {
 
 
     case __('Import'):
-    case 'ACT_ADMIN_IMPORT':
+                case 'ACT_ADMIN_IMPORT':
 
 
-        if (array_key_exists('opml',$_POST) && strlen(trim($_POST['opml'])) > 7) {
-            $url = trim( sanitize($_POST['opml'],RSS_SANITIZER_NO_SPACES) );
-        }
+                if (array_key_exists('opml',$_POST) && strlen(trim($_POST['opml'])) > 7) {
+                    $url = trim( sanitize($_POST['opml'],RSS_SANITIZER_NO_SPACES) );
+                }
         elseif (array_key_exists('opmlfile',$_FILES) && $_FILES['opmlfile']['tmp_name']) {
             if (is_uploaded_file($_FILES['opmlfile']['tmp_name'])) {
                 $url = $_FILES['opmlfile']['tmp_name'];
@@ -506,8 +506,8 @@ function channel_admin() {
                 $fid = $opmlfid;
 
                 list($prev_folder) = rss_fetch_row(rss_query(
-                                                 "select name from " .getTable('folders')
-                                                 ." where id= $opmlfid "));
+                                                       "select name from " .getTable('folders')
+                                                       ." where id= $opmlfid "));
 
             } else {
                 $prev_folder = __('Root');
@@ -539,14 +539,15 @@ function channel_admin() {
                     $d__ = strip_tags($descr_);
                     $f__ = strip_tags($prev_folder);
                     $u__ = sanitize($url_,RSS_SANITIZER_URL);
-					$c__ = preg_replace(ALLOWED_TAGS_REGEXP,' ',$cats_);
+                    $c__ = $cats_; //preg_replace(ALLOWED_TAGS_REGEXP,' ',$cats_);
                     if ($u__) {
 
                         echo "<li><p>" . sprintf(__('Adding %s to %s... '),$t__,$f__);
                         flush();
+
                         list($retcde, $retmsg) = add_channel($u__, $fid, $t__, $d__);
                         if ($retcde && count($c__)) {
-                        	__exp__submitTag($retcde,utf_encode($c__),"'channel'");
+                            __exp__submitTag($retcde,utf8_encode($c__),"'channel'");
                         }
                         echo ($retcde<0 ?$retmsg:" OK")."</p></li>\n";
                         flush();
@@ -752,55 +753,56 @@ function channel_admin() {
         rss_invalidate_cache();
         break;
 
-		case 'dump':
-			// Make sure this is a POST
-			if(!isset($_POST['dumpact'])) {
-				die('Sorry, you can\'t access this via a GET');
-			}
-			$tbl = array('"','&quot;');
-			error_reporting(E_ALL);
-			rss_require('schema.php');
-			$tables=getExpectedTables();
-			unset($tables['cache']);
-			//$tables=array('channels','tag','config');
-			$bfr='';
-			$bfr .= '<'.'?xml version="1.0" encoding="UTF-8"?'.'>'."\n";
-			$bfr .= '<dump prefix="'.getTable('').'" date="'.date('r').'">'."\n";
-			foreach($tables as $table => $prefixed) {
-				$rs = rss_query("select * from $prefixed");
-				$bfr .="<$table>\n";
-				while($row=rss_fetch_assoc($rs)) {
-					$r="<row ";
-					foreach($row as $key => $val) {
-						$val=htmlspecialchars($val);
-						$r.=" $key=\"$val\" ";
-					}
-					$r .= "/>\n";
-					$bfr .=$r;
-				}
-				$bfr .="</$table>\n";
-			}
-			$bfr .='</dump>'."\n";
-			$gzdata = gzencode($bfr, 9);
+    case 'dump':
+        // Make sure this is a POST
+        if(!isset($_POST['dumpact'])) {
+            die('Sorry, you can\'t access this via a GET');
+        }
+        $tbl = array('"','&quot;');
+        error_reporting(E_ALL);
+        rss_require('schema.php');
+        $tables=getExpectedTables();
+        unset($tables['cache']);
+        //$tables=array('channels','tag','config');
+        $bfr='';
+        $bfr .= '<'.'?xml version="1.0" encoding="UTF-8"?'.'>'."\n";
+        $bfr .= '<dump prefix="'.getTable('').'" date="'.date('r').'">'."\n";
+        foreach($tables as $table => $prefixed) {
+            $rs = rss_query("select * from $prefixed");
+            $bfr .="<$table>\n";
+            while($row=rss_fetch_assoc($rs)) {
+                $r="<row ";
+                foreach($row as $key => $val) {
+                    $val=htmlspecialchars($val);
+                    $r.=" $key=\"$val\" ";
+                }
+                $r .= "/>\n";
+                $bfr .=$r;
+            }
+            $bfr .="</$table>\n";
+        }
+        $bfr .='</dump>'."\n";
+        $gzdata = gzencode($bfr, 9);
 
 
-			// Delete the output buffer. This is probably a bad thing to do, if the ob'ing is turned off.
-			// e.g. data was already sent to the brwoser.
-			while (@ob_end_clean());
+        // Delete the output buffer. This is probably a bad thing to do, if the ob'ing is turned off.
+        // e.g. data was already sent to the brwoser.
+        while (@ob_end_clean())
+            ;
 
-			// Send the dump to the browser:
-			header("Pragma: public"); // required
-			header("Expires: 0");
-			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-			header("Connection: close");
-			header("Content-Transfer-Encoding: binary");
-			header("Content-Length: " . strlen($gzdata));
-			header('Content-type: application/x-gzip');
-			header('Content-disposition: inline; filename="gregarius.dump.'.date('MjSY').'.xml.gz"');
+        // Send the dump to the browser:
+        header("Pragma: public"); // required
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Connection: close");
+        header("Content-Transfer-Encoding: binary");
+        header("Content-Length: " . strlen($gzdata));
+        header('Content-type: application/x-gzip');
+        header('Content-disposition: inline; filename="gregarius.dump.'.date('MjSY').'.xml.gz"');
 
-			die($gzdata);
+        die($gzdata);
 
-			break;
+        break;
     default:
         break;
     }
@@ -812,10 +814,10 @@ function channel_edit_form($cid) {
     $res = rss_query($sql);
     list ($id, $title, $url, $siteurl, $parent, $descr, $icon, $mode, $daterefreshed, $dateadded) = rss_fetch_row($res);
     // get tags
-    $sql = "select t.tag from " . getTable('tag')." t " 
-         . "  inner join " . getTable('metatag') . " m "
-         . "    on m.tid = t.id "
-         . "where m.ttype = 'channel' and m.fid = $cid";
+    $sql = "select t.tag from " . getTable('tag')." t "
+           . "  inner join " . getTable('metatag') . " m "
+           . "    on m.tid = t.id "
+           . "where m.ttype = 'channel' and m.fid = $cid";
     $res = rss_query($sql);
     $tags = "";
     while($r = rss_fetch_assoc($res)) {
@@ -829,11 +831,11 @@ function channel_edit_form($cid) {
     echo "<fieldset id=\"channeleditfs\">";
     // Timestamps
     if(!empty($daterefreshed)) {
-      echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
-					."<p><label>" . __('Last Update') . ": ".date("M-d-Y H:i", strtotime($daterefreshed))."</label></p>\n";
+        echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
+        ."<p><label>" . __('Last Update') . ": ".date("M-d-Y H:i", strtotime($daterefreshed))."</label></p>\n";
     } else {
-      echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
-					."<p><label>" . __('Last Update') . ": " . __('Never') . "</label></p>\n";
+        echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
+        ."<p><label>" . __('Last Update') . ": " . __('Never') . "</label></p>\n";
     }
     // Item name
     echo "<p><label for=\"c_name\">". __('Title:') ."</label>\n"
