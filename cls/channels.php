@@ -141,9 +141,11 @@ class FeedFolder {
 		) .'/';
 	}
 	
-	function render() {		
-		$GLOBALS['rss']->currentFeedsFolder = $this;
-		eval($GLOBALS['rss'] ->getCachedTemplateFile("feedsfolder.php"));
+	function render() {
+		if ((!getConfig('rss.output.minimalchannellist')) || ($this->feeds)) { 
+		 	$GLOBALS['rss']->currentFeedsFolder = $this; 
+		 	require($GLOBALS['rss'] ->getTemplateFile("feedsfolder.php")); 
+		}
 	}
 }
 
@@ -212,8 +214,7 @@ class FeedList {
 			}  elseif (empty($this->collapsed_ids) && getConfig("rss.output.channelcollapsedefault")) {
 			   // Lets collapse all folders
 			   $res = rss_query("select id from " . getTable('folders') . " where id != 0");
-			   while (list ($this->collapsed_ids[]) = rss_fetch_row($res)) {
-			   }
+			   while (list ($this->collapsed_ids[]) = rss_fetch_row($res)) {}
 			   if (!headers_sent()) { // Sajax does not allow us to set cookies
 			    setcookie(COLLAPSED_FOLDERS_COOKIE, 
 				  implode(":", $this->collapsed_ids ) , time()+COOKIE_LIFESPAN,getPath());
@@ -286,7 +287,10 @@ class FeedList {
 			if (!array_key_exists($cparent, $this->folders)) {
 				$this->folders[$cparent] = new FeedFolder($fname, $cparent,$this);
 			}
-			$this->folders[$cparent]->feeds[] = $f;
+			//$this->folders[$cparent]->feeds[] = $f;
+			if(($ucc != 0) || (!getConfig('rss.output.minimalchannellist'))) { 
+			 	$this->folders[$cparent]->feeds[] = $f; 
+			}
 			$this->folders[$cparent]->isCollapsed = in_array($cparent, $this->collapsed_ids) && ($cparent > 0);
 
 		}
