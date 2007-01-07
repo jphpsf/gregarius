@@ -114,12 +114,27 @@ function __exp_itemRatedCB($iid,$rt) {
 
 
 
+function __exp_addChannel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null) {
+	rss_require('extlib/JSON.php');
+	$json = new SERVICES_JSON();
+	if (!isset($GLOBALS['rssuser'])) {
+		require_once('cls/user.php');
+	}
+	if(rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE)) {
+		$ret = add_channel($url, $folderid, $title_,$descr_,$tags);
+	} else {
+		$ret = array (-1, "Sorry, you are not privileged enough to add feeds");
+	}
+	
+	return $json -> encode($ret);
+}
+
 $sajax_request_type = "POST";
 $sajax_debug_mode = 0;
 $sajax_remote_uri = getPath() . basename(__FILE__);
 
 // Non standard! One usually calls sajax_export() ...
-$sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent");
+$sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__getFeedContent", "__exp_addChannel");
 
 // Plugins shall export ajax functions as well
 $sajax_export_list = rss_plugin_hook("rss.plugins.ajax.exports",$sajax_export_list);
