@@ -27,11 +27,10 @@
 
 require_once ('init.php');
 
-$a =trim(sanitize($_REQUEST['author'], RSS_SANITIZER_WORDS));
-
+$a = trim(sanitize($_REQUEST['author'], RSS_SANITIZER_WORDS));
 list ($ra) = rss_fetch_row(rss_query(
 	"select distinct(author) from " .getTable('item') 
-	." where author = '$a'"
+	." where author  like '%$a'"
 ));
 
 if (!$ra) {
@@ -43,7 +42,7 @@ $t = ucfirst(__('items')) . " " . __(' by ') . " " . $ra;
 $GLOBALS['rss']->header = new Header($t);
 $GLOBALS['rss']->feedList = new FeedList(false);
 $authorItems = new ItemList();
-$sqlWhere = " i.author like '$a' ";
+$sqlWhere = " i.author like '%$a' ";
 $numItems = getConfig('rss.output.frontpage.numitems');
 $authorItems->populate($sqlWhere, "",  0, $numItems);
 $authorItems->setTitle($t);
