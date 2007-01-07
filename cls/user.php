@@ -228,7 +228,7 @@ class RSSUser {
     }
 
 		function getShowPrivate() {
-				return $this -> _showPrivate;
+				return true; //$this -> _showPrivate;
 		}
 		function setShowPrivate($show) {
 			$this -> _showPrivate = $show;
