@@ -457,7 +457,6 @@ function setDefaults($key) {
 		"rss.output.frontpage.numitems"	=>		array("100","100","num","Maximum number of items displayed on the main page. Set this variable to 0 to show no items on the main page.",NULL),
 		"rss.output.frontpage.mixeditems"	=> array('true','true','boolean','Show read items along with unread items on the front page?',NULL),
 		"rss.output.frontpage.numreaditems"	=> array(-1,-1,'num','If there are no unread items then how many items to show on the frontpage. Set this to -1 if you want it to be the same as rss.output.numitemsonmainpage',NULL),
-		"rss.output.mimimalchannellist"	=> array('false','false','boolean','Exclude folders and channels without unread items in channel list?',NULL),
 		"rss.output.theme"			=>		array('default','default','string','The theme to use. Download more themes from the <a href="http://themes.gregarius.net/">Gregarius Themes Repository</a>.',NULL),
 		"rss.output.cachecontrol"	=>		array('false','false','boolean','If true, Gregarius will negotiate with the browser and check whether it should get a fresh document or not.',NULL),
 		"rss.config.plugins"		=>		array('a:2:{i:0;s:13:"urlfilter.php";i:1;s:18:"roundedcorners.php";}','a:2:{i:0;s:13:"urlfilter.php";i:1;s:18:"roundedcorners.php";}','array','Plugins are third-party scripts that offer extended functionalities. More plugins can be found at the <a href="http://plugins.gregarius.net/">Plugin Repository</a>.' , NULL),
