@@ -160,7 +160,7 @@ function item_admin() {
 				// Possible fix for #207: max out execution time
 				// to avoid timeouts
 				@set_time_limit(0);
-		        @ini_set('max_execution_time', (10 * count($this->chans) + 300));
+		        @ini_set('max_execution_time', 60*10));
 		        
 				
 	
