@@ -40,11 +40,19 @@ if (array_key_exists(SHOW_WHAT,$_POST)) {
 	$show_what = $_COOKIE[SHOW_WHAT];
 }
 
+if (array_key_exists('chkPrivate', $_POST)) {
+	$show_private = empty($_POST['chkPrivate']) ? 0 : $_POST['chkPrivate'];
+	setcookie('chkPrivate', $show_private, time()+COOKIE_LIFESPAN, getPath());
+} else {
+	$show_private = empty($_COOKIE['chkPrivate']) ? 0 : $_COOKIE['chkPrivate'];
+}
+
+rss_user_set_show_private($show_private);
 
 if (array_key_exists('metaaction', $_POST)
     && $_POST['metaaction'] != ""
     && trim($_POST['metaaction']) == trim('ACT_MARK_READ') 
-    && !hidePrivate()) {
+    && isLoggedIn()) {
     
     $sql = "update " .getTable("item") . " set unread=unread & "
      .SET_MODE_READ_STATE ." where unread  & " . RSS_MODE_UNREAD_STATE;
@@ -67,7 +75,7 @@ if (array_key_exists('update',$_REQUEST)) {
 $cntTotalItems = getConfig('rss.output.frontpage.numitems');
 
 rss_plugin_hook('rss.plugins.frontpage.beforeunread', null);
-$cntUnreadItems = unreadItems($show_what);
+$cntUnreadItems = unreadItems($show_what,$show_private);
 
 // Now we have to decide how many read items to display
 $cntReadItems = getConfig('rss.output.frontpage.numreaditems');
@@ -110,12 +118,12 @@ function getHiddenChannelIds() {
 }
 */
 
-function unreadCallback($show_what) {
-    showViewForm($show_what);
-	markAllReadForm();
+function unreadCallback($args) {
+    showViewForm($args);
+		markAllReadForm();
 }
 
-function unreadItems($show_what) {
+function unreadItems($show_what, $show_private) {
 
     _pf('populate unread items');
 	$unreadItems = new ItemList();
@@ -135,7 +143,7 @@ function unreadItems($show_what) {
 	
     _pf('end populate unread items');
 	if ($unreadItems ->unreadCount) {
-		$unreadItems -> preRender[] = array("unreadCallback",$show_what);
+		$unreadItems -> preRender[] = array("unreadCallback",array($show_what,$show_private));
 	}
 	
 	$ret = $unreadItems -> unreadCount;
@@ -160,8 +168,7 @@ function readItems($limit) {
 	}
 	*/
 
-	
-    $readItems = new ItemList();
+  $readItems = new ItemList();
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 
 	if (getConfig('rss.config.feedgrouping')) {
@@ -214,7 +221,7 @@ function readItems($limit) {
 }
 
 function markAllReadForm() {
-	if (hidePrivate()) {
+	if (!isLoggedIn()) {
 		return;
 	}
 	

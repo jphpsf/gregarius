@@ -50,6 +50,8 @@ class RSSUser {
     var $_mobileSession;
     /** Action */
     var $_action;
+		/** Show private feeds/items */
+		var $_showPrivate;
 
     /**
      * RSSUser constructor:
@@ -66,6 +68,7 @@ class RSSUser {
         $this -> _uname = '';
         $this -> _realName = '';
         $this -> _hash = null;
+				$this -> _showPrivate = 0;
         
         
 		$this -> _mobileSession = 
@@ -223,6 +226,13 @@ class RSSUser {
     function getUserLevel() {
         return $this -> _level;
     }
+
+		function getShowPrivate() {
+				return $this -> _showPrivate;
+		}
+		function setShowPrivate($show) {
+			$this -> _showPrivate = $show;
+		}
 }
 
 // Create the unique instance. 

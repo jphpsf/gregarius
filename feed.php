@@ -50,7 +50,14 @@ elseif (array_key_exists(SHOW_WHAT,$_COOKIE)) {
     $show_what = $_COOKIE[SHOW_WHAT];
 }
 
+if (array_key_exists('chkPrivate', $_POST)) {
+  $show_private = empty($_POST['chkPrivate']) ? 0 : $_POST['chkPrivate'];
+  setcookie('chkPrivate', $show_private, time()+COOKIE_LIFESPAN, getPath());
+} else {
+  $show_private = empty($_COOKIE['chkPrivate']) ? 0 : $_COOKIE['chkPrivate'];
+}
 
+rss_user_set_show_private($show_private);
 
 $y=$m=$d=0;
 if (
@@ -296,7 +303,7 @@ if (
 }
 //echo ("cid=".(isset($cid)?"$cid":"") . " fid=" . (isset($fid)?"$fid":""));
 
-if (!hidePrivate() && array_key_exists ('metaaction', $_REQUEST)) {
+if (isLoggedIn() && array_key_exists ('metaaction', $_REQUEST)) {
 
     if (array_key_exists('markreadids',$_POST)) {
         $IdsToMarkAsRead = explode(",",rss_real_escape_string($_POST['markreadids']));
@@ -714,14 +721,15 @@ if (array_key_exists('dbg',$_GET)) {
     }
     if(!isset($vfid))
         $vfid = null;
-    doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what);
+    doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,(isset($nv)?$nv:null),$show_what,$show_private);
 }
 
 $GLOBALS['rss'] -> renderWithTemplate('index.php','items');
 
-function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
+function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what,$show_private) {
 
     $do_show=$show_what;
+
     //should we honour unread-only?
     if ($show_what == SHOW_UNREAD_ONLY) {
 
@@ -751,7 +759,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
             }
 
         }
-    }
+		}
 
     $items = new ItemList();
     $severalFeeds = (($fid != null) || ($vfid != null));
@@ -828,7 +836,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what) {
 
 
     if ($items -> unreadCount && $iid == "") {
-        $items -> preRender[] = array("showViewForm",$show_what);
+        $items -> preRender[] = array("showViewForm",array($show_what,$show_private));
 
         if (!$severalFeeds) {
             $items -> preRender[] = array("markReadForm",$cid);
@@ -1352,7 +1360,7 @@ function makeNav($cid,$iid,$y,$m,$d,$fid,$vfid,$cids) {
 }
 
 function markReadForm($cid) {
-    if (hidePrivate()) {
+    if (!isLoggedIn()) {
         return;
     }
 
@@ -1368,7 +1376,7 @@ function markReadForm($cid) {
 }
 
 function markFolderReadForm($fid) {
-    if (hidePrivate()) {
+    if (!isLoggedIn()) {
         return;
     }
 
@@ -1385,7 +1393,7 @@ function markFolderReadForm($fid) {
 }
 
 function markVirtualFolderReadForm($vfid) {
-    if (hidePrivate()) {
+    if (!isLoggedIn()) {
         return;
     }
 

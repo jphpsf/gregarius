@@ -33,6 +33,13 @@ function rss_user_name() {
 	return $GLOBALS['rssuser'] -> getUserName();
 }
 
+function rss_user_show_private() {
+	return $GLOBALS['rssuser'] -> getShowPrivate();
+}
+function rss_user_set_show_private($show_private) {
+	$GLOBALS['rssuser'] -> setShowPrivate($show_private);
+}
+
 function rss_user_logout() {
 	$GLOBALS['rssuser'] -> logout();
 }

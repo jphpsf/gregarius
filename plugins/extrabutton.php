@@ -32,7 +32,7 @@
 /// Version: $Revision: 1.9
 
 function __extra_button_Button($in) {
-	if (hidePrivate()) {
+	if (!isLoggedIn()) {
 		return;
 	}
 	

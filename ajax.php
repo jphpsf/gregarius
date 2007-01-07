@@ -32,7 +32,7 @@ if (array_key_exists('js',$_GET)) {
 require_once('init.php');
 
 function __exp__setState($id,$state) {
-	if (!hidePrivate()) {
+	if (isLoggedIn()) {
 		rss_query('update '.getTable('item') . " set unread=$state where id=$id");	
 		rss_invalidate_cache();
 	}
@@ -125,7 +125,7 @@ $sajax_export_list = array("__exp__submitTag","__exp__getSideContent","__exp__ge
 $sajax_export_list = rss_plugin_hook("rss.plugins.ajax.exports",$sajax_export_list);
 
 
-if (!hidePrivate()) {
+if (isLoggedIn()) {
     $sajax_export_list[] = "__exp__setState";
     $sajax_export_list[] = "__exp__rateItem";
     $sajax_export_list[] = "__exp_itemRatedCB";
@@ -403,7 +403,7 @@ function getCookie(cookieName) {
 
 <?php rss_plugin_hook("rss.plugins.ajax.extrajs.public",null); ?>
 
-<?php if (! hidePrivate()) { ?>
+<?php if (isLoggedIn()) { ?>
 
 <?php rss_plugin_hook("rss.plugins.ajax.extrajs.private",null); ?>
 

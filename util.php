@@ -844,26 +844,25 @@ function html_substr($posttext, $minimum_length = 200, $length_offset = 20, $cut
 }
 
 
-function showViewForm($curValue) {
-
-    //default: read and unread!
-    $readAndUndredaSelected = " selected=\"selected\"";
-    $unreadOnlySelected = "";
-    if ($curValue == SHOW_UNREAD_ONLY) {
-        $readAndUndredaSelected = "";
-        $unreadOnlySelected = " selected=\"selected\"";
-    }
+function showViewForm($args) { //$curValue, $show_private) {
+		list($curValue, $show_private) = $args;
 
     // post back to self, we should be able to handle the request, shouldn't we.
-    echo "\n<form action=\"".$_SERVER['REQUEST_URI']
-    ."\" method=\"post\" id=\"frmShow\">\n"
+    echo "\n<form action=\"".$_SERVER['REQUEST_URI'] ."\" method=\"post\" id=\"frmShow\">\n"
     ."<p><label for=\"".SHOW_WHAT."\">".__('Show items: ')."</label>\n"
     ."<select name=\"".SHOW_WHAT."\" id=\"".SHOW_WHAT."\" "." onchange=\"document.getElementById('frmShow').submit();\">\n"
-    ."\t<option value=\"".SHOW_UNREAD_ONLY."\"$unreadOnlySelected>".__('Unread only')."</option>\n"
-    ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"$readAndUndredaSelected>".__('Read and unread')."</option>\n"
-    ."</select></p>\n</form>\n";
-}
+    ."\t<option value=\"".SHOW_UNREAD_ONLY."\"" . (SHOW_UNREAD_ONLY == $curValue ? " selected=\"selected\"" : "") . ">".__('Unread only')."</option>\n"
+    ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"" . (SHOW_READ_AND_UNREAD == $curValue ? " selected=\"selected\"" : "") . ">".__('Read and unread')."</option>\n"
+    ."</select>"
+    ."</p>\n";
 
+		if(isLoggedIn()) {
+			echo "<p><label for=\"chkPrivate\">".__('Show Private:')."</label>\n"
+			."<input type=\"checkbox\" name=\"chkPrivate\" id=\"chkPrivate\" value=\"1\" onchange=\"if(false == document.getElementById('chkPrivate').checked) { document.getElementById('chkPrivate').value = 0; document.getElementById('chkPrivate').checked = true; } document.getElementById('frmShow').submit();\"" . (1 == $show_private ? " checked" : "") . ">\n"
+			."</p>\n";
+		}
+		echo "</form>\n";
+}
 
 
 function getUnreadCount($cid, $fid) {
@@ -1143,10 +1142,21 @@ function sanitize($input, $rules = 0) {
 }
 
 function hidePrivate() {
+	$ret = 0;
+
+  if(isLoggedIn()) {
+		$ret = rss_user_show_private();
+	}
+
+	return !$ret;
+}
+
+function isLoggedIn() {
 	if (!isset($GLOBALS['rssuser'])) {
 		require_once('cls/user.php');
 	}
-	return !rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE);
+
+	return rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE);
 }
 
 // Send a crappy 404 (to save bandwidth) for webbots 
