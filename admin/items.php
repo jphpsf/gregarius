@@ -154,6 +154,16 @@ function item_admin() {
             }
 
             if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST)) {
+	
+				
+				
+				// Possible fix for #207: max out execution time
+				// to avoid timeouts
+				@set_time_limit(0);
+		        @ini_set('max_execution_time', (10 * count($this->chans) + 300));
+		        
+				
+	
                 //echo "<pre>\n";
                 //delete the tags for these items
                 $sqlids = "select distinct i.id,i.cid " . $sql
