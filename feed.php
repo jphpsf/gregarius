@@ -378,7 +378,7 @@ if (isLoggedIn() && array_key_exists ('metaaction', $_REQUEST)) {
                    ." where (unread & ".RSS_MODE_UNREAD_STATE . ") "
                    ." and not (unread & " .RSS_MODE_DELETED_STATE . ") ";
             if (hidePrivate()) {
-                $sql .= " and not (i.unread & " . RSS_MODE_PRIVATE_STATE . ") ";
+                $sql .= " and not (unread & " . RSS_MODE_PRIVATE_STATE . ") ";
             }
             $sql .= " group by cid";
             $res = rss_query($sql);
