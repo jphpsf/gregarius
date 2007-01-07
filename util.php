@@ -855,12 +855,13 @@ function showViewForm($args) { //$curValue, $show_private) {
     ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"" . (SHOW_READ_AND_UNREAD == $curValue ? " selected=\"selected\"" : "") . ">".__('Read and unread')."</option>\n"
     ."</select>"
     ."</p>\n";
-
+/*
 		if(isLoggedIn()) {
 			echo "<p><label for=\"chkPrivate\">".__('Show Private:')."</label>\n"
 			."<input type=\"checkbox\" name=\"chkPrivate\" id=\"chkPrivate\" value=\"1\" onchange=\"if(false == document.getElementById('chkPrivate').checked) { document.getElementById('chkPrivate').value = 0; document.getElementById('chkPrivate').checked = true; } document.getElementById('frmShow').submit();\"" . (1 == $show_private ? " checked" : "") . ">\n"
 			."</p>\n";
 		}
+		*/
 		echo "</form>\n";
 }
 
