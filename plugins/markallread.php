@@ -69,7 +69,7 @@ function __markallread_sidemenu_categoryunreadlabel( $existingText ) {
 function __markallread_sidemenu_folderunreadlabel( $existingText ) {
 	if( hidePrivate() )
 		return $existingText;
-
+		
 	$options = rss_plugins_get_option( MARKALLREAD_CONFIG_OPTIONS );
 	if( $options & MARKALLREAD_OPTION_LINK_FOLDER )
 		return "<a title='".__('Mark This Folder as Read')."' href='". getPath() ."feed.php?metaaction=ACT_MARK_FOLDER_READ&amp;folder=" . rss_feeds_folder_id() . "' onclick='javascript: return _markallread(this,\"folder\",\"" . rss_feeds_folder_name() . "\");'>" . $existingText . '</a>';
@@ -78,9 +78,9 @@ function __markallread_sidemenu_folderunreadlabel( $existingText ) {
 }
 
 function __markallread_sidemenu_feedunreadlabel( $existingText ) {
-	if( hidePrivate() )
+	if (hidePrivate() || (class_exists('TagList') && is_a($GLOBALS['rss']-> feedList, 'TagList'))) {
 		return $existingText;
-
+	}
 	$options = rss_plugins_get_option( MARKALLREAD_CONFIG_OPTIONS );
 	if( $options & MARKALLREAD_OPTION_LINK_FEED )
 		return "<a title='".__('Mark This Feed as Read')."' href='". getPath() ."feed.php?metaaction=ACT_MARK_CHANNEL_READ&amp;channel=" . $GLOBALS['rss']->currentFeedsFeed-> id . "' onclick='javascript: return _markallread(this,\"feed\",\"" . rss_feeds_feed_title() . "\");'>" . $existingText . '</a>';
