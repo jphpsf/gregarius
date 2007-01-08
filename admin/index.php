@@ -199,10 +199,7 @@ function admin_main($authorised) {
         echo "\n<div class=\"clearer\"></div>\n";
 
     } else {
-        rss_error(sprintf(__('<h1>Not Authorized!</h1>
-You are not authorized to access the administration interface.
-Please follow <a href="%s">this link</a> back to the main page.
-Have  a nice day!'),getPath()), RSS_ERROR_ERROR,true);
+        rss_error(sprintf(__('<h1>Not Authorized!</h1>You are not authorized to access the administration interface. Please follow <a href="%s">this link</a> back to the main page. Have  a nice day!'),getPath()), RSS_ERROR_ERROR,true);
     }
     echo "</div>\n";
 }

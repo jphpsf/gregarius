@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 13:05+0100\n"
+"POT-Creation-Date: 2007-01-08 14:23+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,62 +12,675 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin/channels.php:119 admin/channels.php:120 admin/channels.php:132
-#: admin/channels.php:491 admin/channels.php:501 admin/channels.php:513
-#: admin/folders.php:67 admin/folders.php:142 cls/wrappers/searchform.php:122
-#: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81 opml.php:51
-#: opml.php:104
+#: admin/channels.php:39
+msgid "Feeds:"
+msgstr "フィード:"
+
+#: admin/channels.php:43
+msgid "Add a feed:"
+msgstr "フィード追加:"
+
+#: admin/channels.php:46
+msgid "to folder:"
+msgstr "次のフォルダへ:"
+
+#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:866
+#: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
+#: themes/default/mobile/nav.php:3
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
+#: admin/folders.php:41 admin/folders.php:212
+msgid "Add"
+msgstr "追加"
+
+#: admin/channels.php:52
+msgid ""
+"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
+"subscribe to)"
+msgstr "RSSフィードのURLまたは、ウェブサイトのURLを入力してください。"
+
+#: admin/channels.php:62
+msgid ""
+"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
+"\">?</a>]:"
+msgstr ""
+"ブックマークレット： [<a href=\"http://www.squarefree.com/bookmarklets/\">?</"
+"a>]:"
+
+#: admin/channels.php:62
+msgid "Subscribe in Gregarius!"
+msgstr "Gregariusに追加！！"
+
+#: admin/channels.php:69
+msgid ""
+"Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
+"feeds/feed-handling.html\">?</a>]:"
+msgstr ""
+
+#: admin/channels.php:71
+#, fuzzy
+msgid "Register Gregarius!"
+msgstr "Gregariusに追加！！"
+
+#: admin/channels.php:97 admin/folders.php:46
+msgid "Title"
+msgstr "タイトル"
+
+#: admin/channels.php:98
+msgid "Folder"
+msgstr "フォルダ"
+
+#: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
+msgid "Description"
+msgstr "詳細"
+
+#: admin/channels.php:101
+msgid "Flags"
+msgstr "フラグ"
+
+#: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
+msgid "Move"
+msgstr "移動"
+
+#: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
+#: admin/tags.php:141
+msgid "Action"
+msgstr "アクション"
+
+#: admin/channels.php:132 admin/channels.php:513 admin/folders.php:67
+#: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
+#: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104
 msgid "Root"
 msgstr "ルート"
 
-#: admin/channels.php:531 admin/channels.php:545 admin/channels.php:557
-#: update.php:59 update.php:61 admin/channels.php:558
+#: admin/channels.php:185 admin/folders.php:80
+msgid "&uarr;"
+msgstr "&uarr;"
+
+#: admin/channels.php:187 admin/folders.php:84
+msgid "&darr;"
+msgstr "&darr;"
+
+#: admin/channels.php:191 admin/channels.php:298 admin/channels.php:327
+#: admin/config.php:160 admin/folders.php:92 admin/plugins.php:149
+#: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
+#: themes/default/web/item.php:31 themes/lilina/web/item.php:55
+#: themes/lilina/web/item.php:111
+msgid "edit"
+msgstr "編集"
+
+#: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
+msgid "delete"
+msgstr "削除"
+
+#: admin/channels.php:203 admin/channels.php:860
+msgid "In folder:"
+msgstr "フォルダ:"
+
+#: admin/channels.php:211
+msgid "State:"
+msgstr "状態:"
+
+#: admin/channels.php:213
+msgid "Deprecated"
+msgstr "無効"
+
+#: admin/channels.php:216
+msgid "Private"
+msgstr "プライベート"
+
+#: admin/channels.php:218
+msgid "Set"
+msgstr "適応"
+
+#: admin/channels.php:222 admin/items.php:59 admin/items.php:72
+#: admin/items.php:252 admin/tags.php:164
+msgid "Delete"
+msgstr "削除"
+
+#: admin/channels.php:224 admin/tags.php:166
+msgid "I'm sure!"
+msgstr "確認"
+
+#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
+#, php-format
+msgid "Adding %s to %s... "
+msgstr "追加 %s to %s... "
+
+#: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
+#: ajax.php:547
+msgid "OK"
+msgstr "OK"
+
+#: admin/channels.php:341
+#, php-format
+msgid ""
+"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
+"like to subscribe?"
+msgstr ""
+"いかのフィードがみつかりました。 <a href=\"%s\">%s</a> どのフィードを追加しま"
+"すか？"
+
+#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
+#, php-format
+msgid "I'm sorry, I don't think I can handle this URL: '%s'"
+msgstr "I'm sorry, I don't think I can handle this URL: '%s'"
+
+#: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
+#: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
+#: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
+msgid "Yes"
+msgstr "はい"
+
+#: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
+#: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
+#: admin/tags.php:66 admin/tags.php:95
+msgid "No"
+msgstr "いいえ"
+
+#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
+#, php-format
+msgid "Are you sure you wish to delete '%s'?"
+msgstr "本当に削除してもよろしいですか '%s'?"
+
+#: admin/channels.php:454 admin/opml.php:81
+msgid "Import"
+msgstr "インポート"
+
+#: admin/channels.php:558 update.php:61
 msgid "Updating"
 msgstr "更新中"
 
-#: admin/channels.php:766 admin/channels.php:771 admin/channels.php:837
-#: admin/channels.php:842 admin/channels.php:849 admin/channels.php:854
+#: admin/channels.php:828
+msgid "Edit the feed "
+msgstr "フィードを編集"
+
+#: admin/channels.php:834 admin/channels.php:837
+msgid "Added"
+msgstr "Added"
+
+#: admin/channels.php:835 admin/channels.php:838
+#: themes/default/web/footer.php:17
+msgid "Last Update"
+msgstr "最終更新日"
+
+#: admin/channels.php:838 cls/wrappers/header.php:134
+msgid "Never"
+msgstr "Never"
+
+#: admin/channels.php:841
+msgid "Title:"
+msgstr "タイトル:"
+
+#: admin/channels.php:850
+msgid "RSS URL:"
+msgstr "RSS URL:"
+
 #: admin/channels.php:851 admin/channels.php:856
 msgid "(visit)"
 msgstr "(visit)"
 
-#: admin/index.php:224 author.php:41 author.php:42 cls/alltags.php:165
-#: feed.php:1019 feed.php:1031 feed.php:1049 feed.php:1061 intl/en.php:186
-#: intl/en.php:187 plugins/stickyflag/stickyflag.php:92
-#: plugins/stickyflag/stickyflag.php:100 state.php:36 state.php:39
-#: state.php:42 tags.php:117 tags.php:118 tags.php:152 tags.php:153
-#: cls/alltags.php:166 feed.php:1043 feed.php:1073
+#: admin/channels.php:855
+msgid "Site URL:"
+msgstr "サイト URL:"
+
+#: admin/channels.php:890
+msgid "This feed is <strong>private</strong>, only admins see it."
+msgstr ""
+"このフィードは <strong>プライベート</strong>です。管理者のみ閲覧可能です。"
+
+#: admin/channels.php:898
+msgid ""
+"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
+"won't be visible in the feeds column."
+msgstr ""
+"このフィードは <strong>無効</strong>です。RSS取得は行われません。また、フィー"
+"ド一覧にも表示されません。"
+
+#: admin/channels.php:905
+msgid "Description:"
+msgstr "詳細:"
+
+#: admin/channels.php:910
+msgid "Shown favicon:"
+msgstr "favicon:"
+
+#: admin/channels.php:917
+msgid "(Leave blank for no icon)"
+msgstr "(空白にするとアイコン無し)"
+
+#: admin/channels.php:972 admin/config.php:238 admin/config.php:257
+#: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
+#: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
+msgid "Submit Changes"
+msgstr "変更を適応"
+
+#: admin/config.php:31
+msgid "Configuration:"
+msgstr "設定:"
+
+#: admin/config.php:67
+msgid "Key"
+msgstr "キー"
+
+#: admin/config.php:68
+msgid "Value"
+msgstr "値"
+
+#: admin/config.php:167
+msgid "default"
+msgstr "デフォルト"
+
+#: admin/config.php:190
+#, fuzzy
+msgid "Invalid config key specified."
+msgstr "日付が無効です"
+
+#: admin/config.php:234 admin/config.php:252
+msgid "Preview"
+msgstr "プレビュー"
+
+#: admin/config.php:246 admin/items.php:253 admin/plugins.php:214
+#: admin/themes.php:175 ajax.php:548
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: admin/config.php:332 admin/config.php:337 admin/config.php:474
+#: admin/config.php:476
+msgid "True"
+msgstr "True"
+
+#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+msgid "False"
+msgstr "False"
+
+#: admin/config.php:368
+msgid "Ooops, unknown config type: "
+msgstr ""
+
+#: admin/config.php:442 admin/config.php:467 admin/config.php:471
+#: admin/config.php:485
+msgid "Value for"
+msgstr "Value for"
+
+#: admin/config.php:517
+#, php-format
+msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
+msgstr "本当にリセットしてもよろしいですか？ %s デフォルト値は '%s'です。"
+
+#: admin/folders.php:31
+msgid "Folders:"
+msgstr "フォルダ:"
+
+#: admin/folders.php:38
+msgid "Add a folder:"
+msgstr "フォルダ追加:"
+
+#: admin/folders.php:123
+msgid "Folder name:"
+msgstr "フォルダ名:"
+
+#: admin/folders.php:164
+msgid "You can't delete the Root folder"
+msgstr "You can't delete the \" . LBL_HOME_FOLDER . \" folder"
+
+#: admin/folders.php:204 admin/tags.php:113
+#, php-format
+msgid "You can't rename this item '%s' because such an item already exists."
+msgstr "You can't rename this item '%s' because such an item already exists."
+
+#: admin/folders.php:281
+#, php-format
+msgid "Looks like you already have a folder called '%s'!"
+msgstr "Looks like you already have a folder called '%s'!"
+
+#: admin/index.php:202
+#, php-format
+msgid ""
+"<h1>Not Authorized!</h1>You are not authorized to access the administration "
+"interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
+"Have  a nice day!"
+msgstr ""
+
+#: admin/index.php:219
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: admin/index.php:220
+msgid "feeds"
+msgstr "フィード"
+
+#: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
+#: feed.php:1043 feed.php:1061 feed.php:1073
+#: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
+#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
 msgid "items"
 msgstr "アイテム"
 
-#: author.php:41 author.php:42 cls/wrappers/item.php:221
-#: cls/wrappers/item.php:222
+#: admin/index.php:222
+msgid "config"
+msgstr "設定"
+
+#: admin/index.php:223
+msgid "plugins"
+msgstr "プラグイン"
+
+#: admin/index.php:224
+msgid "themes"
+msgstr "テーマ"
+
+#: admin/index.php:225
+msgid "folders"
+msgstr "フォルダ"
+
+#: admin/index.php:226
+msgid "opml"
+msgstr "opml"
+
+#: admin/index.php:227 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
+#: cls/taglist.php:69 tags.php:129 themes/default/mobile/item.php:22
+#: themes/default/web/item.php:28 themes/lilina/web/item.php:52
+#: themes/lilina/web/item.php:108
+msgid "Tags"
+msgstr "Tags"
+
+#: admin/index.php:234 cls/wrappers/header.php:143
+msgid "Logout"
+msgstr "ログアウト"
+
+#: admin/index.php:336
+msgid "Admin"
+msgstr ""
+
+#: admin/items.php:36
+msgid "Items:"
+msgstr "記事:"
+
+#: admin/items.php:40
+msgid "Pruning"
+msgstr "Pruning"
+
+#: admin/items.php:42
+msgid "Delete items older than "
+msgstr "以下より古い記事を削除： "
+
+#: admin/items.php:45 admin/items.php:83
+msgid "days"
+msgstr "日"
+
+#: admin/items.php:46 admin/items.php:87
+msgid "months"
+msgstr "月"
+
+#: admin/items.php:47 admin/items.php:91
+msgid "years"
+msgstr "年"
+
+#: admin/items.php:49
+msgid "...from these feeds"
+msgstr ""
+
+#: admin/items.php:52
+msgid "Delete Sticky items too: "
+msgstr "Sticky記事も削除: "
+
+#: admin/items.php:54
+#, fuzzy
+msgid "Delete Unread items too: "
+msgstr "Sticky記事も削除: "
+
+#: admin/items.php:56
+msgid "Do not delete items tagged... "
+msgstr "以下のタグの付いた記事は削除しない... "
+
+#: admin/items.php:58
+msgid "(Enter <strong>*</strong> to keep all tagged items)"
+msgstr ""
+"(<strong>*</strong> を入力すると全てのタグの付いた記事が保存されます。)"
+
+#: admin/items.php:96
+msgid "Invalid pruning period"
+msgstr "日付が無効です"
+
+#: admin/items.php:245
+#, php-format
+msgid "Warning: you are about to delete %s items (of %s)"
+msgstr "Warning: %s個の記事が削除されます (トータル %s記事)"
+
+#: admin/items.php:258
+msgid "oops, no period specified"
+msgstr "日付が指定されていません"
+
+#: admin/opml.php:38
+msgid "OPML:"
+msgstr "OPML:"
+
+#: admin/opml.php:42
+msgid "Import OPML:"
+msgstr "OPMLをインポート:"
+
+#: admin/opml.php:46
+msgid "... from URL:"
+msgstr "URL指定:"
+
+#: admin/opml.php:52
+msgid "... from File:"
+msgstr "ファイル指定:"
+
+#: admin/opml.php:63
+msgid "Import new feeds and:"
+msgstr "インポートするフィードは:"
+
+#: admin/opml.php:66
+msgid "... merge them with the existing ones."
+msgstr "既存のフィードとマージする"
+
+#: admin/opml.php:70
+msgid "... add them to the folder:"
+msgstr "以下のフォルダに入れる:"
+
+#: admin/opml.php:75
+msgid "... replace all existing feeds and items."
+msgstr "全てのフィードを一旦削除しインポートする。"
+
+#: admin/opml.php:107 admin/opml.php:109
+msgid "Export OPML:"
+msgstr "OPMLをエクスポート:"
+
+#: admin/opml.php:110
+msgid "Export"
+msgstr "エクスポート"
+
+#: admin/opml.php:120
+msgid "XML Dump:"
+msgstr ""
+
+#: admin/opml.php:122
+msgid "Dump your Gregarius installation to XML"
+msgstr ""
+
+#: admin/opml.php:123
+msgid "Dump!"
+msgstr ""
+
+#: admin/plugins.php:86
+msgid "Plugins"
+msgstr "プラグイン"
+
+#: admin/plugins.php:90
+msgid ""
+"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
+"extended functionalities. More plugins can be downloaded at the <a style="
+"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
+"Repository</a>.</p>"
+msgstr ""
+
+#: admin/plugins.php:95
+msgid "Active"
+msgstr "アクティブ"
+
+#: admin/plugins.php:96
+msgid "Name"
+msgstr "名前"
+
+#: admin/plugins.php:97
+msgid "Version"
+msgstr "バージョン"
+
+#: admin/plugins.php:98
+msgid "Author"
+msgstr "著者"
+
+#: admin/plugins.php:100
+msgid "Options"
+msgstr "オプション"
+
+#: admin/plugins.php:102
+msgid "Update Available"
+msgstr "アップデート情報"
+
+#: admin/plugins.php:171 admin/themes.php:50
+msgid "Check for Updates"
+msgstr "アップデートを確認"
+
+#: admin/plugins.php:202
+msgid "Plugin Options"
+msgstr "プラグインオプション"
+
+#: admin/tags.php:162
+#, fuzzy
+msgid "Selected"
+msgstr "削除"
+
+#: admin/tags.php:186
+msgid "Rename to..."
+msgstr "名前変更"
+
+#: admin/themes.php:56
+msgid "Themes"
+msgstr "テーマ"
+
+#: admin/themes.php:58
+msgid ""
+"<p style=\"font-size:small\">Themes are made of a set of template files "
+"which specify how your Gregarius installation looks.<br />More themes can be "
+"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
+"themes.gregarius.net/\">Themes Repository</a>.</p>"
+msgstr ""
+
+#: admin/themes.php:90
+msgid "Use this Theme"
+msgstr "このテーマにする"
+
+#: admin/themes.php:92
+msgid "Active Theme"
+msgstr "現在のテーマ"
+
+#: admin/themes.php:100
+msgid "Configure"
+msgstr "設定"
+
+#: admin/themes.php:152
+msgid "Theme Options"
+msgstr "テーマオプション"
+
+#: admin/users.php:53
+msgid "Passwords do not match!"
+msgstr "パスワードが一致しません"
+
+#: admin/users.php:69
+msgid ""
+"<p>No Administrator has been specified yet!</p><p>Please provide an "
+"Administrator username and password now!</p>"
+msgstr ""
+
+#: admin/users.php:73 admin/users.php:98
+msgid "Username"
+msgstr "ユーザー名"
+
+#: admin/users.php:75 admin/users.php:100
+msgid "Password"
+msgstr "パスワード"
+
+#: admin/users.php:77
+msgid "Password (again)"
+msgstr "パスワード(再入力)"
+
+#: admin/users.php:97
+msgid "Please log in"
+msgstr "ログインしてください"
+
+#: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
+msgid "Login"
+msgstr "ログイン"
+
+#: ajax.php:81 index.php:216
+msgid "Recent items"
+msgstr "最近の記事"
+
+#: ajax.php:228 ajax.php:239
+msgid "submit"
+msgstr "OK"
+
+#: ajax.php:230
+msgid "..."
+msgstr "..."
+
+#: ajax.php:243
+msgid "cancel"
+msgstr "キャンセル"
+
+#: ajax.php:532
+#, fuzzy
+msgid "Unread (Set this item\\'s read/unread state)"
+msgstr "未読 (チェックすると未読)"
+
+#: ajax.php:536
+#, fuzzy
+msgid "Sticky (Won\\'t be deleted when you prune items)"
+msgstr "Sticky (自動削除の対象にしない)"
+
+#: ajax.php:540
+msgid "Private (Only administrators can see private items)"
+msgstr "プライベート (管理者のみ閲覧可)"
+
+#: ajax.php:544
+msgid "Flag (Flags an item for later reading)"
+msgstr "フラグ(後で読むために記事にフラグをつける)"
+
+#: author.php:41 cls/wrappers/item.php:221
 msgid " by "
 msgstr " by "
 
-#: cls/alltags.php:165 feed.php:1019 feed.php:1031 feed.php:1049 feed.php:1061
-#: tags.php:117 tags.php:118 tags.php:152 tags.php:153 cls/alltags.php:166
-#: feed.php:1073
+#: cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073 tags.php:117
+#: tags.php:152
 msgid "item"
 msgstr "アイテム"
 
-#: cls/channels.php:99 cls/wrappers/feeds.php:64 feed.php:831 feed.php:835
-#: feed.php:839 cls/channels.php:97 feed.php:843 feed.php:847 feed.php:851
+#: cls/categories.php:87
+#, php-format
+msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
+msgstr ""
+"<strong>%d</strong>個のフィードが<strong>%d</strong>カテゴリーにあります。"
+
+#: cls/channels.php:97 cls/wrappers/feeds.php:64 feed.php:843 feed.php:847
+#: feed.php:851
 #, php-format
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
 msgstr "<strong id=\"%s\" style=\"%s\">(%d)</strong>"
 
-#: cls/channels.php:158 cls/header.php:97 cls/wrappers/feeds.php:76
-#: themes/default/mobile/nav.php:2 themes/default/mobile/nav.php:3
-#: themes/milsi/feeds.php:1 cls/channels.php:164
+#: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
+#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
 msgid "Feeds"
 msgstr "フィード"
 
-#: cls/channels.php:194 themes/milsi/feeds.php:4
-#, fuzzy, php-format
+#: cls/channels.php:200
+#, php-format
 msgid ""
-"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
-"strong> feeds"
+"<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
+"<strong>%d</strong> feeds"
 msgstr ""
 "<strong>%d</strong>件の記事 (未読<strong id=\"fucnt\">%d</strong>件) <strong>"
 "%d</strong>フィード"
@@ -80,19 +693,19 @@ msgstr "unread"
 msgid "<span>H</span>ome"
 msgstr "<span>ホーム</span>"
 
-#: cls/nav.php:63 cls/nav.php:64 themes/default/mobile/nav.php:5
+#: cls/nav.php:64
 msgid "<span>R</span>efresh"
 msgstr "<span>更新</span>"
 
-#: cls/nav.php:64 cls/nav.php:66
+#: cls/nav.php:66
 msgid "<span>S</span>earch"
 msgstr "<span>検索</span>"
 
-#: cls/nav.php:65 cls/nav.php:67
+#: cls/nav.php:67
 msgid "A<span>d</span>min"
 msgstr "<span>管理</span>"
 
-#: cls/search.php:213 cls/search.php:214 cls/search.php:228
+#: cls/search.php:228
 msgid "Results: "
 msgstr "検索結果: "
 
@@ -101,837 +714,165 @@ msgstr "検索結果: "
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
 msgstr "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
 
-#: cls/update.php:116 cls/update.php:118
+#: cls/update.php:118
 msgid "OK (304 Not modified)"
 msgstr "OK (304 Not modified)"
 
-#: cls/update.php:120 cls/update.php:122
+#: cls/update.php:122
 msgid "HTTP Timeout (Local cache)"
 msgstr "HTTP Timeout (Local cache)"
 
-#: cls/update.php:124 cls/update.php:126
+#: cls/update.php:126
 msgid "OK (Local cache)"
 msgstr "OK (Local cache)"
 
-#: cls/update.php:128 cls/update.php:130
+#: cls/update.php:130
 msgid "404 Not Found (Local cache)"
 msgstr "404 Not Found (Local cache)"
 
-#: cls/update.php:137 cls/update.php:139 cls/update.php:143
+#: cls/update.php:134
+msgid "403 Forbidden (Local cache)"
+msgstr ""
+
+#: cls/update.php:143
 msgid "OK (HTTP 200)"
 msgstr "OK (HTTP 200)"
 
-#: cls/update.php:142 cls/update.php:144 cls/update.php:148
+#: cls/update.php:148
 msgid "ERROR"
 msgstr "ERROR"
 
-#: cls/update.php:175 cls/update.php:179 cls/update.php:183 cls/update.php:237
-#: cls/update.php:241 cls/update.php:245
+#: cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
 msgstr "%d 個のフィードを更新中"
 
-#: cls/update.php:178 cls/update.php:182 cls/update.php:186 cls/update.php:241
-#: cls/update.php:245 cls/update.php:249
+#: cls/update.php:186 cls/update.php:249
 msgid "Feed"
 msgstr "フィード"
 
-#: cls/update.php:179 cls/update.php:183 cls/update.php:187 cls/update.php:242
-#: cls/update.php:246 cls/update.php:250
+#: cls/update.php:187 cls/update.php:250
 msgid "Status"
 msgstr "ステータス"
 
-#: cls/update.php:180 cls/update.php:184 cls/update.php:188 cls/update.php:243
-#: cls/update.php:247 cls/update.php:251 cls/update.php:294 cls/update.php:298
-#: cls/update.php:302 cls/update.php:323 cls/update.php:327 cls/update.php:331
-#: cls/update.php:355 cls/update.php:359 cls/update.php:363
+#: cls/update.php:188 cls/update.php:251 cls/update.php:302 cls/update.php:331
+#: cls/update.php:363
 msgid "New Items"
 msgstr "新しい記事"
+
+#: cls/wrappers/header.php:142
+#, php-format
+msgid "Logged in as <strong>%s</strong>"
+msgstr "<strong>%s</strong> でログイン中"
+
+#: cls/wrappers/header.php:145
+msgid "Not logged in"
+msgstr "ログインしていません"
 
 #: cls/wrappers/item.php:45
 msgid "Permalink for "
 msgstr "Permalink for "
 
-#: cls/wrappers/item.php:200 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:200
 msgid "Posted: "
 msgstr "Posted: "
 
-#: cls/wrappers/item.php:200 cls/wrappers/item.php:201
+#: cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr "Fetched: "
 
-#: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:88
-#: cls/wrappers/searchform.php:96 cls/wrappers/searchform.php:97
+#: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
 #: cls/wrappers/toolkit.php:53
 msgid "All"
 msgstr "All"
 
-#: index.php:143
-#, fuzzy
-msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-msgstr "未読記事 (<strong id=\"ucnt\">%d</strong>)"
-
-#: admin/channels.php:169 admin/channels.php:179 admin/channels.php:191
-#: admin/channels.php:276 admin/channels.php:286 admin/channels.php:298
-#: admin/channels.php:305 admin/channels.php:315 admin/channels.php:327
-#: admin/config.php:156 admin/config.php:160 admin/folders.php:92
-#: admin/plugins.php:149 admin/tags.php:120 admin/tags.php:153
-#: admin/tags.php:180 ajax.php:194 ajax.php:217 intl/en.php:98 intl/en.php:206
-#: intl/en.php:207 themes/default/web/item.php:31
-#: themes/lilina/web/item.php:55 themes/lilina/web/item.php:111 ajax.php:209
-#: ajax.php:232
-msgid "edit"
-msgstr "編集"
-
-#: admin/channels.php:172 admin/channels.php:182 admin/channels.php:194
-#: admin/channels.php:200 admin/folders.php:96 admin/items.php:52
-#: admin/items.php:65 admin/items.php:225 admin/tags.php:123
-#: admin/tags.php:156 intl/en.php:99
-msgid "delete"
-msgstr "削除"
-
-#: admin/channels.php:210 admin/channels.php:222 admin/items.php:57
-#: admin/items.php:59 admin/items.php:70 admin/items.php:72
-#: admin/items.php:236 admin/items.php:242 admin/tags.php:164 intl/en.php:100
-#: admin/items.php:252
-msgid "Delete"
-msgstr "削除"
-
-#: admin/tags.php:142 admin/tags.php:186 intl/en.php:101
-msgid "Rename to..."
-msgstr "名前変更"
-
-#: intl/en.php:101 intl/en.php:102
-msgid "Create"
-msgstr "作成"
-
-#: admin/channels.php:442 admin/channels.php:454 admin/opml.php:81
-#: intl/en.php:102 intl/en.php:103 intl/en.php:118 intl/en.php:119
-msgid "Import"
-msgstr "インポート"
-
-#: admin/opml.php:110 intl/en.php:103 intl/en.php:104 intl/en.php:119
-#: intl/en.php:120
-msgid "Export"
-msgstr "エクスポート"
-
-#: admin/config.php:167 intl/en.php:104 intl/en.php:105
-msgid "default"
-msgstr "デフォルト"
-
-#: admin/channels.php:51 admin/channels.php:251 admin/channels.php:263
-#: admin/channels.php:369 admin/channels.php:381 admin/folders.php:41
-#: admin/folders.php:212 intl/en.php:105 intl/en.php:106
-msgid "Add"
-msgstr "追加"
-
-#: admin/channels.php:396 admin/channels.php:408 admin/channels.php:432
-#: admin/channels.php:444 admin/config.php:204 admin/config.php:520
-#: admin/folders.php:168 admin/folders.php:186 admin/tags.php:60
-#: admin/tags.php:96 admin/themes.php:275 intl/en.php:106 intl/en.php:107
-msgid "Yes"
-msgstr "はい"
-
-#: admin/channels.php:421 admin/channels.php:431 admin/channels.php:433
-#: admin/channels.php:443 admin/config.php:208 admin/config.php:519
-#: admin/folders.php:175 admin/folders.php:185 admin/tags.php:66
-#: admin/tags.php:95 intl/en.php:107 intl/en.php:108
-msgid "No"
-msgstr "いいえ"
-
-#: admin/folders.php:31 intl/en.php:108 intl/en.php:109
-msgid "Folders:"
-msgstr "フォルダ:"
-
-#: admin/channels.php:39 intl/en.php:109 intl/en.php:110
-msgid "Feeds:"
-msgstr "フィード:"
-
-#: admin/opml.php:38 intl/en.php:110 intl/en.php:111
-msgid "OPML:"
-msgstr "OPML:"
-
-#: admin/items.php:36 intl/en.php:111 intl/en.php:112
-msgid "Items:"
-msgstr "記事:"
-
-#: admin/config.php:31 intl/en.php:112 intl/en.php:113
-msgid "Configuration:"
-msgstr "設定:"
-
-#: admin/channels.php:283 admin/channels.php:295 admin/channels.php:311
-#: admin/channels.php:323 admin/users.php:79 ajax.php:532 intl/en.php:113
-#: intl/en.php:114 ajax.php:547
-msgid "OK"
-msgstr "OK"
-
-#: admin/config.php:246 admin/items.php:237 admin/items.php:243
-#: admin/plugins.php:214 admin/themes.php:175 ajax.php:533 intl/en.php:114
-#: intl/en.php:115 admin/items.php:253 ajax.php:548
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: admin/index.php:237 cls/wrappers/header.php:143 intl/en.php:115
-#: intl/en.php:116 intl/en.php:236 intl/en.php:237
-msgid "Logout"
-msgstr "ログアウト"
-
-#: admin/themes.php:100 intl/en.php:116 intl/en.php:117
-msgid "Configure"
-msgstr "設定"
-
-#: admin/opml.php:42 intl/en.php:120 intl/en.php:121
-msgid "Import OPML:"
-msgstr "OPMLをインポート:"
-
-#: admin/opml.php:107 admin/opml.php:109 intl/en.php:121 intl/en.php:122
-msgid "Export OPML:"
-msgstr "OPMLをエクスポート:"
-
-#: admin/opml.php:46 intl/en.php:122 intl/en.php:123
-msgid "... from URL:"
-msgstr "URL指定:"
-
-#: admin/opml.php:52 intl/en.php:123 intl/en.php:124
-msgid "... from File:"
-msgstr "ファイル指定:"
-
-#: intl/en.php:124 intl/en.php:125
-msgid "Import file"
-msgstr "ファイルをインポート"
-
-#: admin/channels.php:46 intl/en.php:126 intl/en.php:127
-msgid "to folder:"
-msgstr "次のフォルダへ:"
-
-#: admin/channels.php:958 admin/channels.php:970 admin/config.php:238
-#: admin/config.php:257 admin/folders.php:126 admin/plugins.php:170
-#: admin/plugins.php:212 admin/tags.php:188 admin/themes.php:173
-#: admin/themes.php:285 intl/en.php:127 intl/en.php:128 admin/channels.php:972
-msgid "Submit Changes"
-msgstr "変更を適応"
-
-#: admin/config.php:234 admin/config.php:252 intl/en.php:128 intl/en.php:129
-msgid "Preview"
-msgstr "プレビュー"
-
-#: admin/channels.php:85 admin/channels.php:97 admin/folders.php:46
-#: intl/en.php:129 intl/en.php:130
-msgid "Title"
-msgstr "タイトル"
-
-#: admin/channels.php:86 admin/channels.php:98 intl/en.php:130 intl/en.php:131
-msgid "Folder"
-msgstr "フォルダ"
-
-#: admin/channels.php:87 admin/channels.php:99 admin/config.php:69
-#: admin/plugins.php:99 intl/en.php:131 intl/en.php:132 intl/en.php:147
-#: intl/en.php:148
-msgid "Description"
-msgstr "詳細"
-
-#: admin/channels.php:92 admin/channels.php:104 admin/channels.php:195
-#: admin/channels.php:207 admin/folders.php:49 intl/en.php:132 intl/en.php:133
-msgid "Move"
-msgstr "移動"
-
-#: admin/channels.php:95 admin/channels.php:107 admin/config.php:70
-#: admin/folders.php:52 admin/tags.php:141 intl/en.php:133 intl/en.php:134
-msgid "Action"
-msgstr "アクション"
-
-#: admin/channels.php:89 admin/channels.php:101 intl/en.php:134
-#: intl/en.php:135
-msgid "Flags"
-msgstr "フラグ"
-
-#: admin/config.php:67 intl/en.php:135 intl/en.php:136
-msgid "Key"
-msgstr "キー"
-
-#: admin/config.php:68 intl/en.php:136 intl/en.php:137
-msgid "Value"
-msgstr "値"
-
-#: admin/channels.php:43 intl/en.php:137 intl/en.php:138
-msgid "Add a feed:"
-msgstr "フィード追加:"
-
-#: admin/folders.php:38 intl/en.php:138 intl/en.php:139
-msgid "Add a folder:"
-msgstr "フォルダ追加:"
-
-#: admin/channels.php:896 admin/channels.php:908 intl/en.php:139
-#: intl/en.php:140 admin/channels.php:910
-msgid "Shown favicon:"
-msgstr "favicon:"
-
-#: admin/channels.php:903 admin/channels.php:915 intl/en.php:140
-#: intl/en.php:141 admin/channels.php:917
-msgid "(Leave blank for no icon)"
-msgstr "(空白にするとアイコン無し)"
-
-#: admin/config.php:442 admin/config.php:467 admin/config.php:471
-#: admin/config.php:485 intl/en.php:142 intl/en.php:143
-msgid "Value for"
-msgstr "Value for"
-
-#: admin/plugins.php:96 intl/en.php:144 intl/en.php:145
-msgid "Name"
-msgstr "名前"
-
-#: admin/plugins.php:98 intl/en.php:145 intl/en.php:146
-msgid "Author"
-msgstr "著者"
-
-#: admin/plugins.php:97 intl/en.php:146 intl/en.php:147
-msgid "Version"
-msgstr "バージョン"
-
-#: admin/plugins.php:95 intl/en.php:148 intl/en.php:149
-msgid "Active"
-msgstr "アクティブ"
-
-#: admin/plugins.php:100 intl/en.php:149 intl/en.php:150
-msgid "Options"
-msgstr "オプション"
-
-#: admin/plugins.php:202 intl/en.php:150 intl/en.php:151
-msgid "Plugin Options"
-msgstr "プラグインオプション"
-
-#: admin/themes.php:152 intl/en.php:151 intl/en.php:152
-msgid "Theme Options"
-msgstr "テーマオプション"
-
-#: admin/channels.php:814 admin/channels.php:826 intl/en.php:154
-#: intl/en.php:155 admin/channels.php:828
-msgid "Edit the feed "
-msgstr "フィードを編集"
-
-#: admin/channels.php:827 admin/channels.php:839 intl/en.php:155
-#: intl/en.php:156 admin/channels.php:841
-msgid "Title:"
-msgstr "タイトル:"
-
-#: admin/channels.php:836 admin/channels.php:848 intl/en.php:156
-#: intl/en.php:157 admin/channels.php:850
-msgid "RSS URL:"
-msgstr "RSS URL:"
-
-#: admin/channels.php:841 admin/channels.php:853 intl/en.php:157
-#: intl/en.php:158 admin/channels.php:855
-msgid "Site URL:"
-msgstr "サイト URL:"
-
-#: admin/channels.php:191 admin/channels.php:203 admin/channels.php:846
-#: admin/channels.php:858 intl/en.php:158 intl/en.php:159
-#: admin/channels.php:860
-msgid "In folder:"
-msgstr "フォルダ:"
-
-#: admin/channels.php:891 admin/channels.php:903 intl/en.php:159
-#: intl/en.php:160 admin/channels.php:905
-msgid "Description:"
-msgstr "詳細:"
-
-#: admin/folders.php:123 intl/en.php:160 intl/en.php:161
-msgid "Folder name:"
-msgstr "フォルダ名:"
-
-#: admin/channels.php:876 admin/channels.php:888 intl/en.php:161
-#: intl/en.php:162 admin/channels.php:890
-msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr ""
-"このフィードは <strong>プライベート</strong>です。管理者のみ閲覧可能です。"
-
-#: admin/channels.php:896 admin/channels.php:884 intl/en.php:162
-#: intl/en.php:163 admin/channels.php:898
-msgid ""
-"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
-"won't be visible in the feeds column."
-msgstr ""
-"このフィードは <strong>無効</strong>です。RSS取得は行われません。また、フィー"
-"ド一覧にも表示されません。"
-
-#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
-#: admin/channels.php:429 intl/en.php:164 intl/en.php:165
-#, c-format, php-format
-msgid "Are you sure you wish to delete '%s'?"
-msgstr "本当に削除してもよろしいですか '%s'?"
-
-#: admin/config.php:517 admin/config.php:507 intl/en.php:165 intl/en.php:166
-#, c-format, php-format
-msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
-msgstr "本当にリセットしてもよろしいですか？ %s デフォルト値は '%s'です。"
-
-#: admin/config.php:332 admin/config.php:337 admin/config.php:474
-#: admin/config.php:476 intl/en.php:166 intl/en.php:167
-msgid "True"
-msgstr "True"
-
-#: admin/config.php:332 admin/config.php:480 admin/config.php:482
-#: intl/en.php:167 intl/en.php:168
-msgid "False"
-msgstr "False"
-
-#: admin/channels.php:173 admin/channels.php:185 admin/folders.php:80
-#: intl/en.php:168 intl/en.php:169
-msgid "&uarr;"
-msgstr "&uarr;"
-
-#: admin/channels.php:175 admin/channels.php:187 admin/folders.php:84
-#: intl/en.php:169 intl/en.php:170
-msgid "&darr;"
-msgstr "&darr;"
-
-#: admin/channels.php:52 intl/en.php:170 intl/en.php:171
-msgid ""
-"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
-"subscribe to)"
-msgstr "RSSフィードのURLまたは、ウェブサイトのURLを入力してください。"
-
-#: admin/channels.php:329 admin/channels.php:341 intl/en.php:171
-#: intl/en.php:172
-#, php-format
-msgid ""
-"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
-"like to subscribe?"
-msgstr ""
-"いかのフィードがみつかりました。 <a href=\"%s\">%s</a> どのフィードを追加しま"
-"すか？"
-
-#: admin/items.php:42 intl/en.php:173 intl/en.php:174
-msgid "Delete items older than "
-msgstr "以下より古い記事を削除： "
-
-#: admin/items.php:45 admin/items.php:81 admin/items.php:83 intl/en.php:174
-#: intl/en.php:175
-msgid "days"
-msgstr "日"
-
-#: admin/items.php:46 admin/items.php:85 admin/items.php:87 intl/en.php:175
-#: intl/en.php:176
-msgid "months"
-msgstr "月"
-
-#: admin/items.php:47 admin/items.php:89 admin/items.php:91 intl/en.php:176
-#: intl/en.php:177
-msgid "years"
-msgstr "年"
-
-#: intl/en.php:177 intl/en.php:178
-msgid "Keep the most recent items: "
-msgstr "一番最近の記事は保存: "
-
-#: admin/items.php:52 intl/en.php:178 intl/en.php:179
-msgid "Delete Sticky items too: "
-msgstr "Sticky記事も削除: "
-
-#: admin/items.php:54 admin/items.php:56 intl/en.php:179 intl/en.php:180
-msgid "Do not delete items tagged... "
-msgstr "以下のタグの付いた記事は削除しない... "
-
-#: admin/items.php:56 admin/items.php:58 intl/en.php:180 intl/en.php:181
-msgid "(Enter <strong>*</strong> to keep all tagged items)"
-msgstr ""
-"(<strong>*</strong> を入力すると全てのタグの付いた記事が保存されます。)"
-
-#: admin/items.php:229 admin/items.php:235 intl/en.php:182 intl/en.php:183
-#: admin/items.php:245
-#, php-format
-msgid "Warning: you are about to delete %s items (of %s)"
-msgstr "Warning: %s個の記事が削除されます (トータル %s記事)"
-
-#: admin/items.php:40 intl/en.php:183 intl/en.php:184
-msgid "Pruning"
-msgstr "Pruning"
-
-#: admin/folders.php:207 admin/index.php:228 intl/en.php:184 intl/en.php:185
-msgid "folders"
-msgstr "フォルダ"
-
-#: admin/index.php:223 intl/en.php:185 intl/en.php:186
-msgid "feeds"
-msgstr "フィード"
-
-#: admin/index.php:225 intl/en.php:187 intl/en.php:188
-msgid "config"
-msgstr "設定"
-
-#: admin/index.php:229 intl/en.php:188 intl/en.php:189
-msgid "opml"
-msgstr "opml"
-
-#: admin/channels.php:62 intl/en.php:189 intl/en.php:190
-msgid ""
-"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
-"\">?</a>]:"
-msgstr ""
-"ブックマークレット： [<a href=\"http://www.squarefree.com/bookmarklets/\">?</"
-"a>]:"
-
-#: admin/channels.php:62 intl/en.php:190 intl/en.php:191
-msgid "Subscribe in Gregarius!"
-msgstr "Gregariusに追加！！"
-
-#: intl/en.php:193 intl/en.php:194
-msgid ""
-"<h1>Not Authorized!</h1>\n"
-"You are not authorized to access the administration interface.\n"
-msgstr ""
-
-#: intl/en.php:194 intl/en.php:195
-msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-msgstr ""
-
-#: intl/en.php:195 intl/en.php:196
-msgid "Have  a nice day!"
-msgstr ""
-
-#: admin/index.php:230 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
-#: cls/taglist.php:69 intl/en.php:205 intl/en.php:206 tags.php:129
-#: themes/default/mobile/item.php:15 themes/default/mobile/item.php:22
-#: themes/default/web/item.php:28 themes/lilina/web/item.php:52
-#: themes/lilina/web/item.php:108
-msgid "Tags"
-msgstr "Tags"
-
-#: ajax.php:213 ajax.php:224 intl/en.php:207 intl/en.php:208 ajax.php:228
-#: ajax.php:239
-msgid "submit"
-msgstr "OK"
-
-#: ajax.php:228 intl/en.php:208 intl/en.php:209 ajax.php:243
-msgid "cancel"
-msgstr "キャンセル"
-
-#: ajax.php:215 intl/en.php:209 intl/en.php:210 ajax.php:230
-msgid "..."
-msgstr "..."
-
-#: intl/en.php:210 intl/en.php:211 tags.php:168
-#, php-format
-msgid "Oops! No items tagged &laquo;%s&raquo; were found."
-msgstr "Oops! No items tagged &laquo;%s&raquo; were found."
-
-#: intl/en.php:211 intl/en.php:212 tags.php:178
-msgid "All Tags"
-msgstr "All Tags"
-
-#: intl/en.php:212 intl/en.php:213 intl/en.php:214 tags.php:117 tags.php:153
-msgid "tagged"
-msgstr "tagged"
-
-#: intl/en.php:214 intl/en.php:215 plugins/delicious.php:108
-msgid "suggestions"
-msgstr "おすすめタグ"
-
-#: intl/en.php:215 intl/en.php:216 plugins/delicious.php:64
-msgid "no suggestions"
-msgstr "おすすめタグはありません"
-
-#: intl/en.php:216 intl/en.php:217 tags.php:157
-msgid "Related tags: "
-msgstr "関連タグ: "
-
-#: intl/en.php:218 intl/en.php:219 util.php:869 util.php:873 util.php:860
-#: util.php:852
-msgid "Show items: "
-msgstr "表示する記事: "
-
-#: intl/en.php:219 intl/en.php:220 util.php:871 util.php:875 util.php:862
-#: util.php:854
-msgid "Unread only"
-msgstr "未読のみ"
-
-#: intl/en.php:220 intl/en.php:221 util.php:872 util.php:876 util.php:863
-#: util.php:855
-msgid "Read and unread"
-msgstr "すべて"
-
-#: ajax.php:517 intl/en.php:222 intl/en.php:223 ajax.php:532
-#, fuzzy
-msgid "Unread (Set this item\\'s read/unread state)"
-msgstr "未読 (チェックすると未読)"
-
-#: ajax.php:521 intl/en.php:223 intl/en.php:224 ajax.php:536
-#, fuzzy
-msgid "Sticky (Won\\'t be deleted when you prune items)"
-msgstr "Sticky (自動削除の対象にしない)"
-
-#: ajax.php:525 intl/en.php:224 intl/en.php:225 ajax.php:540
-msgid "Private (Only administrators can see private items)"
-msgstr "プライベート (管理者のみ閲覧可)"
-
-#: intl/en.php:225 intl/en.php:226 plugins/stickyflag/stickyflag.php:92
-#: state.php:39 themes/default/mobile/item.php:40
-msgid "Sticky"
-msgstr "Sticky"
-
-#: admin/channels.php:201 admin/channels.php:213 intl/en.php:226
-#: intl/en.php:227
-msgid "Deprecated"
-msgstr "無効"
-
-#: admin/channels.php:204 admin/channels.php:216 intl/en.php:227
-#: intl/en.php:228
-msgid "Private"
-msgstr "プライベート"
-
-#: admin/channels.php:199 admin/channels.php:211 intl/en.php:228
-#: intl/en.php:229
-msgid "State:"
-msgstr "状態:"
-
-#: admin/channels.php:206 admin/channels.php:218 intl/en.php:229
-#: intl/en.php:230
-msgid "Set"
-msgstr "適応"
-
-#: admin/channels.php:224 admin/tags.php:166 admin/channels.php:212
-#: intl/en.php:230 intl/en.php:231
-msgid "I'm sure!"
-msgstr "確認"
-
-#: cls/wrappers/header.php:142 intl/en.php:234 intl/en.php:235
-#, php-format
-msgid "Logged in as <strong>%s</strong>"
-msgstr "<strong>%s</strong> でログイン中"
-
-#: cls/wrappers/header.php:145 intl/en.php:235 intl/en.php:236
-msgid "Not logged in"
-msgstr "ログインしていません"
-
-#: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
-#: intl/en.php:237 intl/en.php:238
-msgid "Login"
-msgstr "ログイン"
-
-#: admin/opml.php:63 intl/en.php:239 intl/en.php:240
-msgid "Import new feeds and:"
-msgstr "インポートするフィードは:"
-
-#: admin/opml.php:75 intl/en.php:240 intl/en.php:241
-msgid "... replace all existing feeds and items."
-msgstr "全てのフィードを一旦削除しインポートする。"
-
-#: admin/opml.php:70 intl/en.php:241 intl/en.php:242
-msgid "... add them to the folder:"
-msgstr "以下のフォルダに入れる:"
-
-#: admin/opml.php:66 intl/en.php:242 intl/en.php:243
-msgid "... merge them with the existing ones."
-msgstr "既存のフィードとマージする"
-
-#: admin/channels.php:281 admin/channels.php:293 admin/channels.php:309
-#: admin/channels.php:321 admin/channels.php:533 admin/channels.php:545
-#: intl/en.php:244 intl/en.php:245
-#, php-format
-msgid "Adding %s to %s... "
-msgstr "追加 %s to %s... "
-
-#: admin/channels.php:48 admin/channels.php:88 admin/channels.php:100
-#: admin/channels.php:852 admin/channels.php:864 cls/categories.php:60
-#: cls/header.php:98 cls/wrappers/feeds.php:73 intl/en.php:246 intl/en.php:247
-#: themes/default/mobile/nav.php:3 themes/default/mobile/nav.php:4
-#: admin/channels.php:866
-msgid "Categories"
-msgstr "カテゴリー"
-
-#: intl/en.php:247 intl/en.php:248
-msgid "(%d items)"
-msgstr "(%d 記事)"
-
-#: intl/en.php:248 intl/en.php:249
-msgid "(%d unread in %d feeds)"
-msgstr "(%d unread in %d feeds)"
-
-#: cls/categories.php:87 intl/en.php:249 intl/en.php:250
-#, php-format
-msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
-msgstr ""
-"<strong>%d</strong>個のフィードが<strong>%d</strong>カテゴリーにあります。"
-
-#: intl/en.php:251 intl/en.php:252 themes/default/web/item.php:18
-#: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
-msgid "Rating:"
-msgstr "レーティング:"
-
-#: intl/en.php:255 intl/en.php:256 themes/default/mobile/item.php:12
-#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
-#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
-msgid "Enclosure:"
-msgstr "Enclosure:"
-
-#: intl/en.php:256 intl/en.php:257 themes/default/mobile/item.php:12
-#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
-#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
-msgid "download"
-msgstr "ダウンロード"
-
-#: intl/en.php:257 intl/en.php:258 plugins/encplayer.php:46
-#: plugins/encplayeralt.php:44 plugins/encplayeralt.php:45
-msgid "play"
-msgstr "プレイ"
-
-#: feed.php:1359 feed.php:1375 feed.php:1392 index.php:226 intl/en.php:259
-#: intl/en.php:260 intl/en.php:261 intl/en.php:262 feed.php:1371 feed.php:1387
-#: feed.php:1404 index.php:233
+#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233
 msgid "Mark These Items as Read"
 msgstr "記事を既読にする"
 
-#: intl/en.php:263 intl/en.php:264 plugins/markallread.php:86
-#: plugins/markallread.php:98
-msgid "Mark This Feed as Read"
-msgstr "このフィードを既読にする"
+#: index.php:151
+#, php-format
+msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
+msgstr "未読記事 (<strong id=\"ucnt\">%d</strong>)"
 
-#: intl/en.php:264 intl/en.php:265 plugins/markallread.php:75
-#: plugins/markallread.php:104
-msgid "Mark This Folder as Read"
-msgstr "このフォルダを既読に"
+#: plugins/delicious.php:64
+msgid "no suggestions"
+msgstr "おすすめタグはありません"
 
-#: intl/en.php:265 intl/en.php:266 plugins/markallread.php:64
-#: plugins/markallread.php:110
+#: plugins/delicious.php:108
+msgid "suggestions"
+msgstr "おすすめタグ"
+
+#: plugins/encplayer.php:46 plugins/encplayeralt.php:45
+msgid "play"
+msgstr "プレイ"
+
+#: plugins/markallread.php:64 plugins/markallread.php:110
 msgid "Mark This Category as Read"
 msgstr "このカテゴリを既読に"
 
-#: admin/channels.php:824 admin/channels.php:836 cls/wrappers/header.php:134
-#: intl/en.php:268 intl/en.php:269 admin/channels.php:838
-msgid "Never"
-msgstr "Never"
+#: plugins/markallread.php:75 plugins/markallread.php:104
+msgid "Mark This Folder as Read"
+msgstr "このフォルダを既読に"
 
-#: admin/index.php:222 intl/en.php:269 intl/en.php:270
-msgid "Dashboard"
-msgstr "ダッシュボード"
+#: plugins/markallread.php:86 plugins/markallread.php:98
+msgid "Mark This Feed as Read"
+msgstr "このフィードを既読にする"
 
-#: admin/users.php:69 intl/en.php:271 intl/en.php:272
-msgid ""
-"<p>No Administrator has been specified yet!</p><p>Please provide an "
-"Administrator username and password now!</p>"
-msgstr ""
+#: plugins/stickyflag/stickyflag.php:92 state.php:39
+#: themes/default/mobile/item.php:40
+msgid "Sticky"
+msgstr "Sticky"
 
-#: admin/users.php:73 admin/users.php:98 intl/en.php:272 intl/en.php:273
-msgid "Username"
-msgstr "ユーザー名"
-
-#: admin/users.php:75 admin/users.php:100 intl/en.php:273 intl/en.php:274
-msgid "Password"
-msgstr "パスワード"
-
-#: admin/users.php:77 intl/en.php:274 intl/en.php:275
-msgid "Password (again)"
-msgstr "パスワード(再入力)"
-
-#: admin/users.php:97 intl/en.php:275 intl/en.php:276
-msgid "Please log in"
-msgstr "ログインしてください"
-
-#: admin/users.php:53 intl/en.php:276 intl/en.php:277
-msgid "Passwords do not match!"
-msgstr "パスワードが一致しません"
-
-#: admin/plugins.php:86 intl/en.php:278 intl/en.php:279
-msgid "Plugins"
-msgstr "プラグイン"
-
-#: admin/index.php:226 intl/en.php:279 intl/en.php:280
-msgid "plugins"
-msgstr "プラグイン"
-
-#: admin/plugins.php:102 intl/en.php:280 intl/en.php:281
-msgid "Update Available"
-msgstr "アップデート情報"
-
-#: admin/plugins.php:171 admin/themes.php:50 intl/en.php:281 intl/en.php:282
-msgid "Check for Updates"
-msgstr "アップデートを確認"
-
-#: intl/en.php:282 intl/en.php:283
-msgid "<strong>Oops!</strong> Bad login/password"
-msgstr "<strong>Oops!</strong> Bad login/password"
-
-#: intl/en.php:283 intl/en.php:284
-msgid ""
-"<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t "
-"have administration privileges. Log in again with administration privileges "
-"or follow your way <a href=\"..\">home</a>"
-msgstr ""
-
-#: admin/themes.php:92 intl/en.php:285 intl/en.php:286
-msgid "Active Theme"
-msgstr "現在のテーマ"
-
-#: admin/themes.php:90 intl/en.php:286 intl/en.php:287
-msgid "Use this Theme"
-msgstr "このテーマにする"
-
-#: intl/en.php:288 intl/en.php:289
-msgid ""
-"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-"extended functionalities. More plugins can be downloaded at the <a style="
-"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
-msgstr ""
-
-#: intl/en.php:290 intl/en.php:291
-#, fuzzy
-msgid "Last update"
-msgstr "最終更新日"
-
-#: admin/index.php:227 intl/en.php:291 intl/en.php:292
-msgid "themes"
-msgstr "テーマ"
-
-#: admin/themes.php:56 intl/en.php:292 intl/en.php:293
-msgid "Themes"
-msgstr "テーマ"
-
-#: admin/themes.php:58 intl/en.php:294 intl/en.php:295
-msgid ""
-"<p style=\"font-size:small\">Themes are made of a set of template files "
-"which specify how your Gregarius installation looks.<br />More themes can be "
-"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
-"themes.gregarius.net/\">Themes Repository</a>.</p>"
-msgstr ""
-
-#: ajax.php:529 intl/en.php:296 intl/en.php:297 ajax.php:544
-msgid "Flag (Flags an item for later reading)"
-msgstr "フラグ(後で読むために記事にフラグをつける)"
-
-#: intl/en.php:297 intl/en.php:298 plugins/stickyflag/stickyflag.php:100
-#: state.php:36
+#: plugins/stickyflag/stickyflag.php:100 state.php:36
 msgid "Flagged"
 msgstr "フラグがついています"
 
-#: search.php:42 search.php:43
+#: search.php:43
 #, php-format
 msgid "%d matches for %s"
 msgstr "%d件ヒット %s"
 
-#: search.php:42 search.php:43
+#: search.php:43
 #, php-format
 msgid "%d match for %s"
 msgstr "%d件ヒット %s"
 
-#: search.php:50 search.php:51
+#: search.php:51
 #, php-format
 msgid "Search %d items"
 msgstr "現在の記事 %d件"
 
-#: search.php:51 search.php:52 themes/3panes/searchform.php:5
+#: search.php:52 themes/3panes/searchform.php:5
 #: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
 #: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39 test/minisearch.php:46
+#: themes/planet/searchform.php:39
 msgid "Search"
 msgstr "検索"
 
-#: tags.php:81 tags.php:117 tags.php:118
+#: tags.php:81 tags.php:117
 msgid "and"
 msgstr "and"
+
+#: tags.php:117 tags.php:153
+msgid "tagged"
+msgstr "tagged"
+
+#: tags.php:157
+msgid "Related tags: "
+msgstr "関連タグ: "
+
+#: tags.php:168
+#, php-format
+msgid "Oops! No items tagged &laquo;%s&raquo; were found."
+msgstr "Oops! No items tagged &laquo;%s&raquo; were found."
+
+#: tags.php:178
+msgid "All Tags"
+msgstr "All Tags"
 
 #: themes/3panes/footer.php:5 themes/default/web/footer.php:6
 #: themes/milsi/footer.php:4 themes/planet/footer.php:5
@@ -986,134 +927,15 @@ msgstr "フィード、日付の順に並べる"
 msgid "Results per page:"
 msgstr "表示件数:"
 
-#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:629
-#: admin/channels.php:379 admin/channels.php:383 admin/channels.php:617
-#: admin/channels.php:630
-#, c-format, php-format
-msgid "I'm sorry, I don't think I can handle this URL: '%s'"
-msgstr "I'm sorry, I don't think I can handle this URL: '%s'"
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+msgid "Enclosure:"
+msgstr "Enclosure:"
 
-#: admin/folders.php:164
-msgid "You can't delete the Root folder"
-msgstr "You can't delete the \" . LBL_HOME_FOLDER . \" folder"
-
-#: admin/folders.php:204 admin/tags.php:113
-#, c-format, php-format
-msgid "You can't rename this item '%s' because such an item already exists."
-msgstr "You can't rename this item '%s' because such an item already exists."
-
-#: admin/folders.php:281
-#, c-format, php-format
-msgid "Looks like you already have a folder called '%s'!"
-msgstr "Looks like you already have a folder called '%s'!"
-
-#: admin/channels.php:820 admin/channels.php:823 admin/channels.php:832
-#: admin/channels.php:835 admin/channels.php:834 admin/channels.php:837
-msgid "Added"
-msgstr "Added"
-
-#: admin/channels.php:821 admin/channels.php:824 admin/channels.php:833
-#: admin/channels.php:836 themes/default/web/footer.php:17
-#: admin/channels.php:835 admin/channels.php:838
-msgid "Last Update"
-msgstr "最終更新日"
-
-#: admin/index.php:202
-#, php-format
-msgid ""
-"<h1>Not Authorized!</h1>\n"
-"You are not authorized to access the administration interface.\n"
-"Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-"Have  a nice day!"
-msgstr ""
-
-#: admin/items.php:49
-msgid "...from these feeds"
-msgstr ""
-
-#: admin/items.php:94 admin/items.php:96
-msgid "Invalid pruning period"
-msgstr "日付が無効です"
-
-#: admin/items.php:242 admin/items.php:248 admin/items.php:258
-msgid "oops, no period specified"
-msgstr "日付が指定されていません"
-
-#: admin/opml.php:120
-msgid "XML Dump:"
-msgstr ""
-
-#: admin/opml.php:122
-msgid "Dump your Gregarius installation to XML"
-msgstr ""
-
-#: admin/opml.php:123
-msgid "Dump!"
-msgstr ""
-
-#: admin/plugins.php:90
-msgid ""
-"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-"extended functionalities. More plugins can be downloaded at the <a style="
-"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
-msgstr ""
-
-#: ajax.php:81 index.php:209 index.php:216
-msgid "Recent items"
-msgstr "最近の記事"
-
-#: cls/channels.php:194 cls/channels.php:200
-#, php-format
-msgid ""
-"<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
-"<strong>%d</strong> feeds"
-msgstr ""
-"<strong>%d</strong>件の記事 (未読<strong id=\"fucnt\">%d</strong>件) <strong>"
-"%d</strong>フィード"
-
-#: index.php:143 index.php:151
-#, php-format
-msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
-msgstr "未読記事 (<strong id=\"ucnt\">%d</strong>)"
-
-#: admin/index.php:339
-msgid "Admin"
-msgstr ""
-
-#: admin/config.php:190
-#, fuzzy
-msgid "Invalid config key specified."
-msgstr "日付が無効です"
-
-#: admin/config.php:368
-msgid "Ooops, unknown config type: "
-msgstr ""
-
-#: admin/tags.php:162
-#, fuzzy
-msgid "Selected"
-msgstr "削除"
-
-#: update.php:32
-msgid "Sorry, updating from the web is currently not allowed."
-msgstr ""
-
-#: admin/channels.php:69
-msgid ""
-"Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
-"feeds/feed-handling.html\">?</a>]:"
-msgstr ""
-
-#: admin/channels.php:71
-#, fuzzy
-msgid "Register Gregarius!"
-msgstr "Gregariusに追加！！"
-
-#: admin/items.php:54
-#, fuzzy
-msgid "Delete Unread items too: "
-msgstr "Sticky記事も削除: "
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+msgid "download"
+msgstr "ダウンロード"
 
 #: themes/default/mobile/item.php:34
 msgid "Read"
@@ -1131,38 +953,61 @@ msgstr ""
 msgid "Edit Item Properties"
 msgstr ""
 
-#: cls/update.php:134
-msgid "403 Forbidden (Local cache)"
+#: themes/default/web/item.php:18 themes/lilina/web/item.php:42
+#: themes/lilina/web/item.php:98
+msgid "Rating:"
+msgstr "レーティング:"
+
+#: themes/milsi/feeds.php:4
+#, fuzzy, php-format
+msgid ""
+"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
+"strong> feeds"
+msgstr ""
+"<strong>%d</strong>件の記事 (未読<strong id=\"fucnt\">%d</strong>件) <strong>"
+"%d</strong>フィード"
+
+#: update.php:32
+msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: admin/config.php:200
-msgid "The value for '$key' is the same as its default value!"
-msgstr ""
+#: util.php:852
+msgid "Show items: "
+msgstr "表示する記事: "
 
-#: admin/config.php:326
-msgid "Oops, I was expecting a numeric value, got '$value' instead!"
-msgstr ""
+#: util.php:854
+msgid "Unread only"
+msgstr "未読のみ"
 
-#: admin/config.php:333
-msgid "Oops, invalid value for $key : $value"
-msgstr ""
+#: util.php:855
+msgid "Read and unread"
+msgstr "すべて"
 
-#: admin/config.php:345 admin/config.php:364
-msgid "Oops, invalid value '$value' for this config key"
-msgstr ""
+#, fuzzy
+#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
+#~ msgstr "未読記事 (<strong id=\"ucnt\">%d</strong>)"
 
-#: admin/index.php:204
-#, c-format
-msgid "%s"
-msgstr ""
+#~ msgid "Create"
+#~ msgstr "作成"
 
-#: admin/index.php:207
-msgid "</div>\n"
-msgstr ""
+#~ msgid "Import file"
+#~ msgstr "ファイルをインポート"
 
-#: schema.php:67
-msgid "Successfully created $updated of $updated database tables!"
-msgstr ""
+#~ msgid "Keep the most recent items: "
+#~ msgstr "一番最近の記事は保存: "
+
+#~ msgid "(%d items)"
+#~ msgstr "(%d 記事)"
+
+#~ msgid "(%d unread in %d feeds)"
+#~ msgstr "(%d unread in %d feeds)"
+
+#~ msgid "<strong>Oops!</strong> Bad login/password"
+#~ msgstr "<strong>Oops!</strong> Bad login/password"
+
+#, fuzzy
+#~ msgid "Last update"
+#~ msgstr "最終更新日"
 
 #, fuzzy
 #~ msgid "tag"
