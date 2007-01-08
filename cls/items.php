@@ -106,7 +106,7 @@ class Item {
 	 */
 	function render() {
 		$this-> rss -> currentItem = $this;
-		eval($this-> rss -> getCachedTemplateFile("item.php"));
+		include($this-> rss -> getTemplateFile("item.php"));
 	}
 }
 
@@ -207,7 +207,7 @@ class Feed {
 		$this-> rss -> currentFeed = &$this;
 		//echo $GLOBALS['rss']->renderOptions;
 		$this -> setCollapseState($this-> rss ->renderOptions);
-		eval($this-> rss ->getCachedTemplateFile("feed.php"));
+		include($this-> rss ->getTemplateFile("feed.php"));
 	}
 }
 
@@ -474,7 +474,7 @@ class ItemList {
 
 		rss_plugin_hook('rss.plugins.items.beforeitems', null);
 
-		eval($this-> rss ->getCachedTemplateFile($this -> _template));
+		include($this-> rss ->getTemplateFile($this -> _template));
 		
 		_pf("done: ItemList -> render()");
 		
@@ -506,7 +506,7 @@ class ItemListNavigation {
 		}
 	}
 	function render() {
-		eval($this-> _parent -> rss ->getCachedTemplateFile('pagination.php'));
+		include($this-> _parent -> rss -> getTemplateFile('pagination.php'));
 	}
 }
 

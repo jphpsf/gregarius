@@ -50,7 +50,7 @@ class TagListItem extends FeedListItem {
 	
 	function render() {
 		$GLOBALS['rss']->currentFeedsFeed = $this;
-		eval($GLOBALS['rss'] ->getCachedTemplateFile("feedsfeed.php"));	
+		include($GLOBALS['rss'] ->getTemplateFile("feedsfeed.php"));	
 	}
 }
 
@@ -66,7 +66,7 @@ class TagList extends FeedList{
 	
 	function TagList() {
 		$this -> populate();
-		$this -> 	columnTitle = __('Tags');
+		$this -> columnTitle = __('Tags');
 		$GLOBALS['rss']-> feedList = $this;
 	}
 	

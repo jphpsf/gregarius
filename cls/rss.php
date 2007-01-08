@@ -115,6 +115,10 @@ class RSS {
         return $ret;
     }
 
+
+	/**
+	 * //DEPRECATED!
+	 
     function getCachedTemplateFile($file) {
         static $templateCache = array();
         $filename = $this->getTemplateFile($file);
@@ -126,8 +130,9 @@ class RSS {
         $templateCache[$filename] = $modifiedFileContent;
 
         return $modifiedFileContent;
-
     }
+
+	*/
     
     function renderWithTemplate($template,$mainDivId="items") {
     	

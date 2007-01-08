@@ -109,7 +109,7 @@ class FeedListItem {
 	 */
 	function render() {
 		$GLOBALS['rss']->currentFeedsFeed = $this;
-		eval($GLOBALS['rss'] ->getCachedTemplateFile("feedsfeed.php"));	
+		include($GLOBALS['rss'] ->getTemplateFile("feedsfeed.php"));	
 	}
 
 }
@@ -299,7 +299,7 @@ class FeedList {
 
 	function render() {
 		_pf('FeedList->render() ...');
-		eval($GLOBALS['rss'] ->getCachedTemplateFile("feeds.php"));
+		include($GLOBALS['rss'] ->getTemplateFile("feeds.php"));
 		_pf('done');		
 	}
 }

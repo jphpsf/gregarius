@@ -69,6 +69,7 @@ if (isset($_REQUEST['dcljs'])) {
     ?>
 
 	var isIE=document.all?true:false;
+	//alert(isIE);
 	function __dblclickToRead_js_getId(o) {
 		if (html = o.innerHTML) {
 			if (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*,([0-9]+).*","gm").exec(html)) {

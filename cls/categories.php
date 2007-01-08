@@ -43,7 +43,7 @@ class CatFolder extends FeedFolder{
 	
 	function render() {		
 		$GLOBALS['rss']->currentFeedsFolder = $this;
-		eval($GLOBALS['rss'] ->getCachedTemplateFile("catfolder.php"));
+		include($GLOBALS['rss'] ->getTemplateFile("catfolder.php"));
 	}
 }
 
