@@ -761,7 +761,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what,$show_priv
         }
 		}
 
-    $items = new ItemList();
+    $items = new PaginatedItemList();
     $severalFeeds = (($fid != null) || ($vfid != null));
 
     if ($severalFeeds && !getConfig('rss.config.feedgrouping')) {

@@ -101,7 +101,7 @@ if (array_key_exists('tag', $_GET)) {
 	$gotsome = count($ids) > 0;
 	if ($gotsome) {
 
-		$taggedItems = new ItemList();
+		$taggedItems = new PaginatedItemList();
 		$sqlWhere = " i.id in (".implode(",", $ids).") ";
 		// include deprecated feeds while showing tags. 
 		$taggedItems->populate($sqlWhere, "", 0, -1, ITEM_SORT_HINT_MIXED, true);

@@ -1,4 +1,5 @@
-<div class="frame" style="display:inline;float:right;font-size:small;padding: 0.4em !important;background-color: #f4f4f4;">
+<div class="frame pagenavigation top" style="display:inline;float:right;font-size:small;padding: 0.4em !important;background-color: #f4f4f4;">
+<?= __('Skip to page: '); ?>
 <?php foreach (rss_itemlist_navigation_pages() as $i => $page) { 
 		list($url,$iscurrent,$gap) = $page;
 		if ($gap) { ?>
