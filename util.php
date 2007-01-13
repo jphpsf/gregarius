@@ -585,18 +585,18 @@ function parse_iso8601($date_str) {
 
     if (preg_match($pat, $date_str, $match)) {
         list ($year, $month, $day, $hours, $minutes, $seconds)
-        = array ($match[1], $match[2], $match[3], $match[4], $match[5], $match[6]);
+        = array (@$match[1], @$match[2], @$match[3], @$match[4], @$match[5], @$match[6]);
 
         // calc epoch for current date assuming GMT
 
         $epoch = gmmktime($hours, $minutes, intval($seconds), $month, $day, $year);
 
         $offset = 0;
-        if ($match[10] == 'Z') {
+        if (@$match[10] == 'Z') {
             // zulu time, aka GMT
 
         } else {
-            list ($tz_mod, $tz_hour, $tz_min) = array ($match[8], $match[9], $match[10]);
+            list ($tz_mod, $tz_hour, $tz_min) = array (@$match[8], @$match[9], @$match[10]);
 
             // zero out the variables
 
