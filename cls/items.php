@@ -287,9 +287,12 @@ class ItemList {
 		$this -> _sqlActualWhat = " i.title,  c.title, c.id, i.unread, "
 			."i.url, i.enclosure, i.author, i.description, c.icon, "
 			." unix_timestamp(ifnull(i.pubdate,i.added)) as ts, "
-			." i.pubdate is not null as ispubdate, i.id, r.rating  ";
+			." i.pubdate is not null as ispubdate, i.id "
+			." , null "
+			//.", r.rating  "
+			;
 		$this -> _sqlActualFrom = 	getTable("item") ." i "
-			." left join " . getTable("rating") ." r on (i.id = r.iid) "
+			//." left join " . getTable("rating") ." r on (i.id = r.iid) "
 			." inner join " . getTable("channels")." c on (c.id = i.cid) "
 			." inner join " . getTable("folders") ." f on (f.id = c.parent) ";
 
