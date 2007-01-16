@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:23+0100\n"
-"PO-Revision-Date: 2006-12-21 22:01+0000\n"
-"Last-Translator: Rutger Wessels <rutger@dds.nl>\n"
+"POT-Creation-Date: 2007-01-16 17:00+0100\n"
+"PO-Revision-Date: 2007-01-16 15:49+0000\n"
+"Last-Translator: remuze <remuze@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2006-12-21 22:38+0000\n"
+"X-Rosetta-Export-Date: 2007-01-16 15:58+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
@@ -70,7 +70,7 @@ msgstr ""
 
 #: admin/channels.php:71
 msgid "Register Gregarius!"
-msgstr ""
+msgstr "Registreer Gregarius!"
 
 #: admin/channels.php:97 admin/folders.php:46
 msgid "Title"
@@ -351,6 +351,9 @@ msgid ""
 "interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
 "Have  a nice day!"
 msgstr ""
+"<h1>Niet gemachtigd!</h1>Je bent niet gemachtigd om de adminpagina's te "
+"bekijken. Volg <a href=\"%s\"> deze link</a> naar de hoofdpagina. Met "
+"vriendelijke groeten!"
 
 #: admin/index.php:219
 msgid "Dashboard"
@@ -632,7 +635,7 @@ msgstr "Aanmelden aub"
 msgid "Login"
 msgstr "Aanmelden"
 
-#: ajax.php:81 index.php:216
+#: ajax.php:81 index.php:216 index.php:217
 msgid "Recent items"
 msgstr "Recente items"
 
@@ -745,7 +748,7 @@ msgstr "404 Niet Gevonden (Lokale cache)"
 
 #: cls/update.php:134
 msgid "403 Forbidden (Local cache)"
-msgstr ""
+msgstr "403 Niet toegelaten (Local cache)"
 
 #: cls/update.php:143
 msgid "OK (HTTP 200)"
@@ -799,11 +802,11 @@ msgstr "Opgehaald: "
 msgid "All"
 msgstr "Alle"
 
-#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233
+#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
 msgid "Mark These Items as Read"
 msgstr "Markeer deze items als Gelezen"
 
-#: index.php:151
+#: index.php:151 index.php:152
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr "Ongelezen items (<strong id=\"ucnt\">%d</strong>)"
@@ -964,7 +967,7 @@ msgstr "Vernieuw"
 
 #: themes/default/web/item.php:8 themes/default/web/item.php:9
 msgid "Edit Item Properties"
-msgstr ""
+msgstr "Editeer Item eigenschapen"
 
 #: themes/default/web/item.php:18 themes/lilina/web/item.php:42
 #: themes/lilina/web/item.php:98
@@ -984,84 +987,18 @@ msgstr ""
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Sorry, herziening via het web is op dit moment niet toegestaan."
 
-#: util.php:852
+#: util.php:852 util.php:851
 msgid "Show items: "
 msgstr "Toon items: "
 
-#: util.php:854
+#: util.php:854 util.php:853
 msgid "Unread only"
 msgstr "Alleen ongelezen"
 
-#: util.php:855
+#: util.php:855 util.php:854
 msgid "Read and unread"
 msgstr "Gelezen en ongelezen"
 
-#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-#~ msgstr "Ongelezen items (<span id=\"ucnt\">%d</span>)"
-
-#~ msgid "Create"
-#~ msgstr "Aanmaken"
-
-#~ msgid "Import file"
-#~ msgstr "Bestand importeren"
-
-#~ msgid "Keep the most recent items: "
-#~ msgstr "De meest recente items behouden: "
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ msgstr ""
-#~ "<h1>Niet geauthoriseerd!</h1>\n"
-#~ "Je hebt geen toegang tot de administratieschermen.\n"
-
-#~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ msgstr ""
-#~ "Volg <a href=\"%s\">deze koppeling</a> om terug te gaan naar de "
-#~ "startpagina.\n"
-
-#~ msgid "Have  a nice day!"
-#~ msgstr "Een prettige dag!"
-
-#~ msgid "(%d items)"
-#~ msgstr "(%d items)"
-
-#~ msgid "(%d unread in %d feeds)"
-#~ msgstr "(%d ongelezen in %d feeds)"
-
-#~ msgid "<strong>Oops!</strong> Bad login/password"
-#~ msgstr "<strong>Oeps!</strong> Verkeerde gebruikersnaam/wachtwoord"
-
-#~ msgid ""
-#~ "<strong>Oops!</strong> You are successfully logged in as %s, but you don"
-#~ "\\'t have administration privileges. Log in again with administration "
-#~ "privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr ""
-#~ "<strong>Oeps!</strong> Je bent nu aangemeld als %s, maar je hebt geen "
-#~ "beheerdersprivileges. Meld je opnieuw aan met beheerdersprivileges of ga "
-#~ "naar <a href=\"..\">start</a>"
-
-#~ msgid ""
-#~ "<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-#~ "extended functionalities. More plugins can be downloaded at the <a style="
-#~ "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
-#~ "\">Plugin Repository</a>.</p>"
-#~ msgstr ""
-#~ "<p style=\"font-size:small\">Plug-ins zijn scripts van derden die "
-#~ "uitgebreidere functionaliteiten bieden. Meer plug-ins kunnen worden "
-#~ "opgehaald via het <a style=\"text-decoration:underline\" href=\"http://"
-#~ "plugins.gregarius.net/\">Plug-inoverzicht</a>.</p>"
-
-#~ msgid "Last update"
-#~ msgstr "Laatste wijziging"
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ "Have  a nice day!"
-#~ msgstr ""
-#~ "<h1>Geen toegang!</h1>↵\n"
-#~ "Je hebt geen toegang tot de beheersinterface.↵\n"
-#~ "Volg <a href=\"%s\">deze koppeling</a> terug naar de beginpagina.↵\n"
-#~ "Een prettige dag!"
+#: themes/default/web/pagination.php:2
+msgid "Skip to page: "
+msgstr ""

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:23+0100\n"
+"POT-Creation-Date: 2007-01-16 17:00+0100\n"
 "PO-Revision-Date: 2006-09-19 14:55+0000\n"
 "Last-Translator: mbi <mbonetti@gmail.com>\n"
 "Language-Team:\n"
@@ -624,7 +624,7 @@ msgstr "Connettiti"
 msgid "Login"
 msgstr "Login"
 
-#: ajax.php:81 index.php:216
+#: ajax.php:81 index.php:216 index.php:217
 msgid "Recent items"
 msgstr "Elementi recenti"
 
@@ -791,11 +791,11 @@ msgstr "Scaricato: "
 msgid "All"
 msgstr "Tutti"
 
-#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233
+#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
 msgid "Mark These Items as Read"
 msgstr "Marca tutti gli elementi come letti"
 
-#: index.php:151
+#: index.php:151 index.php:152
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr "<strong id=\"ucnt\">%d</strong> elementi non letti"
@@ -976,15 +976,18 @@ msgstr ""
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Spiacente, aggiornamenti dal web non sono autorizzati."
 
-#: util.php:852
+#: util.php:852 util.php:851
 msgid "Show items: "
 msgstr "Mostra gli elementi: "
 
-#: util.php:854
+#: util.php:854 util.php:853
 msgid "Unread only"
 msgstr "Non letti unicamente"
 
-#: util.php:855
+#: util.php:855 util.php:854
 msgid "Read and unread"
 msgstr "Letti e non letti"
 
+#: themes/default/web/pagination.php:2
+msgid "Skip to page: "
+msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:26+0100\n"
+"POT-Creation-Date: 2007-01-16 17:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -665,7 +665,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: ajax.php:81 index.php:216 ajax.php:81 index.php:216
+#: ajax.php:81 index.php:216 ajax.php:81 index.php:217
 msgid "Recent items"
 msgstr ""
 
@@ -838,11 +838,11 @@ msgid "All"
 msgstr ""
 
 #: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 feed.php:1371
-#: feed.php:1387 feed.php:1404 index.php:233
+#: feed.php:1387 feed.php:1404 index.php:234
 msgid "Mark These Items as Read"
 msgstr ""
 
-#: index.php:151 index.php:151
+#: index.php:151 index.php:152
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr ""
@@ -1066,14 +1066,18 @@ msgstr ""
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: util.php:852 util.php:852
+#: util.php:852 util.php:851
 msgid "Show items: "
 msgstr ""
 
-#: util.php:854 util.php:854
+#: util.php:854 util.php:853
 msgid "Unread only"
 msgstr ""
 
-#: util.php:855 util.php:855
+#: util.php:855 util.php:854
 msgid "Read and unread"
+msgstr ""
+
+#: themes/default/web/pagination.php:2
+msgid "Skip to page: "
 msgstr ""

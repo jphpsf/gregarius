@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-08 14:23+0100\n"
+"POT-Creation-Date: 2007-01-16 17:00+0100\n"
 "PO-Revision-Date: 2006-11-08 00:20+0000\n"
 "Last-Translator: Antoine Martin <toine@antonus.org>\n"
 "Language-Team:\n"
@@ -637,7 +637,7 @@ msgstr "Veuillez vous connecter."
 msgid "Login"
 msgstr "Se connecter"
 
-#: ajax.php:81 index.php:216
+#: ajax.php:81 index.php:216 index.php:217
 msgid "Recent items"
 msgstr "&Eacute;l&eacute;ments r&eacute;cents"
 
@@ -808,11 +808,11 @@ msgstr "Récupéré: "
 msgid "All"
 msgstr "Tous"
 
-#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233
+#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
 msgid "Mark These Items as Read"
 msgstr "Tous marquer comme lus"
 
-#: index.php:151
+#: index.php:151 index.php:152
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr "&Eacute;l&eacute;ments non lus (<strong id=\"ucnt\">%d</strong>)"
@@ -999,17 +999,21 @@ msgstr ""
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Désolé, les mises à jour depuis le Web ne sont pas autorisées"
 
-#: util.php:852
+#: util.php:852 util.php:851
 msgid "Show items: "
 msgstr "Afficher les &eacute;l&eacute;ments: "
 
-#: util.php:854
+#: util.php:854 util.php:853
 msgid "Unread only"
 msgstr "Non lus uniquement"
 
-#: util.php:855
+#: util.php:855 util.php:854
 msgid "Read and unread"
 msgstr "Lus et non lus"
+
+#: themes/default/web/pagination.php:2
+msgid "Skip to page: "
+msgstr ""
 
 #~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
 #~ msgstr "Éléments non lus (<strong id=\"ucnt\">%d</strong>)"
