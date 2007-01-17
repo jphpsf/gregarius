@@ -1,106 +1,104 @@
-# Turkish translation for gregarius
-# Copyright (c) 2006 Rosetta Contributors and Canonical Ltd 2006
+# Greek, Modern (1453-) translation for gregarius
+# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
 # This file is distributed under the same license as the gregarius package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-17 20:48+0000\n"
-"PO-Revision-Date: 2006-12-27 18:41+0000\n"
-"Last-Translator: b314 <ozcanbaris@gmail.com>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"PO-Revision-Date: 2007-01-17 19:25+0000\n"
+"Last-Translator: Asteris Masouras <asterios@gmail.com>\n"
+"Language-Team: Greek, Modern (1453-) <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2006-12-27 18:58+0000\n"
+"X-Rosetta-Export-Date: 2007-01-17 20:48+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
-msgstr "Beslemeler:"
+msgstr "Ροές:"
 
 #: admin/channels.php:43
 msgid "Add a feed:"
-msgstr "Besleme ekle:"
+msgstr "Προσθήκη ροής:"
 
 #: admin/channels.php:46
 msgid "to folder:"
-msgstr "klasöre:"
+msgstr "στον φάκελο:"
 
 #: admin/channels.php:48 admin/channels.php:100 admin/channels.php:866
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
 #: themes/default/mobile/nav.php:3
 msgid "Categories"
-msgstr "Kategoriler"
+msgstr "Κατηγορίες"
 
 #: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
 #: admin/folders.php:41 admin/folders.php:212
 msgid "Add"
-msgstr "Ekle"
+msgstr "Προσθήκη"
 
 #: admin/channels.php:52
 msgid ""
 "(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
 "subscribe to)"
 msgstr ""
-"(Abone olmak istediğiniz web sitesinin URL adresini ya da RSS linkini girin)"
+"(Προσθέστε τη διεύθυνση URL είτε μιάς ροής ειδήσεων είτε μιάς ιστοσελίδας "
+"την οποία θέλετε να παρακολουθείτε)"
 
 #: admin/channels.php:62
 msgid ""
 "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
 "\">?</a>]:"
-msgstr ""
-"Abone yer imleyicisi [<a href=\"http://www.squarefree.com/bookmarklets/\">?</"
-"a>]:"
+msgstr "Εφαρμογίδιο εγγραφής"
 
 #: admin/channels.php:62
 msgid "Subscribe in Gregarius!"
-msgstr "Gregarius'a abone ol!"
+msgstr "Γίνετε συνδρομητής στο Gregarius!"
 
 #: admin/channels.php:69
 msgid ""
 "Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
 "feeds/feed-handling.html\">?</a>]:"
 msgstr ""
-"Besleme sağlayıcı olarak kayıt olmak ister misiniz [<a href=\"http://www."
-"bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
+"Εγγραφείτε σαν Χειριστής Ροών [<a href=\"http://www.bengoodger.com/software/"
+"mb/feeds/feed-handling.html\">?</a>]:"
 
 #: admin/channels.php:71
 msgid "Register Gregarius!"
-msgstr "Gregarius'a kayıt ol!"
+msgstr "Εγγραφείτε στο Gregarius!"
 
 #: admin/channels.php:97 admin/folders.php:46
 msgid "Title"
-msgstr "Başlık"
+msgstr "Τίτλος"
 
 #: admin/channels.php:98
 msgid "Folder"
-msgstr "Klasör"
+msgstr "Φάκελος"
 
 #: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
 msgid "Description"
-msgstr "Açıklama"
+msgstr "Περιγραφή"
 
 #: admin/channels.php:101
 msgid "Flags"
-msgstr "Bayrak"
+msgstr "Σημαίες"
 
 #: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
 msgid "Move"
-msgstr "Taşı"
+msgstr "Μετακίνηση"
 
 #: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
 #: admin/tags.php:141
 msgid "Action"
-msgstr "Eylem"
+msgstr "Ενέργεια"
 
 #: admin/channels.php:132 admin/channels.php:513 admin/folders.php:67
 #: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
 #: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104
 msgid "Root"
-msgstr "Ana Dizin"
+msgstr "Root"
 
 #: admin/channels.php:185 admin/folders.php:80
 msgid "&uarr;"
@@ -116,50 +114,50 @@ msgstr "&darr;"
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111
 msgid "edit"
-msgstr "düzenle"
+msgstr "επεξεργασία"
 
 #: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
 msgid "delete"
-msgstr "sil"
+msgstr "διαγραφή"
 
 #: admin/channels.php:203 admin/channels.php:860
 msgid "In folder:"
-msgstr "Klasörde:"
+msgstr "Στο φάκελο:"
 
 #: admin/channels.php:211
 msgid "State:"
-msgstr "Durum:"
+msgstr "Κατάσταση:"
 
 #: admin/channels.php:213
 msgid "Deprecated"
-msgstr "Yasaklı"
+msgstr "Υπο κατάργηση"
 
 #: admin/channels.php:216
 msgid "Private"
-msgstr "Özel"
+msgstr "Κρυφό"
 
 #: admin/channels.php:218
 msgid "Set"
-msgstr "Ayarla"
+msgstr "Ορισμός"
 
 #: admin/channels.php:222 admin/items.php:59 admin/items.php:72
 #: admin/items.php:252 admin/tags.php:164
 msgid "Delete"
-msgstr "Sil"
+msgstr "Διαγραφή"
 
 #: admin/channels.php:224 admin/tags.php:166
 msgid "I'm sure!"
-msgstr "Eminim!"
+msgstr "Είμαι σίγουρος!"
 
 #: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
 #, php-format
 msgid "Adding %s to %s... "
-msgstr "Ekleniyor %s - %s... "
+msgstr "Προσθήκη %s στο %s... "
 
 #: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
 #: ajax.php:547
 msgid "OK"
-msgstr "TAMAM"
+msgstr "Εντάξει"
 
 #: admin/channels.php:341
 #, php-format
@@ -167,180 +165,181 @@ msgid ""
 "The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
 "like to subscribe?"
 msgstr ""
-"<a href=\"%s\">%s</a> adresinde aşağıdaki beslemeler bulundu, hangisine "
-"abone olmak istersiniz?"
+"Οι ροές βρέθηκαν στο <a href=\"%s\">%s</a>, σε ποιά θέλετε να εγγραφείτε;"
 
 #: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
 #, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
-msgstr "Özür dileriz,  bu URL adresini kaldırabileceğimizi sanmıyoruz: '%s'"
+msgstr "Δυστυχώς, δεν είναι δυνατή η προσθήκη του URL:  '%s'"
 
 #: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
 #: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
 #: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
 msgid "Yes"
-msgstr "Evet"
+msgstr "Ναι"
 
 #: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
 #: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
 #: admin/tags.php:66 admin/tags.php:95
 msgid "No"
-msgstr "Hayır"
+msgstr "Όχι"
 
 #: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
-msgstr "'%s' silmek istediğinizden emin misiniz?"
+msgstr "Είστε σίγουρος για τη Διαγραφή του '%s'?"
 
 #: admin/channels.php:454 admin/opml.php:81
 msgid "Import"
-msgstr "İçe aktar"
+msgstr "Εισαγωγή"
 
 #: admin/channels.php:558 update.php:61
 msgid "Updating"
-msgstr "Güncelleniyor"
+msgstr "Αναβάθμιση"
 
 #: admin/channels.php:828
 msgid "Edit the feed "
-msgstr "Beslemeyi düzenle "
+msgstr "Επεξεργασία ροής "
 
 #: admin/channels.php:834 admin/channels.php:837
 msgid "Added"
-msgstr "Eklendi"
+msgstr "Προστέθηκε"
 
 #: admin/channels.php:835 admin/channels.php:838
 #: themes/default/web/footer.php:17
 msgid "Last Update"
-msgstr "Son Güncelleme"
+msgstr "Τελευταία Ανανέωση"
 
 #: admin/channels.php:838 cls/wrappers/header.php:134
 msgid "Never"
-msgstr "Asla"
+msgstr "Ποτέ"
 
 #: admin/channels.php:841
 msgid "Title:"
-msgstr "Başlık:"
+msgstr "Τίτλος:"
 
 #: admin/channels.php:850
 msgid "RSS URL:"
-msgstr "RSS URL:"
+msgstr "Διεύθυνση RSS:"
 
 #: admin/channels.php:851 admin/channels.php:856
 msgid "(visit)"
-msgstr "(ziyaret)"
+msgstr "(επίσκεψη)"
 
 #: admin/channels.php:855
 msgid "Site URL:"
-msgstr "Site URL:"
+msgstr "Διεύθυνση Ιστοχώρου:"
 
 #: admin/channels.php:890
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr "Bu besleme <strong>özeldir</strong>, yalnız yöneticiler görebilir."
+msgstr ""
+"Αυτή η ροή είναι <strong>κρυφή</strong> και ορατή μόνο από τον διαχειριστή."
 
 #: admin/channels.php:898
 msgid ""
 "This feed is <strong>deprecated</strong>, it won't be updated anymore and "
 "won't be visible in the feeds column."
 msgstr ""
-"Bu besleme <strong>yasaklıdır</strong>, bundan sonra güncellenmeyecek ve "
-"beslemeler sütununda gözükmeyecek."
+"Αυτή η ροή είναι <strong>υπό κατάργηση</strong>,  θα πάψει να ανανεώνεται "
+"και δεν θα είναι ορατή."
 
 #: admin/channels.php:905
 msgid "Description:"
-msgstr "Açıklama:"
+msgstr "Περιγραφή:"
 
 #: admin/channels.php:910
 msgid "Shown favicon:"
-msgstr "Favicon:"
+msgstr "Εικονίδιο που εμφανίζεται:"
 
 #: admin/channels.php:917
 msgid "(Leave blank for no icon)"
-msgstr "(İkon kullanmamak için boş bırak)"
+msgstr "(Κενό)"
 
 #: admin/channels.php:972 admin/config.php:238 admin/config.php:257
 #: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
 #: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
-msgstr "Değişiklikleri Gönder"
+msgstr "Καταχώρηση Αλλαγών"
 
 #: admin/config.php:31
 msgid "Configuration:"
-msgstr "Ayarlar:"
+msgstr "Ρυθμίσεις:"
 
 #: admin/config.php:67
 msgid "Key"
-msgstr "Anahtar"
+msgstr "Κλειδί"
 
 #: admin/config.php:68
 msgid "Value"
-msgstr "Değer"
+msgstr "Τιμή"
 
 #: admin/config.php:167
 msgid "default"
-msgstr "varsayılan"
+msgstr "προκαθορισμένο"
 
 #: admin/config.php:190
 msgid "Invalid config key specified."
-msgstr "Geçersiz ayar anahtarı belirlendi."
+msgstr "Λανθασμένο Κλειδί"
 
 #: admin/config.php:234 admin/config.php:252
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "Προεπισκόπηση"
 
 #: admin/config.php:246 admin/items.php:253 admin/plugins.php:214
 #: admin/themes.php:175 ajax.php:548
 msgid "Cancel"
-msgstr "İptal"
+msgstr "Ακύρωση"
 
 #: admin/config.php:332 admin/config.php:337 admin/config.php:474
 #: admin/config.php:476
 msgid "True"
-msgstr "Doğru"
+msgstr "Αληθής"
 
 #: admin/config.php:332 admin/config.php:480 admin/config.php:482
 msgid "False"
-msgstr "Yanlış"
+msgstr "Ψευδής"
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
-msgstr "Bilinmeyen ayar tipi: "
+msgstr "Οοοπ, άγνωστη ρύθμιση: "
 
 #: admin/config.php:442 admin/config.php:467 admin/config.php:471
 #: admin/config.php:485
 msgid "Value for"
-msgstr "Değer"
+msgstr "Τιμή για"
 
 #: admin/config.php:517
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
-msgstr "%s değerini, varsayılan '%s' yapmak istediğinizden emin misiniz?"
+msgstr ""
+"Είστε σίγουρος ότι θέλετε να αλλάξετε την τιμή του %s  με την προκαθορισμένη "
+"του '%s'?"
 
 #: admin/folders.php:31
 msgid "Folders:"
-msgstr "Klasörler:"
+msgstr "Φάκελοι:"
 
 #: admin/folders.php:38
 msgid "Add a folder:"
-msgstr "Klasör ekle:"
+msgstr "Προσθήκη φακέλου:"
 
 #: admin/folders.php:123
 msgid "Folder name:"
-msgstr "Klasör adı:"
+msgstr "Όνομα φακέλου:"
 
 #: admin/folders.php:164
 msgid "You can't delete the Root folder"
-msgstr "Ana klasörü silemezsiniz"
+msgstr "Δεν μπορείτε να διαγράψετε τον φάκελο Root"
 
 #: admin/folders.php:204 admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
-msgstr ""
-"'%s' yazısının adını değiştiremezsiniz, çünkü aynı isimde bir başka yazı var."
+msgstr "Δεν μπορείτε να μετονομάσετε το άρθρο '%s' διότι το όνομα υπάρχει ήδη."
 
 #: admin/folders.php:281
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
-msgstr "Zaten '%s' adında bir klasör var!"
+msgstr "Ο φάκελος '%s' υπάρχει ήδη!"
 
 #: admin/index.php:202
 #, php-format
@@ -349,37 +348,40 @@ msgid ""
 "interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
 "Have  a nice day!"
 msgstr ""
+"<h1>Μη Εξουσιοδοτημένος!</h1>Δεν είστε εξουσιοδοτημένος διαχειριστής. "
+"Παρακαλώ ακολουθήστε <a href=\"%s\">αυτόν τον σύνδεσμο</a> προς την αρχική "
+"σελίδα. Καλή σας μέρα!"
 
 #: admin/index.php:219
 msgid "Dashboard"
-msgstr "Pano"
+msgstr "Νέα"
 
 #: admin/index.php:220
 msgid "feeds"
-msgstr "beslemeler"
+msgstr "ροές"
 
 #: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
 #: feed.php:1043 feed.php:1061 feed.php:1073
 #: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
 #: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
 msgid "items"
-msgstr "yazı"
+msgstr "άρθρα"
 
 #: admin/index.php:222
 msgid "config"
-msgstr "ayar"
+msgstr "ρύθμιση"
 
 #: admin/index.php:223
 msgid "plugins"
-msgstr "eklentiler"
+msgstr "plugins"
 
 #: admin/index.php:224
 msgid "themes"
-msgstr "temalar"
+msgstr "θέματα"
 
 #: admin/index.php:225
 msgid "folders"
-msgstr "klasörler"
+msgstr "φάκελοι"
 
 #: admin/index.php:226
 msgid "opml"
@@ -390,72 +392,72 @@ msgstr "opml"
 #: themes/default/web/item.php:28 themes/lilina/web/item.php:52
 #: themes/lilina/web/item.php:108
 msgid "Tags"
-msgstr "Etiketler"
+msgstr "Ταμπέλες"
 
 #: admin/index.php:234 cls/wrappers/header.php:143
 msgid "Logout"
-msgstr "Çıkış"
+msgstr "Έξοδος"
 
 #: admin/index.php:336
 msgid "Admin"
-msgstr "Yönetici"
+msgstr "Διαχειριστής"
 
 #: admin/items.php:36
 msgid "Items:"
-msgstr "Yazılar:"
+msgstr "Άρθρα:"
 
 #: admin/items.php:40
 msgid "Pruning"
-msgstr "Budama"
+msgstr "Περικοπή"
 
 #: admin/items.php:42
 msgid "Delete items older than "
-msgstr "Şundan daha eski olnaları sil: "
+msgstr "Διαγραφή άρθρων παλαιότερων από "
 
 #: admin/items.php:45 admin/items.php:83
 msgid "days"
-msgstr "gün"
+msgstr "ημέρες"
 
 #: admin/items.php:46 admin/items.php:87
 msgid "months"
-msgstr "ay"
+msgstr "μήνες"
 
 #: admin/items.php:47 admin/items.php:91
 msgid "years"
-msgstr "yıl"
+msgstr "χρόνια"
 
 #: admin/items.php:49
 msgid "...from these feeds"
-msgstr "... bu beslemelerden"
+msgstr "... από αυτές τις ροές"
 
 #: admin/items.php:52
 msgid "Delete Sticky items too: "
-msgstr "Sabit yazıları da sil: "
+msgstr "Διαγραφή και των Επίλεκτων Άρθρων: "
 
 #: admin/items.php:54
 msgid "Delete Unread items too: "
-msgstr "Okunmayan yazıları da sil: "
+msgstr "Διαγραφή και των Αδιάβαστων: "
 
 #: admin/items.php:56
 msgid "Do not delete items tagged... "
-msgstr "Şu etiketli yazıları silme... "
+msgstr "Όχι διαγραφή άρθρων με ταμπέλες... "
 
 #: admin/items.php:58
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
-msgstr "(Etiketli yazıları korumak için <strong>*</strong> gir)"
+msgstr "(Δώστε <strong>*</strong> για διατήρηση όλων των άρθρων με ταμπέλα)"
 
 #: admin/items.php:96
 msgid "Invalid pruning period"
-msgstr "Geçersiz budama zaman aralığı"
+msgstr "Λανθασμένη περίοδος περικοπής"
 
 #: admin/items.php:245
 #, php-format
 msgid "Warning: you are about to delete %s items (of %s)"
-msgstr "Dikkat: %s yazıyı silmek üzeresiniz (Toplam: %s)"
+msgstr "Προσοχή: πρόκεται να διαγράψετε %s άρθρα (του %s)"
 
 #: admin/items.php:258
 msgid "oops, no period specified"
-msgstr "herhangi bir zaman aralığı belirtilmedi"
+msgstr "Οοοπ, δεν ορίστηκε περίοδος"
 
 #: admin/opml.php:38
 msgid "OPML:"
@@ -463,55 +465,55 @@ msgstr "OPML:"
 
 #: admin/opml.php:42
 msgid "Import OPML:"
-msgstr "OPML al:"
+msgstr "Εισαγωγή OPML:"
 
 #: admin/opml.php:46
 msgid "... from URL:"
-msgstr "... URL'den:"
+msgstr "... από URL:"
 
 #: admin/opml.php:52
 msgid "... from File:"
-msgstr "... dosyadan:"
+msgstr "... από Αρχείο:"
 
 #: admin/opml.php:63
 msgid "Import new feeds and:"
-msgstr "Yeni beslemeleri ekle ve:"
+msgstr "Εισαγωγή νέων ροών και:"
 
 #: admin/opml.php:66
 msgid "... merge them with the existing ones."
-msgstr "... varolanlarla birleştir."
+msgstr "... συγχώνευση με τις υπάρχουσες"
 
 #: admin/opml.php:70
 msgid "... add them to the folder:"
-msgstr "... klasöre ekle:"
+msgstr "... προσθήκη στον φάκελο:"
 
 #: admin/opml.php:75
 msgid "... replace all existing feeds and items."
-msgstr "... varolan beslemeleri ve yazıları değiştir."
+msgstr "... αντικατάσταση όλων των ροών και καταχωρήσεων"
 
 #: admin/opml.php:107 admin/opml.php:109
 msgid "Export OPML:"
-msgstr "OPML ver:"
+msgstr "Εξαγωγή OPML"
 
 #: admin/opml.php:110
 msgid "Export"
-msgstr "Dışa aktar"
+msgstr "Εξαγωγή"
 
 #: admin/opml.php:120
 msgid "XML Dump:"
-msgstr "XML Dökümü:"
+msgstr "XML Dump:"
 
 #: admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
-msgstr "Gregarius kurulumunu XML'e dök"
+msgstr "Dump your Gregarius installation to XML"
 
 #: admin/opml.php:123
 msgid "Dump!"
-msgstr "Dök!"
+msgstr "Dump!"
 
 #: admin/plugins.php:86
 msgid "Plugins"
-msgstr "Eklentiler"
+msgstr "Plugins"
 
 #: admin/plugins.php:90
 msgid ""
@@ -520,53 +522,54 @@ msgid ""
 "\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
 "Repository</a>.</p>"
 msgstr ""
-"<p style=\"font-size:small\">Daha fazla eklenti indirmek için<a style=\"text-"
-"decoration:underline\" href=\"http://plugins.gregarius.net/\">Eklenti "
-"Deposu</a>nu kullanabilirsiniz.</p>"
+"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
+"extended functionalities. More plugins can be downloaded at the <a style="
+"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
+"Repository</a>.</p>"
 
 #: admin/plugins.php:95
 msgid "Active"
-msgstr "Aktif"
+msgstr "Ενεργό"
 
 #: admin/plugins.php:96
 msgid "Name"
-msgstr "İsim"
+msgstr "Όνομα"
 
 #: admin/plugins.php:97
 msgid "Version"
-msgstr "Versiyon"
+msgstr "Έκδοση"
 
 #: admin/plugins.php:98
 msgid "Author"
-msgstr "Yazar"
+msgstr "Συγγραφέας"
 
 #: admin/plugins.php:100
 msgid "Options"
-msgstr "Özellikler"
+msgstr "Επιλογές"
 
 #: admin/plugins.php:102
 msgid "Update Available"
-msgstr "Güncelleme yapılabilir"
+msgstr "Νέα Έκδοση είναι Διαθέσιμη"
 
 #: admin/plugins.php:171 admin/themes.php:50
 msgid "Check for Updates"
-msgstr "Güncellemeler kontrol ediliyor"
+msgstr "Έλεγχος για νέες εκδόσεις"
 
 #: admin/plugins.php:202
 msgid "Plugin Options"
-msgstr "Eklenti Özellikleri"
+msgstr "Επιλογές Plugin"
 
 #: admin/tags.php:162
 msgid "Selected"
-msgstr "Seçildi"
+msgstr "Επιλεγμένα"
 
 #: admin/tags.php:186
 msgid "Rename to..."
-msgstr "Ad değiştir..."
+msgstr "Μετονομασία σε..."
 
 #: admin/themes.php:56
 msgid "Themes"
-msgstr "Temalar"
+msgstr "Θέματα"
 
 #: admin/themes.php:58
 msgid ""
@@ -575,65 +578,66 @@ msgid ""
 "downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
 "themes.gregarius.net/\">Themes Repository</a>.</p>"
 msgstr ""
-"<p style=\"font-size:small\">Temalar sitenizin nasıl görüneceğini belirler."
-"<br /><a style=\"text-decoration:underline\" href=\"http://themes.gregarius."
-"net/\">Tema Deposu</a>ndan dah fazla tema indirebilirsiniz.</p>"
+"<p style=\"font-size:small\">Τα Θέματα δημιουργούνται από αρχεία με πρότυπα "
+"και καθορίζουν την εμφάνιση του Gregarius.<br />Περισσότερα θέματα στο <a "
+"style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/"
+"\">Themes Repository</a>.</p>"
 
 #: admin/themes.php:90
 msgid "Use this Theme"
-msgstr "Bu temayı kullan"
+msgstr "Χρήση του Θέματος"
 
 #: admin/themes.php:92
 msgid "Active Theme"
-msgstr "Aktif Tema"
+msgstr "Ενεργό Θέμα"
 
 #: admin/themes.php:100
 msgid "Configure"
-msgstr "Ayarla"
+msgstr "Ρύθμιση"
 
 #: admin/themes.php:152
 msgid "Theme Options"
-msgstr "Tema Özellikleri"
+msgstr "Επιλογές Θέματος"
 
 #: admin/users.php:53
 msgid "Passwords do not match!"
-msgstr "Şifreler uyuşmuyor!"
+msgstr "Τα συνθηματικά δεν ταιριάζουν!"
 
 #: admin/users.php:69
 msgid ""
 "<p>No Administrator has been specified yet!</p><p>Please provide an "
 "Administrator username and password now!</p>"
 msgstr ""
-"<p>Henüz bir yönetici atanmadı!</p><p>Lütfen bir yönetici kullanıcı adı ve "
-"şifresi belirleyin!</p>"
+"<p>Δεν έχει οριστεί Διαχειριστής!</p><p>Παρακαλώ εισάγετε Όνομα χρήστη και "
+"Συνθηματικό Διαχειριστή!</p>"
 
 #: admin/users.php:73 admin/users.php:98
 msgid "Username"
-msgstr "Kullanıcı adı"
+msgstr "Όνομα χρήστη"
 
 #: admin/users.php:75 admin/users.php:100
 msgid "Password"
-msgstr "Şifre"
+msgstr "Συνθηματικό"
 
 #: admin/users.php:77
 msgid "Password (again)"
-msgstr "Şifre (tekrar)"
+msgstr "Συνθηματικό (ξανά)"
 
 #: admin/users.php:97
 msgid "Please log in"
-msgstr "Giriş yapın"
+msgstr "Σύνδεση χρήστη"
 
 #: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
 msgid "Login"
-msgstr "Giriş"
+msgstr "Σύνδεση"
 
 #: ajax.php:81 index.php:216 index.php:217
 msgid "Recent items"
-msgstr "Son yazılar"
+msgstr "Πρόσφατα άρθρα"
 
 #: ajax.php:228 ajax.php:239
 msgid "submit"
-msgstr "gönder"
+msgstr "επιβεβαίωση"
 
 #: ajax.php:230
 msgid "..."
@@ -641,48 +645,48 @@ msgstr "..."
 
 #: ajax.php:243
 msgid "cancel"
-msgstr "iptal"
+msgstr "ακύρωση"
 
 #: ajax.php:532
 msgid "Unread (Set this item\\'s read/unread state)"
-msgstr "Okunmayan (Bu yazının okundu/okunmadı durumunu ayarla)"
+msgstr "Αδιάβαστο (Ορισμός του άρθρου\\άρθρων ως διαβασμένο/αδιάβαστο)"
 
 #: ajax.php:536
 msgid "Sticky (Won\\'t be deleted when you prune items)"
-msgstr "Sabit (Yazılar budandığında silinmeyecek)"
+msgstr "Επίλεκτα (Δεν διαγράφονται κατά την περικοπή άρθρων)"
 
 #: ajax.php:540
 msgid "Private (Only administrators can see private items)"
-msgstr "Özel (Yalnızca yöneticiler görebilir)"
+msgstr "Κρυφά (ορατά μόνο από τους Διαχειριστές)"
 
 #: ajax.php:544
 msgid "Flag (Flags an item for later reading)"
-msgstr "Bayrak (Bayraklar yazıyı daha sonra okumak için konulan işaretlerdir)"
+msgstr "Σημείωση (σημειώνει ένα άρθρο για μελλοντική ανάγνωση)"
 
 #: author.php:41 cls/wrappers/item.php:221
 msgid " by "
-msgstr " tarafından "
+msgstr " από "
 
 #: cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073 tags.php:117
 #: tags.php:152
 msgid "item"
-msgstr "yazı"
+msgstr "άρθρο"
 
 #: cls/categories.php:87
 #, php-format
 msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
-msgstr "<strong>%d</strong> kategoride <strong>%d</strong> besleme"
+msgstr "<strong>%d</strong> ροές σε <strong>%d</strong> κατηγορίες"
 
 #: cls/channels.php:97 cls/wrappers/feeds.php:64 feed.php:843 feed.php:847
 #: feed.php:851
 #, php-format
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
-msgstr "<strong id=\"%s\" style=\"%s\">(%d okunmadı)</strong>"
+msgstr "<strong id=\"%s\" style=\"%s\">(%d αδιάβαστα)</strong>"
 
 #: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
 msgid "Feeds"
-msgstr "Besleme"
+msgstr "Ροές"
 
 #: cls/channels.php:200
 #, php-format
@@ -690,167 +694,168 @@ msgid ""
 "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
 "<strong>%d</strong> feeds"
 msgstr ""
-"<strong>%d</strong> beslemede <strong>%d</strong> yazı (<strong id=\"fucnt\">"
-"%d</strong> okunmadı)"
+"<strong>%d</strong> άρθρα (<strong id=\"fucnt\">%d</strong> unread) σε "
+"<strong>%d</strong> ροές"
 
 #: cls/header.php:62
 msgid "unread"
-msgstr "okunmadı"
+msgstr "αδιάβαστα"
 
 #: cls/nav.php:62
-#, fuzzy
 msgid "<span>H</span>ome"
-msgstr "<span>A</span>nasayfa"
+msgstr "<span>Α</span>ρχική"
 
 #: cls/nav.php:64
 msgid "<span>R</span>efresh"
-msgstr "<span>Y</span>enile"
+msgstr "Ανα<span>N</span>έωση"
 
 #: cls/nav.php:66
 msgid "<span>S</span>earch"
-msgstr "A<span>r</span>a"
+msgstr "Ανα<span>Z</span>ήτηση"
 
 #: cls/nav.php:67
 msgid "A<span>d</span>min"
-msgstr "Yöne<span>t</span>im"
+msgstr "Δια<span>X</span>ειριστής"
 
 #: cls/search.php:228
 msgid "Results: "
-msgstr "Sonuçlar: "
+msgstr "Αποτελέσματα: "
 
 #: cls/taglist.php:86
 #, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr "<strong>%d</strong> etiket altında <strong>%d</strong> etiketli yazı"
+msgstr ""
+"<strong>%d</strong> άρθρα με ταμπέλες, σε <strong>%d</strong> συνολικά "
+"ταμπέλες"
 
 #: cls/update.php:118
 msgid "OK (304 Not modified)"
-msgstr "TAMAM (304 Not modified)"
+msgstr "OK (304 Δεν τροποποιήθηκε)"
 
 #: cls/update.php:122
 msgid "HTTP Timeout (Local cache)"
-msgstr "HTTP Zaman aşımı (Local cache)"
+msgstr "Η HTTP σελίδα έληξε (Προσωρινή μνήμη)"
 
 #: cls/update.php:126
 msgid "OK (Local cache)"
-msgstr "TAMAM (Local cache)"
+msgstr "OK (Προσωρινή μνήμη)"
 
 #: cls/update.php:130
 msgid "404 Not Found (Local cache)"
-msgstr "404 Bulunamadı (Local cache)"
+msgstr "404 Δεν βρέθηκε (Προσωρινή Μνήμη)"
 
 #: cls/update.php:134
 msgid "403 Forbidden (Local cache)"
-msgstr ""
+msgstr "403 Απαγορευμένο (Προσωρινή μνήμη)"
 
 #: cls/update.php:143
 msgid "OK (HTTP 200)"
-msgstr "TAMAM (HTTP 200)"
+msgstr "OK (HTTP 200)"
 
 #: cls/update.php:148
 msgid "ERROR"
-msgstr "HATA"
+msgstr "ΣΦΑΛΜΑ"
 
 #: cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
-msgstr "%d Besleme güncelleniyor..."
+msgstr "Ανανέωση %d Ροών..."
 
 #: cls/update.php:186 cls/update.php:249
 msgid "Feed"
-msgstr "Besleme"
+msgstr "Ροή"
 
 #: cls/update.php:187 cls/update.php:250
 msgid "Status"
-msgstr "Durum"
+msgstr "Κατάσταση"
 
 #: cls/update.php:188 cls/update.php:251 cls/update.php:302 cls/update.php:331
 #: cls/update.php:363
 msgid "New Items"
-msgstr "Yeni Yazılar"
+msgstr "Νέα Άρθρα"
 
 #: cls/wrappers/header.php:142
 #, php-format
 msgid "Logged in as <strong>%s</strong>"
-msgstr "<strong>%s</strong> olarak giriş yapıldı"
+msgstr "Συνδεδεμένος ως <strong>%s</strong>"
 
 #: cls/wrappers/header.php:145
 msgid "Not logged in"
-msgstr "Giriş yapılmadı"
+msgstr "Μη Συνδεδεμένος"
 
 #: cls/wrappers/item.php:45
 msgid "Permalink for "
-msgstr "Kalıcı bağlantı "
+msgstr "Μόνιμη Διεύθυνση για "
 
 #: cls/wrappers/item.php:200
 msgid "Posted: "
-msgstr "Yazan: "
+msgstr "Καταχωρήθηκε: "
 
 #: cls/wrappers/item.php:200
 msgid "Fetched: "
-msgstr "Getirildi: "
+msgstr "Ανακτήθηκαν: "
 
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
 #: cls/wrappers/toolkit.php:53
 msgid "All"
-msgstr "Tümü"
+msgstr "Όλα"
 
 #: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
 msgid "Mark These Items as Read"
-msgstr "Şu yazıları okundu olarak işaretle"
+msgstr "Σήμανση ως Διαβασμένα"
 
 #: index.php:151 index.php:152
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
-msgstr "Okunmayan yazılar (<strong id=\"ucnt\">%d</strong>)"
+msgstr "Αδιάβαστα άρθρα (<strong id=\"ucnt\">%d</strong>)"
 
 #: plugins/delicious.php:64
 msgid "no suggestions"
-msgstr "öneri yok"
+msgstr "χωρίς προτάσεις"
 
 #: plugins/delicious.php:108
 msgid "suggestions"
-msgstr "öneriler"
+msgstr "προτάσεις"
 
 #: plugins/encplayer.php:46 plugins/encplayeralt.php:45
 msgid "play"
-msgstr "oynat"
+msgstr "αναπαραγωγή"
 
 #: plugins/markallread.php:64 plugins/markallread.php:110
 msgid "Mark This Category as Read"
-msgstr "Şu kategoriyi okundu olarak işaretle"
+msgstr "Σήμανση Κατηγορίας ως Διαβασμένη"
 
 #: plugins/markallread.php:75 plugins/markallread.php:104
 msgid "Mark This Folder as Read"
-msgstr "Şu klasörü okundu olarak işaretle"
+msgstr "Σήμανση Φακέλου ως Αδιάβαστου"
 
 #: plugins/markallread.php:86 plugins/markallread.php:98
 msgid "Mark This Feed as Read"
-msgstr "Şu beslemeyi okundu olarak işaretle"
+msgstr "Σήμανση Ροής ως Διαβασμένη"
 
 #: plugins/stickyflag/stickyflag.php:92 state.php:39
 #: themes/default/mobile/item.php:40
 msgid "Sticky"
-msgstr "Sabit"
+msgstr "Επίλεκτο"
 
 #: plugins/stickyflag/stickyflag.php:100 state.php:36
 msgid "Flagged"
-msgstr "Bayraklı"
+msgstr "Σημειωμένο"
 
 #: search.php:43
 #, php-format
 msgid "%d matches for %s"
-msgstr "%d uyuştu %s"
+msgstr "%d αποτελέσματα για %s"
 
 #: search.php:43
 #, php-format
 msgid "%d match for %s"
-msgstr "%d uyuştu %s"
+msgstr "%d αποτέλεσμα για %s"
 
 #: search.php:51
 #, php-format
 msgid "Search %d items"
-msgstr "%d yazı ara"
+msgstr "Αναζήτηση %d άρθρων"
 
 #: search.php:52 themes/3panes/searchform.php:5
 #: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
@@ -860,112 +865,112 @@ msgstr "%d yazı ara"
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
 #: themes/planet/searchform.php:39 test/minisearch.php:46
 msgid "Search"
-msgstr "Arama"
+msgstr "Αναζήτηση"
 
 #: tags.php:81 tags.php:117
 msgid "and"
-msgstr "ve"
+msgstr "και"
 
 #: tags.php:117 tags.php:153
 msgid "tagged"
-msgstr "etiketli"
+msgstr "με ταμπέλες"
 
 #: tags.php:157
 msgid "Related tags: "
-msgstr "İlişkili etiketler: "
+msgstr "Συγγενικές ταμπέλες: "
 
 #: tags.php:168
 #, php-format
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
-msgstr "&laquo;%s&raquo; etiketli herhangi bir yazı bulunamadı."
+msgstr "Οοοπ! No items tagged &laquo;%s&raquo; were found."
 
 #: tags.php:178
 msgid "All Tags"
-msgstr "Tüm etiketler"
+msgstr "Όλες οι Ταμπέλες"
 
 #: themes/3panes/footer.php:5 themes/default/web/footer.php:6
 #: themes/milsi/footer.php:4 themes/planet/footer.php:5
 msgid " powered by "
-msgstr " powered by "
+msgstr " δημιουργήθηκε από "
 
 #: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
 #: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
 #: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
 msgid "Search terms:"
-msgstr "Kavram arama:"
+msgstr "Αναζήτηση με όρους:"
 
 #: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 msgid "Some terms (OR)"
-msgstr "Bazı kavramlar (VEYA)"
+msgstr "Ορισμένοι όροι (OR)"
 
 #: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 msgid "All terms (AND)"
-msgstr "Tüm kavramlar (VE)"
+msgstr "Όλοι οι όροι (AND)"
 
 #: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 msgid "Exact match"
-msgstr "Tam eşleşme"
+msgstr "Ακριβές αποτέλεσμα"
 
 #: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 msgid "Feed:"
-msgstr "Besleme:"
+msgstr "Ροή:"
 
 #: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 msgid "Order by date, feed"
-msgstr "Tarihe göre sıralama, besleme"
+msgstr "Κατάταξη κατά ημερομηνία, ροή"
 
 #: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 msgid "Order by feed, date"
-msgstr "Beslemeye göre sıralama, tarih"
+msgstr "Κατάταξη κατά ροή, ημερομηνία"
 
 #: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 msgid "Results per page:"
-msgstr "Her sayfada gösterilecek sonuç:"
+msgstr "Αποτελέσματα ανά σελίδα:"
 
 #: themes/default/mobile/item.php:19 themes/default/web/item.php:24
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "Enclosure:"
-msgstr "Çevirme:"
+msgstr "Περίληψη:"
 
 #: themes/default/mobile/item.php:19 themes/default/web/item.php:24
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "download"
-msgstr "indir"
+msgstr "κατέβασμα"
 
 #: themes/default/mobile/item.php:34
 msgid "Read"
-msgstr "Okundu"
+msgstr "Διαβασμένα"
 
 #: themes/default/mobile/item.php:35
 msgid "Unread"
-msgstr "Okunmadı"
+msgstr "Αδιάβαστα"
 
 #: themes/default/mobile/nav.php:4
 msgid "Refresh"
-msgstr "Yenile"
+msgstr "Ανανέωση"
 
 #: themes/default/web/item.php:8 themes/default/web/item.php:9
 msgid "Edit Item Properties"
-msgstr "Yazı özelliklerini düzenle"
+msgstr "Ιδιότητες επεξεργασίας άρθρου"
 
 #: themes/default/web/item.php:18 themes/lilina/web/item.php:42
 #: themes/lilina/web/item.php:98
 msgid "Rating:"
-msgstr "Değerlendirme:"
+msgstr "Αξιολόγηση:"
 
 #: themes/milsi/feeds.php:4
 #, php-format
@@ -973,93 +978,25 @@ msgid ""
 "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
 "strong> feeds"
 msgstr ""
-"<strong>%d</strong> beslemede <strong>%d</strong> yazı (<strong>%d</strong> "
-"okunmadı)"
+"<strong>%d</strong> καταχωρήσεις (<strong>%d</strong> αδιάβαστα) σε <strong>%"
+"d</strong> ροές"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr "Üzgünüz, webden güncelleme şu anda yapılamıyor."
+msgstr "Λυπάμαι, η ενημέρωση από το διαδίκτυο είναι προς το παρόν αδύνατη."
 
 #: util.php:852 util.php:851
 msgid "Show items: "
-msgstr "Yazıları göster: "
+msgstr "Προβολή άρθρων: "
 
 #: util.php:854 util.php:853
 msgid "Unread only"
-msgstr "Yalnızca okunmayanlar"
+msgstr "Μόνο αδιάβαστα"
 
 #: util.php:855 util.php:854
 msgid "Read and unread"
-msgstr "Okunan ve okunmayan"
+msgstr "Διαβασμένα και αδιάβαστα"
 
 #: themes/default/web/pagination.php:2
 msgid "Skip to page: "
 msgstr ""
-
-#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-#~ msgstr "Okunmayan yazılar (<span id=\"ucnt\">%d</span>)"
-
-#~ msgid "Create"
-#~ msgstr "Oluştur"
-
-#~ msgid "Import file"
-#~ msgstr "Dosya al"
-
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Son yazıları koru: "
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ msgstr ""
-#~ "<h1>Yetkili değilsiniz!</h1>\n"
-#~ "Yönetim ekranını görüntüleyebilmek için gerekli yetkiniz yok.\n"
-
-#~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ msgstr "Anasayfaya dönmek için <a href=\"%s\">buraya tıklayın</a>.\n"
-
-#~ msgid "Have  a nice day!"
-#~ msgstr "İyi günler!"
-
-#~ msgid "(%d items)"
-#~ msgstr "(%d yazı)"
-
-#~ msgid "(%d unread in %d feeds)"
-#~ msgstr "(%d beslemede %d okunmayan)"
-
-#~ msgid "<strong>Oops!</strong> Bad login/password"
-#~ msgstr "<strong>Dikkat!</strong> Hatalı kullanıcı adı/şifre"
-
-#~ msgid ""
-#~ "<strong>Oops!</strong> You are successfully logged in as %s, but you don"
-#~ "\\'t have administration privileges. Log in again with administration "
-#~ "privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr ""
-#~ "<strong>Dikkat!</strong> %s olarak giriş yaptınız, ancak yönetici "
-#~ "yetkilerine sahip değilsiniz. Yönetici yetkilerine sahip bir kullanıcı "
-#~ "olarak tekrar giriş yapın ya da  <a href=\"..\">anasayfa</a>gidin."
-
-#~ msgid ""
-#~ "<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-#~ "extended functionalities. More plugins can be downloaded at the <a style="
-#~ "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
-#~ "\">Plugin Repository</a>.</p>"
-#~ msgstr ""
-#~ "<p style=\"font-size:small\">Eklentiler 3.parti yazılımlardır. <a style="
-#~ "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
-#~ "\">Eklenti deposu</a>ndan daha fazla eklenti indirebilirsiniz.</p>"
-
-#~ msgid "Last update"
-#~ msgstr "Son güncelleme"
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ "Have  a nice day!"
-#~ msgstr ""
-#~ "<h1>Yetkili değilsiniz!</h1>\n"
-#~ "Yönetim ekranını görüntüleyebilmek için gereken yetkilere sahip "
-#~ "değilsiniz.\n"
-#~ "<a href=\"%s\">Ana sayfaya dönmek için tıklayın</a> .\n"
-#~ "İyi günler!"

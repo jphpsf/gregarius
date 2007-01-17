@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 17:00+0100\n"
+"POT-Creation-Date: 2007-01-17 20:48+0000\n"
 "PO-Revision-Date: 2006-11-08 00:20+0000\n"
 "Last-Translator: Antoine Martin <toine@antonus.org>\n"
 "Language-Team:\n"
@@ -871,7 +871,7 @@ msgstr "Rechercher parmi %d &eacute;l&eacute;ments"
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39
+#: themes/planet/searchform.php:39 test/minisearch.php:46
 msgid "Search"
 msgstr "Rechercher"
 
