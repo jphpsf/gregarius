@@ -530,6 +530,10 @@ class PaginatedItemList extends ItemList {
 		} else {
 			$this ->  itemsPerPage = $itemsPerPage;
 		}
+		
+		if ($this -> itemsPerPage <= 0) {
+			$this -> itemsPerPage = 50;
+		}
 	}
 	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED, $includeDeprecated = false) {
 
