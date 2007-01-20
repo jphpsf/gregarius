@@ -652,39 +652,34 @@ if (substr($label, 0,5) == 'feed:') {
         $id = sanitize($_REQUEST['cid'],RSS_SANITIZER_NUMERIC);
         $res = rss_query("select parent,position from " . getTable("channels") ." where id=$id");
         list($parent,$position) = rss_fetch_row($res);
-        $res = rss_query(
-                   "select id, position from " .getTable("channels")
-                   ." where parent=$parent and id != $id order by abs($position-position) limit 2"
-               );
 
-        // Let's look for a lower/higher position than the one we got.
-        $switch_with_position=$position;
-
-        while (list($oid,$oposition) = rss_fetch_row($res)) {
-            if (
-                // found none yet?
-                ($switch_with_position == $position) &&
-                (
-                    // move up: we look for a lower position
-                    ($_REQUEST['action'] == CST_ADMIN_MOVE_UP_ACTION && $oposition < $switch_with_position)
-                    ||
-                    // move up: we look for a higher position
-                    ($_REQUEST['action'] == CST_ADMIN_MOVE_DOWN_ACTION && $oposition > $switch_with_position)
-                )
-            ) {
-                $switch_with_position = $oposition;
-                $switch_with_id = $oid;
-            }
+		if ($_REQUEST['action'] == CST_ADMIN_MOVE_UP_ACTION ) {
+			$res = rss_query(
+				"select id, position from " .getTable("channels")
+				." where parent=$parent and id != $id and position<$position " 
+				." order by abs($position-position) limit 1"
+			);
+		} else {
+			$res = rss_query(
+				"select id, position from " .getTable("channels")
+				." where parent=$parent and id != $id and position>$position " 
+				." order by abs($position-position) limit 1"
+			);
         }
-        // right, lets!
-        if ($switch_with_position != $position) {
-            rss_query( "update " .getTable("channels") ." set position = $switch_with_position where id=$id" );
-            rss_query( "update " .getTable("channels") ." set position = $position where id=$switch_with_id" );
-            rss_invalidate_cache();
-        }
-        $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
-        break;
 
+		list($switch_with_id,$switch_with_position) = rss_fetch_row($res);
+
+		//If this is already the first or last item in a folder we won't get any results from the query above
+		if ($switch_with_position != "") {
+			// right, lets!
+			if ($switch_with_position != $position) {
+				rss_query( "update " .getTable("channels") ." set position = $switch_with_position where id=$id" );
+				rss_query( "update " .getTable("channels") ." set position = $position where id=$switch_with_id" );
+				rss_invalidate_cache();
+			}
+		}
+		$ret__ = CST_ADMIN_DOMAIN_CHANNEL;
+		break;
 
     case CST_ADMIN_MULTIEDIT:
         $ret__ = CST_ADMIN_DOMAIN_CHANNEL;
