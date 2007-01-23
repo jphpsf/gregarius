@@ -494,12 +494,13 @@ class ItemListNavigation {
 		$this -> pages = array();
 		$base = $_SERVER["REQUEST_URI"];
 		if (!preg_match('#page=[0-9]+$#',$base)) {
-			$base .= "?page=0";
+			$base .= (ereg('\?',$base)?"&amp;":"?"). "page=0";
 		}
 		$last = ceil( $this -> _parent -> numItems / $this -> _parent -> itemsPerPage);
 		$lastin = 0;
 		for ($i = 0; $i < $last; $i++) {
 			if ($i == 0 || $i == $last-1 || abs($i - $this -> _parent -> page) < 3) {
+
 				$url = preg_replace('#^(.+)page=[0-9]+$#','${1}page='.$i, $base);
 				$this -> pages[$i] = array($url, $i == $this -> _parent -> page, false);
 				$lastin = $i;
