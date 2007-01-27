@@ -37,7 +37,7 @@ input {
 }
 
 
-div#channels,ul#sidemenu {
+div#channels, ul#sidemenu, ul.sidemenu {
  clear:left;
  width: 280px;
  float: left;
@@ -47,9 +47,14 @@ div#channels,ul#sidemenu {
  voice-family:inherit;
  width:250px;
 }
-ul#sidemenu { margin: 0 0 0 0.3em; }
+#admin_channels ul.sidemenu {
+	width:100%;
+}
 
-#sidemenu li { 
+
+ul#sidemenu,ul.sidemenu { margin: 0 0 0 0.3em; }
+
+#sidemenu li,.sidemenu li { 
  position: relative;
  display: inline; 
  float:left;
@@ -64,8 +69,8 @@ ul#sidemenu { margin: 0 0 0 0.3em; }
  letter-spacing: 0.1em;
 }
 
-#sidemenu li a { color: #aaa; }
-#sidemenu li.active a,#sidemenu li a:hover  { color: black }
+#sidemenu li a,.sidemenu li { color: #aaa; }
+#sidemenu li.active a,#sidemenu li a:hover,.sidemenu li.active a,.sidemenu li a:hover  { color: black }
 
 div#channels div { margin:0; padding:1em 0 0 0;}
 
@@ -324,6 +329,12 @@ ul.navlist li {
  height: 1.3em;
  margin: 2px 2px 0 5px;
  padding: 0.05em 0.2em;
+}
+
+div#channels_admin_menu {
+	margin:0; padding: 0.5em;
+	display:block;
+	clear:left;
 }
 
 /* doubling because IE chokes on the submit selector */

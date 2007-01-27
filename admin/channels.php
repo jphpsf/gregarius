@@ -86,8 +86,26 @@ function channels() {
     ."}\n"
     ."function clearOnHover(o) {\n"
     ."if (o.value && o.value=='http://') o.value='';\n"
-    ."}\n"
-    ."// -->\n"
+    ."}\n";
+?>
+	function admin_menu_toggle(o,id){
+		var i,lis=document.getElementById('channels_admin_sidemenu').getElementsByTagName('li');
+		for(i=0;i<lis.length;i++) {
+			lis[i].className='';
+		}
+		o.parentNode.className='active';		
+		var ps = document.getElementById('channels_admin_menu').getElementsByTagName('p');
+		for(i=0;i<ps.length;i++) {
+			if (ps[i].id == 'channels_admin_'+id) {
+				ps[i].style.display='block';
+			} else {
+				ps[i].style.display='none';
+			}
+		}
+		return false;
+	}
+<?php
+    echo "// -->\n"
     ."</script>\n";
 
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
@@ -197,17 +215,35 @@ function channels() {
 
     echo "</table>\n";
 
-    echo "<fieldset>\n"
-    ."<legend>Selected...</legend>\n"
-    ."<p>\n"
+	echo ""
+	."<ul class=\"sidemenu\" id=\"channels_admin_sidemenu\">\n"
+	."<li class=\"active\"><a href=\"#\" onclick=\"return admin_menu_toggle(this,'folders');\">". __('Folders') ."</a></li>\n"
+	."<li><a href=\"#\" onclick=\"return admin_menu_toggle(this,'categories');\">". __('Categories') ."</a></li>\n"
+	."<li><a href=\"#\" onclick=\"return admin_menu_toggle(this,'state');\">". __('State') ."</a></li>\n"
+	."<li><a href=\"#\" onclick=\"return admin_menu_toggle(this,'delete');\">". __('Delete') ."</a></li>\n"
+	."</ul>";
+	
+	echo "<div id=\"channels_admin_menu\" class=\"frame\">";
+	
+	
+	echo ""
+	."<p id=\"channels_admin_folders\" style=\"display:block\">"
     ."<label for=\"me_folder\">".__('In folder:')."</label>\n"
-    .rss_toolkit_folders_combo('me_folder',null);
-
-    echo
-    "<input type=\"submit\" id=\"me_move_to_folder\" name=\"me_move_to_folder\" value=\"".__('Move')."\" />\n"
-
-    ."<span class=\"vr\">&nbsp;</span>"
-
+    .rss_toolkit_folders_combo('me_folder',null)
+    ."<input type=\"submit\" id=\"me_move_to_folder\" name=\"me_move_to_folder\" value=\"".__('Move')."\" />\n"
+	."</p>";
+	
+	
+	echo ""
+	."<p id=\"channels_admin_categories\" style=\"display:none\">"
+    ."<label for=\"me_categories\">".__('Categories:')."</label>\n"
+	."<input id=\"me_categories\" name=\"me_categories\" type=\"text\" />"
+    ."<input type=\"submit\" id=\"me_set_categories\" name=\"me_set_categories\" value=\"".__('Set')."\" />\n"
+	."</p>";
+	
+	
+	echo ""
+	."<p id=\"channels_admin_state\" style=\"display:none\">"
     ."<label>".__('State:')."</label>\n"
     ."<input type=\"checkbox\" name=\"me_deprecated\" id=\"me_deprecated\" value=\"".RSS_MODE_DELETED_STATE."\" />\n"
     ."<label for=\"me_deprecated\">".__('Deprecated')."</label>\n"
@@ -216,18 +252,22 @@ function channels() {
     ."<label for=\"me_private\">".__('Private')."</label>\n"
 
     ."<input type=\"submit\" id=\"me_state\" name=\"me_state\" value=\"".__('Set')."\" />\n"
+	."</p>";
 
-    ."<span class=\"vr\">&nbsp;</span>"
+	echo ""
+	."<p id=\"channels_admin_delete\" style=\"display:none\">"
 
-    ."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".__('Delete')."\" />\n"
-    ."<input type=\"checkbox\" name=\"me_do_delete\" id=\"me_do_delete\" value=\"1\" />\n"
+	."<input type=\"checkbox\" name=\"me_do_delete\" id=\"me_do_delete\" value=\"1\" />\n"
     ."<label for=\"me_do_delete\">".__("I'm sure!")."</label>\n"
 
+    ."<input type=\"submit\" id=\"me_delete\" name=\"me_delete\" value=\"".__('Delete')."\" />\n"
+    
 
     ."<input type=\"hidden\" name=\"".CST_ADMIN_DOMAIN."\" value=\"".CST_ADMIN_DOMAIN_CHANNEL."\" />\n"
     ."<input type=\"hidden\" name=\"action\" value=\"" .CST_ADMIN_MULTIEDIT ."\" />\n"
-    ."</p>\n"
-    ."</fieldset>\n";
+    ."</p>\n";
+ 
+	echo"</div>";
 
 
 
@@ -270,7 +310,7 @@ function channel_admin() {
                                           "select name from " . getTable('folders') . " where id=$fid"));
 
         // handle "feed:" urls
-if (substr($label, 0,5) == 'feed:') {
+		if (substr($label, 0,5) == 'feed:') {
 
             if (substr($label, 0, 11 ) == "feed://http") {
                 $label = substr($label,5);
@@ -745,6 +785,15 @@ if (substr($label, 0,5) == 'feed:') {
                 rss_query($sql);
             }
         }
+		// set categories
+		elseif (array_key_exists('me_set_categories',$_POST)) {
+			$tags = utf8_decode(rss_real_escape_string($_POST['me_categories']));
+			foreach($ids as $id) {
+				__exp__submitTag($id, $tags, '"channel"');
+			}
+        }
+
+		
         rss_invalidate_cache();
         break;
 
