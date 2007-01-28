@@ -787,9 +787,11 @@ function channel_admin() {
         }
 		// set categories
 		elseif (array_key_exists('me_set_categories',$_POST)) {
-			$tags = utf8_decode(rss_real_escape_string($_POST['me_categories']));
-			foreach($ids as $id) {
-				__exp__submitTag($id, $tags, '"channel"');
+			$tags = utf8_decode(trim(rss_real_escape_string($_POST['me_categories'])));
+			if ($tags){
+				foreach($ids as $id) {
+					__exp__submitTag($id, $tags, '"channel"');
+				}
 			}
         }
 
