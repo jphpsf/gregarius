@@ -7,107 +7,120 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-17 20:48+0000\n"
-"PO-Revision-Date: 2007-01-16 15:49+0000\n"
-"Last-Translator: remuze <remuze@hotmail.com>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2007-01-08 14:26+0100\n"
+"PO-Revision-Date: 2007-01-21 15:30+0000\n"
+"Last-Translator: Twan van Elk <info@twanvanelk.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-01-16 15:58+0000\n"
+"X-Rosetta-Export-Date: 2007-01-29 04:50+0000\n"
 
-#: admin/channels.php:39
+#: admin/channels.php:39 admin/channels.php:39
 msgid "Feeds:"
 msgstr "Feeds:"
 
-#: admin/channels.php:43
+#: admin/channels.php:43 admin/channels.php:43
 msgid "Add a feed:"
 msgstr "Feed toevoegen:"
 
-#: admin/channels.php:46
+#: admin/channels.php:46 admin/channels.php:46
 msgid "to folder:"
-msgstr "naar map:"
+msgstr "naar map"
 
 #: admin/channels.php:48 admin/channels.php:100 admin/channels.php:866
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
-#: themes/default/mobile/nav.php:3
+#: themes/default/mobile/nav.php:3 admin/channels.php:48
+#: admin/channels.php:100 admin/channels.php:866 cls/categories.php:60
+#: cls/header.php:98 cls/wrappers/feeds.php:73 themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr "Categorieën"
 
 #: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
-#: admin/folders.php:41 admin/folders.php:212
+#: admin/folders.php:41 admin/folders.php:212 admin/channels.php:51
+#: admin/channels.php:263 admin/channels.php:381 admin/folders.php:41
+#: admin/folders.php:212
 msgid "Add"
 msgstr "Toevoegen"
 
-#: admin/channels.php:52
+#: admin/channels.php:52 admin/channels.php:52
 msgid ""
 "(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
 "subscribe to)"
-msgstr ""
-"(Voer het adres van een RSS-feed in of het adres van een website waarvan je "
-"je op de feed wil abonneren)"
+msgstr "(Voer de URL in van een feed of site waarop je je wilt abonneren.)"
 
-#: admin/channels.php:62
+#: admin/channels.php:62 admin/channels.php:62
 msgid ""
-"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
-"\">?</a>]:"
+"Subscription bookmarklet [<a "
+"href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
 msgstr ""
-"Abonneerbookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</"
-"a>]:"
+"Abonneerbookmarklet [<a "
+"href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
 
-#: admin/channels.php:62
+#: admin/channels.php:62 admin/channels.php:62
 msgid "Subscribe in Gregarius!"
 msgstr "Abonneer in Gregarius!"
 
-#: admin/channels.php:69
+#: admin/channels.php:69 admin/channels.php:69
 msgid ""
-"Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
-"feeds/feed-handling.html\">?</a>]:"
+"Register as Feed Handler [<a "
+"href=\"http://www.bengoodger.com/software/mb/feeds/feed-"
+"handling.html\">?</a>]:"
 msgstr ""
-"Gebruik als Feed beheerder [<a href=\"http://www.bengoodger.com/software/mb/"
-"feeds/feed-handling.html\">?</a>]:"
+"Gebruik als feedbeheerder [<a "
+"href=\"http://www.bengoodger.com/software/mb/feeds/feed-"
+"handling.html\">?</a>]:"
 
-#: admin/channels.php:71
+#: admin/channels.php:71 admin/channels.php:71
 msgid "Register Gregarius!"
 msgstr "Registreer Gregarius!"
 
-#: admin/channels.php:97 admin/folders.php:46
+#: admin/channels.php:97 admin/folders.php:46 admin/channels.php:97
+#: admin/folders.php:46
 msgid "Title"
 msgstr "Titel"
 
-#: admin/channels.php:98
+#: admin/channels.php:98 admin/channels.php:98
 msgid "Folder"
 msgstr "Map"
 
 #: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
+#: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
 msgid "Description"
 msgstr "Omschrijving"
 
-#: admin/channels.php:101
+#: admin/channels.php:101 admin/channels.php:101
 msgid "Flags"
-msgstr "Vlaggen"
+msgstr "Markering"
 
+#: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
 #: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
 msgid "Move"
 msgstr "Verplaatsen"
 
 #: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
-#: admin/tags.php:141
+#: admin/tags.php:141 admin/channels.php:107 admin/config.php:70
+#: admin/folders.php:52 admin/tags.php:141
 msgid "Action"
 msgstr "Actie"
 
 #: admin/channels.php:132 admin/channels.php:513 admin/folders.php:67
 #: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
-#: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104
+#: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104 admin/channels.php:132
+#: admin/channels.php:513 admin/folders.php:67 cls/wrappers/searchform.php:122
+#: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81 opml.php:51
+#: opml.php:104
 msgid "Root"
 msgstr "Hoofdmap"
 
-#: admin/channels.php:185 admin/folders.php:80
+#: admin/channels.php:185 admin/folders.php:80 admin/channels.php:185
+#: admin/folders.php:80
 msgid "&uarr;"
 msgstr "&uarr;"
 
-#: admin/channels.php:187 admin/folders.php:84
+#: admin/channels.php:187 admin/folders.php:84 admin/channels.php:187
+#: admin/folders.php:84
 msgid "&darr;"
 msgstr "&darr;"
 
@@ -115,54 +128,65 @@ msgstr "&darr;"
 #: admin/config.php:160 admin/folders.php:92 admin/plugins.php:149
 #: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
-#: themes/lilina/web/item.php:111
+#: themes/lilina/web/item.php:111 admin/channels.php:191
+#: admin/channels.php:298 admin/channels.php:327 admin/config.php:160
+#: admin/folders.php:92 admin/plugins.php:149 admin/tags.php:153
+#: admin/tags.php:180 ajax.php:209 ajax.php:232 themes/default/web/item.php:31
+#: themes/lilina/web/item.php:55 themes/lilina/web/item.php:111
 msgid "edit"
 msgstr "bewerken"
 
 #: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
+#: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
 msgid "delete"
 msgstr "verwijderen"
 
-#: admin/channels.php:203 admin/channels.php:860
+#: admin/channels.php:203 admin/channels.php:860 admin/channels.php:203
+#: admin/channels.php:860
 msgid "In folder:"
 msgstr "In map:"
 
-#: admin/channels.php:211
+#: admin/channels.php:211 admin/channels.php:211
 msgid "State:"
 msgstr "Status:"
 
-#: admin/channels.php:213
+#: admin/channels.php:213 admin/channels.php:213
 msgid "Deprecated"
 msgstr "Vervallen"
 
-#: admin/channels.php:216
+#: admin/channels.php:216 admin/channels.php:216
 msgid "Private"
-msgstr "Privé"
+msgstr "Persoonlijk"
 
-#: admin/channels.php:218
+#: admin/channels.php:218 admin/channels.php:218
 msgid "Set"
-msgstr "Stel in"
+msgstr "Instellen"
 
 #: admin/channels.php:222 admin/items.php:59 admin/items.php:72
-#: admin/items.php:252 admin/tags.php:164
+#: admin/items.php:252 admin/tags.php:164 admin/channels.php:222
+#: admin/items.php:59 admin/items.php:72 admin/items.php:252
+#: admin/tags.php:164
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: admin/channels.php:224 admin/tags.php:166
+#: admin/channels.php:224 admin/tags.php:166 admin/channels.php:224
+#: admin/tags.php:166
 msgid "I'm sure!"
 msgstr "Ik weet het zeker!"
 
+#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
 #: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
 #, php-format
 msgid "Adding %s to %s... "
 msgstr "Voeg %s toe aan %s... "
 
 #: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
-#: ajax.php:547
+#: ajax.php:547 admin/channels.php:295 admin/channels.php:323
+#: admin/users.php:79 ajax.php:547
 msgid "OK"
-msgstr "OK"
+msgstr "Oké"
 
-#: admin/channels.php:341
+#: admin/channels.php:341 admin/channels.php:341
 #, php-format
 msgid ""
 "The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
@@ -172,10 +196,14 @@ msgstr ""
 "je abonneren?"
 
 #: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
+#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
 #, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
-msgstr "Het spijt me, ik denk niet dat ik de url '%s' kan verwerken."
+msgstr "Helaas, URL %s kan niet worden verwerkt."
 
+#: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
+#: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
+#: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
 #: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
 #: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
 #: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
@@ -184,182 +212,198 @@ msgstr "Ja"
 
 #: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
 #: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
-#: admin/tags.php:66 admin/tags.php:95
+#: admin/tags.php:66 admin/tags.php:95 admin/channels.php:433
+#: admin/channels.php:443 admin/config.php:208 admin/config.php:519
+#: admin/folders.php:175 admin/folders.php:185 admin/tags.php:66
+#: admin/tags.php:95
 msgid "No"
 msgstr "Nee"
 
+#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
 #: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr "Weet je zeker dat je '%s' wilt verwijderen?"
 
-#: admin/channels.php:454 admin/opml.php:81
+#: admin/channels.php:454 admin/opml.php:81 admin/channels.php:454
+#: admin/opml.php:81
 msgid "Import"
 msgstr "Importeren"
 
-#: admin/channels.php:558 update.php:61
+#: admin/channels.php:558 update.php:61 admin/channels.php:558 update.php:61
 msgid "Updating"
 msgstr "Bijwerken"
 
-#: admin/channels.php:828
+#: admin/channels.php:828 admin/channels.php:828
 msgid "Edit the feed "
 msgstr "Bewerk de feed "
 
-#: admin/channels.php:834 admin/channels.php:837
+#: admin/channels.php:834 admin/channels.php:837 admin/channels.php:834
+#: admin/channels.php:837
 msgid "Added"
 msgstr "Toegevoegd"
 
 #: admin/channels.php:835 admin/channels.php:838
-#: themes/default/web/footer.php:17
+#: themes/default/web/footer.php:17 admin/channels.php:835
+#: admin/channels.php:838 themes/default/web/footer.php:17
 msgid "Last Update"
-msgstr "Laatsts gewijzigd"
+msgstr "Laatste wijziging"
 
-#: admin/channels.php:838 cls/wrappers/header.php:134
+#: admin/channels.php:838 cls/wrappers/header.php:134 admin/channels.php:838
+#: cls/wrappers/header.php:134
 msgid "Never"
 msgstr "Nooit"
 
-#: admin/channels.php:841
+#: admin/channels.php:841 admin/channels.php:841
 msgid "Title:"
 msgstr "Titel:"
 
-#: admin/channels.php:850
+#: admin/channels.php:850 admin/channels.php:850
 msgid "RSS URL:"
 msgstr "RSS URL:"
 
-#: admin/channels.php:851 admin/channels.php:856
+#: admin/channels.php:851 admin/channels.php:856 admin/channels.php:851
+#: admin/channels.php:856
 msgid "(visit)"
 msgstr "(bezoek)"
 
-#: admin/channels.php:855
+#: admin/channels.php:855 admin/channels.php:855
 msgid "Site URL:"
 msgstr "Website URL:"
 
-#: admin/channels.php:890
+#: admin/channels.php:890 admin/channels.php:890
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr ""
-"Deze feed is <strong>privé</strong>, alleen beheerders kunnen het zien."
+msgstr "Deze feed is persoonlijk, alleen beheerders kunnen hem zien."
 
-#: admin/channels.php:898
+#: admin/channels.php:898 admin/channels.php:898
 msgid ""
 "This feed is <strong>deprecated</strong>, it won't be updated anymore and "
 "won't be visible in the feeds column."
 msgstr ""
-"Deze feed is <strong>afgekeurd</strong>, het zal niet meer worden bijgewerkt "
-"en niet meer worden weergegeven."
+"Deze feed is vervallen. Hij zal niet meer bijgewerkt of weergegeven worden."
 
-#: admin/channels.php:905
+#: admin/channels.php:905 admin/channels.php:905
 msgid "Description:"
 msgstr "Omschrijving"
 
-#: admin/channels.php:910
+#: admin/channels.php:910 admin/channels.php:910
 msgid "Shown favicon:"
 msgstr "Favicon weergeven:"
 
-#: admin/channels.php:917
+#: admin/channels.php:917 admin/channels.php:917
 msgid "(Leave blank for no icon)"
 msgstr "(Leeg laten voor geen icoon)"
 
 #: admin/channels.php:972 admin/config.php:238 admin/config.php:257
 #: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
 #: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
+#: admin/channels.php:972 admin/config.php:238 admin/config.php:257
+#: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
+#: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
-msgstr "Toepassen"
+msgstr "Wijzigingen doorvoeren"
 
-#: admin/config.php:31
+#: admin/config.php:31 admin/config.php:31
 msgid "Configuration:"
 msgstr "Configuratie:"
 
-#: admin/config.php:67
+#: admin/config.php:67 admin/config.php:67
 msgid "Key"
 msgstr "Sleutel"
 
-#: admin/config.php:68
+#: admin/config.php:68 admin/config.php:68
 msgid "Value"
 msgstr "Waarde"
 
-#: admin/config.php:167
+#: admin/config.php:167 admin/config.php:167
 msgid "default"
 msgstr "standaard"
 
-#: admin/config.php:190
+#: admin/config.php:190 admin/config.php:190
 msgid "Invalid config key specified."
-msgstr "Niet-toegestane configuratiesleutel gespecificeerd."
+msgstr "Ongeldige configuratiesleutel gespecificeerd."
 
-#: admin/config.php:234 admin/config.php:252
+#: admin/config.php:234 admin/config.php:252 admin/config.php:234
+#: admin/config.php:252
 msgid "Preview"
 msgstr "Voorbeschouwing"
 
 #: admin/config.php:246 admin/items.php:253 admin/plugins.php:214
-#: admin/themes.php:175 ajax.php:548
+#: admin/themes.php:175 ajax.php:548 admin/config.php:246 admin/items.php:253
+#: admin/plugins.php:214 admin/themes.php:175 ajax.php:548
 msgid "Cancel"
 msgstr "Annuleren"
 
 #: admin/config.php:332 admin/config.php:337 admin/config.php:474
-#: admin/config.php:476
+#: admin/config.php:476 admin/config.php:332 admin/config.php:337
+#: admin/config.php:474 admin/config.php:476
 msgid "True"
 msgstr "Waar"
 
 #: admin/config.php:332 admin/config.php:480 admin/config.php:482
+#: admin/config.php:332 admin/config.php:480 admin/config.php:482
 msgid "False"
 msgstr "Niet waar"
 
-#: admin/config.php:368
+#: admin/config.php:368 admin/config.php:368
 msgid "Ooops, unknown config type: "
 msgstr "Oeps, onbekend configuratietype: "
 
 #: admin/config.php:442 admin/config.php:467 admin/config.php:471
-#: admin/config.php:485
+#: admin/config.php:485 admin/config.php:442 admin/config.php:467
+#: admin/config.php:471 admin/config.php:485
 msgid "Value for"
 msgstr "Waarde van"
 
-#: admin/config.php:517
+#: admin/config.php:517 admin/config.php:517
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
 msgstr ""
 "Weet je zeker dat je de waarde voor %s wilt resetten naar de standaard '%s'?"
 
-#: admin/folders.php:31
+#: admin/folders.php:31 admin/folders.php:31
 msgid "Folders:"
 msgstr "Mappen:"
 
-#: admin/folders.php:38
+#: admin/folders.php:38 admin/folders.php:38
 msgid "Add a folder:"
-msgstr "Map toevoegen"
+msgstr "Voeg een map toe:"
 
-#: admin/folders.php:123
+#: admin/folders.php:123 admin/folders.php:123
 msgid "Folder name:"
 msgstr "Mapnaam:"
 
-#: admin/folders.php:164
+#: admin/folders.php:164 admin/folders.php:164
 msgid "You can't delete the Root folder"
-msgstr "Je kunt de Hoofdfolder niet verwijderen"
+msgstr "Je kunt de hoofdmap niet verwijderen"
 
-#: admin/folders.php:204 admin/tags.php:113
+#: admin/folders.php:204 admin/tags.php:113 admin/folders.php:204
+#: admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
-msgstr "Je kunt het item niet hernoemen naar \"%s\" omdat die naam al bestaat."
+msgstr ""
+"Je kunt het item niet hernoemen naar \"%s\" omdat die naam al bestaat."
 
-#: admin/folders.php:281
+#: admin/folders.php:281 admin/folders.php:281
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
 msgstr "Er bestaat al een folder met de naam \"%s\"!"
 
-#: admin/index.php:202
+#: admin/index.php:202 admin/index.php:202
 #, php-format
 msgid ""
 "<h1>Not Authorized!</h1>You are not authorized to access the administration "
 "interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
 "Have  a nice day!"
 msgstr ""
-"<h1>Niet gemachtigd!</h1>Je bent niet gemachtigd om de adminpagina's te "
-"bekijken. Volg <a href=\"%s\"> deze link</a> naar de hoofdpagina. Met "
-"vriendelijke groeten!"
+"<h1>Niet gemachtigd!</h1>Je hebt geen toegang tot de instellingen. Volg <a "
+"href=\"%s\"> deze link</a> naar de hoofdpagina."
 
-#: admin/index.php:219
+#: admin/index.php:219 admin/index.php:219
 msgid "Dashboard"
 msgstr "Bedieningspaneel"
 
-#: admin/index.php:220
+#: admin/index.php:220 admin/index.php:220
 msgid "feeds"
 msgstr "feeds"
 
@@ -367,247 +411,257 @@ msgstr "feeds"
 #: feed.php:1043 feed.php:1061 feed.php:1073
 #: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
 #: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
+#: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
+#: feed.php:1043 feed.php:1061 feed.php:1073
+#: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
+#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
 msgid "items"
 msgstr "items"
 
-#: admin/index.php:222
+#: admin/index.php:222 admin/index.php:222
 msgid "config"
 msgstr "instelling"
 
-#: admin/index.php:223
+#: admin/index.php:223 admin/index.php:223
 msgid "plugins"
 msgstr "plug-ins"
 
-#: admin/index.php:224
+#: admin/index.php:224 admin/index.php:224
 msgid "themes"
 msgstr "thema's"
 
-#: admin/index.php:225
+#: admin/index.php:225 admin/index.php:225
 msgid "folders"
 msgstr "mappen"
 
-#: admin/index.php:226
+#: admin/index.php:226 admin/index.php:226
 msgid "opml"
 msgstr "opml"
 
 #: admin/index.php:227 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
 #: cls/taglist.php:69 tags.php:129 themes/default/mobile/item.php:22
 #: themes/default/web/item.php:28 themes/lilina/web/item.php:52
-#: themes/lilina/web/item.php:108
+#: themes/lilina/web/item.php:108 admin/index.php:227 admin/tags.php:135
+#: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
+#: themes/default/mobile/item.php:22 themes/default/web/item.php:28
+#: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
 msgid "Tags"
 msgstr "Labels"
 
-#: admin/index.php:234 cls/wrappers/header.php:143
+#: admin/index.php:234 cls/wrappers/header.php:143 admin/index.php:234
+#: cls/wrappers/header.php:143
 msgid "Logout"
 msgstr "Afmelden"
 
-#: admin/index.php:336
+#: admin/index.php:336 admin/index.php:336
 msgid "Admin"
 msgstr "Beheer"
 
-#: admin/items.php:36
+#: admin/items.php:36 admin/items.php:36
 msgid "Items:"
 msgstr "Items:"
 
-#: admin/items.php:40
+#: admin/items.php:40 admin/items.php:40
 msgid "Pruning"
 msgstr "Opschonen"
 
-#: admin/items.php:42
+#: admin/items.php:42 admin/items.php:42
 msgid "Delete items older than "
 msgstr "Verwijder items ouder dan "
 
-#: admin/items.php:45 admin/items.php:83
+#: admin/items.php:45 admin/items.php:83 admin/items.php:45 admin/items.php:83
 msgid "days"
 msgstr "dagen"
 
-#: admin/items.php:46 admin/items.php:87
+#: admin/items.php:46 admin/items.php:87 admin/items.php:46 admin/items.php:87
 msgid "months"
 msgstr "maanden"
 
-#: admin/items.php:47 admin/items.php:91
+#: admin/items.php:47 admin/items.php:91 admin/items.php:47 admin/items.php:91
 msgid "years"
 msgstr "jaren"
 
-#: admin/items.php:49
+#: admin/items.php:49 admin/items.php:49
 msgid "...from these feeds"
 msgstr "... van deze feeds"
 
-#: admin/items.php:52
+#: admin/items.php:52 admin/items.php:52
 msgid "Delete Sticky items too: "
-msgstr "Ook de Sticky items verwijderen: "
+msgstr "Ook de opgeslagen items bewaren: "
 
-#: admin/items.php:54
+#: admin/items.php:54 admin/items.php:54
 msgid "Delete Unread items too: "
 msgstr "Verwijder ook ongelezen items: "
 
-#: admin/items.php:56
+#: admin/items.php:56 admin/items.php:56
 msgid "Do not delete items tagged... "
-msgstr "Gelabelde items niet verwijderen... "
+msgstr "Verwijder geen items gelabeld... "
 
-#: admin/items.php:58
+#: admin/items.php:58 admin/items.php:58
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
 msgstr "(Voer <strong>*</strong> in, om alle gelabelde items te behouden)"
 
-#: admin/items.php:96
+#: admin/items.php:96 admin/items.php:96
 msgid "Invalid pruning period"
-msgstr "Niet-toegestane opschoonperiode."
+msgstr "Ongeldige opschoonperiode."
 
-#: admin/items.php:245
+#: admin/items.php:245 admin/items.php:245
 #, php-format
 msgid "Warning: you are about to delete %s items (of %s)"
-msgstr "Waarschuwing: je staat op het punt om %s items (van %s) te verwijderen"
+msgstr ""
+"Waarschuwing: je staat op het punt om %s items (van %s) te verwijderen"
 
-#: admin/items.php:258
+#: admin/items.php:258 admin/items.php:258
 msgid "oops, no period specified"
-msgstr "oeps, geen periode aangegeven"
+msgstr "geef a.u.b. een periode aan"
 
-#: admin/opml.php:38
+#: admin/opml.php:38 admin/opml.php:38
 msgid "OPML:"
 msgstr "OPML:"
 
-#: admin/opml.php:42
+#: admin/opml.php:42 admin/opml.php:42
 msgid "Import OPML:"
 msgstr "OPML importeren:"
 
-#: admin/opml.php:46
+#: admin/opml.php:46 admin/opml.php:46
 msgid "... from URL:"
 msgstr "... van URL:"
 
-#: admin/opml.php:52
+#: admin/opml.php:52 admin/opml.php:52
 msgid "... from File:"
 msgstr "... van Bestand"
 
-#: admin/opml.php:63
+#: admin/opml.php:63 admin/opml.php:63
 msgid "Import new feeds and:"
 msgstr "Importeer nieuwe feeds en:"
 
-#: admin/opml.php:66
+#: admin/opml.php:66 admin/opml.php:66
 msgid "... merge them with the existing ones."
 msgstr "... voeg ze samen met de bestaande."
 
-#: admin/opml.php:70
+#: admin/opml.php:70 admin/opml.php:70
 msgid "... add them to the folder:"
 msgstr "... voeg ze toe aan de folder:"
 
-#: admin/opml.php:75
+#: admin/opml.php:75 admin/opml.php:75
 msgid "... replace all existing feeds and items."
 msgstr "... vervang alle bestaande feeds en items."
 
-#: admin/opml.php:107 admin/opml.php:109
+#: admin/opml.php:107 admin/opml.php:109 admin/opml.php:107 admin/opml.php:109
 msgid "Export OPML:"
 msgstr "OPML exporteren:"
 
-#: admin/opml.php:110
+#: admin/opml.php:110 admin/opml.php:110
 msgid "Export"
 msgstr "Exporteren"
 
-#: admin/opml.php:120
+#: admin/opml.php:120 admin/opml.php:120
 msgid "XML Dump:"
 msgstr "XML Dump:"
 
-#: admin/opml.php:122
+#: admin/opml.php:122 admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
 msgstr "Dump jouw Gregarius installatie naar XML"
 
-#: admin/opml.php:123
+#: admin/opml.php:123 admin/opml.php:123
 msgid "Dump!"
 msgstr "Dump!"
 
-#: admin/plugins.php:86
+#: admin/plugins.php:86 admin/plugins.php:86
 msgid "Plugins"
 msgstr "Plug-ins"
 
-#: admin/plugins.php:90
+#: admin/plugins.php:90 admin/plugins.php:90
 msgid ""
 "<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-"extended functionalities. More plugins can be downloaded at the <a style="
-"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
+"extended functionalities. More plugins can be downloaded at the <a "
+"style=\"text-decoration:underline\"  "
+"href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 msgstr ""
 "<p style=\"font-size:small\">Plug-ins zijn scripts van derden die "
 "toegevoegde functionaliteiten bieden. Meer plug-ins kunnen worden opgehaald "
-"van het <a style=\"text-decoration:underline\" href=\"http://plugins."
-"gregarius.net/\">Plug-inoverzicht</a>.</p>"
+"bij het <a style=\"text-decoration:underline\" "
+"href=\"http://plugins.gregarius.net/\">Plug-inoverzicht</a>.</p>"
 
-#: admin/plugins.php:95
+#: admin/plugins.php:95 admin/plugins.php:95
 msgid "Active"
 msgstr "Actief"
 
-#: admin/plugins.php:96
+#: admin/plugins.php:96 admin/plugins.php:96
 msgid "Name"
 msgstr "Naam"
 
-#: admin/plugins.php:97
+#: admin/plugins.php:97 admin/plugins.php:97
 msgid "Version"
 msgstr "Versie"
 
-#: admin/plugins.php:98
+#: admin/plugins.php:98 admin/plugins.php:98
 msgid "Author"
 msgstr "Auteur"
 
-#: admin/plugins.php:100
+#: admin/plugins.php:100 admin/plugins.php:100
 msgid "Options"
 msgstr "Opties"
 
-#: admin/plugins.php:102
+#: admin/plugins.php:102 admin/plugins.php:102
 msgid "Update Available"
-msgstr "Herziening beschikbaar"
+msgstr "Update beschikbaar"
 
-#: admin/plugins.php:171 admin/themes.php:50
+#: admin/plugins.php:171 admin/themes.php:50 admin/plugins.php:171
+#: admin/themes.php:50
 msgid "Check for Updates"
-msgstr "Controleer op herzieningen"
+msgstr "Controleer op updates"
 
-#: admin/plugins.php:202
+#: admin/plugins.php:202 admin/plugins.php:202
 msgid "Plugin Options"
 msgstr "Plug-in Opties"
 
-#: admin/tags.php:162
+#: admin/tags.php:162 admin/tags.php:162
 msgid "Selected"
 msgstr "Geselecteerd"
 
-#: admin/tags.php:186
+#: admin/tags.php:186 admin/tags.php:186
 msgid "Rename to..."
-msgstr "Hernoemen naar..."
+msgstr "Hernoem naar..."
 
-#: admin/themes.php:56
+#: admin/themes.php:56 admin/themes.php:56
 msgid "Themes"
 msgstr "Thema's"
 
-#: admin/themes.php:58
+#: admin/themes.php:58 admin/themes.php:58
 msgid ""
 "<p style=\"font-size:small\">Themes are made of a set of template files "
 "which specify how your Gregarius installation looks.<br />More themes can be "
-"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
-"themes.gregarius.net/\">Themes Repository</a>.</p>"
+"downloaded from the <a style=\"text-decoration:underline\"  "
+"href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
 msgstr ""
 "<p style=\"font-size:small\">Thema's zijn gemaakt van een set  "
 "sjabloonbestanden waarin wordt gespecificeerd hoe de Gregarius installatie "
 "er uitziet.<br />Meer thema's kun je ophalen via het <a style=\"text-"
-"decoration:underline\" href=\"http://themes.gregarius.net/\">Themaoverzicht</"
-"a>.</p>"
+"decoration:underline\" "
+"href=\"http://themes.gregarius.net/\">Themaoverzicht</a>.</p>"
 
-#: admin/themes.php:90
+#: admin/themes.php:90 admin/themes.php:90
 msgid "Use this Theme"
 msgstr "Gebruik dit thema"
 
-#: admin/themes.php:92
+#: admin/themes.php:92 admin/themes.php:92
 msgid "Active Theme"
 msgstr "Actief thema"
 
-#: admin/themes.php:100
+#: admin/themes.php:100 admin/themes.php:100
 msgid "Configure"
 msgstr "Configureren"
 
-#: admin/themes.php:152
+#: admin/themes.php:152 admin/themes.php:152
 msgid "Theme Options"
-msgstr "Thema Opties"
+msgstr "Themaopties"
 
-#: admin/users.php:53
+#: admin/users.php:53 admin/users.php:53
 msgid "Passwords do not match!"
 msgstr "Wachtwoorden komen niet overeen!"
 
-#: admin/users.php:69
+#: admin/users.php:69 admin/users.php:69
 msgid ""
 "<p>No Administrator has been specified yet!</p><p>Please provide an "
 "Administrator username and password now!</p>"
@@ -615,84 +669,91 @@ msgstr ""
 "<p>Er is nog geen Beheerder aangemaakt!</p><p>Voer nu een gebruikersnaam en "
 "wachtwoord in voor de Beheerder!</p>"
 
-#: admin/users.php:73 admin/users.php:98
+#: admin/users.php:73 admin/users.php:98 admin/users.php:73 admin/users.php:98
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: admin/users.php:75 admin/users.php:100
+#: admin/users.php:75 admin/users.php:100 admin/users.php:75
+#: admin/users.php:100
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: admin/users.php:77
+#: admin/users.php:77 admin/users.php:77
 msgid "Password (again)"
 msgstr "Wachtwoord (nogmaals)"
 
-#: admin/users.php:97
+#: admin/users.php:97 admin/users.php:97
 msgid "Please log in"
 msgstr "Aanmelden aub"
 
 #: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
+#: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
 msgid "Login"
 msgstr "Aanmelden"
 
-#: ajax.php:81 index.php:216 index.php:217
+#: ajax.php:81 index.php:216 ajax.php:81 index.php:216
 msgid "Recent items"
 msgstr "Recente items"
 
-#: ajax.php:228 ajax.php:239
+#: ajax.php:228 ajax.php:239 ajax.php:228 ajax.php:239
 msgid "submit"
 msgstr "verstuur"
 
-#: ajax.php:230
+#: ajax.php:230 ajax.php:230
 msgid "..."
 msgstr "..."
 
-#: ajax.php:243
+#: ajax.php:243 ajax.php:243
 msgid "cancel"
 msgstr "afbreken"
 
-#: ajax.php:532
+#: ajax.php:532 ajax.php:532
 msgid "Unread (Set this item\\'s read/unread state)"
 msgstr "Ongelezen (Verander de gelezen/ongelezen status van dit item)"
 
-#: ajax.php:536
+#: ajax.php:536 ajax.php:536
 msgid "Sticky (Won\\'t be deleted when you prune items)"
-msgstr "Vastgeplakt (Zal niet worden verwijderd wanneer je de items opruimt)"
+msgstr "Opgeslagen (zal niet worden verwijderd wanneer je de items opruimt)"
 
-#: ajax.php:540
+#: ajax.php:540 ajax.php:540
 msgid "Private (Only administrators can see private items)"
-msgstr "Privé (Alleen beheerders kunnen privé items bekijken)"
+msgstr "Persoonlijk (alleen beheerders kunnen persoonlijke items bekijken)"
 
-#: ajax.php:544
+#: ajax.php:544 ajax.php:544
 msgid "Flag (Flags an item for later reading)"
 msgstr "Markeer (Markeert een item om later te lezen)"
 
-#: author.php:41 cls/wrappers/item.php:221
+#: author.php:41 cls/wrappers/item.php:221 author.php:41
+#: cls/wrappers/item.php:221
 msgid " by "
 msgstr " door "
 
 #: cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073 tags.php:117
-#: tags.php:152
+#: tags.php:152 cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073
+#: tags.php:117 tags.php:152
 msgid "item"
 msgstr "item"
 
-#: cls/categories.php:87
+#: cls/categories.php:87 cls/categories.php:87
 #, php-format
 msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
 msgstr "<strong>%d</strong> feeds in <strong>%d</strong> categorieën"
 
 #: cls/channels.php:97 cls/wrappers/feeds.php:64 feed.php:843 feed.php:847
-#: feed.php:851
+#: feed.php:851 cls/channels.php:97 cls/wrappers/feeds.php:64 feed.php:843
+#: feed.php:847 feed.php:851
 #, php-format
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
 msgstr "<strong id=\"%s\" style=\"%s\">(%d ongelezen)</strong>"
 
 #: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
 #: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
+#: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
+#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
 msgid "Feeds"
 msgstr "Feeds"
 
-#: cls/channels.php:200
+#: cls/channels.php:200 cls/channels.php:200
 #, php-format
 msgid ""
 "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
@@ -701,160 +762,169 @@ msgstr ""
 "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> ongelezen) in "
 "<strong>%d</strong> feeds"
 
-#: cls/header.php:62
+#: cls/header.php:62 cls/header.php:62
 msgid "unread"
 msgstr "ongelezen"
 
-#: cls/nav.php:62
+#: cls/nav.php:62 cls/nav.php:62
 msgid "<span>H</span>ome"
 msgstr "<span>S</span>tart"
 
-#: cls/nav.php:64
+#: cls/nav.php:64 cls/nav.php:64
 msgid "<span>R</span>efresh"
 msgstr "<span>V</span>ernieuwen"
 
-#: cls/nav.php:66
+#: cls/nav.php:66 cls/nav.php:66
 msgid "<span>S</span>earch"
 msgstr "<span>Z</span>oeken"
 
-#: cls/nav.php:67
+#: cls/nav.php:67 cls/nav.php:67
 msgid "A<span>d</span>min"
 msgstr "<span>B</span>eheer"
 
-#: cls/search.php:228
+#: cls/search.php:228 cls/search.php:228
 msgid "Results: "
 msgstr "Resultaten: "
 
-#: cls/taglist.php:86
+#: cls/taglist.php:86 cls/taglist.php:86
 #, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
 msgstr "<strong>%d</strong> gelabelde items, in <strong>%d</strong> labels"
 
-#: cls/update.php:118
+#: cls/update.php:118 cls/update.php:118
 msgid "OK (304 Not modified)"
 msgstr "OK (304 Niet gewijzigd)"
 
-#: cls/update.php:122
+#: cls/update.php:122 cls/update.php:122
 msgid "HTTP Timeout (Local cache)"
-msgstr "HTTP Pauze (Lokale cache)"
+msgstr "HTTP Timeout (lokale cache)"
 
-#: cls/update.php:126
+#: cls/update.php:126 cls/update.php:126
 msgid "OK (Local cache)"
-msgstr "OK (Lokale cache)"
+msgstr "Oké (lokale cache)"
 
-#: cls/update.php:130
+#: cls/update.php:130 cls/update.php:130
 msgid "404 Not Found (Local cache)"
-msgstr "404 Niet Gevonden (Lokale cache)"
+msgstr "404 Niet gevonden (lokale cache)"
 
-#: cls/update.php:134
+#: cls/update.php:134 cls/update.php:134
 msgid "403 Forbidden (Local cache)"
-msgstr "403 Niet toegelaten (Local cache)"
+msgstr "403 Verboden (lokale cache)"
 
-#: cls/update.php:143
+#: cls/update.php:143 cls/update.php:143
 msgid "OK (HTTP 200)"
-msgstr "OK (HTTP 200)"
+msgstr "Oké (HTTP 200)"
 
-#: cls/update.php:148
+#: cls/update.php:148 cls/update.php:148
 msgid "ERROR"
 msgstr "FOUT"
 
-#: cls/update.php:183 cls/update.php:245
+#: cls/update.php:183 cls/update.php:245 cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
-msgstr "Bijwerken van %d Feeds..."
+msgstr "Bijwerken van %d feeds..."
 
-#: cls/update.php:186 cls/update.php:249
+#: cls/update.php:186 cls/update.php:249 cls/update.php:186 cls/update.php:249
 msgid "Feed"
 msgstr "Feed"
 
-#: cls/update.php:187 cls/update.php:250
+#: cls/update.php:187 cls/update.php:250 cls/update.php:187 cls/update.php:250
 msgid "Status"
 msgstr "Status"
 
 #: cls/update.php:188 cls/update.php:251 cls/update.php:302 cls/update.php:331
-#: cls/update.php:363
+#: cls/update.php:363 cls/update.php:188 cls/update.php:251 cls/update.php:302
+#: cls/update.php:331 cls/update.php:363
 msgid "New Items"
-msgstr "Nieuwe Items"
+msgstr "Nieuwe items"
 
-#: cls/wrappers/header.php:142
+#: cls/wrappers/header.php:142 cls/wrappers/header.php:142
 #, php-format
 msgid "Logged in as <strong>%s</strong>"
 msgstr "Ingelogd als <strong>%s</strong>"
 
-#: cls/wrappers/header.php:145
+#: cls/wrappers/header.php:145 cls/wrappers/header.php:145
 msgid "Not logged in"
 msgstr "Niet aangemeld"
 
-#: cls/wrappers/item.php:45
+#: cls/wrappers/item.php:45 cls/wrappers/item.php:45
 msgid "Permalink for "
 msgstr "Permanente koppeling voor "
 
-#: cls/wrappers/item.php:200
+#: cls/wrappers/item.php:200 cls/wrappers/item.php:200
 msgid "Posted: "
 msgstr "Geplaatst: "
 
-#: cls/wrappers/item.php:200
+#: cls/wrappers/item.php:200 cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr "Opgehaald: "
 
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
-#: cls/wrappers/toolkit.php:53
+#: cls/wrappers/toolkit.php:53 cls/wrappers/searchform.php:87
+#: cls/wrappers/searchform.php:96 cls/wrappers/toolkit.php:53
 msgid "All"
 msgstr "Alle"
 
-#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
+#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 feed.php:1371
+#: feed.php:1387 feed.php:1404 index.php:233
 msgid "Mark These Items as Read"
 msgstr "Markeer deze items als Gelezen"
 
-#: index.php:151 index.php:152
+#: index.php:151 index.php:151
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr "Ongelezen items (<strong id=\"ucnt\">%d</strong>)"
 
-#: plugins/delicious.php:64
+#: plugins/delicious.php:64 plugins/delicious.php:64
 msgid "no suggestions"
 msgstr "geen suggesties"
 
-#: plugins/delicious.php:108
+#: plugins/delicious.php:108 plugins/delicious.php:108
 msgid "suggestions"
 msgstr "suggesties"
 
+#: plugins/encplayer.php:46 plugins/encplayeralt.php:45
 #: plugins/encplayer.php:46 plugins/encplayeralt.php:45
 msgid "play"
 msgstr "afspelen"
 
 #: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:110
 msgid "Mark This Category as Read"
 msgstr "Markeer deze categorie als Gelezen"
 
+#: plugins/markallread.php:75 plugins/markallread.php:104
 #: plugins/markallread.php:75 plugins/markallread.php:104
 msgid "Mark This Folder as Read"
 msgstr "Markeer deze folder als Gelezen"
 
 #: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:98
 msgid "Mark This Feed as Read"
 msgstr "Markeer deze feed als Gelezen."
 
 #: plugins/stickyflag/stickyflag.php:92 state.php:39
-#: themes/default/mobile/item.php:40
+#: themes/default/mobile/item.php:40 plugins/stickyflag/stickyflag.php:92
+#: state.php:39 themes/default/mobile/item.php:40
 msgid "Sticky"
-msgstr "Vastgeplakt"
+msgstr "Opgeslagen"
 
+#: plugins/stickyflag/stickyflag.php:100 state.php:36
 #: plugins/stickyflag/stickyflag.php:100 state.php:36
 msgid "Flagged"
 msgstr "Gemarkeerd"
 
-#: search.php:43
+#: search.php:43 search.php:43
 #, php-format
 msgid "%d matches for %s"
 msgstr "%d treffers voor %s"
 
-#: search.php:43
+#: search.php:43 search.php:43
 #, php-format
 msgid "%d match for %s"
 msgstr "%d treffer voor %s"
 
-#: search.php:51
+#: search.php:51 search.php:51
 #, php-format
 msgid "Search %d items"
 msgstr "Zoek %d items"
@@ -865,36 +935,48 @@ msgstr "Zoek %d items"
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39 test/minisearch.php:46
+#: themes/planet/searchform.php:39 search.php:52
+#: themes/3panes/searchform.php:5 themes/3panes/searchform.php:25
+#: themes/default/mobile/searchform.php:5
+#: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
+#: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
+#: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
+#: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
+#: themes/planet/searchform.php:39
 msgid "Search"
 msgstr "Zoek"
 
-#: tags.php:81 tags.php:117
+#: tags.php:81 tags.php:117 tags.php:81 tags.php:117
 msgid "and"
 msgstr "en"
 
-#: tags.php:117 tags.php:153
+#: tags.php:117 tags.php:153 tags.php:117 tags.php:153
 msgid "tagged"
 msgstr "gelabeld"
 
-#: tags.php:157
+#: tags.php:157 tags.php:157
 msgid "Related tags: "
 msgstr "Gerelateerde labels: "
 
-#: tags.php:168
+#: tags.php:168 tags.php:168
 #, php-format
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
-msgstr "Oeps! Geen items gevonden die met &laquo;%s&raquo; gelabeld zijn."
+msgstr "Helaas! Geen items gevonden die met &laquo;%s&raquo; gelabeld zijn."
 
-#: tags.php:178
+#: tags.php:178 tags.php:178
 msgid "All Tags"
 msgstr "Alle labels"
 
 #: themes/3panes/footer.php:5 themes/default/web/footer.php:6
 #: themes/milsi/footer.php:4 themes/planet/footer.php:5
+#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
+#: themes/milsi/footer.php:4 themes/planet/footer.php:5
 msgid " powered by "
 msgstr " aangedreven door "
 
+#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
+#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
+#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
 #: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
 #: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
 #: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
@@ -904,9 +986,15 @@ msgstr "Zoektermen:"
 #: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
+#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
+#: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
+#: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 msgid "Some terms (OR)"
 msgstr "Enkele termen (OF)"
 
+#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
+#: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
+#: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 #: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
@@ -916,9 +1004,15 @@ msgstr "Alle termen (EN)"
 #: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
+#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
+#: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
+#: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 msgid "Exact match"
 msgstr "Exact vergelijken"
 
+#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
+#: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
+#: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 #: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
@@ -928,9 +1022,15 @@ msgstr "Feed:"
 #: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
+#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
+#: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
+#: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 msgid "Order by date, feed"
 msgstr "Sorteer op datum, feed"
 
+#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
+#: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
+#: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 #: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
@@ -940,9 +1040,14 @@ msgstr "Sorteer op feed, datum"
 #: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
+#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
+#: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
+#: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 msgid "Results per page:"
 msgstr "Resultaten per pagina:"
 
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 #: themes/default/mobile/item.php:19 themes/default/web/item.php:24
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "Enclosure:"
@@ -950,55 +1055,55 @@ msgstr "Bijlage:"
 
 #: themes/default/mobile/item.php:19 themes/default/web/item.php:24
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "download"
 msgstr "download"
 
-#: themes/default/mobile/item.php:34
+#: themes/default/mobile/item.php:34 themes/default/mobile/item.php:34
 msgid "Read"
 msgstr "Gelezen"
 
-#: themes/default/mobile/item.php:35
+#: themes/default/mobile/item.php:35 themes/default/mobile/item.php:35
 msgid "Unread"
 msgstr "Ongelezen"
 
-#: themes/default/mobile/nav.php:4
+#: themes/default/mobile/nav.php:4 themes/default/mobile/nav.php:4
 msgid "Refresh"
 msgstr "Vernieuw"
 
 #: themes/default/web/item.php:8 themes/default/web/item.php:9
+#: themes/default/web/item.php:8 themes/default/web/item.php:9
 msgid "Edit Item Properties"
-msgstr "Editeer Item eigenschapen"
+msgstr "Bewerk item-eigenschappen"
 
 #: themes/default/web/item.php:18 themes/lilina/web/item.php:42
-#: themes/lilina/web/item.php:98
+#: themes/lilina/web/item.php:98 themes/default/web/item.php:18
+#: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
 msgid "Rating:"
 msgstr "Waardering:"
 
-#: themes/milsi/feeds.php:4
+#: themes/milsi/feeds.php:4 themes/milsi/feeds.php:4
 #, php-format
 msgid ""
-"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
-"strong> feeds"
+"<strong>%d</strong> items (<strong>%d</strong> unread) in "
+"<strong>%d</strong> feeds"
 msgstr ""
-"<strong>%d</strong> items (<strong>%d</strong> ongelezen) in <strong>%d</"
-"strong> feeds"
+"<strong>%d</strong> items (<strong>%d</strong> ongelezen) in "
+"<strong>%d</strong> feeds"
 
-#: update.php:32
+#: update.php:32 update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr "Sorry, herziening via het web is op dit moment niet toegestaan."
+msgstr "Sorry, updaten via het web is op dit moment niet toegestaan."
 
-#: util.php:852 util.php:851
+#: util.php:852 util.php:852
 msgid "Show items: "
 msgstr "Toon items: "
 
-#: util.php:854 util.php:853
+#: util.php:854 util.php:854
 msgid "Unread only"
 msgstr "Alleen ongelezen"
 
-#: util.php:855 util.php:854
+#: util.php:855 util.php:855
 msgid "Read and unread"
 msgstr "Gelezen en ongelezen"
-
-#: themes/default/web/pagination.php:2
-msgid "Skip to page: "
-msgstr ""
