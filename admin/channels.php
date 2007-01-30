@@ -74,20 +74,19 @@ function channels() {
     ."</script>\n";
 
     // feeds
-
-    echo "<script type=\"text/javascript\">\n"
-    ."//<!--\n"
-    ."function cbtoggle() {\n"
-    ."var c=document.getElementById('mastercb').checked;\n"
-    ."var cs=document.getElementById('channeltable').getElementsByTagName('input');\n"
-    ."for(i=0;i<cs.length;i++) {\n"
-    ."if (cs[i].type == 'checkbox') cs[i].checked = c;\n"
-    ."}\n"
-    ."}\n"
-    ."function clearOnHover(o) {\n"
-    ."if (o.value && o.value=='http://') o.value='';\n"
-    ."}\n";
 ?>
+<script type="text/javascript">
+// <!--
+	function cbtoggle() {
+    	var c=document.getElementById('mastercb').checked;
+    	var cs=document.getElementById('channeltable').getElementsByTagName('input');
+    	for(i=0;i<cs.length;i++) {
+    		if (cs[i].type == 'checkbox') cs[i].checked = c;
+    	}
+    }
+    function clearOnHover(o) {
+    	if (o.value && o.value=='http://') o.value='';
+    };
 	function admin_menu_toggle(o,id){
 		var i,lis=document.getElementById('channels_admin_sidemenu').getElementsByTagName('li');
 		for(i=0;i<lis.length;i++) {
@@ -104,10 +103,27 @@ function channels() {
 		}
 		return false;
 	}
-<?php
-    echo "// -->\n"
-    ."</script>\n";
+	/** quick hack to toggle through deprecated / private feeds' checkbox */
+	document.checkedState='none';
+	function cb_state_toggle() {
+		switch (document.checkedState) {
+			case 'none': document.checkedState = 'deprecated'; break;
+			case 'deprecated': document.checkedState = 'private'; break;
+			case 'private': document.checkedState = 'none'; break;
+		}
+		var id,trs = document.getElementById('channeltable').getElementsByTagName('tr');
+		for(var i in trs) {
+			if (id = trs[i].id) {
+				document.getElementById('scb_'+id.replace(/[^0-9]/g,'')).checked = 
+					(trs[i].className.search(document.checkedState) >= 0);
+			}
+		}
+		return false;
+	}
 
+// -->
+</script>
+<?php
     echo "<form method=\"post\" action=\"" .$_SERVER['PHP_SELF'] ."\">\n";
     echo "<table id=\"channeltable\">\n"
     ."<tr>\n"
@@ -116,7 +132,7 @@ function channels() {
     ."\t<th class=\"cntr\">". __('Folder') ."</th>\n"
     ."\t<th>". __('Description') ."</th>\n"
     ."\t<th>". __('Categories')."</th>\n"
-    ."\t<th>". __('Flags')."</th>\n";
+    ."\t<th><a href=\"#\" onclick=\"return cb_state_toggle();\">". __('Flags')."</a></th>\n";
 
     if (getConfig('rss.config.absoluteordering')) {
         echo "\t<th>".__('Move')."</th>\n";
@@ -176,10 +192,12 @@ function channels() {
         $fmode = array();
         if ($mode & RSS_MODE_PRIVATE_STATE) {
             $fmode[] = "P";
+			$class_ .= ' private';
         }
         if ($mode & RSS_MODE_DELETED_STATE) {
             $fmode[] = "D";
             $dead = false;
+			$class_ .= ' deprecated';
         }
 
         $slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
