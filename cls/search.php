@@ -136,7 +136,7 @@ class SearchItemList extends ItemList {
 
 		if (!$this->resultsPerPage) {
         	$this->resultsPerPage = sanitize(
-        		((array_key_exists(QUERY_RESULTS, $_REQUEST)) ? $_REQUEST[QUERY_RESULTS] : INFINE_RESULTS),
+        		((array_key_exists(QUERY_RESULTS, $_REQUEST)) ? $_REQUEST[QUERY_RESULTS] : 15),
         		RSS_SANITIZER_NUMERIC);
         }
 
