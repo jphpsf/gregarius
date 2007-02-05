@@ -29,7 +29,7 @@
 
 
 function getLastModif() {
-	return getProperty('__meta__','meta.lastupdate');
+    return getProperty('__meta__','meta.lastupdate');
 }
 
 function getETag() {
@@ -315,6 +315,11 @@ function update($id) {
             // enclosure
             if (array_key_exists('enclosure@url', $item) ) {
                 $enclosure = $item['enclosure@url'];
+                // If the enclosure is an image, append it to the content
+                if ($enclosure && array_key_exists('enclosure@type', $item) && preg_match('#image/(png|gif|jpe?g)#', $item['enclosure@type'])) {
+                    $description = '<img src="'.$enclosure.'" alt="" />' . $description;
+                    $enclosure = '';
+                }
             } else {
                 $enclosure = "";
             }
@@ -459,10 +464,10 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
             $title = rss_real_escape_string($title_);
         }
         elseif (is_object($rss) && array_key_exists('title#', $rss->channel)) {
-        	if (array_key_exists('title', $rss->channel)) {
-            	$title = rss_real_escape_string($rss->channel['title']);
+            if (array_key_exists('title', $rss->channel)) {
+                $title = rss_real_escape_string($rss->channel['title']);
             } else {
-            	$title = " ";
+                $title = " ";
             }
         }
         else {
@@ -520,7 +525,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
             if ($private) {
                 $mode |= RSS_MODE_PRIVATE_STATE;
             }
-            
+
             $sql = "insert into ".getTable("channels")
                    ." (title, url, siteurl, parent, descr, dateadded, icon, position, mode, daterefreshed)"
                    ." values ('$title', '$urlDB', '$siteurl', $folderid, '$descr', now(), '$icon', $np, $mode, '0000-00-00 00:00:00')";
@@ -533,7 +538,7 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
                           ." where id=$newid");
             }
 
-            if($tags != ""){
+            if($tags != "") {
                 __exp__submitTag($newid,$tags,"'channel'");
             }
 
@@ -637,9 +642,9 @@ function getPath($path='') {
         if (defined('RSS_FILE_LOCATION') && eregi(RSS_FILE_LOCATION."\$", $ret)) {
             $ret = substr($ret, 0, strlen($ret) - strlen(RSS_FILE_LOCATION));
         }
-	if (substr($ret, -1) == "\\") { // Take off trailing backslash
+        if (substr($ret, -1) == "\\") { // Take off trailing backslash
             $ret = substr($ret, 0, -1);
-	}
+        }
         if (substr($ret, -1) != "/") {  // Add a frontslash
             $ret .= "/";
         }
@@ -845,7 +850,7 @@ function html_substr($posttext, $minimum_length = 200, $length_offset = 20, $cut
 
 
 function showViewForm($args) { //$curValue, $show_private) {
-		list($curValue, $show_private) = $args;
+    list($curValue, $show_private) = $args;
 
     // post back to self, we should be able to handle the request, shouldn't we.
     echo "\n<form action=\"".$_SERVER['REQUEST_URI'] ."\" method=\"post\" id=\"frmShow\">\n"
@@ -855,14 +860,14 @@ function showViewForm($args) { //$curValue, $show_private) {
     ."\t<option value=\"".SHOW_READ_AND_UNREAD."\"" . (SHOW_READ_AND_UNREAD == $curValue ? " selected=\"selected\"" : "") . ">".__('Read and unread')."</option>\n"
     ."</select>"
     ."</p>\n";
-/*
-		if(isLoggedIn()) {
-			echo "<p><label for=\"chkPrivate\">".__('Show Private:')."</label>\n"
-			."<input type=\"checkbox\" name=\"chkPrivate\" id=\"chkPrivate\" value=\"1\" onchange=\"if(false == document.getElementById('chkPrivate').checked) { document.getElementById('chkPrivate').value = 0; document.getElementById('chkPrivate').checked = true; } document.getElementById('frmShow').submit();\"" . (1 == $show_private ? " checked" : "") . ">\n"
-			."</p>\n";
-		}
-		*/
-		echo "</form>\n";
+    /*
+    		if(isLoggedIn()) {
+    			echo "<p><label for=\"chkPrivate\">".__('Show Private:')."</label>\n"
+    			."<input type=\"checkbox\" name=\"chkPrivate\" id=\"chkPrivate\" value=\"1\" onchange=\"if(false == document.getElementById('chkPrivate').checked) { document.getElementById('chkPrivate').value = 0; document.getElementById('chkPrivate').checked = true; } document.getElementById('frmShow').submit();\"" . (1 == $show_private ? " checked" : "") . ">\n"
+    			."</p>\n";
+    		}
+    		*/
+    echo "</form>\n";
 }
 
 
@@ -964,7 +969,7 @@ function rss_getallheaders() {
 
 // moved from ajax.php
 function __exp__submitTag($id,$tags,$type = "'item'") {
-	$tags = strip_tags($tags);
+    $tags = strip_tags($tags);
     $ftags = utf8_encode( preg_replace(ALLOWED_TAGS_REGEXP,'', trim($tags)));
     $tarr = array_slice(explode(" ",$ftags),0,MAX_TAGS_PER_ITEM);
     $ftags = implode(" ",__priv__updateTags($id,$tarr,$type));
@@ -980,10 +985,10 @@ function __priv__updateTags($fid,$tags,$type) {
         if ($ttag == "" || in_array($ttag,$ret)) {
             continue;
         }
-		$ttag = sanitize($ttag,
-			RSS_SANITIZER_NO_SPACES | RSS_SANITIZER_SIMPLE_SQL
-		);
-		
+        $ttag = sanitize($ttag,
+                         RSS_SANITIZER_NO_SPACES | RSS_SANITIZER_SIMPLE_SQL
+                        );
+
         rss_query( "insert into ". getTable('tag')
                    . " (tag) values ('$ttag')", false );
         $tid = 0;
@@ -1067,7 +1072,7 @@ function ETagHandler($key) {
 function eval_mixed_helper($arr) {
     return ("echo stripslashes(\"".addslashes($arr[1])."\");");
 }
-
+ 
 function eval_mixed($string) {
     $string = "<? ?>".$string."<? ?>";
     $string = preg_replace("/<\?=\s+(.*?)\s+\?>/", "<? echo $1; ?>", $string);
@@ -1093,11 +1098,11 @@ function rss_svn_rev($prefix='.') {
 }
 
 function cacheFavicon($icon) {
-	 // Make sure only real favicons get fetched into the DB
-	 if (! preg_match('#^https?://.+$#',$icon)) {
-	 	return false;
-	 }
-	 
+    // Make sure only real favicons get fetched into the DB
+    if (! preg_match('#^https?://.+$#',$icon)) {
+        return false;
+    }
+
     $icon_ = rss_real_escape_string($icon);
     $binIcon = getUrl($icon);
     if ($binIcon) {
@@ -1143,30 +1148,30 @@ function sanitize($input, $rules = 0) {
 }
 
 function hidePrivate() {
-	$ret = 0;
+    $ret = 0;
 
-  if(isLoggedIn()) {
-		$ret = rss_user_show_private();
-	}
+    if(isLoggedIn()) {
+        $ret = rss_user_show_private();
+    }
 
-	return !$ret;
+    return !$ret;
 }
 
 function isLoggedIn() {
-	if (!isset($GLOBALS['rssuser'])) {
-		require_once('cls/user.php');
-	}
+    if (!isset($GLOBALS['rssuser'])) {
+        require_once('cls/user.php');
+    }
 
-	return rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE);
+    return rss_user_check_user_level(RSS_USER_LEVEL_PRIVATE);
 }
 
-// Send a crappy 404 (to save bandwidth) for webbots 
+// Send a crappy 404 (to save bandwidth) for webbots
 function rss_404() {
-	header("HTTP/1.1 404 Not Found");
-	echo "404 Page Not Found\n";
+    header("HTTP/1.1 404 Not Found");
+    echo "404 Page Not Found\n";
 }
 
 function rss_uri($title, $sep=RSS_URI_SEPARATOR) {
-	return utf8_uri_encode(preg_replace('#[ \#%&/\+\'"\?]#',$sep,$title));
+    return utf8_uri_encode(preg_replace('#[ \#%&/\+\'"\?]#',$sep,$title));
 }
 ?>
