@@ -98,18 +98,18 @@ function getActualTheme() {
         $theme = THEME_OVERRIDE;
     }
     elseif (isset($_GET['theme'])) {
-     		$theme = sanitize($_GET['theme'],RSS_SANITIZER_WORDS);   
+        $theme = sanitize($_GET['theme'],RSS_SANITIZER_WORDS);
     }
 
-    
-    
+
+
     // Media
     $media = getThemeMedia();
-    
+
     if( !file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/") )
         $theme = 'default';
 
-	$ret = array($theme,$media);
+    $ret = array($theme,$media);
     return $ret;
 }
 
@@ -161,16 +161,22 @@ function isMobileDevice() {
         if (isset($_SERVER['HTTP_USER_AGENT'])) {
             $ua = $_SERVER['HTTP_USER_AGENT'];
             $ua_lwr = strtolower( $ua );
-            $ret = strpos($ua, 'SonyEricsson') !== FALSE
-            		|| strpos($ua, 'Symbian') !== FALSE
-                || strpos($ua, 'Nokia') !== FALSE
-                || strpos($ua, 'Mobile') !== FALSE
-                || strpos($ua, 'Windows CE') !== FALSE
-                || strpos($ua, 'EPOC') !== FALSE
-                || strpos($ua, 'Opera Mini') !== FALSE
-                || strpos($ua_lwr, 'j2me') !== FALSE
-                || strpos($ua,'MIDP-') !== FALSE
-                || strpos($ua, 'Netfront') !== FALSE;
+
+            $ret  =
+                	(strpos($ua,	'SonyEricsson') !== FALSE)
+                ||	(strpos($ua, 	'Nokia') !== FALSE)
+                ||	(strpos($ua, 	'MIDP') !== FALSE)
+                ||	(strpos($ua_lwr,'mobile') !== FALSE)
+                ||	(strpos($ua, 	'Windows CE') !== FALSE)
+                ||	(strpos($ua, 	'EPOC') !== FALSE)
+                ||	(strpos($ua, 	'Opera Mini') !== FALSE)
+                ||	(strpos($ua, 	'UP.Browser') !== FALSE)
+                ||	(strpos($ua_lwr,'j2me') !== FALSE)
+                ||	(strpos($ua,	'SGH-') !== FALSE) // Samsung
+                ||	(strpos($ua_lwr,'samsung') !== FALSE)
+                ||	(strpos($ua_lwr,'netfront') !== FALSE);
+
+
             // if none of those matched, let's have a gander at grabbing the resolution...
             if (!$ret && eregi( "([0-9]{3})x([0-9]{3})", $ua, $matches ) ) {
                 if ($matches[1]<600 || $matches[2]<600) {
@@ -187,11 +193,11 @@ function rss_theme_option_ref_obj_from_theme($theme=null, $media=null) {
     if ($theme===null) {
         list($theme,$media) = getActualTheme();
     }
-    
+
     $ref_obj = "theme.$theme";
     if( $media !== null )
         $ref_obj .= ".$media";
-        
+
     return $ref_obj;
 }
 
@@ -233,25 +239,24 @@ function loadSchemeList($pretty, $theme=null, $media=null) {
     }
 
     $ret = array( '(use default scheme)' );
-    
-	if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes" ) )
-	{
-		if( $checkDir = opendir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes" ) ) {
-			while($file = readdir($checkDir)){
-				if($file != "." && $file != ".." && $file != ".svn"){
-				   if(file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/" . $file) && is_dir(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/" . $file)){
-					   if( $pretty )
-					   		$theme_info = getThemeInfo( "$theme/$media/schemes/$file" );
-					   if( $pretty && isset( $theme_info['name'] ) && $theme_info['name'] !== '' )
-						   $ret[] = str_replace( ",", "_", $theme_info['name'] );
-					   else
-						   $ret[] = str_replace( ",", "_", $file );
-				   }
-				}
-			}
-		}
-	}
-    
+
+    if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes" ) ) {
+        if( $checkDir = opendir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes" ) ) {
+            while($file = readdir($checkDir)) {
+                if($file != "." && $file != ".." && $file != ".svn") {
+                    if(file_exists(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/" . $file) && is_dir(GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/" . $file)) {
+                        if( $pretty )
+                            $theme_info = getThemeInfo( "$theme/$media/schemes/$file" );
+                        if( $pretty && isset( $theme_info['name'] ) && $theme_info['name'] !== '' )
+                            $ret[] = str_replace( ",", "_", $theme_info['name'] );
+                        else
+                            $ret[] = str_replace( ",", "_", $file );
+                    }
+                }
+            }
+        }
+    }
+
     return $ret;
 }
 
@@ -263,27 +268,27 @@ function rss_scheme_stylesheets($theme=null, $media=null) {
 
     $ret = getProperty(rss_theme_option_ref_obj_from_theme($theme,$media), rss_theme_config_override_option_name_mangle('rss.output.theme.scheme'));
     if( $ret === null )
-		return "";
+        return "";
 
-	$arr = explode(',',$ret);
-	$ret = "";
-	$idx = array_pop($arr);
-	foreach (loadSchemeList( false, $theme, $media) as $i => $val) {
-		if ($i == $idx) {
-			if( $i > 0 ) {
-				if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/$val" ) && is_dir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/$val" ) ) {
+    $arr = explode(',',$ret);
+    $ret = "";
+    $idx = array_pop($arr);
+    foreach (loadSchemeList( false, $theme, $media) as $i => $val) {
+        if ($i == $idx) {
+            if( $i > 0 ) {
+                if( file_exists( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/$val" ) && is_dir( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/$val" ) ) {
                     foreach( glob( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/$val/*.css" ) as $file ) {
                         $file = substr( $file, strlen( GREGARIUS_HOME.RSS_THEME_DIR."/$theme/$media/schemes/$val/" ) );
                         $file = getPath().RSS_THEME_DIR."/$theme/$media/schemes/$val/$file";
                         $ret .= "	<link rel=\"stylesheet\" type=\"text/css\" href=\"$file\" />\n";
                     }
-				}
-			}
-			break;
-		}
-	}
-	
-	return $ret;
+                }
+            }
+            break;
+        }
+    }
+
+    return $ret;
 }
 
 ?>
