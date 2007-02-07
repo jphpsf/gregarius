@@ -4,13 +4,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-17 20:48+0000\n"
-"PO-Revision-Date: 2006-11-08 00:20+0000\n"
-"Last-Translator: Antoine Martin <toine@antonus.org>\n"
-"Language-Team:\n"
+"POT-Creation-Date: 2007-02-07 09:05+0100\n"
+"PO-Revision-Date: 2007-01-30 18:28+0000\n"
+"Last-Translator: Marco Bonetti <mbonetti@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Rosetta-Export-Date: 2007-02-07 06:33+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
@@ -24,240 +25,250 @@ msgstr "Ajouter un canal:"
 msgid "to folder:"
 msgstr "au r&eacute;pertoire:"
 
-#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:866
+#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:134
+#: admin/channels.php:239 admin/channels.php:866 admin/channels.php:930
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
 #: themes/default/mobile/nav.php:3
 msgid "Categories"
-msgstr "Cat&eacute;gories"
+msgstr "Catégories"
 
-#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
-#: admin/folders.php:41 admin/folders.php:212
+#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:321
+#: admin/channels.php:381 admin/channels.php:439 admin/folders.php:41
+#: admin/folders.php:212 admin/folders.php:218
 msgid "Add"
 msgstr "Ajouter"
 
 #: admin/channels.php:52
-msgid ""
-"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
-"subscribe to)"
+msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
 msgstr "(Veuillez saisir l'URL d'un flux RSS ou d'un site Internet)"
-
-#: admin/channels.php:62
-msgid ""
-"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
-"\">?</a>]:"
-msgstr ""
-"Bookmarklet de souscription [<a href=\"http://www.squarefree.com/"
-"bookmarklets/\">?</a>]:"
 
 #: admin/channels.php:62
 msgid "Subscribe in Gregarius!"
 msgstr "Ajouter &agrave; Gregarius!"
 
+#: admin/channels.php:62
+msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr "Bookmarklet de souscription [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+
 #: admin/channels.php:69
-#, fuzzy
-msgid ""
-"Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
-"feeds/feed-handling.html\">?</a>]:"
-msgstr ""
-"Inscrire comme gestionnaire de flux RSS [<a ref=\"http://www.bengoodger.com/"
-"software/mb/feeds/feed-handling.html\">?</a>]:"
+msgid "Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
+msgstr "Inscrire comme gestionnaire de flux RSS [<a ref=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
 
 #: admin/channels.php:71
-#, fuzzy
 msgid "Register Gregarius!"
 msgstr "Inscrire Gregarius!"
 
-#: admin/channels.php:97 admin/folders.php:46
+#: admin/channels.php:97 admin/channels.php:131 admin/folders.php:46
 msgid "Title"
 msgstr "Titre"
 
-#: admin/channels.php:98
+#: admin/channels.php:98 admin/channels.php:132
 msgid "Folder"
 msgstr "R&eacute;pertoire"
 
-#: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
+#: admin/channels.php:99 admin/channels.php:133 admin/config.php:69
+#: admin/plugins.php:99
 msgid "Description"
 msgstr "Description"
 
-#: admin/channels.php:101
+#: admin/channels.php:101 admin/channels.php:135
 msgid "Flags"
 msgstr "Etat"
 
-#: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
+#: admin/channels.php:104 admin/channels.php:138 admin/channels.php:207
+#: admin/channels.php:251 admin/folders.php:49
 msgid "Move"
 msgstr "D&eacute;placer"
 
-#: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
-#: admin/tags.php:141
+#: admin/channels.php:107 admin/channels.php:141 admin/config.php:70
+#: admin/folders.php:52 admin/tags.php:141
 msgid "Action"
 msgstr "Action"
 
-#: admin/channels.php:132 admin/channels.php:513 admin/folders.php:67
+#: admin/channels.php:132 admin/channels.php:166 admin/channels.php:513
+#: admin/channels.php:571 admin/folders.php:67 admin/folders.php:73
 #: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
 #: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104
 msgid "Root"
 msgstr "Racine"
 
-#: admin/channels.php:185 admin/folders.php:80
+#: admin/channels.php:185 admin/channels.php:221 admin/folders.php:80
+#: admin/folders.php:86
 msgid "&uarr;"
 msgstr "&uarr;"
 
-#: admin/channels.php:187 admin/folders.php:84
+#: admin/channels.php:187 admin/channels.php:223 admin/folders.php:84
+#: admin/folders.php:90
 msgid "&darr;"
 msgstr "&darr;"
 
-#: admin/channels.php:191 admin/channels.php:298 admin/channels.php:327
-#: admin/config.php:160 admin/folders.php:92 admin/plugins.php:149
-#: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
-#: themes/default/web/item.php:31 themes/lilina/web/item.php:55
+#: admin/channels.php:191 admin/channels.php:227 admin/channels.php:298
+#: admin/channels.php:327 admin/channels.php:356 admin/channels.php:385
+#: admin/config.php:160 admin/folders.php:92 admin/folders.php:98
+#: admin/plugins.php:149 admin/tags.php:153 admin/tags.php:180 ajax.php:209
+#: ajax.php:232 themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111
 msgid "edit"
 msgstr "éditer"
 
-#: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
+#: admin/channels.php:194 admin/channels.php:230 admin/folders.php:96
+#: admin/folders.php:102 admin/tags.php:156
 msgid "delete"
 msgstr "effacer"
 
-#: admin/channels.php:203 admin/channels.php:860
+#: admin/channels.php:203 admin/channels.php:249 admin/channels.php:860
+#: admin/channels.php:924
 msgid "In folder:"
 msgstr "Dans le r&eacute;pertoire:"
 
-#: admin/channels.php:211
+#: admin/channels.php:211 admin/channels.php:265
 msgid "State:"
 msgstr "&Eacute;tat:"
 
-#: admin/channels.php:213
+#: admin/channels.php:213 admin/channels.php:267
 msgid "Deprecated"
 msgstr "D&eacute;sactiv&eacute;"
 
-#: admin/channels.php:216
+#: admin/channels.php:216 admin/channels.php:270
 msgid "Private"
 msgstr "Priv&eacute"
 
-#: admin/channels.php:218
+#: admin/channels.php:218 admin/channels.php:259 admin/channels.php:272
 msgid "Set"
 msgstr "Basculer"
 
-#: admin/channels.php:222 admin/items.php:59 admin/items.php:72
-#: admin/items.php:252 admin/tags.php:164
+#: admin/channels.php:222 admin/channels.php:241 admin/channels.php:281
+#: admin/items.php:59 admin/items.php:72 admin/items.php:252
+#: admin/tags.php:164
 msgid "Delete"
 msgstr "Effacer"
 
-#: admin/channels.php:224 admin/tags.php:166
+#: admin/channels.php:224 admin/channels.php:279 admin/tags.php:166
 msgid "I'm sure!"
 msgstr "Je suis sur!"
 
-#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
+#: admin/channels.php:238
+msgid "Folders"
+msgstr ""
+
+#: admin/channels.php:240
+msgid "State"
+msgstr ""
+
+#: admin/channels.php:257
+msgid "Categories:"
+msgstr ""
+
+#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
+#: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
 #, php-format
 msgid "Adding %s to %s... "
 msgstr "J'ajoute %s &agrave; %s... "
 
-#: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
-#: ajax.php:547
+#: admin/channels.php:295 admin/channels.php:323 admin/channels.php:353
+#: admin/channels.php:381 admin/users.php:79 ajax.php:547
 msgid "OK"
 msgstr "OK"
 
-#: admin/channels.php:341
+#: admin/channels.php:341 admin/channels.php:399
 #, php-format
-msgid ""
-"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
-"like to subscribe?"
-msgstr ""
-"Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute;s dans <a href="
-"\"%s\">%s</a>. Auquel d&eacute;sirez-vous souscrir ?"
+msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
+msgstr "Les flux suivants ont &eacute;t&eacute; d&eacute;tect&eacute;s dans <a href=\"%s\">%s</a>. Auquel d&eacute;sirez-vous souscrir ?"
 
-#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
+#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:449
+#: admin/channels.php:453 admin/channels.php:630 admin/channels.php:688
 #, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
 msgstr "Je ne sais pas comment g&eacute;rer cette URL '%s'"
 
-#: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
-#: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
-#: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
+#: admin/channels.php:408 admin/channels.php:444 admin/channels.php:466
+#: admin/channels.php:502 admin/config.php:204 admin/config.php:520
+#: admin/folders.php:168 admin/folders.php:174 admin/folders.php:186
+#: admin/folders.php:192 admin/tags.php:60 admin/tags.php:96
+#: admin/themes.php:275
 msgid "Yes"
 msgstr "Oui"
 
-#: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
-#: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
-#: admin/tags.php:66 admin/tags.php:95
+#: admin/channels.php:433 admin/channels.php:443 admin/channels.php:491
+#: admin/channels.php:501 admin/config.php:208 admin/config.php:519
+#: admin/folders.php:175 admin/folders.php:181 admin/folders.php:185
+#: admin/folders.php:191 admin/tags.php:66 admin/tags.php:95
 msgid "No"
 msgstr "Non"
 
-#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
+#: admin/channels.php:441 admin/channels.php:499 admin/folders.php:183
+#: admin/folders.php:189 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr "Etes-vous sur de vouloir &eacute;ffacer '%s'?"
 
-#: admin/channels.php:454 admin/opml.php:81
+#: admin/channels.php:454 admin/channels.php:512 admin/opml.php:81
 msgid "Import"
 msgstr "Importer"
 
-#: admin/channels.php:558 update.php:61
+#: admin/channels.php:558 admin/channels.php:616 update.php:61
 msgid "Updating"
 msgstr "Mise à jour en cours"
 
-#: admin/channels.php:828
+#: admin/channels.php:828 admin/channels.php:892
 msgid "Edit the feed "
 msgstr "Editer le canal "
 
-#: admin/channels.php:834 admin/channels.php:837
+#: admin/channels.php:834 admin/channels.php:837 admin/channels.php:898
+#: admin/channels.php:901
 msgid "Added"
 msgstr "Added"
 
-#: admin/channels.php:835 admin/channels.php:838
-#: themes/default/web/footer.php:17
+#: admin/channels.php:835 admin/channels.php:838 admin/channels.php:899
+#: admin/channels.php:902 themes/default/web/footer.php:17
 msgid "Last Update"
 msgstr "Derni&egrave;re mise &agrave; jour"
 
-#: admin/channels.php:838 cls/wrappers/header.php:134
+#: admin/channels.php:838 admin/channels.php:902 cls/wrappers/header.php:134
 msgid "Never"
 msgstr "aucune"
 
-#: admin/channels.php:841
+#: admin/channels.php:841 admin/channels.php:905
 msgid "Title:"
 msgstr "Titre:"
 
-#: admin/channels.php:850
+#: admin/channels.php:850 admin/channels.php:914
 msgid "RSS URL:"
 msgstr "URL RSS:"
 
-#: admin/channels.php:851 admin/channels.php:856
+#: admin/channels.php:851 admin/channels.php:856 admin/channels.php:915
+#: admin/channels.php:920
 msgid "(visit)"
 msgstr "(visiter)"
 
-#: admin/channels.php:855
+#: admin/channels.php:855 admin/channels.php:919
 msgid "Site URL:"
 msgstr "URL Site:"
 
-#: admin/channels.php:890
+#: admin/channels.php:890 admin/channels.php:954
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr ""
-"Ce canal est <strong>priv&eacute;</strong>, Seul l'administrateur peut le "
-"visionner"
+msgstr "Ce canal est <strong>priv&eacute;</strong>, Seul l'administrateur peut le visionner"
 
-#: admin/channels.php:898
-msgid ""
-"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
-"won't be visible in the feeds column."
-msgstr ""
-"Ce canal est <strong>d&eacute;sactiv&eacute;</strong>, il ne sera plus mis "
-"&agrave; jour et n'est pas visible dans la colonne des canaux."
+#: admin/channels.php:898 admin/channels.php:962
+msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
+msgstr "Ce canal est <strong>d&eacute;sactiv&eacute;</strong>, il ne sera plus mis &agrave; jour et n'est pas visible dans la colonne des canaux."
 
-#: admin/channels.php:905
+#: admin/channels.php:905 admin/channels.php:969
 msgid "Description:"
 msgstr "Description:"
 
-#: admin/channels.php:910
+#: admin/channels.php:910 admin/channels.php:974
 msgid "Shown favicon:"
 msgstr "Icone affich&eacute;e:"
 
-#: admin/channels.php:917
+#: admin/channels.php:917 admin/channels.php:981
 msgid "(Leave blank for no icon)"
 msgstr "(Laisser vide pour ne pas afficher d'ic&ocirc;ne)"
 
-#: admin/channels.php:972 admin/config.php:238 admin/config.php:257
-#: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
-#: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
+#: admin/channels.php:972 admin/channels.php:1036 admin/config.php:238
+#: admin/config.php:257 admin/folders.php:126 admin/folders.php:132
+#: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
+#: admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
 msgstr "Poster les modifications"
 
@@ -290,14 +301,14 @@ msgstr "Pr&eacute;visualiser"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+msgid "False"
+msgstr "Non"
+
 #: admin/config.php:332 admin/config.php:337 admin/config.php:474
 #: admin/config.php:476
 msgid "True"
 msgstr "Oui"
-
-#: admin/config.php:332 admin/config.php:480 admin/config.php:482
-msgid "False"
-msgstr "Non"
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
@@ -311,9 +322,7 @@ msgstr "Valeur de"
 #: admin/config.php:517
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
-msgstr ""
-"Etes-vous sur de vouloir remettre la valeur de la cl&eacute '%s' &agrave; sa "
-"valeur par d&eacute;faut '%s'?"
+msgstr "Etes-vous sur de vouloir remettre la valeur de la cl&eacute '%s' &agrave; sa valeur par d&eacute;faut '%s'?"
 
 #: admin/folders.php:31
 msgid "Folders:"
@@ -323,35 +332,34 @@ msgstr "R&eacute;pertoires:"
 msgid "Add a folder:"
 msgstr "Ajouter un r&eacute;pertoire:"
 
-#: admin/folders.php:123
+#: admin/folders.php:47 cls/channels.php:164 cls/header.php:97
+#: cls/wrappers/feeds.php:76 themes/default/mobile/nav.php:2
+#: themes/milsi/feeds.php:1
+msgid "Feeds"
+msgstr "Canaux"
+
+#: admin/folders.php:123 admin/folders.php:129
 msgid "Folder name:"
 msgstr "Nom du r&eacute;pertoire:"
 
-#: admin/folders.php:164
+#: admin/folders.php:164 admin/folders.php:170
 msgid "You can't delete the Root folder"
-msgstr ""
-"Vous ne pouvez pas effacer le r&eacute;pertoire \" . LBL_HOME_FOLDER .\"!"
+msgstr "Vous ne pouvez pas effacer le r&eacute;pertoire \" . LBL_HOME_FOLDER .\"!"
 
-#: admin/folders.php:204 admin/tags.php:113
+#: admin/folders.php:204 admin/folders.php:210 admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
-msgstr ""
-"Vous ne pouvez pas renommer cet &eacute;l&eacute;ment '%s' parce que un "
-"&eacute;l&eacute;ment du m&ecirc;me nom existe d&eacute;j&agrave;!"
+msgstr "Vous ne pouvez pas renommer cet &eacute;l&eacute;ment '%s' parce que un &eacute;l&eacute;ment du m&ecirc;me nom existe d&eacute;j&agrave;!"
 
-#: admin/folders.php:281
+#: admin/folders.php:281 admin/folders.php:287
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
-msgstr ""
-"Un r&eacute;pertoire du m&ecirc;me nom ('%s') existe d&eacute;j&agrave;!"
+msgstr "Un r&eacute;pertoire du m&ecirc;me nom ('%s') existe d&eacute;j&agrave;!"
 
 #: admin/index.php:202
 #, php-format
-msgid ""
-"<h1>Not Authorized!</h1>You are not authorized to access the administration "
-"interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
-"Have  a nice day!"
-msgstr ""
+msgid "<h1>Not Authorized!</h1>You are not authorized to access the administration interface. Please follow <a href=\"%s\">this link</a> back to the main page. Have  a nice day!"
+msgstr "<h1>Non autorisé!</h1>Vous n'êtes pas autorisé à accéder l'interface d'administration. Veuillez suivre  <a href=\"%s\">ce lien</a> pour revenir à l'accueil. Bonne journée!"
 
 #: admin/index.php:219
 msgid "Dashboard"
@@ -432,12 +440,10 @@ msgid "...from these feeds"
 msgstr "... depuis ces canaux"
 
 #: admin/items.php:52
-#, fuzzy
 msgid "Delete Sticky items too: "
-msgstr "Effacer &eacute;galement les &eacute;l&eacute;ments persistants: "
+msgstr "Effacer également les éléments persistants: "
 
 #: admin/items.php:54
-#, fuzzy
 msgid "Delete Unread items too: "
 msgstr "Effacer également les élements non-lus: "
 
@@ -447,9 +453,7 @@ msgstr "Ne pas effacer les &eacute;l&eacute;ments tagg&eacute;s ... "
 
 #: admin/items.php:58
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
-msgstr ""
-"(Entrez <strong>*</strong> pour garder tous les &eacute;l&eacute;ments "
-"tagg&eacute;s)"
+msgstr "(Entrez <strong>*</strong> pour garder tous les &eacute;l&eacute;ments tagg&eacute;s)"
 
 #: admin/items.php:96
 msgid "Invalid pruning period"
@@ -521,16 +525,8 @@ msgid "Plugins"
 msgstr "Plugins"
 
 #: admin/plugins.php:90
-msgid ""
-"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-"extended functionalities. More plugins can be downloaded at the <a style="
-"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
-msgstr ""
-"<p style=\"font-size:small\">Les plugins sont des petits scripts PHP qui "
-"offrent des fonctionnalités ajoutées. D'avantage de plugins peuvent être "
-"téléchargés depuis le <a style=\"text-decoration:underline\" href=\"http://"
-"plugins.gregarius.net/?lang=fr\">Répértoire de plugins</a>.</p>"
+msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+msgstr "<p style=\"font-size:small\">Les plugins sont des petits scripts PHP qui offrent des fonctionnalités ajoutées. D'avantage de plugins peuvent être téléchargés depuis le <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/?lang=fr\">Répértoire de plugins</a>.</p>"
 
 #: admin/plugins.php:95
 msgid "Active"
@@ -577,17 +573,8 @@ msgid "Themes"
 msgstr "Themes"
 
 #: admin/themes.php:58
-msgid ""
-"<p style=\"font-size:small\">Themes are made of a set of template files "
-"which specify how your Gregarius installation looks.<br />More themes can be "
-"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
-"themes.gregarius.net/\">Themes Repository</a>.</p>"
-msgstr ""
-"<p style=\"font-size:small\">Les thèmes sont composés d'un ensemble de "
-"fichiers qui spécifient comment Gregarius se présente.<br />D'avantage de "
-"thèmes peuvent être téléchargés depuis le <a style=\"text-decoration:"
-"underline\" href=\"http://themes.gregarius.net/?lang=fr\">Répertoire de "
-"thèmes</a>.</p>"
+msgid "<p style=\"font-size:small\">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
+msgstr "<p style=\"font-size:small\">Les thèmes sont composés d'un ensemble de fichiers qui spécifient comment Gregarius se présente.<br />D'avantage de thèmes peuvent être téléchargés depuis le <a style=\"text-decoration:underline\" href=\"http://themes.gregarius.net/?lang=fr\">Répertoire de thèmes</a>.</p>"
 
 #: admin/themes.php:90
 msgid "Use this Theme"
@@ -610,12 +597,8 @@ msgid "Passwords do not match!"
 msgstr "Les mots de passe ne correspondent pas !"
 
 #: admin/users.php:69
-msgid ""
-"<p>No Administrator has been specified yet!</p><p>Please provide an "
-"Administrator username and password now!</p>"
-msgstr ""
-"<p>Aucun mot de passe administrateur n'a été spécifié</p><p>Veuillez "
-"spécifier un nom d'utilisateur et un mot de passe pour l'administrateur!</p>"
+msgid "<p>No Administrator has been specified yet!</p><p>Please provide an Administrator username and password now!</p>"
+msgstr "<p>Aucun mot de passe administrateur n'a été spécifié</p><p>Veuillez spécifier un nom d'utilisateur et un mot de passe pour l'administrateur!</p>"
 
 #: admin/users.php:73 admin/users.php:98
 msgid "Username"
@@ -663,9 +646,7 @@ msgstr "Persistant (L\\'élément ne sera pas effacé)"
 
 #: ajax.php:540
 msgid "Private (Only administrators can see private items)"
-msgstr ""
-"Priv&eacute; (Seuls les administrateurs peuvent voir les &eacute;l&eacute;"
-"ments priv&eacute;s)"
+msgstr "Priv&eacute; (Seuls les administrateurs peuvent voir les &eacute;l&eacute;ments priv&eacute;s)"
 
 #: ajax.php:544
 msgid "Flag (Flags an item for later reading)"
@@ -691,19 +672,10 @@ msgstr "<strong>%d</strong> canaux en <strong>%d</strong> cat&eacute;gories"
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
 msgstr "<strong id=\"%s\" style=\"%s\">(%d non lus)</strong>"
 
-#: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
-#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
-msgid "Feeds"
-msgstr "Canaux"
-
 #: cls/channels.php:200
 #, php-format
-msgid ""
-"<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
-"<strong>%d</strong> feeds"
-msgstr ""
-"<strong>%d</strong> &eacute;l&eacute;ments (<strong id=\"fucnt\">%d</strong> "
-"non lus) dans <strong>%d</strong> canaux"
+msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> &eacute;l&eacute;ments (<strong id=\"fucnt\">%d</strong> non lus) dans <strong>%d</strong> canaux"
 
 #: cls/header.php:62
 msgid "unread"
@@ -732,9 +704,7 @@ msgstr "Résultats : "
 #: cls/taglist.php:86
 #, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr ""
-"<strong>%d</strong> &eacute;l&eacute;ments tagg&eacute;s, <strong>%d</"
-"strong> tags"
+msgstr "<strong>%d</strong> &eacute;l&eacute;ments tagg&eacute;s, <strong>%d</strong> tags"
 
 #: cls/update.php:118
 msgid "OK (304 Not modified)"
@@ -754,7 +724,7 @@ msgstr "404 Non Trouv&eacute; (Depuis cache)"
 
 #: cls/update.php:134
 msgid "403 Forbidden (Local cache)"
-msgstr ""
+msgstr "403 Non autorisé (Cache local)"
 
 #: cls/update.php:143
 msgid "OK (HTTP 200)"
@@ -796,12 +766,12 @@ msgid "Permalink for "
 msgstr "Lien pour "
 
 #: cls/wrappers/item.php:200
-msgid "Posted: "
-msgstr "Publi&eacute;: "
-
-#: cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr "Récupéré: "
+
+#: cls/wrappers/item.php:200
+msgid "Posted: "
+msgstr "Publi&eacute;: "
 
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
 #: cls/wrappers/toolkit.php:53
@@ -852,26 +822,26 @@ msgstr "Marqu&eacute;"
 
 #: search.php:43
 #, php-format
-msgid "%d matches for %s"
-msgstr "%d r&eacute;sultats pour %s"
+msgid "%d match for %s"
+msgstr "%d r&eacute;sultat pour %s"
 
 #: search.php:43
 #, php-format
-msgid "%d match for %s"
-msgstr "%d r&eacute;sultat pour %s"
+msgid "%d matches for %s"
+msgstr "%d r&eacute;sultats pour %s"
 
 #: search.php:51
 #, php-format
 msgid "Search %d items"
 msgstr "Rechercher parmi %d &eacute;l&eacute;ments"
 
-#: search.php:52 themes/3panes/searchform.php:5
+#: search.php:52 test/minisearch.php:46 themes/3panes/searchform.php:5
 #: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
 #: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39 test/minisearch.php:46
+#: themes/planet/searchform.php:39
 msgid "Search"
 msgstr "Rechercher"
 
@@ -890,9 +860,7 @@ msgstr "Tags similaires: "
 #: tags.php:168
 #, php-format
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
-msgstr ""
-"D&eacute;sol&eacute;, aucun &eacute;l&eacute;ment taggu&eacute; &laquo;%"
-"s&raquo; n'a pu &ecirc;tre trouv&eacute;."
+msgstr "D&eacute;sol&eacute;, aucun &eacute;l&eacute;ment taggu&eacute; &laquo;%s&raquo; n'a pu &ecirc;tre trouv&eacute;."
 
 #: tags.php:178
 msgid "All Tags"
@@ -962,139 +930,47 @@ msgid "download"
 msgstr "t&eacute;l&eacute;charger"
 
 #: themes/default/mobile/item.php:34
-#, fuzzy
 msgid "Read"
 msgstr "Lu(s)"
 
 #: themes/default/mobile/item.php:35
-#, fuzzy
 msgid "Unread"
 msgstr "Non-lu(s)"
 
 #: themes/default/mobile/nav.php:4
-#, fuzzy
 msgid "Refresh"
-msgstr "Rafraichir"
+msgstr "Rafraîchir"
 
 #: themes/default/web/item.php:8 themes/default/web/item.php:9
-#, fuzzy
 msgid "Edit Item Properties"
-msgstr "Edition"
+msgstr "Edition des propriétés des éléments"
 
 #: themes/default/web/item.php:18 themes/lilina/web/item.php:42
 #: themes/lilina/web/item.php:98
 msgid "Rating:"
 msgstr "Classement:"
 
+#: themes/default/web/pagination.php:2
+msgid "Skip to page: "
+msgstr ""
+
 #: themes/milsi/feeds.php:4
 #, php-format
-msgid ""
-"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
-"strong> feeds"
-msgstr ""
-"<strong>%d</strong> éléments (<strong id=\"fucnt\">%d</strong> non lus) dans "
-"<strong>%d</strong> canaux"
+msgid "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> éléments (<strong id=\"fucnt\">%d</strong> non lus) dans <strong>%d</strong> canaux"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Désolé, les mises à jour depuis le Web ne sont pas autorisées"
 
-#: util.php:852 util.php:851
+#: util.php:851 util.php:852 util.php:857
 msgid "Show items: "
 msgstr "Afficher les &eacute;l&eacute;ments: "
 
-#: util.php:854 util.php:853
+#: util.php:853 util.php:854 util.php:859
 msgid "Unread only"
 msgstr "Non lus uniquement"
 
-#: util.php:855 util.php:854
+#: util.php:854 util.php:855 util.php:860
 msgid "Read and unread"
 msgstr "Lus et non lus"
-
-#: themes/default/web/pagination.php:2
-msgid "Skip to page: "
-msgstr ""
-
-#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-#~ msgstr "Éléments non lus (<strong id=\"ucnt\">%d</strong>)"
-
-#~ msgid "Create"
-#~ msgstr "Cr&eacute;er"
-
-#~ msgid "Import file"
-#~ msgstr "Importer le fichier"
-
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Ne garder que ce nombre d'&eacute;l&eacute;ments: "
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ msgstr ""
-#~ "<h1>Non Autorisé</h1>\n"
-#~ "Vous n'êtes pas autorisé à accéder a l'interface d'administration.\n"
-
-#~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ msgstr ""
-#~ "Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir à la page "
-#~ "principale.\n"
-
-#~ msgid "Have  a nice day!"
-#~ msgstr "Bonne journée!"
-
-#~ msgid "(%d items)"
-#~ msgstr "(%d &eacute;l&eacute;ments)"
-
-#~ msgid "(%d unread in %d feeds)"
-#~ msgstr "(%d non lus dans %d canaux)"
-
-#~ msgid "<strong>Oops!</strong> Bad login/password"
-#~ msgstr "<strong>Oops!</strong> Mauvais nom d'utilisateur / mot de passe"
-
-#~ msgid ""
-#~ "<strong>Oops!</strong> You are successfully logged in as %s, but you don"
-#~ "\\'t have administration privileges. Log in again with administration "
-#~ "privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr ""
-#~ "<strong>Oops!</strong> Vous êtes connecté en tant que %s, mais vous "
-#~ "n'avez pas de privilège administrateur. Veuillez vous reconnecter avec un "
-#~ "compte utilisateur ayant des droits d'administration, ou revenez à la <a "
-#~ "href=\"..\">racine</a>"
-
-#~ msgid ""
-#~ "<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-#~ "extended functionalities. More plugins can be downloaded at the <a style="
-#~ "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
-#~ "\">Plugin Repository</a>.</p>"
-#~ msgstr ""
-#~ "<p style=\"font-size:small\">Les plugins sont des scripts qui offrent des "
-#~ "fonctionnalités ajoutées. D'autres plugins peuvent être téléchargés "
-#~ "depuis le <a style=\"text-decoration:underline\" href=\"http://plugins."
-#~ "gregarius.net/?lang=fr\">Répertoire de plugins</a>.</p>"
-
-#~ msgid "Last update"
-#~ msgstr "Dernière mise à jour"
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ "Have  a nice day!"
-#~ msgstr ""
-#~ "<h1>Non autorisé!</h1>\n"
-#~ "Vous n'êtes pas autorisé à accéder à l'interface d'administration.\n"
-#~ "Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir à la racine.\n"
-#~ "Bonne journée!"
-
-#, fuzzy
-#~ msgid "tag"
-#~ msgstr "tagg&eacute;s"
-
-#~ msgid "%d items, %d unread"
-#~ msgstr "%d &eacute;l&eacute;ments , %d non lus"
-
-#~ msgid "[-] collapse"
-#~ msgstr "[-] replier"
-
-#~ msgid "[+] expand"
-#~ msgstr "[+] d&eacute;plier"

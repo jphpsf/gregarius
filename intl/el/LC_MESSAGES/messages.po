@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-17 20:48+0000\n"
+"POT-Creation-Date: 2007-02-07 09:05+0100\n"
 "PO-Revision-Date: 2007-01-17 19:25+0000\n"
 "Last-Translator: Asteris Masouras <asterios@gmail.com>\n"
 "Language-Team: Greek, Modern (1453-) <el@li.org>\n"
@@ -28,236 +28,250 @@ msgstr "Προσθήκη ροής:"
 msgid "to folder:"
 msgstr "στον φάκελο:"
 
-#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:866
+#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:134
+#: admin/channels.php:239 admin/channels.php:866 admin/channels.php:930
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
 #: themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr "Κατηγορίες"
 
-#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
-#: admin/folders.php:41 admin/folders.php:212
+#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:321
+#: admin/channels.php:381 admin/channels.php:439 admin/folders.php:41
+#: admin/folders.php:212 admin/folders.php:218
 msgid "Add"
 msgstr "Προσθήκη"
 
 #: admin/channels.php:52
-msgid ""
-"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
-"subscribe to)"
-msgstr ""
-"(Προσθέστε τη διεύθυνση URL είτε μιάς ροής ειδήσεων είτε μιάς ιστοσελίδας "
-"την οποία θέλετε να παρακολουθείτε)"
-
-#: admin/channels.php:62
-msgid ""
-"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
-"\">?</a>]:"
-msgstr "Εφαρμογίδιο εγγραφής"
+msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
+msgstr "(Προσθέστε τη διεύθυνση URL είτε μιάς ροής ειδήσεων είτε μιάς ιστοσελίδας την οποία θέλετε να παρακολουθείτε)"
 
 #: admin/channels.php:62
 msgid "Subscribe in Gregarius!"
 msgstr "Γίνετε συνδρομητής στο Gregarius!"
 
+#: admin/channels.php:62
+msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr "Εφαρμογίδιο εγγραφής"
+
 #: admin/channels.php:69
-msgid ""
-"Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
-"feeds/feed-handling.html\">?</a>]:"
-msgstr ""
-"Εγγραφείτε σαν Χειριστής Ροών [<a href=\"http://www.bengoodger.com/software/"
-"mb/feeds/feed-handling.html\">?</a>]:"
+msgid "Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
+msgstr "Εγγραφείτε σαν Χειριστής Ροών [<a href=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
 
 #: admin/channels.php:71
 msgid "Register Gregarius!"
 msgstr "Εγγραφείτε στο Gregarius!"
 
-#: admin/channels.php:97 admin/folders.php:46
+#: admin/channels.php:97 admin/channels.php:131 admin/folders.php:46
 msgid "Title"
 msgstr "Τίτλος"
 
-#: admin/channels.php:98
+#: admin/channels.php:98 admin/channels.php:132
 msgid "Folder"
 msgstr "Φάκελος"
 
-#: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
+#: admin/channels.php:99 admin/channels.php:133 admin/config.php:69
+#: admin/plugins.php:99
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: admin/channels.php:101
+#: admin/channels.php:101 admin/channels.php:135
 msgid "Flags"
 msgstr "Σημαίες"
 
-#: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
+#: admin/channels.php:104 admin/channels.php:138 admin/channels.php:207
+#: admin/channels.php:251 admin/folders.php:49
 msgid "Move"
 msgstr "Μετακίνηση"
 
-#: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
-#: admin/tags.php:141
+#: admin/channels.php:107 admin/channels.php:141 admin/config.php:70
+#: admin/folders.php:52 admin/tags.php:141
 msgid "Action"
 msgstr "Ενέργεια"
 
-#: admin/channels.php:132 admin/channels.php:513 admin/folders.php:67
+#: admin/channels.php:132 admin/channels.php:166 admin/channels.php:513
+#: admin/channels.php:571 admin/folders.php:67 admin/folders.php:73
 #: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
 #: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104
 msgid "Root"
 msgstr "Root"
 
-#: admin/channels.php:185 admin/folders.php:80
+#: admin/channels.php:185 admin/channels.php:221 admin/folders.php:80
+#: admin/folders.php:86
 msgid "&uarr;"
 msgstr "&uarr;"
 
-#: admin/channels.php:187 admin/folders.php:84
+#: admin/channels.php:187 admin/channels.php:223 admin/folders.php:84
+#: admin/folders.php:90
 msgid "&darr;"
 msgstr "&darr;"
 
-#: admin/channels.php:191 admin/channels.php:298 admin/channels.php:327
-#: admin/config.php:160 admin/folders.php:92 admin/plugins.php:149
-#: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
-#: themes/default/web/item.php:31 themes/lilina/web/item.php:55
+#: admin/channels.php:191 admin/channels.php:227 admin/channels.php:298
+#: admin/channels.php:327 admin/channels.php:356 admin/channels.php:385
+#: admin/config.php:160 admin/folders.php:92 admin/folders.php:98
+#: admin/plugins.php:149 admin/tags.php:153 admin/tags.php:180 ajax.php:209
+#: ajax.php:232 themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111
 msgid "edit"
 msgstr "επεξεργασία"
 
-#: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
+#: admin/channels.php:194 admin/channels.php:230 admin/folders.php:96
+#: admin/folders.php:102 admin/tags.php:156
 msgid "delete"
 msgstr "διαγραφή"
 
-#: admin/channels.php:203 admin/channels.php:860
+#: admin/channels.php:203 admin/channels.php:249 admin/channels.php:860
+#: admin/channels.php:924
 msgid "In folder:"
 msgstr "Στο φάκελο:"
 
-#: admin/channels.php:211
+#: admin/channels.php:211 admin/channels.php:265
 msgid "State:"
 msgstr "Κατάσταση:"
 
-#: admin/channels.php:213
+#: admin/channels.php:213 admin/channels.php:267
 msgid "Deprecated"
 msgstr "Υπο κατάργηση"
 
-#: admin/channels.php:216
+#: admin/channels.php:216 admin/channels.php:270
 msgid "Private"
 msgstr "Κρυφό"
 
-#: admin/channels.php:218
+#: admin/channels.php:218 admin/channels.php:259 admin/channels.php:272
 msgid "Set"
 msgstr "Ορισμός"
 
-#: admin/channels.php:222 admin/items.php:59 admin/items.php:72
-#: admin/items.php:252 admin/tags.php:164
+#: admin/channels.php:222 admin/channels.php:241 admin/channels.php:281
+#: admin/items.php:59 admin/items.php:72 admin/items.php:252
+#: admin/tags.php:164
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: admin/channels.php:224 admin/tags.php:166
+#: admin/channels.php:224 admin/channels.php:279 admin/tags.php:166
 msgid "I'm sure!"
 msgstr "Είμαι σίγουρος!"
 
-#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
+#: admin/channels.php:238
+msgid "Folders"
+msgstr ""
+
+#: admin/channels.php:240
+msgid "State"
+msgstr ""
+
+#: admin/channels.php:257
+msgid "Categories:"
+msgstr ""
+
+#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
+#: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
 #, php-format
 msgid "Adding %s to %s... "
 msgstr "Προσθήκη %s στο %s... "
 
-#: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
-#: ajax.php:547
+#: admin/channels.php:295 admin/channels.php:323 admin/channels.php:353
+#: admin/channels.php:381 admin/users.php:79 ajax.php:547
 msgid "OK"
 msgstr "Εντάξει"
 
-#: admin/channels.php:341
+#: admin/channels.php:341 admin/channels.php:399
 #, php-format
-msgid ""
-"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
-"like to subscribe?"
-msgstr ""
-"Οι ροές βρέθηκαν στο <a href=\"%s\">%s</a>, σε ποιά θέλετε να εγγραφείτε;"
+msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
+msgstr "Οι ροές βρέθηκαν στο <a href=\"%s\">%s</a>, σε ποιά θέλετε να εγγραφείτε;"
 
-#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
+#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:449
+#: admin/channels.php:453 admin/channels.php:630 admin/channels.php:688
 #, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
 msgstr "Δυστυχώς, δεν είναι δυνατή η προσθήκη του URL:  '%s'"
 
-#: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
-#: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
-#: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
+#: admin/channels.php:408 admin/channels.php:444 admin/channels.php:466
+#: admin/channels.php:502 admin/config.php:204 admin/config.php:520
+#: admin/folders.php:168 admin/folders.php:174 admin/folders.php:186
+#: admin/folders.php:192 admin/tags.php:60 admin/tags.php:96
+#: admin/themes.php:275
 msgid "Yes"
 msgstr "Ναι"
 
-#: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
-#: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
-#: admin/tags.php:66 admin/tags.php:95
+#: admin/channels.php:433 admin/channels.php:443 admin/channels.php:491
+#: admin/channels.php:501 admin/config.php:208 admin/config.php:519
+#: admin/folders.php:175 admin/folders.php:181 admin/folders.php:185
+#: admin/folders.php:191 admin/tags.php:66 admin/tags.php:95
 msgid "No"
 msgstr "Όχι"
 
-#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
+#: admin/channels.php:441 admin/channels.php:499 admin/folders.php:183
+#: admin/folders.php:189 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr "Είστε σίγουρος για τη Διαγραφή του '%s'?"
 
-#: admin/channels.php:454 admin/opml.php:81
+#: admin/channels.php:454 admin/channels.php:512 admin/opml.php:81
 msgid "Import"
 msgstr "Εισαγωγή"
 
-#: admin/channels.php:558 update.php:61
+#: admin/channels.php:558 admin/channels.php:616 update.php:61
 msgid "Updating"
 msgstr "Αναβάθμιση"
 
-#: admin/channels.php:828
+#: admin/channels.php:828 admin/channels.php:892
 msgid "Edit the feed "
 msgstr "Επεξεργασία ροής "
 
-#: admin/channels.php:834 admin/channels.php:837
+#: admin/channels.php:834 admin/channels.php:837 admin/channels.php:898
+#: admin/channels.php:901
 msgid "Added"
 msgstr "Προστέθηκε"
 
-#: admin/channels.php:835 admin/channels.php:838
-#: themes/default/web/footer.php:17
+#: admin/channels.php:835 admin/channels.php:838 admin/channels.php:899
+#: admin/channels.php:902 themes/default/web/footer.php:17
 msgid "Last Update"
 msgstr "Τελευταία Ανανέωση"
 
-#: admin/channels.php:838 cls/wrappers/header.php:134
+#: admin/channels.php:838 admin/channels.php:902 cls/wrappers/header.php:134
 msgid "Never"
 msgstr "Ποτέ"
 
-#: admin/channels.php:841
+#: admin/channels.php:841 admin/channels.php:905
 msgid "Title:"
 msgstr "Τίτλος:"
 
-#: admin/channels.php:850
+#: admin/channels.php:850 admin/channels.php:914
 msgid "RSS URL:"
 msgstr "Διεύθυνση RSS:"
 
-#: admin/channels.php:851 admin/channels.php:856
+#: admin/channels.php:851 admin/channels.php:856 admin/channels.php:915
+#: admin/channels.php:920
 msgid "(visit)"
 msgstr "(επίσκεψη)"
 
-#: admin/channels.php:855
+#: admin/channels.php:855 admin/channels.php:919
 msgid "Site URL:"
 msgstr "Διεύθυνση Ιστοχώρου:"
 
-#: admin/channels.php:890
+#: admin/channels.php:890 admin/channels.php:954
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr ""
-"Αυτή η ροή είναι <strong>κρυφή</strong> και ορατή μόνο από τον διαχειριστή."
+msgstr "Αυτή η ροή είναι <strong>κρυφή</strong> και ορατή μόνο από τον διαχειριστή."
 
-#: admin/channels.php:898
-msgid ""
-"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
-"won't be visible in the feeds column."
-msgstr ""
-"Αυτή η ροή είναι <strong>υπό κατάργηση</strong>,  θα πάψει να ανανεώνεται "
-"και δεν θα είναι ορατή."
+#: admin/channels.php:898 admin/channels.php:962
+msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
+msgstr "Αυτή η ροή είναι <strong>υπό κατάργηση</strong>,  θα πάψει να ανανεώνεται και δεν θα είναι ορατή."
 
-#: admin/channels.php:905
+#: admin/channels.php:905 admin/channels.php:969
 msgid "Description:"
 msgstr "Περιγραφή:"
 
-#: admin/channels.php:910
+#: admin/channels.php:910 admin/channels.php:974
 msgid "Shown favicon:"
 msgstr "Εικονίδιο που εμφανίζεται:"
 
-#: admin/channels.php:917
+#: admin/channels.php:917 admin/channels.php:981
 msgid "(Leave blank for no icon)"
 msgstr "(Κενό)"
 
-#: admin/channels.php:972 admin/config.php:238 admin/config.php:257
-#: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
-#: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
+#: admin/channels.php:972 admin/channels.php:1036 admin/config.php:238
+#: admin/config.php:257 admin/folders.php:126 admin/folders.php:132
+#: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
+#: admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
 msgstr "Καταχώρηση Αλλαγών"
 
@@ -290,14 +304,14 @@ msgstr "Προεπισκόπηση"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
+#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+msgid "False"
+msgstr "Ψευδής"
+
 #: admin/config.php:332 admin/config.php:337 admin/config.php:474
 #: admin/config.php:476
 msgid "True"
 msgstr "Αληθής"
-
-#: admin/config.php:332 admin/config.php:480 admin/config.php:482
-msgid "False"
-msgstr "Ψευδής"
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
@@ -311,9 +325,7 @@ msgstr "Τιμή για"
 #: admin/config.php:517
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
-msgstr ""
-"Είστε σίγουρος ότι θέλετε να αλλάξετε την τιμή του %s  με την προκαθορισμένη "
-"του '%s'?"
+msgstr "Είστε σίγουρος ότι θέλετε να αλλάξετε την τιμή του %s  με την προκαθορισμένη του '%s'?"
 
 #: admin/folders.php:31
 msgid "Folders:"
@@ -323,34 +335,34 @@ msgstr "Φάκελοι:"
 msgid "Add a folder:"
 msgstr "Προσθήκη φακέλου:"
 
-#: admin/folders.php:123
+#: admin/folders.php:47 cls/channels.php:164 cls/header.php:97
+#: cls/wrappers/feeds.php:76 themes/default/mobile/nav.php:2
+#: themes/milsi/feeds.php:1
+msgid "Feeds"
+msgstr "Ροές"
+
+#: admin/folders.php:123 admin/folders.php:129
 msgid "Folder name:"
 msgstr "Όνομα φακέλου:"
 
-#: admin/folders.php:164
+#: admin/folders.php:164 admin/folders.php:170
 msgid "You can't delete the Root folder"
 msgstr "Δεν μπορείτε να διαγράψετε τον φάκελο Root"
 
-#: admin/folders.php:204 admin/tags.php:113
+#: admin/folders.php:204 admin/folders.php:210 admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
 msgstr "Δεν μπορείτε να μετονομάσετε το άρθρο '%s' διότι το όνομα υπάρχει ήδη."
 
-#: admin/folders.php:281
+#: admin/folders.php:281 admin/folders.php:287
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
 msgstr "Ο φάκελος '%s' υπάρχει ήδη!"
 
 #: admin/index.php:202
 #, php-format
-msgid ""
-"<h1>Not Authorized!</h1>You are not authorized to access the administration "
-"interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
-"Have  a nice day!"
-msgstr ""
-"<h1>Μη Εξουσιοδοτημένος!</h1>Δεν είστε εξουσιοδοτημένος διαχειριστής. "
-"Παρακαλώ ακολουθήστε <a href=\"%s\">αυτόν τον σύνδεσμο</a> προς την αρχική "
-"σελίδα. Καλή σας μέρα!"
+msgid "<h1>Not Authorized!</h1>You are not authorized to access the administration interface. Please follow <a href=\"%s\">this link</a> back to the main page. Have  a nice day!"
+msgstr "<h1>Μη Εξουσιοδοτημένος!</h1>Δεν είστε εξουσιοδοτημένος διαχειριστής. Παρακαλώ ακολουθήστε <a href=\"%s\">αυτόν τον σύνδεσμο</a> προς την αρχική σελίδα. Καλή σας μέρα!"
 
 #: admin/index.php:219
 msgid "Dashboard"
@@ -516,16 +528,8 @@ msgid "Plugins"
 msgstr "Plugins"
 
 #: admin/plugins.php:90
-msgid ""
-"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-"extended functionalities. More plugins can be downloaded at the <a style="
-"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
-msgstr ""
-"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-"extended functionalities. More plugins can be downloaded at the <a style="
-"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
+msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+msgstr "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 
 #: admin/plugins.php:95
 msgid "Active"
@@ -572,16 +576,8 @@ msgid "Themes"
 msgstr "Θέματα"
 
 #: admin/themes.php:58
-msgid ""
-"<p style=\"font-size:small\">Themes are made of a set of template files "
-"which specify how your Gregarius installation looks.<br />More themes can be "
-"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
-"themes.gregarius.net/\">Themes Repository</a>.</p>"
-msgstr ""
-"<p style=\"font-size:small\">Τα Θέματα δημιουργούνται από αρχεία με πρότυπα "
-"και καθορίζουν την εμφάνιση του Gregarius.<br />Περισσότερα θέματα στο <a "
-"style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/"
-"\">Themes Repository</a>.</p>"
+msgid "<p style=\"font-size:small\">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
+msgstr "<p style=\"font-size:small\">Τα Θέματα δημιουργούνται από αρχεία με πρότυπα και καθορίζουν την εμφάνιση του Gregarius.<br />Περισσότερα θέματα στο <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
 
 #: admin/themes.php:90
 msgid "Use this Theme"
@@ -604,12 +600,8 @@ msgid "Passwords do not match!"
 msgstr "Τα συνθηματικά δεν ταιριάζουν!"
 
 #: admin/users.php:69
-msgid ""
-"<p>No Administrator has been specified yet!</p><p>Please provide an "
-"Administrator username and password now!</p>"
-msgstr ""
-"<p>Δεν έχει οριστεί Διαχειριστής!</p><p>Παρακαλώ εισάγετε Όνομα χρήστη και "
-"Συνθηματικό Διαχειριστή!</p>"
+msgid "<p>No Administrator has been specified yet!</p><p>Please provide an Administrator username and password now!</p>"
+msgstr "<p>Δεν έχει οριστεί Διαχειριστής!</p><p>Παρακαλώ εισάγετε Όνομα χρήστη και Συνθηματικό Διαχειριστή!</p>"
 
 #: admin/users.php:73 admin/users.php:98
 msgid "Username"
@@ -683,19 +675,10 @@ msgstr "<strong>%d</strong> ροές σε <strong>%d</strong> κατηγορίε
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
 msgstr "<strong id=\"%s\" style=\"%s\">(%d αδιάβαστα)</strong>"
 
-#: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
-#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
-msgid "Feeds"
-msgstr "Ροές"
-
 #: cls/channels.php:200
 #, php-format
-msgid ""
-"<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
-"<strong>%d</strong> feeds"
-msgstr ""
-"<strong>%d</strong> άρθρα (<strong id=\"fucnt\">%d</strong> unread) σε "
-"<strong>%d</strong> ροές"
+msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> άρθρα (<strong id=\"fucnt\">%d</strong> unread) σε <strong>%d</strong> ροές"
 
 #: cls/header.php:62
 msgid "unread"
@@ -724,9 +707,7 @@ msgstr "Αποτελέσματα: "
 #: cls/taglist.php:86
 #, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr ""
-"<strong>%d</strong> άρθρα με ταμπέλες, σε <strong>%d</strong> συνολικά "
-"ταμπέλες"
+msgstr "<strong>%d</strong> άρθρα με ταμπέλες, σε <strong>%d</strong> συνολικά ταμπέλες"
 
 #: cls/update.php:118
 msgid "OK (304 Not modified)"
@@ -788,12 +769,12 @@ msgid "Permalink for "
 msgstr "Μόνιμη Διεύθυνση για "
 
 #: cls/wrappers/item.php:200
-msgid "Posted: "
-msgstr "Καταχωρήθηκε: "
-
-#: cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr "Ανακτήθηκαν: "
+
+#: cls/wrappers/item.php:200
+msgid "Posted: "
+msgstr "Καταχωρήθηκε: "
 
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
 #: cls/wrappers/toolkit.php:53
@@ -844,26 +825,26 @@ msgstr "Σημειωμένο"
 
 #: search.php:43
 #, php-format
-msgid "%d matches for %s"
-msgstr "%d αποτελέσματα για %s"
+msgid "%d match for %s"
+msgstr "%d αποτέλεσμα για %s"
 
 #: search.php:43
 #, php-format
-msgid "%d match for %s"
-msgstr "%d αποτέλεσμα για %s"
+msgid "%d matches for %s"
+msgstr "%d αποτελέσματα για %s"
 
 #: search.php:51
 #, php-format
 msgid "Search %d items"
 msgstr "Αναζήτηση %d άρθρων"
 
-#: search.php:52 themes/3panes/searchform.php:5
+#: search.php:52 test/minisearch.php:46 themes/3panes/searchform.php:5
 #: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
 #: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39 test/minisearch.php:46
+#: themes/planet/searchform.php:39
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -972,31 +953,27 @@ msgstr "Ιδιότητες επεξεργασίας άρθρου"
 msgid "Rating:"
 msgstr "Αξιολόγηση:"
 
+#: themes/default/web/pagination.php:2
+msgid "Skip to page: "
+msgstr ""
+
 #: themes/milsi/feeds.php:4
 #, php-format
-msgid ""
-"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
-"strong> feeds"
-msgstr ""
-"<strong>%d</strong> καταχωρήσεις (<strong>%d</strong> αδιάβαστα) σε <strong>%"
-"d</strong> ροές"
+msgid "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> καταχωρήσεις (<strong>%d</strong> αδιάβαστα) σε <strong>%d</strong> ροές"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Λυπάμαι, η ενημέρωση από το διαδίκτυο είναι προς το παρόν αδύνατη."
 
-#: util.php:852 util.php:851
+#: util.php:851 util.php:852 util.php:857
 msgid "Show items: "
 msgstr "Προβολή άρθρων: "
 
-#: util.php:854 util.php:853
+#: util.php:853 util.php:854 util.php:859
 msgid "Unread only"
 msgstr "Μόνο αδιάβαστα"
 
-#: util.php:855 util.php:854
+#: util.php:854 util.php:855 util.php:860
 msgid "Read and unread"
 msgstr "Διαβασμένα και αδιάβαστα"
-
-#: themes/default/web/pagination.php:2
-msgid "Skip to page: "
-msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-17 20:48+0000\n"
+"POT-Creation-Date: 2007-02-07 09:07+0100\n"
 "PO-Revision-Date: 2006-09-30 04:46+0000\n"
 "Last-Translator: Aryo <aryo.sanjaya@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -28,39 +28,33 @@ msgstr "Tambah feed:"
 msgid "to folder:"
 msgstr "ke folder:"
 
-#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:866
+#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:134
+#: admin/channels.php:239 admin/channels.php:866 admin/channels.php:930
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
 #: themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr "Kategori"
 
-#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
-#: admin/folders.php:41 admin/folders.php:212
+#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:321
+#: admin/channels.php:381 admin/channels.php:439 admin/folders.php:41
+#: admin/folders.php:212 admin/folders.php:218
 msgid "Add"
 msgstr "Tambah"
 
 #: admin/channels.php:52
-msgid ""
-"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
-"subscribe to)"
+msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
 msgstr "(Terserah URL web atau URL RSS dari website yang akan didaftarkan)"
-
-#: admin/channels.php:62
-msgid ""
-"Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
-"\">?</a>]:"
-msgstr ""
-"Pendaftaran bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/"
-"\">?</a>]:"
 
 #: admin/channels.php:62
 msgid "Subscribe in Gregarius!"
 msgstr "Daftar ke Gregarius!"
 
+#: admin/channels.php:62
+msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr "Pendaftaran bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+
 #: admin/channels.php:69
-msgid ""
-"Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/"
-"feeds/feed-handling.html\">?</a>]:"
+msgid "Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
 msgstr ""
 
 #: admin/channels.php:71
@@ -68,196 +62,217 @@ msgstr ""
 msgid "Register Gregarius!"
 msgstr "Daftar ke Gregarius!"
 
-#: admin/channels.php:97 admin/folders.php:46
+#: admin/channels.php:97 admin/channels.php:131 admin/folders.php:46
 msgid "Title"
 msgstr "Judul"
 
-#: admin/channels.php:98
+#: admin/channels.php:98 admin/channels.php:132
 msgid "Folder"
 msgstr "Folder"
 
-#: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
+#: admin/channels.php:99 admin/channels.php:133 admin/config.php:69
+#: admin/plugins.php:99
 msgid "Description"
 msgstr "Deskripsi"
 
-#: admin/channels.php:101
+#: admin/channels.php:101 admin/channels.php:135
 msgid "Flags"
 msgstr "Tandai"
 
-#: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
+#: admin/channels.php:104 admin/channels.php:138 admin/channels.php:207
+#: admin/channels.php:251 admin/folders.php:49
 msgid "Move"
 msgstr "Pindah"
 
-#: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
-#: admin/tags.php:141
+#: admin/channels.php:107 admin/channels.php:141 admin/config.php:70
+#: admin/folders.php:52 admin/tags.php:141
 msgid "Action"
 msgstr "Aksi"
 
-#: admin/channels.php:132 admin/channels.php:513 admin/folders.php:67
+#: admin/channels.php:132 admin/channels.php:166 admin/channels.php:513
+#: admin/channels.php:571 admin/folders.php:67 admin/folders.php:73
 #: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
 #: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104
 msgid "Root"
 msgstr "Root"
 
-#: admin/channels.php:185 admin/folders.php:80
+#: admin/channels.php:185 admin/channels.php:221 admin/folders.php:80
+#: admin/folders.php:86
 msgid "&uarr;"
 msgstr "&uarr;"
 
-#: admin/channels.php:187 admin/folders.php:84
+#: admin/channels.php:187 admin/channels.php:223 admin/folders.php:84
+#: admin/folders.php:90
 msgid "&darr;"
 msgstr "&darr;"
 
-#: admin/channels.php:191 admin/channels.php:298 admin/channels.php:327
-#: admin/config.php:160 admin/folders.php:92 admin/plugins.php:149
-#: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
-#: themes/default/web/item.php:31 themes/lilina/web/item.php:55
+#: admin/channels.php:191 admin/channels.php:227 admin/channels.php:298
+#: admin/channels.php:327 admin/channels.php:356 admin/channels.php:385
+#: admin/config.php:160 admin/folders.php:92 admin/folders.php:98
+#: admin/plugins.php:149 admin/tags.php:153 admin/tags.php:180 ajax.php:209
+#: ajax.php:232 themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111
 msgid "edit"
 msgstr "ubah"
 
-#: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
+#: admin/channels.php:194 admin/channels.php:230 admin/folders.php:96
+#: admin/folders.php:102 admin/tags.php:156
 msgid "delete"
 msgstr "hapus"
 
-#: admin/channels.php:203 admin/channels.php:860
+#: admin/channels.php:203 admin/channels.php:249 admin/channels.php:860
+#: admin/channels.php:924
 msgid "In folder:"
 msgstr "Dalam folder:"
 
-#: admin/channels.php:211
+#: admin/channels.php:211 admin/channels.php:265
 msgid "State:"
 msgstr "Status:"
 
-#: admin/channels.php:213
+#: admin/channels.php:213 admin/channels.php:267
 msgid "Deprecated"
 msgstr "Deprecated"
 
-#: admin/channels.php:216
+#: admin/channels.php:216 admin/channels.php:270
 msgid "Private"
 msgstr "Private"
 
-#: admin/channels.php:218
+#: admin/channels.php:218 admin/channels.php:259 admin/channels.php:272
 msgid "Set"
 msgstr "Set"
 
-#: admin/channels.php:222 admin/items.php:59 admin/items.php:72
-#: admin/items.php:252 admin/tags.php:164
+#: admin/channels.php:222 admin/channels.php:241 admin/channels.php:281
+#: admin/items.php:59 admin/items.php:72 admin/items.php:252
+#: admin/tags.php:164
 msgid "Delete"
 msgstr "Hapus"
 
-#: admin/channels.php:224 admin/tags.php:166
+#: admin/channels.php:224 admin/channels.php:279 admin/tags.php:166
 msgid "I'm sure!"
 msgstr "Saya yakin!"
 
-#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
+#: admin/channels.php:238
+msgid "Folders"
+msgstr ""
+
+#: admin/channels.php:240
+msgid "State"
+msgstr ""
+
+#: admin/channels.php:257
+msgid "Categories:"
+msgstr ""
+
+#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
+#: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
 #, php-format
 msgid "Adding %s to %s... "
 msgstr "Tambahkan %s ke %s... "
 
-#: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
-#: ajax.php:547
+#: admin/channels.php:295 admin/channels.php:323 admin/channels.php:353
+#: admin/channels.php:381 admin/users.php:79 ajax.php:547
 msgid "OK"
 msgstr "OK"
 
-#: admin/channels.php:341
+#: admin/channels.php:341 admin/channels.php:399
 #, php-format
-msgid ""
-"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
-"like to subscribe?"
-msgstr ""
-"Feed berikut ini ditemukan di <a href=\"%s\">%s</a>, manakah yang akan "
-"didaftarkan?"
+msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
+msgstr "Feed berikut ini ditemukan di <a href=\"%s\">%s</a>, manakah yang akan didaftarkan?"
 
-#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
+#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:449
+#: admin/channels.php:453 admin/channels.php:630 admin/channels.php:688
 #, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
 msgstr "Maaf, tidak dapat menangani URL ini: '%s'"
 
-#: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
-#: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
-#: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
+#: admin/channels.php:408 admin/channels.php:444 admin/channels.php:466
+#: admin/channels.php:502 admin/config.php:204 admin/config.php:520
+#: admin/folders.php:168 admin/folders.php:174 admin/folders.php:186
+#: admin/folders.php:192 admin/tags.php:60 admin/tags.php:96
+#: admin/themes.php:275
 msgid "Yes"
 msgstr "Ya"
 
-#: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
-#: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
-#: admin/tags.php:66 admin/tags.php:95
+#: admin/channels.php:433 admin/channels.php:443 admin/channels.php:491
+#: admin/channels.php:501 admin/config.php:208 admin/config.php:519
+#: admin/folders.php:175 admin/folders.php:181 admin/folders.php:185
+#: admin/folders.php:191 admin/tags.php:66 admin/tags.php:95
 msgid "No"
 msgstr "Tidak"
 
-#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
+#: admin/channels.php:441 admin/channels.php:499 admin/folders.php:183
+#: admin/folders.php:189 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr "Anda yakin akan menghapus '%s'?"
 
-#: admin/channels.php:454 admin/opml.php:81
+#: admin/channels.php:454 admin/channels.php:512 admin/opml.php:81
 msgid "Import"
 msgstr "Import"
 
-#: admin/channels.php:558 update.php:61
+#: admin/channels.php:558 admin/channels.php:616 update.php:61
 msgid "Updating"
 msgstr "Memperbarui"
 
-#: admin/channels.php:828
+#: admin/channels.php:828 admin/channels.php:892
 msgid "Edit the feed "
 msgstr "Rubah feed "
 
-#: admin/channels.php:834 admin/channels.php:837
+#: admin/channels.php:834 admin/channels.php:837 admin/channels.php:898
+#: admin/channels.php:901
 msgid "Added"
 msgstr "Ditambahkan"
 
-#: admin/channels.php:835 admin/channels.php:838
-#: themes/default/web/footer.php:17
+#: admin/channels.php:835 admin/channels.php:838 admin/channels.php:899
+#: admin/channels.php:902 themes/default/web/footer.php:17
 msgid "Last Update"
 msgstr "Update Terakhir"
 
-#: admin/channels.php:838 cls/wrappers/header.php:134
+#: admin/channels.php:838 admin/channels.php:902 cls/wrappers/header.php:134
 msgid "Never"
 msgstr "Tidak pernah"
 
-#: admin/channels.php:841
+#: admin/channels.php:841 admin/channels.php:905
 msgid "Title:"
 msgstr "Judul:"
 
-#: admin/channels.php:850
+#: admin/channels.php:850 admin/channels.php:914
 msgid "RSS URL:"
 msgstr "URL RSS:"
 
-#: admin/channels.php:851 admin/channels.php:856
+#: admin/channels.php:851 admin/channels.php:856 admin/channels.php:915
+#: admin/channels.php:920
 msgid "(visit)"
 msgstr "(kunjungi)"
 
-#: admin/channels.php:855
+#: admin/channels.php:855 admin/channels.php:919
 msgid "Site URL:"
 msgstr "URL Situs:"
 
-#: admin/channels.php:890
+#: admin/channels.php:890 admin/channels.php:954
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr ""
-"Feed ini adalah <strong>private</strong>, cuma admin yang dapat melihat."
+msgstr "Feed ini adalah <strong>private</strong>, cuma admin yang dapat melihat."
 
-#: admin/channels.php:898
-msgid ""
-"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
-"won't be visible in the feeds column."
-msgstr ""
-"Feed ini sudah <strong>deprecated</strong>, tidak akan diperbarui lagi dan "
-"tidak nampak di daftar feed."
+#: admin/channels.php:898 admin/channels.php:962
+msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
+msgstr "Feed ini sudah <strong>deprecated</strong>, tidak akan diperbarui lagi dan tidak nampak di daftar feed."
 
-#: admin/channels.php:905
+#: admin/channels.php:905 admin/channels.php:969
 msgid "Description:"
 msgstr "Keterangan:"
 
-#: admin/channels.php:910
+#: admin/channels.php:910 admin/channels.php:974
 msgid "Shown favicon:"
 msgstr "favicon ditampilkan:"
 
-#: admin/channels.php:917
+#: admin/channels.php:917 admin/channels.php:981
 msgid "(Leave blank for no icon)"
 msgstr "(Kosongkan untuk tanpa ikon)"
 
-#: admin/channels.php:972 admin/config.php:238 admin/config.php:257
-#: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
-#: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
+#: admin/channels.php:972 admin/channels.php:1036 admin/config.php:238
+#: admin/config.php:257 admin/folders.php:126 admin/folders.php:132
+#: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
+#: admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
 msgstr "Simpan Perubahan"
 
@@ -290,14 +305,14 @@ msgstr "Preview"
 msgid "Cancel"
 msgstr "Batal"
 
+#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+msgid "False"
+msgstr "False"
+
 #: admin/config.php:332 admin/config.php:337 admin/config.php:474
 #: admin/config.php:476
 msgid "True"
 msgstr "True"
-
-#: admin/config.php:332 admin/config.php:480 admin/config.php:482
-msgid "False"
-msgstr "False"
 
 #: admin/config.php:368
 msgid "Ooops, unknown config type: "
@@ -321,30 +336,33 @@ msgstr "Folder:"
 msgid "Add a folder:"
 msgstr "Tambah folder:"
 
-#: admin/folders.php:123
+#: admin/folders.php:47 cls/channels.php:164 cls/header.php:97
+#: cls/wrappers/feeds.php:76 themes/default/mobile/nav.php:2
+#: themes/milsi/feeds.php:1
+msgid "Feeds"
+msgstr "Feeds"
+
+#: admin/folders.php:123 admin/folders.php:129
 msgid "Folder name:"
 msgstr "Nama folder:"
 
-#: admin/folders.php:164
+#: admin/folders.php:164 admin/folders.php:170
 msgid "You can't delete the Root folder"
 msgstr "Anda tidak dapat menghapus folder Root"
 
-#: admin/folders.php:204 admin/tags.php:113
+#: admin/folders.php:204 admin/folders.php:210 admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
 msgstr "Anda tidak dapat merubah nama '%s' karena sudah ada."
 
-#: admin/folders.php:281
+#: admin/folders.php:281 admin/folders.php:287
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
 msgstr "Nampaknya Anda sudah memiliki folder dengan nama '%s'!"
 
 #: admin/index.php:202
 #, php-format
-msgid ""
-"<h1>Not Authorized!</h1>You are not authorized to access the administration "
-"interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
-"Have  a nice day!"
+msgid "<h1>Not Authorized!</h1>You are not authorized to access the administration interface. Please follow <a href=\"%s\">this link</a> back to the main page. Have  a nice day!"
 msgstr ""
 
 #: admin/index.php:219
@@ -512,16 +530,8 @@ msgid "Plugins"
 msgstr "Plugin"
 
 #: admin/plugins.php:90
-msgid ""
-"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-"extended functionalities. More plugins can be downloaded at the <a style="
-"\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
-msgstr ""
-"<p style=\"font-size:small\">Plugin adalah script dari pihak lain untuk "
-"memberikan fungsi tambahan. Plugin yang lain dapat didownload di <a style="
-"\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin "
-"Repository</a>.</p>"
+msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+msgstr "<p style=\"font-size:small\">Plugin adalah script dari pihak lain untuk memberikan fungsi tambahan. Plugin yang lain dapat didownload di <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 
 #: admin/plugins.php:95
 msgid "Active"
@@ -568,16 +578,8 @@ msgid "Themes"
 msgstr "Themes"
 
 #: admin/themes.php:58
-msgid ""
-"<p style=\"font-size:small\">Themes are made of a set of template files "
-"which specify how your Gregarius installation looks.<br />More themes can be "
-"downloaded from the <a style=\"text-decoration:underline\"  href=\"http://"
-"themes.gregarius.net/\">Themes Repository</a>.</p>"
-msgstr ""
-"<p style=\"font-size:small\">Themes adalah kumpulan file template yang "
-"menentukan tampilan Gregarius.<br />Themes yang lain dapat didownload di <a "
-"style=\"text-decoration:underline\" href=\"http://themes.gregarius.net/"
-"\">Themes Repository</a>.</p>"
+msgid "<p style=\"font-size:small\">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
+msgstr "<p style=\"font-size:small\">Themes adalah kumpulan file template yang menentukan tampilan Gregarius.<br />Themes yang lain dapat didownload di <a style=\"text-decoration:underline\" href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
 
 #: admin/themes.php:90
 msgid "Use this Theme"
@@ -600,12 +602,8 @@ msgid "Passwords do not match!"
 msgstr "Password tidak sama!"
 
 #: admin/users.php:69
-msgid ""
-"<p>No Administrator has been specified yet!</p><p>Please provide an "
-"Administrator username and password now!</p>"
-msgstr ""
-"<p>Belum ada user Administrator!</p><p>Silakan isi username dan password "
-"Administrator sekarang</p>"
+msgid "<p>No Administrator has been specified yet!</p><p>Please provide an Administrator username and password now!</p>"
+msgstr "<p>Belum ada user Administrator!</p><p>Silakan isi username dan password Administrator sekarang</p>"
 
 #: admin/users.php:73 admin/users.php:98
 msgid "Username"
@@ -679,19 +677,10 @@ msgstr "<strong>%d</strong> feed dalam <strong>%d</strong> kategori"
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
 msgstr "<strong id=\"%s\" style=\"%s\">(%d baru)</strong>"
 
-#: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
-#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
-msgid "Feeds"
-msgstr "Feeds"
-
 #: cls/channels.php:200
 #, php-format
-msgid ""
-"<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
-"<strong>%d</strong> feeds"
-msgstr ""
-"<strong>%d</strong> item (<strong id=\"fucnt\">%d</strong> baru) dalam "
-"<strong>%d</strong> feed"
+msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> item (<strong id=\"fucnt\">%d</strong> baru) dalam <strong>%d</strong> feed"
 
 #: cls/header.php:62
 msgid "unread"
@@ -782,12 +771,12 @@ msgid "Permalink for "
 msgstr "Permalink untuk "
 
 #: cls/wrappers/item.php:200
-msgid "Posted: "
-msgstr "Dipostkan: "
-
-#: cls/wrappers/item.php:200
 msgid "Fetched: "
 msgstr "Diambil: "
+
+#: cls/wrappers/item.php:200
+msgid "Posted: "
+msgstr "Dipostkan: "
 
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
 #: cls/wrappers/toolkit.php:53
@@ -838,12 +827,12 @@ msgstr "Ditandai"
 
 #: search.php:43
 #, php-format
-msgid "%d matches for %s"
+msgid "%d match for %s"
 msgstr "%d ketemu untuk %s"
 
 #: search.php:43
 #, php-format
-msgid "%d match for %s"
+msgid "%d matches for %s"
 msgstr "%d ketemu untuk %s"
 
 #: search.php:51
@@ -851,13 +840,13 @@ msgstr "%d ketemu untuk %s"
 msgid "Search %d items"
 msgstr "Mencari %d item"
 
-#: search.php:52 themes/3panes/searchform.php:5
+#: search.php:52 test/minisearch.php:46 themes/3panes/searchform.php:5
 #: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
 #: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39 test/minisearch.php:46
+#: themes/planet/searchform.php:39
 msgid "Search"
 msgstr "Cari"
 
@@ -966,40 +955,30 @@ msgstr ""
 msgid "Rating:"
 msgstr "Rating:"
 
+#: themes/default/web/pagination.php:2
+msgid "Skip to page: "
+msgstr ""
+
 #: themes/milsi/feeds.php:4
 #, php-format
-msgid ""
-"<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</"
-"strong> feeds"
-msgstr ""
-"<strong>%d</strong> items (<strong>%d</strong> baru) pada <strong>%d</"
-"strong> feeds"
+msgid "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds"
+msgstr "<strong>%d</strong> items (<strong>%d</strong> baru) pada <strong>%d</strong> feeds"
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Maaf, memperbarui dari web tidak diperbolehkan saat ini."
 
-#: util.php:852 util.php:851
+#: util.php:851 util.php:852 util.php:857
 msgid "Show items: "
 msgstr "Item ditampilkan: "
 
-#: util.php:854 util.php:853
+#: util.php:853 util.php:854 util.php:859
 msgid "Unread only"
 msgstr "Hanya yang baru"
 
-#: util.php:855 util.php:854
+#: util.php:854 util.php:855 util.php:860
 msgid "Read and unread"
 msgstr "Baru dan lama"
-
-#: themes/default/web/pagination.php:2
-msgid "Skip to page: "
-msgstr ""
-
-#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-#~ msgstr "Item baru (<span id=\"ucnt\">%d</span>)"
-
-#~ msgid "Create"
-#~ msgstr "Buat"
 
 #~ msgid "Import file"
 #~ msgstr "Import file"
@@ -1015,9 +994,7 @@ msgstr ""
 #~ "Anda tidak diijinkan memasuki area administrasi\n"
 
 #~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ msgstr ""
-#~ "Silakan ikuti <a href=\"%s\">link ini</a> untuk kembali ke halaman "
-#~ "depan.\n"
+#~ msgstr "Silakan ikuti <a href=\"%s\">link ini</a> untuk kembali ke halaman depan.\n"
 
 #~ msgid "Have  a nice day!"
 #~ msgstr "Semoga harimu menyenangkan!"
@@ -1031,25 +1008,11 @@ msgstr ""
 #~ msgid "<strong>Oops!</strong> Bad login/password"
 #~ msgstr "<strong>Oohh!</strong> Username/password keliru"
 
-#~ msgid ""
-#~ "<strong>Oops!</strong> You are successfully logged in as %s, but you don"
-#~ "\\'t have administration privileges. Log in again with administration "
-#~ "privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr ""
-#~ "<strong>Oohh!</strong> Anda sudah berhasil login sebagai %s, tapi tidak "
-#~ "punya hak sebagai Administrator. Silakan login lagi sebagai Administrator "
-#~ "atau tetap melanjutkan ke <a href=\"..\">halaman depan</a>"
+#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
+#~ msgstr "Item baru (<span id=\"ucnt\">%d</span>)"
 
-#~ msgid ""
-#~ "<p style=\"font-size:small\">Plugins are third-party scripts that offer "
-#~ "extended functionalities. More plugins can be downloaded at the <a style="
-#~ "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
-#~ "\">Plugin Repository</a>.</p>"
-#~ msgstr ""
-#~ "<p style=\"font-size:small\">Plugin adalah script buatan pihak lain yang "
-#~ "memberikan fungsi tambahan. Plugin lain dapat didownload di <a style="
-#~ "\"text-decoration:underline\" href=\"http://plugins.gregarius.net/"
-#~ "\">Plugin Repository</a>.</p>"
+#~ msgid "Create"
+#~ msgstr "Buat"
 
 #~ msgid "Last update"
 #~ msgstr "Update terakhir"
@@ -1062,6 +1025,11 @@ msgstr ""
 #~ msgstr ""
 #~ "<h1>Tidak Diijinkan!</h1>\n"
 #~ "Anda tidak berhak masuk area administratsi.\n"
-#~ "Silakan ikuti <a href=\"%s\">link ini</a> untuk kembali ke halaman "
-#~ "utama.\n"
+#~ "Silakan ikuti <a href=\"%s\">link ini</a> untuk kembali ke halaman utama.\n"
 #~ "Semoga sukses!"
+
+#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
+#~ msgstr "<strong>Oohh!</strong> Anda sudah berhasil login sebagai %s, tapi tidak punya hak sebagai Administrator. Silakan login lagi sebagai Administrator atau tetap melanjutkan ke <a href=\"..\">halaman depan</a>"
+
+#~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+#~ msgstr "<p style=\"font-size:small\">Plugin adalah script buatan pihak lain yang memberikan fungsi tambahan. Plugin lain dapat didownload di <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
