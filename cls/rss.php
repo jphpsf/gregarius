@@ -115,29 +115,11 @@ class RSS {
         return $ret;
     }
 
-
-	/**
-	 * //DEPRECATED!
-	 
-    function getCachedTemplateFile($file) {
-        static $templateCache = array();
-        $filename = $this->getTemplateFile($file);
-        if (array_key_exists($filename, $templateCache)) {
-            return $templateCache[$filename];
-        }
-        $fileContent = file_get_contents(GREGARIUS_HOME . $filename);
-        $modifiedFileContent = eval_mixed($fileContent);
-        $templateCache[$filename] = $modifiedFileContent;
-
-        return $modifiedFileContent;
-    }
-
-	*/
     
     function renderWithTemplate($template,$mainDivId="items") {
     	
         $this->_pf('start rendering');
-        if (!($this->header->options & HDR_NO_OUPUTBUFFERING)) {
+		if (!($this->header->options & HDR_NO_OUPUTBUFFERING)) {
             if (getConfig('rss.output.compression')) {
                 @ob_start('ob_gzhandler');
             } else {
@@ -146,7 +128,6 @@ class RSS {
             // force a content-type and a charset
             header('Content-Type: text/html; charset='
                    . (getConfig('rss.output.encoding') ? getConfig('rss.output.encoding') : DEFAULT_OUTPUT_ENCODING));
-
         }
 		
 
