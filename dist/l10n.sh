@@ -8,7 +8,7 @@ POS=`find intl -name LC_MESSAGES -type d`
 POT=intl/messages.pot
 touch $POT
 echo "Updating template: $POT"
-find . -name \*.php | xargs xgettext -o $POT  -j -lPHP -k__
+find . -name \*.php | xargs xgettext -o $POT --no-wrap -j -lPHP -k__
 
 POFILE=messages.po
 MOFILE=messages.mo
@@ -17,7 +17,7 @@ POXFILE=messages.pox
 for PO in $POS; do
 	echo "Updating $PO/$POFILE"
 	touch $PO/$POFILE
-	msgmerge -N -v --update $PO/$POFILE $POT
+	msgmerge  -v -F --no-wrap --update --no-fuzzy-matching  $PO/$POFILE $POT
 	echo "Building $PO/$MOFILE"	
 	msgfmt -o $PO/$MOFILE $PO/$POFILE
 	echo 
