@@ -43,8 +43,8 @@ function folders() {
 
     echo "<table id=\"foldertable\">\n"
     ."<tr>\n"
-    ."\t<th class=\"cntr\">". __('Title') ."</th>\n";
-
+    ."\t<th>". __('Title') ."</th>\n"
+    ."\t<th class=\"cntr\">". __('Feeds') ."</th>\n";
     if (getConfig('rss.config.absoluteordering')) {
         echo "\t<th>".__('Move')."</th>\n";
     }
@@ -52,25 +52,31 @@ function folders() {
     echo "\t<th>". __('Action') ."</th>\n"
     ."</tr>\n";
 
-    $sql = "select id,name from " .getTable("folders");
+
+    $sql =
+        sprintf("select f.id, f.name, count(*) from %s f, %s c where c.parent=f.id group by id",
+                getTable('folders'), getTable('channels')
+               );
 
     if (getConfig('rss.config.absoluteordering')) {
-        $sql .=" order by position asc";
+        $sql .=" order by f.position asc";
     } else {
-        $sql .=" order by name asc";
+        $sql .=" order by f.name asc";
     }
+
+
 
     $res = rss_query($sql);
     $cntr = 0;
-    while (list($id, $name) = rss_fetch_row($res)) {
+    while (list($id, $name, $cnt) = rss_fetch_row($res)) {
 
         $name = $name == ''? __('Root'):$name;
 
         $class_ = (($cntr++ % 2 == 0)?"even":"odd");
 
         echo "<tr class=\"$class_\">\n"
-        ."\t<td>$name</td>\n";
-
+        ."\t<td>$name</td>\n"
+        ."\t<td class=\"cntr\">$cnt</td>\n";
         if (getConfig('rss.config.absoluteordering')) {
             echo "\t<td>";
 
@@ -210,8 +216,8 @@ function folder_admin() {
         break;
 
     case __('Add'):
-    case 'ACT_ADMIN_ADD':
-        $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_URL);
+                case 'ACT_ADMIN_ADD':
+                        $label=sanitize($_REQUEST['new_folder'],RSS_SANITIZER_URL);
         $new_label = rss_real_escape_string($new_label);
         assert(strlen($label) > 0);
         create_folder($label);
@@ -220,7 +226,7 @@ function folder_admin() {
     case CST_ADMIN_MOVE_UP_ACTION:
     case CST_ADMIN_MOVE_DOWN_ACTION:
 
-        if ($fid == 0) {
+if ($fid == 0) {
             return;
         }
 
