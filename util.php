@@ -316,9 +316,13 @@ function update($id) {
             if (array_key_exists('enclosure@url', $item) ) {
                 $enclosure = $item['enclosure@url'];
                 // If the enclosure is an image, append it to the content
-                if ($enclosure && array_key_exists('enclosure@type', $item) && preg_match('#image/(png|gif|jpe?g)#', $item['enclosure@type'])) {
-                    $description = '<img src="'.$enclosure.'" alt="" />' . $description;
-                    $enclosure = '';
+				// but only if it isn't there yet
+                if ($enclosure && 
+					array_key_exists('enclosure@type', $item) && 
+					preg_match('#image/(png|gif|jpe?g)#', $item['enclosure@type']) &&
+					(FALSE == strpos($description,$enclosure))) {
+                    	$description = '<img src="'.$enclosure.'" alt="" />' . $description;
+                    	$enclosure = '';
                 }
             } else {
                 $enclosure = "";
