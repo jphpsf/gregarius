@@ -25,8 +25,8 @@
 #
 ###############################################################################
 
-rss_require('extlib/l10n/streams.php');
-rss_require('extlib/l10n/gettext.php');
+require_once(dirname(__FILE__) .'/../extlib/l10n/streams.php');
+require_once(dirname(__FILE__) .'/../extlib/l10n/gettext.php');
 define('RSS_LOCALE_COOKIE','rss_preferred_locale');
 class RSSl10n {
 	
@@ -135,6 +135,9 @@ class RSSl10n {
 
 
 function __($msg, $cnt = null) {
+	if (!isset($GLOBALS['rssl10n'])) {
+		$GLOBALS['rssl10n'] = new RSSl10n();
+	}
 	return $GLOBALS['rssl10n'] -> translate($msg, $cnt);
 }
 ?>

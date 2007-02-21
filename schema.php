@@ -28,7 +28,7 @@
 define('DBSTRUCT', dirname(__FILE__) . '/dbstruct.sql');
 
 require_once('util.php');
-
+require_once('cls/l10n.php');
 /**
  * Checks the db schema for the for all required tables, adds those which are missing.
  * Returns the number of added tables;
@@ -96,10 +96,9 @@ $expected_tables = array (
 	return $expected_tables;
 }
 function rss_query_wrapper($query, $dieOnError=true, $preventRecursion=false) {
-	global $out;
-
 	if (defined('DUMP_SCHEMA')) {
-		$out .= $query . ";\n";
+		global $out;
+		$out .= ($query . ";\n");
 	} else {
 	    rss_query(trim($query),$dieOnError,$preventRecursion);
 	}
@@ -717,26 +716,45 @@ _SQL_
 ///////////////////////////////////////////////////////////////////////////////
 
 if (isset($argv) && in_array('--dump',$argv)) {
+	$stdOut = false;
 	foreach ($argv as $idx => $arg) {
 		if (substr($arg,0,9) == '--prefix=') {
 			define ('DB_TABLE_PREFIX',substr($arg,9));
+		} elseif ($arg == '--stdout') {
+			$stdOut = true;
 		}
 	}
 	define ('DUMP_SCHEMA', true);
-	define ('PROFILING', false);
-	@require_once('init.php');
-	
+	define ('RSS_NO_CACHE',true);
+	define ('RSS_NO_DB',true);	
+	if (!defined('PROFILING')) {define ('PROFILING', false);}
+	require_once('db.php');
+	if (!function_exists('rss_require')) {
+		function rss_require($file,$once=true) {
+		    $required_file = dirname(__FILE__) . '/'. $file;
+		    if ($once) {
+		        require_once($required_file);
+		    } else {
+		        require($required_file);
+		    }
+		}
+	}
 	$out = "################
 # Gregarius " . _VERSION_ . "
 # database structure
 #################
 
 ";
-	foreach (array("channels","config","folders","item","metatag","tag","rating", "users", "dashboard") as $tbl) {
+
+
+
+	foreach (getExpectedTables() as $tbl => $dummy) {
 	 	call_user_func("_init_$tbl"); 
 	}
 	// shamelessly copied from install.php
-		$fp = @fopen(DBSTRUCT, 'w');
+		
+		$fp = $stdOut ? FALSE : @fopen(DBSTRUCT, 'w');
+		
 		if(!$fp) {
 			// unable to open file for writing
 			echo($out);

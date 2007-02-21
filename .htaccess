@@ -60,3 +60,5 @@ AddDefaultCharset utf-8
   RewriteCond  %{env:static} ^$
   RewriteRule ^(.+)/?$   feed.php?channel=$1 [L,QSA]
 </IfModule>
+
+### php_value xdebug.profiler_enable 1

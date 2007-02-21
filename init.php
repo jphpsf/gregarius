@@ -34,7 +34,7 @@ function rss_home_dir() {
 }
 
 function rss_require($file,$once=true) {
-    $required_file = rss_home_dir() .  $file;
+    $required_file = dirname(__FILE__) . '/'. $file;
     if ($once) {
         require_once($required_file);
     } else {
@@ -49,7 +49,6 @@ function rss_require($file,$once=true) {
 if (file_exists(dirname(__FILE__) . '/rss_extra.php')) {
     rss_require('rss_extra.php');
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 // Bootstrap
 //
@@ -66,10 +65,6 @@ rss_require('cls/config.php');
 rss_require('themes.php');
 rss_require('plugins.php');
 rss_require('cls/user.php');
-//rss_require('config.php');
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Error reporting
