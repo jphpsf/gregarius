@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1061,15 +1061,15 @@ msgstr ""
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: util.php:852 util.php:851 util.php:857 util.php:857
+#: util.php:852 util.php:851 util.php:857 util.php:861
 msgid "Show items: "
 msgstr ""
 
-#: util.php:854 util.php:853 util.php:859 util.php:859
+#: util.php:854 util.php:853 util.php:859 util.php:863
 msgid "Unread only"
 msgstr ""
 
-#: util.php:855 util.php:854 util.php:860 util.php:860
+#: util.php:855 util.php:854 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr ""
 

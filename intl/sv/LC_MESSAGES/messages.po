@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -970,20 +970,17 @@ msgstr "<strong>%d</strong> inl&auml;gg (<strong id=\"fucnt\">%d</strong> ol&aum
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Visa: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Ol&auml;sta"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "L&auml;sta och ol&auml;sta"
-
-#~ msgid "Import file"
-#~ msgstr "Importera"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Keep the most recent items: "
@@ -1017,6 +1014,9 @@ msgstr "L&auml;sta och ol&auml;sta"
 
 #~ msgid "Create"
 #~ msgstr "Skapa"
+
+#~ msgid "Import file"
+#~ msgstr "Importera"
 
 #~ msgid "[+] expand"
 #~ msgstr "[+] Expandera"

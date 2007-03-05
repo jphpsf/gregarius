@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: 2007-02-06 03:44+0000\n"
 "Last-Translator: Jay <jayleecn@gmail.com>\n"
 "Language-Team: \n"
@@ -968,20 +968,17 @@ msgstr "<strong>%d</strong> 个条目 (其中<strong id=\"fucnt\">%d</strong>个
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "对不起，不能从网站上更新。"
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "显示条目: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "只显示未读"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "已读和未读"
-
-#~ msgid "Import file"
-#~ msgstr "導入 文件"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "保留最近的條目: "
@@ -1015,6 +1012,9 @@ msgstr "已读和未读"
 
 #~ msgid "Create"
 #~ msgstr "創建"
+
+#~ msgid "Import file"
+#~ msgstr "導入 文件"
 
 #~ msgid "[+] expand"
 #~ msgstr "[+] expand"

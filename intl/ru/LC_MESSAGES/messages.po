@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -968,20 +968,17 @@ msgstr "<strong>%d</strong> сообщений (<strong id=\"fucnt\">%d</strong>
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Показать записи: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Только непрочтенные"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Прочтенные и непрочтенные"
-
-#~ msgid "Import file"
-#~ msgstr "Импорт файла"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Оставить только последние записи: "
@@ -1015,6 +1012,9 @@ msgstr "Прочтенные и непрочтенные"
 
 #~ msgid "Create"
 #~ msgstr "Создать"
+
+#~ msgid "Import file"
+#~ msgstr "Импорт файла"
 
 #~ msgid "[+] expand"
 #~ msgstr "[+] раскрыть"

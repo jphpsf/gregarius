@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: 2006-11-07 18:14+0000\n"
 "Last-Translator: Ailandar <ailandar@dilines.net>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -966,20 +966,17 @@ msgstr "<strong>%d</strong> повідомлень (<strong id=\"fucnt\">%d</str
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Вибачте, оновлення з інтернету зараз недоступне."
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Показати повідомлення "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Тільки непрочитані"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Прочитані і непрочитані"
-
-#~ msgid "Import file"
-#~ msgstr "Імпортувати файл"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Зберегти останні повідомлення: "
@@ -1012,8 +1009,8 @@ msgstr "Прочитані і непрочитані"
 #~ msgid "Create"
 #~ msgstr "Створити"
 
-#~ msgid "Last update"
-#~ msgstr "Останнє оновлення"
+#~ msgid "Import file"
+#~ msgstr "Імпортувати файл"
 
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
@@ -1031,3 +1028,6 @@ msgstr "Прочитані і непрочитані"
 
 #~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 #~ msgstr "<p style=\"font-size:small\">Плагіни - це скрипти сторонніх розробників, що дають додаткову функціональність. Додаткові плагіни можна скачати з <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+
+#~ msgid "Last update"
+#~ msgstr "Останнє оновлення"

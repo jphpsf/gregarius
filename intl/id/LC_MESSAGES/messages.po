@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: 2006-09-30 04:46+0000\n"
 "Last-Translator: Aryo <aryo.sanjaya@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -968,20 +968,17 @@ msgstr "<strong>%d</strong> items (<strong>%d</strong> baru) pada <strong>%d</st
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Maaf, memperbarui dari web tidak diperbolehkan saat ini."
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Item ditampilkan: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Hanya yang baru"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Baru dan lama"
-
-#~ msgid "Import file"
-#~ msgstr "Import file"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Simpan item yang sering digunakan: "
@@ -1014,8 +1011,8 @@ msgstr "Baru dan lama"
 #~ msgid "Create"
 #~ msgstr "Buat"
 
-#~ msgid "Last update"
-#~ msgstr "Update terakhir"
+#~ msgid "Import file"
+#~ msgstr "Import file"
 
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
@@ -1033,3 +1030,6 @@ msgstr "Baru dan lama"
 
 #~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 #~ msgstr "<p style=\"font-size:small\">Plugin adalah script buatan pihak lain yang memberikan fungsi tambahan. Plugin lain dapat didownload di <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+
+#~ msgid "Last update"
+#~ msgstr "Update terakhir"

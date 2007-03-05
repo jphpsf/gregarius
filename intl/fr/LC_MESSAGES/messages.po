@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:05+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: 2007-01-30 18:28+0000\n"
 "Last-Translator: Marco Bonetti <mbonetti@gmail.com>\n"
 "Language-Team: \n"
@@ -963,14 +963,14 @@ msgstr "<strong>%d</strong> éléments (<strong id=\"fucnt\">%d</strong> non lus
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Désolé, les mises à jour depuis le Web ne sont pas autorisées"
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Afficher les &eacute;l&eacute;ments: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Non lus uniquement"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Lus et non lus"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: 2006-10-23 05:28+0000\n"
 "Last-Translator: mbi <mbonetti@gmail.com>\n"
 "Language-Team:\n"
@@ -965,20 +965,17 @@ msgstr "<strong>%d</strong> Artikel (<strong id=\"fucnt\">%d</strong> ungelesen)
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Sorry, Updates aus dem Internet sind momentan nicht zugelassen."
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Artikel anzeigen: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Nur Ungelesene"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Gelesene und Ungelesene"
-
-#~ msgid "Import file"
-#~ msgstr "Import file"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Behalte die neuesten Artikel: "
@@ -1016,8 +1013,8 @@ msgstr "Gelesene und Ungelesene"
 #~ msgid "Create"
 #~ msgstr "Erstellen"
 
-#~ msgid "[-] collapse"
-#~ msgstr "[-] verringern"
+#~ msgid "Import file"
+#~ msgstr "Import file"
 
 #~ msgid "[+] expand"
 #~ msgstr "[+] erweitern"
@@ -1028,3 +1025,6 @@ msgstr "Gelesene und Ungelesene"
 
 #~ msgid "%d items, %d unread"
 #~ msgstr "%d Artikel, %d ungelesen"
+
+#~ msgid "[-] collapse"
+#~ msgstr "[-] verringern"

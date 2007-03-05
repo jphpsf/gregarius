@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -968,20 +968,17 @@ msgstr "<strong>%d</strong> רשומות (<strong id=\"fucnt\">%d</strong> לא 
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "הראה רשומות: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "שלא נקראו"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "הכל"
-
-#~ msgid "Import file"
-#~ msgstr "יבא הגדרות"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "שמור את הרשומות החדשות ביותר: "
@@ -1024,8 +1021,8 @@ msgstr "הכל"
 #~ msgid "Create"
 #~ msgstr "צור חדש"
 
-#~ msgid "[-] collapse"
-#~ msgstr "[-] הקטן"
+#~ msgid "Import file"
+#~ msgstr "יבא הגדרות"
 
 #~ msgid "[+] expand"
 #~ msgstr "[+] הגדל"
@@ -1036,3 +1033,6 @@ msgstr "הכל"
 
 #~ msgid "%d items, %d unread"
 #~ msgstr "%d רשומות, %d לא נקראו"
+
+#~ msgid "[-] collapse"
+#~ msgstr "[-] הקטן"

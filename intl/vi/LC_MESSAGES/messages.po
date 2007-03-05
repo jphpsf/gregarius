@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: 2006-10-14 13:18+0000\n"
 "Last-Translator: Khoa Huynh <traquau@yahoo.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
@@ -968,20 +968,17 @@ msgstr "<strong>%d</strong> bản tin(<strong>%d</strong> unread) trong<strong>%
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Xin lỗi, 0 cập nhật từ web được."
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Hiển thị tin: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Chỉ tin chưa đọc"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Đã đọc và chưa đọc"
-
-#~ msgid "Import file"
-#~ msgstr "Nhập file"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Giữ các tin gần : "
@@ -1014,8 +1011,8 @@ msgstr "Đã đọc và chưa đọc"
 #~ msgid "Create"
 #~ msgstr "Tạo"
 
-#~ msgid "Last update"
-#~ msgstr "Cập nhật sau cùng"
+#~ msgid "Import file"
+#~ msgstr "Nhập file"
 
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
@@ -1032,3 +1029,6 @@ msgstr "Đã đọc và chưa đọc"
 
 #~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 #~ msgstr "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+
+#~ msgid "Last update"
+#~ msgstr "Cập nhật sau cùng"

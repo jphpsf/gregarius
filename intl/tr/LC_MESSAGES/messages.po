@@ -8,22 +8,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
-"PO-Revision-Date: 2006-12-27 18:41+0000\n"
-"Last-Translator: b314 <ozcanbaris@gmail.com>\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"PO-Revision-Date: 2007-02-28 01:05+0000\n"
+"Last-Translator: Kozan <kozanceylan@gmail.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2006-12-27 18:58+0000\n"
+"X-Rosetta-Export-Date: 2007-03-02 20:48+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
-msgstr "Beslemeler:"
+msgstr "Kaynaklar:"
 
 #: admin/channels.php:43
 msgid "Add a feed:"
-msgstr "Besleme ekle:"
+msgstr "Kaynak ekle:"
 
 #: admin/channels.php:46
 msgid "to folder:"
@@ -153,15 +153,15 @@ msgstr "Eminim!"
 
 #: admin/channels.php:238
 msgid "Folders"
-msgstr ""
+msgstr "Klasörler"
 
 #: admin/channels.php:240
 msgid "State"
-msgstr ""
+msgstr "Durum"
 
 #: admin/channels.php:257
 msgid "Categories:"
-msgstr ""
+msgstr "Kategoriler:"
 
 #: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
 #: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
@@ -363,7 +363,7 @@ msgstr "Zaten '%s' adında bir klasör var!"
 #: admin/index.php:202
 #, php-format
 msgid "<h1>Not Authorized!</h1>You are not authorized to access the administration interface. Please follow <a href=\"%s\">this link</a> back to the main page. Have  a nice day!"
-msgstr ""
+msgstr "<h1>İzniniz yok!</h1>Admin sayfasına ulaşmaya yetkiniz yok. Lütfen<a href=\"%s\">buraya</a> tıklayarak anasayfaya geri dönünüz. İyi günler!"
 
 #: admin/index.php:219
 msgid "Dashboard"
@@ -729,7 +729,7 @@ msgstr "404 Bulunamadı (Local cache)"
 
 #: cls/update.php:134
 msgid "403 Forbidden (Local cache)"
-msgstr ""
+msgstr "403 Yasaklı (Yerel Gizli Alan)"
 
 #: cls/update.php:143
 msgid "OK (HTTP 200)"
@@ -957,7 +957,7 @@ msgstr "Değerlendirme:"
 
 #: themes/default/web/pagination.php:2
 msgid "Skip to page: "
-msgstr ""
+msgstr "Şu sayfaya geç: "
 
 #: themes/milsi/feeds.php:4
 #, php-format
@@ -968,68 +968,14 @@ msgstr "<strong>%d</strong> beslemede <strong>%d</strong> yazı (<strong>%d</str
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Üzgünüz, webden güncelleme şu anda yapılamıyor."
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Yazıları göster: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Yalnızca okunmayanlar"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Okunan ve okunmayan"
-
-#~ msgid "Import file"
-#~ msgstr "Dosya al"
-
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Son yazıları koru: "
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ msgstr ""
-#~ "<h1>Yetkili değilsiniz!</h1>\n"
-#~ "Yönetim ekranını görüntüleyebilmek için gerekli yetkiniz yok.\n"
-
-#~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ msgstr "Anasayfaya dönmek için <a href=\"%s\">buraya tıklayın</a>.\n"
-
-#~ msgid "Have  a nice day!"
-#~ msgstr "İyi günler!"
-
-#~ msgid "(%d items)"
-#~ msgstr "(%d yazı)"
-
-#~ msgid "(%d unread in %d feeds)"
-#~ msgstr "(%d beslemede %d okunmayan)"
-
-#~ msgid "<strong>Oops!</strong> Bad login/password"
-#~ msgstr "<strong>Dikkat!</strong> Hatalı kullanıcı adı/şifre"
-
-#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-#~ msgstr "Okunmayan yazılar (<span id=\"ucnt\">%d</span>)"
-
-#~ msgid "Create"
-#~ msgstr "Oluştur"
-
-#~ msgid "Last update"
-#~ msgstr "Son güncelleme"
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ "Have  a nice day!"
-#~ msgstr ""
-#~ "<h1>Yetkili değilsiniz!</h1>\n"
-#~ "Yönetim ekranını görüntüleyebilmek için gereken yetkilere sahip değilsiniz.\n"
-#~ "<a href=\"%s\">Ana sayfaya dönmek için tıklayın</a> .\n"
-#~ "İyi günler!"
-
-#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr "<strong>Dikkat!</strong> %s olarak giriş yaptınız, ancak yönetici yetkilerine sahip değilsiniz. Yönetici yetkilerine sahip bir kullanıcı olarak tekrar giriş yapın ya da  <a href=\"..\">anasayfa</a>gidin."
-
-#~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
-#~ msgstr "<p style=\"font-size:small\">Eklentiler 3.parti yazılımlardır. <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Eklenti deposu</a>ndan daha fazla eklenti indirebilirsiniz.</p>"

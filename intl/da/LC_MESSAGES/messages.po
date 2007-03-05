@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -968,20 +968,17 @@ msgstr "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) i <s
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Vis items: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Kun ul&aelig;ste"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "L&aelig;st og ul&aelig;st"
-
-#~ msgid "Import file"
-#~ msgstr "Importer fil"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Behold de seneste items: "
@@ -1015,6 +1012,9 @@ msgstr "L&aelig;st og ul&aelig;st"
 
 #~ msgid "Create"
 #~ msgstr "Lav"
+
+#~ msgid "Import file"
+#~ msgstr "Importer fil"
 
 #~ msgid "[+] expand"
 #~ msgstr "[+] udvid"

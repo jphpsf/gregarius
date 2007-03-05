@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-07 09:05+0100\n"
+"POT-Creation-Date: 2007-03-05 17:48+0100\n"
 "PO-Revision-Date: 2007-01-17 19:25+0000\n"
 "Last-Translator: Asteris Masouras <asterios@gmail.com>\n"
 "Language-Team: Greek, Modern (1453-) <el@li.org>\n"
@@ -966,14 +966,14 @@ msgstr "<strong>%d</strong> καταχωρήσεις (<strong>%d</strong> αδι
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Λυπάμαι, η ενημέρωση από το διαδίκτυο είναι προς το παρόν αδύνατη."
 
-#: util.php:851 util.php:852 util.php:857
+#: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
 msgstr "Προβολή άρθρων: "
 
-#: util.php:853 util.php:854 util.php:859
+#: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
 msgstr "Μόνο αδιάβαστα"
 
-#: util.php:854 util.php:855 util.php:860
+#: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Διαβασμένα και αδιάβαστα"
