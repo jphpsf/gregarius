@@ -175,7 +175,7 @@ if (!isset($SAJAX_INCLUDED)) {
 			span.style.position='fixed';
 			span.style.left = '5px';
     	span.style.top = '5px';
-    	span.style.padding = '3px;';
+    	span.style.padding = '3px';
     	span.className = 'frame';    	
     	span.innerHTML = '<img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" />';
 			document.body.appendChild(span);
