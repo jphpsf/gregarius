@@ -30,32 +30,33 @@
 /// Name: Url filter
 /// Author: Marco Bonetti
 /// Description: This plugin will try to make ugly URL links look better
-/// Version: 1.8
+/// Version: 1.9
 
 /**
  * Replaces a link in the form <a href="http://www.test.com/a/b/c.html>http://www.test.com/a/b/c.html</a>
  * with a nicer <a href="http://www.test.com/a/b/c.html">[test.com]</a>
  */
-function __urlfilter_filter($in) {
-    $match = '#<a[^>]+?href="(.*?)">\\1</a>#im';
-    // matches non-linkified URLs
-    $match2 = '#[^>"\'/=\?](http[^\s$]+)[\s$]?#im';
-    $ret= preg_replace_callback($match, '__filter_callback', $in);
-    $ret2= preg_replace_callback($match2,'__filter_callback', $ret);
-    return $ret2;
-}
 
-/**
- * We need a callback because for some obscure reason the /ie modifier wouldnt work 
- * in preg_replace alone. This basically formats the output
- */
-function __filter_callback($matches) {
-    $ret = preg_match("/^(http:\/\/)?([^\/]+)/i", $matches[1], $outmatches);
-    if ($outmatches && isset ($outmatches[2])) {
-        return " <a href=\"". $matches[1]."\">[" . $outmatches[2] . "]</a> ";
-    }
-    return " <a href=\"". $matches[1]."\">[" . $matches[1] . "]</a> ";
-} 
+ function __urlfilter_filter($in) {
+     $match = '#<a[^>]+?href="(.*?)">\\1</a>#im';
+     // matches non-linkified URLs
+     $match2 = '#[^>"\'/=\?](http[^\s<$]+)[\s$]?#im';
+     $ret= preg_replace_callback($match, '__filter_callback', $in);
+     $ret2= preg_replace_callback($match2,'__filter_callback', $ret);
+     return $ret2;
+ }
+
+ /**
+  * We need a callback because for some obscure reason the /ie modifier wouldnt work 
+  * in preg_replace alone. This basically formats the output
+  */
+ function __filter_callback($matches) {
+     $ret = preg_match("/^(http:\/\/)?([^\/<]+)/i", $matches[1], $outmatches);
+     if ($outmatches && isset ($outmatches[2])) {
+         return " <a href=\"". $matches[1]."\">[" . $outmatches[2] . "]</a> ";
+     }
+     return " <a href=\"". $matches[1]."\">[" . $matches[1] . "]</a> ";
+ } 
 
 
 rss_set_hook('rss.plugins.import.description','__urlfilter_filter');
