@@ -61,7 +61,7 @@ if ( (isset($_REQUEST["iid"]) && $_REQUEST["iid"]) ) {
 		<?php echo rss_item_content(); ?>
 	</div>
 </li>
-<?
+<?php
 }
 else {
 	//list mode : we only show titles
@@ -117,6 +117,6 @@ else {
 		<?php echo rss_item_content(); ?>
 	</div>
 </li>
-<?
+<?php
 }
 ?>
