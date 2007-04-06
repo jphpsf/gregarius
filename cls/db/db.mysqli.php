@@ -41,7 +41,13 @@ class MysqliDB extends DB {
 
 
     function DBConnect($dbserver, $dbuname, $dbpass) {
-        $this -> _db = new mysqli($dbserver, $dbuname, $dbpass);
+		
+		if (class_exists('mysqli')) {
+			$this -> _db = new mysqli($dbserver, $dbuname, $dbpass);
+		} else {
+			$this -> _db = false;
+		}
+        
 
         if(!$this -> _db) {
             die( "<h1>Error connecting to the database!</h1>\n"
