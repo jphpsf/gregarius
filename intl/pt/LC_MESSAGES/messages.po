@@ -4,14 +4,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
-"PO-Revision-Date: 2006-12-19 12:34+0000\n"
-"Last-Translator: NunoCosta <nunocosta@fafeonline.com>\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
+"PO-Revision-Date: 2007-04-09 15:22+0000\n"
+"Last-Translator: Tiago Silva <tiagosilva29@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2006-12-21 22:38+0000\n"
+"X-Rosetta-Export-Date: 2007-04-10 07:18:20+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
@@ -56,7 +56,7 @@ msgstr ""
 
 #: admin/channels.php:71
 msgid "Register Gregarius!"
-msgstr ""
+msgstr "Registar o Gregarius!"
 
 #: admin/channels.php:97 admin/channels.php:131 admin/folders.php:46
 msgid "Title"
@@ -69,7 +69,7 @@ msgstr "Categoria"
 #: admin/channels.php:99 admin/channels.php:133 admin/config.php:69
 #: admin/plugins.php:99
 msgid "Description"
-msgstr "Descri&ccedil;&atilde;o"
+msgstr "Descrição"
 
 #: admin/channels.php:101 admin/channels.php:135
 msgid "Flags"
@@ -149,15 +149,16 @@ msgstr "Eu tenho certeza!"
 
 #: admin/channels.php:238
 msgid "Folders"
-msgstr ""
+msgstr "Pastas"
 
 #: admin/channels.php:240
+#, fuzzy
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #: admin/channels.php:257
 msgid "Categories:"
-msgstr ""
+msgstr "Categorias:"
 
 #: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
 #: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
@@ -290,7 +291,7 @@ msgstr "padr&atilde;o"
 
 #: admin/config.php:190
 msgid "Invalid config key specified."
-msgstr ""
+msgstr "Chave de configuração inválida especificada."
 
 #: admin/config.php:234 admin/config.php:252
 msgid "Preview"
@@ -311,8 +312,9 @@ msgid "True"
 msgstr "Verdadeiro"
 
 #: admin/config.php:368
+#, fuzzy
 msgid "Ooops, unknown config type: "
-msgstr ""
+msgstr "Ooops, tipo de configuração desconhecida: "
 
 #: admin/config.php:442 admin/config.php:467 admin/config.php:471
 #: admin/config.php:485
@@ -359,7 +361,7 @@ msgstr "Parece que voc&ecirc; j&aacute; tem uma Categoria chamada '%s'!"
 #: admin/index.php:202
 #, php-format
 msgid "<h1>Not Authorized!</h1>You are not authorized to access the administration interface. Please follow <a href=\"%s\">this link</a> back to the main page. Have  a nice day!"
-msgstr ""
+msgstr "<h1>Não autorizado!</h1>Não está autorizado a aceder ao painel de administração. <a href=\"%s\">Clique aqui</a> para voltar à página principal. Tenha um bom dia!"
 
 #: admin/index.php:219
 msgid "Dashboard"
@@ -409,7 +411,7 @@ msgstr "Sair"
 
 #: admin/index.php:336
 msgid "Admin"
-msgstr ""
+msgstr "Administração"
 
 #: admin/items.php:36
 msgid "Items:"
@@ -437,7 +439,7 @@ msgstr "anos"
 
 #: admin/items.php:49
 msgid "...from these feeds"
-msgstr ""
+msgstr "...destes campos"
 
 #: admin/items.php:52
 msgid "Delete Sticky items too: "
@@ -445,7 +447,7 @@ msgstr "Excluir &iacute;tems Fixos também: "
 
 #: admin/items.php:54
 msgid "Delete Unread items too: "
-msgstr ""
+msgstr "Apagar itens não lidos também: "
 
 #: admin/items.php:56
 msgid "Do not delete items tagged... "
@@ -526,7 +528,7 @@ msgstr "Plugins"
 
 #: admin/plugins.php:90
 msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
-msgstr ""
+msgstr "<p style=\"font-size:small\">Plugins são <i>scripts</i> de terceiros que oferecem funcionalidades adicionais. Mais plugins podem ser transferidos do <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Repositório de Plugins</a>.</p>"
 
 #: admin/plugins.php:95
 msgid "Active"
@@ -562,7 +564,7 @@ msgstr "Op&ccedil;&otilde;es do Plugin"
 
 #: admin/tags.php:162
 msgid "Selected"
-msgstr ""
+msgstr "Seleccionado"
 
 #: admin/tags.php:186
 msgid "Rename to..."
@@ -573,8 +575,9 @@ msgid "Themes"
 msgstr "Temas"
 
 #: admin/themes.php:58
+#, fuzzy
 msgid "<p style=\"font-size:small\">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
-msgstr ""
+msgstr "<p style=\"font-size:small\">Temas são feitos a partir de um conjunto de ficheiros modelo que especificam como a sua instalação do Gregarius é mostrada.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
 
 #: admin/themes.php:90
 msgid "Use this Theme"
@@ -705,7 +708,7 @@ msgstr "Resultados: "
 #: cls/taglist.php:86
 #, fuzzy, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr "<strong>%d</strong> notícias etiquetadas em <strong>%d</strong> etiquetas"
+msgstr "<strong>%d</strong> itens etiquetados com <strong>%d</strong>"
 
 #: cls/update.php:118
 msgid "OK (304 Not modified)"
@@ -725,7 +728,7 @@ msgstr "404 Não encontrado (Cache local)"
 
 #: cls/update.php:134
 msgid "403 Forbidden (Local cache)"
-msgstr ""
+msgstr "403 Proibido"
 
 #: cls/update.php:143
 msgid "OK (HTTP 200)"
@@ -752,7 +755,7 @@ msgstr "Estado"
 #: cls/update.php:363
 #, fuzzy
 msgid "New Items"
-msgstr "Novas Notícias"
+msgstr "Novos Items"
 
 #: cls/wrappers/header.php:142
 #, php-format
@@ -779,7 +782,7 @@ msgstr "Criado em: "
 #: cls/wrappers/toolkit.php:53
 #, fuzzy
 msgid "All"
-msgstr "Todas"
+msgstr "Todos"
 
 #: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
 msgid "Mark These Items as Read"
@@ -802,15 +805,18 @@ msgstr "sugest&otilde;es"
 msgid "play"
 msgstr "tocar"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Marcar Esta Categoria como Lida"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Marcar Esta Pasta como Lida"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Marcar Este Feed como Lido"
 
@@ -934,19 +940,19 @@ msgstr "descarregar"
 
 #: themes/default/mobile/item.php:34
 msgid "Read"
-msgstr ""
+msgstr "Lido"
 
 #: themes/default/mobile/item.php:35
 msgid "Unread"
-msgstr ""
+msgstr "Não lido"
 
 #: themes/default/mobile/nav.php:4
 msgid "Refresh"
-msgstr ""
+msgstr "Actualizar"
 
 #: themes/default/web/item.php:8 themes/default/web/item.php:9
 msgid "Edit Item Properties"
-msgstr ""
+msgstr "Editar propriedades dos items"
 
 #: themes/default/web/item.php:18 themes/lilina/web/item.php:42
 #: themes/lilina/web/item.php:98
@@ -955,7 +961,7 @@ msgstr "Avalia&ccedil;&atilde;o:"
 
 #: themes/default/web/pagination.php:2
 msgid "Skip to page: "
-msgstr ""
+msgstr "Saltar para: "
 
 #: themes/milsi/feeds.php:4
 #, php-format
@@ -964,7 +970,7 @@ msgstr "<strong>%d</strong> noticias (<strong>%d</strong> não lidas) em <strong
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr ""
+msgstr "Desculpe, actualizar da web não é permitido actualmente."
 
 #: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
@@ -977,6 +983,12 @@ msgstr "N&atilde;o lidos apenas"
 #: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Lidos e n&atilde;o lidos"
+
+#~ msgid "Create"
+#~ msgstr "Criar"
+
+#~ msgid "Import file"
+#~ msgstr "Importar arquivo"
 
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Mantenha os &iacute;tems mais recentes: "
@@ -1010,11 +1022,12 @@ msgstr "Lidos e n&atilde;o lidos"
 #~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
 #~ msgstr "&Iacute;tems n&atilde;o lidos(<strong id=\"ucnt\">%d</strong>)"
 
-#~ msgid "Create"
-#~ msgstr "Criar"
+#, fuzzy
+#~ msgid "tag"
+#~ msgstr "etiquetado"
 
-#~ msgid "Import file"
-#~ msgstr "Importar arquivo"
+#~ msgid "%d items, %d unread"
+#~ msgstr "%d &iacute;tems, %d n&atilde;o lidos"
 
 #~ msgid "[-] collapse"
 #~ msgstr "[-] contrair"
@@ -1024,10 +1037,3 @@ msgstr "Lidos e n&atilde;o lidos"
 
 #~ msgid "Last update"
 #~ msgstr "&Uacute;ltima actualiza&ccedil;&atilde;o"
-
-#, fuzzy
-#~ msgid "tag"
-#~ msgstr "etiquetado"
-
-#~ msgid "%d items, %d unread"
-#~ msgstr "%d &iacute;tems, %d n&atilde;o lidos"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: 2006-09-19 14:55+0000\n"
 "Last-Translator: mbi <mbonetti@gmail.com>\n"
 "Language-Team:\n"
@@ -798,15 +798,18 @@ msgstr "suggerimenti"
 msgid "play"
 msgstr "riproduci"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Marca tutti gli elementi di questa categoria come letti"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Marca tutti gli elementi di questa cartella come letti"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Marca tutti gli elementi di questo feed come letti"
 

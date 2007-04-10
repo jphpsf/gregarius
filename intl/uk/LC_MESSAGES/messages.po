@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: 2006-11-07 18:14+0000\n"
 "Last-Translator: Ailandar <ailandar@dilines.net>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -802,15 +802,18 @@ msgstr "варіанти"
 msgid "play"
 msgstr "програти"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Відмітити цю категорію прочитаною"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Відмітити цю папку прочитаною"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Відмітити цю стрічку прочитаною"
 
@@ -978,9 +981,6 @@ msgstr "Тільки непрочитані"
 msgid "Read and unread"
 msgstr "Прочитані і непрочитані"
 
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Зберегти останні повідомлення: "
-
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
 #~ "You are not authorized to access the administration interface.\n"
@@ -1012,6 +1012,18 @@ msgstr "Прочитані і непрочитані"
 #~ msgid "Import file"
 #~ msgstr "Імпортувати файл"
 
+#~ msgid "Keep the most recent items: "
+#~ msgstr "Зберегти останні повідомлення: "
+
+#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
+#~ msgstr "<strong>Ой!</strong> Ви успішно увійшли як %s, Але Ви не маєте адміністраторських повноважень. Увійдіть як користувач з повноваженнями адміністратора або перейдіть на <a href=\"..\">головну сторінку</a>"
+
+#~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+#~ msgstr "<p style=\"font-size:small\">Плагіни - це скрипти сторонніх розробників, що дають додаткову функціональність. Додаткові плагіни можна скачати з <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+
+#~ msgid "Last update"
+#~ msgstr "Останнє оновлення"
+
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
 #~ "You are not authorized to access the administration interface.\n"
@@ -1022,12 +1034,3 @@ msgstr "Прочитані і непрочитані"
 #~ "Ви не маєте доступу до адміністративного інтерфейсу.\n"
 #~ "Будь ласка, перейдіть <a href=\"%s\">за цим посиланням</a> на головну сторінку.\n"
 #~ "Приємного дня!"
-
-#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr "<strong>Ой!</strong> Ви успішно увійшли як %s, Але Ви не маєте адміністраторських повноважень. Увійдіть як користувач з повноваженнями адміністратора або перейдіть на <a href=\"..\">головну сторінку</a>"
-
-#~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
-#~ msgstr "<p style=\"font-size:small\">Плагіни - це скрипти сторонніх розробників, що дають додаткову функціональність. Додаткові плагіни можна скачати з <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
-
-#~ msgid "Last update"
-#~ msgstr "Останнє оновлення"

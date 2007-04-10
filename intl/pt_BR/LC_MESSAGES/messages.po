@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: 2006-12-18 04:16+0000\n"
 "Last-Translator: Tiago Dias Bugarin <tiagobugarin@gmail.com>\n"
 "Language-Team: \n"
@@ -799,15 +799,18 @@ msgstr "sugest&otilde;es"
 msgid "play"
 msgstr "tocar"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Marcar esta categoria como lida"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Marcar esta pasta como lida"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Marcar este feed como lido"
 
@@ -975,9 +978,6 @@ msgstr "N&atilde;o lidos apenas"
 msgid "Read and unread"
 msgstr "Lidos e n&atilde;o lidos"
 
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Mantenha os &iacute;tens mais recentes: "
-
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
 #~ "You are not authorized to access the administration interface.\n"
@@ -1015,8 +1015,8 @@ msgstr "Lidos e n&atilde;o lidos"
 #~ msgid "Import file"
 #~ msgstr "Importar arquivo"
 
-#~ msgid "%d items, %d unread"
-#~ msgstr "%d &iacute;tens, %d n&atilde;o lidos"
+#~ msgid "Keep the most recent items: "
+#~ msgstr "Mantenha os &iacute;tens mais recentes: "
 
 #~ msgid "[-] collapse"
 #~ msgstr "[-] contrair"
@@ -1041,3 +1041,6 @@ msgstr "Lidos e n&atilde;o lidos"
 #, fuzzy
 #~ msgid "tag"
 #~ msgstr "etiquetado"
+
+#~ msgid "%d items, %d unread"
+#~ msgstr "%d &iacute;tens, %d n&atilde;o lidos"

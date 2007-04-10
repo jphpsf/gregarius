@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: 2006-09-30 04:46+0000\n"
 "Last-Translator: Aryo <aryo.sanjaya@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -804,15 +804,18 @@ msgstr "saran"
 msgid "play"
 msgstr "mainkan"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Tandai Kategori ini jadi Terbaca"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Tandai Folder ini jadi Terbaca"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Tandai Feed jadi Terbaca"
 
@@ -980,9 +983,6 @@ msgstr "Hanya yang baru"
 msgid "Read and unread"
 msgstr "Baru dan lama"
 
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Simpan item yang sering digunakan: "
-
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
 #~ "You are not authorized to access the administration interface.\n"
@@ -1014,6 +1014,18 @@ msgstr "Baru dan lama"
 #~ msgid "Import file"
 #~ msgstr "Import file"
 
+#~ msgid "Keep the most recent items: "
+#~ msgstr "Simpan item yang sering digunakan: "
+
+#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
+#~ msgstr "<strong>Oohh!</strong> Anda sudah berhasil login sebagai %s, tapi tidak punya hak sebagai Administrator. Silakan login lagi sebagai Administrator atau tetap melanjutkan ke <a href=\"..\">halaman depan</a>"
+
+#~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+#~ msgstr "<p style=\"font-size:small\">Plugin adalah script buatan pihak lain yang memberikan fungsi tambahan. Plugin lain dapat didownload di <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+
+#~ msgid "Last update"
+#~ msgstr "Update terakhir"
+
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
 #~ "You are not authorized to access the administration interface.\n"
@@ -1024,12 +1036,3 @@ msgstr "Baru dan lama"
 #~ "Anda tidak berhak masuk area administratsi.\n"
 #~ "Silakan ikuti <a href=\"%s\">link ini</a> untuk kembali ke halaman utama.\n"
 #~ "Semoga sukses!"
-
-#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr "<strong>Oohh!</strong> Anda sudah berhasil login sebagai %s, tapi tidak punya hak sebagai Administrator. Silakan login lagi sebagai Administrator atau tetap melanjutkan ke <a href=\"..\">halaman depan</a>"
-
-#~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
-#~ msgstr "<p style=\"font-size:small\">Plugin adalah script buatan pihak lain yang memberikan fungsi tambahan. Plugin lain dapat didownload di <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
-
-#~ msgid "Last update"
-#~ msgstr "Update terakhir"

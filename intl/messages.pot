@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -858,17 +858,17 @@ msgid "play"
 msgstr ""
 
 #: plugins/markallread.php:64 plugins/markallread.php:110
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:65 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr ""
 
 #: plugins/markallread.php:75 plugins/markallread.php:104
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:76 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr ""
 
 #: plugins/markallread.php:86 plugins/markallread.php:98
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:87 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr ""
 
@@ -1061,15 +1061,15 @@ msgstr ""
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr ""
 
-#: util.php:852 util.php:851 util.php:857 util.php:861
+#: util.php:852 util.php:851 util.php:857 util.php:861 util.php:861
 msgid "Show items: "
 msgstr ""
 
-#: util.php:854 util.php:853 util.php:859 util.php:863
+#: util.php:854 util.php:853 util.php:859 util.php:863 util.php:863
 msgid "Unread only"
 msgstr ""
 
-#: util.php:855 util.php:854 util.php:860 util.php:864
+#: util.php:855 util.php:854 util.php:860 util.php:864 util.php:864
 msgid "Read and unread"
 msgstr ""
 

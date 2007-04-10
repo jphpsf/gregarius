@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -804,15 +804,18 @@ msgstr "הצעות"
 msgid "play"
 msgstr "נגן"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "סמן את הקטגוריה כקרואה"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "סמן את המחיצה כקרואה"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "סמן את הערוץ כקרוא"
 
@@ -980,9 +983,6 @@ msgstr "שלא נקראו"
 msgid "Read and unread"
 msgstr "הכל"
 
-#~ msgid "Keep the most recent items: "
-#~ msgstr "שמור את הרשומות החדשות ביותר: "
-
 #, fuzzy
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
@@ -1024,8 +1024,8 @@ msgstr "הכל"
 #~ msgid "Import file"
 #~ msgstr "יבא הגדרות"
 
-#~ msgid "[+] expand"
-#~ msgstr "[+] הגדל"
+#~ msgid "Keep the most recent items: "
+#~ msgstr "שמור את הרשומות החדשות ביותר: "
 
 #, fuzzy
 #~ msgid "tag"
@@ -1036,3 +1036,6 @@ msgstr "הכל"
 
 #~ msgid "[-] collapse"
 #~ msgstr "[-] הקטן"
+
+#~ msgid "[+] expand"
+#~ msgstr "[+] הגדל"

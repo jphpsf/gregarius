@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
-"PO-Revision-Date: 2007-01-21 15:30+0000\n"
-"Last-Translator: Twan van Elk <info@twanvanelk.nl>\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
+"PO-Revision-Date: 2007-03-24 11:52+0000\n"
+"Last-Translator: filipv <filipv@telenet.be>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-01-29 04:50+0000\n"
+"X-Rosetta-Export-Date: 2007-03-24 11:58+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
@@ -153,15 +153,15 @@ msgstr "Ik weet het zeker!"
 
 #: admin/channels.php:238
 msgid "Folders"
-msgstr ""
+msgstr "Mappen"
 
 #: admin/channels.php:240
 msgid "State"
-msgstr ""
+msgstr "Regio"
 
 #: admin/channels.php:257
 msgid "Categories:"
-msgstr ""
+msgstr "Categorieën:"
 
 #: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
 #: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
@@ -803,15 +803,18 @@ msgstr "suggesties"
 msgid "play"
 msgstr "afspelen"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Markeer deze categorie als Gelezen"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Markeer deze folder als Gelezen"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Markeer deze feed als Gelezen."
 
@@ -956,7 +959,7 @@ msgstr "Waardering:"
 
 #: themes/default/web/pagination.php:2
 msgid "Skip to page: "
-msgstr ""
+msgstr "Ga naar pagina "
 
 #: themes/milsi/feeds.php:4
 #, php-format

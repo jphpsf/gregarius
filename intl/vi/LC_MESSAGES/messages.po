@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: 2006-10-14 13:18+0000\n"
 "Last-Translator: Khoa Huynh <traquau@yahoo.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
@@ -804,15 +804,18 @@ msgstr "đề nghị"
 msgid "play"
 msgstr "chơi"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Đánh dấu thể loại này đã đọc"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Đánh dấu thư mục này đã đọc"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Đánh dấu nguồn này như đã đọc"
 
@@ -980,9 +983,6 @@ msgstr "Chỉ tin chưa đọc"
 msgid "Read and unread"
 msgstr "Đã đọc và chưa đọc"
 
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Giữ các tin gần : "
-
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
 #~ "You are not authorized to access the administration interface.\n"
@@ -1014,15 +1014,8 @@ msgstr "Đã đọc và chưa đọc"
 #~ msgid "Import file"
 #~ msgstr "Nhập file"
 
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ "Have  a nice day!"
-#~ msgstr ""
-#~ "<h1>Không có quyền!</h1>↵\n"
-#~ "Bạn 0 có quyền truy cập.Vui lòng theo đuờng dẫn này <a href=\"%s\">VNFEEDS</a> trở về trang chủ.↵\n"
-#~ "htkhoa@gmail.com!"
+#~ msgid "Keep the most recent items: "
+#~ msgstr "Giữ các tin gần : "
 
 #~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
 #~ msgstr "<strong>Oops!</strong> Bạn đăng nhập thành công như %s, nhưng 0 có quyền quản trị  <a href=\"..\">Trang chủ</a>"
@@ -1032,3 +1025,13 @@ msgstr "Đã đọc và chưa đọc"
 
 #~ msgid "Last update"
 #~ msgstr "Cập nhật sau cùng"
+
+#~ msgid ""
+#~ "<h1>Not Authorized!</h1>\n"
+#~ "You are not authorized to access the administration interface.\n"
+#~ "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
+#~ "Have  a nice day!"
+#~ msgstr ""
+#~ "<h1>Không có quyền!</h1>↵\n"
+#~ "Bạn 0 có quyền truy cập.Vui lòng theo đuờng dẫn này <a href=\"%s\">VNFEEDS</a> trở về trang chủ.↵\n"
+#~ "htkhoa@gmail.com!"

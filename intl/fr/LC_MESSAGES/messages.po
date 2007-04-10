@@ -4,14 +4,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
-"PO-Revision-Date: 2007-01-30 18:28+0000\n"
-"Last-Translator: Marco Bonetti <mbonetti@gmail.com>\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
+"PO-Revision-Date: 2007-04-07 17:05+0000\n"
+"Last-Translator: Nicolas Velin <nsv@fr.st>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-02-07 06:33+0000\n"
+"X-Rosetta-Export-Date: 2007-04-10 07:18:19+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
@@ -22,6 +22,7 @@ msgid "Add a feed:"
 msgstr "Ajouter un canal:"
 
 #: admin/channels.php:46
+#, fuzzy
 msgid "to folder:"
 msgstr "au r&eacute;pertoire:"
 
@@ -29,8 +30,9 @@ msgstr "au r&eacute;pertoire:"
 #: admin/channels.php:239 admin/channels.php:866 admin/channels.php:930
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
 #: themes/default/mobile/nav.php:3
+#, fuzzy
 msgid "Categories"
-msgstr "Catégories"
+msgstr "Cat&eacute;gories"
 
 #: admin/channels.php:51 admin/channels.php:263 admin/channels.php:321
 #: admin/channels.php:381 admin/channels.php:439 admin/folders.php:41
@@ -43,6 +45,7 @@ msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish 
 msgstr "(Veuillez saisir l'URL d'un flux RSS ou d'un site Internet)"
 
 #: admin/channels.php:62
+#, fuzzy
 msgid "Subscribe in Gregarius!"
 msgstr "Ajouter &agrave; Gregarius!"
 
@@ -149,15 +152,15 @@ msgstr "Je suis sur!"
 
 #: admin/channels.php:238
 msgid "Folders"
-msgstr ""
+msgstr "Répertoires"
 
 #: admin/channels.php:240
 msgid "State"
-msgstr ""
+msgstr "Etat"
 
 #: admin/channels.php:257
 msgid "Categories:"
-msgstr ""
+msgstr "Catégories:"
 
 #: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
 #: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
@@ -217,7 +220,7 @@ msgstr "Editer le canal "
 #: admin/channels.php:834 admin/channels.php:837 admin/channels.php:898
 #: admin/channels.php:901
 msgid "Added"
-msgstr "Added"
+msgstr "Ajouté"
 
 #: admin/channels.php:835 admin/channels.php:838 admin/channels.php:899
 #: admin/channels.php:902 themes/default/web/footer.php:17
@@ -799,15 +802,18 @@ msgstr "suggestions"
 msgid "play"
 msgstr "jouer"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Marquer cette cat&eacute;gorie comme lu"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Marquer ce r&eacute;pertoire comme lu"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Marquer ce canal comme lu"
 
@@ -952,7 +958,7 @@ msgstr "Classement:"
 
 #: themes/default/web/pagination.php:2
 msgid "Skip to page: "
-msgstr ""
+msgstr "Sauter à la page: "
 
 #: themes/milsi/feeds.php:4
 #, php-format
@@ -974,3 +980,70 @@ msgstr "Non lus uniquement"
 #: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Lus et non lus"
+
+#~ msgid "Create"
+#~ msgstr "Cr&eacute;er"
+
+#~ msgid "Import file"
+#~ msgstr "Importer le fichier"
+
+#~ msgid "Keep the most recent items: "
+#~ msgstr "Ne garder que ce nombre d'&eacute;l&eacute;ments: "
+
+#~ msgid ""
+#~ "<h1>Not Authorized!</h1>\n"
+#~ "You are not authorized to access the administration interface.\n"
+#~ msgstr ""
+#~ "<h1>Non Autorisé</h1>\n"
+#~ "Vous n'êtes pas autorisé à accéder a l'interface d'administration.\n"
+
+#~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
+#~ msgstr "Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir à la page principale.\n"
+
+#~ msgid "Have  a nice day!"
+#~ msgstr "Bonne journée!"
+
+#~ msgid "(%d items)"
+#~ msgstr "(%d &eacute;l&eacute;ments)"
+
+#~ msgid "(%d unread in %d feeds)"
+#~ msgstr "(%d non lus dans %d canaux)"
+
+#~ msgid "<strong>Oops!</strong> Bad login/password"
+#~ msgstr "<strong>Oops!</strong> Mauvais nom d'utilisateur / mot de passe"
+
+#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
+#~ msgstr "<strong>Oops!</strong> Vous êtes connecté en tant que %s, mais vous n'avez pas de privilège administrateur. Veuillez vous reconnecter avec un compte utilisateur ayant des droits d'administration, ou revenez à la <a href=\"..\">racine</a>"
+
+#~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+#~ msgstr "<p style=\"font-size:small\">Les plugins sont des scripts qui offrent des fonctionnalités ajoutées. D'autres plugins peuvent être téléchargés depuis le <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/?lang=fr\">Répertoire de plugins</a>.</p>"
+
+#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
+#~ msgstr "Éléments non lus (<strong id=\"ucnt\">%d</strong>)"
+
+#, fuzzy
+#~ msgid "tag"
+#~ msgstr "tagg&eacute;s"
+
+#~ msgid ""
+#~ "<h1>Not Authorized!</h1>\n"
+#~ "You are not authorized to access the administration interface.\n"
+#~ "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
+#~ "Have  a nice day!"
+#~ msgstr ""
+#~ "<h1>Non autorisé!</h1>\n"
+#~ "Vous n'êtes pas autorisé à accéder à l'interface d'administration.\n"
+#~ "Veuillez suivre <a href=\"%s\">ce lien</a> pour revenir à la racine.\n"
+#~ "Bonne journée!"
+
+#~ msgid "%d items, %d unread"
+#~ msgstr "%d &eacute;l&eacute;ments , %d non lus"
+
+#~ msgid "[-] collapse"
+#~ msgstr "[-] replier"
+
+#~ msgid "[+] expand"
+#~ msgstr "[+] d&eacute;plier"
+
+#~ msgid "Last update"
+#~ msgstr "Dernière mise à jour"

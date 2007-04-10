@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: 2007-01-17 19:25+0000\n"
 "Last-Translator: Asteris Masouras <asterios@gmail.com>\n"
 "Language-Team: Greek, Modern (1453-) <el@li.org>\n"
@@ -802,15 +802,18 @@ msgstr "προτάσεις"
 msgid "play"
 msgstr "αναπαραγωγή"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Σήμανση Κατηγορίας ως Διαβασμένη"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Σήμανση Φακέλου ως Αδιάβαστου"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Σήμανση Ροής ως Διαβασμένη"
 

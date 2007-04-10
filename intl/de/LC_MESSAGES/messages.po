@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gregarius 0.5.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-05 17:48+0100\n"
+"POT-Creation-Date: 2007-04-10 10:02+0200\n"
 "PO-Revision-Date: 2006-10-23 05:28+0000\n"
 "Last-Translator: mbi <mbonetti@gmail.com>\n"
 "Language-Team:\n"
@@ -801,15 +801,18 @@ msgstr "Vorschl&auml;ge"
 msgid "play"
 msgstr "abspielen"
 
-#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:65
+#: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr "Markiere diese Kategorie als gelesen"
 
-#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:76
+#: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr "Markiere diesen Ordner als gelesen"
 
-#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:87
+#: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr "Markiere diesen Feed als gelesen"
 
@@ -977,9 +980,6 @@ msgstr "Nur Ungelesene"
 msgid "Read and unread"
 msgstr "Gelesene und Ungelesene"
 
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Behalte die neuesten Artikel: "
-
 #~ msgid ""
 #~ "<h1>Not Authorized!</h1>\n"
 #~ "You are not authorized to access the administration interface.\n"
@@ -1016,8 +1016,8 @@ msgstr "Gelesene und Ungelesene"
 #~ msgid "Import file"
 #~ msgstr "Import file"
 
-#~ msgid "[+] expand"
-#~ msgstr "[+] erweitern"
+#~ msgid "Keep the most recent items: "
+#~ msgstr "Behalte die neuesten Artikel: "
 
 #, fuzzy
 #~ msgid "tag"
@@ -1028,3 +1028,6 @@ msgstr "Gelesene und Ungelesene"
 
 #~ msgid "[-] collapse"
 #~ msgstr "[-] verringern"
+
+#~ msgid "[+] expand"
+#~ msgstr "[+] erweitern"
