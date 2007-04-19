@@ -25,6 +25,7 @@
 #
 ###############################################################################
 
+
 require_once("init.php");
 
 // Show unread items on the front page?
