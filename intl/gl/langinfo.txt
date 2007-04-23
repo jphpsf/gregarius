@@ -1,0 +1,4 @@
+Language: Galician
+Locale: gl
+Windows-locale: gl
+Author: Amador Loureiro Blanco - https://launchpad.net/~dorfun
