@@ -130,16 +130,14 @@ if (isset($_GET['kbnjs'])) {
 				ret.state = rx[2];
 				ret.cid = rx[3];
 			} else {
-				var divs = item.getElementsByTagName('div');
-				for(var i=0;i<divs.length;i++) {
-					if(divs[i].className.indexOf('content') > -1) {
-						ret.id = divs[i].id.replace(/[^0-9]/g,'');
-						break;
-					}
-				}
+				ret.id = item.id.replace(/[^0-9]/g,'');
 			}
-            if (href = item.getElementsByTagName('h4').item(0).getElementsByTagName('a').item(0).href) {
-				ret.url = href;
+			var links = item.getElementsByTagName('a');
+			for(var i=0;i<links.length;i++){
+				if(links[i].className.indexOf('item_url') > -1) {
+					ret.url = links[i].href;
+					break;
+				}
 			}
 			return ret;
         }
