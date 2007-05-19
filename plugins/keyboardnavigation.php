@@ -25,15 +25,17 @@
 /// Name: Keyboard naviation
 /// Author: Marco Bonetti
 /// Description: Navigate between items without using your mouse.
-/// Version: 0.3
+/// Version: 0.4
+/// Configuration: __kbnav_config
 
-$__kbnav_version = 'kbnav_0.3';
+$__kbnav_version = 'kbnav_0.4';
 
 /**
 * Changelog:
 * 0.1 - basic navigation: j/k: down/up, m: mark as read, s: toggle sticky
 * 0.2 - f: toggle flag, c: lilina theme un/collapse
 * 0.3 - o: open URL for item, shift-o: open URL in new window, fix: item-collapse/expand for non-logged in users.
+* 0.4 - configuration
 */
 
 /**
@@ -42,6 +44,110 @@ $__kbnav_version = 'kbnav_0.3';
 *  Next Feed / Previous Feed
 *  Next Unread Feed / Previous Unread Feed
 */
+
+define ('KBNAVIGATIONPLUGIN_KMAP_CONFIG_OPTIONS', 'kbnav.options.keymapping');
+/**
+ * Labels
+ */
+function __kbnav_config_actions() {
+	return array(
+		'__kbnav_Next' => 'Navigate to next item',
+        '__kbnav_Prev' => 'Navigate to previous item',
+        '__kbnav_ToggleSticky' => 'Toggle Sticky state of the current item',
+        '__kbnav_ToggleFlag' => 'Toggle Flagged state of the current item',
+        '__kbnav_NextMarkRead' => 'Mark current item as read, move to the next one',
+        '__kbnav_ScrollTop' => 'Scroll to the top of the window',
+        '__kbnav_ToggleCollapse' => 'In the Lilina theme, toggle the collapsed state of the current item',
+		'__kbnav_OpenUrl' => 'Navigate to the URL of the current item',
+		'__kbnav_OpenUrlNW' => 'Navigate to the URL of the current item in a new window',        
+	);
+}
+/**
+ * Fetch the config from the config, add default values for missing keys
+ */
+function __kbnav_config_action_keys() {
+	$kmap = rss_plugins_get_option(KBNAVIGATIONPLUGIN_KMAP_CONFIG_OPTIONS);
+	if (!isset($kmap['__kbnav_Next']['key'])) {$kmap['__kbnav_Next']['key'] = 'j';}
+	if (!isset($kmap['__kbnav_Prev']['key'])) {$kmap['__kbnav_Prev']['key'] = 'k';}
+	if (!isset($kmap['__kbnav_ToggleSticky']['key'])) {$kmap['__kbnav_ToggleSticky']['key'] = 's';}
+	if (!isset($kmap['__kbnav_ToggleFlag']['key'])) {$kmap['__kbnav_ToggleFlag']['key'] = 'f';}
+	if (!isset($kmap['__kbnav_NextMarkRead']['key'])) {$kmap['__kbnav_NextMarkRead']['key'] = 'm';}
+	if (!isset($kmap['__kbnav_ScrollTop']['key'])) {$kmap['__kbnav_ScrollTop']['key'] = 'h';}
+	if (!isset($kmap['__kbnav_ToggleCollapse']['key'])) {$kmap['__kbnav_ToggleCollapse']['key'] = 'c';}
+	if (!isset($kmap['__kbnav_OpenUrl']['key'])) {$kmap['__kbnav_OpenUrl']['key'] = 'o';}
+	if (!isset($kmap['__kbnav_OpenUrlNW']['key'])) {
+		$kmap['__kbnav_OpenUrlNW']['key'] = 'o';
+		$kmap['__kbnav_OpenUrlNW']['modifier'] = 'shift';
+	}
+	return $kmap;
+}
+
+/**
+ * Configuration: display a table row for each possible action
+ */
+function __kbnav_config() {
+	$kmap = __kbnav_config_action_keys();
+	if (rss_plugins_is_submit()) {
+		foreach($_POST as $k => $v) {
+			if (preg_match('#key_([a-zA-Z_]+)#',$k,$matches)) {
+				$action = $matches[1];
+				if(isset($kmap[$action])) {
+					$kmap[$action]['key'] = $v;
+				}
+			} elseif(preg_match('#mod_([a-zA-Z_]+)#',$k,$matches)) {
+				$action = $matches[1];
+				if(isset($kmap[$action])) {
+					$kmap[$action]['modifier'] = $v;
+				}
+			} 
+		}
+		rss_plugins_add_option(KBNAVIGATIONPLUGIN_KMAP_CONFIG_OPTIONS, $kmap, 'array'); 
+		return;
+	} 
+	$actions = __kbnav_config_actions();
+?>
+	<table class="frame">
+		<tr>
+			<th>Action</th>
+			<th>Modifier</th>
+			<th>Key</th>
+		</tr>
+<?php foreach($kmap as $action => $data) { ?>
+	<tr>
+		<td><?php echo $actions[$action] ?></td>
+		<td><?php  __kbnav_config_modifier_combo($action,@$kmap[$action]['modifier']); ?></td>
+		<td><?php  __kbnav_config_key_combo($action,@$kmap[$action]['key']); ?></td>
+	</tr>
+<?php } ?>
+	</table>
+<?php	
+}
+
+/**
+ * Helper: displays a modifier combo
+ */
+function __kbnav_config_modifier_combo($name,$modifier = null) {
+?>
+	<select name="mod_<?php echo $name; ?>">
+	<option value="">None</option>
+	<option <?php echo $modifier == 'shift' ? 'selected="selected" ':''; ?> value="shift">Shift</option>
+	</select>
+<?php
+}
+
+/**
+ * Helper: displays a list of keys, from a to z.
+ * Fixme: up/down arrows?
+ */
+function __kbnav_config_key_combo($name,$key = null) {
+?>
+	<select name="key_<?php echo $name; ?>">
+<?php for($c=ord('a');$c<=ord('z');$c++) { ?>
+	<option <?php echo $key == chr($c) ? 'selected="selected" ':''; ?> value="<?php echo chr($c); ?>"><?php echo strtoupper(chr($c)); ?></option>
+<?php } ?>
+	</select>
+<?php 
+}
 
 function __kbnav_js_register($js) {
     $js[] = getPath(). RSS_PLUGINS_DIR . "/keyboardnavigation.php?kbnjs";
@@ -52,8 +158,24 @@ function __kbnav_init_js($dummy) {
 ?>
     <script type="text/javascript">
     <!--
-    document.onkeypress = function(event) {return __kbnav_getKey(event)};
-     __kbnav_init();
+    document.onkeypress = function(event) {
+		event = event || window.event;
+		var code = event.which || event.keyCode;
+    	var target = event.target || event.srcElement;
+    	if (target.nodeName.toUpperCase() == 'INPUT') {
+        	return true;
+    	}
+
+    	switch(String.fromCharCode(code)) {
+			<?php
+				foreach(__kbnav_config_action_keys() as $action => $data) {
+					printf( "\tcase '%s': return %s();break;\n",  ($data['modifier'] == 'shift' ? strtoupper($data['key']):strtolower($data['key'])), $action);
+				}
+			?>
+        	default : return true;
+    	}
+    };
+	__kbnav_init();
     // -->
     </script>
 <?php
@@ -74,36 +196,11 @@ if (isset($_GET['kbnjs'])) {
 ?>
     var kbNavCurrent = -1;
     var kbNavItems = new Array();
+    var kbNavConfig;
     
-    
-    function __kbnav_getKey(event) {
-        if (!event) {
-            event = window.event;
-            var code = event.keyCode;
-        } else {
-            var code = event.which;
-        }
-        var target = event.target || event.srcElement;
-        
-        if (target.nodeName.toUpperCase() == 'INPUT') {
-            return true;
-        }
-        
-        switch(String.fromCharCode(code).toLowerCase()) {
-            case 'j': return __kbnav_Next(); break;
-            case 'k': return __kbnav_Prev(); break;
-            case 's': return __kbnav_ToggleSticky(); break;
-            case 'f': return __kbnav_ToggleFlag(); break;
-            case 'm': return __kbnav_NextMarkRead(); break;
-            case 'h': return __kbnav_ScrollTop(); break;
-            case 'c': return __kbnav_ToggleCollapse(); break;
-			case 'o': return (event.shiftKey ? __kbnav_OpenUrlNW() : __kbnav_OpenUrl()); break;
-            default : return true;
-        }
-    }
-    
-    function __kbnav_init() {
+    function __kbnav_init(cfg) {
         kbNavItems = new Array();
+		kbNavConfig = cfg;
         var list = document.getElementsByTagName('li');
         for(var i=0;i<list.length;i++) {
             if (list[i].className && list[i].className.indexOf('item') == 0) {
@@ -178,7 +275,6 @@ if (isset($_GET['kbnjs'])) {
     function __kbnav_scrollTo(i) {
         if (kbNavItems[kbNavCurrent+i]) {
             var y = kbNavItems[kbNavCurrent+i].offsetTop - 10;
-            //kbNavItems[kbNavCurrent+i].style. // do something
             var span = document.getElementById('kbnavptr');
             
             if (y > 0) {
