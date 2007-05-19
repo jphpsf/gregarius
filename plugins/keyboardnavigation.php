@@ -25,20 +25,20 @@
 /// Name: Keyboard naviation
 /// Author: Marco Bonetti
 /// Description: Navigate between items without using your mouse.
-/// Version: 0.2
+/// Version: 0.3
 
-$__kbnav_version = 'kbnav_0.2';
+$__kbnav_version = 'kbnav_0.3';
 
 /**
 * Changelog:
 * 0.1 - basic navigation: j/k: down/up, m: mark as read, s: toggle sticky
 * 0.2 - f: toggle flag, c: lilina theme un/collapse
+* 0.3 - o: open URL for item, shift-o: open URL in new window, fix: item-collapse/expand for non-logged in users.
 */
 
 /**
 * Wishlist:
 *  Mark all as read
-*  Un/Collapse when not logged in
 */
 
 function __kbnav_js_register($js) {
@@ -127,6 +127,14 @@ if (isset($_GET['kbnjs'])) {
 				ret.id = rx[1];
 				ret.state = rx[2];
 				ret.cid = rx[3];
+			} else {
+				var divs = item.getElementsByTagName('div');
+				for(var i=0;i<divs.length;i++) {
+					if(divs[i].className.indexOf('content') > -1) {
+						ret.id = divs[i].id.replace(/[^0-9]/g,'');
+						break;
+					}
+				}
 			}
             if (href = item.getElementsByTagName('h4').item(0).getElementsByTagName('a').item(0).href) {
 				ret.url = href;
