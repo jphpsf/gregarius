@@ -39,6 +39,8 @@ $__kbnav_version = 'kbnav_0.3';
 /**
 * Wishlist:
 *  Mark all as read
+*  Next Feed / Previous Feed
+*  Next Unread Feed / Previous Unread Feed
 */
 
 function __kbnav_js_register($js) {
