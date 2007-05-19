@@ -1,4 +1,4 @@
-<li class="<?php echo rss_item_css_class(); ?>">
+<li class="<?php echo rss_item_css_class(); ?>" id="item_<?php echo rss_item_id(); ?>">
 	<?php if(rss_item_permalink()) { ?>
 	<a class="plink" title="<?php echo rss_item_pl_title(); ?>" href="<?php echo rss_item_pl_url(); ?>">
 		<img src="<?php echo getExternalThemeFile('media/pl.gif'); ?>" alt="<?php echo rss_item_pl_title(); ?>" />
@@ -10,7 +10,7 @@
 	</a>
 	<?php } ?>
 	<?php rss_plugin_hook("rss.plugins.items.beforetitle", rss_item_id()); ?>
-	<h4><a href="<?php echo rss_item_url(); ?>"><?php echo rss_item_title(); ?></a></h4>
+	<h4><a href="<?php echo rss_item_url(); ?>" class="item_url"><?php echo rss_item_title(); ?></a></h4>
 	<div id="sad<?php echo rss_item_id(); ?>" style="display:none"></div>
 	<h5><?php echo rss_item_date(); ?><?php echo rss_item_author(); ?></h5>
 	<?php if (rss_item_do_rating()) { ?>
