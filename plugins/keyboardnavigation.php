@@ -95,6 +95,7 @@ if (isset($_GET['kbnjs'])) {
             case 'm': return __kbnav_NextMarkRead(); break;
             case 'h': return __kbnav_ScrollTop(); break;
             case 'c': return __kbnav_ToggleCollapse(); break;
+			case 'o': return (event.shiftKey ? __kbnav_OpenUrlNW() : __kbnav_OpenUrl()); break;
             default : return true;
         }
     }
@@ -120,9 +121,17 @@ if (isset($_GET['kbnjs'])) {
     function __kbnav_CurrentItemData() {
         if (kbNavCurrent == -1)kbNavCurrent=0;
         var item = kbNavItems[kbNavCurrent];
-
-        if (item && (r1 = new RegExp(".*es.([0-9]+),([0-9]+).*,([0-9]+).*","gm").exec(item.innerHTML))) {
-            return r1;
+        if (item) {
+			var ret = {};
+			if (rx = new RegExp(".*es.([0-9]+),([0-9]+).*,([0-9]+).*","gm").exec(item.innerHTML)) {
+				ret.id = rx[1];
+				ret.state = rx[2];
+				ret.cid = rx[3];
+			}
+            if (href = item.getElementsByTagName('h4').item(0).getElementsByTagName('a').item(0).href) {
+				ret.url = href;
+			}
+			return ret;
         }
 
         return null;
@@ -130,10 +139,9 @@ if (isset($_GET['kbnjs'])) {
 
     function __kbnav_ToggleCollapse() {
         if ('function' == typeof(toggleItemByID)) {
-            r1=__kbnav_CurrentItemData();
-            if (null != r1) {
-                id=r1[1];
-                toggleItemByID(id);
+            var r=__kbnav_CurrentItemData();
+            if (null != r && r.id) {
+                toggleItemByID(r.id);
             }
         }
 		return false;
@@ -141,11 +149,9 @@ if (isset($_GET['kbnjs'])) {
     
     function __kbnav_ToggleSticky() {
         if ('function' == typeof(_stickyflag_sticky)) {
-            r1=__kbnav_CurrentItemData();
-            if (null != r1) {
-                id=r1[1];
-                s =r1[2];
-                _stickyflag_sticky(id, s);
+            var r=__kbnav_CurrentItemData();
+            if (null != r && r.id && r.state) {
+                _stickyflag_sticky(r.id, r.state);
             }
         }
         return false;
@@ -153,11 +159,9 @@ if (isset($_GET['kbnjs'])) {
 
     function __kbnav_ToggleFlag() {
         if ('function' == typeof(_stickyflag_flag)) {
-            r1=__kbnav_CurrentItemData();
-            if (null != r1) {
-                id=r1[1];
-                f =r1[2];
-                _stickyflag_flag(id, f);
+            var r=__kbnav_CurrentItemData();
+            if (null != r && r.id && r.state) {
+                _stickyflag_flag(r.id, r.state);
             }
         }
         return false;
@@ -197,22 +201,19 @@ if (isset($_GET['kbnjs'])) {
     }
     
     function __kbnav_NextMarkRead() {
-        r1=__kbnav_CurrentItemData();
+        var r=__kbnav_CurrentItemData();
 
-        if (null != r1 && (r1[2] & 1)) {
+        if (null != r && (r.state & 1)) {
             if (! document.all) {
-                c = unreadCnt(-1,r1[3]);
-         } else {
-            c = 1;
-         }
-            id=r1[1];
-            s =r1[2] & 30;
-            setItemHide(id, (c == 0));
-            setState(id,s);
+                c = unreadCnt(-1,r.cid);
+         	} else {
+            	c = 1;
+         	}
+            setItemHide(r.id, (c == 0));
+            setState(r.id,r.state & 30);
             kbNavItems.splice(kbNavCurrent,1);
             __kbnav_scrollTo(0);
-            
-        } else if(null != r1) {
+        } else if(null != r) {
             // non logged in users can't mark as read, so let this behave as a scroll.
             __kbnav_scrollTo(1);
         }
@@ -222,6 +223,21 @@ if (isset($_GET['kbnjs'])) {
         return __kbnav_scrollTo(-1);
     }
     
+	function __kbnav_OpenUrl() {
+		var r = __kbnav_CurrentItemData();
+		if (null != r && r.url) {
+			document.location=r.url;
+		}
+		return false;
+	}
+	function __kbnav_OpenUrlNW() {
+		var r = __kbnav_CurrentItemData();
+		if (null != r && r.url) {
+			window.open(r.url,'_blank');
+		}
+		return false;
+	}
+	
 <?php
     flush();
     exit();
