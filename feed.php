@@ -1367,7 +1367,7 @@ function markReadForm($cid) {
     if (!defined('MARK_READ_FEED_FORM')) {
         define ('MARK_READ_FEED_FORM',$cid);
     }
-    echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
+    echo "\n\n<form class=\"markReadForm\" action=\"". getPath() ."feed.php\" method=\"post\">\n"
     ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". __('Mark These Items as Read') ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_CHANNEL_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"channel\" value=\"$cid\"/>\n"
@@ -1383,7 +1383,7 @@ function markFolderReadForm($fid) {
     if (!defined('MARK_READ_FOLDER_FORM')) {
         define ('MARK_READ_FOLDER_FORM',$fid);
     }
-    echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
+    echo "\n\n<form class=\"markReadForm\" action=\"". getPath() ."feed.php\" method=\"post\">\n"
     ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". __('Mark These Items as Read') ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_FOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"folder\" value=\"$fid\"/>\n"
@@ -1400,7 +1400,7 @@ function markVirtualFolderReadForm($vfid) {
     if (!defined('MARK_READ_VFOLDER_FORM')) {
         define ('MARK_READ_VFOLDER_FORM',$vfid);
     }
-    echo "\n\n<form action=\"". getPath() ."feed.php\" method=\"post\">\n"
+    echo "\n\n<form class=\"markReadForm\" action=\"". getPath() ."feed.php\" method=\"post\">\n"
     ."\t<p><input id=\"_markReadButton\" type=\"submit\" name=\"action\" accesskey=\"m\" value=\"". __('Mark These Items as Read') ."\"/>\n"
     ."\t<input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_VFOLDER_READ\"/>\n"
     ."\t<input type=\"hidden\" name=\"vfolder\" value=\"$vfid\"/>\n"

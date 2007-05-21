@@ -230,7 +230,7 @@ function markAllReadForm() {
 		define ('MARK_READ_ALL_FORM',true);
 	}	
 	
-   echo "<form action=\"". getPath() ."\" method=\"post\">\n"
+   echo "<form class=\"markReadForm\" action=\"". getPath() ."\" method=\"post\">\n"
       ."<p><input accesskey=\"m\" type=\"submit\" name=\"action\" value=\"". __('Mark These Items as Read') ." \"/></p>\n"
       ."<p><input type=\"hidden\" name=\"metaaction\" value=\"ACT_MARK_READ\"/>\n"
       ."<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"

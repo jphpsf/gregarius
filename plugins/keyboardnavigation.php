@@ -23,7 +23,7 @@
 
 
 /// Name: Keyboard naviation
-/// Author: Marco Bonetti
+/// Author: Marco Bonetti &amp; Chris J. Friesen
 /// Description: Navigate between items without using your mouse.
 /// Version: 0.4
 /// Configuration: __kbnav_config
@@ -56,6 +56,7 @@ function __kbnav_config_actions() {
         '__kbnav_ToggleSticky' => 'Toggle Sticky state of the current item',
         '__kbnav_ToggleFlag' => 'Toggle Flagged state of the current item',
         '__kbnav_NextMarkRead' => 'Mark current item as read, move to the next one',
+        '__kbnav_MarkAllRead' => 'Mark all shown items as read',
         '__kbnav_ScrollTop' => 'Scroll to the top of the window',
         '__kbnav_ToggleCollapse' => 'In the Lilina theme, toggle the collapsed state of the current item',
 		'__kbnav_OpenUrl' => 'Navigate to the URL of the current item',
@@ -72,6 +73,10 @@ function __kbnav_config_action_keys() {
 	if (!isset($kmap['__kbnav_ToggleSticky']['key'])) {$kmap['__kbnav_ToggleSticky']['key'] = 's';}
 	if (!isset($kmap['__kbnav_ToggleFlag']['key'])) {$kmap['__kbnav_ToggleFlag']['key'] = 'f';}
 	if (!isset($kmap['__kbnav_NextMarkRead']['key'])) {$kmap['__kbnav_NextMarkRead']['key'] = 'm';}
+	if (!isset($kmap['__kbnav_MarkAllRead']['key'])) {
+		$kmap['__kbnav_MarkAllRead']['key'] = 'm';
+		$kmap['__kbnav_MarkAllRead']['modifier'] = 'shift';
+	}	
 	if (!isset($kmap['__kbnav_ScrollTop']['key'])) {$kmap['__kbnav_ScrollTop']['key'] = 'h';}
 	if (!isset($kmap['__kbnav_ToggleCollapse']['key'])) {$kmap['__kbnav_ToggleCollapse']['key'] = 'c';}
 	if (!isset($kmap['__kbnav_OpenUrl']['key'])) {$kmap['__kbnav_OpenUrl']['key'] = 'o';}
@@ -338,6 +343,16 @@ if (isset($_GET['kbnjs'])) {
 		var r = __kbnav_CurrentItemData();
 		if (null != r && r.url) {
 			window.open(r.url,'_blank');
+		}
+		return false;
+	}
+	function __kbnav_MarkAllRead() {
+		var forms = document.getElementsByTagName('form');
+		for(var i=0;i<forms.length;i++) {
+			if (forms[i].className == 'markReadForm') {
+				forms[i].submit();
+				break;
+			}
 		}
 		return false;
 	}
