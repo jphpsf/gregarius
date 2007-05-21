@@ -261,12 +261,8 @@ function _et(id) {
 		  control.onkeyup = function(e) {
 				if (!e) { e = event; e.which = e.keyCode; }
 				switch (e.which) {
-				 case 10: // return
-				 case 13: // enter
-				 setTags(id,control.value); 
-				 return false;
-				 break;
-				 default: return true;	
+				 case 10: case 13: _et(id); return false; break;
+				 default: return true;	break;
 				}
 		  };
         control.focus();

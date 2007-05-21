@@ -60,6 +60,7 @@ function __kbnav_config_actions() {
         '__kbnav_ToggleCollapse' => 'In the Lilina theme, toggle the collapsed state of the current item',
 		'__kbnav_OpenUrl' => 'Navigate to the URL of the current item',
 		'__kbnav_OpenUrlNW' => 'Navigate to the URL of the current item in a new window',        
+		'__kbnav_EditTags' => 'Edit tags of the current item',        
 	);
 }
 /**
@@ -83,6 +84,7 @@ function __kbnav_config_action_keys() {
 		$kmap['__kbnav_OpenUrlNW']['key'] = 'o';
 		$kmap['__kbnav_OpenUrlNW']['modifier'] = 'shift';
 	}
+	if (!isset($kmap['__kbnav_EditTags']['key'])) {$kmap['__kbnav_EditTags']['key'] = 't';}
 	return $kmap;
 }
 
@@ -353,7 +355,12 @@ if (isset($_GET['kbnjs'])) {
 		}
 		return false;
 	}
-	
+	function __kbnav_EditTags() {
+		var r = __kbnav_CurrentItemData();
+		if (null != r && r.id && 'function' == typeof(_et)) {
+			_et(r.id);
+		}
+	}
 <?php
     flush();
     exit();
