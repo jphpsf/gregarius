@@ -200,11 +200,9 @@ if (isset($_GET['kbnjs'])) {
 ?>
     var kbNavCurrent = -1;
     var kbNavItems = new Array();
-    var kbNavConfig;
     
-    function __kbnav_init(cfg) {
+    function __kbnav_init() {
         kbNavItems = new Array();
-		kbNavConfig = cfg;
         var list = document.getElementsByTagName('li');
         for(var i=0;i<list.length;i++) {
             if (list[i].className && list[i].className.indexOf('item') == 0) {
