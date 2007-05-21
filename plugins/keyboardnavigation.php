@@ -169,7 +169,7 @@ function __kbnav_init_js($dummy) {
     	switch(String.fromCharCode(code)) {
 			<?php
 				foreach(__kbnav_config_action_keys() as $action => $data) {
-					printf( "\tcase '%s': return %s();break;\n",  ($data['modifier'] == 'shift' ? strtoupper($data['key']):strtolower($data['key'])), $action);
+					printf( "\tcase '%s': return %s();break;\n",  (@$data['modifier'] == 'shift' ? strtoupper($data['key']):strtolower($data['key'])), $action);
 				}
 			?>
         	default : return true;
