@@ -258,6 +258,17 @@ function _et(id) {
 
         // set the caret to the end of the field for bloody IE
         var control = tc.firstChild;
+		  control.onkeyup = function(e) {
+				if (!e) { e = event; e.which = e.keyCode; }
+				switch (e.which) {
+				 case 10: // return
+				 case 13: // enter
+				 setTags(id,control.value); 
+				 return false;
+				 break;
+				 default: return true;	
+				}
+		  };
         control.focus();
         if (control.createTextRange) {
             var range = control.createTextRange();
