@@ -36,6 +36,7 @@ $__kbnav_version = 'kbnav_0.5';
 * 0.2 - f: toggle flag, c: lilina theme un/collapse
 * 0.3 - o: open URL for item, shift-o: open URL in new window, fix: item-collapse/expand for non-logged in users.
 * 0.4 - configuration
+* 0.5 - Mark all read (shift-m), edit tags (t)
 */
 
 /**
