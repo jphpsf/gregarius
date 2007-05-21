@@ -25,10 +25,10 @@
 /// Name: Keyboard naviation
 /// Author: Marco Bonetti &amp; Chris J. Friesen
 /// Description: Navigate between items without using your mouse.
-/// Version: 0.4
+/// Version: 0.5
 /// Configuration: __kbnav_config
 
-$__kbnav_version = 'kbnav_0.4';
+$__kbnav_version = 'kbnav_0.5';
 
 /**
 * Changelog:
@@ -42,7 +42,6 @@ $__kbnav_version = 'kbnav_0.4';
 * Wishlist:
 *  Mark all as read
 *  Next Feed / Previous Feed
-*  Next Unread Feed / Previous Unread Feed
 */
 
 define ('KBNAVIGATIONPLUGIN_KMAP_CONFIG_OPTIONS', 'kbnav.options.keymapping');
