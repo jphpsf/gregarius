@@ -154,6 +154,7 @@ function tags(){
 		."</a>\n"
 		."|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_TAGS
 		."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;id=$id\">" . __('delete') ."</a>\n"
+		."|<a href=\"".getPath('tag/'.$tag)."\">" . __('view') ."</a>\n"		
 		."</td>\n"
 		."</tr>\n";
 	}
