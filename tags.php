@@ -31,13 +31,14 @@ function relatedTags($tags) {
 	/* related tags */
 	$twhere = "";
 	foreach ($tags as $tag) {
+		$tag = rss_real_escape_string($tag);
 		$twhere .= "t.tag='$tag' or ";
 	}
 	$twhere .= "1=0";
 
 	$sql = "select fid,tid,m.tdate from ".getTable('metatag') ." m "
-  ."inner join " . getTable('tag') . " t on t.id = m.tid  where m.ttype = 'item'"
-	." and ($twhere)";
+  		."inner join " . getTable('tag') . " t on t.id = m.tid  where m.ttype = 'item'"
+		." and ($twhere)";
 
 	//echo $sql;
 	$res = rss_query($sql);
@@ -114,7 +115,24 @@ if (array_key_exists('tag', $_GET)) {
 
 			$relPlus = array_key_exists($rtag, $taggedItems->allTags);
 			if ($relPlus) {
-				$relLbl .= "&nbsp;[<a "."title=\"$cnt ". ($cnt > 1 ? __('items') : __('item'))." ". ($cnt > 1 || $cnt == 0 ? __('tagged') : __('tagged'))." '".$hrTag." ".__('and')." $rtag'\" "."href=\"".getPath()."". (getConfig('rss.output.usemodrewrite') ? "tag/$rtag" : "tags.php?tag=$rtag").""."+".$urlTag."\">+</a>]";
+				$relLbl .= sprintf(
+					'&nbsp;[<a title="%d %s %s \'%s %s %s"\' href="%s+%s">+</a>]',
+					$cnt, 
+					$cnt > 1 ? __('items') : __('item'),
+					$cnt > 1 || $cnt == 0 ? __('tagged') : __('tagged'),
+					htmlspecialchars($hrTag,ENT_QUOTES),
+					__('and'),
+					htmlspecialchars($rtag,ENT_QUOTES),
+					getPath(getConfig('rss.output.usemodrewrite') ? "tag/$rtag" : "tags.php?tag=$rtag"),
+					htmlspecialchars($urlTag,ENT_QUOTES)
+					);
+				
+				"&nbsp;[<a "."title=\"$cnt "
+				. ($cnt > 1 ? __('items') : __('item'))." ". ($cnt > 1 || $cnt == 0 ? __('tagged') : __('tagged'))." '"
+				.htmlspecialchars($hrTag,ENT_QUOTES)." ".__('and')." ".htmlspecialchars($rtag,ENT_QUOTES)."'\" "
+				."href=\"".getPath().""
+					. (getConfig('rss.output.usemodrewrite') ? "tag/$rtag" : "tags.php?tag=$rtag").""
+					."+".$urlTag."\">+</a>]";
 			}
 			$idx = ($relPlus ? $taggedItems->allTags[$rtag] : 0);
 			$related["$idx"."_"."$rtag"] = $relLbl."";
