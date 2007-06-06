@@ -78,16 +78,21 @@ class RSSl10n {
 	 * Losely based on http://grep.be/data/accept-to-gettext.inc
      */
 	function __detectUserLang() {
+		
+		if (getConfig('rss.output.lang.force') === true) {
+			return getConfig('rss.output.lang');
+		// Language defined in the request (?lang=)
+		}
+		
 		// Language overridden?
 		if (defined('RSS_LANGUAGE_OVERRIDE')) {
 			return constant('RSS_LANGUAGE_OVERRIDE');
-		// Language defined in the request (?lang=)
-		} elseif (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$_REQUEST['lang']) && ($_REQUEST['lang'] == 'en' || file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang']))) {
+		}  elseif (isset($_REQUEST['lang']) && preg_match('#^[a-z]{2}_?([A-Z]{2})?$#',$_REQUEST['lang']) && ($_REQUEST['lang'] == 'en' || file_exists(GREGARIUS_HOME .'intl/'.$_REQUEST['lang']))) {
 			$this -> __setLocaleCookie($_REQUEST['lang']);
 			rss_invalidate_cache();
             return  $_REQUEST['lang'];
 		// Cookie
-        } elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
+		} elseif (isset($_COOKIE[RSS_LOCALE_COOKIE])) {
             return trim($_COOKIE[RSS_LOCALE_COOKIE]);
 		// HTTP_ACCEPT_LANGUAGE HTTP Argument
        } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
