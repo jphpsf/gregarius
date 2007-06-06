@@ -1,0 +1,5 @@
+Language: Polish
+Locale: pl
+Windows-locale: pl
+Author: Igor - https://launchpad.net/~iz-contrario
+
