@@ -27,7 +27,17 @@
 
 /*************** Config management ************/
 
+$OBSOLETE_CONFIG_OPTIONS = array('rss.config.plugins',
+  'rss.output.theme',
+  'rss.output.barefrontpage',
+  'rss.output.noreaditems',
+  'rss.output.cachedir',
+  'rss.output.showdevloglink',
+  'rss.output.numitemsonpage');
+
 function config() {
+    global $OBSOLETE_CONFIG_OPTIONS;
+    
     echo "<h2 class=\"trigger\">".__('Configuration:')."</h2>\n"
     ."<div id=\"admin_config\" class=\"trigger\">\n";
 
@@ -40,13 +50,7 @@ function config() {
     $cntr = 0;
     while ($row = rss_fetch_assoc($res)) {
         // Don't show old/moved config keys in the main config list
-        if ($row['key_'] == 'rss.config.plugins' or
-                $row['key_'] == 'rss.output.theme' or
-                $row['key_'] == 'rss.output.barefrontpage' or
-                $row['key_'] == 'rss.output.noreaditems' or
-                $row['key_'] == 'rss.output.cachedir' or
-                $row['key_'] == 'rss.config.showdevloglink' or
-                $row['key_'] == 'rss.output.numitemsonpage') {
+        if (in_array($row['key_'], $OBSOLETE_CONFIG_OPTIONS)) {
             continue;
         }
 
