@@ -83,7 +83,7 @@ function rss_feed_favicon_url() {
 function rss_feed_url() {
 	
 	if (getConfig('rss.output.usemodrewrite')) {
-		return getPath()."/feed/".$GLOBALS['rss']->currentFeed->escapedTitle ."/";
+		return getPath().$GLOBALS['rss']->currentFeed->escapedTitle ."/";
 	} 
 	return getPath()."feed.php?channel=".$GLOBALS['rss']->currentFeed->cid ;
 }

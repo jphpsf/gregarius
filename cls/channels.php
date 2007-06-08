@@ -87,7 +87,7 @@ class FeedListItem {
 		$this->mode = $mode;
 
 		if (getConfig('rss.output.usemodrewrite')) {
-			$this->rlink = getPath("/feed/".rss_uri($title)) . "/";
+			$this->rlink = getPath(rss_uri($title)) . "/";
 		} else {
 			$this->rlink = getPath()."feed.php?channel=$id";
 		}
@@ -136,7 +136,7 @@ class FeedFolder {
 	}
 	
 	function makeFolderUrl($fn) {
-		return getPath("folder/".
+		return getPath(
 			preg_replace('#\s#','_',sanitize($fn,RSS_SANITIZER_URL))
 		) .'/';
 	}

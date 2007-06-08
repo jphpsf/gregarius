@@ -665,7 +665,7 @@ function makeArchiveUrl($ts, $channel, $cid, $dayView) {
     $ret = getPath();
     if (getConfig('rss.output.usemodrewrite')) {
         if ($channel) {
-            $ret .= "item/$channel/";
+            $ret .= "$channel/";
         }
         $ret .= rss_date(($dayView ? 'Y/m/d/' : 'Y/m/'), $ts, false);
     } else {
