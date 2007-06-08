@@ -42,23 +42,27 @@ AddDefaultCharset utf-8
   RewriteRule ^state/(.+)/?$ state.php?state=$1 [L,QSA]
 
   #author view
-  RewriteRule ^author/(.+)$ author.php?author=$1 [L,QSA]
+  RewriteRule	 ^author/(.+)$ author.php?author=$1 [L,QSA]
 
   #date view
   RewriteCond  %{env:static} ^$
-  RewriteRule ^(20[0-1][0-9])/([0-9][0-9]?)/([0-9]?[0-9])/?$ feed.php?y=$1&m=$2&d=$3 [L,QSA]
+  RewriteRule	 ^date/(20[0-1][0-9])/([0-9][0-9]?)/([0-9]?[0-9])/?$ feed.php?y=$1&m=$2&d=$3 [L,QSA]
 
   #item view
   RewriteCond  %{env:static} ^$
-  RewriteRule  ^(.+)/(20[0-1][0-9])/([0-9][0-9]?)/?([0-9]?[0-9])?/?(.*)?$ feed.php?channel=$1&y=$2&m=$3&d=$4&iid=$5 [L,QSA]
+  RewriteRule  ^item/(.+)/(20[0-1][0-9])/([0-9][0-9]?)/?([0-9]?[0-9])?/?(.*)?$ feed.php?channel=$1&y=$2&m=$3&d=$4&iid=$5 [L,QSA]
   
   #feed view
   RewriteCond  %{env:static} ^$
-  RewriteRule ^(.+)/(.*)?$   feed.php?channel=$1&iid=$2 [L,QSA]
+  RewriteRule	 ^feed/(.+)/(.*)?$   feed.php?channel=$1&iid=$2 [L,QSA]
 
   #feed view - without the trailing slash
   RewriteCond  %{env:static} ^$
-  RewriteRule ^(.+)/?$   feed.php?channel=$1 [L,QSA]
+  RewriteRule	 ^feed/(.+)/?$   feed.php?channel=$1 [L,QSA]
+
+  #folder view
+	RewriteCond	 %{env:static} ^$
+	RewriteRule	 ^folder/(.+)/(.*)?$		feed.php?channel=$1	[L,QSA]
 </IfModule>
 
 ### php_value xdebug.profiler_enable 1

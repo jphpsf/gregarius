@@ -6,7 +6,7 @@
 		$thisMon = rss_locale_date("%m", $GLOBALS['rss']->currentItem->date); 
 		$thisDay = rss_locale_date("%d", $GLOBALS['rss']->currentItem->date); 
 		if(getConfig('rss.output.usemodrewrite')) {
-			$dateURL =  getPath() . "$thisYear/$thisMon/$thisDay/";
+			$dateURL =  getPath() . "date/$thisYear/$thisMon/$thisDay/";
 		}else{
 			$dateURL = getPath() . "feed.php?y=$thisYear&m=$thisMon&d=$thisDay";
 		}

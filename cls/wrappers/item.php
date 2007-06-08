@@ -56,7 +56,7 @@ function rss_item_pl_url() {
 	list ($ply, $plm, $pld) = explode(":", rss_date("Y:m:d", $GLOBALS['rss'] -> currentItem -> date, false));
 	if ($GLOBALS['rss'] -> currentItem ->escapedTitle != "" && getConfig('rss.output.usemodrewrite')) {
 		return getPath()
-			.$GLOBALS['rss'] -> currentItem -> parent->escapedTitle
+			."/item/".$GLOBALS['rss'] -> currentItem -> parent->escapedTitle
 			."/$ply/$plm/$pld/"
 			.$GLOBALS['rss'] -> currentItem -> escapedTitle;
 	} 
