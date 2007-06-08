@@ -52,19 +52,17 @@ function folders() {
     echo "\t<th>". __('Action') ."</th>\n"
     ."</tr>\n";
 
-
-    $sql =
-        sprintf("select f.id, f.name, count(*) from %s f, %s c where c.parent=f.id group by id",
-                getTable('folders'), getTable('channels')
-               );
+		$sql = "SELECT f.id, f.name, count(c.id) AS cnt "
+				 . "FROM " . getTable('folders') . " f "
+				 . "LEFT JOIN " . getTable('channels') . " c "
+				 . "  ON c.parent=f.id "
+				 . "GROUP BY f.id, f.name ";
 
     if (getConfig('rss.config.absoluteordering')) {
-        $sql .=" order by f.position asc";
+        $sql .=" ORDER BY f.position ASC";
     } else {
-        $sql .=" order by f.name asc";
+        $sql .=" ORDER BY f.name ASC";
     }
-
-
 
     $res = rss_query($sql);
     $cntr = 0;
