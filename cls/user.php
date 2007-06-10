@@ -75,7 +75,7 @@ class RSSUser {
 			isset($_POST['media']) && 'mobile' == $_POST['media'];
 		
 		if ('mobile' ==  getThemeMedia()) {
-			ini_set('session.use_trans_sid',true);
+			@ini_set('session.use_trans_sid',true);
 			session_start();
 		}
 				
