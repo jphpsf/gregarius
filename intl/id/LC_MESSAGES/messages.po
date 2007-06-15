@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-10 10:02+0200\n"
+"POT-Creation-Date: 2007-06-15 14:19+0200\n"
 "PO-Revision-Date: 2006-09-30 04:46+0000\n"
 "Last-Translator: Aryo <aryo.sanjaya@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -31,13 +31,13 @@ msgstr "ke folder:"
 #: admin/channels.php:48 admin/channels.php:100 admin/channels.php:134
 #: admin/channels.php:239 admin/channels.php:866 admin/channels.php:930
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
-#: themes/default/mobile/nav.php:3
+#: themes/WittySparks_v1.0/mobile/nav.php:3 themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr "Kategori"
 
 #: admin/channels.php:51 admin/channels.php:263 admin/channels.php:321
 #: admin/channels.php:381 admin/channels.php:439 admin/folders.php:41
-#: admin/folders.php:212 admin/folders.php:218
+#: admin/folders.php:212 admin/folders.php:216 admin/folders.php:218
 msgid "Add"
 msgstr "Tambah"
 
@@ -71,7 +71,7 @@ msgid "Folder"
 msgstr "Folder"
 
 #: admin/channels.php:99 admin/channels.php:133 admin/config.php:69
-#: admin/plugins.php:99
+#: admin/config.php:71 admin/plugins.php:99
 msgid "Description"
 msgstr "Deskripsi"
 
@@ -85,38 +85,41 @@ msgid "Move"
 msgstr "Pindah"
 
 #: admin/channels.php:107 admin/channels.php:141 admin/config.php:70
-#: admin/folders.php:52 admin/tags.php:141
+#: admin/config.php:72 admin/folders.php:52 admin/tags.php:141
 msgid "Action"
 msgstr "Aksi"
 
 #: admin/channels.php:132 admin/channels.php:166 admin/channels.php:513
-#: admin/channels.php:571 admin/folders.php:67 admin/folders.php:73
-#: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
-#: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104
+#: admin/channels.php:571 admin/folders.php:67 admin/folders.php:71
+#: admin/folders.php:73 cls/wrappers/searchform.php:122
+#: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81 opml.php:51
+#: opml.php:104
 msgid "Root"
 msgstr "Root"
 
 #: admin/channels.php:185 admin/channels.php:221 admin/folders.php:80
-#: admin/folders.php:86
+#: admin/folders.php:84 admin/folders.php:86
 msgid "&uarr;"
 msgstr "&uarr;"
 
 #: admin/channels.php:187 admin/channels.php:223 admin/folders.php:84
-#: admin/folders.php:90
+#: admin/folders.php:88 admin/folders.php:90
 msgid "&darr;"
 msgstr "&darr;"
 
 #: admin/channels.php:191 admin/channels.php:227 admin/channels.php:298
 #: admin/channels.php:327 admin/channels.php:356 admin/channels.php:385
-#: admin/config.php:160 admin/folders.php:92 admin/folders.php:98
-#: admin/plugins.php:149 admin/tags.php:153 admin/tags.php:180 ajax.php:209
-#: ajax.php:232 themes/default/web/item.php:31 themes/lilina/web/item.php:55
+#: admin/config.php:160 admin/config.php:162 admin/folders.php:92
+#: admin/folders.php:96 admin/folders.php:98 admin/plugins.php:149
+#: admin/tags.php:153 admin/tags.php:180 admin/tags.php:181 ajax.php:209
+#: ajax.php:232 themes/WittySparks_v1.0/web/item.php:31
+#: themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111
 msgid "edit"
 msgstr "ubah"
 
 #: admin/channels.php:194 admin/channels.php:230 admin/folders.php:96
-#: admin/folders.php:102 admin/tags.php:156
+#: admin/folders.php:100 admin/folders.php:102 admin/tags.php:156
 msgid "delete"
 msgstr "hapus"
 
@@ -143,11 +146,12 @@ msgstr "Set"
 
 #: admin/channels.php:222 admin/channels.php:241 admin/channels.php:281
 #: admin/items.php:59 admin/items.php:72 admin/items.php:252
-#: admin/tags.php:164
+#: admin/tags.php:164 admin/tags.php:165
 msgid "Delete"
 msgstr "Hapus"
 
 #: admin/channels.php:224 admin/channels.php:279 admin/tags.php:166
+#: admin/tags.php:167
 msgid "I'm sure!"
 msgstr "Saya yakin!"
 
@@ -170,7 +174,7 @@ msgid "Adding %s to %s... "
 msgstr "Tambahkan %s ke %s... "
 
 #: admin/channels.php:295 admin/channels.php:323 admin/channels.php:353
-#: admin/channels.php:381 admin/users.php:79 ajax.php:547
+#: admin/channels.php:381 admin/users.php:79 ajax.php:547 ajax.php:554
 msgid "OK"
 msgstr "OK"
 
@@ -186,22 +190,25 @@ msgid "I'm sorry, I don't think I can handle this URL: '%s'"
 msgstr "Maaf, tidak dapat menangani URL ini: '%s'"
 
 #: admin/channels.php:408 admin/channels.php:444 admin/channels.php:466
-#: admin/channels.php:502 admin/config.php:204 admin/config.php:520
-#: admin/folders.php:168 admin/folders.php:174 admin/folders.php:186
-#: admin/folders.php:192 admin/tags.php:60 admin/tags.php:96
-#: admin/themes.php:275
+#: admin/channels.php:502 admin/config.php:204 admin/config.php:206
+#: admin/config.php:520 admin/config.php:522 admin/folders.php:168
+#: admin/folders.php:172 admin/folders.php:174 admin/folders.php:186
+#: admin/folders.php:190 admin/folders.php:192 admin/tags.php:60
+#: admin/tags.php:96 admin/themes.php:275
 msgid "Yes"
 msgstr "Ya"
 
 #: admin/channels.php:433 admin/channels.php:443 admin/channels.php:491
-#: admin/channels.php:501 admin/config.php:208 admin/config.php:519
-#: admin/folders.php:175 admin/folders.php:181 admin/folders.php:185
-#: admin/folders.php:191 admin/tags.php:66 admin/tags.php:95
+#: admin/channels.php:501 admin/config.php:208 admin/config.php:210
+#: admin/config.php:519 admin/config.php:521 admin/folders.php:175
+#: admin/folders.php:179 admin/folders.php:181 admin/folders.php:185
+#: admin/folders.php:189 admin/folders.php:191 admin/tags.php:66
+#: admin/tags.php:95
 msgid "No"
 msgstr "Tidak"
 
 #: admin/channels.php:441 admin/channels.php:499 admin/folders.php:183
-#: admin/folders.php:189 admin/tags.php:93
+#: admin/folders.php:187 admin/folders.php:189 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr "Anda yakin akan menghapus '%s'?"
@@ -224,7 +231,8 @@ msgid "Added"
 msgstr "Ditambahkan"
 
 #: admin/channels.php:835 admin/channels.php:838 admin/channels.php:899
-#: admin/channels.php:902 themes/default/web/footer.php:17
+#: admin/channels.php:902 themes/WittySparks_v1.0/web/footer.php:17
+#: themes/default/web/footer.php:17
 msgid "Last Update"
 msgstr "Update Terakhir"
 
@@ -270,60 +278,65 @@ msgid "(Leave blank for no icon)"
 msgstr "(Kosongkan untuk tanpa ikon)"
 
 #: admin/channels.php:972 admin/channels.php:1036 admin/config.php:238
-#: admin/config.php:257 admin/folders.php:126 admin/folders.php:132
+#: admin/config.php:240 admin/config.php:257 admin/config.php:259
+#: admin/folders.php:126 admin/folders.php:130 admin/folders.php:132
 #: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
-#: admin/themes.php:173 admin/themes.php:285
+#: admin/tags.php:189 admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
 msgstr "Simpan Perubahan"
 
-#: admin/config.php:31
+#: admin/config.php:31 admin/config.php:32
 msgid "Configuration:"
 msgstr "Konfigurasi:"
 
-#: admin/config.php:67
+#: admin/config.php:67 admin/config.php:69
 msgid "Key"
 msgstr "Kunci"
 
-#: admin/config.php:68
+#: admin/config.php:68 admin/config.php:70
 msgid "Value"
 msgstr "Nilai"
 
-#: admin/config.php:167
+#: admin/config.php:167 admin/config.php:169
 msgid "default"
 msgstr "default"
 
-#: admin/config.php:190
+#: admin/config.php:190 admin/config.php:192
 msgid "Invalid config key specified."
 msgstr "Kunci setting invalid"
 
-#: admin/config.php:234 admin/config.php:252
+#: admin/config.php:234 admin/config.php:236 admin/config.php:252
+#: admin/config.php:254
 msgid "Preview"
 msgstr "Preview"
 
-#: admin/config.php:246 admin/items.php:253 admin/plugins.php:214
-#: admin/themes.php:175 ajax.php:548
+#: admin/config.php:246 admin/config.php:248 admin/items.php:253
+#: admin/plugins.php:214 admin/themes.php:175 ajax.php:548 ajax.php:555
 msgid "Cancel"
 msgstr "Batal"
 
-#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+#: admin/config.php:332 admin/config.php:334 admin/config.php:480
+#: admin/config.php:482 admin/config.php:484
 msgid "False"
 msgstr "False"
 
-#: admin/config.php:332 admin/config.php:337 admin/config.php:474
-#: admin/config.php:476
+#: admin/config.php:332 admin/config.php:334 admin/config.php:337
+#: admin/config.php:339 admin/config.php:474 admin/config.php:476
+#: admin/config.php:478
 msgid "True"
 msgstr "True"
 
-#: admin/config.php:368
+#: admin/config.php:368 admin/config.php:370
 msgid "Ooops, unknown config type: "
 msgstr "Ohh, jenis setting tidak dikenali: "
 
-#: admin/config.php:442 admin/config.php:467 admin/config.php:471
-#: admin/config.php:485
+#: admin/config.php:442 admin/config.php:444 admin/config.php:467
+#: admin/config.php:469 admin/config.php:471 admin/config.php:473
+#: admin/config.php:485 admin/config.php:487
 msgid "Value for"
 msgstr "Nilai untuk"
 
-#: admin/config.php:517
+#: admin/config.php:517 admin/config.php:519
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
 msgstr "Yakin untuk mereset nilai %s ke nilai default '%s'?"
@@ -337,25 +350,26 @@ msgid "Add a folder:"
 msgstr "Tambah folder:"
 
 #: admin/folders.php:47 cls/channels.php:164 cls/header.php:97
-#: cls/wrappers/feeds.php:76 themes/default/mobile/nav.php:2
-#: themes/milsi/feeds.php:1
+#: cls/wrappers/feeds.php:76 themes/WittySparks_v1.0/mobile/nav.php:2
+#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
 msgid "Feeds"
 msgstr "Feeds"
 
-#: admin/folders.php:123 admin/folders.php:129
+#: admin/folders.php:123 admin/folders.php:127 admin/folders.php:129
 msgid "Folder name:"
 msgstr "Nama folder:"
 
-#: admin/folders.php:164 admin/folders.php:170
+#: admin/folders.php:164 admin/folders.php:168 admin/folders.php:170
 msgid "You can't delete the Root folder"
 msgstr "Anda tidak dapat menghapus folder Root"
 
-#: admin/folders.php:204 admin/folders.php:210 admin/tags.php:113
+#: admin/folders.php:204 admin/folders.php:208 admin/folders.php:210
+#: admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
 msgstr "Anda tidak dapat merubah nama '%s' karena sudah ada."
 
-#: admin/folders.php:281 admin/folders.php:287
+#: admin/folders.php:281 admin/folders.php:285 admin/folders.php:287
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
 msgstr "Nampaknya Anda sudah memiliki folder dengan nama '%s'!"
@@ -376,7 +390,8 @@ msgstr "feed"
 #: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
 #: feed.php:1043 feed.php:1061 feed.php:1073
 #: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
-#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
+#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:121
+#: tags.php:131 tags.php:152 tags.php:170
 msgid "items"
 msgstr "items"
 
@@ -401,7 +416,9 @@ msgid "opml"
 msgstr "opml"
 
 #: admin/index.php:227 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
-#: cls/taglist.php:69 tags.php:129 themes/default/mobile/item.php:22
+#: cls/taglist.php:69 tags.php:129 tags.php:147
+#: themes/WittySparks_v1.0/mobile/item.php:22
+#: themes/WittySparks_v1.0/web/item.php:28 themes/default/mobile/item.php:22
 #: themes/default/web/item.php:28 themes/lilina/web/item.php:52
 #: themes/lilina/web/item.php:108
 msgid "Tags"
@@ -565,11 +582,15 @@ msgstr "Cek adanya Update"
 msgid "Plugin Options"
 msgstr "Setting Plugin"
 
-#: admin/tags.php:162
+#: admin/tags.php:157
+msgid "view"
+msgstr ""
+
+#: admin/tags.php:162 admin/tags.php:163
 msgid "Selected"
 msgstr "Dipilih"
 
-#: admin/tags.php:186
+#: admin/tags.php:186 admin/tags.php:187
 msgid "Rename to..."
 msgstr "Ganti nama..."
 
@@ -641,19 +662,19 @@ msgstr "..."
 msgid "cancel"
 msgstr "batal"
 
-#: ajax.php:532
+#: ajax.php:532 ajax.php:539
 msgid "Unread (Set this item\\'s read/unread state)"
 msgstr "Baru (Berikan status baru/lama)"
 
-#: ajax.php:536
+#: ajax.php:536 ajax.php:543
 msgid "Sticky (Won\\'t be deleted when you prune items)"
 msgstr "Sticky (Tidak akan dihapus ketika pembersihan)"
 
-#: ajax.php:540
+#: ajax.php:540 ajax.php:547
 msgid "Private (Only administrators can see private items)"
 msgstr "Private (Hanya administrator yang dapat melihat)"
 
-#: ajax.php:544
+#: ajax.php:544 ajax.php:551
 msgid "Flag (Flags an item for later reading)"
 msgstr "Tandai (Tandai item untuk dibaca nanti)"
 
@@ -662,7 +683,7 @@ msgid " by "
 msgstr " oleh "
 
 #: cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073 tags.php:117
-#: tags.php:152
+#: tags.php:121 tags.php:131 tags.php:152 tags.php:170
 msgid "item"
 msgstr "item"
 
@@ -819,7 +840,12 @@ msgstr "Tandai Folder ini jadi Terbaca"
 msgid "Mark This Feed as Read"
 msgstr "Tandai Feed jadi Terbaca"
 
+#: plugins/sidemenu.php:15
+msgid "Test"
+msgstr ""
+
 #: plugins/stickyflag/stickyflag.php:92 state.php:39
+#: themes/WittySparks_v1.0/mobile/item.php:40
 #: themes/default/mobile/item.php:40
 msgid "Sticky"
 msgstr "Sticky"
@@ -844,7 +870,12 @@ msgid "Search %d items"
 msgstr "Mencari %d item"
 
 #: search.php:52 test/minisearch.php:46 themes/3panes/searchform.php:5
-#: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
+#: themes/3panes/searchform.php:25
+#: themes/WittySparks_v1.0/mobile/searchform.php:5
+#: themes/WittySparks_v1.0/mobile/searchform.php:39
+#: themes/WittySparks_v1.0/web/searchform.php:5
+#: themes/WittySparks_v1.0/web/searchform.php:39
+#: themes/default/mobile/searchform.php:5
 #: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
@@ -853,15 +884,15 @@ msgstr "Mencari %d item"
 msgid "Search"
 msgstr "Cari"
 
-#: tags.php:81 tags.php:117
+#: tags.php:81 tags.php:82 tags.php:117 tags.php:124 tags.php:132
 msgid "and"
 msgstr "dan"
 
-#: tags.php:117 tags.php:153
+#: tags.php:117 tags.php:122 tags.php:131 tags.php:153 tags.php:171
 msgid "tagged"
 msgstr "diberi tag"
 
-#: tags.php:157
+#: tags.php:157 tags.php:175
 msgid "Related tags: "
 msgstr "Tag terhubung: "
 
@@ -870,94 +901,128 @@ msgstr "Tag terhubung: "
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
 msgstr "Ohh! Tidak ada item yang diberi tag &laquo;%s&raquo;."
 
-#: tags.php:178
+#: tags.php:178 tags.php:198
 msgid "All Tags"
 msgstr "Semua Tag"
 
-#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
-#: themes/milsi/footer.php:4 themes/planet/footer.php:5
+#: themes/3panes/footer.php:5 themes/WittySparks_v1.0/web/footer.php:6
+#: themes/default/web/footer.php:6 themes/milsi/footer.php:4
+#: themes/planet/footer.php:5
 msgid " powered by "
 msgstr " didukung oleh "
 
-#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
-#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
-#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
+#: themes/3panes/searchform.php:7
+#: themes/WittySparks_v1.0/mobile/searchform.php:7
+#: themes/WittySparks_v1.0/web/searchform.php:7
+#: themes/default/mobile/searchform.php:7 themes/default/web/searchform.php:7
+#: themes/milsi/searchform.php:7 themes/mobile/searchform.php:7
+#: themes/planet/searchform.php:7
 msgid "Search terms:"
 msgstr "Kata pencarian:"
 
-#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
+#: themes/3panes/searchform.php:10
+#: themes/WittySparks_v1.0/mobile/searchform.php:13
+#: themes/WittySparks_v1.0/web/searchform.php:13
+#: themes/default/mobile/searchform.php:13
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 msgid "Some terms (OR)"
 msgstr "Beberapa kata (OR)"
 
-#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
+#: themes/3panes/searchform.php:12
+#: themes/WittySparks_v1.0/mobile/searchform.php:15
+#: themes/WittySparks_v1.0/web/searchform.php:15
+#: themes/default/mobile/searchform.php:15
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 msgid "All terms (AND)"
 msgstr "Semua kata (AND)"
 
-#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
+#: themes/3panes/searchform.php:14
+#: themes/WittySparks_v1.0/mobile/searchform.php:17
+#: themes/WittySparks_v1.0/web/searchform.php:17
+#: themes/default/mobile/searchform.php:17
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 msgid "Exact match"
 msgstr "Ketemu persis"
 
-#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
+#: themes/3panes/searchform.php:16
+#: themes/WittySparks_v1.0/mobile/searchform.php:21
+#: themes/WittySparks_v1.0/web/searchform.php:21
+#: themes/default/mobile/searchform.php:21
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 msgid "Feed:"
 msgstr "Feed:"
 
-#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
+#: themes/3panes/searchform.php:19
+#: themes/WittySparks_v1.0/mobile/searchform.php:27
+#: themes/WittySparks_v1.0/web/searchform.php:27
+#: themes/default/mobile/searchform.php:27
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 msgid "Order by date, feed"
 msgstr "Urutkan tanggal lalu feed"
 
-#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
+#: themes/3panes/searchform.php:21
+#: themes/WittySparks_v1.0/mobile/searchform.php:29
+#: themes/WittySparks_v1.0/web/searchform.php:29
+#: themes/default/mobile/searchform.php:29
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 msgid "Order by feed, date"
 msgstr "Urutkan feed lalu tanggal"
 
-#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
+#: themes/3panes/searchform.php:22
+#: themes/WittySparks_v1.0/mobile/searchform.php:33
+#: themes/WittySparks_v1.0/web/searchform.php:33
+#: themes/default/mobile/searchform.php:33
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 msgid "Results per page:"
 msgstr "Hasil per halaman"
 
-#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
-#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+#: themes/WittySparks_v1.0/mobile/item.php:19
+#: themes/WittySparks_v1.0/web/item.php:24 themes/default/mobile/item.php:19
+#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
+#: themes/lilina/web/item.php:104
 msgid "Enclosure:"
 msgstr "Lampiran:"
 
-#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
-#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+#: themes/WittySparks_v1.0/mobile/item.php:19
+#: themes/WittySparks_v1.0/web/item.php:24 themes/default/mobile/item.php:19
+#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
+#: themes/lilina/web/item.php:104
 msgid "download"
 msgstr "download"
 
+#: themes/WittySparks_v1.0/mobile/item.php:34
 #: themes/default/mobile/item.php:34
 msgid "Read"
 msgstr ""
 
+#: themes/WittySparks_v1.0/mobile/item.php:35
 #: themes/default/mobile/item.php:35
 msgid "Unread"
 msgstr ""
 
-#: themes/default/mobile/nav.php:4
+#: themes/WittySparks_v1.0/mobile/nav.php:4 themes/default/mobile/nav.php:4
 msgid "Refresh"
 msgstr ""
 
-#: themes/default/web/item.php:8 themes/default/web/item.php:9
+#: themes/WittySparks_v1.0/web/item.php:8
+#: themes/WittySparks_v1.0/web/item.php:9 themes/default/web/item.php:8
+#: themes/default/web/item.php:9
 msgid "Edit Item Properties"
 msgstr ""
 
-#: themes/default/web/item.php:18 themes/lilina/web/item.php:42
-#: themes/lilina/web/item.php:98
+#: themes/WittySparks_v1.0/web/item.php:18 themes/default/web/item.php:18
+#: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
 msgid "Rating:"
 msgstr "Rating:"
 
+#: themes/WittySparks_v1.0/web/pagination.php:2
 #: themes/default/web/pagination.php:2
 msgid "Skip to page: "
 msgstr ""
@@ -982,13 +1047,6 @@ msgstr "Hanya yang baru"
 #: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
 msgstr "Baru dan lama"
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ msgstr ""
-#~ "<h1>Tidak diijinkan!</h1>\n"
-#~ "Anda tidak diijinkan memasuki area administrasi\n"
 
 #~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
 #~ msgstr "Silakan ikuti <a href=\"%s\">link ini</a> untuk kembali ke halaman depan.\n"
@@ -1017,8 +1075,12 @@ msgstr "Baru dan lama"
 #~ msgid "Keep the most recent items: "
 #~ msgstr "Simpan item yang sering digunakan: "
 
-#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
-#~ msgstr "<strong>Oohh!</strong> Anda sudah berhasil login sebagai %s, tapi tidak punya hak sebagai Administrator. Silakan login lagi sebagai Administrator atau tetap melanjutkan ke <a href=\"..\">halaman depan</a>"
+#~ msgid ""
+#~ "<h1>Not Authorized!</h1>\n"
+#~ "You are not authorized to access the administration interface.\n"
+#~ msgstr ""
+#~ "<h1>Tidak diijinkan!</h1>\n"
+#~ "Anda tidak diijinkan memasuki area administrasi\n"
 
 #~ msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 #~ msgstr "<p style=\"font-size:small\">Plugin adalah script buatan pihak lain yang memberikan fungsi tambahan. Plugin lain dapat didownload di <a style=\"text-decoration:underline\" href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
@@ -1036,3 +1098,6 @@ msgstr "Baru dan lama"
 #~ "Anda tidak berhak masuk area administratsi.\n"
 #~ "Silakan ikuti <a href=\"%s\">link ini</a> untuk kembali ke halaman utama.\n"
 #~ "Semoga sukses!"
+
+#~ msgid "<strong>Oops!</strong> You are successfully logged in as %s, but you don\\'t have administration privileges. Log in again with administration privileges or follow your way <a href=\"..\">home</a>"
+#~ msgstr "<strong>Oohh!</strong> Anda sudah berhasil login sebagai %s, tapi tidak punya hak sebagai Administrator. Silakan login lagi sebagai Administrator atau tetap melanjutkan ke <a href=\"..\">halaman depan</a>"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-10 10:02+0200\n"
+"POT-Creation-Date: 2007-06-15 14:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 #: admin/channels.php:239 admin/channels.php:930 admin/channels.php:48
 #: admin/channels.php:134 admin/channels.php:239 admin/channels.php:930
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
-#: themes/default/mobile/nav.php:3
+#: themes/default/mobile/nav.php:3 themes/WittySparks_v1.0/mobile/nav.php:3
 msgid "Categories"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 #: admin/folders.php:41 admin/folders.php:212 admin/channels.php:321
 #: admin/channels.php:439 admin/folders.php:218 admin/channels.php:51
 #: admin/channels.php:321 admin/channels.php:439 admin/folders.php:41
-#: admin/folders.php:218
+#: admin/folders.php:216
 msgid "Add"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgid "Folder"
 msgstr ""
 
 #: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
-#: admin/channels.php:133 admin/channels.php:133 admin/config.php:69
+#: admin/channels.php:133 admin/channels.php:133 admin/config.php:71
 #: admin/plugins.php:99
 msgid "Description"
 msgstr ""
@@ -93,7 +93,7 @@ msgstr ""
 
 #: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
 #: admin/tags.php:141 admin/channels.php:141 admin/channels.php:141
-#: admin/config.php:70 admin/folders.php:52 admin/tags.php:141
+#: admin/config.php:72 admin/folders.php:52 admin/tags.php:141
 msgid "Action"
 msgstr ""
 
@@ -101,19 +101,19 @@ msgstr ""
 #: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
 #: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104 admin/channels.php:166
 #: admin/channels.php:571 admin/folders.php:73 admin/channels.php:166
-#: admin/channels.php:571 admin/folders.php:73 cls/wrappers/searchform.php:122
+#: admin/channels.php:571 admin/folders.php:71 cls/wrappers/searchform.php:122
 #: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81 opml.php:51
 #: opml.php:104
 msgid "Root"
 msgstr ""
 
 #: admin/channels.php:185 admin/folders.php:80 admin/channels.php:221
-#: admin/folders.php:86 admin/channels.php:221 admin/folders.php:86
+#: admin/folders.php:86 admin/channels.php:221 admin/folders.php:84
 msgid "&uarr;"
 msgstr ""
 
 #: admin/channels.php:187 admin/folders.php:84 admin/channels.php:223
-#: admin/folders.php:90 admin/channels.php:223 admin/folders.php:90
+#: admin/folders.php:90 admin/channels.php:223 admin/folders.php:88
 msgid "&darr;"
 msgstr ""
 
@@ -124,16 +124,16 @@ msgstr ""
 #: themes/lilina/web/item.php:111 admin/channels.php:227
 #: admin/channels.php:356 admin/channels.php:385 admin/folders.php:98
 #: admin/channels.php:227 admin/channels.php:356 admin/channels.php:385
-#: admin/config.php:160 admin/folders.php:98 admin/plugins.php:149
-#: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
+#: admin/config.php:162 admin/folders.php:96 admin/plugins.php:149
+#: admin/tags.php:153 admin/tags.php:181 ajax.php:209 ajax.php:232
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
-#: themes/lilina/web/item.php:111
+#: themes/lilina/web/item.php:111 themes/WittySparks_v1.0/web/item.php:31
 msgid "edit"
 msgstr ""
 
 #: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
 #: admin/channels.php:230 admin/folders.php:102 admin/channels.php:230
-#: admin/folders.php:102 admin/tags.php:156
+#: admin/folders.php:100 admin/tags.php:156
 msgid "delete"
 msgstr ""
 
@@ -163,12 +163,12 @@ msgstr ""
 #: admin/items.php:252 admin/tags.php:164 admin/channels.php:241
 #: admin/channels.php:281 admin/channels.php:241 admin/channels.php:281
 #: admin/items.php:59 admin/items.php:72 admin/items.php:252
-#: admin/tags.php:164
+#: admin/tags.php:165
 msgid "Delete"
 msgstr ""
 
 #: admin/channels.php:224 admin/tags.php:166 admin/channels.php:279
-#: admin/channels.php:279 admin/tags.php:166
+#: admin/channels.php:279 admin/tags.php:167
 msgid "I'm sure!"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 #: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
 #: ajax.php:547 admin/channels.php:353 admin/channels.php:381
 #: admin/channels.php:353 admin/channels.php:381 admin/users.php:79
-#: ajax.php:547
+#: ajax.php:554
 msgid "OK"
 msgstr ""
 
@@ -203,8 +203,8 @@ msgstr ""
 #: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
 #: admin/channels.php:466 admin/channels.php:502 admin/folders.php:174
 #: admin/folders.php:192 admin/channels.php:466 admin/channels.php:502
-#: admin/config.php:204 admin/config.php:520 admin/folders.php:174
-#: admin/folders.php:192 admin/tags.php:60 admin/tags.php:96
+#: admin/config.php:206 admin/config.php:522 admin/folders.php:172
+#: admin/folders.php:190 admin/tags.php:60 admin/tags.php:96
 #: admin/themes.php:275
 msgid "Yes"
 msgstr ""
@@ -213,15 +213,15 @@ msgstr ""
 #: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
 #: admin/tags.php:66 admin/tags.php:95 admin/channels.php:491
 #: admin/channels.php:501 admin/folders.php:181 admin/folders.php:191
-#: admin/channels.php:491 admin/channels.php:501 admin/config.php:208
-#: admin/config.php:519 admin/folders.php:181 admin/folders.php:191
+#: admin/channels.php:491 admin/channels.php:501 admin/config.php:210
+#: admin/config.php:521 admin/folders.php:179 admin/folders.php:189
 #: admin/tags.php:66 admin/tags.php:95
 msgid "No"
 msgstr ""
 
 #: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
 #: admin/channels.php:499 admin/folders.php:189 admin/channels.php:499
-#: admin/folders.php:189 admin/tags.php:93
+#: admin/folders.php:187 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr ""
@@ -248,7 +248,7 @@ msgstr ""
 #: admin/channels.php:835 admin/channels.php:838
 #: themes/default/web/footer.php:17 admin/channels.php:899
 #: admin/channels.php:902 admin/channels.php:899 admin/channels.php:902
-#: themes/default/web/footer.php:17
+#: themes/default/web/footer.php:17 themes/WittySparks_v1.0/web/footer.php:17
 msgid "Last Update"
 msgstr ""
 
@@ -298,65 +298,65 @@ msgstr ""
 #: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
 #: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
 #: admin/channels.php:1036 admin/folders.php:132 admin/channels.php:1036
-#: admin/config.php:238 admin/config.php:257 admin/folders.php:132
-#: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
+#: admin/config.php:240 admin/config.php:259 admin/folders.php:130
+#: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:189
 #: admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
 msgstr ""
 
-#: admin/config.php:31 admin/config.php:31
+#: admin/config.php:31 admin/config.php:32
 msgid "Configuration:"
 msgstr ""
 
-#: admin/config.php:67 admin/config.php:67
+#: admin/config.php:67 admin/config.php:69
 msgid "Key"
 msgstr ""
 
-#: admin/config.php:68 admin/config.php:68
+#: admin/config.php:68 admin/config.php:70
 msgid "Value"
 msgstr ""
 
-#: admin/config.php:167 admin/config.php:167
+#: admin/config.php:167 admin/config.php:169
 msgid "default"
 msgstr ""
 
-#: admin/config.php:190 admin/config.php:190
+#: admin/config.php:190 admin/config.php:192
 msgid "Invalid config key specified."
 msgstr ""
 
-#: admin/config.php:234 admin/config.php:252 admin/config.php:234
-#: admin/config.php:252
+#: admin/config.php:234 admin/config.php:252 admin/config.php:236
+#: admin/config.php:254
 msgid "Preview"
 msgstr ""
 
 #: admin/config.php:246 admin/items.php:253 admin/plugins.php:214
-#: admin/themes.php:175 ajax.php:548 admin/config.php:246 admin/items.php:253
-#: admin/plugins.php:214 admin/themes.php:175 ajax.php:548
+#: admin/themes.php:175 ajax.php:548 admin/config.php:248 admin/items.php:253
+#: admin/plugins.php:214 admin/themes.php:175 ajax.php:555
 msgid "Cancel"
 msgstr ""
 
 #: admin/config.php:332 admin/config.php:337 admin/config.php:474
-#: admin/config.php:476 admin/config.php:332 admin/config.php:337
-#: admin/config.php:474 admin/config.php:476
+#: admin/config.php:476 admin/config.php:334 admin/config.php:339
+#: admin/config.php:476 admin/config.php:478
 msgid "True"
 msgstr ""
 
 #: admin/config.php:332 admin/config.php:480 admin/config.php:482
-#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+#: admin/config.php:334 admin/config.php:482 admin/config.php:484
 msgid "False"
 msgstr ""
 
-#: admin/config.php:368 admin/config.php:368
+#: admin/config.php:368 admin/config.php:370
 msgid "Ooops, unknown config type: "
 msgstr ""
 
 #: admin/config.php:442 admin/config.php:467 admin/config.php:471
-#: admin/config.php:485 admin/config.php:442 admin/config.php:467
-#: admin/config.php:471 admin/config.php:485
+#: admin/config.php:485 admin/config.php:444 admin/config.php:469
+#: admin/config.php:473 admin/config.php:487
 msgid "Value for"
 msgstr ""
 
-#: admin/config.php:517 admin/config.php:517
+#: admin/config.php:517 admin/config.php:519
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
 msgstr ""
@@ -369,21 +369,21 @@ msgstr ""
 msgid "Add a folder:"
 msgstr ""
 
-#: admin/folders.php:123 admin/folders.php:129 admin/folders.php:129
+#: admin/folders.php:123 admin/folders.php:129 admin/folders.php:127
 msgid "Folder name:"
 msgstr ""
 
-#: admin/folders.php:164 admin/folders.php:170 admin/folders.php:170
+#: admin/folders.php:164 admin/folders.php:170 admin/folders.php:168
 msgid "You can't delete the Root folder"
 msgstr ""
 
 #: admin/folders.php:204 admin/tags.php:113 admin/folders.php:210
-#: admin/folders.php:210 admin/tags.php:113
+#: admin/folders.php:208 admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
 msgstr ""
 
-#: admin/folders.php:281 admin/folders.php:287 admin/folders.php:287
+#: admin/folders.php:281 admin/folders.php:287 admin/folders.php:285
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
 msgstr ""
@@ -408,7 +408,8 @@ msgstr ""
 #: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
 #: feed.php:1043 feed.php:1061 feed.php:1073
 #: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
-#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
+#: state.php:36 state.php:39 state.php:42 tags.php:121 tags.php:131
+#: tags.php:170
 msgid "items"
 msgstr ""
 
@@ -436,9 +437,11 @@ msgstr ""
 #: cls/taglist.php:69 tags.php:129 themes/default/mobile/item.php:22
 #: themes/default/web/item.php:28 themes/lilina/web/item.php:52
 #: themes/lilina/web/item.php:108 admin/index.php:227 admin/tags.php:135
-#: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
+#: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:147
 #: themes/default/mobile/item.php:22 themes/default/web/item.php:28
 #: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
+#: themes/WittySparks_v1.0/mobile/item.php:22
+#: themes/WittySparks_v1.0/web/item.php:28
 msgid "Tags"
 msgstr ""
 
@@ -601,11 +604,11 @@ msgstr ""
 msgid "Plugin Options"
 msgstr ""
 
-#: admin/tags.php:162 admin/tags.php:162
+#: admin/tags.php:162 admin/tags.php:163
 msgid "Selected"
 msgstr ""
 
-#: admin/tags.php:186 admin/tags.php:186
+#: admin/tags.php:186 admin/tags.php:187
 msgid "Rename to..."
 msgstr ""
 
@@ -663,7 +666,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: ajax.php:81 index.php:216 index.php:217 ajax.php:81 index.php:216
+#: ajax.php:81 index.php:216 index.php:217 ajax.php:81 index.php:217
 msgid "Recent items"
 msgstr ""
 
@@ -679,19 +682,19 @@ msgstr ""
 msgid "cancel"
 msgstr ""
 
-#: ajax.php:532 ajax.php:532
+#: ajax.php:532 ajax.php:539
 msgid "Unread (Set this item\\'s read/unread state)"
 msgstr ""
 
-#: ajax.php:536 ajax.php:536
+#: ajax.php:536 ajax.php:543
 msgid "Sticky (Won\\'t be deleted when you prune items)"
 msgstr ""
 
-#: ajax.php:540 ajax.php:540
+#: ajax.php:540 ajax.php:547
 msgid "Private (Only administrators can see private items)"
 msgstr ""
 
-#: ajax.php:544 ajax.php:544
+#: ajax.php:544 ajax.php:551
 msgid "Flag (Flags an item for later reading)"
 msgstr ""
 
@@ -702,7 +705,7 @@ msgstr ""
 
 #: cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073 tags.php:117
 #: tags.php:152 cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073
-#: tags.php:117 tags.php:152
+#: tags.php:121 tags.php:131 tags.php:170
 msgid "item"
 msgstr ""
 
@@ -722,7 +725,7 @@ msgstr ""
 #: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
 #: admin/folders.php:47 admin/folders.php:47 cls/channels.php:164
 #: cls/header.php:97 cls/wrappers/feeds.php:76 themes/default/mobile/nav.php:2
-#: themes/milsi/feeds.php:1
+#: themes/WittySparks_v1.0/mobile/nav.php:2
 msgid "Feeds"
 msgstr ""
 
@@ -835,11 +838,11 @@ msgid "All"
 msgstr ""
 
 #: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
-#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233
+#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:234
 msgid "Mark These Items as Read"
 msgstr ""
 
-#: index.php:151 index.php:152 index.php:151
+#: index.php:151 index.php:152 index.php:152
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr ""
@@ -859,15 +862,18 @@ msgstr ""
 
 #: plugins/markallread.php:64 plugins/markallread.php:110
 #: plugins/markallread.php:65 plugins/markallread.php:111
+#: plugins/markallread.php:65 plugins/markallread.php:111
 msgid "Mark This Category as Read"
 msgstr ""
 
 #: plugins/markallread.php:75 plugins/markallread.php:104
 #: plugins/markallread.php:76 plugins/markallread.php:105
+#: plugins/markallread.php:76 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
 msgstr ""
 
 #: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:87 plugins/markallread.php:99
 #: plugins/markallread.php:87 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
 msgstr ""
@@ -875,6 +881,7 @@ msgstr ""
 #: plugins/stickyflag/stickyflag.php:92 state.php:39
 #: themes/default/mobile/item.php:40 plugins/stickyflag/stickyflag.php:92
 #: state.php:39 themes/default/mobile/item.php:40
+#: themes/WittySparks_v1.0/mobile/item.php:40
 msgid "Sticky"
 msgstr ""
 
@@ -905,113 +912,119 @@ msgstr ""
 #: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
 #: themes/planet/searchform.php:39 test/minisearch.php:46 search.php:52
-#: themes/3panes/searchform.php:5 themes/3panes/searchform.php:25
 #: themes/default/mobile/searchform.php:5
 #: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
-#: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
-#: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
-#: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
-#: themes/planet/searchform.php:39
+#: themes/default/web/searchform.php:39
+#: themes/WittySparks_v1.0/mobile/searchform.php:5
+#: themes/WittySparks_v1.0/mobile/searchform.php:39
+#: themes/WittySparks_v1.0/web/searchform.php:5
+#: themes/WittySparks_v1.0/web/searchform.php:39
 msgid "Search"
 msgstr ""
 
-#: tags.php:81 tags.php:117 tags.php:81 tags.php:117
+#: tags.php:81 tags.php:117 tags.php:82 tags.php:124 tags.php:132
 msgid "and"
 msgstr ""
 
-#: tags.php:117 tags.php:153 tags.php:117 tags.php:153
+#: tags.php:117 tags.php:153 tags.php:122 tags.php:131 tags.php:171
 msgid "tagged"
 msgstr ""
 
-#: tags.php:157 tags.php:157
+#: tags.php:157 tags.php:175
 msgid "Related tags: "
 msgstr ""
 
-#: tags.php:168 tags.php:168
+#: tags.php:168
 #, php-format
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
 msgstr ""
 
-#: tags.php:178 tags.php:178
+#: tags.php:178 tags.php:198
 msgid "All Tags"
 msgstr ""
 
 #: themes/3panes/footer.php:5 themes/default/web/footer.php:6
 #: themes/milsi/footer.php:4 themes/planet/footer.php:5
-#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
-#: themes/milsi/footer.php:4 themes/planet/footer.php:5
+#: themes/default/web/footer.php:6 themes/WittySparks_v1.0/web/footer.php:6
 msgid " powered by "
 msgstr ""
 
 #: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
 #: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
 #: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
-#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
-#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
-#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
+#: themes/default/mobile/searchform.php:7 themes/default/web/searchform.php:7
+#: themes/WittySparks_v1.0/mobile/searchform.php:7
+#: themes/WittySparks_v1.0/web/searchform.php:7
 msgid "Search terms:"
 msgstr ""
 
 #: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
-#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
-#: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
-#: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
+#: themes/default/mobile/searchform.php:13
+#: themes/default/web/searchform.php:13
+#: themes/WittySparks_v1.0/mobile/searchform.php:13
+#: themes/WittySparks_v1.0/web/searchform.php:13
 msgid "Some terms (OR)"
 msgstr ""
 
 #: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
-#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
-#: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
-#: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
+#: themes/default/mobile/searchform.php:15
+#: themes/default/web/searchform.php:15
+#: themes/WittySparks_v1.0/mobile/searchform.php:15
+#: themes/WittySparks_v1.0/web/searchform.php:15
 msgid "All terms (AND)"
 msgstr ""
 
 #: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
-#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
-#: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
-#: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
+#: themes/default/mobile/searchform.php:17
+#: themes/default/web/searchform.php:17
+#: themes/WittySparks_v1.0/mobile/searchform.php:17
+#: themes/WittySparks_v1.0/web/searchform.php:17
 msgid "Exact match"
 msgstr ""
 
 #: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
-#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
-#: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
-#: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
+#: themes/default/mobile/searchform.php:21
+#: themes/default/web/searchform.php:21
+#: themes/WittySparks_v1.0/mobile/searchform.php:21
+#: themes/WittySparks_v1.0/web/searchform.php:21
 msgid "Feed:"
 msgstr ""
 
 #: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
-#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
-#: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
-#: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
+#: themes/default/mobile/searchform.php:27
+#: themes/default/web/searchform.php:27
+#: themes/WittySparks_v1.0/mobile/searchform.php:27
+#: themes/WittySparks_v1.0/web/searchform.php:27
 msgid "Order by date, feed"
 msgstr ""
 
 #: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
-#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
-#: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
-#: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
+#: themes/default/mobile/searchform.php:29
+#: themes/default/web/searchform.php:29
+#: themes/WittySparks_v1.0/mobile/searchform.php:29
+#: themes/WittySparks_v1.0/web/searchform.php:29
 msgid "Order by feed, date"
 msgstr ""
 
 #: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
-#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
-#: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
-#: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
+#: themes/default/mobile/searchform.php:33
+#: themes/default/web/searchform.php:33
+#: themes/WittySparks_v1.0/mobile/searchform.php:33
+#: themes/WittySparks_v1.0/web/searchform.php:33
 msgid "Results per page:"
 msgstr ""
 
@@ -1019,6 +1032,8 @@ msgstr ""
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 #: themes/default/mobile/item.php:19 themes/default/web/item.php:24
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+#: themes/WittySparks_v1.0/mobile/item.php:19
+#: themes/WittySparks_v1.0/web/item.php:24
 msgid "Enclosure:"
 msgstr ""
 
@@ -1026,33 +1041,41 @@ msgstr ""
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 #: themes/default/mobile/item.php:19 themes/default/web/item.php:24
 #: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+#: themes/WittySparks_v1.0/mobile/item.php:19
+#: themes/WittySparks_v1.0/web/item.php:24
 msgid "download"
 msgstr ""
 
 #: themes/default/mobile/item.php:34 themes/default/mobile/item.php:34
+#: themes/WittySparks_v1.0/mobile/item.php:34
 msgid "Read"
 msgstr ""
 
 #: themes/default/mobile/item.php:35 themes/default/mobile/item.php:35
+#: themes/WittySparks_v1.0/mobile/item.php:35
 msgid "Unread"
 msgstr ""
 
 #: themes/default/mobile/nav.php:4 themes/default/mobile/nav.php:4
+#: themes/WittySparks_v1.0/mobile/nav.php:4
 msgid "Refresh"
 msgstr ""
 
 #: themes/default/web/item.php:8 themes/default/web/item.php:9
 #: themes/default/web/item.php:8 themes/default/web/item.php:9
+#: themes/WittySparks_v1.0/web/item.php:8
+#: themes/WittySparks_v1.0/web/item.php:9
 msgid "Edit Item Properties"
 msgstr ""
 
 #: themes/default/web/item.php:18 themes/lilina/web/item.php:42
 #: themes/lilina/web/item.php:98 themes/default/web/item.php:18
 #: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
+#: themes/WittySparks_v1.0/web/item.php:18
 msgid "Rating:"
 msgstr ""
 
-#: themes/milsi/feeds.php:4 themes/milsi/feeds.php:4
+#: themes/milsi/feeds.php:4
 #, php-format
 msgid "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds"
 msgstr ""
@@ -1074,6 +1097,7 @@ msgid "Read and unread"
 msgstr ""
 
 #: themes/default/web/pagination.php:2 themes/default/web/pagination.php:2
+#: themes/WittySparks_v1.0/web/pagination.php:2
 msgid "Skip to page: "
 msgstr ""
 
@@ -1087,4 +1111,12 @@ msgstr ""
 
 #: admin/channels.php:257 admin/channels.php:257
 msgid "Categories:"
+msgstr ""
+
+#: admin/tags.php:157
+msgid "view"
+msgstr ""
+
+#: plugins/sidemenu.php:15
+msgid "Test"
 msgstr ""

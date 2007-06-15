@@ -1,88 +1,93 @@
+# Arabic translation for gregarius
+# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# This file is distributed under the same license as the gregarius package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Gregarius 0.5.5\n"
+"Project-Id-Version: gregarius\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-15 14:19+0200\n"
-"PO-Revision-Date: 2006-10-23 05:28+0000\n"
-"Last-Translator: mbi <mbonetti@gmail.com>\n"
-"Language-Team:\n"
+"PO-Revision-Date: 2007-06-14 18:40+0000\n"
+"Last-Translator: blafrancia <blafrancia@gmail.com>\n"
+"Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Rosetta-Export-Date: 2007-06-15 12:18:14+0000\n"
 
 #: admin/channels.php:39
 msgid "Feeds:"
-msgstr "Feeds:"
+msgstr "تلقيمات"
 
 #: admin/channels.php:43
 msgid "Add a feed:"
-msgstr "Feed:"
+msgstr "إضافة تلقيمة"
 
 #: admin/channels.php:46
 msgid "to folder:"
-msgstr "zu Ordner:"
+msgstr "إلى ملف"
 
 #: admin/channels.php:48 admin/channels.php:100 admin/channels.php:134
 #: admin/channels.php:239 admin/channels.php:866 admin/channels.php:930
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
 #: themes/WittySparks_v1.0/mobile/nav.php:3 themes/default/mobile/nav.php:3
 msgid "Categories"
-msgstr "Kategorien"
+msgstr "فئات"
 
 #: admin/channels.php:51 admin/channels.php:263 admin/channels.php:321
 #: admin/channels.php:381 admin/channels.php:439 admin/folders.php:41
 #: admin/folders.php:212 admin/folders.php:216 admin/folders.php:218
 msgid "Add"
-msgstr "Hinzuf&uuml;gen"
+msgstr "أضف"
 
 #: admin/channels.php:52
 msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
-msgstr "(Die URL von einem RSS Feed eintragen oder die Webseite, welche den gew&uuml;nschten Feed enth&auml;lt )"
+msgstr "أدخل عنوان الموقع أو عنوان تلقيمة آر إس إس التي تحب إضافته لتسجيلاتك"
 
 #: admin/channels.php:62
 msgid "Subscribe in Gregarius!"
-msgstr "Gregarius abonnieren!"
+msgstr "سجل في اكريكوريوس!"
 
 #: admin/channels.php:62
 msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
-msgstr "Bookmarklet indizieren [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr ""
 
 #: admin/channels.php:69
 msgid "Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
-msgstr ""
+msgstr "سجل حامل التلقيمة"
 
 #: admin/channels.php:71
 msgid "Register Gregarius!"
-msgstr ""
+msgstr "سجل اكريكوريوس!"
 
 #: admin/channels.php:97 admin/channels.php:131 admin/folders.php:46
 msgid "Title"
-msgstr "Titel"
+msgstr ""
 
 #: admin/channels.php:98 admin/channels.php:132
 msgid "Folder"
-msgstr "Ordner"
+msgstr "مجلد"
 
 #: admin/channels.php:99 admin/channels.php:133 admin/config.php:69
 #: admin/config.php:71 admin/plugins.php:99
 msgid "Description"
-msgstr "Beschreibung"
+msgstr "وَصْف"
 
 #: admin/channels.php:101 admin/channels.php:135
 msgid "Flags"
-msgstr "Flags"
+msgstr "أعلام"
 
 #: admin/channels.php:104 admin/channels.php:138 admin/channels.php:207
 #: admin/channels.php:251 admin/folders.php:49
 msgid "Move"
-msgstr "Bewegen"
+msgstr "إزاحة"
 
 #: admin/channels.php:107 admin/channels.php:141 admin/config.php:70
 #: admin/config.php:72 admin/folders.php:52 admin/tags.php:141
 msgid "Action"
-msgstr "Aktion"
+msgstr "اجراء"
 
 #: admin/channels.php:132 admin/channels.php:166 admin/channels.php:513
 #: admin/channels.php:571 admin/folders.php:67 admin/folders.php:71
@@ -90,17 +95,17 @@ msgstr "Aktion"
 #: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81 opml.php:51
 #: opml.php:104
 msgid "Root"
-msgstr "Root"
+msgstr "الجذر"
 
 #: admin/channels.php:185 admin/channels.php:221 admin/folders.php:80
 #: admin/folders.php:84 admin/folders.php:86
 msgid "&uarr;"
-msgstr "&uarr;"
+msgstr ""
 
 #: admin/channels.php:187 admin/channels.php:223 admin/folders.php:84
 #: admin/folders.php:88 admin/folders.php:90
 msgid "&darr;"
-msgstr "&darr;"
+msgstr ""
 
 #: admin/channels.php:191 admin/channels.php:227 admin/channels.php:298
 #: admin/channels.php:327 admin/channels.php:356 admin/channels.php:385
@@ -111,78 +116,78 @@ msgstr "&darr;"
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111
 msgid "edit"
-msgstr "bearbeiten"
+msgstr "حرّر"
 
 #: admin/channels.php:194 admin/channels.php:230 admin/folders.php:96
 #: admin/folders.php:100 admin/folders.php:102 admin/tags.php:156
 msgid "delete"
-msgstr "l&ouml;schen"
+msgstr "احذف"
 
 #: admin/channels.php:203 admin/channels.php:249 admin/channels.php:860
 #: admin/channels.php:924
 msgid "In folder:"
-msgstr "In Ordner:"
+msgstr "في مجلد"
 
 #: admin/channels.php:211 admin/channels.php:265
 msgid "State:"
-msgstr "Status:"
+msgstr "الحالة:"
 
 #: admin/channels.php:213 admin/channels.php:267
 msgid "Deprecated"
-msgstr "Veraltet"
+msgstr "ملغاة"
 
 #: admin/channels.php:216 admin/channels.php:270
 msgid "Private"
-msgstr "Privat"
+msgstr "خاصّ"
 
 #: admin/channels.php:218 admin/channels.php:259 admin/channels.php:272
 msgid "Set"
-msgstr "&Auml;ndern"
+msgstr "ضبط"
 
 #: admin/channels.php:222 admin/channels.php:241 admin/channels.php:281
 #: admin/items.php:59 admin/items.php:72 admin/items.php:252
 #: admin/tags.php:164 admin/tags.php:165
 msgid "Delete"
-msgstr "L&ouml;schen"
+msgstr "أحذف"
 
 #: admin/channels.php:224 admin/channels.php:279 admin/tags.php:166
 #: admin/tags.php:167
 msgid "I'm sure!"
-msgstr "Ich bin sicher!"
+msgstr "هل أنا متأكد!"
 
 #: admin/channels.php:238
 msgid "Folders"
-msgstr ""
+msgstr "مجلّدات"
 
 #: admin/channels.php:240
 msgid "State"
-msgstr ""
+msgstr "الحالة:"
 
 #: admin/channels.php:257
 msgid "Categories:"
-msgstr ""
+msgstr "الفئات:"
 
 #: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
 #: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
 #, php-format
 msgid "Adding %s to %s... "
-msgstr "F&uuml;ge %s zu %s... "
+msgstr "إضافة  %s إلى %s... "
 
 #: admin/channels.php:295 admin/channels.php:323 admin/channels.php:353
 #: admin/channels.php:381 admin/users.php:79 ajax.php:547 ajax.php:554
 msgid "OK"
-msgstr "OK"
+msgstr "نعم"
 
 #: admin/channels.php:341 admin/channels.php:399
 #, php-format
 msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
-msgstr "Die folgenden Feeds wurden in <a href=\"%s\">%s</a> gefunden, welchen wollen sie abonnieren?"
+msgstr ""
 
 #: admin/channels.php:391 admin/channels.php:395 admin/channels.php:449
 #: admin/channels.php:453 admin/channels.php:630 admin/channels.php:688
 #, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
-msgstr "Entschuldige, ich kann diese URL nicht verarbeiten: '%s'"
+msgstr ""
 
 #: admin/channels.php:408 admin/channels.php:444 admin/channels.php:466
 #: admin/channels.php:502 admin/config.php:204 admin/config.php:206
@@ -191,7 +196,7 @@ msgstr "Entschuldige, ich kann diese URL nicht verarbeiten: '%s'"
 #: admin/folders.php:190 admin/folders.php:192 admin/tags.php:60
 #: admin/tags.php:96 admin/themes.php:275
 msgid "Yes"
-msgstr "Ja"
+msgstr "نعم"
 
 #: admin/channels.php:433 admin/channels.php:443 admin/channels.php:491
 #: admin/channels.php:501 admin/config.php:208 admin/config.php:210
@@ -200,77 +205,77 @@ msgstr "Ja"
 #: admin/folders.php:189 admin/folders.php:191 admin/tags.php:66
 #: admin/tags.php:95
 msgid "No"
-msgstr "Nein"
+msgstr "ﻻ"
 
 #: admin/channels.php:441 admin/channels.php:499 admin/folders.php:183
 #: admin/folders.php:187 admin/folders.php:189 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
-msgstr "Wollen sie den Ordner '%s' wirklich l&ouml;schen?"
+msgstr ""
 
 #: admin/channels.php:454 admin/channels.php:512 admin/opml.php:81
 msgid "Import"
-msgstr "Import"
+msgstr "استورِد"
 
 #: admin/channels.php:558 admin/channels.php:616 update.php:61
 msgid "Updating"
-msgstr "Aktualisiere"
+msgstr "تحديث"
 
 #: admin/channels.php:828 admin/channels.php:892
 msgid "Edit the feed "
-msgstr "Den Feed bearbeiten "
+msgstr ""
 
 #: admin/channels.php:834 admin/channels.php:837 admin/channels.php:898
 #: admin/channels.php:901
 msgid "Added"
-msgstr "Added"
+msgstr "أضيف"
 
 #: admin/channels.php:835 admin/channels.php:838 admin/channels.php:899
 #: admin/channels.php:902 themes/WittySparks_v1.0/web/footer.php:17
 #: themes/default/web/footer.php:17
 msgid "Last Update"
-msgstr "Letzte Aktualisierung"
+msgstr "آخر تحديث"
 
 #: admin/channels.php:838 admin/channels.php:902 cls/wrappers/header.php:134
 msgid "Never"
-msgstr "noch nicht"
+msgstr "أبدا"
 
 #: admin/channels.php:841 admin/channels.php:905
 msgid "Title:"
-msgstr "Titel:"
+msgstr ":العنوان"
 
 #: admin/channels.php:850 admin/channels.php:914
 msgid "RSS URL:"
-msgstr "RSS URL:"
+msgstr "عنوان تلقيمة آر إس إس"
 
 #: admin/channels.php:851 admin/channels.php:856 admin/channels.php:915
 #: admin/channels.php:920
 msgid "(visit)"
-msgstr "(besuchen)"
+msgstr "(زيارة)"
 
 #: admin/channels.php:855 admin/channels.php:919
 msgid "Site URL:"
-msgstr "Seiten URL:"
+msgstr "عنوان الموقع"
 
 #: admin/channels.php:890 admin/channels.php:954
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr "Dieser Feed ist <strong>privat</strong>, nur Admins sehen ihn."
+msgstr ""
 
 #: admin/channels.php:898 admin/channels.php:962
 msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
-msgstr "Dieser Feed ist <strong>veraltet</strong>, er wird nicht mehr aktualisiert und wird nicht mehr in der Feedspalte sichtbar sein."
+msgstr ""
 
 #: admin/channels.php:905 admin/channels.php:969
 msgid "Description:"
-msgstr "Beschreibung:"
+msgstr "وَصْفْ:"
 
 #: admin/channels.php:910 admin/channels.php:974
 msgid "Shown favicon:"
-msgstr "Gezeigte Favoriten-Zeichen:"
+msgstr ""
 
 #: admin/channels.php:917 admin/channels.php:981
 msgid "(Leave blank for no icon)"
-msgstr "(Leer lassen f&uuml;r kein Icon)"
+msgstr ""
 
 #: admin/channels.php:972 admin/channels.php:1036 admin/config.php:238
 #: admin/config.php:240 admin/config.php:257 admin/config.php:259
@@ -278,96 +283,96 @@ msgstr "(Leer lassen f&uuml;r kein Icon)"
 #: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
 #: admin/tags.php:189 admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
-msgstr "Aenderungen aktivieren"
+msgstr "أرسل التعديلات"
 
 #: admin/config.php:31 admin/config.php:32
 msgid "Configuration:"
-msgstr "Konfiguration:"
+msgstr ""
 
 #: admin/config.php:67 admin/config.php:69
 msgid "Key"
-msgstr "Schl&uuml;ssel"
+msgstr "مفتاح"
 
 #: admin/config.php:68 admin/config.php:70
 msgid "Value"
-msgstr "Wert"
+msgstr "قيمة"
 
 #: admin/config.php:167 admin/config.php:169
 msgid "default"
-msgstr "Standard"
+msgstr "الأصلي"
 
 #: admin/config.php:190 admin/config.php:192
 msgid "Invalid config key specified."
-msgstr "Ungültiger Konfigurationswert angegeben."
+msgstr ""
 
 #: admin/config.php:234 admin/config.php:236 admin/config.php:252
 #: admin/config.php:254
 msgid "Preview"
-msgstr "Vorschau"
+msgstr "المعاينة"
 
 #: admin/config.php:246 admin/config.php:248 admin/items.php:253
 #: admin/plugins.php:214 admin/themes.php:175 ajax.php:548 ajax.php:555
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "الغِ"
 
 #: admin/config.php:332 admin/config.php:334 admin/config.php:480
 #: admin/config.php:482 admin/config.php:484
 msgid "False"
-msgstr "Falsch"
+msgstr "غير صحيح"
 
 #: admin/config.php:332 admin/config.php:334 admin/config.php:337
 #: admin/config.php:339 admin/config.php:474 admin/config.php:476
 #: admin/config.php:478
 msgid "True"
-msgstr "Wahr"
+msgstr "صحيح"
 
 #: admin/config.php:368 admin/config.php:370
 msgid "Ooops, unknown config type: "
-msgstr "Ups, unbekannter Konfigurationswert: "
+msgstr ""
 
 #: admin/config.php:442 admin/config.php:444 admin/config.php:467
 #: admin/config.php:469 admin/config.php:471 admin/config.php:473
 #: admin/config.php:485 admin/config.php:487
 msgid "Value for"
-msgstr "Wert f&uuml;r"
+msgstr "قيمة ل"
 
 #: admin/config.php:517 admin/config.php:519
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
-msgstr "Bist du sicher, dass du den Wert f&uuml;r %s auf den Standard zur&uuml;cksetzen willst '%s'?"
+msgstr ""
 
 #: admin/folders.php:31
 msgid "Folders:"
-msgstr "Ordner:"
+msgstr "مجلدات:"
 
 #: admin/folders.php:38
 msgid "Add a folder:"
-msgstr "Ordner hinzuf&uuml;gen:"
+msgstr "أضف مجلدا"
 
 #: admin/folders.php:47 cls/channels.php:164 cls/header.php:97
 #: cls/wrappers/feeds.php:76 themes/WittySparks_v1.0/mobile/nav.php:2
 #: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
 msgid "Feeds"
-msgstr "Feeds"
+msgstr "تلقيمات"
 
 #: admin/folders.php:123 admin/folders.php:127 admin/folders.php:129
 msgid "Folder name:"
-msgstr "Ordnername:"
+msgstr "اسم المجلد:"
 
 #: admin/folders.php:164 admin/folders.php:168 admin/folders.php:170
 msgid "You can't delete the Root folder"
-msgstr "Du kannst den \" . LBL_HOME_FOLDER . \" Ordner nicht l&ouml;schen"
+msgstr "لا يمكن إزالة ملف الجذر"
 
 #: admin/folders.php:204 admin/folders.php:208 admin/folders.php:210
 #: admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
-msgstr "Du kannst den Artikel '%s' nicht umbenennen, da ein solcher schon existiert."
+msgstr ""
 
 #: admin/folders.php:281 admin/folders.php:285 admin/folders.php:287
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
-msgstr "Der Ordner '%s' existiert schon!"
+msgstr "هناك ملف بنفس الإسم: '%s'!"
 
 #: admin/index.php:202
 #, php-format
@@ -376,11 +381,11 @@ msgstr ""
 
 #: admin/index.php:219
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "لوحة التحكم"
 
 #: admin/index.php:220
 msgid "feeds"
-msgstr "Feeds"
+msgstr "تلقيمات"
 
 #: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
 #: feed.php:1043 feed.php:1061 feed.php:1073
@@ -388,27 +393,27 @@ msgstr "Feeds"
 #: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:121
 #: tags.php:131 tags.php:152 tags.php:170
 msgid "items"
-msgstr "Artikel"
+msgstr "مواد"
 
 #: admin/index.php:222
 msgid "config"
-msgstr "Konfiguration"
+msgstr "إعدادات"
 
 #: admin/index.php:223
 msgid "plugins"
-msgstr "Plugins"
+msgstr "إضافات"
 
 #: admin/index.php:224
 msgid "themes"
-msgstr "Themen"
+msgstr "تصاميم"
 
 #: admin/index.php:225
 msgid "folders"
-msgstr "Ordner"
+msgstr "مجلدات"
 
 #: admin/index.php:226
 msgid "opml"
-msgstr "opml"
+msgstr ""
 
 #: admin/index.php:227 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
 #: cls/taglist.php:69 tags.php:129 tags.php:147
@@ -417,165 +422,164 @@ msgstr "opml"
 #: themes/default/web/item.php:28 themes/lilina/web/item.php:52
 #: themes/lilina/web/item.php:108
 msgid "Tags"
-msgstr "Markierungen"
+msgstr "وسوم"
 
 #: admin/index.php:234 cls/wrappers/header.php:143
 msgid "Logout"
-msgstr "Abmelden"
+msgstr "خروج"
 
 #: admin/index.php:336
 msgid "Admin"
-msgstr "Administrator"
+msgstr "المشرف"
 
 #: admin/items.php:36
 msgid "Items:"
-msgstr "Artikel:"
+msgstr "مواد"
 
 #: admin/items.php:40
 msgid "Pruning"
-msgstr "Bereinigen"
+msgstr ""
 
 #: admin/items.php:42
 msgid "Delete items older than "
-msgstr "L&ouml;sche Artikel &auml;lter als "
+msgstr "أزل المواد الأقدم من "
 
 #: admin/items.php:45 admin/items.php:83
 msgid "days"
-msgstr "Tage"
+msgstr "أيام"
 
 #: admin/items.php:46 admin/items.php:87
 msgid "months"
-msgstr "Monate"
+msgstr "أشهر"
 
 #: admin/items.php:47 admin/items.php:91
 msgid "years"
-msgstr "Jahre"
+msgstr "سنوات"
 
 #: admin/items.php:49
 msgid "...from these feeds"
-msgstr "...aus diesen Feeds."
+msgstr "...  من هاته المجلدات"
 
 #: admin/items.php:52
 msgid "Delete Sticky items too: "
-msgstr "L&ouml;sche auch Sticky Artikel: "
+msgstr "أزل المواد المعلقة أيضا (ستيكي): "
 
 #: admin/items.php:54
 msgid "Delete Unread items too: "
-msgstr ""
+msgstr "أزل المواد غير مقروءة "
 
 #: admin/items.php:56
 msgid "Do not delete items tagged... "
-msgstr "Markierte Artikel nicht l&ouml;schen... "
+msgstr "لا تزل المواد الموسومة ... "
 
 #: admin/items.php:58
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
-msgstr "(Trage <strong>*</strong> ein, um alle markierten Artikel zu behalten)"
+msgstr ""
 
 #: admin/items.php:96
 msgid "Invalid pruning period"
-msgstr "Ung&uuml;ltige Bereinigungsperiode"
+msgstr ""
 
 #: admin/items.php:245
 #, php-format
 msgid "Warning: you are about to delete %s items (of %s)"
-msgstr "Achtung: es werden %s Artikel (von %s) gel&ouml;scht"
+msgstr ""
 
 #: admin/items.php:258
 msgid "oops, no period specified"
-msgstr "Oops, kein Zeitraum angegeben"
+msgstr ""
 
 #: admin/opml.php:38
 msgid "OPML:"
-msgstr "OPML:"
+msgstr ""
 
 #: admin/opml.php:42
 msgid "Import OPML:"
-msgstr "Import OPML:"
+msgstr "استورد OPML:"
 
 #: admin/opml.php:46
 msgid "... from URL:"
-msgstr "... aus URL:"
+msgstr "... من عنوان الموقع:"
 
 #: admin/opml.php:52
 msgid "... from File:"
-msgstr "... vom File:"
+msgstr "... من ملف:"
 
 #: admin/opml.php:63
 msgid "Import new feeds and:"
-msgstr "Import neuer Feeds und:"
+msgstr "استورد التلقيمات الجديدة   وأيضا:"
 
 #: admin/opml.php:66
 msgid "... merge them with the existing ones."
-msgstr "... verbinde diese mit den existierenden Ordnern."
+msgstr ""
 
 #: admin/opml.php:70
 msgid "... add them to the folder:"
-msgstr "... zum Ordner hinzuf&uuml;gen:"
+msgstr ""
 
 #: admin/opml.php:75
 msgid "... replace all existing feeds and items."
-msgstr "... ersetzen aller existierender Feeds und Artikel."
+msgstr ""
 
 #: admin/opml.php:107 admin/opml.php:109
 msgid "Export OPML:"
-msgstr "Export OPML:"
+msgstr "صدِّر OPML:"
 
 #: admin/opml.php:110
 msgid "Export"
-msgstr "Export"
+msgstr "صدِّر"
 
 #: admin/opml.php:120
 msgid "XML Dump:"
-msgstr "XML Dump:"
+msgstr ""
 
 #: admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
-msgstr "Diese Gregarius-Installation als XML Dump speichern"
+msgstr ""
 
 #: admin/opml.php:123
 msgid "Dump!"
-msgstr "Dump!"
+msgstr ""
 
 #: admin/plugins.php:86
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "اضافات"
 
 #: admin/plugins.php:90
 msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
 msgstr ""
 
 #: admin/plugins.php:95
-#, fuzzy
 msgid "Active"
-msgstr "Aktiviert"
+msgstr "نشِط"
 
 #: admin/plugins.php:96
 msgid "Name"
-msgstr "Name"
+msgstr "الاسم:"
 
 #: admin/plugins.php:97
 msgid "Version"
-msgstr "Version"
+msgstr "الاصدار"
 
 #: admin/plugins.php:98
 msgid "Author"
-msgstr "Autor"
+msgstr "المؤلف"
 
 #: admin/plugins.php:100
 msgid "Options"
-msgstr "Optionen"
+msgstr "خبارات"
 
 #: admin/plugins.php:102
 msgid "Update Available"
-msgstr "Aktualisierung vorhanden"
+msgstr "يوجد تحديث"
 
 #: admin/plugins.php:171 admin/themes.php:50
 msgid "Check for Updates"
-msgstr "Pr&uuml;fe auf Updates"
+msgstr "البحث عن تحديثات"
 
 #: admin/plugins.php:202
 msgid "Plugin Options"
-msgstr "Plugin Optionen"
+msgstr "خيارات الإضافات"
 
 #: admin/tags.php:157
 msgid "view"
@@ -583,15 +587,15 @@ msgstr ""
 
 #: admin/tags.php:162 admin/tags.php:163
 msgid "Selected"
-msgstr "Ausgewählt"
+msgstr "مختار"
 
 #: admin/tags.php:186 admin/tags.php:187
 msgid "Rename to..."
-msgstr "Umbenennen zu..."
+msgstr "غير الإسم إلى..."
 
 #: admin/themes.php:56
 msgid "Themes"
-msgstr "Themen"
+msgstr "قوالب"
 
 #: admin/themes.php:58
 msgid "<p style=\"font-size:small\">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
@@ -599,55 +603,55 @@ msgstr ""
 
 #: admin/themes.php:90
 msgid "Use this Theme"
-msgstr "Dieses Thema verwenden"
+msgstr ""
 
 #: admin/themes.php:92
 msgid "Active Theme"
-msgstr "Aktuelles Thema"
+msgstr "القالب المفعّل"
 
 #: admin/themes.php:100
 msgid "Configure"
-msgstr "Konfigurieren"
+msgstr "إعداد"
 
 #: admin/themes.php:152
 msgid "Theme Options"
-msgstr "Themenoptionen"
+msgstr "اختيارات القوالب"
 
 #: admin/users.php:53
 msgid "Passwords do not match!"
-msgstr "Die Passworte sind falsch!"
+msgstr "كلمات السر غير متطابقة!"
 
 #: admin/users.php:69
 msgid "<p>No Administrator has been specified yet!</p><p>Please provide an Administrator username and password now!</p>"
-msgstr "<p>Es wurde noch kein Administrator festgelegt!</p><p>Bitte geben Sie einen Benutzernamen und ein Passwort für den Administrator an!</p>"
+msgstr ""
 
 #: admin/users.php:73 admin/users.php:98
 msgid "Username"
-msgstr "Benutzername"
+msgstr "إسم المستخدم:"
 
 #: admin/users.php:75 admin/users.php:100
 msgid "Password"
-msgstr "Passwort"
+msgstr "كلمة السَر"
 
 #: admin/users.php:77
 msgid "Password (again)"
-msgstr "Passwort (nochmals)"
+msgstr "كلمة السر (مرة أخرى)"
 
 #: admin/users.php:97
 msgid "Please log in"
-msgstr "Bitte anmelden"
+msgstr "الرجاء تسجيل الدّخول"
 
 #: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
 msgid "Login"
-msgstr "Anmelden"
+msgstr "تسجيل الدّخول"
 
 #: ajax.php:81 index.php:216 index.php:217
 msgid "Recent items"
-msgstr "K&uuml;rzliche Artikel"
+msgstr "مواد حديثة"
 
 #: ajax.php:228 ajax.php:239
 msgid "submit"
-msgstr "Auslösen"
+msgstr "إرسال"
 
 #: ajax.php:230
 msgid "..."
@@ -655,95 +659,93 @@ msgstr "..."
 
 #: ajax.php:243
 msgid "cancel"
-msgstr "Abbrechen"
+msgstr "إلغاء"
 
 #: ajax.php:532 ajax.php:539
-#, fuzzy
 msgid "Unread (Set this item\\'s read/unread state)"
-msgstr "Ungelesen (Setzt den Status des Artikels auf gelesen/ungelesen)"
+msgstr ""
 
 #: ajax.php:536 ajax.php:543
-#, fuzzy
 msgid "Sticky (Won\\'t be deleted when you prune items)"
-msgstr "Sticky (Wird nicht gel&ouml;scht beim Bereinigen von Artikeln)"
+msgstr ""
 
 #: ajax.php:540 ajax.php:547
 msgid "Private (Only administrators can see private items)"
-msgstr "Privat (Nur Administratoren k&ouml;nnen private Eintr&auml;ge sehen)"
+msgstr ""
 
 #: ajax.php:544 ajax.php:551
 msgid "Flag (Flags an item for later reading)"
-msgstr "Markiere (markiert einen Artikel zum sp&auml;teren Lesen)"
+msgstr ""
 
 #: author.php:41 cls/wrappers/item.php:221
 msgid " by "
-msgstr " by "
+msgstr " من عند "
 
 #: cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073 tags.php:117
 #: tags.php:121 tags.php:131 tags.php:152 tags.php:170
 msgid "item"
-msgstr "Artikel"
+msgstr "مادة"
 
 #: cls/categories.php:87
 #, php-format
 msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
-msgstr "<strong>%d</strong> Feeds in <strong>%d</strong> Kategorien"
+msgstr "<strong>%d</strong> تلقيمات في <strong>%d</strong>الفئات"
 
 #: cls/channels.php:97 cls/wrappers/feeds.php:64 feed.php:843 feed.php:847
 #: feed.php:851
 #, php-format
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
-msgstr "<strong id=\"%s\" style=\"%s\">(%d ungelesen)</strong>"
+msgstr "<strong id=\"%s\" style=\"%s\">(%d غير مقروء)</strong>"
 
 #: cls/channels.php:200
 #, php-format
 msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
-msgstr "<strong>%d</strong> Artikel (<strong id=\"fucnt\">%d</strong> ungelesen) in <strong>%d</strong> Feeds"
+msgstr "<strong>%d</strong> مواد (<strong id=\"fucnt\">%d</strong> unread) في <strong>%d</strong> تلقيمات"
 
 #: cls/header.php:62
 msgid "unread"
-msgstr "ungelesen"
+msgstr "غير مقروء"
 
 #: cls/nav.php:62
 msgid "<span>H</span>ome"
-msgstr "<span>H</span>ome"
+msgstr "الصفحة الرئسية (H)"
 
 #: cls/nav.php:64
 msgid "<span>R</span>efresh"
-msgstr "<span>E</span>rneuern"
+msgstr "جدّد (R)"
 
 #: cls/nav.php:66
 msgid "<span>S</span>earch"
-msgstr "<span>S</span>uchen"
+msgstr "ابحث (S)"
 
 #: cls/nav.php:67
 msgid "A<span>d</span>min"
-msgstr "A<span>d</span>min"
+msgstr "إدارة (D)"
 
 #: cls/search.php:228
 msgid "Results: "
-msgstr "Resultate: "
+msgstr "نتائج: "
 
 #: cls/taglist.php:86
 #, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr "<strong>%d</strong> markierte Artikel, in <strong>%d</strong> Tags"
+msgstr ""
 
 #: cls/update.php:118
 msgid "OK (304 Not modified)"
-msgstr "OK (304 Not modified)"
+msgstr ""
 
 #: cls/update.php:122
 msgid "HTTP Timeout (Local cache)"
-msgstr "HTTP Zeit&uuml;berschreitung (Local cache)"
+msgstr ""
 
 #: cls/update.php:126
 msgid "OK (Local cache)"
-msgstr "OK (Local cache)"
+msgstr ""
 
 #: cls/update.php:130
 msgid "404 Not Found (Local cache)"
-msgstr "404 Not Found (Local cache)"
+msgstr ""
 
 #: cls/update.php:134
 msgid "403 Forbidden (Local cache)"
@@ -751,91 +753,91 @@ msgstr ""
 
 #: cls/update.php:143
 msgid "OK (HTTP 200)"
-msgstr "OK (HTTP 200)"
+msgstr ""
 
 #: cls/update.php:148
 msgid "ERROR"
-msgstr "ERROR"
+msgstr "خطأ"
 
 #: cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
-msgstr "Aktualisiere %d Feeds..."
+msgstr ""
 
 #: cls/update.php:186 cls/update.php:249
 msgid "Feed"
-msgstr "Feed"
+msgstr "تلقيمة"
 
 #: cls/update.php:187 cls/update.php:250
 msgid "Status"
-msgstr "Status"
+msgstr "الحالة:"
 
 #: cls/update.php:188 cls/update.php:251 cls/update.php:302 cls/update.php:331
 #: cls/update.php:363
 msgid "New Items"
-msgstr "Neue Begriffe"
+msgstr ""
 
 #: cls/wrappers/header.php:142
 #, php-format
 msgid "Logged in as <strong>%s</strong>"
-msgstr "Angemeldet als <strong>%s</strong>"
+msgstr ""
 
 #: cls/wrappers/header.php:145
 msgid "Not logged in"
-msgstr "Nicht angemeldet"
+msgstr "لم يتم تسجيل الدخول"
 
 #: cls/wrappers/item.php:45
 msgid "Permalink for "
-msgstr "Permalink f&uuml;r "
+msgstr ""
 
 #: cls/wrappers/item.php:200
 msgid "Fetched: "
-msgstr "geholt: "
+msgstr ""
 
 #: cls/wrappers/item.php:200
 msgid "Posted: "
-msgstr "Ver&ouml;ffentlicht: "
+msgstr ""
 
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
 #: cls/wrappers/toolkit.php:53
 msgid "All"
-msgstr "Alle"
+msgstr "الكل"
 
 #: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
 msgid "Mark These Items as Read"
-msgstr "Alle Artikel als gelesen markieren"
+msgstr ""
 
 #: index.php:151 index.php:152
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
-msgstr "Ungelesene Artikel (<strong id=\"ucnt\">%d</strong>)"
+msgstr ""
 
 #: plugins/delicious.php:64
 msgid "no suggestions"
-msgstr "keine Vorschl&auml;ge"
+msgstr "لا توجد اقتراحات"
 
 #: plugins/delicious.php:108
 msgid "suggestions"
-msgstr "Vorschl&auml;ge"
+msgstr ""
 
 #: plugins/encplayer.php:46 plugins/encplayeralt.php:45
 msgid "play"
-msgstr "abspielen"
+msgstr "تشغيل"
 
 #: plugins/markallread.php:64 plugins/markallread.php:65
 #: plugins/markallread.php:110 plugins/markallread.php:111
 msgid "Mark This Category as Read"
-msgstr "Markiere diese Kategorie als gelesen"
+msgstr ""
 
 #: plugins/markallread.php:75 plugins/markallread.php:76
 #: plugins/markallread.php:104 plugins/markallread.php:105
 msgid "Mark This Folder as Read"
-msgstr "Markiere diesen Ordner als gelesen"
+msgstr ""
 
 #: plugins/markallread.php:86 plugins/markallread.php:87
 #: plugins/markallread.php:98 plugins/markallread.php:99
 msgid "Mark This Feed as Read"
-msgstr "Markiere diesen Feed als gelesen"
+msgstr ""
 
 #: plugins/sidemenu.php:15
 msgid "Test"
@@ -845,26 +847,26 @@ msgstr ""
 #: themes/WittySparks_v1.0/mobile/item.php:40
 #: themes/default/mobile/item.php:40
 msgid "Sticky"
-msgstr "Sticky"
+msgstr ""
 
 #: plugins/stickyflag/stickyflag.php:100 state.php:36
 msgid "Flagged"
-msgstr "Markiert"
+msgstr "معلّم"
 
 #: search.php:43
 #, php-format
 msgid "%d match for %s"
-msgstr "%d passt f&uuml;r %s"
+msgstr ""
 
 #: search.php:43
 #, php-format
 msgid "%d matches for %s"
-msgstr "%d Artikel gefunden f&uuml;r %s"
+msgstr ""
 
 #: search.php:51
 #, php-format
 msgid "Search %d items"
-msgstr "Suche %d Artikel"
+msgstr ""
 
 #: search.php:52 test/minisearch.php:46 themes/3panes/searchform.php:5
 #: themes/3panes/searchform.php:25
@@ -879,34 +881,34 @@ msgstr "Suche %d Artikel"
 #: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
 #: themes/planet/searchform.php:39
 msgid "Search"
-msgstr "Suchen"
+msgstr "بحث"
 
 #: tags.php:81 tags.php:82 tags.php:117 tags.php:124 tags.php:132
 msgid "and"
-msgstr "und"
+msgstr "و"
 
 #: tags.php:117 tags.php:122 tags.php:131 tags.php:153 tags.php:171
 msgid "tagged"
-msgstr "markiert"
+msgstr "مُوَسّم"
 
 #: tags.php:157 tags.php:175
 msgid "Related tags: "
-msgstr "&Auml;hnliche Markierungen: "
+msgstr ""
 
 #: tags.php:168
 #, php-format
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
-msgstr "Oops! Markierte Artikel wurden nicht gefunden &laquo;%s&raquo."
+msgstr ""
 
 #: tags.php:178 tags.php:198
 msgid "All Tags"
-msgstr "Alle Markierungen"
+msgstr "كل الوسمات"
 
 #: themes/3panes/footer.php:5 themes/WittySparks_v1.0/web/footer.php:6
 #: themes/default/web/footer.php:6 themes/milsi/footer.php:4
 #: themes/planet/footer.php:5
 msgid " powered by "
-msgstr " powered by "
+msgstr ""
 
 #: themes/3panes/searchform.php:7
 #: themes/WittySparks_v1.0/mobile/searchform.php:7
@@ -915,7 +917,7 @@ msgstr " powered by "
 #: themes/milsi/searchform.php:7 themes/mobile/searchform.php:7
 #: themes/planet/searchform.php:7
 msgid "Search terms:"
-msgstr "Suchbegriffe:"
+msgstr ""
 
 #: themes/3panes/searchform.php:10
 #: themes/WittySparks_v1.0/mobile/searchform.php:13
@@ -924,7 +926,7 @@ msgstr "Suchbegriffe:"
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 msgid "Some terms (OR)"
-msgstr "Einige Begriffe (ODER)"
+msgstr ""
 
 #: themes/3panes/searchform.php:12
 #: themes/WittySparks_v1.0/mobile/searchform.php:15
@@ -933,7 +935,7 @@ msgstr "Einige Begriffe (ODER)"
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 msgid "All terms (AND)"
-msgstr "Alle Begriffe (UND)"
+msgstr ""
 
 #: themes/3panes/searchform.php:14
 #: themes/WittySparks_v1.0/mobile/searchform.php:17
@@ -942,7 +944,7 @@ msgstr "Alle Begriffe (UND)"
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 msgid "Exact match"
-msgstr "Exakte &Uuml;bereinstimmung"
+msgstr ""
 
 #: themes/3panes/searchform.php:16
 #: themes/WittySparks_v1.0/mobile/searchform.php:21
@@ -951,7 +953,7 @@ msgstr "Exakte &Uuml;bereinstimmung"
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 msgid "Feed:"
-msgstr "Feed:"
+msgstr "تلقيمة:"
 
 #: themes/3panes/searchform.php:19
 #: themes/WittySparks_v1.0/mobile/searchform.php:27
@@ -960,7 +962,7 @@ msgstr "Feed:"
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 msgid "Order by date, feed"
-msgstr "Sortiert nach Datum und Feed"
+msgstr "رتب حسب التاريخ، التلقيمات"
 
 #: themes/3panes/searchform.php:21
 #: themes/WittySparks_v1.0/mobile/searchform.php:29
@@ -969,7 +971,7 @@ msgstr "Sortiert nach Datum und Feed"
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 msgid "Order by feed, date"
-msgstr "Sortiert nach Feed und Datum"
+msgstr "رتب حسب التلقيمات، التاريخ"
 
 #: themes/3panes/searchform.php:22
 #: themes/WittySparks_v1.0/mobile/searchform.php:33
@@ -978,35 +980,35 @@ msgstr "Sortiert nach Feed und Datum"
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 msgid "Results per page:"
-msgstr "Resultate pro Seite:"
+msgstr "النتائج حسب الصفحة"
 
 #: themes/WittySparks_v1.0/mobile/item.php:19
 #: themes/WittySparks_v1.0/web/item.php:24 themes/default/mobile/item.php:19
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
 #: themes/lilina/web/item.php:104
 msgid "Enclosure:"
-msgstr "Enclosure (Einschl&uuml;sse):"
+msgstr "مرفقات"
 
 #: themes/WittySparks_v1.0/mobile/item.php:19
 #: themes/WittySparks_v1.0/web/item.php:24 themes/default/mobile/item.php:19
 #: themes/default/web/item.php:24 themes/lilina/web/item.php:48
 #: themes/lilina/web/item.php:104
 msgid "download"
-msgstr "download"
+msgstr "تنزيل"
 
 #: themes/WittySparks_v1.0/mobile/item.php:34
 #: themes/default/mobile/item.php:34
 msgid "Read"
-msgstr ""
+msgstr "مقروء"
 
 #: themes/WittySparks_v1.0/mobile/item.php:35
 #: themes/default/mobile/item.php:35
 msgid "Unread"
-msgstr ""
+msgstr "غير مقروء"
 
 #: themes/WittySparks_v1.0/mobile/nav.php:4 themes/default/mobile/nav.php:4
 msgid "Refresh"
-msgstr ""
+msgstr "حدّث"
 
 #: themes/WittySparks_v1.0/web/item.php:8
 #: themes/WittySparks_v1.0/web/item.php:9 themes/default/web/item.php:8
@@ -1017,7 +1019,7 @@ msgstr ""
 #: themes/WittySparks_v1.0/web/item.php:18 themes/default/web/item.php:18
 #: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
 msgid "Rating:"
-msgstr "Bewertung:"
+msgstr "تقييم:"
 
 #: themes/WittySparks_v1.0/web/pagination.php:2
 #: themes/default/web/pagination.php:2
@@ -1025,74 +1027,22 @@ msgid "Skip to page: "
 msgstr ""
 
 #: themes/milsi/feeds.php:4
-#, fuzzy, php-format
+#, php-format
 msgid "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds"
-msgstr "<strong>%d</strong> Artikel (<strong id=\"fucnt\">%d</strong> ungelesen) in <strong>%d</strong> Feeds"
+msgstr ""
 
 #: update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
-msgstr "Sorry, Updates aus dem Internet sind momentan nicht zugelassen."
+msgstr ""
 
 #: util.php:851 util.php:852 util.php:857 util.php:861
 msgid "Show items: "
-msgstr "Artikel anzeigen: "
+msgstr ""
 
 #: util.php:853 util.php:854 util.php:859 util.php:863
 msgid "Unread only"
-msgstr "Nur Ungelesene"
+msgstr ""
 
 #: util.php:854 util.php:855 util.php:860 util.php:864
 msgid "Read and unread"
-msgstr "Gelesene und Ungelesene"
-
-#~ msgid "Please follow <a href=\"%s\">this link</a> back to the main page.\n"
-#~ msgstr "Bitte folgen Sie <a href=\"%s\">diesem Link<a> zurück zur Startseite.\n"
-
-#~ msgid "Have  a nice day!"
-#~ msgstr "Schönen Tag noch!"
-
-#~ msgid "(%d items)"
-#~ msgstr "(%d Artikel)"
-
-#~ msgid "(%d unread in %d feeds)"
-#~ msgstr "(%d ungelesene in %d Feeds)"
-
-#~ msgid "<strong>Oops!</strong> Bad login/password"
-#~ msgstr "<strong>Oops!</strong> Falsche(s) Anmeldung/Passwort"
-
-#, fuzzy
-#~ msgid "Last update"
-#~ msgstr "Letzte Aktualisierung"
-
-#, fuzzy
-#~ msgid "Unread items (<span id=\"ucnt\">%d</span>)"
-#~ msgstr "Ungelesene Artikel (<strong id=\"ucnt\">%d</strong>)"
-
-#~ msgid "Create"
-#~ msgstr "Erstellen"
-
-#~ msgid "Import file"
-#~ msgstr "Import file"
-
-#~ msgid "Keep the most recent items: "
-#~ msgstr "Behalte die neuesten Artikel: "
-
-#~ msgid ""
-#~ "<h1>Not Authorized!</h1>\n"
-#~ "You are not authorized to access the administration interface.\n"
-#~ msgstr ""
-#~ "<h1>Nicht autorisiert!</h1>\n"
-#~ "Sie sind nicht berechtigt, auf das Administrations-Interface zuzugreifen.\n"
-
-#~ msgid "%d items, %d unread"
-#~ msgstr "%d Artikel, %d ungelesen"
-
-#~ msgid "[-] collapse"
-#~ msgstr "[-] verringern"
-
-#~ msgid "[+] expand"
-#~ msgstr "[+] erweitern"
-
-#, fuzzy
-#~ msgid "tag"
-#~ msgstr "markiert"
+msgstr "مقروء وغير مقروء"
