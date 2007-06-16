@@ -28,10 +28,10 @@
 require_once ('init.php');
 
 $a = trim(sanitize($_REQUEST['author'], RSS_SANITIZER_WORDS));
-list ($ra) = rss_fetch_row(rss_query(
-	"select distinct(author) from " .getTable('item') 
-	." where author  like '%$a'"
-));
+$sql = "select distinct(author) from " .getTable('item') 
+	." where author  like '%$a'";
+
+list ($ra) = rss_fetch_row(rss_query($sql));
 
 if (!$ra) {
 	rss_404();

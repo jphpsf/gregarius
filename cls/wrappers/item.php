@@ -212,7 +212,7 @@ function rss_item_date_with_format($fmt) {
 
 function rss_item_author() {
 	if (($a = $GLOBALS['rss'] -> currentItem -> author) != null) {
-		$ea = preg_replace('/[^a-zA-Z0-9]+/','_',$a);
+		$ea = preg_replace('/[^a-zA-Z0-9]/','_',$a);
 		if (getConfig('rss.output.usemodrewrite')) {
 			$a = "<a href=\"".getPath() ."author/$ea\">$a</a>";
 		} else {
