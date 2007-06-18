@@ -62,8 +62,8 @@ function rss_item_pl_url() {
 	} 
 	return getPath()."feed.php?channel="
 		.$GLOBALS['rss'] -> currentItem -> parent->cid
-		."&amp;iid=".$GLOBALS['rss'] -> currentItem ->id
-		."&amp;y=$ply&amp;m=$plm&amp;d=$pld";
+		."&amp;y=$ply&amp;m=$plm&amp;d=$pld"
+		."&amp;iid=".$GLOBALS['rss'] -> currentItem ->id;
 	
 }
 
