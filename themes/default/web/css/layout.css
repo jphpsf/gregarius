@@ -252,7 +252,7 @@ p#rss_input_allowupdates_options label {
 	margin-right: 1em;
 }
 
-form#channeledit input { display:block; }
+form#channeledit input, table#tagtable label { display:block; }
 
 form#channeledit input[type="text"] {
   display:block;

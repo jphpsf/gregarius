@@ -202,14 +202,20 @@ function channels() {
 
         $slabel = count($fmode)?implode(", ",$fmode):"&nbsp;";
         if ($icon && substr($icon,0,5) == 'blob:') {
-            $icon = getPath() . "extlib/favicon.php?url=" .rss_real_escape_string(substr($icon,5));
+            $icon = getPath( "extlib/favicon.php?url=" .rss_real_escape_string(substr($icon,5)));
         }
+        $style_ = "display:block;";
+        if($icon && getConfig('rss.output.showfavicons')) {
+            $style_ .= "background: url($icon) no-repeat; padding-left: 22px;";
+        }
+        if ($dead) {
+            $style_ .= 'text-decoration:line-through';
+        }
+            
         echo "<tr class=\"$class_\" id=\"fa$id\">\n"
         ."\t<td><input type=\"checkbox\" name=\"fcb$id\" value=\"$id\" id=\"scb_$id\" /></td>\n"
         ."\t<td>"
-        .((getConfig('rss.output.showfavicons') && $icon != "")?
-          "<img src=\"$icon\" class=\"favicon\" alt=\"\" width=\"16\" height=\"16\" />":"")
-        ."<label for=\"scb_$id\"".($dead ? ' style="text-decoration:line-through">' : ">").$title."</label>"
+        ."<label for=\"scb_$id\" style=\"$style_\">".$title."</label>"
         ."</td>\n"
         ."\t<td class=\"cntr\">".preg_replace('/ /','&nbsp;',$parentLabel)."</td>\n"
         ."\t<td>$descr</td>\n"
