@@ -3,7 +3,7 @@
 <?php if(hidePrivate()) { ?>
 	<p>(<a href="<?php echo getPath(); ?>?mobilelogin&amp;media=mobile">Login</a> to mark items read)</p>
 <?php } ?>
-<form method="post" action="<?= getPath(); ?>">
+<form method="post" action="<?php print(getPath()); ?>">
 <?php } rss_itemlist_feeds(); ?>
 <?php if( !isMobileDevice() ) { ?>
 <input type='hidden' name='mobile' />

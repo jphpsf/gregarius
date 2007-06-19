@@ -26,18 +26,18 @@ $cls = $GLOBALS['__item__idx__']++ % 2 ? 'e':'o';
 
 <?php if(!hidePrivate()) { ?>
 <div class="mobileform">
-<label for="it_<?= rss_item_id(); ?>">State:</label>
-<select id="it_<?= rss_item_id(); ?>" name="<?= rss_item_id(); ?>">
+<label for="it_<?php print(rss_item_id()); ?>">State:</label>
+<select id="it_<?php print(rss_item_id()); ?>" name="<?php print(rss_item_id()); ?>">
 	<option value="mobile_read" <?php 
 		if(!$GLOBALS['rss'] -> currentItem -> isSticky ) { 
 			echo "selected=\"selected\""; 
-		} ?>><?= __('Read'); ?></option>
-	<option value="mobile_unread"><?= __('Unread'); ?></option>
+		} ?>><?php print(__('Read')); ?></option>
+	<option value="mobile_unread"><?php print(__('Unread')); ?></option>
 	<option value="mobile_sticky" 	<?php
 		  if( $GLOBALS['rss'] -> currentItem -> isSticky ) {
 			echo "selected=\"selected\""; 
 		  }
-		?>><?= __('Sticky'); ?></option>
+		?>><?php print(__('Sticky')); ?></option>
 </select>
 </div>
 <?php } ?>
