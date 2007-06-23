@@ -7,874 +7,963 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gregarius\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-15 14:19+0200\n"
-"PO-Revision-Date: 2007-04-22 16:01+0000\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2007-02-07 09:07+0100\n"
+"PO-Revision-Date: 2007-06-20 22:07+0000\n"
 "Last-Translator: Amador Loureiro Blanco <dorfun@yahoo.es>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-04-22 16:18:10+0000\n"
+"X-Rosetta-Export-Date: 2007-06-23 07:48:11+0000\n"
 
-#: admin/channels.php:39
+#: admin/channels.php:39 admin/channels.php:39
 msgid "Feeds:"
 msgstr "Sementes:"
 
-#: admin/channels.php:43
+#: admin/channels.php:43 admin/channels.php:43
 msgid "Add a feed:"
 msgstr "Engadir unha semente:"
 
-#: admin/channels.php:46
+#: admin/channels.php:46 admin/channels.php:46
 msgid "to folder:"
 msgstr "para o cartafol:"
 
-#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:134
-#: admin/channels.php:239 admin/channels.php:866 admin/channels.php:930
+#: admin/channels.php:48 admin/channels.php:100 admin/channels.php:866
 #: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
-#: themes/WittySparks_v1.0/mobile/nav.php:3 themes/default/mobile/nav.php:3
+#: themes/default/mobile/nav.php:3 admin/channels.php:134
+#: admin/channels.php:239 admin/channels.php:930 admin/channels.php:48
+#: admin/channels.php:134 admin/channels.php:239 admin/channels.php:930
+#: cls/categories.php:60 cls/header.php:98 cls/wrappers/feeds.php:73
+#: themes/default/mobile/nav.php:3
 msgid "Categories"
 msgstr "Temas"
 
-#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:321
-#: admin/channels.php:381 admin/channels.php:439 admin/folders.php:41
-#: admin/folders.php:212 admin/folders.php:216 admin/folders.php:218
+#: admin/channels.php:51 admin/channels.php:263 admin/channels.php:381
+#: admin/folders.php:41 admin/folders.php:212 admin/channels.php:321
+#: admin/channels.php:439 admin/folders.php:218 admin/channels.php:51
+#: admin/channels.php:321 admin/channels.php:439 admin/folders.php:41
+#: admin/folders.php:218
 msgid "Add"
 msgstr "Engadir"
 
-#: admin/channels.php:52
-msgid "(Enter either the URL of an RSS feed or of a Website whose feed you wish to subscribe to)"
-msgstr "(Introduza a URL da semente RSS ou da páxina a cuxa semente desexe subscribirse)"
+#: admin/channels.php:52 admin/channels.php:52
+msgid ""
+"(Enter either the URL of an RSS feed or of a Website whose feed you wish to "
+"subscribe to)"
+msgstr ""
+"(Introduza a URL da semente RSS ou da páxina a cuxa semente desexe "
+"subscribirse)"
 
-#: admin/channels.php:62
+#: admin/channels.php:62 admin/channels.php:62
+msgid ""
+"Subscription bookmarklet [<a "
+"href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+msgstr ""
+"Marcador para subscripción [<a "
+"href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+
+#: admin/channels.php:62 admin/channels.php:62
 msgid "Subscribe in Gregarius!"
 msgstr "Subscribir en Gregarius!"
 
-#: admin/channels.php:62
-msgid "Subscription bookmarklet [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
-msgstr "Marcador para subscripción [<a href=\"http://www.squarefree.com/bookmarklets/\">?</a>]:"
+#: admin/channels.php:69 admin/channels.php:69
+msgid ""
+"Register as Feed Handler [<a "
+"href=\"http://www.bengoodger.com/software/mb/feeds/feed-"
+"handling.html\">?</a>]:"
+msgstr ""
+"Rexistrar coma Xestor de Sementes [<a "
+"href=\"http://www.bengoodger.com/software/mb/feeds/feed-"
+"handling.html\">?</a>]:"
 
-#: admin/channels.php:69
-msgid "Register as Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
-msgstr "Rexistrar coma Feed Handler [<a href=\"http://www.bengoodger.com/software/mb/feeds/feed-handling.html\">?</a>]:"
-
-#: admin/channels.php:71
+#: admin/channels.php:71 admin/channels.php:71
 msgid "Register Gregarius!"
-msgstr "Rexistrase en Gregarius!"
+msgstr "Rexistrar Gregarius!"
 
-#: admin/channels.php:97 admin/channels.php:131 admin/folders.php:46
+#: admin/channels.php:97 admin/folders.php:46 admin/channels.php:131
+#: admin/channels.php:131 admin/folders.php:46
 msgid "Title"
 msgstr "Titulo"
 
-#: admin/channels.php:98 admin/channels.php:132
+#: admin/channels.php:98 admin/channels.php:132 admin/channels.php:132
 msgid "Folder"
 msgstr "Cartafol"
 
-#: admin/channels.php:99 admin/channels.php:133 admin/config.php:69
-#: admin/config.php:71 admin/plugins.php:99
+#: admin/channels.php:99 admin/config.php:69 admin/plugins.php:99
+#: admin/channels.php:133 admin/channels.php:133 admin/config.php:69
+#: admin/plugins.php:99
 msgid "Description"
 msgstr "Descricción"
 
-#: admin/channels.php:101 admin/channels.php:135
+#: admin/channels.php:101 admin/channels.php:135 admin/channels.php:135
 msgid "Flags"
 msgstr "Bandeiras"
 
-#: admin/channels.php:104 admin/channels.php:138 admin/channels.php:207
+#: admin/channels.php:104 admin/channels.php:207 admin/folders.php:49
+#: admin/channels.php:138 admin/channels.php:251 admin/channels.php:138
 #: admin/channels.php:251 admin/folders.php:49
 msgid "Move"
 msgstr "Mover"
 
-#: admin/channels.php:107 admin/channels.php:141 admin/config.php:70
-#: admin/config.php:72 admin/folders.php:52 admin/tags.php:141
+#: admin/channels.php:107 admin/config.php:70 admin/folders.php:52
+#: admin/tags.php:141 admin/channels.php:141 admin/channels.php:141
+#: admin/config.php:70 admin/folders.php:52 admin/tags.php:141
 msgid "Action"
 msgstr "Acción"
 
-#: admin/channels.php:132 admin/channels.php:166 admin/channels.php:513
-#: admin/channels.php:571 admin/folders.php:67 admin/folders.php:71
-#: admin/folders.php:73 cls/wrappers/searchform.php:122
+#: admin/channels.php:132 admin/channels.php:513 admin/folders.php:67
+#: cls/wrappers/searchform.php:122 cls/wrappers/toolkit.php:42
+#: cls/wrappers/toolkit.php:81 opml.php:51 opml.php:104 admin/channels.php:166
+#: admin/channels.php:571 admin/folders.php:73 admin/channels.php:166
+#: admin/channels.php:571 admin/folders.php:73 cls/wrappers/searchform.php:122
 #: cls/wrappers/toolkit.php:42 cls/wrappers/toolkit.php:81 opml.php:51
 #: opml.php:104
 msgid "Root"
 msgstr "Raíz"
 
-#: admin/channels.php:185 admin/channels.php:221 admin/folders.php:80
-#: admin/folders.php:84 admin/folders.php:86
+#: admin/channels.php:185 admin/folders.php:80 admin/channels.php:221
+#: admin/folders.php:86 admin/channels.php:221 admin/folders.php:86
 msgid "&uarr;"
 msgstr "&uarr;"
 
-#: admin/channels.php:187 admin/channels.php:223 admin/folders.php:84
-#: admin/folders.php:88 admin/folders.php:90
+#: admin/channels.php:187 admin/folders.php:84 admin/channels.php:223
+#: admin/folders.php:90 admin/channels.php:223 admin/folders.php:90
 msgid "&darr;"
 msgstr "&darr;"
 
-#: admin/channels.php:191 admin/channels.php:227 admin/channels.php:298
-#: admin/channels.php:327 admin/channels.php:356 admin/channels.php:385
-#: admin/config.php:160 admin/config.php:162 admin/folders.php:92
-#: admin/folders.php:96 admin/folders.php:98 admin/plugins.php:149
-#: admin/tags.php:153 admin/tags.php:180 admin/tags.php:181 ajax.php:209
-#: ajax.php:232 themes/WittySparks_v1.0/web/item.php:31
+#: admin/channels.php:191 admin/channels.php:298 admin/channels.php:327
+#: admin/config.php:160 admin/folders.php:92 admin/plugins.php:149
+#: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
+#: themes/default/web/item.php:31 themes/lilina/web/item.php:55
+#: themes/lilina/web/item.php:111 admin/channels.php:227
+#: admin/channels.php:356 admin/channels.php:385 admin/folders.php:98
+#: admin/channels.php:227 admin/channels.php:356 admin/channels.php:385
+#: admin/config.php:160 admin/folders.php:98 admin/plugins.php:149
+#: admin/tags.php:153 admin/tags.php:180 ajax.php:209 ajax.php:232
 #: themes/default/web/item.php:31 themes/lilina/web/item.php:55
 #: themes/lilina/web/item.php:111
 msgid "edit"
 msgstr "editar"
 
-#: admin/channels.php:194 admin/channels.php:230 admin/folders.php:96
-#: admin/folders.php:100 admin/folders.php:102 admin/tags.php:156
+#: admin/channels.php:194 admin/folders.php:96 admin/tags.php:156
+#: admin/channels.php:230 admin/folders.php:102 admin/channels.php:230
+#: admin/folders.php:102 admin/tags.php:156
 msgid "delete"
 msgstr "eliminar"
 
-#: admin/channels.php:203 admin/channels.php:249 admin/channels.php:860
-#: admin/channels.php:924
+#: admin/channels.php:203 admin/channels.php:860 admin/channels.php:249
+#: admin/channels.php:924 admin/channels.php:249 admin/channels.php:924
 msgid "In folder:"
 msgstr "No cartafol:"
 
-#: admin/channels.php:211 admin/channels.php:265
+#: admin/channels.php:211 admin/channels.php:265 admin/channels.php:265
 msgid "State:"
 msgstr "Estado:"
 
-#: admin/channels.php:213 admin/channels.php:267
+#: admin/channels.php:213 admin/channels.php:267 admin/channels.php:267
 msgid "Deprecated"
 msgstr "Obsoleto"
 
-#: admin/channels.php:216 admin/channels.php:270
+#: admin/channels.php:216 admin/channels.php:270 admin/channels.php:270
 msgid "Private"
 msgstr "Privado"
 
 #: admin/channels.php:218 admin/channels.php:259 admin/channels.php:272
+#: admin/channels.php:259 admin/channels.php:272
 msgid "Set"
 msgstr "Establecer"
 
-#: admin/channels.php:222 admin/channels.php:241 admin/channels.php:281
+#: admin/channels.php:222 admin/items.php:59 admin/items.php:72
+#: admin/items.php:252 admin/tags.php:164 admin/channels.php:241
+#: admin/channels.php:281 admin/channels.php:241 admin/channels.php:281
 #: admin/items.php:59 admin/items.php:72 admin/items.php:252
-#: admin/tags.php:164 admin/tags.php:165
+#: admin/tags.php:164
 msgid "Delete"
 msgstr "Eliminar"
 
-#: admin/channels.php:224 admin/channels.php:279 admin/tags.php:166
-#: admin/tags.php:167
+#: admin/channels.php:224 admin/tags.php:166 admin/channels.php:279
+#: admin/channels.php:279 admin/tags.php:166
 msgid "I'm sure!"
 msgstr "Estou seguro!"
 
-#: admin/channels.php:238
-msgid "Folders"
-msgstr "Cartafoles"
-
-#: admin/channels.php:240
-msgid "State"
-msgstr "Estado"
-
-#: admin/channels.php:257
-msgid "Categories:"
-msgstr "Categorías:"
-
-#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:351
-#: admin/channels.php:379 admin/channels.php:545 admin/channels.php:603
+#: admin/channels.php:293 admin/channels.php:321 admin/channels.php:545
+#: admin/channels.php:351 admin/channels.php:379 admin/channels.php:603
+#: admin/channels.php:351 admin/channels.php:379 admin/channels.php:603
 #, php-format
 msgid "Adding %s to %s... "
 msgstr "Engadindo %s a %s... "
 
-#: admin/channels.php:295 admin/channels.php:323 admin/channels.php:353
-#: admin/channels.php:381 admin/users.php:79 ajax.php:547 ajax.php:554
+#: admin/channels.php:295 admin/channels.php:323 admin/users.php:79
+#: ajax.php:547 admin/channels.php:353 admin/channels.php:381
+#: admin/channels.php:353 admin/channels.php:381 admin/users.php:79
+#: ajax.php:547
 msgid "OK"
 msgstr "Aceptar"
 
-#: admin/channels.php:341 admin/channels.php:399
+#: admin/channels.php:341 admin/channels.php:399 admin/channels.php:399
 #, php-format
-msgid "The following feeds were found in <a href=\"%s\">%s</a>, which one would you like to subscribe?"
-msgstr "Atoparonse as seguintes sementes en <a href=\"%s\">%s</a>, a cal desexa subscribirse?"
+msgid ""
+"The following feeds were found in <a href=\"%s\">%s</a>, which one would you "
+"like to subscribe?"
+msgstr ""
+"Atoparonse as seguintes sementes en <a href=\"%s\">%s</a>, a cal desexa "
+"subscribirse?"
 
-#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:449
-#: admin/channels.php:453 admin/channels.php:630 admin/channels.php:688
+#: admin/channels.php:391 admin/channels.php:395 admin/channels.php:630
+#: admin/channels.php:449 admin/channels.php:453 admin/channels.php:688
+#: admin/channels.php:449 admin/channels.php:453 admin/channels.php:688
 #, php-format
 msgid "I'm sorry, I don't think I can handle this URL: '%s'"
 msgstr "Sintoo, non podo manexar esta URL: '%s'"
 
-#: admin/channels.php:408 admin/channels.php:444 admin/channels.php:466
-#: admin/channels.php:502 admin/config.php:204 admin/config.php:206
-#: admin/config.php:520 admin/config.php:522 admin/folders.php:168
-#: admin/folders.php:172 admin/folders.php:174 admin/folders.php:186
-#: admin/folders.php:190 admin/folders.php:192 admin/tags.php:60
-#: admin/tags.php:96 admin/themes.php:275
+#: admin/channels.php:408 admin/channels.php:444 admin/config.php:204
+#: admin/config.php:520 admin/folders.php:168 admin/folders.php:186
+#: admin/tags.php:60 admin/tags.php:96 admin/themes.php:275
+#: admin/channels.php:466 admin/channels.php:502 admin/folders.php:174
+#: admin/folders.php:192 admin/channels.php:466 admin/channels.php:502
+#: admin/config.php:204 admin/config.php:520 admin/folders.php:174
+#: admin/folders.php:192 admin/tags.php:60 admin/tags.php:96
+#: admin/themes.php:275
 msgid "Yes"
 msgstr "Sí"
 
-#: admin/channels.php:433 admin/channels.php:443 admin/channels.php:491
-#: admin/channels.php:501 admin/config.php:208 admin/config.php:210
-#: admin/config.php:519 admin/config.php:521 admin/folders.php:175
-#: admin/folders.php:179 admin/folders.php:181 admin/folders.php:185
-#: admin/folders.php:189 admin/folders.php:191 admin/tags.php:66
-#: admin/tags.php:95
+#: admin/channels.php:433 admin/channels.php:443 admin/config.php:208
+#: admin/config.php:519 admin/folders.php:175 admin/folders.php:185
+#: admin/tags.php:66 admin/tags.php:95 admin/channels.php:491
+#: admin/channels.php:501 admin/folders.php:181 admin/folders.php:191
+#: admin/channels.php:491 admin/channels.php:501 admin/config.php:208
+#: admin/config.php:519 admin/folders.php:181 admin/folders.php:191
+#: admin/tags.php:66 admin/tags.php:95
 msgid "No"
 msgstr "Non"
 
-#: admin/channels.php:441 admin/channels.php:499 admin/folders.php:183
-#: admin/folders.php:187 admin/folders.php:189 admin/tags.php:93
+#: admin/channels.php:441 admin/folders.php:183 admin/tags.php:93
+#: admin/channels.php:499 admin/folders.php:189 admin/channels.php:499
+#: admin/folders.php:189 admin/tags.php:93
 #, php-format
 msgid "Are you sure you wish to delete '%s'?"
 msgstr "Está seguro que desexa eliminar '%s'?"
 
-#: admin/channels.php:454 admin/channels.php:512 admin/opml.php:81
+#: admin/channels.php:454 admin/opml.php:81 admin/channels.php:512
+#: admin/channels.php:512 admin/opml.php:81
 msgid "Import"
 msgstr "Importar"
 
-#: admin/channels.php:558 admin/channels.php:616 update.php:61
+#: admin/channels.php:558 update.php:61 admin/channels.php:616
+#: admin/channels.php:616 update.php:61
 msgid "Updating"
 msgstr "Actualizando"
 
-#: admin/channels.php:828 admin/channels.php:892
+#: admin/channels.php:828 admin/channels.php:892 admin/channels.php:892
 msgid "Edit the feed "
 msgstr "Editar esta semente "
 
 #: admin/channels.php:834 admin/channels.php:837 admin/channels.php:898
-#: admin/channels.php:901
+#: admin/channels.php:901 admin/channels.php:898 admin/channels.php:901
 msgid "Added"
 msgstr "Engadido"
 
-#: admin/channels.php:835 admin/channels.php:838 admin/channels.php:899
-#: admin/channels.php:902 themes/WittySparks_v1.0/web/footer.php:17
+#: admin/channels.php:835 admin/channels.php:838
+#: themes/default/web/footer.php:17 admin/channels.php:899
+#: admin/channels.php:902 admin/channels.php:899 admin/channels.php:902
 #: themes/default/web/footer.php:17
 msgid "Last Update"
 msgstr "Última actualización"
 
-#: admin/channels.php:838 admin/channels.php:902 cls/wrappers/header.php:134
+#: admin/channels.php:838 cls/wrappers/header.php:134 admin/channels.php:902
+#: admin/channels.php:902 cls/wrappers/header.php:134
 msgid "Never"
 msgstr "Endexamais"
 
-#: admin/channels.php:841 admin/channels.php:905
+#: admin/channels.php:841 admin/channels.php:905 admin/channels.php:905
 msgid "Title:"
 msgstr "idle"
 
-#: admin/channels.php:850 admin/channels.php:914
+#: admin/channels.php:850 admin/channels.php:914 admin/channels.php:914
 msgid "RSS URL:"
 msgstr "URL da RSS:"
 
 #: admin/channels.php:851 admin/channels.php:856 admin/channels.php:915
-#: admin/channels.php:920
+#: admin/channels.php:920 admin/channels.php:915 admin/channels.php:920
 msgid "(visit)"
 msgstr "(visita)"
 
-#: admin/channels.php:855 admin/channels.php:919
+#: admin/channels.php:855 admin/channels.php:919 admin/channels.php:919
 msgid "Site URL:"
 msgstr "URL da páxina:"
 
-#: admin/channels.php:890 admin/channels.php:954
+#: admin/channels.php:890 admin/channels.php:954 admin/channels.php:954
 msgid "This feed is <strong>private</strong>, only admins see it."
-msgstr "Esta semente é <strong>privada</strong>, só os administradores poden vela."
+msgstr ""
+"Esta semente é <strong>privada</strong>, só os administradores poden vela."
 
-#: admin/channels.php:898 admin/channels.php:962
-msgid "This feed is <strong>deprecated</strong>, it won't be updated anymore and won't be visible in the feeds column."
-msgstr "Esta semente é <strong>obsoleta</strong>, non se actualizará nunca máis e non será visibel na columna de sementes."
+#: admin/channels.php:898 admin/channels.php:962 admin/channels.php:962
+msgid ""
+"This feed is <strong>deprecated</strong>, it won't be updated anymore and "
+"won't be visible in the feeds column."
+msgstr ""
+"Esta semente é <strong>obsoleta</strong>, non se actualizará nunca máis e "
+"non será visibel na columna de sementes."
 
-#: admin/channels.php:905 admin/channels.php:969
+#: admin/channels.php:905 admin/channels.php:969 admin/channels.php:969
 msgid "Description:"
 msgstr "Opcións do Conducto de Notas"
 
-#: admin/channels.php:910 admin/channels.php:974
+#: admin/channels.php:910 admin/channels.php:974 admin/channels.php:974
 msgid "Shown favicon:"
 msgstr "Amosar favicon:"
 
-#: admin/channels.php:917 admin/channels.php:981
+#: admin/channels.php:917 admin/channels.php:981 admin/channels.php:981
 msgid "(Leave blank for no icon)"
 msgstr "(Deixar en blanco se non quere icona)"
 
-#: admin/channels.php:972 admin/channels.php:1036 admin/config.php:238
-#: admin/config.php:240 admin/config.php:257 admin/config.php:259
-#: admin/folders.php:126 admin/folders.php:130 admin/folders.php:132
+#: admin/channels.php:972 admin/config.php:238 admin/config.php:257
+#: admin/folders.php:126 admin/plugins.php:170 admin/plugins.php:212
+#: admin/tags.php:188 admin/themes.php:173 admin/themes.php:285
+#: admin/channels.php:1036 admin/folders.php:132 admin/channels.php:1036
+#: admin/config.php:238 admin/config.php:257 admin/folders.php:132
 #: admin/plugins.php:170 admin/plugins.php:212 admin/tags.php:188
-#: admin/tags.php:189 admin/themes.php:173 admin/themes.php:285
+#: admin/themes.php:173 admin/themes.php:285
 msgid "Submit Changes"
 msgstr "Enviar Cambios"
 
-#: admin/config.php:31 admin/config.php:32
+#: admin/config.php:31 admin/config.php:31
 msgid "Configuration:"
 msgstr "Configuración"
 
-#: admin/config.php:67 admin/config.php:69
+#: admin/config.php:67 admin/config.php:67
 msgid "Key"
 msgstr "Chave"
 
-#: admin/config.php:68 admin/config.php:70
+#: admin/config.php:68 admin/config.php:68
 msgid "Value"
 msgstr "Valor"
 
-#: admin/config.php:167 admin/config.php:169
+#: admin/config.php:167 admin/config.php:167
 msgid "default"
 msgstr "por defecto"
 
-#: admin/config.php:190 admin/config.php:192
+#: admin/config.php:190 admin/config.php:190
 msgid "Invalid config key specified."
 msgstr "Especificouse unha chave de configuración non válida."
 
-#: admin/config.php:234 admin/config.php:236 admin/config.php:252
-#: admin/config.php:254
+#: admin/config.php:234 admin/config.php:252 admin/config.php:234
+#: admin/config.php:252
 msgid "Preview"
 msgstr "Previsualización"
 
-#: admin/config.php:246 admin/config.php:248 admin/items.php:253
-#: admin/plugins.php:214 admin/themes.php:175 ajax.php:548 ajax.php:555
+#: admin/config.php:246 admin/items.php:253 admin/plugins.php:214
+#: admin/themes.php:175 ajax.php:548 admin/config.php:246 admin/items.php:253
+#: admin/plugins.php:214 admin/themes.php:175 ajax.php:548
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: admin/config.php:332 admin/config.php:334 admin/config.php:480
-#: admin/config.php:482 admin/config.php:484
-msgid "False"
-msgstr "Falso"
-
-#: admin/config.php:332 admin/config.php:334 admin/config.php:337
-#: admin/config.php:339 admin/config.php:474 admin/config.php:476
-#: admin/config.php:478
+#: admin/config.php:332 admin/config.php:337 admin/config.php:474
+#: admin/config.php:476 admin/config.php:332 admin/config.php:337
+#: admin/config.php:474 admin/config.php:476
 msgid "True"
 msgstr "Certo"
 
-#: admin/config.php:368 admin/config.php:370
+#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+#: admin/config.php:332 admin/config.php:480 admin/config.php:482
+msgid "False"
+msgstr "Falso"
+
+#: admin/config.php:368 admin/config.php:368
 msgid "Ooops, unknown config type: "
 msgstr "Vaia, tipo de configuración descoñecido: "
 
-#: admin/config.php:442 admin/config.php:444 admin/config.php:467
-#: admin/config.php:469 admin/config.php:471 admin/config.php:473
-#: admin/config.php:485 admin/config.php:487
+#: admin/config.php:442 admin/config.php:467 admin/config.php:471
+#: admin/config.php:485 admin/config.php:442 admin/config.php:467
+#: admin/config.php:471 admin/config.php:485
 msgid "Value for"
 msgstr "Valor para"
 
-#: admin/config.php:517 admin/config.php:519
+#: admin/config.php:517 admin/config.php:517
 #, php-format
 msgid "Are you sure you wish to reset the value for %s to its default '%s'?"
 msgstr "Seguro que desexa reiniciar o valor %s ó inicial '%s'?"
 
-#: admin/folders.php:31
+#: admin/folders.php:31 admin/folders.php:31
 msgid "Folders:"
 msgstr "Cartafoles:"
 
-#: admin/folders.php:38
+#: admin/folders.php:38 admin/folders.php:38
 msgid "Add a folder:"
 msgstr "Engadir un cartafol:"
 
-#: admin/folders.php:47 cls/channels.php:164 cls/header.php:97
-#: cls/wrappers/feeds.php:76 themes/WittySparks_v1.0/mobile/nav.php:2
-#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
-msgid "Feeds"
-msgstr "Sementes"
-
-#: admin/folders.php:123 admin/folders.php:127 admin/folders.php:129
+#: admin/folders.php:123 admin/folders.php:129 admin/folders.php:129
 msgid "Folder name:"
 msgstr "Nome do cartafol:"
 
-#: admin/folders.php:164 admin/folders.php:168 admin/folders.php:170
+#: admin/folders.php:164 admin/folders.php:170 admin/folders.php:170
 msgid "You can't delete the Root folder"
 msgstr "Non pode borrar o cartafol raiz"
 
-#: admin/folders.php:204 admin/folders.php:208 admin/folders.php:210
-#: admin/tags.php:113
+#: admin/folders.php:204 admin/tags.php:113 admin/folders.php:210
+#: admin/folders.php:210 admin/tags.php:113
 #, php-format
 msgid "You can't rename this item '%s' because such an item already exists."
-msgstr "Non pode renomear o elemento '%s' porque xa existe un elemento con ese nome."
+msgstr ""
+"Non pode renomear o elemento '%s' porque xa existe un elemento con ese nome."
 
-#: admin/folders.php:281 admin/folders.php:285 admin/folders.php:287
+#: admin/folders.php:281 admin/folders.php:287 admin/folders.php:287
 #, php-format
 msgid "Looks like you already have a folder called '%s'!"
 msgstr "Semella que xa ten un cartafol chamado '%s'!"
 
-#: admin/index.php:202
+#: admin/index.php:202 admin/index.php:202
 #, php-format
-msgid "<h1>Not Authorized!</h1>You are not authorized to access the administration interface. Please follow <a href=\"%s\">this link</a> back to the main page. Have  a nice day!"
-msgstr "<h1>Non Autorizado!</h1>Non está autorizado para acceder ó panel de administración. Por favor prema <a href=\"%s\">esta ligazón</a> para voltar á páxina principal. Que teña un bo día!"
+msgid ""
+"<h1>Not Authorized!</h1>You are not authorized to access the administration "
+"interface. Please follow <a href=\"%s\">this link</a> back to the main page. "
+"Have  a nice day!"
+msgstr ""
+"<h1>Non Autorizado!</h1>Non está autorizado para acceder ó panel de "
+"administración. Por favor prema <a href=\"%s\">esta ligazón</a> para voltar "
+"á páxina principal. Que teña un bo día!"
 
-#: admin/index.php:219
+#: admin/index.php:219 admin/index.php:219
 msgid "Dashboard"
 msgstr "Taboleiro"
 
-#: admin/index.php:220
+#: admin/index.php:220 admin/index.php:220
 msgid "feeds"
 msgstr "sementes"
 
 #: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
 #: feed.php:1043 feed.php:1061 feed.php:1073
 #: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
-#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:121
-#: tags.php:131 tags.php:152 tags.php:170
+#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
+#: admin/index.php:221 author.php:41 cls/alltags.php:166 feed.php:1031
+#: feed.php:1043 feed.php:1061 feed.php:1073
+#: plugins/stickyflag/stickyflag.php:92 plugins/stickyflag/stickyflag.php:100
+#: state.php:36 state.php:39 state.php:42 tags.php:117 tags.php:152
 msgid "items"
 msgstr "elementos"
 
-#: admin/index.php:222
+#: admin/index.php:222 admin/index.php:222
 msgid "config"
 msgstr "configurar"
 
-#: admin/index.php:223
+#: admin/index.php:223 admin/index.php:223
 msgid "plugins"
 msgstr "engadidos"
 
-#: admin/index.php:224
+#: admin/index.php:224 admin/index.php:224
 msgid "themes"
 msgstr "estilos visuais"
 
-#: admin/index.php:225
+#: admin/index.php:225 admin/index.php:225
 msgid "folders"
 msgstr "cartafoles"
 
-#: admin/index.php:226
+#: admin/index.php:226 admin/index.php:226
 msgid "opml"
 msgstr "opml"
 
 #: admin/index.php:227 admin/tags.php:135 admin/tags.php:140 cls/header.php:99
-#: cls/taglist.php:69 tags.php:129 tags.php:147
-#: themes/WittySparks_v1.0/mobile/item.php:22
-#: themes/WittySparks_v1.0/web/item.php:28 themes/default/mobile/item.php:22
+#: cls/taglist.php:69 tags.php:129 themes/default/mobile/item.php:22
 #: themes/default/web/item.php:28 themes/lilina/web/item.php:52
-#: themes/lilina/web/item.php:108
+#: themes/lilina/web/item.php:108 admin/index.php:227 admin/tags.php:135
+#: admin/tags.php:140 cls/header.php:99 cls/taglist.php:69 tags.php:129
+#: themes/default/mobile/item.php:22 themes/default/web/item.php:28
+#: themes/lilina/web/item.php:52 themes/lilina/web/item.php:108
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: admin/index.php:234 cls/wrappers/header.php:143
+#: admin/index.php:234 cls/wrappers/header.php:143 admin/index.php:234
+#: cls/wrappers/header.php:143
 msgid "Logout"
 msgstr "Sair"
 
-#: admin/index.php:336
+#: admin/index.php:336 admin/index.php:336
 msgid "Admin"
 msgstr "Administración"
 
-#: admin/items.php:36
+#: admin/items.php:36 admin/items.php:36
 msgid "Items:"
 msgstr "Elementos:"
 
-#: admin/items.php:40
+#: admin/items.php:40 admin/items.php:40
 msgid "Pruning"
 msgstr "Reducindo"
 
-#: admin/items.php:42
+#: admin/items.php:42 admin/items.php:42
 msgid "Delete items older than "
 msgstr "Eliminar os elementos máis vellos que "
 
-#: admin/items.php:45 admin/items.php:83
+#: admin/items.php:45 admin/items.php:83 admin/items.php:45 admin/items.php:83
 msgid "days"
 msgstr "días"
 
-#: admin/items.php:46 admin/items.php:87
+#: admin/items.php:46 admin/items.php:87 admin/items.php:46 admin/items.php:87
 msgid "months"
 msgstr "meses"
 
-#: admin/items.php:47 admin/items.php:91
+#: admin/items.php:47 admin/items.php:91 admin/items.php:47 admin/items.php:91
 msgid "years"
 msgstr "anos"
 
-#: admin/items.php:49
+#: admin/items.php:49 admin/items.php:49
 msgid "...from these feeds"
 msgstr "...dende esas sementes"
 
-#: admin/items.php:52
+#: admin/items.php:52 admin/items.php:52
 msgid "Delete Sticky items too: "
 msgstr "Eliminar elementos anotados tamén: "
 
-#: admin/items.php:54
+#: admin/items.php:54 admin/items.php:54
 msgid "Delete Unread items too: "
 msgstr "Eliminar elementos en ler tamén: "
 
-#: admin/items.php:56
+#: admin/items.php:56 admin/items.php:56
 msgid "Do not delete items tagged... "
 msgstr "Non eleminar elementos etiquetados... "
 
-#: admin/items.php:58
+#: admin/items.php:58 admin/items.php:58
 msgid "(Enter <strong>*</strong> to keep all tagged items)"
-msgstr "(Introduza <strong>*</strong> para manter todos os elementos etiquetados)"
+msgstr ""
+"(Introduza <strong>*</strong> para manter todos os elementos etiquetados)"
 
-#: admin/items.php:96
+#: admin/items.php:96 admin/items.php:96
 msgid "Invalid pruning period"
 msgstr "Periodo de reducción non válido"
 
-#: admin/items.php:245
+#: admin/items.php:245 admin/items.php:245
 #, php-format
 msgid "Warning: you are about to delete %s items (of %s)"
 msgstr "Aviso: está a piques de eliminar o elemento %s (de %s)"
 
-#: admin/items.php:258
+#: admin/items.php:258 admin/items.php:258
 msgid "oops, no period specified"
 msgstr "vaia, non se especificou un periodo"
 
-#: admin/opml.php:38
+#: admin/opml.php:38 admin/opml.php:38
 msgid "OPML:"
 msgstr "OPML:"
 
-#: admin/opml.php:42
+#: admin/opml.php:42 admin/opml.php:42
 msgid "Import OPML:"
 msgstr "Importar OPML:"
 
-#: admin/opml.php:46
+#: admin/opml.php:46 admin/opml.php:46
 msgid "... from URL:"
 msgstr "... da URL:"
 
-#: admin/opml.php:52
+#: admin/opml.php:52 admin/opml.php:52
 msgid "... from File:"
 msgstr "... do arquivo:"
 
-#: admin/opml.php:63
+#: admin/opml.php:63 admin/opml.php:63
 msgid "Import new feeds and:"
 msgstr "Importar novas sementes e:"
 
-#: admin/opml.php:66
+#: admin/opml.php:66 admin/opml.php:66
 msgid "... merge them with the existing ones."
 msgstr "...combinar cos existentes."
 
-#: admin/opml.php:70
+#: admin/opml.php:70 admin/opml.php:70
 msgid "... add them to the folder:"
 msgstr "...engadir ó cartafol:"
 
-#: admin/opml.php:75
+#: admin/opml.php:75 admin/opml.php:75
 msgid "... replace all existing feeds and items."
 msgstr "...reemplazar todos os elementos e sementes existentes."
 
-#: admin/opml.php:107 admin/opml.php:109
+#: admin/opml.php:107 admin/opml.php:109 admin/opml.php:107 admin/opml.php:109
 msgid "Export OPML:"
 msgstr "Exportar OPML:"
 
-#: admin/opml.php:110
+#: admin/opml.php:110 admin/opml.php:110
 msgid "Export"
 msgstr "Exportar"
 
-#: admin/opml.php:120
+#: admin/opml.php:120 admin/opml.php:120
 msgid "XML Dump:"
 msgstr "Volcado XML:"
 
-#: admin/opml.php:122
+#: admin/opml.php:122 admin/opml.php:122
 msgid "Dump your Gregarius installation to XML"
 msgstr "Volcar a súa instalación de Gregarius a XML"
 
-#: admin/opml.php:123
+#: admin/opml.php:123 admin/opml.php:123
 msgid "Dump!"
 msgstr "Volcar!"
 
-#: admin/plugins.php:86
+#: admin/plugins.php:86 admin/plugins.php:86
 msgid "Plugins"
 msgstr "Engadidos"
 
-#: admin/plugins.php:90
-msgid "<p style=\"font-size:small\">Plugins are third-party scripts that offer extended functionalities. More plugins can be downloaded at the <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
-msgstr "<p style=\"font-size:small\">Os engadidos son aplicacións de terceiros que ofrecen máis funcionalidades. Póde descargar máis engadidos dende o <a style=\"text-decoration:underline\"  href=\"http://plugins.gregarius.net/\">Repositorio de Engaidos</a>.</p>"
+#: admin/plugins.php:90 admin/plugins.php:90
+msgid ""
+"<p style=\"font-size:small\">Plugins are third-party scripts that offer "
+"extended functionalities. More plugins can be downloaded at the <a "
+"style=\"text-decoration:underline\"  "
+"href=\"http://plugins.gregarius.net/\">Plugin Repository</a>.</p>"
+msgstr ""
+"<p style=\"font-size:small\">Os engadidos son aplicacións de terceiros que "
+"ofrecen máis funcionalidades. Póde descargar máis engadidos dende o <a "
+"style=\"text-decoration:underline\"  "
+"href=\"http://plugins.gregarius.net/\">Repositorio de Engaidos</a>.</p>"
 
-#: admin/plugins.php:95
+#: admin/plugins.php:95 admin/plugins.php:95
 msgid "Active"
 msgstr "Activo"
 
-#: admin/plugins.php:96
+#: admin/plugins.php:96 admin/plugins.php:96
 msgid "Name"
 msgstr "Nome"
 
-#: admin/plugins.php:97
+#: admin/plugins.php:97 admin/plugins.php:97
 msgid "Version"
 msgstr "Vesión"
 
-#: admin/plugins.php:98
+#: admin/plugins.php:98 admin/plugins.php:98
 msgid "Author"
 msgstr "Autor"
 
-#: admin/plugins.php:100
+#: admin/plugins.php:100 admin/plugins.php:100
 msgid "Options"
 msgstr "Opcións"
 
-#: admin/plugins.php:102
+#: admin/plugins.php:102 admin/plugins.php:102
 msgid "Update Available"
 msgstr "Actualización dispoñible"
 
-#: admin/plugins.php:171 admin/themes.php:50
+#: admin/plugins.php:171 admin/themes.php:50 admin/plugins.php:171
+#: admin/themes.php:50
 msgid "Check for Updates"
 msgstr "Comprobar actualizacións"
 
-#: admin/plugins.php:202
+#: admin/plugins.php:202 admin/plugins.php:202
 msgid "Plugin Options"
 msgstr "Opcións do engadido"
 
-#: admin/tags.php:157
-msgid "view"
-msgstr ""
-
-#: admin/tags.php:162 admin/tags.php:163
+#: admin/tags.php:162 admin/tags.php:162
 msgid "Selected"
 msgstr "Seleccionado"
 
-#: admin/tags.php:186 admin/tags.php:187
+#: admin/tags.php:186 admin/tags.php:186
 msgid "Rename to..."
 msgstr "Renomear a..."
 
-#: admin/themes.php:56
+#: admin/themes.php:56 admin/themes.php:56
 msgid "Themes"
 msgstr "Estilos visuais"
 
-#: admin/themes.php:58
-msgid "<p style=\"font-size:small\">Themes are made of a set of template files which specify how your Gregarius installation looks.<br />More themes can be downloaded from the <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
-msgstr "<p style=\"font-size:small\">Os estilos visuais están feitos dun conxunto de planteis que especifican cómo será o entorno visual da instalación de Gregarius.<br />Pode descargar máis estilos visuais dende o <a style=\"text-decoration:underline\"  href=\"http://themes.gregarius.net/\">Repositorio de estilos visuais</a>.</p>"
+#: admin/themes.php:58 admin/themes.php:58
+msgid ""
+"<p style=\"font-size:small\">Themes are made of a set of template files "
+"which specify how your Gregarius installation looks.<br />More themes can be "
+"downloaded from the <a style=\"text-decoration:underline\"  "
+"href=\"http://themes.gregarius.net/\">Themes Repository</a>.</p>"
+msgstr ""
+"<p style=\"font-size:small\">Os estilos visuais están feitos dun conxunto de "
+"planteis que especifican cómo será o entorno visual da instalación de "
+"Gregarius.<br />Pode descargar máis estilos visuais dende o <a style=\"text-"
+"decoration:underline\"  href=\"http://themes.gregarius.net/\">Repositorio de "
+"estilos visuais</a>.</p>"
 
-#: admin/themes.php:90
+#: admin/themes.php:90 admin/themes.php:90
 msgid "Use this Theme"
 msgstr "Usar este estilo visual"
 
-#: admin/themes.php:92
+#: admin/themes.php:92 admin/themes.php:92
 msgid "Active Theme"
 msgstr "Activar o estilo visual"
 
-#: admin/themes.php:100
+#: admin/themes.php:100 admin/themes.php:100
 msgid "Configure"
 msgstr "Configurar"
 
-#: admin/themes.php:152
+#: admin/themes.php:152 admin/themes.php:152
 msgid "Theme Options"
 msgstr "Opcións do estilo visual"
 
-#: admin/users.php:53
+#: admin/users.php:53 admin/users.php:53
 msgid "Passwords do not match!"
 msgstr "Non coinciden os contrasinais!"
 
-#: admin/users.php:69
-msgid "<p>No Administrator has been specified yet!</p><p>Please provide an Administrator username and password now!</p>"
-msgstr "<p>Ainda non se estableceu un administrador!</p><p>Por favor, propoña un nome de usuario e contrasinal para o Administrador agora!</p>"
+#: admin/users.php:69 admin/users.php:69
+msgid ""
+"<p>No Administrator has been specified yet!</p><p>Please provide an "
+"Administrator username and password now!</p>"
+msgstr ""
+"<p>Ainda non se estableceu un administrador!</p><p>Por favor, propoña un "
+"nome de usuario e contrasinal para o Administrador agora!</p>"
 
-#: admin/users.php:73 admin/users.php:98
+#: admin/users.php:73 admin/users.php:98 admin/users.php:73 admin/users.php:98
 msgid "Username"
 msgstr "Nome do usuario"
 
-#: admin/users.php:75 admin/users.php:100
+#: admin/users.php:75 admin/users.php:100 admin/users.php:75
+#: admin/users.php:100
 msgid "Password"
 msgstr "Contrasinal"
 
-#: admin/users.php:77
+#: admin/users.php:77 admin/users.php:77
 msgid "Password (again)"
 msgstr "Contrasinal (de novo)"
 
-#: admin/users.php:97
+#: admin/users.php:97 admin/users.php:97
 msgid "Please log in"
 msgstr "Por favor, identifíquese"
 
 #: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
+#: admin/users.php:102 cls/wrappers/header.php:146 cls/wrappers/header.php:151
 msgid "Login"
 msgstr "Identificarse"
 
-#: ajax.php:81 index.php:216 index.php:217
+#: ajax.php:81 index.php:216 index.php:217 ajax.php:81 index.php:216
 msgid "Recent items"
 msgstr "Elementos recentes"
 
-#: ajax.php:228 ajax.php:239
+#: ajax.php:228 ajax.php:239 ajax.php:228 ajax.php:239
 msgid "submit"
 msgstr "enviar"
 
-#: ajax.php:230
+#: ajax.php:230 ajax.php:230
 msgid "..."
 msgstr "..."
 
-#: ajax.php:243
+#: ajax.php:243 ajax.php:243
 msgid "cancel"
 msgstr "cancelar"
 
-#: ajax.php:532 ajax.php:539
+#: ajax.php:532 ajax.php:532
 msgid "Unread (Set this item\\'s read/unread state)"
 msgstr "Sen Ler (Establecer o estado lido/non lido destes elementos)"
 
-#: ajax.php:536 ajax.php:543
-#, fuzzy
+#: ajax.php:536 ajax.php:536
 msgid "Sticky (Won\\'t be deleted when you prune items)"
 msgstr "Marcas (Non se borrarán cando reduza os elementos)"
 
-#: ajax.php:540 ajax.php:547
+#: ajax.php:540 ajax.php:540
 msgid "Private (Only administrators can see private items)"
 msgstr "Privado (Só os administradores poden ver os elementos privados)"
 
-#: ajax.php:544 ajax.php:551
+#: ajax.php:544 ajax.php:544
 msgid "Flag (Flags an item for later reading)"
 msgstr "Bandeiras (Abandeirar un elemento para ler posteriormente)"
 
-#: author.php:41 cls/wrappers/item.php:221
+#: author.php:41 cls/wrappers/item.php:221 author.php:41
+#: cls/wrappers/item.php:221
 msgid " by "
 msgstr " de "
 
 #: cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073 tags.php:117
-#: tags.php:121 tags.php:131 tags.php:152 tags.php:170
+#: tags.php:152 cls/alltags.php:166 feed.php:1031 feed.php:1061 feed.php:1073
+#: tags.php:117 tags.php:152
 msgid "item"
 msgstr "elemento"
 
-#: cls/categories.php:87
+#: cls/categories.php:87 cls/categories.php:87
 #, php-format
 msgid "<strong>%d</strong> feeds in <strong>%d</strong> categories"
 msgstr "<strong>%d</strong> sementes en <strong>%d</strong> categorías"
 
 #: cls/channels.php:97 cls/wrappers/feeds.php:64 feed.php:843 feed.php:847
-#: feed.php:851
+#: feed.php:851 cls/channels.php:97 cls/wrappers/feeds.php:64 feed.php:843
+#: feed.php:847 feed.php:851
 #, php-format
 msgid "<strong id=\"%s\" style=\"%s\">(%d unread)</strong>"
 msgstr "<strong id=\"%s\" style=\"%s\">(%d sen ler)</strong>"
 
-#: cls/channels.php:200
-#, php-format
-msgid "<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in <strong>%d</strong> feeds"
-msgstr "<strong>%d</strong> elementos (<strong id=\"fucnt\">%d</strong> sen ler) en <strong>%d</strong> sementes"
+#: cls/channels.php:164 cls/header.php:97 cls/wrappers/feeds.php:76
+#: themes/default/mobile/nav.php:2 themes/milsi/feeds.php:1
+#: admin/folders.php:47 admin/folders.php:47 cls/channels.php:164
+#: cls/header.php:97 cls/wrappers/feeds.php:76 themes/default/mobile/nav.php:2
+#: themes/milsi/feeds.php:1
+msgid "Feeds"
+msgstr "Sementes"
 
-#: cls/header.php:62
+#: cls/channels.php:200 cls/channels.php:200
+#, php-format
+msgid ""
+"<strong>%d</strong> items (<strong id=\"fucnt\">%d</strong> unread) in "
+"<strong>%d</strong> feeds"
+msgstr ""
+"<strong>%d</strong> elementos (<strong id=\"fucnt\">%d</strong> sen ler) en "
+"<strong>%d</strong> sementes"
+
+#: cls/header.php:62 cls/header.php:62
 msgid "unread"
 msgstr "sen ler"
 
-#: cls/nav.php:62
+#: cls/nav.php:62 cls/nav.php:62
 msgid "<span>H</span>ome"
 msgstr "<span>I</span>nicio"
 
-#: cls/nav.php:64
+#: cls/nav.php:64 cls/nav.php:64
 msgid "<span>R</span>efresh"
 msgstr "<span>R</span>ecargar"
 
-#: cls/nav.php:66
+#: cls/nav.php:66 cls/nav.php:66
 msgid "<span>S</span>earch"
 msgstr "<span>B</span>uscar"
 
-#: cls/nav.php:67
+#: cls/nav.php:67 cls/nav.php:67
 msgid "A<span>d</span>min"
 msgstr "A<span>d</span>min"
 
-#: cls/search.php:228
+#: cls/search.php:228 cls/search.php:228
 msgid "Results: "
 msgstr "Resultados: "
 
-#: cls/taglist.php:86
+#: cls/taglist.php:86 cls/taglist.php:86
 #, php-format
 msgid "<strong>%d</strong> tagged items, in <strong>%d</strong> tags"
-msgstr "<strong>%d</strong> elementos etiquetados, en <strong>%d</strong> etiquetas"
+msgstr ""
+"<strong>%d</strong> elementos etiquetados, en <strong>%d</strong> etiquetas"
 
-#: cls/update.php:118
+#: cls/update.php:118 cls/update.php:118
 msgid "OK (304 Not modified)"
 msgstr "OK (304 Not modified)"
 
-#: cls/update.php:122
+#: cls/update.php:122 cls/update.php:122
 msgid "HTTP Timeout (Local cache)"
 msgstr "HTTP Timeout (Local cache)"
 
-#: cls/update.php:126
+#: cls/update.php:126 cls/update.php:126
 msgid "OK (Local cache)"
 msgstr "OK (Local cache)"
 
-#: cls/update.php:130
+#: cls/update.php:130 cls/update.php:130
 msgid "404 Not Found (Local cache)"
 msgstr "404 Not Found (Local cache)"
 
-#: cls/update.php:134
+#: cls/update.php:134 cls/update.php:134
 msgid "403 Forbidden (Local cache)"
 msgstr "403 Forbidden (Local cache)"
 
-#: cls/update.php:143
+#: cls/update.php:143 cls/update.php:143
 msgid "OK (HTTP 200)"
 msgstr "OK (HTTP 200)"
 
-#: cls/update.php:148
+#: cls/update.php:148 cls/update.php:148
 msgid "ERROR"
 msgstr "ERRO"
 
-#: cls/update.php:183 cls/update.php:245
+#: cls/update.php:183 cls/update.php:245 cls/update.php:183 cls/update.php:245
 #, php-format
 msgid "Updating %d Feeds..."
 msgstr "Actualizando %d Sementes..."
 
-#: cls/update.php:186 cls/update.php:249
+#: cls/update.php:186 cls/update.php:249 cls/update.php:186 cls/update.php:249
 msgid "Feed"
 msgstr "Semente"
 
-#: cls/update.php:187 cls/update.php:250
+#: cls/update.php:187 cls/update.php:250 cls/update.php:187 cls/update.php:250
 msgid "Status"
 msgstr "Estado"
 
 #: cls/update.php:188 cls/update.php:251 cls/update.php:302 cls/update.php:331
-#: cls/update.php:363
+#: cls/update.php:363 cls/update.php:188 cls/update.php:251 cls/update.php:302
+#: cls/update.php:331 cls/update.php:363
 msgid "New Items"
 msgstr "Elementos Novos"
 
-#: cls/wrappers/header.php:142
+#: cls/wrappers/header.php:142 cls/wrappers/header.php:142
 #, php-format
 msgid "Logged in as <strong>%s</strong>"
 msgstr "Rexistrado coma<strong>%s</strong>"
 
-#: cls/wrappers/header.php:145
+#: cls/wrappers/header.php:145 cls/wrappers/header.php:145
 msgid "Not logged in"
 msgstr "Non iniciou sesión"
 
-#: cls/wrappers/item.php:45
+#: cls/wrappers/item.php:45 cls/wrappers/item.php:45
 msgid "Permalink for "
 msgstr "Ligazón fixa a "
 
-#: cls/wrappers/item.php:200
-msgid "Fetched: "
-msgstr "Recollidos: "
-
-#: cls/wrappers/item.php:200
+#: cls/wrappers/item.php:200 cls/wrappers/item.php:200
 msgid "Posted: "
 msgstr "Anotado: "
 
+#: cls/wrappers/item.php:200 cls/wrappers/item.php:200
+msgid "Fetched: "
+msgstr "Recollidos: "
+
 #: cls/wrappers/searchform.php:87 cls/wrappers/searchform.php:96
-#: cls/wrappers/toolkit.php:53
+#: cls/wrappers/toolkit.php:53 cls/wrappers/searchform.php:87
+#: cls/wrappers/searchform.php:96 cls/wrappers/toolkit.php:53
 msgid "All"
 msgstr "Todos"
 
 #: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233 index.php:234
+#: feed.php:1371 feed.php:1387 feed.php:1404 index.php:233
 msgid "Mark These Items as Read"
 msgstr "Marcar os elementos como lidos"
 
-#: index.php:151 index.php:152
+#: index.php:151 index.php:152 index.php:151
 #, php-format
 msgid "Unread items (<strong id=\"ucnt\">%d</strong>)"
 msgstr "Elementos sen ler (<strong id=\"ucnt\">%d</strong>)"
 
-#: plugins/delicious.php:64
+#: plugins/delicious.php:64 plugins/delicious.php:64
 msgid "no suggestions"
 msgstr "sen suxerencias"
 
-#: plugins/delicious.php:108
+#: plugins/delicious.php:108 plugins/delicious.php:108
 msgid "suggestions"
 msgstr "suxerencias"
 
 #: plugins/encplayer.php:46 plugins/encplayeralt.php:45
+#: plugins/encplayer.php:46 plugins/encplayeralt.php:45
 msgid "play"
 msgstr "reproducir"
 
-#: plugins/markallread.php:64 plugins/markallread.php:65
-#: plugins/markallread.php:110 plugins/markallread.php:111
+#: plugins/markallread.php:64 plugins/markallread.php:110
+#: plugins/markallread.php:64 plugins/markallread.php:110
 msgid "Mark This Category as Read"
 msgstr "Marcar esta categoría como lida"
 
-#: plugins/markallread.php:75 plugins/markallread.php:76
-#: plugins/markallread.php:104 plugins/markallread.php:105
+#: plugins/markallread.php:75 plugins/markallread.php:104
+#: plugins/markallread.php:75 plugins/markallread.php:104
 msgid "Mark This Folder as Read"
 msgstr "Marcar este cartafol coma lido"
 
-#: plugins/markallread.php:86 plugins/markallread.php:87
-#: plugins/markallread.php:98 plugins/markallread.php:99
+#: plugins/markallread.php:86 plugins/markallread.php:98
+#: plugins/markallread.php:86 plugins/markallread.php:98
 msgid "Mark This Feed as Read"
 msgstr "Marcar esta semente como lida"
 
-#: plugins/sidemenu.php:15
-msgid "Test"
-msgstr ""
-
 #: plugins/stickyflag/stickyflag.php:92 state.php:39
-#: themes/WittySparks_v1.0/mobile/item.php:40
-#: themes/default/mobile/item.php:40
+#: themes/default/mobile/item.php:40 plugins/stickyflag/stickyflag.php:92
+#: state.php:39 themes/default/mobile/item.php:40
 msgid "Sticky"
 msgstr "Marcado"
 
 #: plugins/stickyflag/stickyflag.php:100 state.php:36
+#: plugins/stickyflag/stickyflag.php:100 state.php:36
 msgid "Flagged"
 msgstr "Abandeirado"
 
-#: search.php:43
-#, php-format
-msgid "%d match for %s"
-msgstr "%d coincidencia para %s"
-
-#: search.php:43
+#: search.php:43 search.php:43
 #, php-format
 msgid "%d matches for %s"
 msgstr "%d coincidencias para %s"
 
-#: search.php:51
+#: search.php:43 search.php:43
+#, php-format
+msgid "%d match for %s"
+msgstr "%d coincidencia para %s"
+
+#: search.php:51 search.php:51
 #, php-format
 msgid "Search %d items"
 msgstr "Buscar %d elementos"
 
-#: search.php:52 test/minisearch.php:46 themes/3panes/searchform.php:5
-#: themes/3panes/searchform.php:25
-#: themes/WittySparks_v1.0/mobile/searchform.php:5
-#: themes/WittySparks_v1.0/mobile/searchform.php:39
-#: themes/WittySparks_v1.0/web/searchform.php:5
-#: themes/WittySparks_v1.0/web/searchform.php:39
+#: search.php:52 themes/3panes/searchform.php:5
+#: themes/3panes/searchform.php:25 themes/default/mobile/searchform.php:5
+#: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
+#: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
+#: themes/milsi/searchform.php:39 themes/mobile/searchform.php:5
+#: themes/mobile/searchform.php:39 themes/planet/searchform.php:5
+#: themes/planet/searchform.php:39 test/minisearch.php:46 search.php:52
+#: themes/3panes/searchform.php:5 themes/3panes/searchform.php:25
 #: themes/default/mobile/searchform.php:5
 #: themes/default/mobile/searchform.php:39 themes/default/web/searchform.php:5
 #: themes/default/web/searchform.php:39 themes/milsi/searchform.php:5
@@ -884,166 +973,180 @@ msgstr "Buscar %d elementos"
 msgid "Search"
 msgstr "Procurar"
 
-#: tags.php:81 tags.php:82 tags.php:117 tags.php:124 tags.php:132
+#: tags.php:81 tags.php:117 tags.php:81 tags.php:117
 msgid "and"
 msgstr "e"
 
-#: tags.php:117 tags.php:122 tags.php:131 tags.php:153 tags.php:171
+#: tags.php:117 tags.php:153 tags.php:117 tags.php:153
 msgid "tagged"
 msgstr "etiquetado"
 
-#: tags.php:157 tags.php:175
+#: tags.php:157 tags.php:157
 msgid "Related tags: "
 msgstr "Etiquetas relacionadas: "
 
-#: tags.php:168
+#: tags.php:168 tags.php:168
 #, php-format
 msgid "Oops! No items tagged &laquo;%s&raquo; were found."
 msgstr "Vaia! Non se atoparon elementos etiquetados coma &laquo;%s&raquo;."
 
-#: tags.php:178 tags.php:198
+#: tags.php:178 tags.php:178
 msgid "All Tags"
 msgstr "Todas as etiquetas"
 
-#: themes/3panes/footer.php:5 themes/WittySparks_v1.0/web/footer.php:6
-#: themes/default/web/footer.php:6 themes/milsi/footer.php:4
-#: themes/planet/footer.php:5
+#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
+#: themes/milsi/footer.php:4 themes/planet/footer.php:5
+#: themes/3panes/footer.php:5 themes/default/web/footer.php:6
+#: themes/milsi/footer.php:4 themes/planet/footer.php:5
 msgid " powered by "
 msgstr " coa forza de "
 
-#: themes/3panes/searchform.php:7
-#: themes/WittySparks_v1.0/mobile/searchform.php:7
-#: themes/WittySparks_v1.0/web/searchform.php:7
-#: themes/default/mobile/searchform.php:7 themes/default/web/searchform.php:7
-#: themes/milsi/searchform.php:7 themes/mobile/searchform.php:7
-#: themes/planet/searchform.php:7
+#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
+#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
+#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
+#: themes/3panes/searchform.php:7 themes/default/mobile/searchform.php:7
+#: themes/default/web/searchform.php:7 themes/milsi/searchform.php:7
+#: themes/mobile/searchform.php:7 themes/planet/searchform.php:7
 msgid "Search terms:"
 msgstr "Buscar termos"
 
-#: themes/3panes/searchform.php:10
-#: themes/WittySparks_v1.0/mobile/searchform.php:13
-#: themes/WittySparks_v1.0/web/searchform.php:13
-#: themes/default/mobile/searchform.php:13
+#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
+#: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
+#: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
+#: themes/3panes/searchform.php:10 themes/default/mobile/searchform.php:13
 #: themes/default/web/searchform.php:13 themes/milsi/searchform.php:13
 #: themes/mobile/searchform.php:13 themes/planet/searchform.php:13
 msgid "Some terms (OR)"
 msgstr "Algúns termos (OR)"
 
-#: themes/3panes/searchform.php:12
-#: themes/WittySparks_v1.0/mobile/searchform.php:15
-#: themes/WittySparks_v1.0/web/searchform.php:15
-#: themes/default/mobile/searchform.php:15
+#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
+#: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
+#: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
+#: themes/3panes/searchform.php:12 themes/default/mobile/searchform.php:15
 #: themes/default/web/searchform.php:15 themes/milsi/searchform.php:15
 #: themes/mobile/searchform.php:15 themes/planet/searchform.php:15
 msgid "All terms (AND)"
 msgstr "Todos os termos (AND)"
 
-#: themes/3panes/searchform.php:14
-#: themes/WittySparks_v1.0/mobile/searchform.php:17
-#: themes/WittySparks_v1.0/web/searchform.php:17
-#: themes/default/mobile/searchform.php:17
+#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
+#: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
+#: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
+#: themes/3panes/searchform.php:14 themes/default/mobile/searchform.php:17
 #: themes/default/web/searchform.php:17 themes/milsi/searchform.php:17
 #: themes/mobile/searchform.php:17 themes/planet/searchform.php:17
 msgid "Exact match"
 msgstr "Coincidencia exacta"
 
-#: themes/3panes/searchform.php:16
-#: themes/WittySparks_v1.0/mobile/searchform.php:21
-#: themes/WittySparks_v1.0/web/searchform.php:21
-#: themes/default/mobile/searchform.php:21
+#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
+#: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
+#: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
+#: themes/3panes/searchform.php:16 themes/default/mobile/searchform.php:21
 #: themes/default/web/searchform.php:21 themes/milsi/searchform.php:21
 #: themes/mobile/searchform.php:21 themes/planet/searchform.php:21
 msgid "Feed:"
 msgstr "Semente"
 
-#: themes/3panes/searchform.php:19
-#: themes/WittySparks_v1.0/mobile/searchform.php:27
-#: themes/WittySparks_v1.0/web/searchform.php:27
-#: themes/default/mobile/searchform.php:27
+#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
+#: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
+#: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
+#: themes/3panes/searchform.php:19 themes/default/mobile/searchform.php:27
 #: themes/default/web/searchform.php:27 themes/milsi/searchform.php:27
 #: themes/mobile/searchform.php:27 themes/planet/searchform.php:27
 msgid "Order by date, feed"
 msgstr "Ordear por data, semente"
 
-#: themes/3panes/searchform.php:21
-#: themes/WittySparks_v1.0/mobile/searchform.php:29
-#: themes/WittySparks_v1.0/web/searchform.php:29
-#: themes/default/mobile/searchform.php:29
+#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
+#: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
+#: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
+#: themes/3panes/searchform.php:21 themes/default/mobile/searchform.php:29
 #: themes/default/web/searchform.php:29 themes/milsi/searchform.php:29
 #: themes/mobile/searchform.php:29 themes/planet/searchform.php:29
 msgid "Order by feed, date"
 msgstr "Ordear por semente, data"
 
-#: themes/3panes/searchform.php:22
-#: themes/WittySparks_v1.0/mobile/searchform.php:33
-#: themes/WittySparks_v1.0/web/searchform.php:33
-#: themes/default/mobile/searchform.php:33
+#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
+#: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
+#: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
+#: themes/3panes/searchform.php:22 themes/default/mobile/searchform.php:33
 #: themes/default/web/searchform.php:33 themes/milsi/searchform.php:33
 #: themes/mobile/searchform.php:33 themes/planet/searchform.php:33
 msgid "Results per page:"
 msgstr "Resultados por páxina:"
 
-#: themes/WittySparks_v1.0/mobile/item.php:19
-#: themes/WittySparks_v1.0/web/item.php:24 themes/default/mobile/item.php:19
-#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "Enclosure:"
 msgstr "Contido adxunto"
 
-#: themes/WittySparks_v1.0/mobile/item.php:19
-#: themes/WittySparks_v1.0/web/item.php:24 themes/default/mobile/item.php:19
-#: themes/default/web/item.php:24 themes/lilina/web/item.php:48
-#: themes/lilina/web/item.php:104
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
+#: themes/default/mobile/item.php:19 themes/default/web/item.php:24
+#: themes/lilina/web/item.php:48 themes/lilina/web/item.php:104
 msgid "download"
 msgstr "descargar"
 
-#: themes/WittySparks_v1.0/mobile/item.php:34
-#: themes/default/mobile/item.php:34
+#: themes/default/mobile/item.php:34 themes/default/mobile/item.php:34
 msgid "Read"
 msgstr "Ler"
 
-#: themes/WittySparks_v1.0/mobile/item.php:35
-#: themes/default/mobile/item.php:35
+#: themes/default/mobile/item.php:35 themes/default/mobile/item.php:35
 msgid "Unread"
 msgstr "Sen Ler"
 
-#: themes/WittySparks_v1.0/mobile/nav.php:4 themes/default/mobile/nav.php:4
+#: themes/default/mobile/nav.php:4 themes/default/mobile/nav.php:4
 msgid "Refresh"
 msgstr "Recargar"
 
-#: themes/WittySparks_v1.0/web/item.php:8
-#: themes/WittySparks_v1.0/web/item.php:9 themes/default/web/item.php:8
-#: themes/default/web/item.php:9
+#: themes/default/web/item.php:8 themes/default/web/item.php:9
+#: themes/default/web/item.php:8 themes/default/web/item.php:9
 msgid "Edit Item Properties"
 msgstr "Editar as propiedados dos elementos"
 
-#: themes/WittySparks_v1.0/web/item.php:18 themes/default/web/item.php:18
+#: themes/default/web/item.php:18 themes/lilina/web/item.php:42
+#: themes/lilina/web/item.php:98 themes/default/web/item.php:18
 #: themes/lilina/web/item.php:42 themes/lilina/web/item.php:98
 msgid "Rating:"
 msgstr "Puntuación:"
 
-#: themes/WittySparks_v1.0/web/pagination.php:2
-#: themes/default/web/pagination.php:2
-msgid "Skip to page: "
-msgstr "Saltar á páxina: "
-
-#: themes/milsi/feeds.php:4
+#: themes/milsi/feeds.php:4 themes/milsi/feeds.php:4
 #, php-format
-msgid "<strong>%d</strong> items (<strong>%d</strong> unread) in <strong>%d</strong> feeds"
-msgstr "<strong>%d</strong> elementos (<strong>%d</strong> sen ler) en <strong>%d</strong> sementes"
+msgid ""
+"<strong>%d</strong> items (<strong>%d</strong> unread) in "
+"<strong>%d</strong> feeds"
+msgstr ""
+"<strong>%d</strong> elementos (<strong>%d</strong> sen ler) en "
+"<strong>%d</strong> sementes"
 
-#: update.php:32
+#: update.php:32 update.php:32
 msgid "Sorry, updating from the web is currently not allowed."
 msgstr "Sintoo, non se permite actualizar dende a web neste intre."
 
-#: util.php:851 util.php:852 util.php:857 util.php:861
+#: util.php:852 util.php:851 util.php:857 util.php:857
 msgid "Show items: "
 msgstr "Amosar elementos: "
 
-#: util.php:853 util.php:854 util.php:859 util.php:863
+#: util.php:854 util.php:853 util.php:859 util.php:859
 msgid "Unread only"
 msgstr "Só os non lidos"
 
-#: util.php:854 util.php:855 util.php:860 util.php:864
+#: util.php:855 util.php:854 util.php:860 util.php:860
 msgid "Read and unread"
 msgstr "Lidos e non lidos"
+
+#: themes/default/web/pagination.php:2 themes/default/web/pagination.php:2
+msgid "Skip to page: "
+msgstr "Saltar á páxina: "
+
+#: admin/channels.php:238 admin/channels.php:238
+msgid "Folders"
+msgstr "Cartafoles"
+
+#: admin/channels.php:240 admin/channels.php:240
+msgid "State"
+msgstr "Estado"
+
+#: admin/channels.php:257 admin/channels.php:257
+msgid "Categories:"
+msgstr "Categorías:"
