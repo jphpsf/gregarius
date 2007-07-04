@@ -141,7 +141,7 @@ function tags(){
 	."\t<th>". __('Action') ."</th>\n"
 	."</tr>\n";
 
-	$sql = "select id,tag from " .getTable("tag") . " order by tag asc";
+	$sql = sprintf("select id, tag from %s t left join %s m on (t.id = m.tid) where m.ttype = 'item'", getTable("tag"), getTable("metatag"));
 	$res = rss_query($sql);
 	$cntr = 0;
 	while (list($id, $tag) = rss_fetch_row($res)) {
