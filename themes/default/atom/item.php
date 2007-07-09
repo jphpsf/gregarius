@@ -6,4 +6,7 @@
 		<updated><?php echo rss_item_date_with_format('c'); ?></updated>
 		<published><?php echo rss_item_date_with_format('c'); ?></published>
 		<content type="html"><![CDATA[	<?php echo rss_item_content(); ?> ]]></content>
+<?php foreach ($GLOBALS['rss']->currentItem->tags as $tag_) { ?>
+ 		<category term="<?php echo $tag_ ?>" />
+<?php } ?>
 </entry>
