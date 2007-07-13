@@ -28,7 +28,7 @@
 /// Name: Doubleclick to Read
 /// Author: Marco Bonetti
 /// Description: Marks an item as read when you doubleclick its whitespace
-/// Version: 1.9
+/// Version: 1.91
 
 /**
  * Changelog:
@@ -38,6 +38,7 @@
  * 1.7  Moved the EtagHandler to make the javascript load faster. -- Sameer
  * 1.8  Switched to the rss_bootstrap caching method 
  * 1.9  Set the cache-validity to 0 to cause a reload when loggin in and out -- Sameer
+ * 1.91  Stupid PHP short tags  -- Marco
  */
 
 function __dblclicktoread_js_register($js) {
@@ -79,9 +80,9 @@ if (isset($_REQUEST['dcljs'])) {
                 	c = 1;
             	}
 				id=r1[1];
-				s =r1[2] & <?= SET_MODE_READ_STATE ?>;
-				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
-			    	sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
+				s =r1[2] & <?php echo SET_MODE_READ_STATE ?>;
+				if ((sel = document.getElementById('<?php echo SHOW_WHAT ?>')) &&
+			    	sel.options[sel.selectedIndex].value == <?php echo SHOW_UNREAD_ONLY ?>) {
                 	setItemHide(id, (c == 0));
 				} else{
 			    	setItemClass(id, 'item even');
@@ -101,9 +102,9 @@ if (isset($_REQUEST['dcljs'])) {
                 	c = 1;
             	}
 				id=r1[1];
-				s =r1[2] & <?= SET_MODE_READ_STATE ?>;
-				if ((sel = document.getElementById('<?= SHOW_WHAT ?>')) &&
-			    	sel.options[sel.selectedIndex].value == <?= SHOW_UNREAD_ONLY ?>) {
+				s =r1[2] & <?php echo SET_MODE_READ_STATE ?>;
+				if ((sel = document.getElementById('<?php echo SHOW_WHAT ?>')) &&
+			    	sel.options[sel.selectedIndex].value == <?php echo SHOW_UNREAD_ONLY ?>) {
                 	setItemHide(id, (c == 0));
 				} else{
 			    	setItemClass(id, 'item even');
