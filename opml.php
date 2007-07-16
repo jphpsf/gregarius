@@ -136,10 +136,11 @@ if (array_key_exists('act',$_REQUEST)) {
     $sql = "select "
       ." c.id, c.title, c.url, c.siteurl, d.name, c.parent, c.descr "
       ." from ". getTable("channels") . " c "
-      ." inner join " . getTable("folders") ." d on d.id = c.parent ";
+      ." inner join " . getTable("folders") ." d on d.id = c.parent "
+	  ." where not (c.mode & ".  RSS_MODE_DELETED_STATE .") ";
       
 	if (hidePrivate()) {
-		$sql .=" where not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";	      
+		$sql .=" and not(c.mode & " . RSS_MODE_PRIVATE_STATE .") ";	      
 	}
 	
 	// note: should we export deprecated feeds?
