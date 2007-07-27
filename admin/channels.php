@@ -702,7 +702,8 @@ function channel_admin() {
 
         $sql = "update " .getTable("channels")
                ." set title='$title', url='$url', siteurl='$siteurl', "
-               ." parent=$parent, descr='$descr', icon='$icon' "
+               ." parent=$parent, descr='$descr', icon='$icon', "
+			   ." daterefreshed = 1, etag = '' "
                ." $mode where id=$cid";
 
         rss_query($sql);
