@@ -36,7 +36,7 @@ class Profiler {
     function Profiler() {
         $this -> __init_timer = $this->getmicrotime();
         $this -> __prev_timer = $this -> __init_timer;
-        $this-> _pf('start');
+        $this-> _pf('start ' . _VERSION_ . rss_svn_rev('.'));
     }
 
     function getmicrotime() {
