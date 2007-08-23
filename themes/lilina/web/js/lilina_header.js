@@ -1,26 +1,10 @@
 function toggleItemByID(id) {
- var fld=document.getElementById("im" + id);
- var fld2=document.getElementById("c" + id);
+ var fld=document.getElementById("c" + id);
  if (fld.style.display == "none") {
  	fld.style.display = "block";
-	fld2.style.display = "block";
  } else {
  	fld.style.display = "none";
-	fld2.style.display = "none";
  }
-}
-
-var _lilina_cDivs = document.getElementsByTagName('div');
-var _lilina_divs = new Array();
-document._lilinaCollapsed = true;
-
-j=0;
-for (i=0;i<_lilina_cDivs.length; i++){
-	if (_lilina_cDivs[i].className == 'content') {
-		_lilina_divs[j] = _lilina_cDivs[i]; 		
-		_lilina_divs[j].lilinaArray = j;
-		j++;
-	}
 }
 
 function _lilina_expandAlldivs(flag) {
@@ -64,14 +48,3 @@ function _lilina_channels_collapse(o) {
 	}
 }
 
-// Mmm delicious cookies, let us find out what they want us to do. 
-
-if(getCookie("_lilinaSidebarCollapser") == "collapsed") {
-document.sidecollapsed = false;
-_lilina_channels_collapse(document.getElementById("collapser").childNodes[0]);
-}
-
-
-if(getCookie("_lilinaItemsCollapser") == "uncollapsed") {
-_lilina_expandAlldivs(1);
-}

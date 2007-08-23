@@ -6,6 +6,8 @@
 
 <body<?php echo rss_header_onLoadAction() ?>>
 
+<script type="text/javascript" src="<?php echo getThemePath();?>/js/lilina_header.js"></script>
+
 <div id="nav" class="frame">
     <?php echo rss_header_logininfo() ?>
     <a class="hidden" href="#feedcontent">skip to content</a>
