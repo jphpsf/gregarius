@@ -884,6 +884,7 @@ function channel_edit_form($cid) {
     $sql = "select id, title, url, siteurl, parent, descr, icon, mode, daterefreshed, dateadded from " .getTable("channels") ." where id=$cid";
     $res = rss_query($sql);
     list ($id, $title, $url, $siteurl, $parent, $descr, $icon, $mode, $daterefreshed, $dateadded) = rss_fetch_row($res);
+	$title = htmlentities($title,ENT_QUOTES);
     // get tags
     $sql = "select t.tag from " . getTable('tag')." t "
            . "  inner join " . getTable('metatag') . " m "
@@ -972,7 +973,7 @@ function channel_edit_form($cid) {
 
 
     // Description
-    $descr = trim(strip_tags($descr));
+    $descr = trim(htmlentities(strip_tags($descr), ENT_QUOTES));
     echo "<p><label for=\"c_descr\">". __('Description:') ."</label>\n"
     ."<input type=\"text\" id=\"c_descr\" name=\"c_descr\" value=\"$descr\" /></p>\n";
 
