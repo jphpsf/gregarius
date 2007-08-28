@@ -127,7 +127,7 @@ function unreadCallback($args) {
 function unreadItems($show_what, $show_private) {
 
     _pf('populate unread items');
-	$unreadItems = new ItemList();
+	$unreadItems = new PaginatedItemList();
 	$numItems = getConfig('rss.output.frontpage.numitems');
 	
 	/*
