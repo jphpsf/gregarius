@@ -539,7 +539,7 @@ class PaginatedItemList extends ItemList {
 	function populate($sqlWhere, $sqlOrder="", $startItem = 0, $itemCount = -1, $hint = ITEM_SORT_HINT_MIXED, $includeDeprecated = false) {
 
 		$si = $this -> page * $this ->  itemsPerPage;
-		parent::populate($sqlWhere, $sqlOrder, $si, $this ->  itemsPerPage, $hint, $includeDeprecated);
+		parent::populate($sqlWhere, $sqlOrder, $si, ($itemCount > 0 ? $this ->  itemsPerPage : $itemCount), $hint, $includeDeprecated);
 		
 		$sql = "select count(*) as cnt "
 			. " from "
