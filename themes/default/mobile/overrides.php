@@ -20,6 +20,8 @@ if (!hidePrivate()) {
 			case 'mobile_sticky':
 				rss_plugins_set_item_state( $varName, RSS_MODE_STICKY_STATE, true );
 			//intentional fallthrough
+			case 'mobile_flag':
+				rss_plugins_set_item_state( $varName, RSS_MODE_FLAG_STATE, true );
 			case 'mobile_read':
 				rss_plugins_set_item_state( $varName, RSS_MODE_UNREAD_STATE, false );
 		}

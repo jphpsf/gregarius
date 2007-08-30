@@ -38,6 +38,11 @@ $cls = $GLOBALS['__item__idx__']++ % 2 ? 'e':'o';
 			echo "selected=\"selected\""; 
 		  }
 		?>><?php print(__('Sticky')); ?></option>
+	<option value="mobile_flag" <?php
+			if($GLOBALS['rss'] -> currentItem -> isFlag) {
+				echo "selected=\"selected\"";
+			}
+		?>><?php print(__('Flagged')); ?></option>
 </select>
 </div>
 <?php } ?>
