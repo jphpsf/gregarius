@@ -169,7 +169,7 @@ function readItems($limit) {
 	}
 	*/
 
-  $readItems = new ItemList();
+  $readItems = new PaginatedItemList();
 	$readItems -> setRenderOptions(IL_TITLE_NO_ESCAPE);
 
 	if (getConfig('rss.config.feedgrouping')) {
