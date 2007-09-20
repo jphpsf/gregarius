@@ -11,4 +11,4 @@
 		<?php } ?>
 <?php } ?>
 </div>
-<div style="clear:right;height:0px"></div>
+<div style="clear:right;line-height:1px;">&nbsp;</div>
