@@ -163,6 +163,7 @@ img { border: none }
 
 
 .item:hover .content a, .item:hover h5 a { border-bottom: 1px solid #ccc; }
+.item:hover .content table a { border:none; }
 
 th { 
  background-color: #f4f4f4; 
