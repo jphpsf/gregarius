@@ -95,8 +95,10 @@ class SearchItemList extends ItemList {
                 reset($this->searchTerms);
                 $match = ($this->matchMode == QUERY_MATCH_AND || $this->matchMode == QUERY_MATCH_EXACT);
                 foreach ($this->searchTerms as $term) {
-                    if ($this->matchMode == QUERY_MATCH_AND || $this->matchMode == QUERY_MATCH_EXACT) {
+                    if ($this->matchMode == QUERY_MATCH_AND) {
                         $match = ((stristr($descr_noTags, $term) || stristr($title_noTags, $term)) && $match);
+                    } else if ($this->matchMode == QUERY_MATCH_EXACT) {
+                    		$match = (preg_match("/\b" . $term . "\b/i", $descr_noTags) || preg_match("/\b" . $term . "\b/i", $title_noTags));
                     } else {
                         $match = ($match || (stristr($descr_noTags, $term) || stristr($title_noTags, $term)));
                     }
