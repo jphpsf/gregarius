@@ -29,6 +29,7 @@ define ('INFINE_RESULTS',-1);
 
 define ('QUERY_PRM','rss_query');
 define ('QUERY_MATCH_MODE', 'rss_query_match');
+define ('QUERY_MATCH_TYPE', 'rss_query_match_type');
 define ('QUERY_CHANNEL', 'rss_query_channel');
 define ('QUERY_RESULTS','rss_query_res_per_page');
 define ('QUERY_CURRENT_PAGE','rss_query_current_page');
@@ -41,6 +42,7 @@ define ('QUERY_ORDER_BY_CHANNEL','channel');
 define ('QUERY_MATCH_OR','or');
 define ('QUERY_MATCH_AND','and');
 define ('QUERY_MATCH_EXACT','exact');
+define ('QUERY_MATCH_WITHIN', 'within');
 
 // This is needed for some constants
 rss_require('cls/wrappers/toolkit.php');
@@ -49,6 +51,7 @@ class SearchItemList extends ItemList {
 
     var $searchTerms = array();
     var $matchMode;
+    var $matchType;
     var $regMatch = "";
 
     var $currentPage;
@@ -94,14 +97,21 @@ class SearchItemList extends ItemList {
                 $match = false;
                 reset($this->searchTerms);
                 $match = ($this->matchMode == QUERY_MATCH_AND || $this->matchMode == QUERY_MATCH_EXACT);
+
                 foreach ($this->searchTerms as $term) {
-                    if ($this->matchMode == QUERY_MATCH_AND) {
-                        $match = ((stristr($descr_noTags, $term) || stristr($title_noTags, $term)) && $match);
-                    } else if ($this->matchMode == QUERY_MATCH_EXACT) {
-                    		$match = (preg_match("/\b" . $term . "\b/i", $descr_noTags) || preg_match("/\b" . $term . "\b/i", $title_noTags));
+                    if ($this->matchMode == QUERY_MATCH_AND || $this->matchMode == QUERY_MATCH_EXACT) {
+                    		if($this->matchType == QUERY_MATCH_WITHIN) {
+                        	$match = ((stristr($descr_noTags, $term) || stristr($title_noTags, $term)) && $match);
+                        } else {
+                        	$match = ((preg_match("/\b" . $term . "\b/i", $descr_noTags) || preg_match("/\b" . $term . "\b/i", $title_noTags)) && $match);
+												}
                     } else {
-                        $match = ($match || (stristr($descr_noTags, $term) || stristr($title_noTags, $term)));
-                    }
+                    		if($this->matchType == QUERY_MATCH_WITHIN) {
+                        	$match = ($match || (stristr($descr_noTags, $term) || stristr($title_noTags, $term)));
+                        } else {
+													$match = ($match || (preg_match("/\b" . $term . "\b/i", $descr_noTags) || preg_match("/\b" . $term . "\b/i", $title_noTags)));
+												}
+                    }	
                 }
 
                 if (!$match) {
@@ -131,7 +141,11 @@ class SearchItemList extends ItemList {
         $this->matchMode = sanitize(
         		(!array_key_exists(QUERY_MATCH_MODE, $_REQUEST) ? QUERY_MATCH_AND : $_REQUEST[QUERY_MATCH_MODE]), 
         	RSS_SANITIZER_CHARACTERS_EXT);
-        	
+        
+        $this->matchType = sanitize(
+        	(!array_key_exists(QUERY_MATCH_TYPE, $_REQUEST) ? "" : $_REQUEST[QUERY_MATCH_TYPE]),
+        	RSS_SANITIZER_CHARACTERS_EXT);
+
         $this->channelId = sanitize(
         	((array_key_exists(QUERY_CHANNEL, $_REQUEST)) ? $_REQUEST[QUERY_CHANNEL] : ALL_CHANNELS_ID),
         	RSS_SANITIZER_NUMERIC);

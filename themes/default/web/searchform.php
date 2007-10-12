@@ -16,6 +16,11 @@
 		<input type="radio" id="qry_match_exact" name="<?php echo QUERY_MATCH_MODE ?>" value="<?php echo QUERY_MATCH_EXACT ?>" <?php echo rss_search_exact_checked() ?>/>
 		<label for="qry_match_exact"><?php echo __('Exact match') ?></label>
 	</p>
+	
+	<p>
+		<label for="qry_match_within"><?php echo __('Search within words') ?></label>
+		<input type="checkbox" id="qry_match_within" name="<?php echo QUERY_MATCH_TYPE ?>" value="<?php echo QUERY_MATCH_WITHIN ?>" <?php echo rss_search_within() ?> />
+	</p>
 
 	<p>
 		<label for="<?php echo QUERY_CHANNEL ?>"><?php echo __('Feed:') ?></label>

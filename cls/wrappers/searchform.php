@@ -65,6 +65,11 @@ function rss_search_order_channel_checked() {
 	 $_REQUEST[QUERY_ORDER_BY] == QUERY_ORDER_BY_CHANNEL)?" checked=\"checked\"":"");
 }
 
+function rss_search_within() {
+	return ((array_key_exists(QUERY_MATCH_TYPE, $_REQUEST) &&
+		$_REQUEST[QUERY_MATCH_TYPE] == QUERY_MATCH_WITHIN)?" checked=\"checked\"":"");	
+}
+
 function rss_search_results_per_page_combo($id) {
 	return "<select name=\"$id\" id=\"$id\">\n"
     ."\t\t\t<option value=\"5\""
