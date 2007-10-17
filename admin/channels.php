@@ -1059,7 +1059,8 @@ function channel_edit_form($cid) {
     echo "</fieldset>\n";
 
 
-		echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". __('Submit Changes') ."\" /></p>";
+		echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". __('Submit Changes') ."\" />"
+				 ."<input type=\"button\" name=\"_cancel\" value=\"" . __('Cancel') . "\" onclick=\"history.back(-1);\"></p>";
 
     echo "</form></div>\n";
 }
