@@ -108,17 +108,22 @@ class RSSdbCache {
             return 'MISS';
         }
 
-        $res = rss_query("select UNIX_TIMESTAMP(daterefreshed) as ts, refreshinterval from " . getTable("channels")
+        $res = rss_query("select UNIX_TIMESTAMP(daterefreshed) as ts from " . getTable("channels")
                          . " where id=$cid");
         if ( ! $res ) {
             $this->error("Failed to read from db cache. channel id: $cid");
             return 'MISS';
         }
 
-        list($dateRefreshed, $refreshInterval) = rss_fetch_row($res);
-
-        // Lets hope that the web server and sql server have their clocks in sync
+        list($dateRefreshed) = rss_fetch_row($res);
+        $refreshInterval = getProperty($cid, 'rss.config.refreshinterval');
+        if(true == empty($refreshInterval)) {
+        	$refreshInterval = 60;
+       	}
+       	
+	      // Lets hope that the web server and sql server have their clocks in sync
         $age = time() - $dateRefreshed;
+        
         if (!$refreshInterval || ($refreshInterval < 10)) {
             // We should change the Gregarius UA if we allow refreshInterval to be small
             $refreshInterval = $this->MAX_AGE;

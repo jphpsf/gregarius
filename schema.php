@@ -152,19 +152,6 @@ function checkSchemaColumns($column) {
 				);
 			}
 		// break; - fallthrough allowed on purpose because these are added at the same time
-		case 'c.refreshinterval':
-		case 'refreshinterval':
-			// refresh interval of a feed (in minutes), added in 0.5.3
-			rss_query('alter table ' .getTable('channels') .' add column refreshinterval int(16) not null default 60');
-			if (rss_is_sql_error(RSS_SQL_ERROR_NO_ERROR)) {
-				$updated++;
-				rss_error("updated schema for table " . getTable('channels'), RSS_ERROR_NOTICE);
-			} else {
-				rss_error("Failed updating schema for table " . getTable('channels')
-				.": " . rss_sql_error_message(), RSS_ERROR_ERROR
-				);
-			}
-		// break; - fallthrough allowed on purpose because these are added at the same time
 		case 'c.etag':
 		case 'etag':
 			// etag of the feed, (from HTTP header) added in 0.5.3

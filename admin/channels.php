@@ -488,6 +488,8 @@ function channel_admin() {
 
             // Delete properties
             deleteProperty($id,'rss.input.allowupdates');
+            
+            deleteProperty($id,'rss.config.refreshinterval');
 
             // Invalidate cache
             rss_invalidate_cache();
@@ -646,7 +648,6 @@ function channel_admin() {
         $tags = rss_real_escape_string($_POST['c_tags']);
         $old_priv = ($_POST['old_priv'] == '1');
 
-
         // Feed Properties
         $prop_rss_input_allowupdates = rss_real_escape_string($_POST['prop_rss_input_allowupdates']);
         if ($prop_rss_input_allowupdates == 'default') {
@@ -654,7 +655,13 @@ function channel_admin() {
         } else {
             setProperty($cid, 'rss.input.allowupdates' , 'feed', ($prop_rss_input_allowupdates == 1));
         }
-
+        
+        deleteProperty($cid, 'rss.config.refreshinterval');
+        
+        $rss_config_refreshinterval = rss_real_escape_string($_POST['rss_config_refreshinterval']);
+        if($rss_config_refreshinterval > 60) {
+					setProperty($cid, 'rss.config.refreshinterval', 'feed', $rss_config_refreshinterval);	
+				}        
 
         if ($priv != $old_priv) {
             $mode = ", mode = mode ";
@@ -904,7 +911,7 @@ function channel_edit_form($cid) {
     // Timestamps
     if(!empty($daterefreshed)) {
         echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
-        ."<p><label>" . __('Last Update') . ": ".date("M-d-Y H:i", strtotime($daterefreshed))."</label></p>\n";
+        ."<p><label>" . __('Last Update') . ": ".date("M-d-Y H:i", strtotime($daterefreshed))." (Age: " . round(((time() - strtotime($daterefreshed))/60)) . " minutes)</label></p>\n";
     } else {
         echo "<p><label>" . __('Added') . ": " . date("M-d-Y H:i", strtotime($dateadded)) . "</label></p>"
         ."<p><label>" . __('Last Update') . ": " . __('Never') . "</label></p>\n";
@@ -1038,10 +1045,21 @@ function channel_edit_form($cid) {
 
 
     ."</p>\n";
+    
+    echo "<p>"
+    ."<span style=\"float:left;\">Refresh Interval (minutes): </span>"
+    ."&nbsp;"
+    ."</p>";
+    
+    $rss_config_refreshinterval_default_current = getProperty($cid, 'rss.config.refreshinterval');
+    
+    echo "<p id=\"rss_config_refreshinterval_options\">"
+   	."<input type=\"text\" id=\"rss_config_refreshinterval\" name=\"rss_config_refreshinterval\" value=\"" . (true == empty($rss_config_refreshinterval_default_current) ? 60 : $rss_config_refreshinterval_default_current) . "\">"
+   	."</p>";
     echo "</fieldset>\n";
 
 
-    echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". __('Submit Changes') ."\" /></p>";
+		echo "<p style=\"clear:both; padding: 1em 0\"><input type=\"submit\" name=\"action_\" value=\"". __('Submit Changes') ."\" /></p>";
 
     echo "</form></div>\n";
 }

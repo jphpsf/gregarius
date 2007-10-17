@@ -455,13 +455,12 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
     if (!$np) {
         $np = "0";
     }
-
+			
     // Here we go!
     //error_reporting(E_ALL);
     $old_level = error_reporting(E_ERROR);
     $rss = fetch_rss($url);
     error_reporting($old_level);
-
 
     if ($rss) {
         if ($title_) {
@@ -483,6 +482,19 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
         } else {
             $siteurl = "";
         }
+
+				$refreshinterval = 0;
+				if(is_object($rss) && array_key_exists('syn', $rss->channel)) {
+						$syn = $rss->channel['syn'];
+
+						if(array_key_exists('updateperiod', $syn)) {
+								if("hourly" == $syn['updateperiod']) {
+										if(array_key_exists('updatefrequency', $syn)) {
+												$refreshinterval = 60 * $syn['updatefrequency'];
+										}
+								}
+						}
+				}
 
         if ($descr_) {
             $descr = rss_real_escape_string($descr_);
@@ -545,6 +557,10 @@ function add_channel($url, $folderid = 0, $title_=null,$descr_=null,$tags = null
             if($tags != "") {
                 __exp__submitTag($newid,$tags,"'channel'");
             }
+            
+            if(false == empty($refreshinterval)) {
+            	setProperty($newid, 'rss.config.refreshinterval', $refreshinterval);
+						}
 
             return array ($newid, "");
 
