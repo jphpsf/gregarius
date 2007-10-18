@@ -490,6 +490,8 @@ function channel_admin() {
             deleteProperty($id,'rss.input.allowupdates');
             
             deleteProperty($id,'rss.config.refreshinterval');
+            
+						deleteProperty($id,'rss.config.refreshdate');
 
             // Invalidate cache
             rss_invalidate_cache();
