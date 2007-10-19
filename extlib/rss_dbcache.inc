@@ -121,11 +121,13 @@ class RSSdbCache {
 				if (!$refreshInterval || ($refreshInterval <= 60)) {
             // We should change the Gregarius UA if we allow refreshInterval to be small
             $refreshInterval = $this->MAX_AGE;
-        }
+        } else {
+					$refreshInterval = $refreshInterval * 60;
+				}
 
 				setProperty($cid, 'rss.config.refreshdate', 'feed', $dateRefreshed);
 
-        if ( $refreshInterval * 60  > $age ) {
+        if ( $refreshInterval >= $age ) {
             // object exists and is current
 						print("HIT");
             return 'HIT';
