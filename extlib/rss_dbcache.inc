@@ -110,7 +110,7 @@ class RSSdbCache {
 
 				$dateRefreshed = getProperty($cid, 'rss.config.refreshdate');
 				if(true == empty($dateRefreshed)) {
-					$dateRefreshed = time();
+					$dateRefreshed = time() - (60 * 60); // If the refresh interval isn't defined, set it to be 60 mins old.
 				}
 
         $refreshInterval = getProperty($cid, 'rss.config.refreshinterval');
