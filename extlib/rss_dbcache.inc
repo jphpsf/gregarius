@@ -116,14 +116,12 @@ class RSSdbCache {
         $refreshInterval = getProperty($cid, 'rss.config.refreshinterval');
        	
 	      // Lets hope that the web server and sql server have their clocks in sync
-        $age = (time() - $dateRefreshed) / 60;
+        $age = round((time() - $dateRefreshed) / 60);
         
 				if (!$refreshInterval || ($refreshInterval <= 60)) {
             // We should change the Gregarius UA if we allow refreshInterval to be small
             $refreshInterval = 60; //$this->MAX_AGE;
 				}
-
-//				print(time() . " " . $dateRefreshed . " " . $age . " " . $refreshInterval);
 
         if ( $refreshInterval > $age ) {
             // object exists and is current
