@@ -28,7 +28,7 @@
 rss_require('cls/wrappers/toolkit.php');
 
 /**
- * renders the pruneing form
+ * renders the pruning form
  */
 function items() {
 
@@ -51,8 +51,10 @@ function items() {
     . "</p>\n"
     . "<p><label for=\"prune_include_sticky\">".__('Delete Sticky items too: ')."</label>\n"
     . "<input type=\"checkbox\" id=\"prune_include_sticky\" name=\"prune_include_sticky\" value=\"1\"/></p>\n"
-	. "<p><label for=\"prune_include_unread\">".__('Delete Unread items too: ')."</label>\n"
-	. "<input type=\"checkbox\" id=\"prune_include_unread\" name=\"prune_include_unread\" value=\"1\"/></p>\n"
+    . "<p><label for=\"prune_include_flag\">".__('Delete Flag items too: ')."</label>\n"
+    . "<input type=\"checkbox\" id=\"prune_include_flag\" name=\"prune_include_flag\" value=\"1\"/></p>\n"
+    . "<p><label for=\"prune_include_unread\">".__('Delete Unread items too: ')."</label>\n"
+    . "<input type=\"checkbox\" id=\"prune_include_unread\" name=\"prune_include_unread\" value=\"1\"/></p>\n"
     . "<p><label for=\"prune_exclude_tags\">".__('Do not delete items tagged... ')."</label>\n"
     . "<input type=\"text\" id=\"prune_exclude_tags\" name=\"prune_exclude_tags\" value=\"\"/></p>\n"
     . "<p style=\"font-size:small; padding:0;margin:0\">".__('(Enter <strong>*</strong> to keep all tagged items)')."</p>\n"
@@ -116,6 +118,11 @@ function item_admin() {
                 $sql .= " and not(unread & " .RSS_MODE_STICKY_STATE .") ";
             }
 
+						if (!array_key_exists('prune_include_flag', $_REQUEST)
+										|| $_REQUEST['prune_include_flag'] != '1') {
+								$sql .= " and not(unread & " . RSS_MODE_FLAG_STATE . ") ";
+						}
+
 
 			if (!array_key_exists('prune_include_unread', $_REQUEST) 
 					|| $_REQUEST['prune_include_unread'] != '1') {
@@ -154,28 +161,21 @@ function item_admin() {
             }
 
             if (array_key_exists(CST_ADMIN_CONFIRMED,$_REQUEST)) {
-	
-				
-				
-				// Possible fix for #207: max out execution time
-				// to avoid timeouts
-				@set_time_limit(0);
-		        @ini_set('max_execution_time', 60*10);
-		        
-				
-	
+								// Possible fix for #207: max out execution time
+								// to avoid timeouts
+								@set_time_limit(0);
+		        		@ini_set('max_execution_time', 60*10);
+
                 //echo "<pre>\n";
                 //delete the tags for these items
                 $sqlids = "select distinct i.id,i.cid " . $sql
                           . " order by i.cid, i.id desc";
-
 
                 $rs = rss_query($sqlids);
                 $ids = array();
                 $cids = array();
                 //echo "to be deleted\n";
                 while (list($id,$cid) = rss_fetch_row($rs)) {
-
                     $cids[$cid][]= $id;
 
                     //echo "cid=$cid, $id\n";
