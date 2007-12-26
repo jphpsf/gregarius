@@ -231,7 +231,11 @@ function channels() {
         echo "\t<td class=\"cntr\"><a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
         ."&amp;".CST_ADMIN_VIEW."=". CST_ADMIN_DOMAIN_CHANNEL
         ."&amp;action=". CST_ADMIN_EDIT_ACTION. "&amp;cid=$id\">" . __('edit')
-        ."</a>|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
+        ."</a>";
+        if(!getConfig('rss.config.restrictrefresh')) {
+        	echo "|<a href=\"".getPath()."update.php?cid=$id\">" . __('update') . "</a>\n";
+				}
+        echo "|<a href=\"".$_SERVER['PHP_SELF']. "?".CST_ADMIN_DOMAIN."=". CST_ADMIN_DOMAIN_CHANNEL
         ."&amp;".CST_ADMIN_VIEW."=". CST_ADMIN_DOMAIN_CHANNEL
         ."&amp;action=". CST_ADMIN_DELETE_ACTION ."&amp;cid=$id\">" . __('delete') ."</a></td>\n"
         ."</tr>\n";
@@ -560,7 +564,7 @@ function channel_admin() {
 
         // Parse into and OPML object
         $opml=getOpml($url);
-
+        
         if (sizeof($opml) > 0) {
 
             if ($import_opt == CST_ADMIN_OPML_IMPORT_WIPE) {

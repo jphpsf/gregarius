@@ -27,6 +27,7 @@
 
 define ('RSS_NO_CACHE',true);
 require_once('init.php');
+
 $cline = isset($argv) && !$_REQUEST && isset($argc) && $argc;
 if (!$cline && getConfig('rss.config.restrictrefresh')) {
 	die(__('Sorry, updating from the web is currently not allowed.'));
@@ -40,7 +41,6 @@ $sajax_remote_uri = getPath() . "update.php";
 $sajax_export_list = array("ajaxUpdate","ajaxUpdateCleanup");
 sajax_init();
 
-	
 if (array_key_exists('js',$_GET)) {
 	header('Content-Type: text/javascript');
 	ajaxUpdateJavascript();
@@ -51,11 +51,22 @@ if (array_key_exists('js',$_GET)) {
     exit();
 }
 
-
 $browser = new Browser();
 $silent = array_key_exists('silent', $_GET) || ($cline && in_array('--silent',$argv));
 $newsonly = array_key_exists('newsonly', $_GET) || ($cline && in_array('--newsonly', $argv));
 $mobile = array_key_exists('mobile',$_GET);
+
+$cid = DEFAULT_CID;
+if(array_key_exists('cid', $_GET)) {
+	$cid = $_GET['cid'];
+} else if ($cline && in_array('--update-only', $argv)) {
+	foreach($argv as $k => $v) {
+		if ('--update-only' == $v) {
+			$cid = $argv[$k+1];
+			break;
+		}
+	}
+}
 
 $GLOBALS['rss'] -> header = new Header(
 			__('Updating'), 
@@ -67,26 +78,25 @@ $GLOBALS['rss'] -> header = new Header(
 	
 $GLOBALS['rss'] -> feedList = new FeedList(false);
 
-
 // Instantiate a different Update object, depending on the client
 if ($cline && !$silent && !$newsonly) {
-	$update = new CommandLineUpdate();
+	$update = new CommandLineUpdate($cid);
 
 } elseif ($cline && !$silent && $newsonly) {
-	$update = new CommandLineUpdateNews();
+	$update = new CommandLineUpdateNews($cid);
 	
 } elseif (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPush()) {
-	$update = new HTTPServerPushUpdate();	
+	$update = new HTTPServerPushUpdate($cid);	
 	
 } elseif(!$silent && $browser->supportsAJAX()) {
-	$update = new AJAXUpdate();	
+	$update = new AJAXUpdate($cid);	
 
 } elseif($mobile) {
-	$update = new MobileUpdate();
+	$update = new MobileUpdate($cid);
 	
 } else {
     error_reporting(0);
-    $update = new SilentUpdate();
+    $update = new SilentUpdate($cid);
 }
 
 $GLOBALS['rss'] -> appendContentObject($update);

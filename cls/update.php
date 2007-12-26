@@ -31,6 +31,7 @@ define('ERROR_WARNING', " warning");
 define('ERROR_ERROR', " error");
 define('NO_NEW_ITEMS', '-');
 define ('UPDATING','...');
+define ('DEFAULT_CID', -1);
 
 
 define ('THIS_FILE',basename(__FILE__));
@@ -63,10 +64,10 @@ class Update {
 
     var $chans = array ();
 
-    function Update($doPopulate = true, $updatePrivateAlso = false) {
+    function Update($doPopulate = true, $updatePrivateAlso = false, $cid = DEFAULT_CID) {
         rss_plugin_hook('rss.plugins.updates.before', null);
         if($doPopulate) {
-            $this->populate($updatePrivateAlso);
+            $this->populate($updatePrivateAlso, $cid);
         }
 
         // Script timeout: ten seconds per feed should be a good upper limit
@@ -74,7 +75,7 @@ class Update {
         @ini_set('max_execution_time', (10 * count($this->chans) + 300));
     }
 
-    function populate($updatePrivateAlso = false) {
+    function populate($updatePrivateAlso = false, $cid) {
         $sql = "select c.id, c.url, c.title from ".getTable("channels") . " c "
                . " inner join " . getTable('folders') . " f on f.id = c.parent "
                . " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
@@ -82,12 +83,16 @@ class Update {
         if (hidePrivate() && !$updatePrivateAlso) {
             $sql .= " and not(mode & ".RSS_MODE_PRIVATE_STATE.") ";
         }
-
-        if (getConfig('rss.config.absoluteordering')) {
-            $sql .= " order by f.position asc, c.position asc";
-        } else {
-            $sql .= " order by f.name, c.title asc";
-        }
+        
+        if(DEFAULT_CID != $cid) {
+        	$sql .= " and c.id = " . $cid . " ";
+				} else {
+					if (getConfig('rss.config.absoluteordering')) {
+							$sql .= " order by f.position asc, c.position asc";
+					} else {
+							$sql .= " order by f.name, c.title asc";
+					}
+				}
 
         $res = rss_query($sql);
         while (list ($cid, $url, $title) = rss_fetch_row($res)) {
@@ -158,14 +163,13 @@ class Update {
     }
 }
 
-
 /**
  * HTTP Server Push update
  */
 class HTTPServerPushUpdate extends Update {
 
-    function HTTPServerPushUpdate() {
-        parent::Update();
+    function HTTPServerPushUpdate($cid) {
+        parent::Update($doPopulate = true, $updatePrivateAlso = false, $cid);
 
         $GLOBALS['rss']->header->appendHeader("Connection: close");
         $GLOBALS['rss']->header->appendHeader("Content-type: multipart/x-mixed-replace;boundary=\"".PUSH_BOUNDARY."\"");
@@ -227,15 +231,14 @@ class HTTPServerPushUpdate extends Update {
     }
 }
 
-
 /**
  * AJAXUpdate updates feeds via AJAX. It's a bit more server-intesive
  * than HTTP Server Push
  */
 class AJAXUpdate extends Update {
 
-    function AJAXUpdate() {
-        parent::Update();
+    function AJAXUpdate($cid) {
+        parent::Update($doPopulate = true, $updatePrivateAlso = false, $cid);
         $GLOBALS['rss']->header->extraHTML .= "<script type=\"text/javascript\" src=\""
                                               .getPath()."update.php?js\"></script>\n";
     }
@@ -274,11 +277,9 @@ class AJAXUpdate extends Update {
     }
 }
 
-
-
 class CommandLineUpdate extends Update {
-    function CommandLineUpdate() {
-        parent::Update($doPopulate = true, $updatePrivateAlso = true);
+    function CommandLineUpdate($cid) {
+        parent::Update($doPopulate = true, $updatePrivateAlso = true, $cid);
     }
 
     function render() {
@@ -308,9 +309,10 @@ class CommandLineUpdate extends Update {
 }
 
 class MobileUpdate extends Update {
-    function MobileUpdate() {
-        parent::Update($doPopulate = true);
+    function MobileUpdate($cid) {
+        parent::Update($doPopulate = true, $updatePrivateAlso = false, $cid);
     }
+    
     function render() {
         $newIds = array();
         foreach ($this->chans as $chan) {
@@ -333,7 +335,6 @@ class MobileUpdate extends Update {
         }
     }
 }
-
 
 /**
  * CommandLineUpdateNews updates the feeds and displays only feeds with
@@ -371,16 +372,14 @@ class CommandLineUpdateNews extends CommandLineUpdate {
     }
 }
 
-
-
 /**
  * SilentUpdate updates the feeds silently for those lame 
  * browsers out there that do not support HTTP Server Push
  * or AJAX
  */
 class SilentUpdate extends Update {
-    function SilentUpdate() {
-        parent::Update($doPopulate = false);
+    function SilentUpdate($cid) {
+        parent::Update($doPopulate = false, $updatePrivateAlso = false, $cid);
     }
 
     function render() {

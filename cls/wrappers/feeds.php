@@ -111,6 +111,10 @@ function rss_feeds_feed_icon() {
 	return ($GLOBALS['rss']->currentFeedsFeed-> icon);
 }
 
+function rss_feeds_feed_id() {
+	return ($GLOBALS['rss']->currentFeedsFeed-> id);
+}
+
 function rss_feeds_feed_title_entities() {
 	return htmlentities($GLOBALS['rss']->currentFeedsFeed-> title);
 }
