@@ -44,6 +44,11 @@ define ('QUERY_MATCH_AND','and');
 define ('QUERY_MATCH_EXACT','exact');
 define ('QUERY_MATCH_WITHIN', 'within');
 
+define ('QUERY_MATCH_STATE', 'state');
+define ('QUERY_MATCH_UNREAD', 'unread');
+define ('QUERY_MATCH_READ', 'read');
+define ('QUERY_MATCH_BOTH', 'both');
+
 // This is needed for some constants
 rss_require('cls/wrappers/toolkit.php');
 
@@ -212,7 +217,17 @@ class SearchItemList extends ItemList {
         if (hidePrivate()) {
             $qWhere .= " and not(i.unread & ".RSS_MODE_PRIVATE_STATE.") ";
         }
+
         $qWhere .= " and not(i.unread & ".RSS_MODE_DELETED_STATE.") ";
+        
+        if(array_key_exists(QUERY_MATCH_STATE, $_REQUEST) && QUERY_MATCH_READ == $_REQUEST[QUERY_MATCH_STATE]) {
+        		// Show only read items.
+        		$qWhere .= " and not (i.unread & " . RSS_MODE_UNREAD_STATE . ") ";
+				}
+				else if(array_key_exists(QUERY_MATCH_STATE, $_REQUEST) && QUERY_MATCH_UNREAD == $_REQUEST[QUERY_MATCH_STATE]) {
+						// Show only unread items.
+						$qWhere .= " and (i.unread & " . RSS_MODE_UNREAD_STATE . ") ";
+				}
 
         if ($this->orderBy == QUERY_ORDER_BY_DATE) {
             $qOrder = "  ts desc";

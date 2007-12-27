@@ -70,6 +70,22 @@ function rss_search_within() {
 		$_REQUEST[QUERY_MATCH_TYPE] == QUERY_MATCH_WITHIN)?" checked=\"checked\"":"");	
 }
 
+function rss_search_state_read_checked() {
+	return ((array_key_exists(QUERY_MATCH_STATE, $_REQUEST) &&
+		$_REQUEST[QUERY_MATCH_STATE] == QUERY_MATCH_READ) ?" checked=\"checked\"":"");	
+}
+
+function rss_search_state_unread_checked() {
+	return ((array_key_exists(QUERY_MATCH_STATE, $_REQUEST) &&
+		$_REQUEST[QUERY_MATCH_STATE] == QUERY_MATCH_UNREAD) ?" checked=\"checked\"":"");	
+}
+
+function rss_search_state_both_checked() {
+	return ((array_key_exists(QUERY_MATCH_STATE, $_REQUEST) &&
+		$_REQUEST[QUERY_MATCH_STATE] == QUERY_MATCH_BOTH) ||
+		!array_key_exists(QUERY_MATCH_STATE, $_REQUEST) ?" checked=\"checked\"":"");	
+}
+
 function rss_search_results_per_page_combo($id) {
 	return "<select name=\"$id\" id=\"$id\">\n"
     ."\t\t\t<option value=\"5\""
