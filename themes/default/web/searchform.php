@@ -23,14 +23,14 @@
 	</p>
 	
 	<p>
-		<label for="qry_match_unread"><?php echo __('Unread Only') ?></label>
 		<input type="radio" id="qry_match_unread" name="<?php echo QUERY_MATCH_STATE ?>" value="<?php echo QUERY_MATCH_UNREAD ?>" <?php echo rss_search_state_unread_checked() ?> />
+		<label for="qry_match_unread"><?php echo __('Unread Only') ?></label>
 		
-		<label for="qry_match_read"><?php echo __('Read Only') ?></label>
 		<input type="radio" id="qry_match_read" name="<?php echo QUERY_MATCH_STATE ?>" value="<?php echo QUERY_MATCH_READ ?>" <?php echo rss_search_state_read_checked() ?> />
+		<label for="qry_match_read"><?php echo __('Read Only') ?></label>
 
-		<label for="qry_match_both"><?php echo __('Unread & Read') ?></label>
 		<input type="radio" id="qry_match_both" name="<?php echo QUERY_MATCH_STATE ?>" value="<?php echo QUERY_MATCH_BOTH ?>" <?php echo rss_search_state_both_checked() ?> />		
+		<label for="qry_match_both"><?php echo __('Unread & Read') ?></label>
 	</p>
 
 	<p>
