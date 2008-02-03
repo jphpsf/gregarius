@@ -127,7 +127,12 @@ function unreadCallback($args) {
 function unreadItems($show_what, $show_private) {
 
     _pf('populate unread items');
-	$unreadItems = new PaginatedItemList();
+  if(array_key_exists('count', $_GET) && !empty($_GET['count'])) {
+		$unreadItems = new PaginatedItemList($_GET['count']);
+	} else {
+		$unreadItems = new PaginatedItemList();
+	}
+	
 	$numItems = getConfig('rss.output.frontpage.numitems');
 	
 	/*
@@ -236,6 +241,5 @@ function markAllReadForm() {
       ."<input type=\"hidden\" name=\"markreadids\" value=\"".implode(",",$GLOBALS['rss']->getShownUnreadIds())."\" />\n"
       ."</p></form>\n";
 }
-
 
 ?>

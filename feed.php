@@ -33,9 +33,6 @@ rss_require('extlib/rss_fetch.inc');
 define ('ACT_NAV_PREV_PREFIX','&larr;&nbsp;');
 define ('ACT_NAV_SUCC_POSTFIX','&nbsp;&rarr;');
 
-
-
-
 // Show unread items on the front page?
 // default to the config value, user can override this via a cookie
 $show_what = (getConfig('rss.output.frontpage.mixeditems') ?
@@ -260,9 +257,6 @@ elseif (
     }
     $iid = $cid  = null;
 }
-
-
-
 
 // If we have no channel-id something went terribly wrong.
 // Send a 404. 
@@ -727,7 +721,6 @@ if (array_key_exists('dbg',$_GET)) {
 $GLOBALS['rss'] -> renderWithTemplate('index.php','items');
 
 function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what,$show_private) {
-
     $do_show=$show_what;
 
     //should we honour unread-only?
@@ -761,7 +754,12 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what,$show_priv
         }
 		}
 
-    $items = new PaginatedItemList();
+		if(array_key_exists('count', $_GET) && !empty($_GET['count'])) {
+			$items = new PaginatedItemList($_GET['count']);
+		} else {
+			$items = new PaginatedItemList();
+		}
+
     $severalFeeds = (($fid != null) || ($vfid != null));
 
     if ($severalFeeds && !getConfig('rss.config.feedgrouping')) {
