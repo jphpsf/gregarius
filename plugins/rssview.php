@@ -30,6 +30,7 @@
 /// Author: Marco Bonetti
 /// Description: Adds a RSS link to the header and the footer of each page
 /// Version: 0.7
+/// Configuration: __rss_view_config
 
 /**
  * Changes:
@@ -37,16 +38,49 @@
  * 0.5 - Adapted to the new theme model
  * 0.6 - Don't put a link in admin and other locations
  * 0.7 - Show ATOM link as well.
+ * 0.8 - Add configurable output count.
  */
+
+define ('RSSVIEW_CONFIG_OUTPUTCOUNT', 'rssview.outputcount');
+define ('RSSVIEW_DEFAULT_COUNT', 10);
+
+function __rss_view_config () {
+	$cnt = rss_plugins_get_option(RSSVIEW_CONFIG_OUTPUTCOUNT);
+	
+	if(empty($cnt)) {
+		$cnt = RSSVIEW_DEFAULT_COUNT;
+	}
+	
+  if(rss_plugins_is_submit()) {
+  	if(!empty($_REQUEST['rv_oc'])) {
+  		$cnt = $_REQUEST['rv_oc'];
+		}
+		
+  	rss_plugins_add_option(RSSVIEW_CONFIG_OUTPUTCOUNT, $cnt, 'num');
+  	return;
+	}
+
+	print ("<fieldset>\n");
+	print ("  <legend>" . __('Output Count') . "</legend>\n");
+	print ("   <p><label for='rv_oc'>" . __('Count') . "</label></br>");
+	print ("   <input id='rv_oc' type='text' value='" . $cnt . "' name='rv_oc'></p>\n");
+	print ("</fieldset>\n");
+}
 
 function __rss_view_url($type = "rss") {
     $url 	= guessTransportProto() . $_SERVER['HTTP_HOST'];
     $url .= $_SERVER["REQUEST_URI"];
 
+		$cnt = rss_plugins_get_option(RSSVIEW_CONFIG_OUTPUTCOUNT);
+		
+		if(empty($cnt)) {
+			$cnt = RSSVIEW_DEFAULT_COUNT;
+		}
+		
     if (strstr($_SERVER['REQUEST_URI'],"?") !== FALSE) {
-        $url .= "&amp;media=$type";
+        $url .= "&amp;media=$type&amp;count=$cnt";
     } else {
-        $url .= "?media=$type";
+        $url .= "?media=$type&amp;count=$cnt";
     }
     $url .= __rss_view_post2get();
     $url = str_replace('&amp;','&',$url);
