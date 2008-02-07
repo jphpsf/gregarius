@@ -80,7 +80,7 @@ function __rss_view_url($type = "rss") {
     if (strstr($_SERVER['REQUEST_URI'],"?") !== FALSE) {
         $url .= "&amp;media=$type&amp;count=$cnt";
     } else {
-        $url .= "?media=$type&amp;count=$cnt";
+        $url .= "?media=$type&count=$cnt";
     }
     $url .= __rss_view_post2get();
     $url = str_replace('&amp;','&',$url);
