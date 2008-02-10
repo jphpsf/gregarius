@@ -754,11 +754,7 @@ function doItems($cids,$fid,$vfid,$title,$iid,$y,$m,$d,$nv,$show_what,$show_priv
         }
 		}
 
-		if(array_key_exists('count', $_GET) && !empty($_GET['count'])) {
-			$items = new PaginatedItemList($_GET['count']);
-		} else {
-			$items = new PaginatedItemList();
-		}
+		$items = new PaginatedItemList();
 
     $severalFeeds = (($fid != null) || ($vfid != null));
 
