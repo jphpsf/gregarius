@@ -146,7 +146,7 @@ function __stickyflag_AddButtons(){
         return;
     }
  
-    if($options & STICKYFLAG_ENABLE_STICKY_MENU) {
+    if($options & STICKYFLAG_ENABLE_STICKY_MENU || (isMobileDevice() && $options & STICKYFLAG_ENABLE_STICKY_SHORTCUT)) {
         if (true == $usemodrewrite) {
             $url = getPath() . "state/" . RSS_STATE_STICKY . "";
         } else {
@@ -156,7 +156,7 @@ function __stickyflag_AddButtons(){
         $GLOBALS['rss']->nav->addNavItem($url,'Stick<span>y</span>');
     }
 
-    if($options & STICKYFLAG_ENABLE_FLAG_MENU) {
+    if($options & STICKYFLAG_ENABLE_FLAG_MENU || (isMobileDevice() && $options & STICKYFLAG_ENABLE_FLAG_SHORTCUT)) {
         if (true == $usemodrewrite) {
             $url = getPath() . "state/" . RSS_STATE_FLAG . "";
         } else {
