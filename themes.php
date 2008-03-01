@@ -165,6 +165,7 @@ function isMobileDevice() {
             $ret  =
                 	(strpos($ua,	'SonyEricsson') !== FALSE)
                 ||	(strpos($ua, 	'Nokia') !== FALSE)
+                ||	(strpos($ua,  'Tablet') !== FALSE)
                 ||	(strpos($ua, 	'MIDP') !== FALSE)
                 ||	(strpos($ua_lwr,'mobile') !== FALSE)
                 ||	(strpos($ua, 	'Windows CE') !== FALSE)
