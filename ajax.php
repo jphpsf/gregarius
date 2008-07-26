@@ -32,6 +32,8 @@ if (array_key_exists('js',$_GET)) {
 require_once('init.php');
 
 function __exp__setState($id,$state) {
+    $id = sanitize($id, RSS_SANITIZER_NUMERIC);
+    $state = sanitize($state, RSS_SANITIZER_NUMERIC);
 	if (isLoggedIn()) {
 		rss_query('update '.getTable('item') . " set unread=$state where id=$id");	
 		rss_invalidate_cache();
@@ -70,7 +72,7 @@ function __exp__getSideContent($what) {
 }
 
 function __exp__getFeedContent($cid) {
-
+    $cid = sanitize($cid, RSS_SANITIZER_NUMERIC);
 	
 	ob_start();
 	rss_require('cls/items.php');
@@ -90,6 +92,9 @@ function __exp__getFeedContent($cid) {
 }
 
 function __exp__rateItem($iid, $rt) {
+    $iid = sanitize($iid, RSS_SANITIZER_NUMERIC);
+    $rt = sanitize($rt, RSS_SANITIZER_NUMERIC);
+    
 	list($rrt) = rss_fetch_row(rss_query("select rating from "
 	    .getTable('rating') . " where iid = $iid"));
 
