@@ -291,6 +291,8 @@ fieldset {
   text-align: center; 
   border:1px solid #ddd;                                                                                             
 }
+fieldset p { text-align: left;}
+
 fieldset.prune p{ text-align:left }
 .cntr { text-align:center !important}
 

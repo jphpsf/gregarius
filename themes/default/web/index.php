@@ -15,7 +15,6 @@
 </div>
 
 <div id="ctnr">
-
 <ul id="sidemenu">
 	<?php rss_main_sidemenu("li") ?>
 </ul>
