@@ -76,6 +76,7 @@ class Update {
     }
 
     function populate($updatePrivateAlso = false, $cid) {
+        $cid = (int)$cid;
         $sql = "select c.id, c.url, c.title from ".getTable("channels") . " c "
                . " inner join " . getTable('folders') . " f on f.id = c.parent "
                . " where not(c.mode & ".RSS_MODE_DELETED_STATE.") ";
