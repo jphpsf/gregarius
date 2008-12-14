@@ -131,7 +131,7 @@ function kses_attr($element, $attr, $allowed_html, $allowed_protocols)
 # Is there a closing XHTML slash at the end of the attributes?
 
   $xhtml_slash = '';
-  if (preg_match('%\s*/\s*$%', $attr))
+  if (preg_match('%\s/\s*$%', $attr))
     $xhtml_slash = ' /';
 
 # Are any attributes allowed at all for this element?
@@ -207,11 +207,11 @@ function kses_hair($attr, $allowed_protocols)
     {
       case 0: # attribute name, href for instance
 
-        if (preg_match('/^([-a-zA-Z]+)\/?/', $attr, $match))
+        if (preg_match('/^([-a-zA-Z]+)/', $attr, $match))
         {
           $attrname = $match[1];
           $working = $mode = 1;
-          $attr = preg_replace('/^[-a-zA-Z]+\/?/', '', $attr);
+          $attr = preg_replace('/^[-a-zA-Z]+/', '', $attr);
         }
 
         break;
@@ -240,7 +240,7 @@ function kses_hair($attr, $allowed_protocols)
 
       case 2: # attribute value, a URL after href= for instance
 
-        if (preg_match('/^"([^"]*)"(\s+|$|\/)?/', $attr, $match))
+        if (preg_match('/^"([^"]*)"(\s+|$)/', $attr, $match))
          # "value"
         {
           $thisval = kses_bad_protocol($match[1], $allowed_protocols);
@@ -251,11 +251,11 @@ function kses_hair($attr, $allowed_protocols)
                          'whole' => "$attrname=\"$thisval\"",
                          'vless' => 'n');
           $working = 1; $mode = 0;
-          $attr = preg_replace('/^"[^"]*"(\s+|$|\/)?/', '', $attr);
+          $attr = preg_replace('/^"[^"]*"(\s+|$)/', '', $attr);
           break;
         }
 
-        if (preg_match("/^'([^']*)'(\s+|$|\/)?/", $attr, $match))
+        if (preg_match("/^'([^']*)'(\s+|$)/", $attr, $match))
          # 'value'
         {
           $thisval = kses_bad_protocol($match[1], $allowed_protocols);
@@ -266,11 +266,11 @@ function kses_hair($attr, $allowed_protocols)
                          'whole' => "$attrname='$thisval'",
                          'vless' => 'n');
           $working = 1; $mode = 0;
-          $attr = preg_replace("/^'[^']*'(\s+|$)?/", '', $attr);
+          $attr = preg_replace("/^'[^']*'(\s+|$)/", '', $attr);
           break;
         }
 
-        if (preg_match("%^([^\s\"']+)(\s+|$|\/)%", $attr, $match))
+        if (preg_match("%^([^\s\"']+)(\s+|$)%", $attr, $match))
          # value
         {
           $thisval = kses_bad_protocol($match[1], $allowed_protocols);
@@ -383,7 +383,7 @@ function kses_bad_protocol($string, $allowed_protocols)
 ###############################################################################
 {
   $string = kses_no_null($string);
-  $string = preg_replace('/\xad+/', '', $string); # deals with Opera "feature"
+  $string = preg_replace('/([^\xc3-\xcf])\xad+/', '\\1', $string); # deals with Opera "feature" -- moodle utf8 fix 
   $string2 = $string.'a';
 
   while ($string != $string2)
@@ -469,10 +469,12 @@ function kses_bad_protocol_once($string, $allowed_protocols)
 # handling whitespace and HTML entities.
 ###############################################################################
 {
-  return preg_replace('/^((&[^;]*;|[\sA-Za-z0-9])*)'.
-                      '(:|&#58;|&#[Xx]3[Aa];)\s*/e',
-                      'kses_bad_protocol_once2("\\1", $allowed_protocols)',
-                      $string);
+  $string2 = preg_split('/:|&#58;|&#x3a;/i', $string, 2);
+  if(isset($string2[1]) && !preg_match('%/\?%',$string2[0]))
+  {
+    $string = kses_bad_protocol_once2($string2[0],$allowed_protocols).trim($string2[1]);
+  }
+  return $string;
 } # function kses_bad_protocol_once
 
 
