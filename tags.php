@@ -105,7 +105,7 @@ if (array_key_exists('tag', $_GET)) {
 
 		$sqlWhere = " i.id in (".implode(",", $ids).") ";
 		// include deprecated feeds while showing tags. 
-		$taggedItems->populate($sqlWhere, "", 0, -1, ITEM_SORT_HINT_MIXED, true);
+		$taggedItems->populate($sqlWhere, "", 0, 1, ITEM_SORT_HINT_MIXED, true);
 
 		$rtags = relatedTags($tarr);
 		$related = array ();
@@ -167,8 +167,8 @@ if (array_key_exists('tag', $_GET)) {
 
 		if ($gotsome) {
 
-			$title = $taggedItems->itemCount." ". ($taggedItems->itemCount > 1 ? __('items') : __('item'))." "
-			. ($taggedItems->itemCount > 1 || $taggedItems->itemCount == 0 ? __('tagged') : __('tagged'))
+			$title = $taggedItems->numItems." ". ($taggedItems->numItems > 1 ? __('items') : __('item'))." "
+			. ($taggedItems->numItems > 1 || $taggedItems->numItems == 0 ? __('tagged') : __('tagged'))
 			.""." \"".$hrTag."\"";
 
 			if (count($related)) {
@@ -183,13 +183,8 @@ if (array_key_exists('tag', $_GET)) {
 
 		} else {
 			$GLOBALS['rss']->renderWithTemplate('index.php', 'items');
-
-//			echo "<p style=\"height: 10em; text-align:center\">";
-//			printf(__('Oops! No items tagged &laquo;%s&raquo; were found.'), $hrTag);
-//			echo "</p>";
 		}
-		//echo "</div>\n";
-		//rss_footer();
+
 	}
 
 } elseif (array_key_exists('alltags', $_GET)) {
