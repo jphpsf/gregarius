@@ -81,8 +81,9 @@ $GLOBALS['rss'] -> feedList = new FeedList(false);
 // Instantiate a different Update object, depending on the client
 if ($cline && !$silent && !$newsonly) {
 	$update = new CommandLineUpdate($cid);
-
+	define('START_TIME',microtime(TRUE));
 } elseif ($cline && !$silent && $newsonly) {
+	define('START_TIME',microtime(TRUE));
 	$update = new CommandLineUpdateNews($cid);
 	
 } elseif (getConfig('rss.config.serverpush') && !$silent && $browser->supportsServerPush()) {
@@ -104,6 +105,10 @@ if (!$silent && !$cline) {
 	$GLOBALS['rss'] -> renderWithTemplate('index.php','update');
 } else {
 	$update->render();
+	if ($cline)
+	{
+        	echo 'Time: '.round((microtime(TRUE)-START_TIME)*1000,0).'ms'."\n";
+	}
 }
 
 ?>

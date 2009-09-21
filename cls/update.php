@@ -57,7 +57,7 @@ if (getConfig('rss.config.ajaxparallelsize')) {
 /**
  * Generic Update. Note that this is an "abstract" class
  * (from the java perspective) as specific sub-classes must
- * override a couple (implicitly) abstract method, such as 
+ * override a couple (implicitly) abstract method, such as
  * render()
  */
 class Update {
@@ -84,7 +84,7 @@ class Update {
         if (hidePrivate() && !$updatePrivateAlso) {
             $sql .= " and not(mode & ".RSS_MODE_PRIVATE_STATE.") ";
         }
-        
+
         if(DEFAULT_CID != $cid) {
         	$sql .= " and c.id = " . $cid . " ";
 				} else {
@@ -287,7 +287,7 @@ class CommandLineUpdate extends Update {
         $newIds = array();
         foreach ($this->chans as $chan) {
             list ($cid, $url, $title) = $chan;
-            echo "$title ...\t";
+            echo "$title (id=$cid) ...\t";
             flush();
             $ret = update($cid);
 
@@ -313,7 +313,7 @@ class MobileUpdate extends Update {
     function MobileUpdate($cid) {
         parent::Update($doPopulate = true, $updatePrivateAlso = false, $cid);
     }
-    
+
     function render() {
         $newIds = array();
         foreach ($this->chans as $chan) {
@@ -360,7 +360,7 @@ class CommandLineUpdateNews extends CommandLineUpdate {
             list($label, $cls) = parent::magpieError($error);
 
             if (($cls != ERROR_NOERROR) || ($unread > 0)) {
-                echo "$title ...\t";
+                echo "$title (id=$cid)...\t";
                 flush();
                 echo "\n$label, $unread " . __('New Items') . "\n\n";
                 flush();
@@ -374,7 +374,7 @@ class CommandLineUpdateNews extends CommandLineUpdate {
 }
 
 /**
- * SilentUpdate updates the feeds silently for those lame 
+ * SilentUpdate updates the feeds silently for those lame
  * browsers out there that do not support HTTP Server Push
  * or AJAX
  */
@@ -470,7 +470,7 @@ function ajaxUpdateJavascript () {
 
 
     /**
-     * main entry point: fetch the different channel ids and launch the 
+     * main entry point: fetch the different channel ids and launch the
      * channel updates. Might want to have this synchronous to be nice on
      * the webserver, not sure whether it can be done with Sajax, though
      */

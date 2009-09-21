@@ -367,8 +367,9 @@ function update($id) {
                             rss_plugin_hook('rss.plugins.items.updated', array ($cid, $indb, $description));
 
                         $sql = "update ".getTable("item")
-                               ." set "." description='".rss_real_escape_string($description)."', "
-                               ." unread = unread | ".RSS_MODE_UNREAD_STATE
+                               ." set "." description='".rss_real_escape_string($description)."' "
+                               // jphpsf update item but never change unread state
+                               // .", unread = unread | ".RSS_MODE_UNREAD_STATE
                                .", md5sum='$md5sum'" . " where cid=$cid and id=$indb";
 
                         rss_query($sql);
