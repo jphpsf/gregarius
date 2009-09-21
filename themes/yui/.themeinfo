@@ -1,0 +1,7 @@
+name: YUI based theme
+official: false
+description: This is a theme using YUI css framework and yui-app-theme
+author: jphpsf
+url: http://github.com/tylerhall/yui-app-theme
+version: 1.1
+

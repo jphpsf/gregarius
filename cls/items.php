@@ -317,11 +317,15 @@ class ItemList {
 					unix_timestamp(ifnull(pubdate,added)) as ts,
 					pubdate is not null as ispubdate, id, cid ";
 		$this -> _sqlActualFrom=getTable("item")." i ";
+
 		if ($sqlWhere!=='') $this -> _sqlActualWhere=$sqlWhere." and unread=5 ";
 		else $this -> _sqlActualWhere="unread=5";
 
 		// unread=5 => only unread items
 
+		if (hidePrivate()) {
+			$this -> _sqlActualWhere .= " and not(i.unread & ".RSS_MODE_PRIVATE_STATE.") ";
+		}
 
 		/// Order by
 		$sqlOrder = rss_plugin_hook("rss.plugins.items.order",$sqlOrder);
@@ -384,9 +388,18 @@ class ItemList {
 		// we grab the channel ids at the same time
 		$items=array();
 		$cids=array();
+		$groupByFeeds=array();
 		while ($row=$GLOBALS['rss_db']->rss_fetch_row($res)) {
-			$items[]=$row;
-			if (!isset($cids[$row[9]])) $cids[$row[9]]=$row[9];
+			if (!isset($cids[$row[9]]))
+			{
+				$cids[$row[9]]=$row[9];
+				$groupByFeeds[$row[9]]=array();
+			}
+			$groupByFeeds[$row[9]][]=$row;
+		}
+
+		foreach ($groupByFeeds as $cid=>$row) {
+			$items=array_merge($items,$row);
 		}
 
 		// this is the 2nd query to get all channels
