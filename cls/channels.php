@@ -37,27 +37,27 @@ class FeedListItem {
 	var $id;
 	/** Feed title */
 	var $title;
-	/** URL of this feed */	
+	/** URL of this feed */
 	var $url;
-	/** URL of this feed, escaped from login/password information, if any */	
+	/** URL of this feed, escaped from login/password information, if any */
 	var $publicUrl;
-	/** URL of the website publishing this feed */	
+	/** URL of the website publishing this feed */
 	var $siteurl;
-	/** Name of the folder holding this feed */	
+	/** Name of the folder holding this feed */
 	var $name;
-	/** ID of the folder holding this feed (e.g. channels.parent) */	
+	/** ID of the folder holding this feed (e.g. channels.parent) */
 	var $parent;
-	/** URL of the icon for this feed, probably offsite */	
+	/** URL of the icon for this feed, probably offsite */
 	var $icon;
-	/** The "description" for this feed. (e.g. channel.description) */		
+	/** The "description" for this feed. (e.g. channel.description) */
 	var $descr = "";
-	/** Feed "mode" (e.g. private, deprecated, ...)*/		
+	/** Feed "mode" (e.g. private, deprecated, ...)*/
 	var $mode;
-	/** True when the user is reading the current feed in "feed mode" */	
+	/** True when the user is reading the current feed in "feed mode" */
 	var $isActiveFeed;
-	
+
 	/**
-	 * Constructor. Fills in the instance variables, escapes urls accordingly 
+	 * Constructor. Fills in the instance variables, escapes urls accordingly
 	 */
 	function FeedListItem($id, $title, $url, $siteurl, $name, $parent, $icon, $descr, $mode, $unreadCount) {
 		$this->id = $id;
@@ -70,7 +70,7 @@ class FeedListItem {
 		$this->name = $name;
 		$this->parent = $parent;
 
-		
+
 		if ( getConfig('rss.output.showfavicons') && $icon){
 			if (substr($icon,0,5) == 'blob:') {
 				$this->icon = getPath() . "extlib/favicon.php?url=". rss_real_escape_string(substr($icon,5));
@@ -82,7 +82,7 @@ class FeedListItem {
 		} else {
             $this->icon = false;
 		}
-		
+
 		$this->descr = $descr;
 		$this->mode = $mode;
 
@@ -103,13 +103,13 @@ class FeedListItem {
 	}
 
 
-	/** 
+	/**
 	 * Renders this FeedListItem: Moves the superglobal "current feed" pointer
 	 * to this, then includes the relevant template
 	 */
 	function render() {
 		$GLOBALS['rss']->currentFeedsFeed = $this;
-		include($GLOBALS['rss'] ->getTemplateFile("feedsfeed.php"));	
+		include($GLOBALS['rss'] ->getTemplateFile("feedsfeed.php"));
 	}
 
 }
@@ -134,17 +134,17 @@ class FeedFolder {
 		$this->isRootFolder = ($id == 0);
 		$this->rootList = $rootList;
 	}
-	
+
 	function makeFolderUrl($fn) {
 		return getPath(
 			preg_replace('#\s#','_',sanitize($fn,RSS_SANITIZER_URL))
 		) .'/';
 	}
-	
+
 	function render() {
-		if ((!getConfig('rss.output.minimalchannellist')) || ($this->feeds)) { 
-		 	$GLOBALS['rss']->currentFeedsFolder = $this; 
-		 	require($GLOBALS['rss'] ->getTemplateFile("feedsfolder.php")); 
+		if ((!getConfig('rss.output.minimalchannellist')) || ($this->feeds)) {
+		 	$GLOBALS['rss']->currentFeedsFolder = $this;
+		 	require($GLOBALS['rss'] ->getTemplateFile("feedsfolder.php"));
 		}
 	}
 }
@@ -158,7 +158,7 @@ class FeedList {
 	var $feedCount = 0;
 	var $columnTitle;
 	var $stats;
-	
+
 	function FeedList($activeId) {
 		_pf('FeedList() ctor');
 		$this ->columnTitle= __('Feeds');
@@ -166,48 +166,65 @@ class FeedList {
 		$this->loadCollapsedState();
 		$this->populate();
 	}
-	
+
 	function getStats() {
 		_pf('getStats()');
 		_pf(' ... unreadCount');
 
 		$unread = getUnreadCount(null, null);
-		_pf(' ... done: unreadCount');		
+		_pf(' ... done: unreadCount');
 
-		_pf(' ... totalCount');		
-		$sql ="select count(*) from ".getTable("item") . "i " 
-			   ."inner join " . getTable('channels') . " c "
-         ."  on c.id = i.cid "
+		_pf(' ... totalCount');
+		// jphpsf: don't need to join on channels table
+		$sql ="select count(*) from ".getTable("item") . "i "
+			   //."inner join " . getTable('channels') . " c "
+         //."  on c.id = i.cid "
 				 ." where not(i.unread & ".RSS_MODE_DELETED_STATE.") "
-			   ." and not (c.mode & " .RSS_MODE_DELETED_STATE.")"
+			   //." and not (c.mode & " .RSS_MODE_DELETED_STATE.")"
 			. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
-			
-			//echo $sql;
+
 			$res = rss_query($sql);
 		list ($total) = rss_fetch_row($res);
-		_pf(' ... done: totalCount');		
-		
+		_pf(' ... done: totalCount');
 
-		_pf(' ... feedsCount');				
+
+		_pf(' ... feedsCount');
 		$res = rss_query("select count(*) from "
 			.getTable("channels")." where not(mode & ".RSS_MODE_DELETED_STATE.")"
 			. (hidePrivate()? " and not(mode & ".RSS_MODE_PRIVATE_STATE.")":"")
 			);
-			
+
 		list ($channelcount) = rss_fetch_row($res);
-		_pf(' ... done: feedsCount');				
-		
-		$this ->stats = sprintf(__('<strong>%d</strong> items (<strong id="fucnt">%d</strong> unread) in <strong>%d</strong> feeds'), $total, $unread, $channelcount);
+		_pf(' ... done: feedsCount');
+
+
+		// jphpsf: had unread count for today
+    $sql = "select count(id) from ".getTable("item").
+					 " where added >= CONCAT( CURDATE( ) , ' 02:00:00' )"
+					. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
+		$res = rss_query($sql);
+		list ($totalToday) = rss_fetch_row($res);
+    $sql = "select count(id) from ".getTable("item").
+					 " where unread = 5 and added >= CONCAT( CURDATE( ) , ' 02:00:00' )"
+					. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
+		$res = rss_query($sql);
+		list ($unreadToday) = rss_fetch_row($res);
+
+		$this->stats= "Today: <strong>$totalToday</strong> items (<strong>$unreadToday</strong> unread)<br />";
+		$this->stats.= "Total: <strong>$total</strong> items (<strong>$unread</strong> unread)<br />";
+		$this->stats.= "Total feeds: <strong>$channelcount</strong>";
+
+		//$this->stats = sprintf(__('<strong>%d</strong> items (<strong id="fucnt">%d</strong> unread) in <strong>%d</strong> feeds'), $total, $unread, $channelcount);
 		_pf('done: getStats()');
 		return $this -> stats;
 	}
-	
-	
+
+
 	function loadCollapsedState() {
 	    _pf('FeedList->loadCollapsedState()...');
-	    
+
 		if (getConfig('rss.output.channelcollapse')) {
-	
+
 			//read per-user stored collapsed folders
 			if (array_key_exists(COLLAPSED_FOLDERS_COOKIE, $_COOKIE)) {
 				$this->collapsed_ids = explode(":", $_COOKIE[COLLAPSED_FOLDERS_COOKIE]);
@@ -216,12 +233,12 @@ class FeedList {
 			   $res = rss_query("select id from " . getTable('folders') . " where id != 0");
 			   while (list ($this->collapsed_ids[]) = rss_fetch_row($res)) {}
 			   if (!headers_sent()) { // Sajax does not allow us to set cookies
-			    setcookie(COLLAPSED_FOLDERS_COOKIE, 
+			    setcookie(COLLAPSED_FOLDERS_COOKIE,
 				  implode(":", $this->collapsed_ids ) , time()+COOKIE_LIFESPAN,getPath());
 			   }
 			}
-	
-			//get unread count per folder                                                                        
+
+			//get unread count per folder
 			$sql = "select f.id, f.name, count(*) as cnt "
 			." from " .getTable('item') ." i "
 			." inner join " . getTable('channels') . " c on c.id = i.cid "
@@ -235,17 +252,17 @@ class FeedList {
 			$sql .= " group by f.id";
 	        _pf('query');
 			$res = rss_query($sql);
-	        _pf('ok');	
+	        _pf('ok');
 			while (list ($cid, $cname, $cuc) = rss_fetch_row($res)) {
 				$this->collapsed_folders[$cid] = $cuc;
 			}
-	       
+
 			sort($this->collapsed_ids);
 		}
 	    _pf('done');
 
 	}
-	
+
 	function getFeedCount() {
 		return $this -> feedCount;
 	}
@@ -268,7 +285,7 @@ class FeedList {
 		}
 		$res = rss_query($sql);
 		$this -> feedCount = rss_num_rows($res);
-		
+
 		$ucres = rss_query ("select cid, count(*) from " .getTable("item")
         ." where unread & "  . RSS_MODE_UNREAD_STATE
         . " and not(unread & " . RSS_MODE_DELETED_STATE .") group by cid");
@@ -276,20 +293,20 @@ class FeedList {
 		while (list($uccid,$ucuc) = rss_fetch_row($ucres)) {
 			$uc[$uccid]=$ucuc;
 		}
-		  
+
 		while (list ($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode) = rss_fetch_row($res)) {
 			$ucc= 0;
 			if (array_key_exists($cid,$uc)) {
 				$ucc=$uc[$cid];
-			} 
+			}
 			$f = new FeedListItem($cid, $ctitle, $curl, $csiteurl, $fname, $cparent, $cico, $cdescr, $cmode, $ucc);
-			$f -> isActiveFeed = ($this->activeId && $cid == $this->activeId ); 
+			$f -> isActiveFeed = ($this->activeId && $cid == $this->activeId );
 			if (!array_key_exists($cparent, $this->folders)) {
 				$this->folders[$cparent] = new FeedFolder($fname, $cparent,$this);
 			}
 			//$this->folders[$cparent]->feeds[] = $f;
-			if(($ucc != 0) || (!getConfig('rss.output.minimalchannellist'))) { 
-			 	$this->folders[$cparent]->feeds[] = $f; 
+			if(($ucc != 0) || (!getConfig('rss.output.minimalchannellist'))) {
+			 	$this->folders[$cparent]->feeds[] = $f;
 			}
 			$this->folders[$cparent]->isCollapsed = in_array($cparent, $this->collapsed_ids) && ($cparent > 0);
 
@@ -300,7 +317,7 @@ class FeedList {
 	function render() {
 		_pf('FeedList->render() ...');
 		include($GLOBALS['rss'] ->getTemplateFile("feeds.php"));
-		_pf('done');		
+		_pf('done');
 	}
 }
 ?>
