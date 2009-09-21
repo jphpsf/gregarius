@@ -199,13 +199,14 @@ class FeedList {
 
 
 		// jphpsf: had unread count for today
+		$tz=getConfig('rss.config.tzoffset');
     $sql = "select count(id) from ".getTable("item").
-					 " where added >= CONCAT( CURDATE( ) , ' 02:00:00' )"
+					 " where DATE_ADD(added,INTERVAL $tz HOUR) >= CONCAT( CURDATE( ) , ' 00:00:00' )"
 					. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
 		$res = rss_query($sql);
 		list ($totalToday) = rss_fetch_row($res);
     $sql = "select count(id) from ".getTable("item").
-					 " where unread = 5 and added >= CONCAT( CURDATE( ) , ' 02:00:00' )"
+					 " where unread = 5 and DATE_ADD(added,INTERVAL $tz HOUR) >= CONCAT( CURDATE( ) , ' 00:00:00' )"
 					. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
 		$res = rss_query($sql);
 		list ($unreadToday) = rss_fetch_row($res);
