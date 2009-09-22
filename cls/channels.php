@@ -92,6 +92,7 @@ class FeedListItem {
 			$this->rlink = getPath()."feed.php?channel=$id";
 		}
 
+		$this->unreadCount=$unreadCount;
 
 		if ($unreadCount > 0) {
 			$this->rdLbl= sprintf(__('<strong id="%s" style="%s">(%d unread)</strong>'), "cid$id","",$unreadCount);
@@ -211,9 +212,9 @@ class FeedList {
 		$res = rss_query($sql);
 		list ($unreadToday) = rss_fetch_row($res);
 
-		$this->stats= "Today: <strong>$totalToday</strong> items (<strong>$unreadToday</strong> unread)<br />";
-		$this->stats.= "Total: <strong>$total</strong> items (<strong>$unread</strong> unread)<br />";
-		$this->stats.= "Total feeds: <strong>$channelcount</strong>";
+		$this->stats= "<li>Today: <strong>$totalToday</strong> items (<strong>$unreadToday</strong> unread)</li>";
+		$this->stats.= "<li>Total: <strong>$total</strong> items (<strong>$unread</strong> unread)</li>";
+		$this->stats.= "<li>Total feeds: <strong>$channelcount</strong></li>";
 
 		//$this->stats = sprintf(__('<strong>%d</strong> items (<strong id="fucnt">%d</strong> unread) in <strong>%d</strong> feeds'), $total, $unread, $channelcount);
 		_pf('done: getStats()');

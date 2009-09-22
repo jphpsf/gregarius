@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 ###############################################################################
 # Gregarius - A PHP based RSS aggregator.
@@ -59,14 +59,17 @@ function rss_feeds_folder_link() {
 	return $GLOBALS['rss']->currentFeedsFolder->rlink;
 }
 
-function rss_feeds_folders_unread_count($label=null) {
+function rss_feeds_folders_unread_count($label=null,$onlyValue=FALSE) {
+	if ($onlyValue) {
+		return $GLOBALS['rss']->feedList->collapsed_folders[$GLOBALS['rss']->currentFeedsFolder->id];
+	}
 	if ($label === null) {
 		$label=__('<strong id="%s" style="%s">(%d unread)</strong>');
 	}
-	if (array_key_exists($GLOBALS['rss']->currentFeedsFolder->id,$GLOBALS['rss']->feedList->collapsed_folders)) { 
+	if (array_key_exists($GLOBALS['rss']->currentFeedsFolder->id,$GLOBALS['rss']->feedList->collapsed_folders)) {
 		$sCls = ($GLOBALS['rss']->currentFeedsFolder->isCollapsed?"display:inline":"display:none");
-		$ret = sprintf($label, "fs".$GLOBALS['rss']->currentFeedsFolder->id, 
-			$sCls, 
+		$ret = sprintf($label, "fs".$GLOBALS['rss']->currentFeedsFolder->id,
+			$sCls,
 			$GLOBALS['rss']->feedList->collapsed_folders[$GLOBALS['rss']->currentFeedsFolder->id]);
 
 		switch( $GLOBALS['rss']->feedList -> columnTitle ) {
@@ -77,7 +80,7 @@ function rss_feeds_folders_unread_count($label=null) {
 				$ret = rss_plugin_hook("rss.plugins.sidemenu.folderunreadlabel", $ret);
 				break;
 		}
-		
+
 		return $ret;
 	}
 	return "";
@@ -138,9 +141,13 @@ function rss_feeds_feed_read_label() {
 	return rss_plugin_hook( 'rss.plugins.sidemenu.feedunreadlabel', ($GLOBALS['rss']->currentFeedsFeed-> rdLbl) );
 }
 
+function rss_feeds_feed_unread_count() {
+	return $GLOBALS['rss']->currentFeedsFeed->unreadCount;
+}
+
 function rss_feeds_feed_meta() {
     if (getConfig('rss.output.showfeedmeta') != NULL) {
-    
+
         $ret = " [<a href=\"". htmlentities($GLOBALS['rss']->currentFeedsFeed->publicUrl)."\">xml</a>";
 
         if ($GLOBALS['rss']->currentFeedsFeed->siteurl != "" && substr($GLOBALS['rss']->currentFeedsFeed->siteurl,0,4) == 'http') {
@@ -175,13 +182,13 @@ function rss_feeds_onclickaction($what=null) {
 	if (!getConfig('rss.output.channelcollapse')) {
 		return "";
 	}
-	
+
 	if ($what) {
 		return "_tgl(". rss_feeds_folder_id() .",'$what'); return false;";
 	} else {
 		return "_tgl(". rss_feeds_folder_id() ."); return false;";
 	}
-	
+
 }
 
 ?>

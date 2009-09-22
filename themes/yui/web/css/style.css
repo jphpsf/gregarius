@@ -96,8 +96,8 @@ ul.list li { list-style:disc outside; }
 dl.list dd { margin-left:1em; }
 
 ul.biglist { margin-bottom:1em; }
-ul.biglist li { margin-top:-1px; border:1px solid #f0f0ee; border-width:1px 0 1px 0; }
-ul.biglist li a { display:block; padding:0.5em 0; text-decoration:none; color:#000; }
+ul.biglist li { margin-top:-1px; border:1px solid #f0f0ee; border-width:1px 0 1px 0; padding:0.5em 0; }
+ul.biglist li a { display:block; text-decoration:none; color:#000; }
 ul.biglist li a:hover { text-decoration:underline; }
 
 /* Footer */
@@ -214,18 +214,6 @@ html, body {
 	padding:15px;
 }
 
-.yui-t3 .yui-b {
-width:27.0769em;
-}
-
-.yui-t3 #yui-main .yui-b {
-margin-left:28.0769em;
-}
-
-.yui-t3 #yui-main {
-margin-left:-28em;
-}
-
 /* navigation in header */
 
 ul.navlist {
@@ -295,19 +283,29 @@ label, input[type="submit"] { cursor: pointer; }
 	color: #222222;
 }
 /* feed list in sidebar */
-#channels ul {
-	margin: 5px 0px 15px 10px;
+#channels div.stats h3 {
+	font-size: 133%;
+}
+
+#channels h3,
+#channels h3 a {
+	color: #967E59 !important;
+	text-transform: uppercase;
+	font-size: 110%;
+	font-weight: bold;
 }
 
 /* pagination */
 #pagination {
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
 
 /* main view */
 
 #feedcontent {
-	margin-top: 35px;
+	/*margin-top: 35px;*/
+	color: #967E59 !important;
+	text-transform: uppercase;
 }
 
 div.feedaction {
@@ -333,6 +331,9 @@ div.item {
 }
 
 div.item-title {
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
 }
 
 div.item-body {
@@ -347,4 +348,9 @@ div.item-body {
 .folder span {
   font-weight:bold;
   text-transform: capitalize;
+}
+
+/* links */
+a:hover {
+	text-decoration:underline;
 }

@@ -1,12 +1,16 @@
 <?php if(!rss_feeds_folder_is_root()) { ?>
-<div>
-	<a href="#" onclick="<?php echo rss_feeds_onclickaction(); ?>">
-		<img src="<?php echo getExternalThemeFile('media/add.png'); ?>" />
-	</a>
-	<a href="<?php echo rss_feeds_folder_link(); ?>"><?php echo rss_feeds_folder_name(); ?></a>
-	<?php echo rss_feeds_folders_unread_count(); ?>
+<div class="block folder">
+	<div class="bd">
+		<h3>
+			<a href="<?php echo rss_feeds_folder_link(); ?>"><?php echo rss_feeds_folder_name(); ?>
+				<?php if (rss_feeds_folders_unread_count(NULL,TRUE)>0): ?>
+				(<strong><?php echo rss_feeds_folders_unread_count(NULL,TRUE); ?></strong>)
+				<?php endif; ?>
+			</a>
+		</h3>
+		<ul class="biglist">
+			<?php rss_feeds_folder_feeds(); ?>
+		</ul>
+	</div>
 </div>
 <?php } ?>
-<ul id="fc<?php echo rss_feeds_folder_id(); ?>" class="<?php echo rss_feeds_ul_class(); ?>" style="display:<?php echo rss_feeds_ul_style(); ?>">
-<?php rss_feeds_folder_feeds(); ?>
-</ul>
