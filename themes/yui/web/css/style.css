@@ -336,12 +336,16 @@ div.item-title {
 	white-space:nowrap;
 }
 
+div.item:hover {
+ 	background-color: #FFFFCC;
+	cursor: pointer;
+}
+
 div.item-body {
   border-radius:5px;
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
 	padding: 5px;
-	background-color: white;
 }
 
 /* folder labels */

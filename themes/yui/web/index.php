@@ -48,32 +48,25 @@
 		$('body').click(function(e){
 			var $target=$(e.target);
 
-			if ($target.not('div.item-title') && $target.not('a') && $target.parents('div.item-title').size()==1) {
-				$target=$target.parents('div.item-title');
-			};
+			if ($target.not('div.item') && $target.not('a') && $target.parents('div.item').size()==1) {
+				$target=$target.parents('div.item');
+			}
 
-			if ($target.not('div.item-body') && $target.not('a') && $target.parents('div.item-body').size()==1) {
-				$target=$target.parents('div.item-body');
-			};
+			$body=$target.children('div.item-body');
 
-			if ($target.is('div.item-title')) {
-				var $body=$target.next('div.item-body');
-				if ($body.children().size()==0) {
-					var item=$target.attr('id');
-					var $spinner=$('<span style="float:right"><img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" /></span>');
-					$spinner.appendTo($target);
-					$body.load("<?php echo getPath() ?>ajaxitem.php?item="+item,function(){
-						$spinner.remove();
-						$body.show();
-						$body=null;
-					});
-				} else {
-					$body.toggle();
+			if ($body.children().size()==0) {
+				var item=$target.children('div.item-title').attr('id');
+				var $spinner=$('<span style="float:right"><img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" /></span>');
+				$spinner.appendTo($target.parents('div.block').children('div.feed-title').children('h2'));
+				$body.load("<?php echo getPath() ?>ajaxitem.php?item="+item,function(){
+					$spinner.remove();
+					$body.show();
 					$body=null;
-				}
-			} else if ($target.is('div.item-body')) {
-				$target.hide();
-			};
+				});
+			} else {
+				$body.toggle();
+				$body=null;
+			}
 			$target=null;
 		})
 	});
