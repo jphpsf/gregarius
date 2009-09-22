@@ -34,26 +34,49 @@
 </div>
 
 <div id="ft" class="frame">
-	<?php rss_main_footer(); ?>
+<?php rss_main_footer(); ?>
 </div>
-
 <?php foreach(rss_header_javascripts() as $script) { ?>
 	<script type="text/javascript" src="<?php echo $script ?>"></script>
 <?php } ?>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript">
 // <![CDATA[
-$(document).ready(function(){
-	$('body').click(function(e){
-		var $target=$(e.target);
-		if ($target.is('div.item-title')) {
-			$target.next('div.item-body').toggle();
-		} else if ($target.is('div.item-body')) {
-			$target.hide();
-		};
-		$target=null;
-	})
-});
+(function(){
+	$(document).ready(function(){
+		$('body').click(function(e){
+			var $target=$(e.target);
+
+			if ($target.not('div.item-title') && $target.not('a') && $target.parents('div.item-title').size()==1) {
+				$target=$target.parents('div.item-title');
+			};
+
+			if ($target.not('div.item-body') && $target.not('a') && $target.parents('div.item-body').size()==1) {
+				$target=$target.parents('div.item-body');
+			};
+
+			if ($target.is('div.item-title')) {
+				var $body=$target.next('div.item-body');
+				if ($body.children().size()==0) {
+					var item=$target.attr('id');
+					var $spinner=$('<span style="float:right"><img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" /></span>');
+					$spinner.appendTo($target);
+					$body.load("<?php echo getPath() ?>ajaxitem.php?item="+item,function(){
+						$spinner.remove();
+						$body.show();
+						$body=null;
+					});
+				} else {
+					$body.toggle();
+					$body=null;
+				}
+			} else if ($target.is('div.item-body')) {
+				$target.hide();
+			};
+			$target=null;
+		})
+	});
+})();
 // ]]>
 	</script>
 <?php rss_plugin_hook('rss.plugins.bodyend', null); ?>

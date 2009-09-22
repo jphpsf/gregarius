@@ -108,6 +108,14 @@ class Item {
 		$this-> rss -> currentItem = $this;
 		include($this-> rss -> getTemplateFile("item.php"));
 	}
+
+	/**
+	 * Renders a single RSS item body only
+	 */
+	function renderBodyOnly() {
+		$this-> rss -> currentItem = $this;
+		include($this-> rss -> getTemplateFile("itemajax.php"));
+	}
 }
 
 /**
