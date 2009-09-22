@@ -3,6 +3,7 @@
 <head>
 <?php rss_main_header(); ?>
 </head>
+<?php flush(); // flush early ?>
 
 <body id="doc3" class="yui-t3 rounded">
 
