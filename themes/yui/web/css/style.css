@@ -354,3 +354,15 @@ div.item-body {
 a:hover {
 	text-decoration:underline;
 }
+
+/* for code blocks */
+.content pre,
+.content blockquote {
+ border-left:4px solid #7F7F7F;
+ background-color: #DDDDDD;
+ font-style:italic;
+ padding: 10px;
+ margin-top: 10px;
+ margin-bottom: 10px;
+ display: block;
+}
