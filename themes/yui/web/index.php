@@ -45,6 +45,9 @@
 // <![CDATA[
 (function(){
 	$(document).ready(function(){
+		var $spinner=$('<span class="spinner" style="float:right"><img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" /></span>');
+		var loading=[];
+
 		$('body').click(function(e){
 			var $target=$(e.target);
 
@@ -52,14 +55,20 @@
 				$target=$target.parents('div.item');
 			}
 
+			$title=$target.children('div.item-title');
 			$body=$target.children('div.item-body');
 
-			if ($body.children().size()==0) {
+			if ($body.children().size()===0) {
 				var item=$target.children('div.item-title').attr('id');
-				var $spinner=$('<span style="float:right"><img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" /></span>');
-				$spinner.appendTo($target.parents('div.block').children('div.feed-title').children('h2'));
-				$body.load("<?php echo getPath() ?>ajaxitem.php?item="+item,function(){
-					$spinner.remove();
+				if ($.inArray(item,loading)<0) {
+					loading.push(item);
+					$spinner.clone().prependTo($title);
+				}
+				$body.load("<?php echo getPath() ?>ajaxitem.php?item="+item,false,function(){
+					if ($title.children('span.spinner').size()===1) {
+						$title.children('span.spinner').remove();
+						console.log('remove');
+					}
 					$body.show();
 					$body=null;
 				});
