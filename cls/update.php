@@ -305,7 +305,7 @@ class CommandLineUpdate extends Update {
             flush();
 
         }
-        parent::cleanUp($newIds, $ignorePrivate = true);
+        parent::cleanUp($newIds);
     }
 }
 
@@ -367,9 +367,7 @@ class CommandLineUpdateNews extends CommandLineUpdate {
             }
         }
 
-        if (!hidePrivate()) {
-            parent::cleanUp($newIds);
-        }
+        parent::cleanUp($newIds);
     }
 }
 
