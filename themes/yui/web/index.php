@@ -55,29 +55,30 @@
 				$target=$target.parents('div.item');
 			}
 
-			$title=$target.children('div.item-title');
-			$body=$target.children('div.item-body');
+			if ($target.is('div.item')) {
+				$title=$target.children('div.item-title');
+				$body=$target.children('div.item-body');
 
-			if ($body.children().size()===0) {
-				var item=$target.children('div.item-title').attr('id');
-				if ($.inArray(item,loading)<0) {
-					loading.push(item);
-					$spinner.clone().prependTo($title);
-				}
-				$body.load("<?php echo getPath() ?>ajaxitem.php?item="+item,false,function(){
-					if ($title.children('span.spinner').size()===1) {
-						$title.children('span.spinner').remove();
-						console.log('remove');
+				if ($body.children().size()===0) {
+					var item=$target.children('div.item-title').attr('id');
+					if ($.inArray(item,loading)<0) {
+						loading.push(item);
+						$spinner.clone().prependTo($title);
 					}
-					$body.show();
+					$body.load("<?php echo getPath() ?>ajaxitem.php?item="+item,false,function(){
+						if ($title.children('span.spinner').size()===1) {
+							$title.children('span.spinner').remove();
+						}
+						$body.show();
+						$body=null;
+					});
+				} else {
+					$body.toggle();
 					$body=null;
-				});
-			} else {
-				$body.toggle();
-				$body=null;
+				}
 			}
 			$target=null;
-		})
+		});
 	});
 })();
 // ]]>
