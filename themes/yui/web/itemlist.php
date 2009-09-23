@@ -4,7 +4,7 @@
 </div>
 <?php } ?>
 <?php if ($title = rss_itemlist_title()) { ?>
-<div>
+<div class="feedtitle">
 	<h2<?php echo rss_itemlist_anchor(); ?>>
 		<?php echo $title; ?>
 	</h2>

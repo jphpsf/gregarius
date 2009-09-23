@@ -255,13 +255,15 @@ input[type="submit"] {
  -webkit-border-radius:5px;
   border: 1px solid #ddd;
   background-color: #f4f4f4;
+	color:#666677;
+	font-weight:bold;
 }
 
 input[type="text"]:focus{
  border-color:#aaa;
 }
 
-.navlist li:hover,input[type="submit"]:hover {
+.navlist li:hover, input[type="submit"]:hover {
  background-color:  #f8f8ff;
  border-color: #ddf;
 }
@@ -303,17 +305,20 @@ label, input[type="submit"] { cursor: pointer; }
 /* main view */
 
 #feedcontent {
-	/*margin-top: 35px;*/
 	color: #967E59 !important;
 	text-transform: uppercase;
 }
 
 div.feedaction {
-   padding:0;
-   margin:0;
-   text-align:right;
-   display:block;
+	padding:0;
+	margin:0;
+	text-align:right;
+	display:block;
 	float:right;
+}
+
+div.feedtitle {
+	height:75px;
 }
 
 div.feed-body {
