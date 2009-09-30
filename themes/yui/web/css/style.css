@@ -302,6 +302,21 @@ label, input[type="submit"] { cursor: pointer; }
 	margin-bottom: 30px;
 }
 
+/* link to previous/next feed */
+div.readmore a.fl {
+	float:left;
+	margin-bottom:7px;
+}
+
+div.readmore a.fr {
+	float:right;
+	margin-bottom:7px;
+}
+
+div.readmore hr.clearer {
+	clear:both;
+}
+
 /* main view */
 
 #feedcontent {
@@ -364,7 +379,9 @@ a:hover {
 	text-decoration:underline;
 }
 
-/* for code blocks */
+/* Style a feed item .content */
+
+/* For code blocks */
 .content pre,
 .content blockquote {
  border-left:4px solid #7F7F7F;
@@ -374,4 +391,36 @@ a:hover {
  margin-top: 10px;
  margin-bottom: 10px;
  display: block;
+}
+
+/* Images */
+.content img {
+	display: block;
+	margin-bottom: 5px;
+}
+
+/* Lists */
+.content ol,
+.content ul {
+	margin: 1em;
+	margin-left: 2em;
+}
+
+.content li {
+	list-style-image:none;
+	list-style-position:outside;
+}
+
+.content ol li {
+	list-style-type:decimal;
+}
+
+.content ul li {
+	list-style-type:disc;
+}
+
+.content h2,.content h3,.content h4,.content h5,.content h6 {
+	color: #333333 !important;
+	font-size: 105%;
+	font-weight:bold;
 }
