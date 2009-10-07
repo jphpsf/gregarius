@@ -203,15 +203,16 @@ class FeedList {
 		$tz=getConfig('rss.config.tzoffset');
     $sql = "select count(id) from ".getTable("item").
 					 " where DATE_ADD(added,INTERVAL $tz HOUR) BETWEEN ".
-					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz HOUR)),' 00:00:00') AND ".
-					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz HOUR)),' 23:59:59') "
+					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz+24 HOUR)),' 00:00:00') AND ".
+					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz+24 HOUR)),' 23:59:59') "
 					. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
+
 		$res = rss_query($sql);
 		list ($totalToday) = rss_fetch_row($res);
     $sql = "select count(id) from ".getTable("item").
 					 " where unread = 5 and DATE_ADD(added,INTERVAL $tz HOUR) BETWEEN ".
-					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz HOUR)),' 00:00:00') AND ".
-					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz HOUR)),' 23:59:59') "
+					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz+24 HOUR)),' 00:00:00') AND ".
+					 " CONCAT(DATE(DATE_ADD(CURDATE(),INTERVAL $tz+24 HOUR)),' 23:59:59') "
 					. (hidePrivate()? " and not(unread & ".RSS_MODE_PRIVATE_STATE.")":"");
 
 		$res = rss_query($sql);
