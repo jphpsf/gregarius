@@ -37,25 +37,46 @@
 <div id="ft" class="frame">
 <?php rss_main_footer(); ?>
 </div>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <?php foreach(rss_header_javascripts() as $script) { ?>
 	<script type="text/javascript" src="<?php echo $script ?>"></script>
 <?php } ?>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript">
 // <![CDATA[
 (function(){
 	$(document).ready(function(){
 		var $spinner=$('<span class="spinner" style="float:right"><img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" /></span>');
 		var loading=[];
+		var $folder=false;
 
 		$('body').click(function(e){
 			var $target=$(e.target);
 
+			// external click
 			if ($target.is('a') && $target.attr('target')==='_blank') {
 				$target=null;
 				return;
 			}
 
+			// folder expand
+			if ($target.is('a.foldershow')) {
+				if ($folder!==false) {
+					$folder.hide();
+					$folder.prev('h3').children('a.folderhide').removeClass('folderhide').addClass('foldershow');
+				}
+				$folder=$target.parent('h3').next('ul.biglist');
+				$folder.show();
+				$target.removeClass('foldershow').addClass('folderhide');
+				return false;
+			} else if  ($target.is('a.folderhide')) {
+				if ($folder!==false) {
+					$folder.hide();
+				}
+				$target.removeClass('folderhide').addClass('foldershow');
+				return false;
+			}
+
+			// ajax item
 			if ($target.not('div.item') && $target.not('a') && $target.parents('div.item').size()==1) {
 				$target=$target.parents('div.item');
 			}

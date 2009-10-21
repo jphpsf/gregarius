@@ -297,6 +297,28 @@ label, input[type="submit"] { cursor: pointer; }
 	font-weight: bold;
 }
 
+#channels div.block,
+#channels ul.biglist,
+#channels div.bd {
+	margin-top:0;
+	margin-bottom:0;
+	padding-bottom:0;
+}
+
+#channels a.foldershow,
+#channels a.folderhide {
+	width:5px;
+	padding: 0 5px 0 5px;
+	margin-left: 2px;
+  background: url(./media/plus.gif) no-repeat center;
+	text-decoration:none;
+
+}
+
+#channels a.folderhide {
+  background: url(./media/minus.gif) no-repeat center;
+}
+
 /* pagination */
 #pagination {
 	margin-bottom: 30px;

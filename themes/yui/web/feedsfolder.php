@@ -7,8 +7,9 @@
 				(<strong><?php echo rss_feeds_folders_unread_count(NULL,TRUE); ?></strong>)
 				<?php endif; ?>
 			</a>
+			<a href="#" class="foldershow">&nbsp;</a>
 		</h3>
-		<ul class="biglist">
+		<ul class="biglist" style="display:none">
 			<?php rss_feeds_folder_feeds(); ?>
 		</ul>
 	</div>
