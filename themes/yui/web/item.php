@@ -1,7 +1,7 @@
 <div class="item">
 	<?php rss_plugin_hook("rss.plugins.items.beforetitle", rss_item_id()); ?>
 	<div class="item-title" id="i<?php echo rss_item_id(); ?>">
-		<a href="<?php echo rss_item_url(); ?>" class="item_url"><?php echo rss_item_title(); ?></a>
+		<a href="<?php echo rss_item_url(); ?>" class="item_url" target="_blank"><?php echo rss_item_title(); ?></a>
 		<em>(<?php echo rss_item_date(); ?> <?php echo rss_item_author(); ?>)</em>
 	</div>
 	<div class="item-body" style="display:none">

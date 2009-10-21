@@ -51,6 +51,11 @@
 		$('body').click(function(e){
 			var $target=$(e.target);
 
+			if ($target.is('a') && $target.attr('target')==='_blank') {
+				$target=null;
+				return;
+			}
+
 			if ($target.not('div.item') && $target.not('a') && $target.parents('div.item').size()==1) {
 				$target=$target.parents('div.item');
 			}
@@ -78,7 +83,7 @@
 				}
 			}
 			$target=null;
-		});
+		})
 	});
 })();
 // ]]>
