@@ -28,15 +28,15 @@
 ///// ITEM WRAPPERS /////
 
 function rss_item_css_class() {
-	
-	
+
+
 	if ($GLOBALS['rss'] -> currentItem -> isUnread) {
-		return "item unread";			
-	} 
+		return "item unread";
+	}
 	if (! isset($GLOBALS['rss']->cntr) || $GLOBALS['rss'] -> cntr == NULL) {
 	   $GLOBALS['rss'] -> cntr = 0;
 	}
-	
+
 	return "item " . (($GLOBALS['rss'] -> cntr % 2 == 0)?"even":"odd");
 }
 
@@ -52,19 +52,19 @@ function rss_item_pl_title($label=null){
 }
 
 function rss_item_pl_url() {
-	
+
 	list ($ply, $plm, $pld) = explode(":", rss_date("Y:m:d", $GLOBALS['rss'] -> currentItem -> date, false));
 	if ($GLOBALS['rss'] -> currentItem ->escapedTitle != "" && getConfig('rss.output.usemodrewrite')) {
 		return getPath()
 			.$GLOBALS['rss'] -> currentItem -> parent->escapedTitle
 			."/$ply/$plm/$pld/"
 			.$GLOBALS['rss'] -> currentItem -> escapedTitle;
-	} 
+	}
 	return getPath()."feed.php?channel="
 		.$GLOBALS['rss'] -> currentItem -> parent->cid
 		."&amp;y=$ply&amp;m=$plm&amp;d=$pld"
 		."&amp;iid=".$GLOBALS['rss'] -> currentItem ->id;
-	
+
 }
 
 function rss_item_url() {
@@ -76,7 +76,7 @@ function rss_item_url() {
 }
 
 function rss_item_title() {
-	return $GLOBALS['rss'] -> currentItem -> title;  
+	return $GLOBALS['rss'] -> currentItem -> title;
 }
 
 function rss_item_escaped_title() {
@@ -92,33 +92,33 @@ function rss_item_cid() {
 }
 
 function rss_item_flags() {
-	
+
 	return $GLOBALS['rss'] -> currentItem -> flags;
 }
 
 
 function rss_item_date() {
-	
+
 	if ($GLOBALS['rss']->currentItem->date) {
 		$date_fmt=getConfig('rss.config.dateformat');
-		
+
 		//define all string format that we will change
 		//key: date fmt, value=strftime fmt
-		
+
 		//month possible fmt
 		$tabMonthFmt=array();
 		$tabMonthFmt["F"]="%B";
 		$tabMonthFmt["m"]="%m";
 		$tabMonthFmt["M"]="%b";
 		$tabMonthFmt["n"]="%m";
-		
+
 		//day possible fmt,order is important
 		$tabDayFmt=array();
 		$tabDayFmt["d"]="%d";
 		$tabDayFmt["D"]="%a";
 		$tabDayFmt["l"]="%A";
 		$tabDayFmt["j"]="%e";
-		
+
 		/*
 		if (!eregi("^en",getConfig('rss.output.lang'))) {
 			$tabDayFmt["jS"]="%e";
@@ -126,14 +126,14 @@ function rss_item_date() {
 		}
 		else $tabDayFmt["j"]="%e";
 		*/
-		
+
 		$tabFmt=$tabMonthFmt+$tabDayFmt;
 		$arrReplace=array();
 		$i=0;
 		foreach ($tabFmt as $old_fmt => $new_fmt) {
 			$isDay=isset($tabDayFmt["$old_fmt"]) && $tabDayFmt["$old_fmt"];
 			if ($isDay && $new_fmt && strpos($date_fmt, "${old_fmt}S")!==FALSE ) {
-				//we manage the S string format, to be sure to 
+				//we manage the S string format, to be sure to
 				//link it properly
 				$i++;
 				$key="#{$i}";
@@ -162,12 +162,12 @@ function rss_item_date() {
 		$date_lbl=rss_date($date_fmt,$GLOBALS['rss']->currentItem->date);
 		if (count($arrReplace)>0) foreach ($arrReplace as $search=>$data) {
 			$durl = makeArchiveUrl(
-				$GLOBALS['rss']->currentItem->date, 
-				$GLOBALS['rss']->currentItem->parent->escapedTitle, 
-				$GLOBALS['rss']->currentItem->parent->cid, 
+				$GLOBALS['rss']->currentItem->date,
+				$GLOBALS['rss']->currentItem->parent->escapedTitle,
+				$GLOBALS['rss']->currentItem->parent->cid,
 				$data["isDay"]);
-				
-			$replace="<a href=\"$durl\">$data[value]</a>";
+
+			$replace="<b>$data[value]</b>";
 			$date_lbl = str_replace($search, $replace, $date_lbl);
 		}
 
@@ -177,9 +177,9 @@ function rss_item_date() {
 		if (strpos(getConfig('rss.config.dateformat'), 'F') !== FALSE) {
 			$mlbl = rss_date('F', $GLOBALS['rss']->currentItem->date, false);
 			$murl = makeArchiveUrl(
-				$GLOBALS['rss']->currentItem->date, 
-				$GLOBALS['rss']->currentItem->parent->escapedTitle, 
-				$GLOBALS['rss']->currentItem->parent->cid, 
+				$GLOBALS['rss']->currentItem->date,
+				$GLOBALS['rss']->currentItem->parent->escapedTitle,
+				$GLOBALS['rss']->currentItem->parent->cid,
 				false);
 			$date_lbl = str_replace($mlbl, "<a href=\"$murl\">$mlbl</a>", $date_lbl);
 		}
@@ -190,14 +190,14 @@ function rss_item_date() {
 			$dlbl = rss_date('jS', $GLOBALS['rss']->currentItem->date, false);
 
 			$durl = makeArchiveUrl(
-				$GLOBALS['rss']->currentItem->date, 
-				$GLOBALS['rss']->currentItem->parent->escapedTitle, 
-				$GLOBALS['rss']->currentItem->parent->cid, 
+				$GLOBALS['rss']->currentItem->date,
+				$GLOBALS['rss']->currentItem->parent->escapedTitle,
+				$GLOBALS['rss']->currentItem->parent->cid,
 				true);
 			$date_lbl = str_replace($dlbl, "<a href=\"$durl\">$dlbl</a>", $date_lbl);
-		}		
+		}
 */
-		return (($GLOBALS['rss']->currentItem->isPubDate?__('Posted: '):__('Fetched: ')). $date_lbl);			
+		return (($GLOBALS['rss']->currentItem->isPubDate?__('Posted: '):__('Fetched: ')). $date_lbl);
 	}
 }
 
@@ -207,23 +207,23 @@ function rss_item_date_ts() {
 
 
 function rss_item_date_with_format($fmt) {
-	return rss_date($fmt,$GLOBALS['rss']->currentItem->date); 
+	return rss_date($fmt,$GLOBALS['rss']->currentItem->date);
 }
 
 function rss_item_author() {
 	if (($a = $GLOBALS['rss'] -> currentItem -> author) != null) {
 		$ea = preg_replace('/[^a-zA-Z0-9]/','_',$a);
-		if (getConfig('rss.output.usemodrewrite')) {
+		/*if (getConfig('rss.output.usemodrewrite')) {
 			$a = "<a href=\"".getPath() ."author/$ea/\">$a</a>";
 		} else {
 			$a = "<a href=\"".getPath() ."author.php?author=$ea\">$a</a>";
-		}
-  	return __(' by ') . $a;
+		}*/
+  	return __(' by ') . "<b>$a</b>";
   }
 }
 
 function rss_item_tags() {
-	
+
 	$ret = "";
 	foreach ($GLOBALS['rss']->currentItem->tags as $tag_) {
 		$tag_ = trim($tag_);
@@ -237,7 +237,7 @@ function rss_item_tags() {
 }
 
 function rss_item_content() {
-	
+
 	return $GLOBALS['rss'] -> currentItem -> description;
 }
 
@@ -256,7 +256,7 @@ function rss_item_permalink() {
 function rss_item_display_tags() {
 	return (
 		!hidePrivate() ||
-		getConfig('rss.config.publictagging') || 
+		getConfig('rss.config.publictagging') ||
 		count($GLOBALS['rss']->currentItem->tags));
 }
 
