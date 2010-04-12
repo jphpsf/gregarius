@@ -1,6 +1,8 @@
 <?php
 
-$displayFolder=(isset($_GET['channel']) && $_GET['channel']===rss_feeds_folder_name());
+// use rss_uri to convert current channel name or feed name to compare to the channel in argument
+// note that channel in argument might be channel folder or a feed
+$displayFolder=(isset($_GET['channel']) && $_GET['channel']===rss_uri(rss_feeds_folder_name()));
 if (isset($_GET['channel']) && !$displayFolder)
 {
 
