@@ -5,9 +5,9 @@
 		if ($gap) { ?>
 		...
 		<?php } elseif ($iscurrent) { ?>
-			<strong><?php echo $i+1; ?></strong>
+			<strong class="current"><?php echo $i+1; ?></strong>
 		<?php } else { ?>
-			<a href="<?php echo $url; ?>"><?php echo $i+1; ?></a>
+			<a href="<?php echo $url; ?>" class="awesome"><?php echo $i+1; ?></a>
 		<?php } ?>
 <?php } ?>
 </div>

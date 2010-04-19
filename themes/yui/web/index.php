@@ -20,9 +20,7 @@
 		<div class="yui-b">
 			<?php rss_errors_render() ?>
 			<?php rss_plugin_hook('rss.plugins.before.maindiv', rss_main_div_id()); ?>
-			<div <?php echo rss_main_div_id(); ?> class="frame">
-				<?php rss_main_object(); ?>
-			</div>
+			<?php rss_main_object(); ?>
 		</div>
 	</div>
 
@@ -47,7 +45,7 @@
 	$(document).ready(function(){
 		var $spinner=$('<span class="spinner" style="float:right"><img src="<?php echo getExternalThemeFile('media/busy.gif'); ?>" /></span>');
 		var loading=[];
-		var $folder=false;
+		var $folder=$('#channels a.folderhide').parent('h3').next('ul');
 
 		$('body').click(function(e){
 			var $target=$(e.target);
@@ -60,15 +58,17 @@
 
 			// folder expand
 			if ($target.is('a.foldershow')) {
+				e.preventDefault();
 				if ($folder!==false) {
 					$folder.hide();
 					$folder.prev('h3').children('a.folderhide').removeClass('folderhide').addClass('foldershow');
 				}
-				$folder=$target.parent('h3').next('ul.biglist');
+				$folder=$target.parent('h3').next('ul');
 				$folder.show();
 				$target.removeClass('foldershow').addClass('folderhide');
 				return false;
 			} else if  ($target.is('a.folderhide')) {
+				e.preventDefault();
 				if ($folder!==false) {
 					$folder.hide();
 				}

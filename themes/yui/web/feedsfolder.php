@@ -2,13 +2,14 @@
 
 // use rss_uri to convert current channel name or feed name to compare to the channel in argument
 // note that channel in argument might be channel folder or a feed
-$displayFolder=(isset($_GET['channel']) && $_GET['channel']===rss_uri(rss_feeds_folder_name()));
+$displayFolder=(isset($_GET['channel']) && rss_uri($_GET['channel'])===rss_uri(rss_feeds_folder_name()));
+
 if (isset($_GET['channel']) && !$displayFolder)
 {
 
 	foreach ($GLOBALS['rss']->currentFeedsFolder->feeds as $feed)
 	{
-		if (rss_uri($feed->title)===$_GET['channel'])
+		if (rss_uri($feed->title)===rss_uri($_GET['channel']))
 		{
 			$displayFolder=TRUE;
 			break;
@@ -30,7 +31,7 @@ $folderIcon=($displayFolder?'folderhide':'foldershow');
 				<?php endif; ?>
 			</a>
 		</h3>
-		<ul class="biglist" <?php if (!$displayFolder) { ?>style="display:none"<?php } ?>>
+		<ul <?php if (!$displayFolder) { ?>style="display:none"<?php } ?>>
 			<?php rss_feeds_folder_feeds(); ?>
 		</ul>
 	</div>

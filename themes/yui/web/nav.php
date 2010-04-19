@@ -1,3 +1,3 @@
-<ul class="navlist">
+<div class="nav">
 <?php echo rss_nav_items(); ?>
-</ul>
+</div>

@@ -1,8 +1,121 @@
-/* From yui-app css framework: http://github.com/tylerhall/yui-app-theme */
+/*This is from awesome-buttons: http://github.com/gr2m/awesome-buttons */
+
+/*
+    awesome buttons are based on a blog post by ZERB
+    Read there blog post for more information:
+    "Super awesome Buttons with CSS3 and RGBA":http://www.zurb.com/article/266/super-awesome-buttons-with-css3-and-rgba
+
+    this buttons are even more awesome, as the need only one color for all three states,
+    and have an super awesome onclick state
+*/
+
+/* set an awesome color for the buttons, feel free to add new colors like an .awesome.green or .awesome.secondary */
+.awesome {
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+/* the awesome size gets set here. Feel Free to add new sizes, like .awesome.small or .small.large   */
+.awesome        { padding: 5px 10px 6px !important; font-size: 13px !important; }
+.awesome:active	{ padding: 6px 10px 5px !important; }
+
+/* Touch the rest at your onw risk. */
+.awesome {
+  border: 0 !important;
+  cursor: pointer !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font: inherit !important;
+  line-height: 1 !important;
+  position: relative !important;
+  text-align: cente !important;
+  text-decoration: none !important;
+
+  /* vertical margin is the oposite of button's awesomeness */
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+
+  /* not all browser support these, but who cares? */
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25) !important;
+
+          border-radius: 5px !important;
+     -moz-border-radius: 5px !important;
+  -webkit-border-radius: 5px !important;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+
+  /* who needs images these days? */
+  background-image: -moz-linear-gradient(top, rgba(255,255,255,.2), rgba(150,150,150,.2), rgba(0,0,0,.0)) !important;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.2)), color-stop(0.5, rgba(150,150,150,.2)), to(rgba(0,0,0,.0))) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#30ffffff,endColorstr=#10000000) progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=135,strength=2);
+
+  /* cross browser inline block hack
+     see http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ */
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle !important;
+  *display: inline !important;
+  position: relative;
+
+  /* IE luv */
+  zoom: 1;
+
+  /*disable text selection (Firefox only)*/
+  -moz-user-select: none;
+}
+
+/* OPERA only
+   if there is no border set, Opera shows a transparent background-color if border-radius is set. */
+@media all and (-webkit-min-device-pixel-ratio:10000),not all and (-webkit-min-device-pixel-ratio:0) {
+  input.awesome {
+    border: 1px solid RGBa(0,0,0,0) !important;
+  }
+}
+
+/* hide selection background color */
+.awesome::selection {
+	background: transparent;
+}
+
+.awesome {
+  outline: 0; /*remove dotted line, works for links only*/
+}
+.awesome::-moz-focus-inner {
+  border: none; /* remove dotted lines for buttons */
+}
+.awesome:focus,
+.awesome:hover {
+  background-image: -moz-linear-gradient(top, rgba(255,255,255,.4), rgba(150,150,150,.3), rgba(0,0,0,.0)) !important;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.4)), color-stop(0.5, rgba(150,150,150,.3)), to(rgba(0,0,0,.0))) !important;
+  #filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#50ffffff,endColorstr=#20000000) progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=135,strength=2);
+}
+.awesome:active	{
+  background-image: -moz-linear-gradient(top, rgba(0,0,0,.2), rgba(150,150,150,.2), rgba(255,255,255,.2)) !important;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,.2)), color-stop(0.5, rgba(150,150,150,.2)), to(rgba(255,255,255,.2))) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#20000000,endColorstr=#50ffffff) progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=315,strength=1);
+
+          box-shadow: inset 0 1px 2px rgba(0,0,0,0.7) !important;
+     -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.7) !important;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.7) !important;
+}
+
+/* Safari doesn't support inset box shadow, so we better remove it */
+@media screen and (-webkit-min-device-pixel-ratio:0){
+  .awesome:active	{
+    -webkit-box-shadow: none;
+  }
+}
+
+/****************** Customization for gregarius starts here ******************/
+
+html {
+	/*background: -moz-linear-gradient(top, #003E75 20px,	#004E92 100%);*/
+  background-image: url(./media/bg.png);
+}
 
 html, body {
-	background-color:#f0f0ee;
-	color:#222;
+	color:#fff;
 	font-family: "Helvetica Neue",Helvetica-Neue,Helvetica,"MgOpen Moderna",sans-serif !important;
 }
 
@@ -10,19 +123,7 @@ html, body {
 #doc3 { margin:0; }
 
 /* Header */
-#hd { padding:1.2em 1.5em 0 1.5em; background-color:#7a1818; }
-h1 { font-size:230%; color:#fff; }
-
-#navigation { margin-top:1.5em; background-color:#262626; height:1%; }
-#navigation li { float:left; display:inline; }
-#navigation li a { display:block; color:#fff; text-decoration:none; }
-#navigation li a:hover { text-decoration:underline; }
-
-#primary-navigation li a { font-size:116%; padding:0.4em 1em; }
-#primary-navigation li.active a { background-color:#f0f0ee; color:#000; }
-
-#user-navigation { float:right; }
-#user-navigation li a { font-size:93%; padding:0.5em 1em; }
+h1 { font-size:230%; }
 
 /* Body */
 #bd { padding:1.5em; }
@@ -33,244 +134,80 @@ h3 { font-size:153.9%; margin-bottom:0.5em; }
 .block { margin-bottom:1.5em; }
 .block .hd { background-color:#7a1818; padding:0.7em 1em; color:#fff; border-bottom:10px solid #262626; }
 .block .hd h2, .block .hd h3 { font-size:100%; margin-bottom:0; }
-.block .bd { padding:1em; /*background-color:#fafafa;*/ }
-.block .bd h2 { color:#7a1818; }
-.block .bd h3 { color:#7a1818; }
-
-/* Extend block with tabs */
-.tabs .hd { padding:0; }
-.tabs .hd ul { height:1%; }
-.tabs .hd ul li { float:left; }
-.tabs .hd ul li a { display:block; color:#fff; text-decoration:none; padding:0.5em 1em; }
-.tabs .hd ul li a:hover { background-color:#470E0E; }
-.tabs .hd ul li.active a { background-color:#262626 !important; color:#fff; text-decoration:none; } /* important! fixes IE cascade issue */
-.tabs .hd h2, .tabs .hd h3 { position:absolute; margin-left:-5000px; } /* Hidden SEO Header if needed */
-
-/* Extend tab block with spaced tabs */
-.spaces .hd { background-color:transparent; }
-.spaces .hd ul li { background-color:#7a1818; margin-right:0.1em; }
-
-/* Extend block and header to have rounded corners */
-.rounded .hd,
-.rounded .hd ul li,
-.rounded .hd ul li a,
-.rounded #navigation,
-.rounded #navigation ul li,
-.rounded #navigation ul li a {
-    -moz-border-radius-topright:7px;
-    -moz-border-radius-topleft:7px;
-    -webkit-border-top-right-radius:7px;
-    -webkit-border-top-left-radius:7px;
-}
-
-/* Style the horizontal rules inside .block */
-.block hr { background-color:#f0f0ee; color:#f0f0ee; height:1px; border:0; }
-
-/* Tables */
-table { width:100%; margin-bottom:2em; }
-table td { padding:0.5em; }
-table thead { background-color:#262626; color:#fff; font-weight:bold; }
-table thead a { text-decoration:none; color:#fff; }
-table thead a:hover { text-decoration:underline; }
-table tbody a { text-decoration:underline; }
-
-/* Pager control*/
-ul.pager { text-align:right; }
-ul.pager li { display:inline; }
-ul.pager li a { padding:0.1em 0.3em; margin-right:0.3em; border:1px solid #000; text-decoration:none; color:#000; }
-ul.pager li.active a, ul.pager li a:hover { background-color:#000; color:#fff; }
-
-/* Forms */
-form label { font-weight:bold; }
-form label span { font-weight:normal; color:#f00; font-size:85%; }
-form span.info { font-style:italic; color:#aaa; font-size:85%; }
-form .text { display:block; width:99%; border:1px solid #aaa; padding:0.3em; }
-form .column { width:48%; }
-form .left { float:left; }
-form .right { float:right; }
-
-/* Messages */
-.alert { padding:0.5em; text-align:center; }
-.error { border:2px solid #fbb; background-color:#fdd; }
-.warning { border:2px solid #fffaaa; background-color:#ffc; }
-.notice { border:2px solid #1fdf00; background-color:#bbffb6; }
-
-/* Lists */
-ol.list, ul.list, dl.list { margin-left:2em; margin-bottom:1em; }
-ol.list li { list-style:decimal outside; }
-ul.list li { list-style:disc outside; }
-dl.list dd { margin-left:1em; }
-
-ul.biglist { margin-bottom:1em; }
-ul.biglist li { margin-top:-1px; border:1px solid #f0f0ee; border-width:1px 0 1px 0; padding:0.5em 0; }
-ul.biglist li a { display:block; text-decoration:none; color:#000; }
-ul.biglist li a:hover { text-decoration:underline; }
-
-/* Footer */
-#ft { text-align:center; font-size:85%; padding:0.5em 1em; color:#262626; }
+.block .bd { padding:1em; }
 
 /* Generics */
-p { margin-bottom:1em; }
-a { color:#7a1818; }
 strong { font-weight:bold; }
 em { font-style:italic; }
 abbr, acronym { border-bottom:1px dotted #000; cursor:help; }
-
-.small { font-size:85%; }
-.gray { color:#999; }
-.highlight { background-color:#ffffcc; }
 .clear { clear:both; }
-.text-left { text-align:left; }
-.text-right { text-align:right; }
-.text-center { text-align:center; }
-
-/* This is the bare minimum needed to create your own theme.
-   In this example, all we're doing is overriding the default
-   color scheme with our own. In the real world, you'd probably
-   want to do more complex operations. */
-
-html, body {
-	background-color:#EBE1D3;
-	/*padding-top: .3em;*/
-}
-h1, h2, h3 {
-	color: #222;
-}
 a {
 	color:#0854C7;
 	text-decoration: none;
 }
-table thead { background-color:#685841;}
+
+/* Main blocks with blue gradient */
+.frame {
+	background: -moz-linear-gradient(top, #003E75 20px,	#004E92 100%);
+ 	border: 1px solid #333;
+	border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+	padding:15px;
+	margin-bottom:15px;
+	/*-moz-box-shadow: 5px 5px 5px #888;*/
+}
+
+/* Header */
 
 #hd {
-	background-color: #967E59;
-}
-#hd h1{
-	color: #fff;
-}
-#bd {
-	background-color: #fff;
-	color: #333;
-}
-
-#primary-navigation li.active a { background-color: #fff; color:#333;}
-#navigation {
-	background-color: #064780;
-}
-
-.block .hd { background-color: #A0C2DE; color: #333; border-bottom: 5px solid #064780 }
-.tabs .hd {
-	background-color: #064780;
-	border-bottom: 5px solid #A0C2DE;
-}
-
-.block .bd h2 { color:#967E59; }
-.block .bd h3 { color:#967E59; }
-.spaces .hd { background-color:transparent; }
-.spaces .hd ul li { background-color:#187a7a; }
-
-.tabs ul {
-	background-color: #064780;
-}
-
-.tabs .hd ul li a:hover { background-color:#CDEFFF; 	color: #333;
-}
-
-.tabs .hd ul li.active a { background-color:#A0C2DE !important; color:#333; text-decoration:none; }
-.spaces .hd ul li { background-color:#064780; margin-right:0.1em; }
-
-ul.pager li a { padding:0.1em 0.3em; margin-right:0.3em; border:1px solid #ccc; text-decoration:none; color:#333; }
-ul.pager li.active a, ul.pager li a:hover { background-color:#685841; color:#fff; }
-
-/* Customization for gregarius starts here */
-
-/* containers */
-
-html, body {
-  background-color: #eee;
-  background-image: url(./media/bg.gif);
-/*	text-shadow: 0px 1px 1px #555;*/
-
-}
-
-#hd {
-  /*background-image: url(./media/arrows.gif);
-  background-color: #fff;
-  background-position: top right;
-  background-repeat: no-repeat;*/
- 	/*background-color: #fafafa;*/
-	background: -moz-linear-gradient(top, #ebebeb 0%,
-																				#fdfdfd 97%,
-																				#FFFFFF 100%);
 	margin: 15px;
 }
 
+#hd h1 {
+	color: white;
+	text-shadow: 1px 2px 8px #999;
+	margin-bottom: 10px;
+	font-weight:bold;
+}
+
+#hd a.awesome {
+	font-weight:bold !important;
+	text-shadow: 2px 2px 7px #000 !important;
+}
+
+#loginfo {
+	color: #333;
+	background-color:white;
+	border:1px solid #CCCCCC;
+	font-size:small;
+	opacity:0.7;
+	float:right;
+	padding:0.2em 0.5em;
+}
+
+/* Main content */
 #bd {
-  background-color: #eee;
-  background-image: url(./media/bg.gif);
+	color: #333;
 	margin-left: 15px;
 	margin-right: 15px;
 	padding:0px;
 }
 
+/* Footer */
 #ft {
+	text-align:center;
+	font-size:85%;
+	padding:0.5em 1em;
 	margin: 15px;
 }
 
-.frame {
- 	/*background-color: #fafafa;*/
-	background: -moz-linear-gradient(top, #ebebeb 0%,
-																				#fdfdfd 12%,
-																				#FFFFFF 100%);
-	/*background: -moz-linear-gradient(top, #90B2CD 0%,
-																				#A0C2DE 5%,
-																				#fdfdfd 100%);*/
- 	border: 1px solid #ccc;
-	  border-radius:10px;
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-	padding:15px;
+#ft a {
+	color: #fff;
+	text-shadow: 2px 2px 7px #000 !important;
 }
 
-.block .hd {
-	/*background: -moz-linear-gradient(top, #90B2CD 0%,
-																				#A0C2DE 100%);*/
-	background: -moz-linear-gradient(top, #003E75 0%,
-																				#004E92 100%);
-}
-
-/* navigation in header */
-
-ul.navlist {
- list-style-type: none;
- padding-bottom: 25px;
- margin-bottom: 25px;
-}
-
-ul.navlist li {
- float: left;
- height: 1.3em;
- margin: 2px 7px 0 0px;
- padding: 2px 10px;
- border-radius:5px;
- -moz-border-radius:5px;
- -webkit-border-radius:5px;
- border: 1px solid #ddd;
- background-color: #f4f4f4;
-}
-
-.navlist li a {
- float: left;
- display: block;
- vertical-align:middle;
- text-decoration: none;
- font-weight: bold;
- color: #667;
- letter-spacing: 0.1em;
-}
-
-ul.navlist:hover li span { text-decoration:underline}
-
+/* Form styling */
 input[type="submit"] {
   height: 23px;
   margin: 2px 2px 0 2px;
@@ -288,54 +225,72 @@ input[type="text"]:focus{
  border-color:#aaa;
 }
 
-.navlist li:hover, input[type="submit"]:hover {
- background-color:  #f8f8ff;
- border-color: #ddf;
-}
-
-.navlist li.active a,.navlist li a:hover { color: #336; }
-
 label, input[type="submit"] { cursor: pointer; }
 
-#loginfo {
-	background-color:white;
-	border:1px solid #CCCCCC;
-	font-size:small;
-	opacity:0.7;
-	float:right;
-	padding:0.2em 0.5em;
+/* Controls */
+div.controls {
+	color: #fff;
+	font-weight:bold;
+	text-shadow: 2px 2px 7px #000;
+	height: 23px;
+	/*padding-bottom: 35px;*/
 }
 
-#hd h1 {
-	color: #222222;
-	text-shadow: 1px 2px 8px #999;
-	margin-bottom: 10px;
-	font-weight:bold;
+/* Link to previous/next feed */
+div.readmore {
+	clear:both;
+	margin-top: 10px;
 }
-/* feed list in sidebar */
+
+div.readmore a.fl {
+	float:left;
+	margin-bottom:7px;
+}
+
+div.readmore a.fr {
+	float:right;
+	margin-bottom:7px;
+}
+
+div.feedaction {
+	padding:0;
+	margin:0;
+	text-align:right;
+	display:block;
+	padding-bottom: 10px;
+	float:right;
+}
+
+/* Feed list in sidebar */
 #channels div.stats h3 {
 	font-size: 133%;
 }
 
 #channels h3,
 #channels h3 a {
-	color: #967E59 !important;
+	color: #fff !important;
+	font-weight:bold;
+	text-shadow: 2px 2px 7px #000;
 	text-transform: uppercase;
 	font-size: 110%;
-	font-weight: bold;
-	text-shadow: 1px 3px 6px #AAAAAA;
 }
 
 #channels div.block,
-#channels ul.biglist,
+#channels ul,
 #channels div.bd {
 	margin-top:0;
 	margin-bottom:0;
 	padding-bottom:0;
 }
 
-#channels div.folder ul.biglist  {
+#channels ul  {
 	margin-left: 20px;
+}
+
+#channels li  {
+	padding-top: 4px;
+	color: #fff;
+	font-size: 110%;
 }
 
 #channels a.foldershow,
@@ -352,24 +307,8 @@ label, input[type="submit"] { cursor: pointer; }
   background: url(./media/minus.gif) no-repeat center;
 }
 
-/* pagination */
-#pagination {
-	margin-bottom: 30px;
-}
-
-/* link to previous/next feed */
-div.readmore a.fl {
-	float:left;
-	margin-bottom:7px;
-}
-
-div.readmore a.fr {
-	float:right;
-	margin-bottom:7px;
-}
-
-div.readmore hr.clearer {
-	clear:both;
+#channels a {
+	color: #fff;
 }
 
 /* main view */
@@ -378,14 +317,7 @@ div.readmore hr.clearer {
 	color: #967E59 !important;
 	text-transform: uppercase;
 	text-shadow: 1px 2px 25px #999;
-}
-
-div.feedaction {
-	padding:0;
-	margin:0;
-	text-align:right;
-	display:block;
-	float:right;
+	/*text-shadow:1px 1px 2px #999999;*/
 }
 
 div.feed-title {
@@ -400,7 +332,6 @@ div.feed-title a {
 }
 
 div.feed-body {
-	background-color: #004E92 !important;
 	border-radius-bottomleft:7px;
   -moz-border-radius-bottomleft:7px;
   -webkit-border-radius-bottomleft:7px;
@@ -511,4 +442,14 @@ a:hover {
 	color: #333333 !important;
 	font-size: 105%;
 	font-weight:bold;
+}
+
+/* To remove the read/unread show form */
+#frmShow {
+	display:none;
+}
+
+/* Current page */
+strong.current {
+	padding: 0px 10px;
 }

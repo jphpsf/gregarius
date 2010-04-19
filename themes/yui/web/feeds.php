@@ -1,7 +1,7 @@
 <div class="block stats">
 	<div class="bd">
 		<h3>Statistics</h3>
-		<ul class="biglist">
+		<ul>
 			<?php echo rss_feeds_stats(); ?>
 		</ul>
 	</div>
