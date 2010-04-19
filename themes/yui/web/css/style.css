@@ -418,19 +418,31 @@ a:hover {
 /* For code blocks */
 .content pre,
 .content blockquote {
- border-left:4px solid #7F7F7F;
- background-color: #DDDDDD;
- font-style:italic;
- padding: 10px;
- margin-top: 10px;
- margin-bottom: 10px;
- display: block;
+	border-left:4px solid #7F7F7F;
+	color: #000;
+	background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.11, rgb(184,197,207)),
+    color-stop(0.75, rgb(150,166,179))
+	);
+	background: -moz-linear-gradient(
+    center bottom,
+    rgb(184,197,207) 11%,
+    rgb(150,166,179) 75%
+	);
+	font-style:italic;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	display: block;
 }
 
 /* Images */
 .content img {
 	display: block;
-	margin-bottom: 5px;
+	margin: 1em;
 }
 
 /* Lists */
@@ -457,6 +469,10 @@ a:hover {
 	color: #333333 !important;
 	font-size: 105%;
 	font-weight:bold;
+}
+
+.content p {
+	margin: 1em;
 }
 
 /* To remove the read/unread show form */
