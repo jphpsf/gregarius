@@ -134,7 +134,7 @@ h3 { font-size:153.9%; margin-bottom:0.5em; }
 .block { margin-bottom:1.5em; }
 .block .hd { background-color:#7a1818; padding:0.7em 1em; color:#fff; border-bottom:10px solid #262626; }
 .block .hd h2, .block .hd h3 { font-size:100%; margin-bottom:0; }
-.block .bd { padding:1em; }
+.block .bd { padding:1em 0; }
 
 /* Generics */
 strong { font-weight:bold; }
@@ -148,7 +148,18 @@ a {
 
 /* Main blocks with blue gradient */
 .frame {
-	background: -moz-linear-gradient(top, #003E75 20px,	#004E92 100%);
+	background: -webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0.11, rgb(0,78,146)),
+			color-stop(0.56, rgb(0,62,117))
+	);
+	background: -moz-linear-gradient(
+			center bottom,
+			rgb(0,78,146) 11%,
+			rgb(0,62,117) 56%
+	);
  	border: 1px solid #333;
 	border-radius:10px;
   -moz-border-radius:10px;
@@ -285,6 +296,10 @@ div.feedaction {
 
 #channels ul  {
 	margin-left: 20px;
+}
+
+#channels div.stats ul  {
+	margin-left: 0px !important;
 }
 
 #channels li  {

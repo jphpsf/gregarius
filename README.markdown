@@ -8,7 +8,7 @@ Official website: http://gregarius.net/
 
 Some SQL queries optimization to make the app load faster
 
-Added a theme that leverage CSS3 features (only tested on Firefox 3.6)
+Added a theme that leverage CSS3 features (only tested on Firefox 3.6 and Chrome/Webkit)
 
 Added AJAX lazy loading behavior for the item bodies
 
@@ -22,4 +22,4 @@ Always show unread item only, I removed the option to see already read items
 
 The admin section is not using the skin
 
-Only tested on Firefox 3.6
+Only tested on Firefox 3.6 and Chrome/Webkit
