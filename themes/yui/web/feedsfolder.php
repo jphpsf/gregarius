@@ -1,18 +1,33 @@
 <?php
 
+$displayFolder=FALSE;
+
 // use rss_uri to convert current channel name or feed name to compare to the channel in argument
 // note that channel in argument might be channel folder or a feed
-$displayFolder=(isset($_GET['channel']) && rss_uri($_GET['channel'])===rss_uri(rss_feeds_folder_name()));
+if (isset($_GET['channel']) && rss_uri($_GET['channel'])===rss_uri(rss_feeds_folder_name())) {
 
-if (isset($_GET['channel']) && !$displayFolder)
-{
+	$displayFolder=TRUE;
 
-	foreach ($GLOBALS['rss']->currentFeedsFolder->feeds as $feed)
-	{
-		if (rss_uri($feed->title)===rss_uri($_GET['channel']))
-		{
-			$displayFolder=TRUE;
-			break;
+// as a fallback, if user tried to mark a folder as read, then we should show that same folder open
+} else if (isset($_POST['metaaction']) && $_POST['metaaction']=='ACT_MARK_FOLDER_READ' && $_POST["folder"]===rss_feeds_folder_id()) {
+
+	$displayFolder=TRUE;
+
+} else  {
+
+	if (isset($_GET['channel'])) {
+		foreach ($GLOBALS['rss']->currentFeedsFolder->feeds as $feed) {
+			if (rss_uri($feed->title)===rss_uri($_GET['channel'])) {
+				$displayFolder=TRUE;
+				break;
+			}
+		}
+	} else if (isset($_POST['metaaction']) && $_POST['metaaction']=='ACT_MARK_CHANNEL_READ') {
+		foreach ($GLOBALS['rss']->currentFeedsFolder->feeds as $feed) {
+			if ($feed->id===$_POST['channel']) {
+				$displayFolder=TRUE;
+				break;
+			}
 		}
 	}
 }

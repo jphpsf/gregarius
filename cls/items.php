@@ -545,6 +545,7 @@ class ItemList {
 		_pf("ItemList -> render()");
 
 		if (($this->readCount + $this->unreadCount) == 0 && $this->beforeList == "") {
+			include($this-> rss ->getTemplateFile('noitems.php'));
 			return;
 		}
 
